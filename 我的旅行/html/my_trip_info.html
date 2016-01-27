@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>行程详细信息</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/common.css"/>
+	<style>
+        header{ background-color: #18cad1; }
+        header ul li { height: 50px; line-height: 50px; text-align: center; display: none; color: #FFFFFF; position: relative;font-size: 20px;  }
+        header ul li.active{ display: block; }
+		.header {
+			display: -webkit-box;
+		}
+		.nav-btn{border-radius: 5px;width: 67%;margin: 0 auto;}
+		.header .back{ font-size:12px; line-height:50px;position: absolute;top: 0px; width: 100px; padding-left:10px; text-align: left;}
+		.header-nav span{display: inline-block;float:left;height: 28px;line-height: 28px;width: 50%;color: #FFFFFF;font-size: 1.2rem;text-align: center;}
+		
+		.iconfont { font-size:25px; margin-right: 10px;}
+		.iconfont_icon { margin:10px; height:25px; line-height:25px; color: #999999;}
+		
+		.warp{
+			background: #f0eff4;
+		}
+		.receive-info{
+			padding-bottom: 14px;
+			padding: 0 10px;
+			background: #FFFFFF;
+			border-bottom:2px solid #e3e3e4 ;
+		}
+		.home-info{
+			width: 100%;
+			padding-top: 8px;
+		}
+		.home-info label{
+			color: #afafaf;
+			font-size: 1.5rem;
+			margin-left: 14px;
+			width: 50px;
+			text-align: left;
+			display: inline-block;
+		}
+		.home-info span{
+			color: #444444;
+			font-size: 1.5rem;
+			display: initial;
+			padding-right: 5px; 
+		}
+		.thumbnail{
+			padding: 10px;
+			background: #FFFFFF;
+		}
+		.thumbnail ul li{
+			float: left;
+			width: 96%;
+			padding: 10px 2%;
+			list-style: none;
+		}
+		.thumbnail ul li img{
+			width: 100%;
+		}
+		.read{
+			padding: 12px 10px 50px 10px;
+			border-bottom:2px solid #e3e3e4 ;
+			border-top:2px solid #e3e3e4 ;
+			background: #FFFFFF;
+			margin-top: 10px;
+		}
+		.read-title span{
+			color: #353535;
+			font-size: 1.4rem;
+		}
+		.read-num{
+			float: right;
+		}
+		.read-num i{
+			font-style: normal;
+			color: #c7c7cd;
+			font-size: 1.6rem;
+		}
+		.read-head ul li{
+			float: left;
+			list-style: none;
+			width: 32px;
+			height: 32px;
+			border-radius: 50%;
+			margin: 15px 10px 0 0;
+		}
+		.read-head ul li img{
+			width: 100%;
+			height: 100%;
+			border-radius: 50%;
+		}
+		.read-head ul li p{
+			color: #939393;
+			font-size: 1.2rem;
+			text-align: center;
+			margin-top: 5px;
+			width: 55px;
+		}
+		.reply{
+			padding: 20px 10px;
+			border-top:2px solid #e3e3e4 ;
+			margin-top: 10px;
+			background: #FFFFFF;
+		}
+		.reply-title span{
+			 font-size: 1.4rem;
+			 color: #858e99;
+		}
+		.replyNum{
+			width: 90px;
+		}
+		.work{
+			color: #42b1ff !important;
+			display: inline-block;
+			text-align: right;
+		}
+		.work i{
+			color: #42b1ff !important;
+			font-size: 1.8rem !important;
+		}
+		.reply-cont div{
+			float: left;
+			margin-top: 15px;
+		}
+		.reply-head{
+			width: 53px;
+		}
+		.reply-head img{
+			width: 36px;
+			height: 36px;
+			border-radius: 50%;
+		}
+		.reply-name{
+			font-weight: bold;
+			font-size: 1.4rem;
+		}
+		.reply-time{
+			color: #cccccc;
+			font-size: 1.2rem;
+			font-weight: normal !important; 
+			margin-left: 5px;
+		}
+		.reply-guide{
+			color: #444444;
+			font-size: 1.4rem;
+			line-height: 22px;
+			border-bottom:2px solid #e3e3e4 ;
+			padding: 8px 0;
+		}
+	</style>
+</head>
+<body>
+    <header>
+        <ul>
+            <li class="border-b active" ><div class="header header-nav">
+				<div class="back" tapmode="" onclick="goback()"><i class="iconfont">&#xe61c;</i></div>
+				<div class="nav-btn">
+					旅行记录
+				</div>
+			</div></li>
+        </ul>
+    </header>
+	<div class="warp">
+		<div class="receive-info">
+		</div>
+		<div class="thumbnail">
+		</div>
+		<div class="read" style="display: none;">
+		</div>		
+		<div class="reply" style="display: none;">
+		</div>
+	</div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/jquery-1.9.1.min.js"></script>
+<script type="text/javascript">
+	/*返回*/
+	function goback(){
+		api.closeWin();;
+	}
+	
+	var id = "";
+	var page = 1;
+	
+	/*初始化*/
+	apiready = function(){
+		id = api.pageParam.id;
+		funWinIni();
+	};
+
+	/*网络判断*/
+	function funWinIni(){
+		if( api.connectionType == 'none' ){
+			api.toast({
+			    msg: '网络错误，请检查网络',
+			    duration: 2000,
+			    location: 'bottom'
+			}); 
+		}else{
+			getContentInfo();
+		};
+	} 
+	
+	var listPic;
+	/*显示图片*/
+	function showPicInfo(j){ 
+		if(listPic.length > 0){
+			var imageBrowser = api.require('imageBrowser');
+			imageBrowser.openImages({
+			    imageUrls: listPic,
+                showList: false,
+                activeIndex: j,
+                bg:'#009b63'
+			});
+		}
+	}
+	
+	/*读取详细信息*/
+	function getContentInfo(){
+		var query = api.require('query');
+		query.createQuery(
+		    function(ret, err) {
+		        var qid = ret.qid;
+		        var model = api.require('model');
+				model.config({
+				    appKey: '0F18115F-E530-D1C0-221B-89BA373CA1F2',
+				    host: 'https://d.apicloud.com'
+				});
+		        model.findById({
+				    class: 'my_trip',
+				    id: id
+				},function(ret, err){
+				    if(ret){
+						var lInfo = ret;
+				        //do something
+						//html赋值
+						var infoHtml='',picHtml='',readUserHtml='',replyHtml='';
+						var id = lInfo.id,
+							sdate = lInfo.sdate,
+							edate = lInfo.edate,
+							location = lInfo.location,
+							note = lInfo.note,
+							pic = lInfo.pic,
+							createdAt = lInfo.createdAt;
+						
+						infoHtml = '<div class="home-info flexBox"><span class="item-most" style="display:block; width:100%; text-align:center;"><label style="width: 100px;">行程日期</label>'+sdate + '~' + edate +'</span></div><div class="home-info flexBox"><label>位置</label><span class="item-most">'+location+'</span></div><div class="home-info flexBox"><label>详细</label><span class="item-most">'+note+'</span></div>';
+						
+						query.whereStartWith({
+				            qid:qid,
+				            column:'trip_id',
+				            value:id
+				        });
+						model.findAll({
+				            class:'my_trip_pic',
+				            qid:qid
+				        }, function(ret, err) {
+				            if (ret) { 
+								listPic = new Array();
+								picHtml = '<ul>';
+								for(var i in ret){ 
+									var pic = ret[i].pic.url;
+									listPic[i] = pic;
+									picHtml += '<li onclick="showPicInfo('+i+')"><img src="'+pic+'"></li>';
+								}
+								picHtml += '<div class="clear"></div></ul>'; 
+				            }
+							$(".thumbnail").html(picHtml);
+				        });
+						$(".receive-info").html(infoHtml); 
+				    }
+				});
+		    }
+		); 
+	} 
+</script>
+</html>

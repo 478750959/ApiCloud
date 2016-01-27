@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>旅行记录</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+	<link rel="stylesheet" type="text/css" href="../css/common.css" />
+    <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+    <style>
+        .empty{ text-align: center; padding: 120px 0; }
+    </style>
+</head>
+<body>
+    <div class="empty"></div>
+	<script type="text/javascript" src="../script/api.js"></script>
+	<script type="text/javascript" src="../script/jquery-1.9.1.min.js"></script>
+	<script type="text/javascript">
+		/*初始化*/
+		apiready = function(){ 
+			var w = api.frameWidth;
+			var h = api.frameHeight;
+			var bMap = api.require('bMap');
+			bMap.getLocation({
+			    accuracy: '100m',
+			    autoStop: true,
+			    filter: 1
+			}, function(ret_Location, err){
+				console.log(JSON.stringify(ret_Location)); 
+			    if(ret_Location.status){
+					bMap.open({
+					    rect: {
+					        x: 0,
+					        y: 0,
+					        w: w,
+					        h: h
+					    },
+					    center: {
+					        lon: ret_Location.lon,
+					        lat: ret_Location.lat
+					    },
+					    zoomLevel: 13,
+					    showUserLocation: true,
+					    fixedOn: api.frameName,
+					    fixed: true
+					}, function(ret_Map){
+						console.log(JSON.stringify(ret_Map)); 
+					    if(ret_Map.status){ 
+					    	bMap.setBubble({
+							    id: 1,
+							    bgImg: 'widget://res/bubble_bg.png',
+							    content: {
+							        title: '大标题',
+							        subTitle: '概述内容概述内容概述内容概述内容概述内容概述内容概述内容',
+							        illus: 'http://ico.ooopic.com/ajax/iconpng/?id=145044.png'
+							    },
+							    styles: {
+							        titleColor: '#000',
+							        titleSize: 16,
+							        subTitleColor: '#999',
+							        subTitleSize: 12,
+							        illusAlign: 'left'
+							    }
+							}, function(ret){
+							    if(ret){
+							        if(ret.eventType == 'clickContent') {
+							        	alert("点击了这个气泡:" + ret.id);
+							        	map.popupBubble({
+										    id: 2
+										});
+							        }
+							        //alert(JSON.stringify(ret));
+							    }
+							});
+							
+							bMap.addAnnotations({
+							    annotations: [{
+							        id: 1, lon: ret_Location.lon, lat: ret_Location.lat
+							    }],
+							    icon: 'widget://image/bottombtn0101.png',
+							    draggable: true
+							}, function(ret){
+							    if(ret){
+							    	var rid = ret.id;
+							    	if(ret.eventType == 'click') {
+										bMap.popupBubble({
+										    id: rid
+										});	
+									}
+							    }
+							});
+					        //alert(JSON.stringify(ret));
+					    }else{
+					        alert(err.code);
+					    }
+					});
+			    }else{
+			        alert(err.code);
+			    }
+			});
+		}    	
+	</script>
+</body>
+</html>

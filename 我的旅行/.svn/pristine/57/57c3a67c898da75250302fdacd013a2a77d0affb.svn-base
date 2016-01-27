@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>备忘录查看</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/common.css"/>
+	<style>
+        header{ background-color: #18cad1; }
+        header ul li { height: 50px; line-height: 50px; text-align: center; display: none; color: #FFFFFF; position: relative;font-size: 20px;  }
+        header ul li.active{ display: block; }
+		.header {
+			display: -webkit-box;
+		}
+		.nav-btn{border-radius: 5px;width: 67%;margin: 0 auto;}
+		.header .back{ font-size:12px; line-height:50px;position: absolute;top: 0px; width: 100px; padding-left:10px; text-align: left;}
+		.header-nav span{display: inline-block;float:left;height: 28px;line-height: 28px;width: 50%;color: #FFFFFF;font-size: 1.2rem;text-align: center;}
+		
+		.iconfont { font-size:25px; margin-right: 10px;}
+		.iconfont_icon { margin:10px; height:25px; line-height:25px; color: #999999;}
+		
+		.warp{
+			background: #f0eff4;
+		}
+		.receive-info{
+			padding-bottom: 14px;
+			padding: 0 10px;
+			background: #FFFFFF;
+			border-bottom:2px solid #e3e3e4 ;
+		}
+		.home-info{
+			width: 100%;
+			padding-top: 8px;
+		}
+		.home-info label{
+			color: #afafaf;
+			font-size: 1.5rem;
+			margin-left: 14px;
+			width: 50px;
+			text-align: left;
+			display: inline-block;
+		}
+		.home-info span{
+			color: #444444;
+			font-size: 1.5rem;
+			display: initial;
+			padding-right: 5px; 
+		} 
+	</style>
+</head>
+<body>
+    <header>
+        <ul>
+            <li class="border-b active" ><div class="header header-nav">
+				<div class="back" tapmode="" onclick="goback()"><i class="iconfont">&#xe61c;</i></div>
+				<div class="nav-btn">
+					备忘录信息
+				</div>
+			</div></li>
+        </ul>
+    </header>
+	<div class="warp">
+		<div class="receive-info">
+		</div>
+	</div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/jquery-1.9.1.min.js"></script>
+<script type="text/javascript">
+	/*返回*/
+	function goback(){
+		api.closeWin();
+	}
+	
+	var id = "";
+	var page = 1;
+	
+	/*初始化*/
+	apiready = function(){
+		id = api.pageParam.id;
+		funWinIni();
+	};
+
+	/*网络判断*/
+	function funWinIni(){
+		if( api.connectionType == 'none' ){
+			api.toast({
+			    msg: '网络错误，请检查网络',
+			    duration: 2000,
+			    location: 'bottom'
+			}); 
+		}else{
+			getContentInfo();
+		};
+	}
+	
+	/*读取详细信息*/
+	function getContentInfo(){
+		var query = api.require('query');
+		query.createQuery(
+		    function(ret, err) {
+		        var qid = ret.qid;
+		        var model = api.require('model');
+				model.config({
+				    appKey: '0F18115F-E530-D1C0-221B-89BA373CA1F2',
+				    host: 'https://d.apicloud.com'
+				});
+		        model.findById({
+				    class: 'my_memo',
+				    id: id
+				},function(ret, err){
+				    if(ret){
+						var lInfo = ret;
+				        //do something
+						//html赋值
+						var infoHtml='';
+						var id = lInfo.id,
+							date = lInfo.date,
+							title = lInfo.title,
+							note = lInfo.note,
+							location = lInfo.location,
+							createdAt = lInfo.createdAt;
+						
+						infoHtml = '<div class="home-info flexBox"><label>标题</label><span class="item-most">'+
+							title +'</span></div><div class="home-info flexBox"><label>日期</label><span class="item-most">'+date+'</span></div>'+
+							'<div class="home-info flexBox"><label>内容</label><span class="item-most">'+note+'</span></div>'+
+							'<div class="home-info flexBox"><label>位置</label><span class="item-most">'+location+'</span></div>';
+						
+						$(".receive-info").html(infoHtml); 
+				    }
+				});
+		    }
+		); 
+	}
+</script>
+</html>

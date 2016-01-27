@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>设置</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+	<link rel="stylesheet" type="text/css" href="../css/common.css" />
+    <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+	<style>
+		body{  background-color:#ebebeb; }
+		div.flex-wrap{  -webkit-box-orient: vertical; -webkit-flex-flow: column; flex-flow: column;  height:100%; }
+		div.flex-con{ overflow:auto; }
+		.login{ background-color: #32495d; padding: 15px 0;  }
+		.login nav{ overflow: hidden; width: 300px; margin: 0px auto; }
+		.login nav p{ width: 33%; float: left; text-align: center; }
+		.login nav p img{ width: 60%; }
+		.login .btn{ text-align: center;	padding: 10px 0;  }
+		.login .btn span{ border: 1px solid #4e5b66; border-radius: 4px; color: #7e8790; padding: 4px 6px; }
+		
+		.top{ background-color: white;  line-height:60px;  text-align:center; color:#5d5d5d; font-size:1.2rem; position:relative; }
+		.top span{ width:60px; height:60px; display:block; position:absolute; bottom:0; right:0; font-size:.8rem;  }
+		
+		.title{  background-color:#ebebeb; min-height:20px; }
+		
+		.find { background-color: white; }
+		.find li{ padding:0 10px; } 
+		.find li.border-b:after{ left:10px; right:10px; }
+		.find li.hover{ background-color:#f5f5f5; }
+		.find li .con{ padding-left:8px; position:relative; overflow:hidden;  }
+		.find li .con h6{ color:#525252; line-height: 60px; font-size: 1.5rem;  }
+		.find li .con h6 span{ color: #b9b9b9; font-size: .8rem; padding-left: 10px; }
+		.find li .con .switch{ position:absolute; right: 0; top: 50%; margin-top: -12px; z-index: 2; }
+		.find li .pic{ width:35px; height:60px; line-height:60px; background-repeat:no-repeat; background-position:right center; background-size:60% auto; }
+		.find li .con .arrows{ position:absolute; padding:0 8px; width:28px; right:0px;  }
+		.find li.user{ padding: 10px; }
+		.find li.user .con{ 	padding-top: 10px; }
+		.find li.user .pic{ border-radius: 50%; width: 58px; height: 58px; background-size: 100%; }
+		.find li.user h6{ line-height: inherit; padding: 4px 0; }
+		.find li.user p{ color: #b9b9b9; font-size: .8rem; }
+		
+		body.black .top,
+		body.black .find{ background-color: #303030; }
+		body.black .title{ background-color: #363636; }
+		body.black .find li .con h6,
+		body.black .find li .con h6 span{ color: #707070;  }
+		body.black .find li .con .arrows:after,
+		body.black .find li .con .arrows:before{ background-color: #707070; }
+		body.black .find li .con p{ color: #626262; }
+		body.black li.hover{ background-color:#333; }
+		
+		.iconfont { font-size:25px; margin-right: 10px;}
+		.iconfont_icon { height:60px; line-height:60px; color: #999999;}
+	</style>
+</head>
+<body>
+	<div class="flex-wrap" >
+		<div class="flex-con">
+			<header class="login login-wrap" >
+				<nav>
+					<p tapmode="hover" onclicK="authLoginInfo('wx')" ><img src="../image/account_icon_weixin.png" alt=""></p>
+					<p tapmode="hover" onclicK="authLoginInfo('qq')" ><img src="../image/account_icon_qzone.png" alt=""></p>
+					<p tapmode="hover" onclicK="authLoginInfo('weibo')" ><img src="../image/account_icon_weibo.png" alt=""></p>
+				</nav>
+			</header>
+			<ul class="find none user-wrap">
+				<!--
+					<header class="title"></header>
+					<li class="flex-wrap user">
+						<div class="pic" style="background-image:url(http://d.hiphotos.baidu.com/image/w%3D310/sign=e2ce6007b33533faf5b6952f98d3fdca/ac6eddc451da81cbc2cd6ac45066d01609243194.jpg);" ></div>
+						<div class="con flex-con">
+							<div class="arrows"></div>
+							<h6 class="row-nowrap" >周杰伦</h6>
+							<p class="row-nowrap" >22232人围观，1220条帖子</p>
+						</div>
+					</li>
+				 -->
+			</ul>
+			<header class="title"></header>
+			<ul class="find">
+				<li tapmode="hover"  onclick="funOpenTripTool()" class="flex-wrap" data-name="collect-frm" >
+					<div class="pic"><i class="iconfont iconfont_icon">&#xe611;</i></div>
+					<div class="con flex-con">
+						<div class="arrows"><i class="iconfont iconfont_icon">&#xe61d;</i></div>
+						<h6 class="border-b" >旅游工具</h6>
+					</div>
+				</li>
+				<li tapmode="hover" onclicK="empty()" class="flex-wrap">
+					<div class="pic"><i class="iconfont iconfont_icon">&#xe606;</i></div>
+					<div class="con flex-con">
+						<div class="arrows"><i class="iconfont iconfont_icon">&#xe61d;</i></div>
+						<h6>设置常用位置</h6>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<script type="text/javascript" src="../script/api.js"></script>
+	<script type="text/javascript" src="../script/jquery-1.9.1.min.js"></script>
+	<script type="text/javascript">
+		/*初始化*/
+		apiready = function(){ 
+		}
+		
+		function empty(){
+			api.toast({ 
+				msg: ('开发中...')
+			});
+		}
+		
+		/*微信、QQ、微博授权登录*/
+		function authLoginInfo(type){
+			api.showProgress();
+			if(type == 'wx') {
+				var wx = api.require('wx');
+				wx.isInstalled(function(ret, err){
+				    if(ret.installed){ 
+						wx.auth({
+						}, function(ret, err){ 
+							console.log(JSON.stringify(ret) + '--' + JSON.stringify(err));
+						    if(ret.status){
+						        api.toast({ 
+							        msg: '授权成功！', 
+							        duration: 2000, 
+							        location: 'bottom' 
+						        });
+						    }else{
+						    	if(err.code == 1) { 
+	                    			api.toast({ 
+		                    			msg: '取消分享！', 
+		                    			duration: 2000, 
+		                    			location: 'bottom' 
+	                    			});
+						        }
+						    	else { 
+	                    			api.toast({ 
+	                					msg: '授权失败！', 
+		                    			duration: 2000, 
+		                    			location: 'bottom' 
+	                    			});
+						        }
+						    }
+							api.hideProgress(); //隐藏加载进度框
+						});
+				    } else{
+				        api.toast({ 
+					        msg: '当前设备未安装微信客户端！', 
+					        duration: 2000, 
+					        location: 'bottom' 
+				        });
+						api.hideProgress(); //隐藏加载进度框
+				    }
+				});
+			}
+			else if(type == 'qq') {
+				var obj = api.require('qq');
+				obj.installed(function(ret,err){
+				    if(ret.status){ 
+				    	obj.login(function(ret,err){
+							console.log(JSON.stringify(ret) + '--' + JSON.stringify(err));
+						    if(ret.status){
+							    api.toast({ 
+							        msg: '授权成功', 
+							        duration: 2000, 
+							        location: 'bottom'
+							    });
+						    }
+						    else { 
+						    	if(ret.msg = 'cancel login') {
+		                			api.toast({
+			                			msg: '取消授权！', 
+			                			duration: 2000, 
+			                			location: 'bottom' 
+		                			});
+						    	}
+						    	else {
+		                			api.toast({
+			                			msg: '授权失败！', 
+			                			duration: 2000, 
+			                			location: 'bottom' 
+		                			});
+	                			}
+						    }
+							api.hideProgress(); //隐藏加载进度框
+						});
+				    } else{ 
+				        api.toast({ 
+					        msg: 'QQ没有安装客户端！', 
+					        duration: 2000, 
+					        location: 'bottom' 
+				        });
+						api.hideProgress(); //隐藏加载进度框
+				    } 
+				});
+			}
+			else if(type == 'weibo') {
+				var appBundle = "com.sina.weibo";
+				api.appInstalled({
+				    appBundle: appBundle
+				},function( ret, err ){
+					var isInstall = false;
+				    if( ret ){
+				    	if(ret.installed == 1){
+				    		isInstall = true;
+				        }
+				    }
+				    if(isInstall) { 
+						var weibo = api.require('weibo');
+						weibo.auth(function(ret,err){
+							console.log(JSON.stringify(ret) + '--' + JSON.stringify(err));
+						    if (ret.status) {
+						        api.toast({ 
+						            msg: '授权成功', 
+						            duration: 2000, 
+						            location: 'bottom'
+						        });
+						    } else{
+						    	if(err.code == 1) {
+						    		api.toast({
+								        msg:'取消授权！', 
+								        duration: 2000, 
+								        location: 'bottom'
+							        });
+						    	}
+						    	else {
+							        api.toast({
+								        msg:'授权失败！', 
+								        duration: 2000, 
+								        location: 'bottom'
+							        });
+						        }
+						    }
+						});
+						api.hideProgress(); //隐藏加载进度框
+				    }
+				    else {
+				        api.toast({
+					        msg:'微博没有安装客户端！', 
+					        duration: 2000, 
+					        location: 'bottom'
+				        });
+						api.hideProgress(); //隐藏加载进度框
+				    }
+				});
+			}
+		}
+		
+		/*打开旅行工具页面*/
+		function funOpenTripTool(){
+			api.openWin({
+				name: 'my_tool',
+				url : 'my_tool.html',
+				rect: {
+					x: 0,
+					y: 0,
+					w: api.winWidth,
+					h: api.winHeight
+				},
+				pageParam:{
+					name : 'my_tool'
+				},
+				bounces: false,
+				delay: 200
+			});
+		}
+	</script>
+</body>
+</html>

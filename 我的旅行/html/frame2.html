@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>备忘录</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+	<link rel="stylesheet" type="text/css" href="../css/common.css" />
+    <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+    <style>
+		body{  background-color:#ebebeb; }
+		div.flex-wrap{  -webkit-box-orient: vertical; -webkit-flex-flow: column; flex-flow: column;  height:100%; }
+		
+		.find { background-color: white; }
+		.find li{ padding:0 10px; } 
+		.find li.border-b:after{ left:10px; right:10px; }
+		.find li.hover{ background-color:#f5f5f5; }
+		.find li .con{ padding-left:8px; position:relative; overflow:hidden;  }
+		.find li .con h6{ color:#525252; line-height: 60px; font-size: 1.5rem;  }
+		.find li .con h6 span{ color: #b9b9b9; font-size: .8rem; padding-left: 10px; }
+		.find li .con .switch{ position:absolute; right: 0; top: 50%; margin-top: -12px; z-index: 2; }
+		.find li .pic{ width:35px; height:60px; line-height:60px; background-repeat:no-repeat; background-position:right center; background-size:60% auto; }
+		.find li .con .arrows{ position:absolute; padding:0 8px; width:28px; right:0px;  }
+		.find li.user{ padding: 10px; }
+		.find li.user .con{ 	padding-top: 10px; }
+		.find li.user .pic{ border-radius: 50%; width: 58px; height: 58px; background-size: 100%; }
+		.find li.user h6{ line-height: inherit; padding: 4px 0; }
+		.find li.user p{ color: #b9b9b9; font-size: .8rem; }
+		
+		.iconfont { font-size:25px; margin-right: 10px;}
+		.iconfont_icon { height:60px; line-height:60px; color: #999999;}
+    </style>
+</head>
+<body>
+    <div class="flex-wrap">
+		<ul class="find">
+		</ul>    	
+    </div>
+	<script type="text/javascript" src="../script/api.js"></script>
+	<script type="text/javascript" src="../script/jquery-1.9.1.min.js"></script>
+	<script type="text/javascript"> 
+		var page = 1;
+		/*初始化*/
+		apiready = function(){ 			
+			setRefreshHeader();
+			api.addEventListener({
+				name: 'scrolltobottom'
+			}, function(ret, err) {
+				page = page + 1;
+				selectPageInfo();
+				api.parseTapmode();
+			});
+			funWinIni();
+		}
+
+		/*网络判断*/
+		function funWinIni(){
+			if( api.connectionType == 'none' ){
+				api.toast({
+				    msg: '网络错误，请检查网络',
+				    duration: 2000,
+				    location: 'bottom'
+				}); 
+			}else{
+				loadListInfo();
+			};
+		} 
+		
+		var listInfo;
+			
+		/*读取行程信息*/
+		function loadListInfo(){ 
+			var query = api.require('query');
+			query.createQuery(
+			    function(ret, err) {
+			        var qid = ret.qid;
+			        var model = api.require('model');
+					model.config({
+					    appKey: '0F18115F-E530-D1C0-221B-89BA373CA1F2',
+					    host: 'https://d.apicloud.com'
+					});
+                    query.desc({
+                            qid: qid,
+                            column: "updatedAt"
+                    });
+			        model.findAll({
+			            class:'my_memo',
+			            qid:qid
+			        }, function(ret, err) {
+			            if (ret) {
+        					listInfo = ret;
+        					selectPageInfo();
+			            }
+			        });
+			    }
+			);
+		}
+		
+		function selectPageInfo(){
+			var p = listInfo.length % 10;
+			var p_i = listInfo.length / 10;
+			var pages = 0;
+			if(p == 0) {
+				pages = p_i;
+			}
+			else {
+				pages = p_i + 1;
+			}
+			if(pages < page) {
+				api.toast({
+					//msg: ('错误码：' + err.code + '；错误信息：' + err.msg + '网络状态码：' + err.statusCode)
+					msg: ('已经没有数据！')
+				});
+				page = page - 1;
+				return false;
+			} 
+			for(var i=(page-1)*10; i<page*10; i++){ 
+				var lInfo = listInfo[i];
+				if(lInfo) {
+					var id = lInfo.id,
+						date = lInfo.date,
+						title = lInfo.title,
+						createdAt = lInfo.createdAt;
+					
+					var listHtml = '';
+					listHtml += '<li tapmode="hover"  onclick="funOpenMemo(\''+id+'\')" class="flex-wrap" data-name="collect-frm" >'+
+						'<div class="con flex-con"><div class="arrows"><i class="iconfont iconfont_icon">&#xe61d;</i></div><h6 class="border-b" >'+title+'</h6></li>';								
+					$(".find").append(listHtml);
+		        }
+			} 
+		}
+		
+		/*打开详细页面*/
+		function funOpenMemo(id) {
+			api.openWin({
+				name: 'my_memo_info' + id,
+				url: 'my_memo_info.html',
+				rect: {
+					x: 0,
+					y: 0,
+					w: api.winWidth,
+					h: api.winHeight
+				},
+                animation:{
+                    type:"movein",                //动画类型（详见动画类型常量）
+                    subType:"from_right",       //动画子类型（详见动画子类型常量）
+                    duration:300                //动画过渡时间，默认300毫秒
+                },
+				pageParam: { 
+					id: id
+				},
+				bounces: false,
+				delay: 200
+			});
+		}
+				
+		/*下拉刷新方法*/
+		function setRefreshHeader() {
+			api.setRefreshHeaderInfo({
+				visible: true,
+				bgColor: '#ccc',
+				textColor: '#fff',
+				textDown: '下拉刷新...',
+				textUp: '松开刷新...',
+				showTime: true
+			}, function(ret, err) {
+				$(".find").html("");
+				page = 1;
+				loadListInfo();
+				api.refreshHeaderLoadDone();
+			});
+		}
+	</script>
+</body>
+</html>

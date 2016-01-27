@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>地图测试</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+	<link rel="stylesheet" type="text/css" href="../css/common.css" />
+    <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+    <style>
+        .empty{ text-align: center; padding: 120px 0; }
+    </style>
+</head>
+<body>
+    <div class="empty"></div>
+	<script type="text/javascript" src="../script/api.js"></script>
+	<script type="text/javascript" src="../script/jquery-1.9.1.min.js"></script>
+	<script type="text/javascript">
+		/*初始化*/
+		apiready = function(){ 
+		}
+
+		function loadBMapInfo() {
+			var w = api.frameWidth;
+			var h = api.frameHeight;
+			var bMap = api.require('bMap');
+			bMap.getLocation({
+			    accuracy: '100m',
+			    autoStop: true,
+			    filter: 1
+			}, function(ret_Location, err){
+				console.log(JSON.stringify(ret_Location));
+			    if(ret_Location.status){ 
+			    	var ret_Location_lon = ret_Location.lon;
+			    	var ret_Location_lat = ret_Location.lat;
+					bMap.open({
+					    rect: {
+					        x: 0,
+					        y: 0,
+					        w: w,
+					        h: h
+					    },
+					    center: {
+					        lon: ret_Location_lon,
+					        lat: ret_Location_lat
+					    },
+					    zoomLevel: 13,
+					    showUserLocation: true,
+					    fixedOn: api.frameName,
+					    fixed: true
+					}, function(ret_Map){
+						console.log(JSON.stringify(ret_Map)); 
+					    if(ret_Map.status){ 
+					    	alert('地图打开');
+							bMap.addLine({
+							    id: 1,
+							    styles: {
+							        borderColor: '#FF0000',
+							        borderWidth: 3
+							     },
+							     points: [{
+							         lon:ret_Location_lon,
+							         lat:ret_Location_lat
+							     },{
+							         lon: 116.49432328,
+							         lat: 39.98963192
+							     }]
+							});
+					        //alert(JSON.stringify(ret));
+					    }else{
+					        alert(err.code);
+					    }
+					});
+			    }else{
+			        alert(err.code);
+			    }
+			});
+		}
+	</script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<widget id="A6908985505530" version="0.0.1"> 
+  <name>我的旅行</name>  
+  <description/>  
+  <author email="ynlpzdc163com@163.com" href="http://www.apicloud.com">雪落无声</author>  
+  <content src="index.html"/>  
+  <preference name="autoLaunch" value="true"/>  
+  <preference name="autoUpdate" value="true"/>  
+  <preference name="smartUpdate" value="true"/>  
+  <preference name="debug" value="false"/>  
+  <preference name="statusBarAppearance" value="false"/>  
+  <preference name="iOS7StatusBarAppearance" value="true"/>  
+  <preference name="fullScreen" value="true"/>  
+  <preference name="appBackground" value="rgba(0, 0, 0, 0)"/>  
+  <preference name="windowBackground" value="rgba(0, 0, 0, 0)"/>  
+  <preference name="frameBackgroundColor" value="rgba(0, 0, 0, 0)"/>  
+  <permission name="location"/>  
+  <permission name="internet"/>  
+  <access origin="*"/>  
+  <feature name="bMap"> 
+    <param name="android_api_key" value="PGDSiXcOhPSxP6Revu9LjTPA"/>  
+    <param name="ios_api_key" value="81qz3dBYB5q2nGji4IYrawr1"/> 
+  </feature>  
+  <feature name="weiXin"> 
+    <param name="urlScheme" value="wxd0d84bbf23b4a0e4"/>  
+    <param name="apiKey" value="wxd0d84bbf23b4a0e4"/>  
+    <param name="apiSecret" value="a354f72aa1b4c2b8eaad137ac81434cd"/> 
+  </feature>  
+  <feature name="wx"> 
+    <param name="urlScheme" value="wxd0d84bbf23b4a0e4"/>  
+    <param name="apiKey" value="wxd0d84bbf23b4a0e4"/>  
+    <param name="apiSecret" value="a354f72aa1b4c2b8eaad137ac81434cd"/> 
+  </feature>  
+  <feature name="qq"> 
+    <param name="urlScheme" value="tencent1105139510"/>  
+    <param name="apiKey" value="1105139510"/> 
+  </feature>  
+  <feature name="weibo"> 
+    <param name="urlScheme" value="wb1132217156"/>  
+    <param name="apiKey" value="1132217156"/>  
+    <param name="registUrl" value="http://www.apicloud.com"/> 
+  </feature> 
+</widget>

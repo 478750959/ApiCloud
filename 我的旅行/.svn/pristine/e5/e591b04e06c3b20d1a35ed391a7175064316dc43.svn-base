@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>我的旅行</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+	<link rel="stylesheet" type="text/css" href="../css/common.css" />
+    <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+    <style>
+        .empty{ text-align: center; padding: 120px 0; }
+    </style>
+</head>
+<body>
+    <div class="empty">我的旅行</div>
+	<script type="text/javascript" src="../script/api.js"></script>
+	<script type="text/javascript" src="../script/jquery-1.9.1.min.js"></script>
+	<script type="text/javascript">
+		/*初始化*/
+		apiready = function(){ 
+			var w = api.frameWidth;
+			var h = api.frameHeight;
+			var bMap = api.require('bMap');
+			bMap.getLocation({
+			    accuracy: '100m',
+			    autoStop: true,
+			    filter: 1
+			}, function(ret_Location, err){
+				console.log(JSON.stringify(ret_Location)); 
+			    if(ret_Location.status){
+					bMap.open({
+					    rect: {
+					        x: 0,
+					        y: 0,
+					        w: w,
+					        h: h
+					    },
+					    center: {
+					        lon: ret_Location.lon,
+					        lat: ret_Location.lat
+					    },
+					    zoomLevel: 13,
+					    showUserLocation: true,
+					    fixedOn: api.frameName,
+					    fixed: true
+					}, function(ret){
+					    if(ret.status){ 
+							bMap.setMapAttr({
+							    type: 'standard'
+							});
+							bMap.setScaleBar({
+							    show: true,
+							    position: {
+							      x:100,
+							      y:100
+							    }
+							});
+							bMap.setTraffic({
+							    traffic: true
+							});
+					    }
+					});					
+					
+					bMap.getNameFromCoords({
+				        lon: ret_Location.lon,
+				        lat: ret_Location.lat
+					},function(ret,err){
+						console.log(JSON.stringify(ret)); 
+					    if(ret.status){
+						    /*province: '',              //字符串类型；省份
+						    city: '',                  //字符串类型；城市
+						    district: '',              //字符串类型；县区
+						    streetName: '',            //字符串类型；街道名
+						    streetNumber: ''           //字符串类型；街道号*/
+					        var lon = ret_Location.lon;
+					        var lat = ret_Location.lat;
+					        var longitude = ret.lat;
+					        var latitude = ret.lat;
+					        var address = ret.address;
+					        var province = ret.province;
+					        var district = ret.district;
+					        var streetName = ret.streetName;
+					        var streetNumber = ret.streetNumber;
+					        
+					        var model = api.require('model');
+							model.insert({
+							    class: 'my_location',
+								value : {
+									lon : lon,
+									lat : lat,
+									longitude : longitude,
+									latitude : latitude,
+									address : address,
+									province : province,
+									district : district,
+									streetName : streetName,
+									streetNumber : streetNumber
+								}
+							}, function(ret, err) {
+							    if (ret) {
+									bMap.stopLocation();
+							    } else {
+									
+							    }
+							});
+					    }
+					});
+			        //alert(JSON.stringify(ret));
+			    }else{
+			        alert(err.code);
+			    }
+			});
+		}    	
+	</script>
+</body>
+</html>

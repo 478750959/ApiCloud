@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>我的旅行</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+	<link rel="stylesheet" type="text/css" href="../css/common.css" />
+    <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+</head>
+<body>
+	<script type="text/javascript" src="../script/api.js"></script>
+	<script type="text/javascript" src="../script/jquery-1.9.1.min.js"></script>
+	<script type="text/javascript">
+		/*初始化*/
+		apiready = function(){ 
+			loadBMapInfo(); 
+		} 
+		
+		/*加载百度地图信息*/
+		function loadBMapInfo()	{
+			var w = api.frameWidth;
+			var h = api.frameHeight;
+			var bMap = api.require('bMap');
+			bMap.getLocation({
+			    accuracy: '100m',
+			    autoStop: true,
+			    filter: 1
+			}, function(ret_Location, err){
+				console.log(JSON.stringify(ret_Location)); 
+			    if(ret_Location.status){
+					bMap.open({
+					    rect: {
+					        x: 0,
+					        y: 0,
+					        w: w,
+					        h: h
+					    },
+					    center: {
+					        lon: ret_Location.lon,
+					        lat: ret_Location.lat
+					    },
+					    zoomLevel: 13,
+					    showUserLocation: true,
+					    fixedOn: api.frameName,
+					    fixed: true
+					}, function(ret){
+					    if(ret.status){ 
+							bMap.setMapAttr({
+							    type: 'standard'
+							});
+							bMap.setTraffic({
+							    traffic: true
+							});
+					    }
+					});					
+					
+					var l_lon = ret_Location.lon;
+					var l_lat = ret_Location.lat;
+					
+					bMap.getNameFromCoords({
+				        lon: ret_Location.lon,
+				        lat: ret_Location.lat
+					},function(ret,err){
+						console.log(JSON.stringify(ret)); 
+					    if(ret.status){
+						    /*province: '',              //字符串类型；省份
+						    city: '',                  //字符串类型；城市
+						    district: '',              //字符串类型；县区
+						    streetName: '',            //字符串类型；街道名
+						    streetNumber: ''           //字符串类型；街道号*/
+							var location = {lat:l_lat, lng:l_lon};
+					        var longitude = ret.lon;
+					        var latitude = ret.lat;
+					        var address = ret.address;
+					        var province = ret.province;
+					        var city = ret.city;
+					        var district = ret.district;
+					        var streetName = ret.streetName;
+					        var streetNumber = ret.streetNumber;
+					        
+					        $api.setStorage('location',ret);
+					        
+					        var model = api.require('model');
+							model.config({
+							    appKey: '0F18115F-E530-D1C0-221B-89BA373CA1F2',
+							    host: 'https://d.apicloud.com'
+							});
+							model.insert({
+							    class: 'my_location',
+								value : {
+									location : location,
+									longitude : longitude,
+									latitude : latitude,
+									address : address,
+									province : province,
+									city : city,
+									district : district,
+									streetName : streetName,
+									streetNumber : streetNumber
+								}
+							}, function(ret, err) {
+							    if (ret) {
+									bMap.stopLocation();
+							    } else {
+									
+							    }
+							});
+					    }
+					});
+			        //alert(JSON.stringify(ret));
+			    }else{ 
+					api.toast({
+						//msg: ('错误码：' + err.code + '；错误信息：' + err.msg + '网络状态码：' + err.statusCode)
+						msg: (err.msg)
+					});
+			    }
+			});
+		} 
+	</script>
+</body>
+</html>

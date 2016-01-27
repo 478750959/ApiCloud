@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>我的旅行-添加</title>
+    <link rel="stylesheet" type="text/css" href="../css/common.css"/>
+    <style> 
+		html,body {
+	        -webkit-touch-callout:none;
+	        -webkit-text-size-adjust:none;
+	        -webkit-tap-highlight-color:rgba(0, 0, 0, 0);
+	        -webkit-user-select:none;
+	        background-color: #fff;
+	        background: rgba(0, 0, 0, 0) !important;
+	        margin: 0px;
+		}
+		.body { 
+			width:100%;
+			height:100%;
+	        filter:alpha(opacity=50);
+			-moz-opacity:0.5;
+			-khtml-opacity: 0.5;
+			opacity: 0.5;
+	        background-color: #000;
+		}
+		.warp{
+			z-index: 999;
+			top:0px;
+			left:0px;
+			position: fixed;
+		}
+		.scan{
+			padding: 50px 10px;
+		}
+		.scan-cont{
+			background: #FFFFFF;
+			border-radius: 10px;
+   			overflow-y: auto;
+   			max-height: 500px;
+		}
+		
+		/*.showdown{ position: fixed; left:0; top: 0; right: 0; bottom: 0; background-color: rgba(0,0,0,.6); }
+		.warp{ width: 100%; height: 100%; opacity: 0;  -webkit-transition:all .3s;  transition:all .3s;  position: fixed; left: 0; right: 0; bottom: 0; }
+		.warp .publicity-info{ padding: 5px; position: fixed; left: 0; right: 0; top: 50px; background-color: white; z-index: 2;  }
+		.active{ opacity: 1; z-index: 10; }*/
+		
+		.publicity-info{
+			padding-top: 10px;
+		}
+		
+		.info {
+			border-bottom: 2px solid #d6e1dd;
+		}
+		
+		.info-input {
+			height: 42px;
+			line-height: 42px;
+			padding-left: 16px;
+		}
+		
+		.info input {
+			height: 39px;
+			line-height: 30px;
+			border: none;
+			font-size: 1.6rem;
+			width: 70%;
+		}
+		
+		.info-text input {
+			width: 92%;
+			padding: 2px 2%;
+			margin: 2px 0px 2px 1.8%;
+			font-size: 1.2rem;
+			border: 1px solid #DADADA;
+		}
+		
+		.info-text textarea {
+			width: 92%;
+			height: 72px; 
+			padding: 10px 2% 0 2%;
+			margin: 2px 0px 2px 1.8%;
+			font-size: 1.2rem;
+			border: 1px solid #DADADA;
+		}
+		
+		.image-list {
+			width: 100%;
+			background-size: cover;
+			overflow: hidden;
+			display: block;
+			padding-top: 10px;
+		}
+		
+		.camera,
+		.image-item {
+			width: 78px;
+			height: 78px;
+			border-radius: 5px;
+			border: 2px dashed #dadada;
+			text-align: center;
+			line-height: 72px;
+			margin: 0 0 10px 14px;
+			display: inline-block;
+			position: relative; 
+		}
+		
+		.camerap {
+			position: absolute;
+		}
+		
+		.cameraIcon {
+			color: #959595;
+			font-size: 2.6rem;
+		}
+		
+		.image-close {
+			position: absolute;
+			display: inline-block;
+			right: -6px;
+			top: -6px;
+			width: 20px;
+			height: 20px;
+			text-align: center;
+			line-height: 20px;
+			border-radius: 12px;
+			background-color: #FF5053;
+			color: #f3f3f3;
+			border: solid 1px #FF5053;
+			font-size: 9px;
+			font-weight: 200;
+			z-index: 1;
+		}
+		
+		.imgClass {
+			width: 78px;
+			height: 78px;
+			border-radius: 5px;
+		}
+		
+		.paymentBtn{
+			background: #FFFFFF;
+			text-align: center;
+			padding: 10px 0;
+			border-bottom-left-radius: 10px;
+			border-bottom-right-radius: 10px;
+		}
+		.paymentBtn button{
+			border: none;
+			color: #FFFFFF;
+			font-size: 1.6rem;
+			border-radius: 5px;
+			height: 45px;
+			width: 45%;
+		}
+		.countermand{
+			background: #327f82;
+			margin-right: 10px;
+		}
+		.buyBtn{
+			background: #17c5cc;
+		} 
+    </style>
+</head>
+<body>
+	<div class="body"></div>
+	<div class="warp">
+		<div class="scan">
+			<div class="scan-cont">
+				<div class="publicity-info">
+					<div class="info info-text">
+						<input id="sdate" type="text" placeholder="行程开始日期"></input>
+						<input id="edate" type="text" placeholder="行程结束日期"></input>
+						<input id="location" type="text" placeholder="当前位置信息"></input>
+						<textarea id="note" placeholder="此时此刻感触" rows="4"></textarea>
+						<div id='image-list' class="row image-list">
+							<!--<div class="image-item"><div class="image-close">X</div></div>
+							<div class="image-item"><div class="image-close">X</div></div>
+							<div class="image-item"><div class="image-close">X</div></div>
+							<div class="image-item"><div class="image-close">X</div></div>
+							<div class="image-item"><div class="image-close">X</div></div>
+							<div class="image-item"><div class="image-close">X</div></div>
+							<div class="image-item"><div class="image-close">X</div></div>
+							<div class="image-item"><div class="image-close">X</div></div>-->
+							<div class="camera" onclick="upimgInfo()">
+								<i class="iconfont cameraIcon">&#xe609;</i></div>
+						</div>
+					</div>
+					<div class="paymentBtn">
+						<button class="countermand" onclick="funCloseFrame()">取消</button>
+						<button class="buyBtn" onclick="saveTripInfo()">保存行程</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript" src="../script/api.js"></script>
+	<script type="text/javascript" src="../script/jquery-1.9.1.min.js"></script>
+	<script type="text/javascript" src="../script/ajaxToAPICoud.js"></script>
+	<script type="text/javascript">		
+		/*关闭当前窗体*/
+		function funCloseFrame() { 
+			//api.closeWin();
+			api.closeFrame();
+		}
+		
+		/*初始化*/
+		apiready = function(){ 
+			var location = $api.getStorage('location');
+			//console.log(JSON.stringify(location));
+			if(location){
+				$("#location").val(location.address);
+			} 
+			
+			$("#sdate").click(function(){
+				var this_sdate = $(this).val();
+				var specialDate = [{
+				        date: '2015-06-01'
+			    }];
+				if(this_sdate != "") {
+					specialDate = [{
+				        date: this_sdate
+				    }]
+				}
+				loadDateInfo(specialDate,$("#sdate"),48 + 50 + 10);
+			});
+			
+			$("#edate").click(function(){
+				var this_edate = $(this).val();
+				var specialDate = [{
+				        date: '2015-06-01'
+			    }];
+				if(this_edate != "") {
+					specialDate = [{
+				        date: this_edate
+				    }]
+				}
+				loadDateInfo(specialDate,$("#edate"),48*2 + 50 + 10);
+			});
+		}
+		
+		/*日期选择*/
+		function loadDateInfo(specialDate,obj,y){
+			var uiDate = api.require('UICalendar');
+			var w = api.winWidth - 40;
+			var img_w = 320;
+			var img_h = 220;
+			var h = img_h;
+			if(img_w > w){//如果图片宽度超出容器宽度--要撑破了 
+	            h = (w * img_h) / img_w; //高度等比缩放
+	        } 
+			uiDate.open({
+			    rect: {
+			        x: 20,
+			        y: y,
+			        w: w,
+			        h: h
+			    },
+			    styles: {
+			        bg: 'widget://image/date.png',
+			        week: {
+			            weekdayColor: '#3b3b3b',
+			            weekendColor: '#a8d400',
+			            size: 12
+			        },
+			        date: {
+			            color: '#3b3b3b',
+			            selectedColor: '#fff',
+			            selectedBg: '#a8d500',
+			            size: 12
+			        },
+			        today: {
+			            color: 'rgb(230,46,37)',
+			            bg: ''
+			        },
+			        specialDate: {
+			            color: '#fff',
+			            bg: ''
+			        }
+			    },
+			    specialDate: specialDate,
+			    switchMode: 'horizontal',
+			    fixedOn: api.frameName,
+			    fixed: true
+			}, function(ret, err){
+			    if(ret){
+			        //alert(JSON.stringify(ret));
+			        if(ret.eventType == 'normal') {
+				        var date = ret.year + '-' + ret.month + '-' + ret.day;
+				        obj.val(formatDate(date, 'yyyy-MM-dd'));
+				        uiDate.close();
+			        }
+			        else if(ret.eventType == 'special') {
+				        uiDate.close();
+			        }
+			    }
+			});
+		} 
+		
+		var SourceType = ['library', 'camera', 'album'];
+		/*上传图片（多图）*/
+		var listBase = new Array();
+		var listCount = 0;
+		var listPath = new Array();
+		
+		/*图片上传*/
+		function upimgInfo() {
+			//$("#image-list").html("");
+			api.actionSheet({
+				cancelTitle: '取消',
+				buttons: ['从相册中选择', '使用相机拍摄']
+			}, function(ret, err) {
+				if (ret.buttonIndex != 3) {
+					var sourceType = "";
+					if (ret.buttonIndex == 1) {
+						var album = api.require('UIMediaScanner');
+						album.open({
+    						type: 'picture',
+							column: 3,
+							max: 6 - $api.domAll(".image-item").length,
+							sort: {
+								key: 'time',
+								order: 'desc'
+							},
+							texts: {
+								stateText: '已选择*项',
+								cancelText: '取消',
+								finishText: '完成'
+							},
+							styles: {
+								bg: '#fff',
+							}
+						}, function(ret) {
+							if (ret) {
+								list = ret.list;
+								//alert(alert(JSON.stringify(ret)));
+								uploadImage(list.length);
+							}
+						});
+					} else if (ret.buttonIndex == 2) {
+						sourceType = SourceType[1];
+						api.getPicture({
+							sourceType: sourceType,
+							encodingType: 'jpg',
+							mediaValue: 'pic',
+							destinationType: 'url',
+							allowEdit: true,
+							quality: 50,
+							saveToPhotoAlbum: false,
+							targetWidth: 640
+						}, function(ret, err) {
+							if (ret) {
+								if (ret.data != "") {
+									var length = $(".image-item").length;
+									var trans = api.require('trans');
+									trans.decodeImgToBase64({
+										imgPath: ret.data
+									}, function(ret, err) {
+										if (ret.status) {
+											var baseStr = ret.base64Str;
+											var imgBase = 'data:image/jpg;base64,' + baseStr; //data:image/png;base64,
+											var imgPath = '<img class="imgClass" src="' + imgBase + '" alt="">';
+											var img = '<div id="image' + length + '" class="image-item">' + imgPath + '<div class="image-close" onclick="closeImg(' + length + ')">X</div></div>';
+											$(".camera").before(img);
+											camerashow();
+											//api.alert({msg:ret.base64Str});
+											//baseStrInfo = baseStr;
+											//console.log(baseStr);
+											listBase[listCount] = baseStr;
+										} else { 
+											api.toast({
+												//msg: ('错误码：' + err.code + '；错误信息：' + err.msg + '网络状态码：' + err.statusCode)
+												msg: (err.msg)
+											});
+										}
+									});
+									listPath[listCount] = ret.data;
+									listCount++;
+								}
+							} else {}
+						});
+					}
+				}
+			});
+		}
+		
+		/*单图获取*/
+		function uploadImage(length) {
+			//压缩图片
+			if (length == 0) {
+				return;
+			}
+			var item = list[length - 1];
+			var imgPath = item.path;
+			var imgTPath = item.thumbPath;
+			
+			/*对图片进行压缩处理*/
+			var file = imgPath.substring(0, imgPath.lastIndexOf("/") + 1);
+			var name = imgPath.substring(imgPath.lastIndexOf("/") + 1, imgPath.length);
+			var  imageFilter = api.require("imageFilter");
+			imageFilter.compress({
+			    img: imgPath,
+			    quality: 1,
+			    size: {
+			    	w: 640,
+			    	h: 400
+			    },
+			    save: {
+			        album: true,
+			        imgPath: 'fs://myTrip_thumb/',
+			        imgName: name
+			    }
+			}, function(ret, err){
+				imgPath = 'fs://myTrip_thumb/' + name;
+				listPath[listCount] = imgPath;
+				listCount++;
+				uploadImage(length - 1);
+			});
+			
+			var trans = api.require('trans');
+			trans.decodeImgToBase64({
+				imgPath: imgTPath
+			}, function(ret, err) {
+				if (ret.status) {
+					var baseStr = ret.base64Str;
+					var imgBase = 'data:image/jpg;base64,' + baseStr; //data:image/png;base64,
+					var imgPath = '<img class="imgClass" src="' + imgBase + '" alt="">';
+					var img = '<div id="image' + length + '" class="image-item">' + imgPath + '<div class="image-close" onclick="closeImg(' + length + ')">X</div></div>';
+					$(".camera").before(img);
+					camerashow();
+					//api.alert({msg:ret.base64Str});
+					//baseStrInfo = baseStr;
+					//console.log(baseStr);
+					listBase[listCount] = baseStr;
+				} else {
+					api.toast({
+						//msg: ('错误码：' + err.code + '；错误信息：' + err.msg + '网络状态码：' + err.statusCode)
+						msg: (err.msg)
+					});
+				}
+			});
+		}
+		
+		/*上传按钮是否显示*/
+		function camerashow() {
+			var len = $api.domAll(".image-item").length;
+			if (len >= 6) {
+				$(".camera").hide();
+			} else {
+				if (len > 0) {
+					$(".camera").addClass("camerap");
+				} else {
+					$(".camera").removeClass("camerap");
+				}
+				$(".camera").show();
+			}
+		}
+		
+		/*删除图片*/
+		function closeImg(i) {
+			$("#image" + i).remove();
+			camerashow();
+		}
+
+		/** 
+		* 返回将日期转换为时间描述 
+		* 
+		* @param date 
+		* @return 
+		*/
+		function getDateDiff(dateTimeStamp) {
+		    var now = new Date().getTime();
+		    var diffValue = now - new Date(dateTimeStamp).getTime();
+		    if (diffValue < 0) {
+		        //若日期不符则弹出窗口告之
+		        //alert("结束日期不能小于开始日期！");
+		    }
+		
+		    var minute = 60 * 1000; // 1分钟
+		    var hour = 60 * minute; // 1小时
+		    var day = 24 * hour; // 1天
+		    var month = 31 * day; // 月
+		    var year = 12 * month; // 年
+		
+		    var monthC = diffValue / month;
+		    var weekC = diffValue / (7 * day);
+		    var dayC = diffValue / day;
+		    var hourC = diffValue / hour;
+		    var minC = diffValue / minute;
+		    if (monthC >= 1) {
+		        result = parseInt(monthC) + "个月前";
+		    }
+		    else if (weekC >= 1) {
+		        result = parseInt(weekC) + "周前";
+		    }
+		    else if (dayC >= 1) {
+		        result = parseInt(dayC) + "天前";
+		    }
+		    else if (hourC >= 1) {
+		        result = parseInt(hourC) + "个小时前";
+		    }
+		    else if (minC >= 1) {
+		        result = parseInt(minC) + "分钟前";
+		    } else
+		        result = "刚刚";
+		    return result;
+		}
+		
+		/*时间格式转换*/
+		function formatDate(date, format) {
+		    if (!date) return;
+		    if (!format) format = "yyyy-MM-dd";
+		    switch (typeof date) {
+		        case "string":
+		            date = new Date(date.replace(/-/, "/"));
+		            break;
+		        case "number":
+		            date = new Date(date);
+		            break;
+		    }
+		    if (!date instanceof Date) return;
+		    var dict = {
+		        "yyyy": date.getFullYear(),
+		        "M": date.getMonth() + 1,
+		        "d": date.getDate(),
+		        "H": date.getHours(),
+		        "m": date.getMinutes(),
+		        "s": date.getSeconds(),
+		        "MM": ("" + (date.getMonth() + 101)).substr(1),
+		        "dd": ("" + (date.getDate() + 100)).substr(1),
+		        "HH": ("" + (date.getHours() + 100)).substr(1),
+		        "mm": ("" + (date.getMinutes() + 100)).substr(1),
+		        "ss": ("" + (date.getSeconds() + 100)).substr(1)
+		    };
+		    return format.replace(/(yyyy|MM?|dd?|HH?|ss?|mm?)/g, function () {
+		        return dict[arguments[0]];
+		    });
+		}
+		
+		/*提交数据*/
+		function saveTripInfo() {
+			api.showProgress({
+				title: '保存行程...',
+				text: ''
+			});
+			var d = { 
+				sdate: $("#sdate").val(),
+				edate: $("#edate").val(),
+				location: $("#location").val(),
+				note: $("#note").val(),
+				deviceId: api.deviceId,
+				deviceModel: api.deviceModel,
+				systemType: api.systemType,
+				systemVersion: api.systemVersion
+			};
+			/*var lpic = ''
+			for (var i = 0; i < listCount; i++) {
+				var img = 'image' + i;
+				if(lpic != "") {
+					lpic += ';';
+				}
+				lpic += listBase[i];
+			}
+			d['lpic'] = lpic;*/
+			console.log(JSON.stringify(d));
+	        var model = api.require('model');
+			model.config({
+			    appKey: '0F18115F-E530-D1C0-221B-89BA373CA1F2',
+			    host: 'https://d.apicloud.com'
+			});
+			model.insert({
+			    class: 'my_trip',
+				value : d
+			}, function(ret_trip, err) {
+				console.log(JSON.stringify(ret_trip));
+			    if (ret_trip) {
+					/*保存图片*/  
+					for (var i = 0; i < listCount; i++) { 
+						var imgPath = listPath[i];
+						uploadAndShow(model, imgPath, ret_trip, (i+1));
+					} 
+			    } else {
+					api.toast({
+						//msg: ('错误码：' + err.code + '；错误信息：' + err.msg + '网络状态码：' + err.statusCode)
+						msg: ('保存失败！')
+					});
+			    }
+			});
+		}
+		
+	    /* 上传图片到数据库一个含有图片文件的Class, 并获取数据库最后十张图片,并显示. */
+	    function uploadAndShow(model, imgPath, ret_trip, i){ 
+		    var appId = 'A6908985505530';
+		    var appKey = '0F18115F-E530-D1C0-221B-89BA373CA1F2'; 
+		    
+	        api.showProgress({
+	            title: '正在上传图片...'
+	        });
+			
+			var file = imgPath.substring(0, imgPath.lastIndexOf("."));
+			var name = imgPath.substring(imgPath.lastIndexOf("/") + 1, imgPath.length);
+	        var method = "post";
+	        var classInfo = {
+	            className: "my_trip_pic",
+	            fields: [
+	                {
+	                    name: "pic",
+	                    value: imgPath,
+	                    type: "file",
+	                    filename: name
+	                },{
+	                    name: "trip_id", // 列的名称.
+	                    value: ret_trip.id,
+	                    type: "text", // 列的类型,不区分大小写.当列的类型为 file 时必须特别指明.
+	                    filename: "" // 文件名.可选.仅当列的类型为 file 时,此字段才有意义.
+                    }
+	            ]
+	        }
+			
+	        var callback = function(ret, err){
+				var body = ret.body;
+				if(body.pic) {
+					if(i == 1) {
+						//更新第一张图片
+						model.updateById({
+						    class: 'my_trip',
+						    id: ret_trip.id,
+						    value: {
+						        pic: body.pic.url
+						    }
+						}, function(ret, err){
+							console.log(JSON.stringify(ret));
+						    if(ret){
+						        //do something
+						    }
+							/*api.toast({
+								//msg: ('错误码：' + err.code + '；错误信息：' + err.msg + '网络状态码：' + err.statusCode)
+								msg: ('保存第'+i+'张图片成功！')
+							});*/
+							if(listPath.length == 1) {
+								api.hideProgress();
+		            			api.closeFrame();
+							}
+						});
+					}
+					else {
+						/*api.toast({
+							//msg: ('错误码：' + err.code + '；错误信息：' + err.msg + '网络状态码：' + err.statusCode)
+							msg: ('保存第'+i+'张图片成功！')
+						});*/
+				        api.showProgress({
+				            title: '正在上传图片...'
+				        });
+						if(i == (listPath.length - 1)) {
+							api.toast({
+								msg: ('保存成功！')
+							});
+	            			api.closeFrame();
+						}
+						api.hideProgress();
+					}
+				}
+	        }
+	
+	        ajaxToAPICloud(appId, appKey, method, classInfo, callback)
+	    }
+	</script>
+</body>
+</html>

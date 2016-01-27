@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>打开网页</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/common.css"/>
+	<style>
+        header{ background-color: #18cad1; }
+        header ul li { height: 50px; line-height: 50px; text-align: center; display: none; color: #FFFFFF; position: relative;font-size: 20px;  }
+        header ul li.active{ display: block; }
+		.header {
+			display: -webkit-box;
+		}
+		.nav-btn{border-radius: 5px;width: 67%;margin: 0 auto;}
+		.header .back{ font-size:12px; line-height:50px;position: absolute;top: 0px; width: 100px; padding-left:10px; text-align: left;}
+		.header-nav span{display: inline-block;float:left;height: 28px;line-height: 28px;width: 50%;color: #FFFFFF;font-size: 1.2rem;text-align: center;}
+		
+		.iconfont { font-size:25px; margin-right: 10px;}
+		.iconfont_icon { height:42px; line-height:42px; color: #999999;}
+	</style>
+</head>
+<body>
+    <header>
+        <ul>
+            <li class="border-b active" ><div class="header header-nav">
+				<div class="back" tapmode="" onclick="goback()"><i class="iconfont">&#xe61c;</i></div>
+				<div class="nav-btn title">
+					
+				</div>
+			</div></li>
+        </ul>
+    </header>
+	<div class="warp">
+	</div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/jquery-1.9.1.min.js"></script>
+<script type="text/javascript">
+	/*返回*/
+	function goback(){
+		api.closeWin({
+	        name: 'web'
+        });
+		api.closeWin();
+	}
+	
+	var title = "", url = '';
+	var page = 1;
+	
+	/*初始化*/
+	apiready = function(){
+		title = api.pageParam.title;
+		url = api.pageParam.url;
+		$(".title").text(title);
+		funWinIni();
+	};
+
+	/*网络判断*/
+	function funWinIni(){
+		if( api.connectionType == 'none' ){
+			api.toast({
+			    msg: '网络错误，请检查网络',
+			    duration: 2000,
+			    location: 'bottom'
+			}); 
+		}else{
+			openUrlInfo(url);
+		};
+	} 
+		
+	/*打开页面*/
+	function openUrlInfo(url) { 
+		api.openFrame({
+			name: 'web',
+			url: url,
+			rect: {
+				x: 0,
+				y: 50,
+				w: api.winWidth,
+				h: api.winHeight - 50
+			},
+			bounces: false,
+			delay: 200
+		});
+	}
+</script>
+</html>

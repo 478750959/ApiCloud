@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>备忘录</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+	<link rel="stylesheet" type="text/css" href="../css/common.css" />
+    <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+    <style> 
+		html,body {
+	        -webkit-touch-callout:none;
+	        -webkit-text-size-adjust:none;
+	        -webkit-tap-highlight-color:rgba(0, 0, 0, 0);
+	        -webkit-user-select:none;
+	        background-color: #fff;
+	        background: rgba(0, 0, 0, 0) !important;
+	        margin: 0px;
+		}
+		.body { 
+			width:100%;
+			height:100%;
+	        filter:alpha(opacity=50);
+			-moz-opacity:0.5;
+			-khtml-opacity: 0.5;
+			opacity: 0.5;
+	        background-color: #000;
+		}
+		.warp{
+			z-index: 999;
+			top:0px;
+			left:0px;
+			position: fixed;
+		}
+		.scan{
+			padding: 50px 10px;
+		}
+		.scan-cont{
+			background: #FFFFFF;
+			border-radius: 10px;
+		}
+		
+		/*.showdown{ position: fixed; left:0; top: 0; right: 0; bottom: 0; background-color: rgba(0,0,0,.6); }
+		.warp{ width: 100%; height: 100%; opacity: 0;  -webkit-transition:all .3s;  transition:all .3s;  position: fixed; left: 0; right: 0; bottom: 0; }
+		.warp .publicity-info{ padding: 5px; position: fixed; left: 0; right: 0; top: 50px; background-color: white; z-index: 2;  }
+		.active{ opacity: 1; z-index: 10; }*/
+		
+		.publicity-info{
+			padding-top: 10px;
+		}
+		
+		.info {
+			border-bottom: 2px solid #d6e1dd;
+		}
+		
+		.info-input {
+			height: 42px;
+			line-height: 42px;
+			padding-left: 16px;
+		}
+		
+		.info input {
+			height: 39px;
+			line-height: 30px;
+			border: none;
+			font-size: 1.6rem;
+			width: 70%;
+		}
+		
+		.info-text input {
+			width: 92%;
+			padding: 2px 2%;
+			margin: 2px 0px 2px 1.8%;
+			font-size: 1.2rem;
+			border: 1px solid #DADADA;
+		}
+		
+		.info-text textarea {
+			width: 92%;
+			height: 72px; 
+			padding: 10px 2% 0 2%;
+			margin: 2px 0px 2px 1.8%;
+			font-size: 1.2rem;
+			border: 1px solid #DADADA;
+		}
+		
+		.image-list {
+			width: 100%;
+			background-size: cover;
+			overflow: hidden;
+			display: block;
+			padding-top: 10px;
+		}
+		
+		.camera,
+		.image-item {
+			width: 78px;
+			height: 78px;
+			border-radius: 5px;
+			border: 2px dashed #dadada;
+			text-align: center;
+			line-height: 72px;
+			margin: 0 0 10px 14px;
+			display: inline-block;
+			position: relative; 
+		}
+		
+		.camerap {
+			position: absolute;
+		}
+		
+		.cameraIcon {
+			color: #959595;
+			font-size: 2.6rem;
+		}
+		
+		.image-close {
+			position: absolute;
+			display: inline-block;
+			right: -6px;
+			top: -6px;
+			width: 20px;
+			height: 20px;
+			text-align: center;
+			line-height: 20px;
+			border-radius: 12px;
+			background-color: #FF5053;
+			color: #f3f3f3;
+			border: solid 1px #FF5053;
+			font-size: 9px;
+			font-weight: 200;
+			z-index: 1;
+		}
+		
+		.imgClass {
+			width: 78px;
+			height: 78px;
+			border-radius: 5px;
+		}
+		
+		.paymentBtn{
+			background: #FFFFFF;
+			text-align: center;
+			padding: 10px 0;
+			border-bottom-left-radius: 10px;
+			border-bottom-right-radius: 10px;
+		}
+		.paymentBtn button{
+			border: none;
+			color: #FFFFFF;
+			font-size: 1.6rem;
+			border-radius: 5px;
+			height: 45px;
+			width: 45%;
+		}
+		.countermand{
+			background: #327f82;
+			margin-right: 10px;
+		}
+		.buyBtn{
+			background: #17c5cc;
+		} 
+    </style>
+</head>
+<body>
+	<div class="body"></div>
+	<div class="warp">
+		<div class="scan">
+			<div class="scan-cont">
+				<div class="publicity-info">
+					<div class="info info-text">
+						<input id="title" type="text" placeholder="标题"></input>
+						<input id="date" type="text" placeholder="日期"></input>
+						<textarea id="note" placeholder="备忘内容" rows="4"></textarea>
+						<input id="location" type="text" placeholder="当前位置信息"></input>
+					</div>
+					<div class="paymentBtn">
+						<button class="countermand" onclick="funCloseFrame()">取消</button>
+						<button class="buyBtn" onclick="saveMemoInfo()">保存</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript" src="../script/api.js"></script>
+	<script type="text/javascript" src="../script/jquery-1.9.1.min.js"></script>
+	<script type="text/javascript" src="../script/ajaxToAPICoud.js"></script>
+	<script type="text/javascript">		
+		/*关闭当前窗体*/
+		function funCloseFrame() {
+			api.closeFrame();
+		}
+		
+		/*初始化*/
+		apiready = function(){ 
+			var location = $api.getStorage('location');
+			console.log(JSON.stringify(location));
+			if(location){
+				$("#location").val(location.address);
+			} 
+			
+			$("#date").click(function(){
+				var this_sdate = $(this).val();
+				var specialDate = [{
+				        date: '2015-06-01'
+			    }];
+				if(this_sdate != "") {
+					specialDate = [{
+				        date: this_sdate
+				    }]
+				}
+				loadDateInfo(specialDate,$("#date"),48*2 + 50 + 10);
+			}); 
+		}
+		
+		/*日期选择*/
+		function loadDateInfo(specialDate,obj,y){
+			var uiDate = api.require('UICalendar');
+			var w = api.winWidth - 40;
+			var img_w = 320;
+			var img_h = 220;
+			var h = img_h;
+			if(img_w > w){//如果图片宽度超出容器宽度--要撑破了 
+	            h = (w * img_h) / img_w; //高度等比缩放
+	        } 
+			uiDate.open({
+			    rect: {
+			        x: 20,
+			        y: y,
+			        w: w,
+			        h: h
+			    },
+			    styles: {
+			        bg: 'widget://image/date.png',
+			        week: {
+			            weekdayColor: '#3b3b3b',
+			            weekendColor: '#a8d400',
+			            size: 12
+			        },
+			        date: {
+			            color: '#3b3b3b',
+			            selectedColor: '#fff',
+			            selectedBg: '#a8d500',
+			            size: 12
+			        },
+			        today: {
+			            color: 'rgb(230,46,37)',
+			            bg: ''
+			        },
+			        specialDate: {
+			            color: '#fff',
+			            bg: ''
+			        }
+			    },
+			    specialDate: specialDate,
+			    switchMode: 'horizontal',
+			    fixedOn: api.frameName,
+			    fixed: true
+			}, function(ret, err){
+			    if(ret){
+			        //alert(JSON.stringify(ret));
+			        if(ret.eventType == 'normal') {
+				        var date = ret.year + '-' + ret.month + '-' + ret.day;
+				        obj.val(formatDate(date, 'yyyy-MM-dd'));
+				        uiDate.close();
+			        }
+			        else if(ret.eventType == 'special') {
+				        uiDate.close();
+			        }
+			    }
+			});
+		}
+
+		/** 
+		* 返回将日期转换为时间描述 
+		* 
+		* @param date 
+		* @return 
+		*/
+		function getDateDiff(dateTimeStamp) {
+		    var now = new Date().getTime();
+		    var diffValue = now - new Date(dateTimeStamp).getTime();
+		    if (diffValue < 0) {
+		        //若日期不符则弹出窗口告之
+		        //alert("结束日期不能小于开始日期！");
+		    }
+		
+		    var minute = 60 * 1000; // 1分钟
+		    var hour = 60 * minute; // 1小时
+		    var day = 24 * hour; // 1天
+		    var month = 31 * day; // 月
+		    var year = 12 * month; // 年
+		
+		    var monthC = diffValue / month;
+		    var weekC = diffValue / (7 * day);
+		    var dayC = diffValue / day;
+		    var hourC = diffValue / hour;
+		    var minC = diffValue / minute;
+		    if (monthC >= 1) {
+		        result = parseInt(monthC) + "个月前";
+		    }
+		    else if (weekC >= 1) {
+		        result = parseInt(weekC) + "周前";
+		    }
+		    else if (dayC >= 1) {
+		        result = parseInt(dayC) + "天前";
+		    }
+		    else if (hourC >= 1) {
+		        result = parseInt(hourC) + "个小时前";
+		    }
+		    else if (minC >= 1) {
+		        result = parseInt(minC) + "分钟前";
+		    } else
+		        result = "刚刚";
+		    return result;
+		}
+		
+		/*时间格式转换*/
+		function formatDate(date, format) {
+		    if (!date) return;
+		    if (!format) format = "yyyy-MM-dd";
+		    switch (typeof date) {
+		        case "string":
+		            date = new Date(date.replace(/-/, "/"));
+		            break;
+		        case "number":
+		            date = new Date(date);
+		            break;
+		    }
+		    if (!date instanceof Date) return;
+		    var dict = {
+		        "yyyy": date.getFullYear(),
+		        "M": date.getMonth() + 1,
+		        "d": date.getDate(),
+		        "H": date.getHours(),
+		        "m": date.getMinutes(),
+		        "s": date.getSeconds(),
+		        "MM": ("" + (date.getMonth() + 101)).substr(1),
+		        "dd": ("" + (date.getDate() + 100)).substr(1),
+		        "HH": ("" + (date.getHours() + 100)).substr(1),
+		        "mm": ("" + (date.getMinutes() + 100)).substr(1),
+		        "ss": ("" + (date.getSeconds() + 100)).substr(1)
+		    };
+		    return format.replace(/(yyyy|MM?|dd?|HH?|ss?|mm?)/g, function () {
+		        return dict[arguments[0]];
+		    });
+		}
+		
+		/*提交数据*/
+		function saveMemoInfo() {
+			api.showProgress({
+				title: '保存行程...',
+				text: ''
+			});
+			var d = { 
+				title: $("#title").val(),
+				date: $("#date").val(),
+				location: $("#location").val(),
+				note: $("#note").val()
+			};
+	        var model = api.require('model');
+			model.config({
+			    appKey: '0F18115F-E530-D1C0-221B-89BA373CA1F2',
+			    host: 'https://d.apicloud.com'
+			});
+			model.insert({
+			    class: 'my_memo',
+				value : d
+			}, function(ret, err) {
+				console.log(JSON.stringify(ret));
+			    if (ret) {
+					api.toast({
+						msg: ('保存成功！')
+					});
+	            	api.hideProgress();
+	            	api.closeFrame();
+			    } else {
+					api.toast({
+						//msg: ('错误码：' + err.code + '；错误信息：' + err.msg + '网络状态码：' + err.statusCode)
+						msg: ('保存失败！')
+					});
+			    }
+			});
+		}
+	</script>
+</body>
+</html>

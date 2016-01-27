@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>旅行记录</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+	<link rel="stylesheet" type="text/css" href="../css/common.css" />
+    <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+    <style>
+    	.warp{
+			background: #f0eff4;
+			padding-top: 2px;
+			width: 100%;
+			overflow: hidden;
+		}
+		.receiveLog{
+			background: #FFFFFF;
+		}
+		.space{margin-top: 18px;}
+		.receive-name{
+			height: 40px;
+			line-height: 40px;
+			border-top:2px solid #e3e3e4 ;
+			padding: 0 10px;
+		}
+		.header-left{
+			position: relative;
+			float: left;
+		}
+		.head-img{
+			width: 46px;
+			height: 46px;
+			text-align: center;
+			border-radius: 50%;
+			background: #FFFFFF;
+			display: inline-block;
+			position: absolute;
+			top: -9px;
+			margin-left: 6px;
+		}
+		.head-img img{
+			width: 44px;
+			height: 44px;
+			border-radius: 50%;
+			margin-top: 1px;
+		}
+		.head-name{
+			margin-left: 58px;
+			color: #009b63;
+			font-size: 1.8rem;
+		}
+		.head-right{
+			float: right;
+		}
+		.state{
+			color: #cccccc;
+			font-size: 1.5rem;
+			margin-right: 5px;
+		}
+		.type{
+			color: #afafaf;
+			font-size: 1.5rem;
+		}
+		.receive-info{
+			border-top:2px solid #e3e3e4 ;
+			border-bottom:2px solid #e3e3e4 ;
+			padding-bottom: 14px;
+		}
+		.home-info{
+			width: 100%;
+			padding: 0 10px;
+			margin-top: 8px;
+		}
+		.home-info label{
+			color: #afafaf;
+			font-size: 1.5rem;
+			margin-left: 4px;
+			width: 50px;
+			text-align: left;
+			display: inline-block;
+		}
+		.home-info span{
+			color: #444444;
+			font-size: 1.5rem;
+			display: initial;
+			padding-right: 5px; 
+		}
+		.time{
+			height: 47px;
+			border-bottom:2px solid #e3e3e4 ;
+			padding: 0 10px;
+			color: #9b9b9b;
+			font-size: 1.5rem;
+			line-height: 47px;
+		}
+    </style>
+</head>
+<body>
+    <div class="warp">
+    	<!--<div class="receiveLog " onclick="toDetail(56a373912c098450279c28cc)"><img class="lazy" src="http://7xqdu7.com1.z0.glb.clouddn.com/apicloud/bde2059a7016e902235c70698e05ef02.png" width="100%"><div class="receive-info"><div class="home-info flexBox"><label>位置</label><span class="item-most">昆明</span></div><div class="home-info flexBox"><label>详细</label><span class="item-most">不错喔</span></div></div><div class="time">2016-01-01~2016-01-29</div></div><div class="receiveLog space" onclick="toDetail(56a375302c098450279c28d9)"><img class="lazy" src="http://7xqdu7.com1.z0.glb.clouddn.com/apicloud/5202285a728e3671dd7377d78174f5ad.jpg" width="100%"><div class="receive-info"><div class="home-info flexBox"><label>位置</label><span class="item-most">大理</span></div><div class="home-info flexBox"><label>详细</label><span class="item-most">大理古城</span></div></div><div class="time">2016-01-01~2016-01-22</div></div><div class="receiveLog space" onclick="toDetail(56a37f667998d8717065d9ce)"><img class="lazy" src="http://7xqdu7.com1.z0.glb.clouddn.com/apicloud/1a76aea63920ec8ab74e5e88e8c551d6.jpeg" width="100%"><div class="receive-info"><div class="home-info flexBox"><label>位置</label><span class="item-most">昆明</span></div><div class="home-info flexBox"><label>详细</label><span class="item-most">靠，你妹的！</span></div></div><div class="time">2016-01-01~2016-01-29</div></div><div class="receiveLog space" onclick="toDetail(56a3800f16822e581aefa9ad)"><img class="lazy" src="http://7xqdu7.com1.z0.glb.clouddn.com/apicloud/4bdf450dd422132bc7632a349b6b210f.jpg" width="100%"><div class="receive-info"><div class="home-info flexBox"><label>位置</label><span class="item-most">罗平</span></div><div class="home-info flexBox"><label>详细</label><span class="item-most">还爱哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈</span></div></div><div class="time">2016-01-01~2016-01-29</div></div>-->
+    </div>
+	<script type="text/javascript" src="../script/api.js"></script>
+	<script type="text/javascript" src="../script/jquery-1.9.1.min.js"></script>
+	<script type="text/javascript" src="../script/jquery.lazyload.min.js"></script>
+	<script type="text/javascript"> 
+		var page = 1;
+		/*初始化*/
+		apiready = function(){ 			
+			setRefreshHeader();
+			api.addEventListener({
+				name: 'scrolltobottom'
+			}, function(ret, err) {
+				page = page + 1;
+				selectPageInfo();
+				api.parseTapmode();
+			});
+			funWinIni();
+		}
+
+		/*网络判断*/
+		function funWinIni(){
+			if( api.connectionType == 'none' ){
+				api.toast({
+				    msg: '网络错误，请检查网络',
+				    duration: 2000,
+				    location: 'bottom'
+				}); 
+			}else{
+				loadListInfo();
+			};
+		} 
+		
+		var listInfo;
+			
+		/*读取行程信息*/
+		function loadListInfo(){ 
+			var query = api.require('query');
+			query.createQuery(
+			    function(ret, err) {
+			        var qid = ret.qid;
+			        var model = api.require('model');
+					model.config({
+					    appKey: '0F18115F-E530-D1C0-221B-89BA373CA1F2',
+					    host: 'https://d.apicloud.com'
+					});
+                    query.desc({
+                            qid: qid,
+                            column: "updatedAt"
+                    });
+			        model.findAll({
+			            class:'my_trip',
+			            qid:qid
+			        }, function(ret, err) {
+			            if (ret) {
+        					listInfo = ret;
+        					selectPageInfo();
+			            }
+			        });
+			    }
+			);
+		}
+		
+		function selectPageInfo(){
+			var p = listInfo.length % 10;
+			var p_i = listInfo.length / 10;
+			var pages = 0;
+			if(p == 0) {
+				pages = p_i;
+			}
+			else {
+				pages = p_i + 1;
+			}
+			if(pages < page) {
+				api.toast({
+					//msg: ('错误码：' + err.code + '；错误信息：' + err.msg + '网络状态码：' + err.statusCode)
+					msg: ('已经没有数据！')
+				});
+				page = page - 1;
+				return false;
+			} 
+			for(var i=(page-1)*10; i<page*10; i++){ 
+				var lInfo = listInfo[i];
+				if(lInfo) {
+					var id = lInfo.id,
+						sdate = lInfo.sdate,
+						edate = lInfo.edate,
+						location = lInfo.location,
+						note = lInfo.note,
+						pic = lInfo.pic,
+						createdAt = lInfo.createdAt;
+					
+					var listHtml = '';
+					listHtml += '<div class="receiveLog '+(i==0?"":"space")+'" onclick="toDetail(\''+id+'\')"><img class="lazy" src="'+pic+'" width="100%" />';								
+					listHtml += '<div class="receive-info">' + 
+						'<div class="home-info flexBox"><label>位置</label><span class="item-most">'+location+'</span></div><div class="home-info flexBox">'+
+						'<label>详细</label><span class="item-most">'+note+'</span></div></div><div class="time">'+sdate + "~" + edate+'</div></div>';
+			        $(".warp").append(listHtml);
+			        $("img.lazy").lazyload({effect:'fadeIn'});
+		        }
+			} 
+		}
+		
+		/*打开详细页面*/
+		function toDetail(id) {
+			api.openWin({
+				name: 'my_trip_info' + id,
+				url: 'my_trip_info.html',
+				rect: {
+					x: 0,
+					y: 0,
+					w: api.winWidth,
+					h: api.winHeight
+				},
+				pageParam: { 
+					id: id
+				},
+				bounces: false,
+				delay: 200
+			});
+		}
+				
+		/*下拉刷新方法*/
+		function setRefreshHeader() {
+			api.setRefreshHeaderInfo({
+				visible: true,
+				bgColor: '#ccc',
+				textColor: '#fff',
+				textDown: '下拉刷新...',
+				textUp: '松开刷新...',
+				showTime: true
+			}, function(ret, err) {
+				$(".warp").html("");
+				page = 1;
+				loadListInfo();
+				api.refreshHeaderLoadDone();
+			});
+		}
+	</script>
+</body>
+</html>
