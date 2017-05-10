@@ -1,0 +1,136 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset=“utf-8″>
+    <meta name="viewport" content="initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=0, width=device-width"/>
+
+	<style>
+       body {
+            overflow: hidden;
+            height: 100%;
+            font-family:arial,sans-serif;  
+            margin: 0;
+            padding: 0;
+            background-image: url('../image/bg.jpg');
+        	background-repeat:repeat;
+        }
+	            
+	            
+ul{  
+	overflow:hidden;  
+	padding:0;  
+	list-style:none;
+}  
+
+ul li{  
+	margin:0.7em 0.8em 0.7em 0.9em;  
+	float:left;  
+
+}  
+
+
+
+
+	 ul li span  
+	{  
+	disply:block;
+	text-decoration: none;  
+	color: #000  ;  
+	background: #ffc  ;  
+	display: block;  
+	height: 8.5em;  
+	width: 9.3em;  
+	font-size:0.9em;
+	padding: 0.5em; /* Firefox */  
+	-moz-box-shadow: 5px 5px 7px rgba(33,33,33,1)  ; /* Safari+Chrome */  
+	-webkit-box-shadow: 5px 5px 7px rgba(33,33,33,.7)  ; /* Opera */  
+	box-shadow: 5px 5px 7px rgba(33,33,33,.7)  ;  
+	}  
+
+@media (device-height:480px) and (-webkit-min-device-pixel-ratio:2){/* 兼容iphone4/4s */
+	 ul li span  
+	{  
+	disply:block;
+	text-decoration: none;  
+	color: #000  ;  
+	background: #ffc  ;  
+	display: block;  
+	height: 7.1em;  
+	width: 9em;  
+	font-size:0.7em;
+	padding: 0.5em; /* Firefox */  
+	-moz-box-shadow: 5px 5px 7px rgba(33,33,33,1)  ; /* Safari+Chrome */  
+	-webkit-box-shadow: 5px 5px 7px rgba(33,33,33,.7)  ; /* Opera */  
+	box-shadow: 5px 5px 7px rgba(33,33,33,.7)  ;  
+	}  
+
+}
+
+@media (device-height:568px) and (-webkit-min-device-pixel-ratio:2){/* 兼容iphone5 */
+	 ul li span  
+	{  
+	disply:block;
+	text-decoration: none;  
+	color: #000  ;  
+	background: #ffc  ;  
+	display: block;  
+	height: 8.6em;  
+	width: 9.2em;  
+	font-size:0.7em;
+	padding: 0.5em; /* Firefox */  
+	-moz-box-shadow: 5px 5px 7px rgba(33,33,33,1)  ; /* Safari+Chrome */  
+	-webkit-box-shadow: 5px 5px 7px rgba(33,33,33,.7)  ; /* Opera */  
+	box-shadow: 5px 5px 7px rgba(33,33,33,.7)  ;  
+	}  
+
+}
+
+
+ul li:nth-child(1) span{  
+-o-transform:rotate(4deg);  
+-webkit-transform:rotate(4deg);  
+-moz-transform:rotate(4deg);  
+position:relative;  
+top:5px;  
+}  
+
+ul  li:nth-child(2) span{
+	background:#D462FF;
+}
+ul li:nth-child(3) span{  
+-o-transform:rotate(-3deg);  
+-webkit-transform:rotate(-3deg);  
+-moz-transform:rotate(-3deg);  
+position:relative;  
+background:#ccf;
+top:-5px;  
+}  
+ul li:nth-child(6) span{  
+-o-transform:rotate(5deg);  
+-webkit-transform:rotate(5deg);  
+-moz-transform:rotate(5deg);  
+position:relative;  
+top:-10px;
+background: #cfc  ; 
+}  
+
+	</style>
+<title>21 Days</title>
+</head>
+ 
+<body>
+	<script id="content-template" type="text/x-dot-template">
+		    {{ for(var i=0, len=it.length; i < len; i++) {}}
+		    <li id="li_{{=it[i].cid}}" onclick="javascript:lionclick('{{=it[i].id}}',{{=it[i].sid}},'{{=it[i].content}}');"><span>{{=it[i].content}}</span></li>
+
+		    {{ } }}
+	</script>
+	<ul id="wrap">
+		
+	</ul>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/doT.min.js"></script> 
+<script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript" src="../script/home.js"></script>
+</html>

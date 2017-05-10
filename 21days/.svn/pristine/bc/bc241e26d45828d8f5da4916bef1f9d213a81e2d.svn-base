@@ -1,0 +1,102 @@
+#main1 .submenu{
+    display: -webkit-box;
+    display: -webkit-flex;
+
+    -webkit-box-orient: horizontal;
+    -webkit-flex-direction: row;
+
+    -webkit-box-shadow:0px 4px 4px #55abce;
+    box-shadow: 0px 4px 4px #dddcdc; 
+}
+
+#main1 .submenu li{
+    -webkit-box-flex: 1; 
+    -webkit-flex: 1;
+
+    height: 40px; line-height: 40px;
+}
+#main1 .submenu li a{
+    display: block; text-align: center; 
+    background: url(../image/border.png) no-repeat right center;
+    -webkit-background-size: 2px 36px;
+    background-size: 2px 36px;
+}
+#main1 .submenu li:last-child a{
+    background: none;
+}
+#main1 .submenu li{
+    background: url(../image/arr-b.png) no-repeat 90% center;
+    -webkit-background-size: 9px 4px;
+    background-size: 9px 4px;
+}
+#main1 .submenu li.active{
+    background: url(../image/arr-t.png) no-repeat 90% center;
+    -webkit-background-size: 9px 4px;
+    background-size: 9px 4px;
+}
+#main1 .submenu li.active a{
+    color: #55abce;
+}
+#main1 .submenu a i{
+    display: inline-block; width: 16px; height: 16px;
+    -webkit-background-size: contain !important; 
+    background-size: contain !important; 
+    margin-right: .5em; vertical-align: text-bottom;
+
+}
+#main1 .submenu .city i{
+    background: url(http://7xkg7s.com1.z0.glb.clouddn.com/apicloud/bab7cfb5e9454426d32331850da3d1d2.png) no-repeat left center;
+}
+#main1 .submenu .type i{
+    background: url(http://7xkg7s.com1.z0.glb.clouddn.com/apicloud/bab7cfb5e9454426d32331850da3d1d2.png) no-repeat left center;
+}
+#main1 .submenu .active .city i{
+    background: url(http://7xkg7s.com1.z0.glb.clouddn.com/apicloud/bcc2be6ee9a21b19e3178cf9071312bc.png) no-repeat left center;
+}
+#main1 .submenu .active .type i{
+    background: url(http://7xkg7s.com1.z0.glb.clouddn.com/apicloud/bcc2be6ee9a21b19e3178cf9071312bc.png) no-repeat left center;
+}
+
+#chkShare {
+	width: 20px; height: 20px
+}
+
+#chkTitle{
+	       line-height: 40px;
+            color: #bfbfbf;
+            font-size: 1.2em;
+            font-family: '微软雅黑';
+}
+textarea{
+			display:block;
+	        font-size:1.1em;
+            font-family: '微软雅黑';
+            border:solid 1px #666666; 
+            padding: 0.5em;
+ 			resize:none;
+ 			margin: 0 auto;
+}
+#menudiv{
+	margin-top:1em;
+}
+.command{
+	text-align:center;
+}
+
+#divspan span  
+	{  
+	disply:block;
+	text-decoration: none;  
+	color: #000  ;  
+	background: #ffc  ;  
+	display: block;  
+	height: 8.5em;  
+	width: 9.3em;  
+	font-size:0.9em;
+	margin: 0em auto;
+	padding: 0.5em; /* Firefox */  
+	-moz-box-shadow: 5px 5px 7px rgba(33,33,33,1)  ; /* Safari+Chrome */  
+	-webkit-box-shadow: 5px 5px 7px rgba(33,33,33,.7)  ; /* Opera */  
+	box-shadow: 5px 5px 7px rgba(33,33,33,.7)  ;  
+	}  
+

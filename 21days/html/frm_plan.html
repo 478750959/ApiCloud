@@ -1,0 +1,96 @@
+<!doctype html>	
+<html>	
+<head>	
+    <meta charset="utf-8">	
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>	
+    <title>frame1</title>	
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>	
+    <link rel="stylesheet" type="text/css" href="../css/common.css" />
+    <link rel="stylesheet" type="text/css" href="../css/modifyNick.css" />
+
+    <style>	
+   
+	#_plan{
+		font-size:18px;
+		border:1px solid #000;
+		padding:5px;
+		margin:5px;
+		width:100%;
+	}
+
+    .category {	
+        width: 100%;	
+    }	
+
+    .category li {	
+
+        display: inline-block;	
+        width: 49%;	
+        text-align: center;	
+        padding-top : 8px;	
+        
+
+    }	
+	    
+     .category  a {	
+        width: 100%;	
+        box-sizing: border-box;	
+        border: 1px solid #DDDDDE;	
+        padding: 7px 2px;	
+        border-radius: 20px;	
+        color: #424242;	
+
+    }	
+    
+    .category  span {	
+        width: 100%;	
+        box-sizing: border-box;	
+        border: 1px solid #DDDDDE;	
+        padding: 5px 2px;	
+        border-radius: 20px;	
+        color: #424242;	
+
+    }	
+    .more-lable{	
+        padding: 10px;	
+        background-color: #E7E7E7;	
+    }	
+
+    </style>	
+</head>	
+<body>	
+
+    <div id="wrap">
+        <div id="header">
+        	<div class="left">
+            	<a class="back" tapmode="" onclick="api.closeWin()"></a>
+            </div>
+	    	<div class="center"><span>创建计划</span></div>
+	        <div class="right"></div>
+        </div>
+        <div id="main">
+            <div class="input-wrap">
+                <input type="text" placeholder="请输入21天计划名称" id="_plan" class="txt" value="" />
+
+            </div>
+			<p>最热计划</p>
+
+		<script id="content-template" type="text/x-dot-template">
+		    {{ for(var i=0, len=it.length; i < len; i++) {}}
+			    <li><a href="javascript:setPlan('{{=it[i].plan}}');">{{=it[i].plan}}</a></li>
+		    {{ } }}
+	    </script>
+			<ul class="category" id="planlist">	
+			</ul>
+			
+            <div class="loginBtn">
+                <a class="btn" tapmode="active" onclick="ensure()">提交</a>
+            </div>
+		</div>
+	</div>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript" src="../script/doT.min.js"></script>
+<script type="text/javascript" src="../script/plan.js"></script>
+</body>	
+</html>	

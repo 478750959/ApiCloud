@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+  <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>	
+    <title>Plus</title>	
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>	
+    <link rel="stylesheet" type="text/css" href="../css/common.css" />
+    <link rel="stylesheet" type="text/css" href="../css/modifyNick.css" />
+    <link rel="stylesheet" type="text/css" href="../css/plus.css" />
+<style>
+
+
+.content{width:100%;height:12em;margin:0}
+
+
+
+
+
+.command{width:100%;height:50px;}
+textarea{
+
+}
+
+</style>
+
+</head>
+<body>
+    <div id="wrap">
+        <div id="header">
+        	<div class="left">
+            	<a class="back" tapmode="" onclick="api.closeWin()"></a>
+            </div>
+    		<div class="center"><span id="headerTitle">贴纸</span></div>
+            <div class="right"></div>
+        </div>
+
+        <div id="main">
+        		<div id="main1">
+				        <ul class="submenu" id="submenu">
+			                <li id="one1"><a  tapmode="" onclick="setTab(1)"  class="city"><i></i><span>系统贴纸</span></a></li>
+			                
+			                <li id="one2"><a  tapmode="" onclick="setTab(2)"  class="type"><i></i><span>原创贴纸</span></a></li>
+			            </ul>
+				</div>
+			   <div id="menudiv">  
+                  <div id="con_one_1">  
+						<div class="content" id="divspan">
+
+						</div>
+						<div class="command" id="loginTip">
+							<a onclick="javascript:changePlus();">刷一刷</a>
+						</div>
+					</div>
+				  <div id="con_one_2">
+						<div class="content">
+							<textarea id="divarea" wrap="logical" maxlength="100" rows="9" cols="20
+							" ></textarea>
+						</div>
+						<div class="command">
+							<input type="checkbox" value="0" id="chkShare" name="" />
+	  						<span id="chkTitle">分享给其他用户</span>
+						</div>
+					</div>
+
+				</div>
+
+	            <div class="loginBtn">
+	            	<a class="btn" style="margin-top:30px;" tapmode="active" onclick="ensure()">提交</a>
+	            </div>
+			</div>
+	</div>
+	<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
+
+<script type="text/javascript" src="../script/plus.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+        <link rel="stylesheet" type="text/css" href="../css/api.css"/>	
+        <link rel="stylesheet" type="text/css" href="../css/common.css" />
+        <link rel="stylesheet" type="text/css" href="../css/modifyNick.css" />
+    <style>
+    
+  /* 用flex重写框架 */
+.egret-flex-item {display: -webkit-box;-webkit-box-align:center;height: 65px;border-bottom: 1px solid #ccc;background-color: #fff;}
+/* 左部logo */
+.egret-flex-item-logo {max-width: 50px; min-width: 50px; margin-left: 0.5em; margin-right: 0.2em;-webkit-box-flex: 1; -webkit-box-align: center;}
+.egret-flex-item-logo img {height: 5em; width: 5em; -webkit-box-align: center;vertical-align: top;/*否则图片不会居中，底部仍然是会有空白*/}
+/* 中间文本信息 */
+.egret-flex-item-shelf {overflow: hidden; -webkit-box-flex:2; -webkit-box-align: center;}
+.egret-flex-item-shelf div {text-overflow: ellipsis; white-space: nowrap; overflow: hidden;}
+.egret-flex-item-shelf .egret-flex-item-shelf01 {font-size: 1.1em;}
+.egret-flex-item-shelf .egret-flex-item-shelf02 {font-size: 0.8em; color: #666; margin-top: 0.2em;}
+
+.profile .egret-flex-item-logo {max-width: 5em; min-width: 5em; margin-left: 1.5em; margin-right: 0.3em; -webkit-box-flex: 1; -webkit-box-align: center; }
+.egret-flex-item-logo1 { margin-left: 0.2em; margin-right: 0.2em; -webkit-box-flex: 1; -webkit-box-align: center; }
+/* 个人用户标题 */
+
+.profile {height: 7em;background: url(../../image/frame04cover/usercentercover01.jpg);background-size: cover;}
+/*
+.profile .egret-flex-item-shelf .egret-flex-item-shelf01 {font-size: 1em;color: #000; }
+.profile .egret-flex-item-shelf .egret-flex-item-shelf02 {font-size: 0.8em; color: #666; margin-top: 0.3em; padding: 0.1em; }
+*/
+.userinfo {display: -webkit-box;background-color: rgba(0,0,0,0.4);/*padding: 10px 0;*/}
+.userinfo .userinfocol {-webkit-box-flex:1;text-align: center;}
+.userinfo .userinfocol .info {font-size: 0.8em;color: #fff;padding-bottom: 5px;}
+.userinfo .userinfocol .num {padding-top: 5px;font-weight: bold;color: #fff;}
+
+		.hightitem {background-color: #fff;}	
+		.inwrap {padding-right: 15px;padding-left: 15px;}	
+	
+		/* 2. 当前计划 */	
+		.priceitem {height: 60px; line-height: 60px;border-bottom: 1px solid #ccc;}	
+		.priceitem .price, .priceitem .symbol {color: #6ab494;}	
+		.priceitem .price {font-size: 20px;font-weight:bold;}	
+		.priceitem .o-price {font-size: 12px; color: #666;}	
+		.priceitem .buynow {background-color: #6ab494; color: #fff; height: 25px; line-height: 25px; border-radius: 3px;padding: 10px 20px;margin-top: 7px;}	
+		.fr {float: right;}	
+  	
+    </style>
+    
+    <title>usercenter</title>
+</head>
+<body>
+
+    <div id="wrap">
+        <div id="header">
+        	<div class="left">
+            	<a class="back" tapmode="" onclick="api.closeWin()"></a>
+            </div>
+	    	<div class="center"><span id="headerTitle">用户中心</span></div>
+	        <div class="right"></div>
+	    </div>
+
+		<!-- 1 用户中心界面 -->
+		<div id="main">
+			<div id="user-center"></div>
+
+			<!-- 2 当前计划管理页面-->
+	
+			<!-- 3 用户历史记录界面-->
+ 	   		<div id="user-history"></div>
+ 	   	</div>
+    </div>
+
+	<script id="user-template" type="text/x-dot-template">
+		<div class="egret-flex-item profile">
+			<!-- <img src="../../image/frame04cover/usercentercover01.jpg" alt="" class="usercenter-bg"> -->
+			<div class="egret-flex-item-logo">
+				<a href="javascript:ensurePic()"><img id="img" src="{{=it.img}}" alt="" class=""></a>
+			</div>
+			<div class="egret-flex-item-shelf">
+				<div class="egret-flex-item-shelf01">{{=it.username}}</div>
+				<!-- <span class="egret-flex-item-shelf02">编辑资料</span> -->
+			</div>
+			
+			<!-- <div class="usercenter-bg"><img src="../../image/frame04cover/usercentercover01.jpg" alt=""></div> -->
+		</div>
+		<div class="userinfo">
+			<div class="userinfocol01 userinfocol br">
+				<div class="num">{{=it.planCnt}}次</div>
+				<div class="info">立志</div>
+			</div>
+			<div class="userinfocol02 userinfocol br">
+				<div class="num">{{=it.doneCnt}}次</div>
+				<div class="info">完成</div>
+			</div>
+			<div class="userinfocol03 userinfocol">
+				<div class="num">{{=it.cancelCnt}}次</div>
+				<div class="info">放弃</div>
+			</div>
+		</div>
+		{{?it.status>1}} <!--已完成计划-->
+
+    	{{??it.status>0}}  <!--正在计划中-->
+    	
+    	
+    		<!-- 2. 正在进行的计划 -->	
+	<div class="priceitem hightitem inwrap">	
+		<span class="symbol">正在坚持</span>	
+        <span class="price">{{=it.plan}}</span>	
+        <div class="buynow fr"><a href="javascript:if(confirm('多希望您能再坚持呀！您确定要放弃当前计划吗？')){stop();}">放弃</a></div>	
+	</div>	
+
+    	{{??}}  <!--未计划-->
+    	  
+    	{{?}}
+
+	</script>
+	
+
+	<script id="msg-template" type="text/x-dot-template">
+		{{ for(var i=0, len=it.length; i < len; i++) {}}
+
+		    <div class="egret-flex-item ">
+				<div class="egret-flex-item-logo1">
+					{{=it[i].date}}
+				</div>
+				<div class="egret-flex-item-shelf">
+					<div class="egret-flex-item-shelf01">21天{{=it[i].plan}}</div>
+					 <span class="egret-flex-item-shelf02">{{=it[i].status}}</span>
+				</div>
+			</div>
+
+	    {{ } }}
+    </script>
+
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript" src="../script/doT.min.js"></script>
+<script type="text/javascript" src="../script/usercenter.js"></script>
+<script type="text/javascript" src="../script/aui_compress.min.js"></script>
+</html>

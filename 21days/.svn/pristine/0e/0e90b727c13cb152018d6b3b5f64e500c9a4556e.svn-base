@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<widget id="A6981175453599" version="0.0.1"> 
+  <name>21days</name>  
+  <description>Example For APICloud.</description>  
+  <author email="mullsoft@126.com" href="http://www.apicloud.com">Alex</author>  
+  <content src="index.html"/>  
+  <preference name="pageBounce" value="false"/>  
+  <preference name="appBackground" value="rgba(0,0,0,0.0)"/>  
+  <preference name="windowBackground" value="rgba(0,0,0,0.0)"/>  
+  <preference name="frameBackgroundColor" value="rgba(0,0,0,0.0)"/>  
+  <preference name="hScrollBarEnabled" value="false"/>  
+  <preference name="vScrollBarEnabled" value="false"/>  
+  <preference name="autoLaunch" value="true"/>  
+  <preference name="fullScreen" value="true"/>  
+  <preference name="autoUpdate" value="true"/>  
+  <preference name="smartUpdate" value="false"/>  
+  <preference name="debug" value="false"/>  
+  <preference name="iOS7StatusBarAppearance" value="true"/>  
+  <permission name="sms"/>  
+  <permission name="fileSystem"/>  
+  <permission name="internet"/>  
+  <permission name="hardware"/>  
+  <permission name="readPhoneState"/>  
+  <permission name="camera"/>  
+  <permission name="bootCompleted"/>  
+  <permission name="record"/>  
+  <access origin="*"/> 
+   <feature name="wx">
+    <param name="urlScheme" value="wx922997d10ba4f552"/>
+    <param name="apiKey" value="wx922997d10ba4f552"/>
+    <param name="apiSecret" value="64dbc3a4188ad11adfdedd554dca92be"/>
+  </feature>
+</widget>

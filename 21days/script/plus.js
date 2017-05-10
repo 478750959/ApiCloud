@@ -1,0 +1,150 @@
+var _mcid=0;
+var _mcontent='';
+var _mstatus=1;
+function changePlus(){
+	//换一个贴纸内容
+		//获取tblPlus最大cid
+
+	var _max=$api.getStorage('plusCnt');
+
+	var urlParam={where:{checked:1}};
+
+	if (!_max){_max=100;}
+    var plist=JSON.parse($api.getStorage('pluslist'));
+   	var cid=0;
+    if(plist.length>=_max){
+
+    	api.toast({msg: '所有的贴纸您都已经刷了一遍了。请期待系统添加新贴纸',duration:2000, location: 'middle'});
+
+    }else{
+    	var i=0;
+	    while(i<_max){
+	    	cid=Math.ceil(Math.random()*_max);
+	    	if (inArray(cid,plist)<1){break;};
+	    	i=i+1;
+	    }
+
+	    getUrl='/tblPlus?filter=';
+	    urlParam={
+	    	fields:['content'],
+	    	where:{cid:cid}
+	    };
+	     ajaxRequest(getUrl + JSON.stringify(urlParam) , 'GET', '', function (ret, err) {
+        if (ret && ret[0]) {
+			var _plus=ret[0].content;
+			_mcid=cid;
+			_mcontent=_plus;
+			
+			var div1=$api.byId('divspan');
+			div1.innerHTML="<span>"+_plus+"</span>"; 
+       	 }
+       })   
+    }
+}
+
+
+function ensure(){
+	//如果_mstatus=1,判断api.pageParam.sid与_mcid原记录是不是一条
+	if(_mstatus==1){  //系统贴纸
+		if(_mcid==api.pageParam.sid){
+			alert('没换贴纸，无须提交');
+			return;
+		}else{
+		
+		}
+	}else{//原创贴纸
+		_txt=$api.byId('divarea').value;
+		_share=$api.byId('chkShare');
+		if(_txt==""){
+			alert('贴纸内容为空');
+			return;
+		}else{
+			_mcid=0;
+			_mcontent=_txt;
+			//分享到贴纸库
+			if(_share.checked){
+				    var postUrl='/tblPlus';
+				    var pParam={
+				    	content:_mcontent,
+				    	init:0,
+				    	cid:0,
+				    	checked:0,
+				    	author:$api.getStorage('username'),
+				    	status:'开始',
+				    	date:Date.now()	
+				    }	
+				    //TODO:错误处理
+				    ajaxRequest(postUrl, 'post', JSON.stringify(pParam), function (ret, err){});
+		
+				
+			}
+			
+		}
+	}
+	
+   	var putUrl='/tblUserPlus/'+api.pageParam.pid;
+	var bodyParam={
+		content:_mcontent,
+		sid:_mcid
+	};
+    //TODO:更新用户贴纸表
+    ajaxRequest(putUrl,'PUT',JSON.stringify(bodyParam),function(ret,err){
+    	if(ret){
+			     api.execScript({
+			     	
+					name:'root',
+            		script:'loadHome();',
+            	});
+         	
+            setTimeout(function () {
+
+                api.closeWin();
+            }, 100);
+    	}
+    })
+    
+    
+	
+}
+
+function setTab( cursel) {
+			_mstatus=cursel;
+			for (var i = 1; i <= 2; i++) {  
+				var lis = document.getElementById('one' + i);  
+				var menudiv =document.getElementById("con_one_" + i);  
+				if (i == cursel) {  
+					//menu.className = "off";  
+					$api.toggleCls(lis, 'active');
+					menudiv.style.display = "block";  
+				}  
+				else {  
+					//.className = "";  
+					$api.removeCls(lis, 'active');
+					menudiv.style.display = "none";  
+				}  
+	
+				} 
+	   }
+
+	apiready=function(){
+	    var header = $api.byId('header');
+    	$api.fixIos7Bar(header);
+    	_mcid=api.pageParam.sid;
+    	var _sid=api.pageParam.sid;
+    	var _content=$api.getStorage('content');
+
+    	if(_sid>0){
+
+			var div1=$api.byId('divspan');
+			div1.innerHTML="<span>"+_content+"</span>";
+						setTab(1);
+			}else{	
+
+			var div2=$api.byId('divarea');
+			div2.innerHTML=_content;
+						setTab(2);
+			}
+
+			
+
+	}

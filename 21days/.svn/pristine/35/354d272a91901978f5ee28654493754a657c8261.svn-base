@@ -1,0 +1,65 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=0, width=device-width"/>
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="format-detection" content="address=no" />
+    <title>api</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../css/common.css" />
+    <link rel="stylesheet" type="text/css" href="../css/modifyNick.css" />
+     <style>
+         #loginTip{
+            text-align: center;
+            margin-top: 20px;
+         }
+         #loginTip a{
+         	line-height: 40px;
+            text-decoration: underline;
+            color: #bfbfbf;
+            font-size: 1em;
+            font-family: '微软雅黑';
+         }
+         .hidden{
+            display: none;
+         }
+         .input-wrap{
+         	padding: 20px 10px 0;
+         }
+    </style>
+</head>
+
+<body>
+    <div id="wrap">
+        <div id="header">
+        	<div class="left">
+            	<a class="back" tapmode="" onclick="api.closeWin()"></a>
+            </div>
+    		<div class="center"><span id="headerTitle">登录</span></div>
+         	<div class="right"></div>
+        </div>
+        <div id="main">
+            <div class="input-wrap">
+                <input type="text" placeholder="用户名" onfocus="edit(this)" onblur="cancel(this)" class="txt" id="username" value="" />
+                <i class="del" tapmode="" onclick="delWord(this)"></i>
+            </div>
+            <div class="input-wrap">
+                <input type="password" placeholder="密码" onfocus="edit(this)" onblur="cancel(this)" class="txt" id="password" value="" />
+                <i class="del" tapmode="" onclick="delWord(this)"></i>
+            </div>
+            <div class="loginBtn">
+            	<a class="btn" style="margin-top:30px;" tapmode="active" onclick="ensure()">登录</a>
+            </div>
+            <div id="loginTip">
+                <a tapmode="" onclick="login();">还没账号？戳这里进行注册</a>
+            </div>
+        </div>
+    </div>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript" src="../script/login.js"></script> 
+</body>
+
+</html>

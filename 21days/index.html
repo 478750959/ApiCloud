@@ -1,0 +1,44 @@
+﻿<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>21DAYS</title>
+    <link rel="stylesheet" type="text/css" href="css/api.css"/>   
+    <link rel="stylesheet" type="text/css" href="css/common.css"/>   
+</head>
+<body>
+<div id="wrap">
+    <div id="header">
+    		<div class="left"></div>
+			<div class="center"><span>21天,遇见更好的自己</span></div>
+			<!--  从后台获取用户头像        -->
+			<div class="right" id="userimg"><a href="javascript:gotoUser();"><img id='uimg' src="image/user.png"/></a></div>
+
+    </div>
+    
+    <div id="main">
+    </div>
+    <div id="footer">
+    
+    </div>
+ 
+    	<script id="content-template" type="text/x-dot-template">
+    	{{?it.status>1}} 
+    	    <div class="left"><a href="javascript:gotoPlan1();"><span>恭喜您完成{{=it.plan}},去设定新的计划吧></span></a></div>    		
+    	{{??it.status>0}} 
+    		<div class="left"><span>坚持{{=it.plan}},Day {{=it.plandays}}</span></div>
+    		<div class="right"><a href="javascript:shareWX();"><img src="image/wx.jpg"/></a></div>
+    	{{??}}  
+    	    <div class="left"><a href="javascript:gotoPlan();"><span>现在就去设定21天计划吧>></span></a></div>
+    	{{?}}
+    	</script>
+
+</div>
+</body>
+<script type="text/javascript" src="script/doT.min.js"></script> 
+<script type="text/javascript" src="script/api.js"></script>
+<script type="text/javascript" src="script/common.js"></script>
+<script type="text/javascript" src="script/index.js"></script>
+
+</html>
