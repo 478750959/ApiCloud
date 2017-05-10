@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>writepswd</title>
+		<link rel="stylesheet" type="text/css" href="../css/api.css" />
+<link rel="stylesheet" type="text/css" href="../css/wirtepswd.css" />
+	</head>
+	<body>
+		<div id='wrap'>
+			<div id='main'>
+			<div class='wesend'>请设置您的密码</div>
+			<div class='inputcode'>
+			<input type='text'class='password' value='密码'/>
+			<input type='text'class='password2' value='再次输入密码'/>
+			</div>
+			<div class='tips'>请输入6-12个字符，字母和数字组成。</div>
+			<button class='button blue' id='next' tapmode="">完成</button>
+		</div>
+		</div>
+	</body>
+</html>

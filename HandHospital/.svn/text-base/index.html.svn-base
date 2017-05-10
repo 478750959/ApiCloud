@@ -1,0 +1,25 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>Hello APP</title>
+		<link rel="stylesheet" type="text/css" href="./css/api.css" />
+		<link rel="stylesheet" type="text/css" href="./css/common.css" />
+		<link rel="stylesheet" type="text/css" href="./css/index.css" />
+	</head>
+	<body>
+		<div id="wrap">
+			<div id="header">
+				<h1>掌上医院</h1><a tapmode="" class="right" onclick="openInfo()"></a>
+			</div>
+			<div id="main">
+
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="./script/api.js"></script>
+	<script type="text/javascript" src="./script/doT.min.js"></script>
+	<script type="text/javascript" src="./script/swipe.js"></script>
+	<script type="text/javascript" src="./script/index.js"></script>
+</html>

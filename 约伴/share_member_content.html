@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+<head>
+    <title></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="css/ui-tab.css">
+    <link rel="stylesheet" href="css/ui-input.css">
+    <link rel="stylesheet" href="css/ui-img.css">
+    <link rel="stylesheet" href="css/ui-res.css">
+    <link rel="stylesheet" href="css/ui-list.css">
+    <link rel="stylesheet" href="css/ui-base.css">
+    <link rel="stylesheet" href="css/ui-box.css">
+    <link rel="stylesheet" href="css/ui-color.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/ui-btn.css">
+    <script src="js/y_control.js"></script>
+    <script src="js/y_click.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/dis_control.js"></script>
+    <script src="js/y_json.js"></script>
+    <script src="js/y_tmpl.js"></script>
+    <script src="js/y_anim.js"></script>
+    <script src="js/y_icache.js"></script>
+    <style>
+        .uinn22 {
+            margin: .6em .185em;
+        }
+
+        .uinn23 {
+            margin: .8em .5em 2.5em;
+        }
+
+        .uinn30 {
+            padding: 1em 0 .5em 0;
+        }
+
+        .w-name {
+            width: 4em;
+        }
+    </style>
+</head>
+<body class="um-vp">
+<div>
+    <div class="t-bla ub-ac lis">
+        <div class="ub ub-ac umar-b1">
+            <div class="ub-f1 b-gra uba umar-t1 uinn">
+                <div class="t-gra ub ub-ac">多个<div id="share_title" class="t-gra">约伴</div>中首次到达的，计算约伴点数。</div>
+            </div>
+        </div>
+        <div class="" id="members">
+            <div></div>
+        </div>
+    </div>
+</div>
+</body>
+<script>
+zy_init();
+var params = getStorJson('params');
+var tid = '', fid = '';
+if (params.tid) tid = params.tid;
+if (params.fid) {
+    fid = params.fid;
+    setHtml('share_title', forums[get_module(fid)].op);
+
+}
+var selected_users = {};
+var ucurl = getstorage('ucurl');
+if (!ucurl) ucurl = guc;
+var upt = '';//0,顶部弹动，1，底部弹动
+var update = {};
+var curpage = 1;
+var totpage = 1;
+var going = 0;
+var fromCache = 0;
+window.uexOnload = function (t) {
+    setPageBounce(downcb, upcb);
+    zy_initcache();
+    loadMembers('', '1');
+    if(fromCache) loadMembers('', '');
+};
+function downcb(){
+    upt = '0';
+    update['0'] = 1;
+    loadMembers('', '');
+}
+function upcb(){
+    if (curpage < totpage) {
+        upt = '1';
+        update['1'] = 1;
+        loadMembers(curpage+1, '');
+    }
+    else{
+        resetBV('1');
+    }
+}
+function loadMembers(pg, f) {
+    if(going) return;
+    var cContent = $$('members');
+    var url = forum_url + "&mod=ajax&action=share_member&tid=" + tid + "&page=" + pg;
+    going = 1;
+    fromCache = checkKey(url);
+    if (!fromCache) uexWindow.toast('1', '5', '加载中...', "");
+    $.getJSON(url, function (json) {
+        uexWindow.closeToast();
+        going = 0;
+        if(update[upt]){
+            update[upt] = 0;
+            resetBV(upt);
+        }
+        if (json) {
+            var ftl =
+                '<div class="ub ub-ac" ontouchstart="zy_touch(\'c-gra\')" onclick="user_click(${uid},\'${username}\');">'
+                    +'<div class="ufl uinn22" id="users_${uid}" >'
+                        +'<div class="lis-th2 ub-img5 uc-a1 us"><img src="images/mylogo.png" class="inforpic" ${cb:avatar} id="am_${uid}"></div>'
+                    +'</div>'
+                    +'<div class="ub ub-ver ub-f3 ulev0 uinn22 ubb b-gra">'
+                        +'<div class="ub umar-b umar-t">'
+                            +'<div class="ub ub-f1">${username}</div>'
+                            +'<div class="ufr t-gra ulev-1">${cb:isfirst}</div>'
+                        +'</div>'
+                        +'<div class="ub ub-f1 ulev-1 umar-b" id="p_${uid}">'
+                            +'<div class="ub-ac t-org">${cb:isfriend}</div>'
+                        +'</div>'
+                    +'</div>'
+                +'</div>';
+
+            var res = '';
+            var members = json.list;
+            var length =  zy_tmpl_count(members);
+            res = zy_tmpl(ftl, members, length, j2vCb);
+            curpage = Int(json.zywy_curpage);
+            totpage = Int(json.zywy_totalpage);
+            if(curpage==1){
+                while(cContent.childElementCount>1)	{
+                    cContent.removeChild(cContent.firstElementChild);
+                }
+            }
+            var node = document.createElement("ul");
+            node.innerHTML = res;
+            cContent.insertBefore(node,cContent.lastElementChild);
+            imgCacheCall();
+        }
+    }, 'json', getJsonErr, 'POST', '', f);
+}
+function j2vCb(d, c) {
+    var str = '';
+    if (c.length > 1) {
+        switch (c[1]) {
+            case 'avatar':
+                var src = ucurl + d.uid;
+                var picid = 'am_' + d.uid;
+                pushCacheCall(function(){
+                    dis_imgcache(picid, src, src, imgLoadSucSrc, imgLoadErrSrc, null, '', 1);
+                });
+                break;
+            case 'isfirst':
+                str = int(d.first) ? '' : '不计数';
+                break;
+            case 'isfriend':
+                str = int(d.fuid) ? '一度' : '二度';
+                break;
+        }
+    }
+    return str;
+}
+function user_click(uid, username){
+    setstorage('params','{"uid":"'+uid+'·", "username":"'+username+'"}');
+    openwin('friend_information','friend_information.html','10');
+}
+</script>
+</html>

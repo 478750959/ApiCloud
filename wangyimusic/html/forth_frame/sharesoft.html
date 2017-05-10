@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+  <title>HTML</title>
+  
+  <!-- Replace favicon.ico & apple-touch-icon.png in the root of your domain and delete these references -->
+  <link rel="shortcut icon" href="/favicon.ico">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+  <link rel="stylesheet" type="text/css" href="../../css/egret.css" />
+<link rel="stylesheet" type="text/css" href="../../css/idangerous.swiper.css">
+
+	<style>
+		html {width: 100%;height: 100%;background:transparent;}
+		body {background: rgba(0,0,0,0.6);width: 100%;height: 100%;overflow: hidden;}
+
+		.floatbox {position: absolute; background: #fff; bottom: 0; width: 100%;}
+		.floatheader {height: 40px; line-height: 40px; font-size: 14px; color: #999; text-align: left; margin-left: 20px;}
+		.floatbody {border-bottom: 1px solid #D0D2D6;}
+		.floatbodybtn {width: 20px;height: 20px;background: #0fc;}
+		.floatfooter {height: 40px; line-height: 40px; font-size: 18px;}
+
+		/* 水平等宽样式 */
+		.floatbox .item {font-size: 16px; padding-left: 15px; color: #999;padding-right: 15px;background-color: #f5f5f5;}
+		.floatbox .item:last-child {border-bottom: 0;}
+		.floatbox .checkmark {width: 20px; float: right; margin-top: 18px; margin-right: 10px;}
+		.floatbox .title {height: 30px;line-height: 30px;color: #000;background-color: #e0e0e0;padding-left: 10px;font-size: 10px;}
+
+		.row {display: -webkit-box;display: -webkit-flex;}
+		.col {-webkit-box-flex:1; -webkit-flex:1; flex:1;box-flex:1;text-align: center;height: 90px;}
+		.col img {width: 50px;margin-top: 10px;}
+		.col div {margin-top: 5px; color: #7d7d7d; font-size: 14px;}
+		/* 悬浮样式 */
+		.floatbox .item .row .btnhover {background-color: #00aeef;}
+
+		/*table .br {border-right: 1px solid #e5e5e5;}
+		table .bb {border-bottom: 1px solid #e5e5e5;}*/
+		table {width: 100%;text-align: center;background-color: #FAFAFA;}
+		table img {width: 34px; height: 34px; margin: 0; margin-top: 10px;}
+		table td .section2title {padding: 5px 0 10px 0px;font-size: 0.9em;}
+		table td {width: 25%;}
+		.cancelbtn {background-color: #fff;height: 40px; line-height: 40px;font-size: 20px;text-align: center;}
+		.swiper-container img {width: 34px;}
+		.swiper-container {width: 100%; height: 160px; background-color: #FAFAFA;}
+	</style>
+</head>
+
+<body>
+	<div id="topbar"></div>
+	<div class="floatbox">
+		<div class="title">分享到</div>
+		<div class="swiper-container">
+			<div class="swiper-wrapper">
+				<!--First Slide-->
+				<div class="swiper-slide"> 
+					<table id="section02">
+						<tr>
+							<td class=" "><div class="section2ico"><img src="../../image/frame04cover/cm2_mlogo2_weixin.png" alt=""></div><div class="section2title">微信</div></td>
+							<td class=" "><div class="section2ico"><img src="../../image/frame04cover/logo.png" alt=""></div><div class="section2title">微信朋友圈</div></td>
+							<td class=""><div class="section2ico"><img src="../../image/frame04cover/cm2_mlogo2_sina.png" alt=""></div><div class="section2title">新浪微博</div></td>
+							<td class=""><div class="section2ico"><img src="../../image/frame04cover/cm2_mlogo2_tencent.png" alt=""></div><div class="section2title">腾讯微博</div></td>
+						</tr>
+						<tr>
+							<td class=" "><div class="section2ico"><img src="../../image/frame04cover/cm2_mlogo2_yixin.png" alt=""></div><div class="section2title">易信</div></td>
+							<td class=" "><div class="section2ico"><img src="../../image/frame04cover/cm2_logo_yxq.png" alt=""></div><div class="section2title">易信朋友圈</div></td>
+							<td class="  "><div class="section2ico"><img src="../../image/frame04cover/cm2_mlogo_qq.png" alt=""></div><div class="section2title">QQ好友</div></td>
+							<td class="  "><div class="section2ico"><img src="../../image/frame04cover/cm2_mlogo2_qzone.png" alt=""></div><div class="section2title">QQ空间</div></td>
+						</tr>
+					</table>
+				</div>
+
+				<!--Second Slide-->
+				<div class="swiper-slide">
+					<table id="section02">
+						<tr>
+							<td class=" "><div class="section2ico"><img src="../../image/frame04cover/cm2_mlogo2_renren.png" alt=""></div><div class="section2title">人人网</div></td>
+							<td class=" "><div class="section2ico"><img src="../../image/frame04cover/cm2_mlogo2_douban.png" alt=""></div><div class="section2title">豆瓣网</div></td>
+							<td class=""></td>
+							<td class=""></td>
+						</tr>
+						<tr>
+							<td class=" "></td>
+							<td class=" "></td>
+							<td class="  "></td>
+							<td class="  "></td>
+						</tr>
+					</table>
+				</div>
+				
+			</div>
+			<div class="pagination"></div>
+		</div>
+		<div class="cancelbtn" tapmode="" onclick="goback()">取消</div>
+	</div>
+	
+	
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/idangerous.swiper.js"></script>
+<script>
+window.onload = function() {
+	var mySwiper = new Swiper('.swiper-container',{
+		mode:'horizontal',
+		loop: false,
+		speed:750,
+		pagination: '.pagination'
+	});
+
+	mySwiper.startAutoplay();
+}
+
+function goback () {
+	api.closeFrame({name:'sharesoft'});
+}
+	function emptyopt () {
+	}
+
+	function match(src, target)
+    {
+        var mark = false;
+        if(src === target){
+            mark = true;
+            return mark;
+        }else{
+            do{
+                src = src.parentNode;
+                if(src === target){
+                    mark = true;
+                    return mark;
+                }
+            }while(src !== document.body && src !== document.documentElement);
+
+            return mark;
+        }
+    }
+    apiready = function(){
+    	var header = $api.byId('topbar');
+    	$api.fixIos7Bar(header); 
+
+        var body = $api.dom('body');
+        $api.addEvt(body,'touchend',function(e){
+
+            var main = $api.dom('.floatbox');
+            
+            if(!match(e.target, main))
+            {
+                api.closeFrame({name:'sharesoft'});
+            }
+            
+
+        });
+
+    }
+
+
+</script>
+</html>

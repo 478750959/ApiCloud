@@ -1,0 +1,130 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>海报内容页</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <style>
+    	.ly_share {
+			position: absolute;
+			right: 0;
+			top: 0;
+			width: 0.95rem;
+			height: 100%;
+			/*border-left: 0.02rem solid #fde2dc;*/
+			font-size: 0.24rem;
+			color: #ff7f88;
+			text-align: center;
+			line-height: 0.98rem;
+			background:url(../image/ggshare.png) no-repeat center center;
+			background-size:0.34rem 0.26rem; 
+		}
+    </style>
+</head>
+<body>
+<div id="wrap">
+	<header id='header' class='bill_con_header'>
+		<div class="miHeader">
+        	<a href='javascript:;' class='head_icon back' onclick='api.closeWin();'></a>
+        	<span class='mi_head_txt'></span>
+        	<a class="ly_share"  href="javascript:void(0)" ></a>
+        </div>                  
+	</header>
+</div>
+<input name='goods_name' type='hidden'>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/comm.js"></script>
+<script type="text/javascript" src="../script/font.js"></script>
+<script type="text/javascript" src="../script/zepto.js"></script>
+<!--<script type="text/javascript" src="script/xyc.js"></script>-->
+<script>
+	function get_data(){
+		api.showProgress({
+			style: 'default',
+		    title: '加载中',
+		    modal: false
+	    });
+		ajaxRequest('poster/get_rec', 'post',{'id':api.pageParam.id},function(ret,err){	    			
+			api.hideProgress();
+				if(ret.status){
+					var data=ret.info.data;
+					$('.mi_head_txt').html(ret.info.name);
+					$('input[name=goods_name]').val(ret.info.name);				
+					var header = $api.byId('header');
+				    $api.fixIos7Bar(header);
+				    var width = api.winWidth;
+				    var headerPos = $api.offset(header);
+				    var height = api.winHeight - headerPos.h;
+				    api.setStatusBarStyle({
+					    style: 'dark'
+					});
+				    api.openFrame({
+					    name: "bill_con_f2",
+					    url: 'bill_con_f2.html',
+					    bounces: true,
+					    opaque: true,
+					    vScrollBarEnabled: false,
+					    pageParam:{data:ret.info.data},
+					    rect: {
+					        x: 0,
+					        y: headerPos.h,
+					        w: width,
+					        h: height
+					    }
+					});
+				}else{
+					api.toast({
+                        msg:err.msg
+                    });
+				}					
+		})	    			
+	}
+	apiready = function(){	
+		$('.ly_share').addClass('none');			
+			var appBundle;
+			if (api.systemType == 'ios'){
+			    appBundle = 'wechat://';
+			    app_installed(appBundle,function(ret){
+			    	if(ret){			    		
+			    		$('.ly_share').removeClass('none');			    					    	
+			    	}
+			    });
+			    appBundle = "sinaweibo://";
+			    app_installed(appBundle,function(ret){
+			    	if(ret){			    		
+			    		$('.ly_share').removeClass('none');
+			    	}	
+			    });
+		}else{
+						$('.ly_share').removeClass('none');
+		} 
+		get_data();
+		$('.ly_share').click(function(){		
+		var width = api.winWidth;
+	    var height = api.winHeight;
+	    api.openFrame({
+		    name: 'bill_share_f',
+		    url: 'bill_share_f.html',
+		    bounces: false,
+		    opaque: false,
+		   	reload: true,
+		    vScrollBarEnabled: false,
+		    pageParam:{	
+		    	goods_name:$('input[name=goods_name]').val(),
+				goods_pic:api.pageParam.pic,
+				m:'poster',
+				is_online:api.pageParam.is_online
+				},
+		    rect: {
+		        x: 0,
+		        y: 0,
+		        w: width,
+		        h: height
+		    }
+		});	
+		});
+	}
+</script>
+</html>

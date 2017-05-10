@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>IM</title>
+    <link rel="stylesheet" type="text/css" href="../css/lwq.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/ly.css"/>
+</head> 
+<style>
+	.swiper-container {
+		height: 1.7rem;
+		background: none;
+		margin-top: 0.1rem;
+	}
+	.swiper-slide {
+		margin-top: 0.1rem;
+	}
+	.swiper-slide img {
+		width: 2.25rem;
+		height: 1.5rem;
+		vertical-align: bottom;
+		border: 3px solid #000;		
+	}
+	.swiper-slide img.current {
+		border: 3px solid #f27877;
+	}
+	.swiper-wrapper, .swiper-slide{
+		height:100%;
+	}
+	.swiper-slide {
+		position: relative;
+		text-align: center;
+	}
+	.swiper-slide span {
+		position: absolute;
+		top: -0.08rem;
+		left: 48%;
+		width: 0.13rem;
+		height: 0.08rem;
+		background: url(../image/movie_img4.png) no-repeat;
+		background-size: 0.13rem 0.08rem;
+	}
+	.ly_time {
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		width: 100%;
+		height: 0.32rem;
+		border-top: 2px solid #969696;
+		line-height: 0.32rem;
+		background: rgba(0,0,0,0.7);
+		z-index:10;
+	}
+	.ly_time p {
+		font-size: 0;
+		margin-top: -0.02rem;
+		height: 0.02rem;
+		background: #f27877;
+	}
+	.ly_time span {
+		float: left;
+		font-size: 0.14rem;
+		color: #4b4b4b;
+	}
+	.ly_time .ly_now {
+		height: 0.32rem;
+		margin-left: 0.2rem;
+		line-height: 0.32rem;
+		color: #b5b5b5;
+	}
+	/*标签功能*/
+	.xyc_box{
+		position:relative;
+		width:100%;
+		height:4.3rem;
+	}
+	.bill_label{
+		position:absolute;
+		min-width:1.15rem;
+		height:0.45rem;
+		margin-top:-0.225rem;
+	}
+	.bill_label_l{
+		float:left;
+		width:0.32rem;
+		margin:0;
+		height:0.45rem;
+		background:url(../image/bill_label_l.png) no-repeat;
+		background-size:100% 100%;
+	}
+	.bill_label_c{
+		float:left;
+		font-size:0.2rem;
+		text-align:center;
+		margin:0;
+		padding:0 0.1rem;
+		line-height:0.45rem;
+		color:white;
+		/*-webkit-flex:1;*/
+		min-width:0.6rem;
+		height:0.45rem;
+		background:url(../image/bill_label_c.png) repeat-x;
+		background-size:100% 100%;
+	}
+	.mo_btn{
+		position:relative;
+	}
+	.yc_huan{
+		position:absolute;
+		width:1.66rem;
+		height:1.67rem;
+		top:0;
+		left:50%;
+		margin-left:-0.83rem;
+	}
+	.ly_motext h2.over{
+		text-overflow: ellipsis;
+		overflow: hidden;
+		white-space: nowrap;
+	}
+	#wen2{
+		word-break:break-all;
+	}
+	.yxaaaa {
+		background: url(../image/yinmai_guanquan.png) no-repeat center center;
+		background-size: 1.67rem;
+	}
+	@media screen and (max-width: 320px) and (max-height: 480px) {
+		.ly_motext{margin-top:0.2rem}
+		.mo_btn img{margin:0.2rem auto 0.1rem;width:1.3rem;height:1.3rem;}
+		.yc_huan{width:1.3rem;height:1.3rem;margin-left:-0.65rem;}
+	}
+</style> 
+<body style='background:#000;'>
+			<script class="big_map" type="text/x-dot-template">									
+			{{ for(var p in it) { }}
+			<div class='bill_label clearfix' onclick="xyctap(this)"  tag_point="{{=it[p].tag_point}}"   goods_id="{{=it[p].goods_id}}"    goods_from_url="{{=it[p].goods_from_url}}"    style='top:{{=it[p].tag_y}};left:{{=it[p].tag_x}};'>
+    			<div class="bill_label_l"></div>
+    			<div class="bill_label_c">{{=it[p].tag_name}}</div>
+			</div>
+			{{  } }}
+			</script>				
+	<div id="wrap">
+		<div id="main" >
+			<div class="ly_movie">
+			<div class="ly_headtit"  onclick="myback()"></div>
+    		<div class="xyc_box">	
+    		<!--<img>	-->	
+		    					    			
+    		</div>
+	    		<div class="ly_time fix">
+	    			<p></p>
+	    			<div class=" fix">
+	    				<span class="ly_now">00:12:11</span>
+	    				<span>/</span>
+	    				<span class="ly_sums">00:33:11</span>
+	    			</div>
+	    		</div>
+	    	</div>
+			<div class="swiper-container">
+		
+				<div class="swiper-wrapper" id="a">
+				
+				<script id="bill_labels" type="text/x-dot-template">
+					{{ var i=0;  }}
+					{{ for(var p in it) { }}
+					{{ i++;  }}
+					
+					<div class="swiper-slide">					
+						<!--<img src="{{=it[p].topicback}}!ress"    big_src="{{=it[p].topicback}}!resb"          {{if(i==1) { }} class='current'  {{ } }}      onclick="to_big({{=it[p].id}},this)"           alt="">-->
+						<img src="{{=it[p].topicback}}"    big_src="{{=it[p].topicback}}"          {{if(i==1) { }} class='current'  {{ } }}      onclick="to_big({{=it[p].id}},this)"           alt="">
+						<span      {{if(i!=1) { }}     class="none"  {{    } }}   ></span>
+					</div>
+					
+					{{  } }}
+				</script>
+										
+				</div>
+				
+			</div>	
+			<div class="ly_motext">
+				<div  class="lsl_pos"  onclick="go_poster(this)">
+					<h2 id="wen1" class="over"></h2>
+					<p  id='wen2' class="over"></p>
+				</div>
+				<span></span>
+			</div>
+			<div class="mo_btn">
+				<span class="yc_huan" id="yinyins2di"></span>
+				<img src="../image/movie_img8.png">
+			</div>		
+		</div>
+	</div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/zepto.js"></script>	
+<script type="text/javascript" src="../script/font.js"></script>
+<script type="text/javascript" src="../script/doT.min.js"></script>
+<script type="text/javascript" src="../script/comm.js"></script>
+<script type="text/javascript" src="../script/idangerous.swiper-2.0.min.js"></script>
+<script type="text/javascript" src="../script/ly.js"></script>
+	
+<script>
+	apiready=function(){	
+		var data=api.pageParam.data;
+			$('#wen1').html(data.poster.wenan1);
+			$('#wen2').html(data.poster.wenan2);
+		$('.lsl_pos').attr('p_id',data.poster.id);
+		$('.ly_headtit').html(data.poster.title+"<span></span>");			
+		var interText = doT.template($("#bill_labels").html());					
+		$(".swiper-wrapper").html(interText(data.img));
+		var i=0;
+		for(var p in data.img){	
+			i++;				
+			if(i==1){
+				var mytext = doT.template($(".big_map").html());	
+				var str="<img  src='"+data.img[p].topicback+"'>"+mytext(data.tags[data.img[p].id]);												
+				$(".xyc_box").html(str);	
+			}
+		}		
+		var mySwiper = new Swiper('.swiper-container',{
+			    grabCursor: true,
+			    paginationClickable: true,
+			    slidesPerView : 2.5,
+			    autoplayDisableOnInteraction : false
+			})
+		$('.swiper-slide span').addClass('none');	
+		//判断是否为IOS
+		var strDM = api.systemType;
+		if (strDM == 'ios') {
+	  		$('.ly_movie .ly_headtit').css('top',20);
+	    }
+	}
+	function myback(){
+		api.execScript({
+	        frameName:'yinyin',
+	        script: 'wocalei();'
+        });
+	}
+	function  go_poster(obj){
+		var p_id=$(obj).attr('p_id');		
+        api.openWin({
+            name: 'bill_con_head_w',
+            url: 'bill_con_head_w.html',
+            reload:true,
+            vScrollBarEnabled: false,
+            pageParam:{'id':p_id}  
+		}) 
+	}	
+	function xyctap(obj){
+	var goods_id=$(obj).attr('goods_id');
+	var goods_from_url=$(obj).attr('goods_from_url');	
+	if(goods_id==0){
+		if(goods_from_url==''){
+			api.toast({
+	            msg:'暂无商品！'
+            });
+			return false;
+		}
+		api.openWin({
+	        name:'bill_con_goods_head_w',
+	        url: 'bill_con_goods_head_w.html',
+	        opaque : true,
+			reload : true,
+			vScrollBarEnabled : false,
+			pageParam : {
+				u:goods_from_url
+			}
+        });
+	}else{
+		api.openWin({
+			name : 'bill_dethead_w',
+			url :  'bill_dethead_w.html',
+			opaque : true,
+			delay : 500,
+			vScrollBarEnabled : false,
+			pageParam : {
+				count : 3,
+				goods_id:goods_id
+			}
+		});	
+	}
+}
+function to_big(res,obj){	
+		cur_index = $(obj).parent().index();
+		var sum = $('.swiper-slide').size();
+		var pingjun = s2/sum;
+		var movie_src = $(obj).attr('big_src');			
+		var mytext = doT.template($(".big_map").html());	
+		var str="<img  src='"+movie_src+"'>"+mytext(api.pageParam.data.tags[res]);							
+		$(".xyc_box").html(str);	
+		$(obj).addClass('current').parent().siblings().find('img').removeClass('current');
+		$(obj).next().removeClass('none').parent().siblings().find('span').addClass('none');
+}
+//function my_init(){
+	
+	var cur_index = '';
+	var str1 = $(".ly_now").html(),
+		str2 = $('.ly_sums').html(),
+		a = str1.split(":"),
+		b = str2.split(":"),
+		s1 = a[0]*3600+a[1]*60+a[2]*1,
+		s2 = b[0]*3600+b[1]*60+b[2]*1,
+		ly_per = (s1/s2).toFixed(2)*100+"%";
+	$('.ly_motext span').bind("click", function() {
+		$('.ly_motext p').toggleClass('over');
+	})
+	//显示进度百分比；
+	$('.ly_time p').css('width',ly_per);	
+	function lwq_addClass(id,className) {
+        var element = document.getElementById(id);
+        if(element.className == ""){
+            element.className = className;
+        }else if(element.className != null && element.className.indexOf(className) > -1) {
+        
+        } else {
+            element.className += " "+className;
+        }
+    }			
+	$('.mo_btn .yc_huan').click(function(){
+		lwq_addClass("yinyins2di", "yxaaaa");
+    	lwq_addClass("yinyins2di", "pulse1");
+        setTimeout(function() {
+			api.execScript({
+		        frameName:'yinyin',
+		        script: 'init_start();'
+	        });
+        }, 300);
+	})
+</script>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

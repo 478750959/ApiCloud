@@ -1,0 +1,201 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>Hello APP</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/common.css" />
+    <style>
+        #header{
+            background-color: #00A0E9;
+        }
+        .btn-box{
+            width: 56px;
+            height: 48px;
+            padding-top: 4px;
+        }
+        .btn-back{
+            width: 3.5em;
+            background: url(../../res/abs__ic_ab_back_holo_light.png) left center no-repeat;
+            background-size: 16px 16px;
+            padding-top: 0;
+            position: absolute;
+            left: 1em;
+            bottom: 0;
+            line-height: 48px;
+            color: #FFF;
+        }
+        .btn-box img{
+            margin: 0 auto;
+            width: 40px;
+            display: block;
+        }
+        #header .title{
+            font-size: 1.1em;
+            line-height: 48px;
+            color: #FFF;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+            display: block;
+            text-align: center;
+            width: 100%;
+        }
+        #header .header-content{
+        }
+
+        #header .ent-header{
+            height: 50px;
+            background-color: #291F23;
+            
+            position: relative;
+        }
+        .ent-tabBar{
+            height: 51px;
+            background-color: #00A0E9;
+        }
+        .ent-tabBar ul{
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-orient: horizontal;
+            -webkit-flex-flow: row;
+                flex-flow: row;
+            padding: 17px 0 12px 0;
+            background-color: #00A0E9;
+
+        }
+        .ent-tabBar ul li{
+            -webkit-box-flex: 1;
+            -webkit-flex: 1;
+            flex: 1;
+            color: #FFF;
+
+        }
+        .ent-tabBar ul li.active{
+
+        }
+        .ent-tabBar .ent-progress{
+            background-color: #00A0E9;
+            display: block;
+            height: 4px;
+            position: relative;
+            overflow: hidden;
+        }
+        .ent-progress .ent-bar{
+            background-color: #62EC0D;
+            height: 4px;
+            width: 50%;
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            -webkit-transition: all .25s ease;
+                    transition: all .25s ease;
+        }
+    </style>
+</head>
+<body>
+    <div id="wrap">
+        <div id="header">
+            <div class="header-content clearfix">
+                <div class="btn-box btn-back" tapmode="tap-active" onclick="api.closeWin({});">
+                    返回
+                </div>
+                <h5 class="title">精品应用推荐</h5>
+            </div>
+            <div class="ent-tabBar">
+                <ul>
+                    <li class="active" tapmode="tap-active" onclick="toIndex(0);">任务汇总</li>
+                    <li tapmode="tap-active" onclick="toIndex(1);">深度任务</li>
+                </ul>
+                <div class="ent-progress">
+                    <div class="ent-bar"></div>
+                </div>
+            </div>
+        </div>
+        <div id="main">
+                
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/common.js"></script>
+<script type="text/javascript">
+    var aLi = $api.domAll('.ent-tabBar li');
+    var bar = $api.dom('.ent-bar'); 
+    var toIndex = function(index){
+        api.setFrameGroupIndex({
+            index: index,
+            name: 'mission1-group',
+            scroll: true
+        });
+    };
+    var setBar = function(index){
+        bar.style.webkitTransform = 'translateX('+100*index+'%)';
+        for (var i = 0,len = aLi.length; i < len; i++) {
+            if (i == index) {
+                aLi[i].className = 'active';
+            } else{
+                aLi[i].className = '';
+            }  
+        };
+    };
+    apiready = function(){
+
+        var header = $api.byId('header');
+        $api.fixIos7Bar(header); 
+        window.headerPos = $api.offset(header);
+        var main = $api.byId('main');
+        window.mainPos = $api.offset(main);
+        // alert(mainPos.h);
+        if (true) {
+            api.openFrameGroup({
+                name: 'mission1-group',
+                background: '#EBE8E81',
+                scrollEnabled: true,
+                rect: {
+                    x: 0,
+                    y: headerPos.h,
+                    w: 'auto',
+                    h: mainPos.h
+                },
+                index: 0,
+                frames:
+                [{
+                    name: 'mission1-frame1', 
+                    url: './mission1-frame1.html', 
+                    pageParam:{}, 
+                    bounces: false, 
+                    opaque: true,
+                    bgColor: '#EBE8E8'
+                },{
+                    name: 'mission1-frame2', 
+                    url: './mission1-frame2.html', 
+                    pageParam:{}, 
+                    bounces: false, 
+                    opaque: true,
+                    bgColor: '#EBE8E8'
+                }]
+            }, function(ret, err){
+                var name = ret.name;
+                var index = ret.index;
+                setBar(index);
+            });
+        } else{
+            // api.openFrame({
+            //     name: 'webframe',
+            //     url: curUrl,
+            //     bounces: false,
+            //     rect: {
+            //         x: 0,
+            //         y: headerPos.h,
+            //         w: 'auto',
+            //         h: mainPos.h
+            //     }
+            // });  
+        }
+        
+    };
+</script>
+</html>

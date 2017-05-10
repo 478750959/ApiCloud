@@ -1,0 +1,636 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+     <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+     <link rel="stylesheet" href="../css/api.css">
+     <link rel="stylesheet" href="../css/common.css">
+     <script src="../script/swipe.js"></script>
+
+    <title>车主首页</title>
+    <style>
+
+     #wrap{
+      background: #F0F0F0;
+     }
+    .headerleft{
+     float: left;
+     padding-top: 5px;
+     padding-left:5px;
+
+    }
+    .headerright{
+     float: right;
+     line-height: 44px;
+     font-weight: bold;
+     margin-right: 5px;
+
+    }
+    .center{
+        line-height: 44px;
+     font-weight: bold;
+     margin-right: 5px;
+     text-align: center;
+
+
+    }
+    .center img{
+        display: inline-block;
+        position: relative;
+        right: 4px;
+        top: 2px;
+        margin-right: -10px;
+        padding-left:10px;
+    }
+
+    .center span{
+     
+     }
+
+        /*轮播*/
+    .wrap{
+      overflow: hidden;
+      visibility: hidden;
+      position: relative;
+      width: 100%;
+      height: 150px;
+    }
+    .wrap .inline-float{
+      overflow: hidden;
+      position: relative;
+    }
+    .wrap .inline-float li {
+      float: left;
+      width: 100%;
+      height: 150px;
+      position: relative;
+      text-align: center;
+      background-repeat:no-repeat;
+      background-size: 100% 100%;
+      background-color:#f5f5f5;
+    }
+    .slide-bullet{
+      position: absolute;
+      z-index:99;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      text-align: center;
+    }
+    .slide-bullet .icon-bullet{
+      font-style:normal;
+      font-size:0;
+      background-color: #ddd;
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 5px;
+      margin: 2px;
+    }
+    .slide-bullet .icon-bullet.active{
+      background-color: #fff;
+    }
+
+     #summary{
+     width:100%;
+    }
+
+    .summary ul{
+        height: 55px;
+        width:100%;
+        line-height: 1.5;
+        background: white;
+        padding-bottom: 25px;
+        border-bottom: 1px solid #c6c6c6;
+
+       }
+        .summary li{
+          display: inline-block;
+         float: left;
+         width: 33%;
+         margin-top:5px;
+         height: 45px;
+
+        }
+        .row{
+           display: block;
+          
+           text-align: center;
+           margin: 0px;
+           padding:0px;
+           position: relative;
+           top:50px;
+      
+          }
+      
+        .order{
+            background: url(../image/icon_order_home.png) no-repeat center top ;
+          
+        
+        }
+        .pingjia{background: url(../image/icon_evaluation_home.png) no-repeat center top ;}
+        .notice{
+background: url(../image/icon_messages.png) no-repeat center top ;
+        }
+
+        .detail ul{
+
+        height: 55px;
+        line-height: 1.5;
+        background: white;
+        margin: 10px auto;
+        border-top:1px solid #c6c6c6;
+        border-bottom:1px solid #c6c6c6;
+        margin-top:20px;
+
+       }
+
+       .detail li{
+        height: 50px;
+        line-height: 50px;
+        font-weight: normal;
+        z-index: 0;
+        position: relative;
+        padding-left: 15px;
+
+       }
+        .detail li span.arrow{
+        width: 14px;
+        height: 14px;
+        background:url(../image/wallet_base_indicator_arrow.png) no-repeat center center !important;
+        z-index: 100 !important;
+        position: absolute;
+        top:18px;
+        right: 5px;
+
+        
+      }
+
+      #req{
+        background: white;
+
+        height: 40px;
+        /*margin: 10px auto;*/
+        border-top:2px solid #c6c6c6;
+        border-bottom:2px solid #c6c6c6;
+        padding-left: 10px;
+        line-height: 25px;
+        padding-top: 5px;
+        margin-top:15px;
+      }
+       #newreq{
+     
+        text-align: left;
+        height: auto;
+
+       }
+
+       #newreq li{
+        height: 50px;
+        background: white;
+        line-height: 35px;
+        padding-top: 5px;
+        }
+
+       span.right-con{
+            display: block;
+           
+           float: left;
+            
+          }
+        /*#newreq li .right-con p{
+          position: relative;
+          margin-left: -65%;
+        } */ 
+      .newreq-left{
+        float: left;
+        margin-left: 10px;
+        font-weight: normal;
+        width: 10%;
+
+      }
+
+      .newreq-left img{
+        border-radius: 50%;
+      }
+
+       .hornor{
+         color: red;
+         border:1px solid red;
+         position: absolute;
+         right: 70px;
+         height: 24px;
+         width: auto;
+         /*text-align: center;*/
+         line-height: 24px;
+         padding-top: 5px;
+         padding-left: 5px;
+         padding-right:  5px;
+
+       }
+      .newreq-right{
+        float: left;
+       /* margin-left: 5px;*/
+        width: 80%;
+        padding-left: 5px;
+
+      }
+      .newreq-right-r{
+
+        /*float: right;*/
+        position: absolute;
+        right: 10px;
+        color: red;
+      }
+
+      .newreq-right img{
+         display: inline-block;
+         float: left;
+        /* height: 40%;*/
+         top: 10px;
+         /*margin-left: */
+
+        }
+      .sett{
+        background: url(../image/ic_push_setting.png) no-repeat left;
+        padding-left:40px;
+        background-size: 40px 40px;
+        font-weight: normal;
+        line-height: 40px;
+      }
+      .gr{
+        font-weight: normal;
+        color: gray;
+        margin-left: 10px;
+      }
+      /*#footer{
+            display: -webkit-box;
+		    display: -webkit-flex;
+		    display: flex;
+		    font-size: 1.5em;
+		    
+       }
+        #footer span{
+        -webkit-box-flex: 1; 
+	    -webkit-flex: 1;
+	    flex: 1;
+	    text-align: center;
+	    width: 50%;
+        }*/
+        #footer span{
+		       text-align:center;
+		       width: 49%;
+		       font-size: 1.5em;
+   
+        }
+         #footer span:first-child{
+         border-right:1px solid #C6C6C6;
+         }
+         .none{
+          display: none;
+         }
+         
+         #pub{
+          background:white;
+          margin-top:20px;
+          padding-top: 10px;
+          padding-bottom:10px;
+         }
+         #pub p{
+          padding-left:15px;
+          padding-top: 5px;
+          padding-bottom:10px;
+          border-bottom: 1px solid #CCCCCC;
+          font-size:1.5em;
+         }
+         #pub span{
+          text-align:center;
+          color:gray;
+          padding-top: 10px;
+          padding-bottom:10px;
+          width:70%;
+          margin:0 auto;
+          display:block;
+           font-size:1.2em;
+           line-height: 1.2em;
+         }
+         #pub button{
+           display:block;
+           border:1px solid red;
+           padding:5px 20px;
+
+           width:40%;   
+           margin:10px auto;  
+           font-size:1.5em;     
+           
+         }
+    </style>
+</head>
+<body>
+    <div id="wrap">
+        <div id="header">
+            <span class="headerleft" tapmode="" onclick="Opentab(0)">
+                <img src="../image/icon_profile_nor.png" alt="头像" width="32px" height="32px"/>
+            </span>
+            <span class="center">
+            <!-- <img src="../image/wordlogo_welcome.png" alt="" width="80px" height="22px"/> -->
+               <span>车主版</span>
+                <img src="../image/default_ptr_rotate.png" alt="切换到乘客版" width="16px" height="16px" tapmode="" onclick="changetopassenger()"/>
+            </span>
+            <span class="headerright" tapmode="" onclick="Opentab(1)">
+              <h1>北京 </h1>
+            </span>
+        </div>
+        <div id="main">
+        <div class="wrap" id="swipeSlide">
+          <ul class="inline-float">
+                <li style="background-image:url(../image/chezhuban01.png)"></li>
+                <li style="background-image:url(../image/order_boot_ad2.png)"></li>
+                 <li style="background-image:url(../image/order_boot_ad1.png)"></li>
+                <li style="background-image:url(../image/order_boot_ad2.png)"></li>
+                
+          </ul>
+                  <p class="slide-bullet">
+                  <i class="icon-bullet active"></i>
+                  <i class="icon-bullet"></i>
+                  <i class="icon-bullet"></i>
+                  <i class="icon-bullet"></i>
+                  </p>
+        </div>
+        
+        <div id="summary" class="summary">
+                <ul>
+                  <li class="order" tapmode="" onclick="openorder()">
+
+                     <span class="row">我的订单</span>
+                    
+                  </li>
+                  <li class="pingjia" tapmode="" onclick="openpingjia()">
+                    <span class="row">乘客评价</span>
+                     
+                  </li>
+
+                  <li class="notice" tapmode="" onclick="openmessage()">
+                    <span class="row">我的消息</span>
+                    
+                  </li>
+                </ul>
+
+         </div>
+         <div id="pub">
+          <p>新用车请求</p>           
+             <span>由于您尚未发布上下班线路，我们无法向您发送用车请求</span>
+             <div>
+                <button onclick="pubinfo()" tapmode>发布线路</button>
+             </div>
+         </div>
+          <div id="detail" class="detail">
+               <ul>
+                 <li tapmode="" onclick="nearreq()">附近用车需求<span class="arrow"></span></li>
+                 
+               </ul>
+         </div>
+
+         <div id="req">
+             <span class="headerleft">新用车请求</span>
+               <span class="headerright sett" tapmode="" onclick="toset()">设置</span>
+         </div> 
+         
+         <div id="newreq">
+           <ul>
+             <li tapmode="" onclick="jump(this)">
+               <div class="newreq-left">
+                  <img src="../image/co-19.jpg" alt="头像" width="32px" height="32px"/>
+               </div>
+               <div class="newreq-right">
+                 <p>明天（周三)08:00
+                 <span class="hornor">奖励12元</span>
+                 <span class="newreq-right-r">￥28</span></p>
+                  <img src="../image/icon_order_se.png" alt="" />
+                 <span class="right-con">
+                   
+                   <p>
+                     双榆树北里9号楼<span class="gr">双榆树</span>
+                   </p>  
+                   <p>
+                     软件园南站公交车站<span class="gr">上地</span>
+                   </p>
+                   
+                 </span>                
+               </div>
+             </li>
+
+              <li tapmode="" onclick="jump(this)">
+               <div class="newreq-left">
+                  <img src="../image/co-19.jpg" alt="头像" width="32px" height="32px"/>
+               </div>
+               <div class="newreq-right">
+                 <p>明天（周三)08:00<span class="newreq-right-r">￥28</span></p>
+                  <img src="../image/icon_order_se.png" alt="" />
+                 <span class="right-con">
+                   
+                   <p>
+                     双榆树北里9号楼<span class="gr">双榆树</span>
+                   </p>  
+                   <p>
+                     软件园南站公交车站<span class="gr">上地</span>
+                   </p>
+                   
+                 </span>                
+               </div>
+             </li>
+             <li tapmode="" onclick="jump(this)">
+               <div class="newreq-left">
+                  <img src="../image/co-19.jpg" alt="头像" width="32px" height="32px"/>
+               </div>
+               <div class="newreq-right">
+                 <p>明天（周三)08:00<span class="newreq-right-r">￥28</span></p>
+                  <img src="../image/icon_order_se.png" alt="" />
+                 <span class="right-con">
+                   
+                   <p>
+                     双榆树北里9号楼<span class="gr">双榆树</span>
+                   </p>  
+                   <p>
+                     软件园南站公交车站<span class="gr">上地</span>
+                   </p>
+                   
+                 </span>                
+               </div>
+             </li>
+             <li tapmode="" onclick="jump(this)">
+               <div class="newreq-left">
+                  <img src="../image/co-19.jpg" alt="头像" width="32px" height="32px"/>
+               </div>
+               <div class="newreq-right">
+                 <p>明天（周三)08:00<span class="newreq-right-r">￥28</span></p>
+                  <img src="../image/icon_order_se.png" alt="" />
+                 <span class="right-con">
+                   
+                   <p>
+                     双榆树北里9号楼<span class="gr">双榆树</span>
+                   </p>  
+                   <p>
+                     软件园南站公交车站<span class="gr">上地</span>
+                   </p>
+                   
+                 </span>                
+               </div>
+             </li>
+           </ul>
+         </div>
+　　　　</div>
+        <!-- end main -->
+      <div id="footer">
+           <span onclick="logreg(0)" tapmode>登录</span><span onclick="logreg(1)" tapmode>注册</span>
+        </div>
+    </div>
+<script type="text/javascript" src="../script/api.js"></script>
+<script>
+window.addEventListener('DOMContentLoaded', function(){ 
+  var $slide = document.getElementById('swipeSlide'),
+      aBullet = $slide.querySelectorAll('.icon-bullet');
+     // len = aBullet.length;
+  
+ var mySwipe = new Swipe($slide,{
+    auto: 3000,
+    callback: function(i){
+        len = aBullet.length;
+  
+      while(len--) {
+        
+        aBullet[len].classList.remove('active');
+        // }
+      }
+      aBullet[i].classList.add('active');
+    }
+  });
+});
+function Opentab(index){
+    var url = '';
+    var name = '';
+	 switch(index){
+	   case 0:
+	   url ='usercenter.html';
+	   name = 'usercenter';
+	   break;
+	   case 1:
+	   url ='citylist.html';
+	   name = 'citylist';
+	   break;	 
+	 }
+	 api.openWin({
+	     name: name,
+	     url: url
+     });
+}
+function jump(item){
+  api.openWin({
+	  name: 'newycreq',
+	  url: 'newycreq.html',
+	  bounces:false
+  });
+}
+function nearreq(){
+ api.openWin({
+	  name: 'nearycreq',
+	  url: 'nearycreq.html'
+  });
+}
+function openorder(){
+  api.openWin({
+	  name: 'order',
+	  url: 'order.html'
+  });
+}
+function openpingjia(){
+	api.openWin({
+		  name: 'reviews',
+		  url: 'reviews.html'
+	  });
+}
+function openmessage(){
+api.openWin({
+	  name: 'message',
+	  url: 'message.html'
+  });
+}
+function changetopassenger(){
+//api.openWin({
+//	     name: 'passenger',
+//	     url: 'passenger.html',
+//	     animation:{
+//	        type:"cube",
+//	        subType:"from_left",
+//	        duration:1000
+//	     }
+//   });
+    api.closeWin({
+    });
+
+}
+function toset(){
+	api.openWin({
+		  name: 'newycnotice',
+		  url: 'newycnotice.html'
+	  });
+
+}
+apiready = function () {
+   $api.setStorage('role','1');
+   logined();
+   
+ }
+ function logreg(index){
+  switch(index){
+     case 0:
+      api.openWin({name: 'login',url: 'login.html'});
+      break;
+      case 1:
+        api.openWin({name: 'reg', url: 'reg.html'});
+      break;
+    }
+ }
+ function logined(){ 
+   if (!$api.getStorage('login')){
+       var summary = $api.byId('summary');
+       $api.addCls(summary, 'none');
+       var detail = $api.byId('detail');
+       $api.addCls(detail, 'none');
+       var req = $api.byId('req');
+       $api.addCls(req, 'none');
+       var newreq = $api.byId('newreq');
+       $api.addCls(newreq, 'none');
+       
+        var footer = $api.byId('footer');
+       $api.removeCls(footer, 'none');
+       var pub = $api.byId('pub');
+       $api.removeCls(pub, 'none');
+       
+       
+   }else {
+       var summary = $api.byId('summary');
+       $api.removeCls(summary, 'none');
+       var detail = $api.byId('detail');
+       $api.removeCls(detail, 'none');
+       var req = $api.byId('req');
+       $api.removeCls(req, 'none');
+       var newreq = $api.byId('newreq');
+       $api.removeCls(newreq, 'none');
+       
+        var footer = $api.byId('footer');
+       $api.addCls(footer, 'none');
+        var pub = $api.byId('pub');
+       $api.addCls(pub, 'none');   
+   }
+ }
+ 
+ function pubinfo(){
+   api.openWin({
+	   name: 'route',
+	   url: 'route.html'
+   });
+ }
+</script>
+</body>
+</html>

@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+     <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+     <link rel="stylesheet" href="../css/api.css">
+     <link rel="stylesheet" href="../css/common.css">
+    <title>实名认证</title>
+    <style>
+       #header span{
+
+        height: 44px;
+        line-height: 44px;
+
+       }
+
+       /*.head-left{
+         float: left;
+         margin-left:10px;
+        font-size: 11pt;
+
+       }*/
+       .head-left{
+        float: left;
+        margin-left:10px;
+       font-size: 11pt;
+       background: url(../image/wallet_base_action_bar_back_normal.png) no-repeat;
+       background-position: left center;
+       background-size: 30% 30%;
+       margin-left: -2px;
+       }
+
+       .head-left p{
+        margin-left: 25px;
+       }
+
+       .head-right{
+
+         float: right;
+        margin-right: 5px;
+        font-size: 15pt;
+
+       }
+       #main{
+            background: #E6E6E6;
+            margin: 0;
+            padding: 0;
+
+       }
+       #intro{
+        padding: 15px;
+        text-align: center;
+        line-height: 1.5;
+        background: rgba(255,255,255,1);
+        border-bottom: 1px solid #ccc;
+
+       }
+       #info,#notice,#helper{
+        
+        width: 80%;
+        margin:10px auto;
+
+       } 
+
+       #notice{
+        clear:both;
+        font-size: 12px;
+        line-height: 1.5;
+        color: gray;
+        padding-top:10px;
+       }
+
+      #helper{
+         font-size: 9px;
+         line-height: 1.5;
+         color: gray;
+         text-align: center;
+         position: absolute;
+         left:10%;
+         bottom: 75px;
+
+       }
+       .flag-v{
+         margin-bottom: 10px;
+       }
+
+       .flag-v p::after{
+         content: url(../image/flag_v.png) ;
+         
+         width: 5px          !important;
+         height: 5px;
+         clear: both;
+         display: inline-block;
+       }
+       #tel{
+
+         width: 100%;
+       }
+
+       #telcode{
+
+         width: 100%;
+         margin: 0;
+
+       }
+       #btncode{
+         
+         width: 100%;    
+         height: 32px;
+        
+         background-color: #E33801;
+         color: white;
+
+
+       }
+       .tel{
+          margin-bottom: 10px;
+          margin-top: 15px;        
+          background:white;
+          height: 32px;
+         
+
+       }
+      
+       button {
+        color:blue;
+
+       }
+    </style>
+</head>
+<body>
+    <div id="wrap">
+        <div id="header">
+            <span class="head-left" tapmode onclick="goback()"><p>实名认证</p></span>
+            
+        </div>
+        <div id="main">
+            <div id="notice">
+              <span class="flag-v"><p>实名认证将更好的保障您和另一方的安全，提交后你将获得实名认证的标记</p></span>
+              <p>身份证件信息查询已与公安机关联网，请务必保证真实性，一旦提交
+成功将不得修改，我们将会对您提交的信息严格保密。</p>
+            </div>
+             <div id="info">
+                <input type="tel" class="tel" id="tel" placeholder="身份证号码"/>
+                <input type="password" class="tel" id="telcode" placeholder="与身份证一致的姓名"/>
+                <input type="button" class="tel" id="btncode" value="提交" />
+                
+             </div>
+
+             <div id="helper">
+               <p>如无法正常认证，请关注微信公众号woyaoyc,<br/>发送手机号+证件照，完成认证</p>
+             </div>
+        </div>
+
+    </div>
+    <script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>  
+</body>
+</html>

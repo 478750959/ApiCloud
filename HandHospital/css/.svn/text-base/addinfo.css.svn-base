@@ -1,0 +1,148 @@
+#wrap {
+	height: 100%;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-orient: vertical;
+	-webkit-flex-flow: column;
+	flex-flow: column;
+}
+#main {
+	-webkit-box-flex: 1;
+	-webkit-flex: 1;
+	flex: 1;
+	padding: 14px;
+}
+#save {
+	width: 100%;
+	height: 40px;
+	margin-top: 70px;
+}
+
+.button {
+
+	display: inline-block;
+	zoom: 1;
+	*display: inline;
+	vertical-align: baseline;
+	outline: none;
+	cursor: pointer;
+	text-align: center;
+	text-decoration: none;
+	font: 20px Arial, Helvetica, sans-serif;
+	text-shadow: 0 1px 1px rgba(0,0,0,.3);
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	-webkit-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+	-moz-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+	box-shadow: 0 1px 2px rgba(0,0,0,.2);
+}
+.button:hover {
+	text-decoration: none;
+}
+.button:active {
+	position: relative;
+	top: 1px;
+}
+.blue {font-family："微软雅黑"；
+	font-size: 20px;
+	color: #FFF;
+	background: #3795f2;
+}
+.blue:active {
+	background: #007ead;
+}
+.name, .sex, .phonenub, .infonub, .cardnub {
+	height: 50px;margin-left：14px;
+	margin-top: 20px;
+	width: 100%;
+	position: relative;
+	text-align: center;
+}
+.myname, .myphone, .myinfonub, .mycardnub {
+	margin-left: 45px;
+	border: none;
+	height: 50px;
+	font-size: 16px;
+	line-height: 20px;
+	-webkit-box-flex: 1;
+	-webkit-flex: 1;
+	flex: 1;
+	width: 70%;
+}
+.title {
+	font-size: 14px;
+	display: inline-block;
+	width: 24%;
+	height: 50px;
+	line-height: 50px;
+	-webkit-background-size: 24px;
+	background-size: 24px;
+	position: absolute;
+	left: 2px;
+	color: #b6b6b6;
+}
+.input {
+	display: inline-block;
+	zoom: 1; /* zoom and *display = ie7 hack for display:inline-block */
+	*display: inline;
+	vertical-align: baseline;
+	outline: none;
+	cursor: pointer;
+	text-decoration: none;
+	font: 16px Arial, Helvetica, sans-serif;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	border: solid 1px #CCC;
+}
+.more {
+	display: inline-block;
+	position: absolute;
+	bottom: 2px;
+	right: 10px;
+	height: 40px;
+	width: 40px;
+	background: url(../image/addinfo_more.png) no-repeat center center;
+	-webkit-background-size: 40px;
+	background-size: 40px;
+}
+
+.radiochecked{
+	background: url(../image/radio_1.png) no-repeat center center;
+}
+
+.radionocheck{
+	background: url(../image/radio_2.png) no-repeat center center;
+}
+
+
+.radiospan {
+	height: 20px;
+	width: 40px;
+	margin-top: 13px;
+	-webkit-background-size: 20px;
+	background-size: 20px;
+}
+
+.NAN {
+	font-size: 14px;
+	display: inline-block;
+	width: 40px;
+	height: 40px;
+	line-height: 40px;
+	-webkit-background-size: 40px;
+	background-size: 40px;
+	color: #b6b6b6;
+}
+.NV {
+	font-size: 14px;
+	display: inline-block;
+	width: 40px;
+	height: 40px;
+	line-height: 40px;
+	-webkit-background-size: 40px;
+	background-size: 40px;
+	color: #b6b6b6;
+}

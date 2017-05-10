@@ -1,0 +1,209 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>我的订单</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+   <!-- <link rel="stylesheet" type="text/css" href="../css/common.css"/>-->
+    <link rel="stylesheet" type="text/css" href="../css/ly.css"/>
+</head>
+<body style="background: #fff;">
+<div id="wrap">
+    <div id="main">
+		<div class="dd_all ly_pingj">			
+			<div class="dd_box pingl">
+				<a href="javascript:void(0);">
+					<dl class="fix">
+						<dt class="lt">
+							<p><img  id='goods_pic'   alt=""/></p>
+						</dt>
+						<dd class="rt fix">		
+							<p class="text lt"  id='goods'></p>					
+							<div class="rt">
+								<p>
+									<span>¥</span>
+									<span class="num">123</span>
+								</p>
+							</div>							
+						</dd>
+					</dl>				
+				</a>
+				<p class="xin fix">
+					<span>相符描述</span>
+					<b></b>
+					<b></b>
+					<b></b>
+					<b></b>
+					<b></b>
+				</p>			
+			</div>
+		</div>
+		<div class="wrapper pj_cont fix">
+			<textarea   name='content'></textarea>
+			<p>
+				<span onclick = "openthis('mi_dd_pingjia_photo_f')"></span>
+			</p>
+		</div>
+		<div class="ly_photo fix">								
+		</div>
+    </div>    
+</div>	
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/font.js"></script>
+<script type="text/javascript" src="../script/comm.js"></script>
+<script type="text/javascript" src="../script/zepto.js"></script>
+<script>
+apiready=function(){
+//	api.closeFrame({name:'mi_dd_details_mark_f'});	 
+	api.addEventListener({
+	    name:'get_pic'
+    },function(ret,err){
+    	var  pic=ret.value.url;
+    	var info=is_login();
+    	upload_img('order/upload_img',{'img':pic},info,function(ret,err){
+    		if(err){
+    			api.toast({
+	                msg:err.msg
+                });
+                return false;
+    		}
+    		if(ret.status){
+    			$('.ly_photo').append("<p><img  src='"+ret.info+"'   class='my_pic'/><span onclick='closeimg(this)'></span></p>");    		
+	    		api.closeFrame({
+		            name: 'mi_dd_pingjia_photo_f'
+	            });
+    		}else{
+    			if(ret.info=='no_login'){
+    				to_login();
+    				return false;
+    			}
+    			api.toast({
+    				msg:ret.info
+    			});
+    		}  		
+    	});
+    });
+	var data=api.pageParam.data;
+	$('#goods').html(data.goods_name+data.goods_attribute);
+	$('#goods_pic').attr('src',data.goods_logo);
+	$('.num').html(data.shop_price);
+		//几心好评
+	$('.xin b').bind("touchstart", function() {
+		var i = $(this).index();
+		$('.xin b').removeClass('current');
+		for(var j=0;j<i;j++) {
+			$('.xin b').eq(j).addClass('current');
+		}
+	})
+}
+	function closeimg(ooo){
+		$(ooo).parent().remove();
+	}
+	function openthis(xyc) {
+		if($('.my_pic').length>=5){
+			api.toast({
+	            msg:'您最多上传五张！'
+            });
+            return false;
+		}
+			var width = api.winWidth;
+			var height = api.winHeight;
+			api.openFrame({
+				name : xyc,
+				url : xyc + '.html',
+			 	bounces : false,
+				opaque : false,
+				vScrollBarEnabled : false,
+				rect : { x : 0,
+					y : 0,
+					w : width,
+					h : height
+					}
+					});
+	}
+//	mi_dd_head_w页面点击评价按钮函数
+	function pj(is_null) {
+		var is_ok=true;
+		var param = {};
+		param.goods_id = api.pageParam.data.goods_id;
+		param.goods_info_id = api.pageParam.data.id;
+		param.OrderNo = api.pageParam.data.OrderNo;
+		param.goods_attr_id = api.pageParam.data.goods_attr_id;
+		param.is_null = is_null;
+		param.content = $.trim($('textarea[name=content]').val());
+		param.star = $('.xin').children('b[class=current]').length;
+		if (param.star == 0) {
+			api.toast({
+				msg : '请选择相符描述！！'
+			});
+			return false;
+		}
+		if (param.content == '') {
+			api.toast({
+				msg : '请填写评价内容！'
+			});
+			return false;
+		}
+		var img = '';
+		$.each($('.my_pic'), function(k, v) {
+			if ($(v).attr('src') != '') {
+				img += $(v).attr('src') + ',';
+			}
+		});
+		param.img = img;
+		var info=is_login();
+		if(!info){
+			to_login();
+			return false;
+		}
+		for(var p in info){
+			param[p]=info[p];
+		}	
+		if(is_ok=true){
+			is_ok=false;			
+			ajaxRequest('order/comment', 'post', param, function(ret, err) {
+			if (err) {
+				api.toast({
+					msg : err.msg
+				});
+				return false;
+			}
+			if (ret.status) {									
+					if(ret.info=='not_all'){
+						//mi_dd4_f的监听
+						api.sendEvent({
+							name:'flush_pj'
+						});
+					}	
+					api.openWin({
+						name : 'mi_dd_suc_f',
+						url:'mi_dd_suc_f.html',
+						opaque: true,							        
+				        reload:true,
+				        pageParam:{from:api.pageParam.from,is_all:ret.info},
+				        vScrollBarEnabled: false
+					});	
+//					is_ok=true;							
+			} else {
+				if(ret.status=='no_login'){
+					to_login();
+					return false;
+				}
+				if(ret.info=='ok'){
+					return false;
+				}
+				api.toast({
+					msg : ret.info
+				});
+			}
+		});
+		}	
+	}
+</script>
+</html>
+
+
+
+

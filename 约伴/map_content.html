@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+  <head>
+    <title>
+    </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="css/ui-base.css">
+    <link rel="stylesheet" href="css/ui-box.css">
+    <link rel="stylesheet" href="css/ui-color.css">
+	<link rel="stylesheet" href="css/style.css">
+    <script src="js/y_control.js"></script>
+    <script src="js/y_click.js"></script>
+	<script src="js/dis_control.js"></script>
+    <script>
+	</script>
+  </head>
+<body class="um-vp" ontouchstart>
+	<div id="map" style="height:100%; width:100%;"></div>
+</body>
+<script>
+zy_init();
+var params = getStorJson('params');
+window.uexOnload=function(type)
+{
+	/*if(!type){
+		uexWindow.setBounce("1");
+		uexWindow.showBounceView("0","#FFF","0");
+		uexWindow.showBounceView("1","#FFF","0");
+	}
+	uexWindow.toast('1','5','地图加载中...',"");
+	loadScript();*/
+    mapOpen();
+}
+function loadScript() {
+  var script = document.createElement("script");
+  script.src = "http://api.map.baidu.com/api?v=1.2&callback=loadmap";
+  document.body.appendChild(script);
+}
+function loadmap(){
+	var lat = params.lat;
+	var lng = params.log;
+
+	var map = new BMap.Map("map");          // 创建地图实例
+
+	var opts = {type: BMAP_NAVIGATION_CONTROL_LARGE };  
+	map.addControl(new BMap.NavigationControl(opts)); 
+	//map.addControl(new BMap.MapTypeControl());  
+	var point = new BMap.Point(lng,lat);  // 创建点坐标
+	//map.setCurrentCity("北京");
+	map.centerAndZoom(point, 15); 
+	var marker = new BMap.Marker(point);        // 创建标注  
+	map.addOverlay(marker); 
+
+	uexWindow.closeToast();
+}
+//此处使用会和列表的map重叠，全局可能只有一个baidumap
+function mapOpen(){
+    bMap = api.require('baiduMap');
+    var y = api.pageParam.headerH;
+    var h = int(api.frameHeight);
+    //打开地图
+    bMap.open({
+        x: 0,
+        y: y,
+        w: api.frameWidth,
+        h: h,
+        fixed: false,
+        fixedOn: api.frameName
+    },function(ret,err){
+        if(ret){
+            searchNearBy();
+        }else{
+            // alert(JSON.stringify(err));
+        }
+    });
+}
+//直接将第一页的带地理位置的约会在地图上显示
+function searchNearBy(){
+    bMap.showUserLocation({
+        isShow:true,
+        trackingMode:'none'
+    });
+
+    //定位
+    bMap.startLocation({
+        accuracy: '100m',
+        filter:1,
+        autoStop: true
+    },function(ret, err){
+        if(ret){
+            // alert(JSON.stringify(ret));
+            var sta = ret.status;
+            var lat = ret.lat;
+            var lon = ret.lon;
+            var t = ret.timestamp;
+
+            setTimeout(function(){
+                bMap.setZoomLevel({
+                    level: 16
+                });
+            },100);
+
+            //定位中心
+            bMap.setCenter({
+                lon: lon,
+                lat: lat
+            });
+
+        }else{
+            // alert(JSON.stringify(err));
+        }
+    });
+
+}
+</script>
+</html>

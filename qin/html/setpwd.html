@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+     <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+     <link rel="stylesheet" href="../css/api.css">
+     <link rel="stylesheet" href="../css/common.css">
+    <title>设置密码</title>
+    <style>
+       #header span{
+
+        height: 44px;
+        line-height: 44px;
+
+       }
+
+       /*.head-left{
+         float: left;
+         margin-left:10px;
+        font-size: 11pt;
+
+       }*/
+        .head-left{
+        float: left;
+        margin-left:10px;
+       font-size: 11pt;
+       background: url(../image/wallet_base_action_bar_back_normal.png) no-repeat;
+       background-position: left center;
+       background-size: 30% 30%;
+       margin-left: -5px;
+       }
+
+       .head-left p{
+        margin-left: 20px;
+        margin-top:1px;
+       }
+
+       .head-right{
+
+         float: right;
+        margin-right: 5px;
+        font-size: 15pt;
+
+       }
+       #main{
+            background: #E6E6E6;
+            margin: 0;
+            padding: 0;
+
+       }
+       
+       #info{
+         clear:left;
+        width: 80%;
+        margin:10px auto;
+
+       } 
+       #tel{
+
+         width: 100%;
+       }
+
+       #telcode{
+
+         width: 100%;
+         margin: 0;
+
+       }
+       #btncode{
+         
+         width: 100%;    
+         height: 32px;
+        
+         background: #585858;
+         color: white;
+
+
+       }
+       .tel{
+          margin-bottom: 10px;
+          margin-top: 15px;        
+          background:white;
+          height: 32px;
+
+       }
+      
+       button {
+        color:blue;
+
+       }
+    </style>
+</head>
+<body>
+    <div id="wrap">
+        <div id="header">
+            <span class="head-left" tapmode onclick="goback()"><p>设置密码</p></span>
+            <span class="head-right" onclick="finish()" tapmode>完成</span>
+        </div>
+        <div id="main">
+            
+             <div id="info">
+                <input type="password" class="tel" id="tel" placeholder="设置长度不少于6位的密码"/>
+                <input type="password" class="tel" id="telcode" placeholder="再次输入密码"/>
+                
+             </div>
+
+             
+        </div>
+
+    </div>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>  
+<script type="text/javascript">
+function finish(){
+
+  var tel = $api.getStorage('phone');
+  var pwd = $api.byId('tel').value;
+  var pwd2 = $api.byId('telcode').value;
+  if (pwd !== pwd2) {
+        api.toast({
+	        msg:'两次密码不一致',
+	        location:'top'
+        });
+        return;
+    }
+   	var user = api.require('user');
+		user.register({
+		    username: tel,
+		    password:pwd,
+		    email:'281969919@qq.com'
+		}, function(ret, err) {
+		    if (ret) {
+		        //do something
+		        api.openWin({
+		          name: 'login',
+		          url: 'login.html'
+	          });        
+		    }else{
+		          api.toast({
+			                    msg: err.msg
+			               });
+		    }
+		});
+}
+</script>     
+</body>
+</html>

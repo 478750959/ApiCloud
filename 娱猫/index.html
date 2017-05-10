@@ -1,0 +1,653 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>底部导航</title>
+    <link rel="stylesheet" type="text/css" href="css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="css/common.css"/>
+    <link rel="stylesheet" type="text/css" href="css/xyc.css"/>   
+</head>
+<body>
+<div id="wrap">
+    <header id='header'>
+        <div id="bill_f" class="topbar activebar">
+			
+        </div>
+        <div id="stroll_f" class="topbar miHeader">
+			<!--<div class="miHeader">  
+
+				<form class="gg-seach">
+
+					 <div class="gg-seach-in">
+
+					 	<input  type="text" class="gg-sea"  id=""/>
+
+					 </div>
+
+				     <div class="gg-seach-but">
+
+				     	 <span></span>
+
+				     </div>                       
+
+				</form>
+
+            </div>-->
+			逛逛
+        </div>
+        <div id="yinmai_f" class="topbar">
+
+        </div>
+        <div id="xinshui_f" class="topbar miHeader">
+        	心水
+        </div>
+        <div id='mi_f' class="topbar  miHeader">
+        	<a class='head_icon index_set' onclick = "openNext('mi_sethead_w',1)"></a>我
+        </div>
+    </header>
+    <div id="main">
+
+    </div>
+    <div id="footer">
+        <ul>
+            <li class="active">
+                <a class="bottom_btn bill_f" tapmode="active" onclick="openTab('bill_f','bill_f')"></a>
+            </li>
+            <li>
+                <a class="bottom_btn stroll_f" tapmode="active" onclick="openTab('stroll_f','stroll_f')"></a>
+            </li>
+            <li>
+                <a id="ball" class="bottom_btn yinmai_f" tapmode="active"></a>
+            </li>
+            <li>
+                <a class="bottom_btn xinshui_f" tapmode="active" onclick="openTab('xinshui_f','xinshui_f')"></a>
+            </li>
+            <li>
+                <a class="bottom_btn mi_f" tapmode="active" onclick="openTab('mi_f','mi_f')"></a>
+            </li>
+        </ul>
+        <div class='footer_xian1 footer_xian'></div>
+        <div class='footer_xian2 footer_xian'></div>
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="./script/api.js"></script>
+<script type="text/javascript" src="./script/comm.js"></script>
+<script type="text/javascript" src="./script/font.js"></script>
+<script>
+//previous page id, current page id
+var prevPid = '', curPid = '';
+//save opened frame name
+var frameArr = [];
+//frame whether open
+function isOpened(frmName) {
+	var i = 0, len = frameArr.length;
+	var mark = false;
+	for (i; i < len; i++) {
+		if (frameArr[i] === frmName) {
+			mark = true;
+			return mark;
+		}
+	}
+	return mark;
+}
+
+//toggle header
+function showHeader(type) {
+	if (!type) {
+		return;
+	}
+	var header = $api.dom('#header .activebar');
+	$api.removeCls(header, 'activebar');
+	var thisHeader = $api.dom('#header #' + type);
+	$api.addCls(thisHeader, 'activebar');
+}
+
+//切换底部样式
+function showFooter(type) {
+	if (!type) {
+		return;
+	}
+	var actTab = $api.dom('#footer .active');
+	$api.removeCls(actTab, 'active');
+	var thisTab = $api.dom('#footer .' + type);
+	thisTab = thisTab.parentNode;
+	$api.addCls(thisTab, 'active');
+}
+
+function openTab(type, index) {
+//	alert(type+'----'+index);
+	//关闭第一次打开窗口组
+	api.closeFrameGroup({
+		name : 'welcome'
+	});
+	if (type == 'bill_f') {
+		var header = document.getElementById('header');
+		header.style.background = "#f7f7f7";
+	} else {
+		var header = document.getElementById('header');
+		header.style.background = "#fff7f8";
+	}
+	if (type == 'mi_f') {
+		var info = is_login('mine');
+		if (!info) {
+			api.openWin({
+				name : 'login_head_w',
+				url : 'html/login_head_w.html',
+				opaque : true,
+				vScrollBarEnabled : false
+			});
+			return false;
+		}
+	}
+	showHeader(type);
+	//计算内容高度和宽度
+	var width = api.winWidth;
+	var nav = $api.byId('footer');
+	var navPos = $api.offset(nav);
+	var header = $api.byId('header');
+	$api.fixIos7Bar(header);
+	var headerPos = $api.offset(header);
+	var height = api.winHeight - navPos.h - headerPos.h;
+	showFooter(type);
+
+	//获取球的宽高和位置
+	var nBall = $api.byId('ball');
+	var nPosBall = $api.offset(nBall);
+	x = navPos.w / 2 - nPosBall.w / 2;
+	y = api.winHeight - nPosBall.h;
+
+	//record page id
+	prevPid = curPid;
+	curPid = type;
+	if (prevPid !== curPid) {
+		// alert(type+':'+isOpened(type));
+		if (isOpened(type)) {
+			api.setFrameAttr({
+				name : type,
+				hidden : false
+			});
+			openBall(x, y, nPosBall.w, nPosBall.h);
+
+		} else {			
+			api.openFrame({
+				name : type,
+				url : 'html/' + type + '.html',
+				bounces : false,
+				opaque : true,
+				vScrollBarEnabled : false,
+				allowEdit : false,
+				pageParam : {
+					headerHeight : headerPos.h
+				},
+				rect : {
+					x : 0,
+					y : headerPos.h,
+					w : width,
+					h : height
+				}
+			});
+
+			//      	openBall(x, y, nPosBall.w, nPosBall.h);
+
+			openBall(x, y, nPosBall.w, nPosBall.h);
+			if ($api.getStorage('aa') != 2 && $api.getStorage('aa') != 3) {
+				api.openFrame({
+					name : 'index_flash',
+					url : './html/index_flash.html',
+					bounces : false,
+					opaque : false,
+					vScrollBarEnabled : false,
+//					pageParam : {},
+					rect : {
+						x : 0,
+						y : 0,
+						w : api.winWidth,
+						h : api.winHeight
+					}
+				});
+				$api.setStorage('aa', 3);
+			}
+		}
+		if (prevPid) {
+			openBall(x, y, nPosBall.w, nPosBall.h);
+			api.setFrameAttr({
+				name : prevPid,
+				hidden : true
+			});
+		}
+		if (!isOpened(type)) {
+			//save frame name
+			frameArr.push(type);
+		}
+	}
+
+	if (type == 'stroll_f' && $api.getStorage('aa') != 2) {
+		api.openFrame({
+			name : 'index_flash',
+			url : './html/index_flash.html',
+			bounces : false,
+			opaque : false,
+			vScrollBarEnabled : false,
+//			pageParam : {},
+			rect : {
+				x : 0,
+				y : 0,
+				w : api.winWidth,
+				h : api.winHeight
+			}
+		});
+
+		$api.setStorage('aa', 2);
+	}
+	//取消第一次打开
+	$api.setStorage('firstStart', 2);
+	$api.setStorage('check_up',0);
+}
+
+function openGuidePage() {
+	api.openFrameGroup({
+		name : 'welcome',
+		bounces : false,
+		preload : 2,
+		index : 0,
+		rect : {
+			x : 0,
+			y : 0,
+			w : api.winWidth,
+			h : api.winHeight
+		},
+		scrollEnabled : true,
+		frames : [{
+			name : 'page1',
+			url : './html/welcome/page1.html',
+			bounces : false,
+			opaque : true,
+			bgColor : '#000'
+		}, {
+			name : 'page2',
+			url : './html/welcome/page2.html',
+			bounces : false,
+			opaque : true,
+			bgColor : '#000'
+		}, {
+			name : 'page3',
+			url : './html/welcome/page3.html',
+			bounces : false,
+			opaque : true,
+			bgColor : '#000'
+		}]
+	}, function(ret, err) {
+	});
+}
+
+function openBall(x, y, w, h) {
+	api.openFrame({
+		name : "ball",
+		url : 'html/ball.html',
+		bounces : false,
+		opaque : false,
+		hScrollBarEnabled : false,
+		vScrollBarEnabled : false,
+		allowEdit : false,
+		pageParam : {
+			w : w,
+			h : h
+		},
+		rect : {
+			x : x,
+			y : y,
+			w : w,
+			h : h
+		}
+	});
+}
+function userset() {
+	var is_ok=true;
+	var info = is_login();	
+	if(info && is_ok){			
+		get_loc(function(obj){
+			is_ok=false;
+			if(obj){
+				is_ok=true;
+				for(var p in obj){
+					info[p]=obj[p];
+				}		
+			}
+				info.alias=api.deviceId;
+				if(is_ok){
+						is_ok=false;
+						ajaxRequest('user/getset','post',info, function(ret, err) {	
+						if(err){
+//							api.toast({
+//	                            msg:err.msg
+//                          });
+                            return false;
+						}
+						if (ret.status) {
+							is_ok=true;
+							var is_push=ret.info.set.getpush;
+							var push = api.require('push');
+							if(is_push==1){							
+								var nickname=get_loc_val('mine','nickname');
+								var userId=get_loc_val('mine','id');									
+								push.setListener(
+								    function(ret,err){
+								    }
+								);
+								push.bind({
+								    userName:nickname,
+								    userId:userId
+								},function(ret,err){
+								    
+								});
+								if(!isEmpty(ret.info.g_name)){
+									join_group(push,ret.info.g_name);
+								}
+								if(!isEmpty(obj.province)){
+									join_group(push,obj.province);
+								}
+								if(!isEmpty(obj.city)){
+									join_group(push,obj.city);
+								}							
+							}else{
+								push.removeListener();
+							}
+							$api.setStorage('userset', ret.info.set);
+						}
+					});	
+				}
+			
+		});
+	}else{
+		var push = api.require('push');
+		push.setListener(
+		    function(ret,err){
+		    }
+		);
+	}
+}
+function join_group(obj,gname){
+	obj.joinGroup({
+    	groupName:gname
+	},function(ret,err){
+    if(ret){
+    }else{
+    }
+});
+}
+//经纬度转换
+function get_loc(callback) {//113.041993,22.667204
+		var baiduLocation = api.require('baiduLocation');
+		baiduLocation.getLocation(
+		    function(ret, err){
+		    	if(err){
+//		    		api.toast({
+//	                    msg:err.msg
+//                  });
+                    callback(false);
+                    return false;
+		    	}
+		        var sta = ret.status;		       
+		        if(ret && sta){		           
+		           var loc=ret.longitude+','+ret.latitude;	            
+            		api.ajax({
+							url : 'http://apic.map.qq.com/translate/?type=3&points=' + loc + '&output=jsonp&pf=jsapi',
+						}, function(ret, err) {
+							if(err){
+//								api.toast({
+//	                                msg:err.msg
+//                              });
+                                callback(false);
+                                return false;
+							}
+							if(isEmpty(ret.detail)){
+										callback(false);
+							}
+							if(isEmpty(ret.detail.points)){
+								callback(false);
+							}else{
+							var str=ret.detail.points[0];
+							var lon=str.lng;
+							var lat=str.lat;
+							var key="HJCBZ-CVZR3-BKG37-3LJWA-TZFYF-RTFBU";
+							var url="http://apis.map.qq.com/ws/geocoder/v1/?location="+lat+","+lon+"&key="+key+"&get_poi=1";
+							var headers = {
+								'X-Requested-With' : 'XMLHttpRequest',	
+								'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8'
+							};  
+							    api.ajax({
+									url : url,						
+									headers : headers
+								}, function(ret, err) {
+									if(err){
+//										api.toast({
+//			                                msg:err.msg
+//		                                });
+		                                callback(false);
+		                                return false;
+									}
+									if(isEmpty(ret.result)){
+										callback(false);
+									}
+									if(isEmpty(ret.result.address_component) || ret.result.address_component==undefined){
+											callback(false);
+									}else{
+											var obj=ret.result.address_component;
+											var arr={};
+									     	arr.province=obj.province;
+									     	arr.city=obj.city;
+									     	callback(arr);
+									}									
+								});
+							}
+						
+					});	          
+		        }else{
+		        	callback(false);
+		        }
+		    }
+		);	
+}
+apiready = function() {
+//	return;	
+	userset();
+	api.addEventListener({
+		name : 'push_on'
+	}, function(ret, err) {
+		userset();
+	})	
+	
+	api.addEventListener({
+	    name:'to_ucenter'
+    },function(ret,err){
+    	to_ucenter(ret.value.name);
+    });
+	var mam = api.require('mam');
+	$api.setStorage('check_up',2);
+	if (mam != undefined) {		
+		mam.checkUpdate(function(ret, err) {
+			if (ret) {
+				var result = ret.result;
+				if (result&&result.update) {
+					$api.setStorage('check_up',1);
+					$api.rmStorage('firstStart');
+					$api.rmStorage('aa');
+				}
+			}
+		});
+	}
+	if ( $api.getStorage('firstStart')!=2  || $api.getStorage('check_up')==1) {
+		openGuidePage();
+		return false;
+	} 
+	api.setStatusBarStyle({
+		style : 'dark'
+	});
+	api.addEventListener({
+		name : 'online'
+	}, function(ret, err) {
+		var connectionType = ret.connectionType;
+//			    api.toast({
+//			        msg:connectionType+'online'
+//		      });
+		$api.setStorage('net_type', connectionType);
+	})
+	api.addEventListener({
+		name : 'offline'
+	}, function(ret, err) {
+		api.toast({
+			msg : '网络已断开，请检查您的网络'
+		});
+//		$api.setStorage('net_type', 0);
+	})	
+	api.addEventListener({
+		name : 'keyback'
+	}, function(ret, err) {
+		clearTimeout(timePicker);
+		//coding... auth:yx
+		if (clickCount != 2) {
+			api.toast({
+				msg : '再按一次返回系统桌面'
+			}, 'middle');
+			clickCount++;
+			timePicker = setTimeout(function() {
+				clickCount = 1;
+			}, 1000);
+		} else {
+			clickCount = 1;
+			api.toLauncher();
+		}
+	});
+	openTab('bill_f', 'bill_f');
+}
+//判断android返回键点击次数 auth:yx
+var clickCount = 1;
+var timePicker;
+//计时器--记录点击两次间隔时间 auth:yx
+//初始化页面
+//auth: yx
+function xycinit() {
+	prevPid = '';
+	curPid = '';
+	frameArr = [];
+
+	api.closeFrame({
+		name : 'mi_f'
+	});
+	api.closeFrame({
+		name : 'bill_f'
+	});
+	api.closeFrame({
+		name : 'xinshui_f'
+	});
+
+	/*注释掉的原因  ：  逛逛页面 不需要登陆  也可以产看*/
+	//  api.closeFrame({
+	//      name: 'scroll_f'
+	//  });
+
+	//可能有delay 延迟  ，那么只要有动画 closeWin将失效，因此加上setTimeout执行
+	setTimeout(function() {
+		api.closeWin({
+			name : 'mi_sethead_w'
+		});
+	}, 600);
+
+}
+	//从购物车和我的收藏页面中 没有数据的点击跳转按钮
+	function xyc_scroll(){
+		api.closeWin({
+			name : 'mi_buycar_head_w'
+        });
+		openTab('stroll_f','stroll_f');
+	}
+	//从订单页面0，1，2，3，4页面中没有数据的点击跳转按钮
+	function xyc_stroll(){
+		api.closeWin({
+			name : 'mi_dd_suc_f'
+        });
+        api.closeWin({
+			name : 'mi_dd_head_w'
+        });
+		api.closeWin({
+			name : 'mi_dd_tab_head_w'
+        });
+		openTab('stroll_f','stroll_f');
+	}
+	function back(id) {
+		if (id == 1) {
+			api.closeWin({
+				name : 'login_head_w'
+			});
+		}
+		openTab('bill_f', 'bill_f');
+	}
+
+	function to_ucenter(name) {		
+		userset();
+		var info = is_login();		
+		var param = {};
+		for (var p in info) {
+			param[p] = info[p];
+		}
+		var data = $api.getStorage('cart');
+		param.data = data;
+		if (!isEmpty(data)) {
+			ajaxRequest('cart/cartbuffer', 'post', param, function(ret, err) {
+				if (err) {
+					api.toast({
+						msg : err.msg
+					});
+					return false;
+				}
+				if (ret.status) {
+					$api.rmStorage('cart');
+				} else {
+					api.toast({
+						msg : ret.info
+					});
+				}
+			})
+		}
+		var shopbuffer = $api.getStorage('shopbuffer');
+		if (!isEmpty(shopbuffer)) {
+			$api.rmStorage('shopbuffer');
+			api.openWin({
+				name : 'bill_qrdd_w',
+				url : 'html/bill_qrdd_w.html',
+				opaque : true,
+				reload : true,
+				pageParam : {
+					param : shopbuffer,
+					count : 2,
+					status : 1
+				},
+				vScrollBarEnabled : false
+			});
+			
+			api.closeWin({
+				'name' : name
+			});
+		} 		
+		api.closeWin({
+			'name' : name
+		});
+		openTab('mi_f', 'mi_f');	
+	}
+
+	function openNext(xyc, count) {
+		api.openWin({
+			name : xyc,
+			url : 'html/' + xyc + '.html',
+			opaque : true,
+			reload : true,
+			vScrollBarEnabled : false,
+			pageParam : {
+				count : count
+			}
+		});
+	}
+</script>
+</html>

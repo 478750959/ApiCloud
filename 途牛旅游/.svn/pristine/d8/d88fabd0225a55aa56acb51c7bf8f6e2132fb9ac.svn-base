@@ -1,0 +1,466 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/common.css"/>
+</head>
+<style>
+body, html {
+    height: auto;
+    background-color: #E5E5E5;
+}
+
+.banner {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
+
+img {
+    width: 100%;
+}
+
+.lable, .day-con-img-lable {
+    background-image: -webkit-linear-gradient(top, rgba(59, 59, 59, .6), rgba(27, 27, 27, .6), rgba(50, 50, 50, .4), rgba(31, 31, 31, .4));
+    background-image: linear-gradient(top, rgba(59, 59, 59, .6), rgba(27, 27, 27, .6), rgba(50, 50, 50, .4), rgba(31, 31, 31, .4));
+    position: absolute;
+    left: 0;
+    bottom:0;
+    width: 100%;
+    height: 30px;
+    line-height: 30px;
+    padding-left: 20px;
+    display: block;
+    color: #fff;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.day-con-img-lable{
+    bottom:5px;
+}
+.base-info, .custorm, .productFeature, .journey-detail, .notice-question {
+    position: relative;
+    background: #fff;
+    margin: 10px 0;
+    padding: 0 10px;
+    border-top: 1px solid #d8d8d8;
+    border-bottom: 1px solid #d8d8d8;
+}
+
+.base-info {
+    padding-top: 10px;
+    margin-top: 0;
+}
+
+.title {
+    border-bottom: 1px solid #EDEDED;
+}
+
+.title span {
+    color: #A4A4A4;
+    font-size: 12px;
+    line-height: 18px;
+}
+
+.title span:first-child {
+    color: #000000;
+    font-size: 15px;
+}
+
+.price {
+    margin: 5px 0;
+    line-height: 20px;
+    font-size: 13px;
+}
+
+.price div, .price-text {
+    color: #f99d1c;
+    font-size: 14px;
+}
+
+.price-text {
+    font-size: 16px;
+}
+
+del {
+    font-size: 12px;
+    color: #A4A4A4;
+    margin-left: 5px;
+}
+
+.arrow-right {
+    background-image: url("../image/arrow_grey_right_normal.png");
+    background-position: right center;
+    background-repeat: no-repeat no-repeat;
+    background-size: 20px;
+    border-bottom: 1px solid #d8d8d8;
+    padding: 10px 0;
+}
+
+.custorm li:first-child div {
+    background-image: url("../image/icon_heart@2x.png");
+    background-position: left center;
+    background-repeat: no-repeat no-repeat;
+    background-size: 25px;;
+    padding: 10px 25px;
+}
+
+.custorm li:first-child span {
+    font-size: 12px;
+}
+
+.custorm-detail {
+    position: relative;
+    padding-bottom: 5px;
+}
+
+.custorm-detail-title {
+    line-height: 30px;
+}
+
+.name {
+}
+
+.custorm-detail-title span:last-child {
+    position: absolute;
+    right: 2px;
+    top: 2px;
+}
+
+.custorm-detail-con {
+    line-height: 15px;
+    font-size: 13px;
+    color: #787878;
+}
+
+.productFeature li:first-child {
+    background-image: url("../image/icon_featured@2x.png");
+    background-position: left center;
+    background-repeat: no-repeat no-repeat;
+    background-size: 20px;
+    padding: 10px 20px;
+    border-bottom: 1px solid #d8d8d8;
+}
+
+.productFeature-detail span {
+    font-size: 13px;
+    display: block;
+    line-height: 20px;
+}
+
+.journey-detail {
+    padding: 10px 10px;
+}
+
+.arrow-down {
+    margin-left: 7px;
+    width: 0;
+    height: 0;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 4px solid #1dbd8d;
+}
+
+.day-title {
+    display: inline-block;
+    background-color: #1dbd8d;
+    line-height: 20px;
+    padding: 3px;
+    font-size: 13px;
+}
+
+.day-title span {
+    color: #fff;
+    position: relative;
+}
+
+.day-title span:not(:first-child) {
+    padding-left: 20px;
+}
+
+.car {
+    position: absolute;
+    background-image: url("../image/drawer_list_icon_nearby@2x.png");
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    background-size: 20px;
+    left: 2px;
+}
+
+.time, .day-con, .day-con-wrap {
+    border-left: 1px solid #1dbd8d;
+}
+
+.time {
+    background-image: url("../image/departureTimeLogo@2x.png");
+    background-position-x: 20px;
+    background-position-y: center;;
+    background-repeat: no-repeat no-repeat;
+    background-size: 15px;
+    padding: 10px 20px;
+    padding-left: 40px;
+    font-size: 13px;
+    color: #1dbd8d;
+}
+
+.day-con {
+    padding-left: 20px;
+    font-size: 13px;
+    line-height: 20px;
+}
+
+.place {
+    background-image: url("../image/icon_location_big@2x.png");
+    background-position-x: 5px;
+    background-position-y: center;;
+    background-repeat: no-repeat no-repeat;
+    background-size: 20px;
+    padding: 5px 20px;
+    padding-left: 30px;
+    font-size: 13px;
+    color: #ffffff;
+    background-color: #1dbd8d;
+    display: inline-block;
+    margin-left: 20px;
+    border-radius: 3px;
+}
+
+.day-con-img {
+    width: 100%;
+    position: relative;
+    margin-right: 10px;
+    /*padding: 20px 0;*/
+}
+
+.day-con-img-lable {
+    padding-left: 3px;
+}
+
+.day-tips {
+    margin: 0 20px;
+    padding: 10px;
+    font-size: 13px;
+    line-height: 20px;
+    background-color: #EEFAF7;
+}
+
+.qa {
+    background-image: url("../image/icon_faq@2x.png");
+    background-repeat: no-repeat no-repeat;
+    background-size: 30px;
+    padding: 10px 0;
+    padding-left: 50px;
+    background-position-x: 10px;
+}
+
+.price-desc {
+    background-image: url("../image/icon_price@2x.png");
+    background-repeat: no-repeat no-repeat;
+    background-size: 30px;
+    padding: 10px 0;
+    padding-left: 50px;
+    background-position-x: 10px;
+}
+
+.notes {
+    background-image: url("../image/list_icon_notification@2x.png");
+    background-repeat: no-repeat no-repeat;
+    background-size: 30px;
+    padding: 10px 0;
+    padding-left: 50px;
+    background-position-x: 10px;
+}
+
+.notice-question, .notice-question li {
+    padding: 0;
+}
+</style>
+<body>
+
+<div class="banner">
+    <img src="../image/t0-detail.jpg">
+
+    <div class="lable">10月21日 | 北京出发</div>
+</div>
+<div class="base-info">
+    <div class="title">
+        <span>北京故宫-天坛圆明园一日游</span>
+        <span>含天坛通票，全网最低价</span>
+    </div>
+    <div class="price">
+        <div class="">促销价:<span class="price-text">￥212</span>起
+            <del>￥218</del>
+        </div>
+        <span>已享受：双倍抵用券￥6</span>
+        <span>点评返：抵用券￥200 现金￥5+5</span>
+    </div>
+</div>
+
+<div class="custorm">
+    <ul>
+        <li class="arrow-right">
+            <div>顾客满意度</div>
+            <span>累积有919人出游 共179条评价</span>
+        </li>
+        <li class="custorm-detail">
+            <div class="custorm-detail-title">
+                <span>刘先生</span>
+                <span>2013-07-06</span>
+            </div>
+            <span class="custorm-detail-con">
+                选途牛~途牛，支持你，希望你得到越来越多人的喜爱，一切顺利。
+            </span>
+        </li>
+    </ul>
+</div>
+<div class="productFeature">
+    <ul>
+        <li><span>产品特色</span></li>
+        <li class="productFeature-detail">
+            <span>
+                ★正餐特别安排【便宜坊烤鸭店】或【满德楼饭庄】（2008奥运会捷克斯洛伐克奥运之家）。著名的“中华老字号”饭庄、国家特级酒家。
+            </span>
+            <span>
+                ★历史文化名都，三分靠看，七分靠听，专业导游带您感受完全不一样的北京
+            </span>
+            <span>
+                ★参观故宫，沿皇城中轴线，探秘神秘龙脉
+            </span>
+            <span>
+                ★透明规范，明白消费
+            </span>
+        </li>
+    </ul>
+</div>
+<div class="journey-detail">
+    <div class="day-title">
+        <span>第一天|故宫</span><span><i class="car"></i>天坛</span><span><i class="car"></i>什刹海</span>
+    </div>
+    <div class="arrow-down"></div>
+    <div class=" time">07:30</div>
+    <div class="day-con">
+        崇文门新侨诺富特饭店 （地铁2号线、5号线“崇文门站”A/B口出既到）
+    </div>
+    <div class=" time">07:50</div>
+    <div class="day-con">
+        王府井飘HOME经济连锁酒店 （东城区东安门大街43号，中国儿童剧院门口）
+    </div>
+    <div class=" time">08:00</div>
+    <div class="day-con">
+        前往中国世界遗产—国家名片之一——【故宫】（含首道门票,珍宝馆、钟表馆门票）。【本线路不按安排座位号，按照先到先得的原则，请谅解】
+    </div>
+    <div class="day-con-wrap">
+        <div class="place">景点介绍：故宫</div>
+    </div>
+
+    <div class="day-con">
+        故宫：古称紫禁城，始建1406年。明清皇宫，是中国保存最完整的古建筑群，被誉为世界五大宫殿之首（北京故宫，法国凡尔赛宫，英国白金汉宫，美国白宫，俄罗斯克里姆林宫）世界文化遗产。注：参观线路由导游统一安排，如遇节假日及其旺季，故宫排队现象严重，敬请谅解。
+    </div>
+    <div class="day-con">
+        <div class="day-con-img">
+            <img src="../image/gugong.jpg">
+
+            <div class="day-con-img-lable">故宫全景</div>
+        </div>
+        <div class="day-con-img">
+            <img src="../image/gugong-1.jpg">
+
+            <div class="day-con-img-lable">故宫正面</div>
+        </div>
+    </div>
+    <div class="time">12:00</div>
+    <div class="day-con">
+        左右，安排大家到景点附近品尝北京风味餐，用餐餐厅：【满德楼饭庄】（2008奥运会捷克斯洛伐克奥运之家）（满8人开餐，如果人数低于最少开餐人数现退餐费 ）。
+    </div>
+    <div class="time">13:00</div>
+    <div class="day-con">
+        前往参观世界文化遗产、世界最大的祭天古建筑群、国家名片之一【天坛】皇家祈天祭谷所在地（含通票）
+    </div>
+    <div class="day-con-wrap">
+        <div class="place">景点介绍：天坛</div>
+    </div>
+
+    <div class="day-con">
+        天坛：皇家祈古祭天之地，中国古建筑文化精华，北京精气神所在地，【回音壁】【祈年殿】【圜丘坛】无一不体现了天地之间和谐的人与人关系，天坛是人与人之间的对话，1998年被世界教科文组织列为世界文化遗产，北京游精华景点。
+    </div>
+    <div class="day-con">
+        <div class="day-con-img">
+            <img src="../image/tiantan-0.jpg">
+
+            <div class="day-con-img-lable">天坛远景</div>
+        </div>
+        <div class="day-con-img">
+            <img src="../image/tiantan-1.jpg">
+
+            <div class="day-con-img-lable">天坛内殿</div>
+        </div>
+        <div class="day-con-img">
+            <img src="../image/tiantan-2.jpg">
+
+            <div class="day-con-img-lable">天坛栏杆</div>
+        </div>
+        <div class="day-con-img">
+            <img src="../image/tiantan-3.jpg">
+
+            <div class="day-con-img-lable">天坛原墙</div>
+        </div>
+    </div>
+
+
+    <div class="time">15:00</div>
+    <div class="day-con">
+        赠送参观：【圆明园】（参观西洋楼遗址、海晏堂、残雕沉思、谐奇趣、黄花阵等精华景区）
+    </div>
+    <div class="day-con">
+        <div class="day-con-img">
+            <img src="../image/yuanmingyuan-0.jpg">
+
+            <div class="day-con-img-lable">圆明园</div>
+        </div>
+        <div class="day-con-img">
+            <img src="../image/yuanmingyuan-1.jpg">
+
+            <div class="day-con-img-lable">圆明园</div>
+        </div>
+        <div class="day-con-img">
+            <img src="../image/yuanmingyuan-2.jpg">
+
+            <div class="day-con-img-lable">圆明园</div>
+        </div>
+        <div class="day-con-img">
+            <img src="../image/yuanmingyuan-3.jpg">
+
+            <div class="day-con-img-lable">正觉寺</div>
+        </div>
+    </div>
+    <div class="time">15:00</div>
+    <div class="day-con">
+        约17：30 随车返回【王府井】。
+    </div>
+    <div class="day-con-wrap">
+        <div class="day-tips">
+            早餐：敬请自理 ；<br>
+            午餐：含；<br>
+            晚餐：敬请自理；<br>
+        </div>
+    </div>
+
+</div>
+<div class="notice-question">
+    <ul>
+        <li class="arrow-right">
+            <span class="qa">在线问答</span>
+        </li>
+        <li class="arrow-right">
+            <span class="price-desc">费用说明</span>
+        </li>
+        <li class="arrow-right">
+            <span class="notes">预定须知</span>
+        </li>
+    </ul>
+</div>
+</body>
+</html>

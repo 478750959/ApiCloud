@@ -1,0 +1,283 @@
+<!doctype html>
+<html style="background: #f7f7f7;">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>我的订单</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <!--<link rel="stylesheet" type="text/css" href="../css/common.css"/>-->
+    <link rel="stylesheet" type="text/css" href="../css/ly.css"/>
+    <style>    	
+    	.wushuju{
+    		position:relative;
+    	}
+    	.wushuju_img1{
+    		display:block;
+    		width:1.59rem;
+    		height:1.41rem;
+    		position:absolute;
+    		left:50%;
+    		margin-left:-0.8rem;
+    		top:1.5rem;
+    	}
+    	.wushuju_img2{
+    		top:3.25rem;
+    		left:50%;
+    		margin-left:-2.185rem;
+    		display:block;
+    		width:4.37rem;
+    		height:0.7rem;
+    		position:absolute;
+    	}
+    	.wushuju_btn{
+    		position:absolute;
+    		top:4.8rem;
+    		left:50%;
+    		margin-left:-1.15rem;
+    		height:0.64rem;
+    		width:2.36rem;
+    		text-align:center;
+    		line-height:0.64rem;
+    		font-size:0.32rem;
+    		color:#656564;
+    		border:0.02rem solid #656564;
+    		border-radius:0.1rem;
+    	}
+    </style>
+</head>
+<body style="background: #f7f7f7;">
+	<script id="payment" type="text/x-dot-template">
+		{{if(it != ''){  }}
+			{{ for(var i in it){ }}
+			<div class="dd_box" id="dd_{{=it[i].id}}" >
+				<div class="xyc_dd_boxTop"  data-id="{{=it[i].id}}" onclick="xycclick(this)">
+					<div class='xyc_dd_top'>
+						<div class="xyc_dd_topL">订单号：<span>{{=it[i].OrderNo}}</span></div>
+						<div class="xyc_dd_topR">下单日期：<span>{{=it[i].addtime}}</span></div>
+						<div class="xyc_dd_topR">订单状态：<span>
+							{{ switch(it[i].order_status){  }}
+								{{case '0':}}
+									已取消
+								{{break;}}
+								{{case '1':}}
+									待付款
+								{{break;}}
+								{{case '2':}}
+									待发货
+								{{break;}}
+								{{case '3':}}
+									待收货
+								{{break;}}
+								{{case '4':}}
+									待评价	
+								{{break;}}
+								{{case '5':}}
+									已评价	
+								{{break;}}
+								{{case '6':}}
+									退款完成	
+								{{break;}}				
+							{{ } }}
+							</span></div>
+					</div>
+			
+					<a href="javascript:void(0);" class="wrapper">
+					{{  if(it[i].goods!=''){ }}
+					{{ for( var j=0,data=it[i].goods;j<data.length;j++ ){ }}
+						<div class="dd_details_list">
+							<div class="dd_details_img"><img src="{{=data[j].goods_logo}}"></div>
+							<div class="dd_details_txt">
+								<h4>{{=data[j].goods_name}}</h4>
+								<h4>{{=data[j].goods_attribute}}</h4>
+								<h4>x{{=data[j].goods_number}}</h4>	
+							</div>
+							<div class="dd_details_price">
+								<h3>￥<span>{{=data[j].shop_price}}</span></h3>
+							</div>
+						</div>	
+					{{ } }}	
+					{{  } }}						
+					</a>
+					<p class="ly_sum">共<span>{{=it[i].num}}</span>件商品，合计<em>{{=it[i].Total}}</em>元</p>
+				</div>
+				<p class="bom fix">
+					<!--<a href="javascript:void(0);"  onclick="link_kf()"    class="del rt sub">联系客服</a>-->
+					<a href="javascript:void(0);" class="del rt sub" onclick = "openNext('bill_qrdd_w',110,'{{=it[i].id}}','{{=it[i].OrderNo}}')">付款</a>
+					<a href="javascript:void(0);" class="del rt cancle" onclick="openFm('mi_dd_mask_f',12,'{{=it[i].OrderNo}}')">取消订单</a>
+				</p>
+			</div>
+		{{ } }}
+		{{ }else{ }}
+		{{ } }}				
+	</script>
+<div id="wrap">
+    <div id="main">
+		<div class="wushuju none">
+			<img src='../image/dd_noneicon.png' class='wushuju_img1'/>
+			<img src='../image/dd_nonetxt.png' class='wushuju_img2'/>
+			<div class="wushuju_btn">去逛逛</div>
+    	</div>
+		<!--        、、、、、、、、、、、 待付款 、、、、、、、、、                          -->
+		<div class="dd_all" id="money">			
+    		
+		</div>
+  
+    </div>
+    <!--        、、、、、、、、、、、 提醒成功蒙版、、、、、、、、、                          -->
+    <div class="ly_mask ly_dy none">
+	    <p>提醒成功！</p>
+    </div>  	
+</div>	
+<input type='hidden' name='totalNum' value='0'>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/comm.js"></script>
+<script type="text/javascript" src="../script/doT.min.js"></script>
+<!--<script type="text/javascript" src="../script/debug.js"></script>-->
+<script type="text/javascript" src="../script/font.js"></script>
+<script type="text/javascript" src="../script/zepto.js"></script>
+<script type="text/javascript" src="../script/ly.js"></script>
+<script>
+function link_kf(){
+		api.openWin({
+				name : 'mi_sethead_w',
+				url : 'mi_sethead_w.html',
+				opaque : true,		
+				slidBackEnabled:false,	
+				vScrollBarEnabled : false,
+				pageParam : {
+					count : 2
+				}
+			});
+	}
+	//如果没有数据，点击去逛逛按钮跳转到逛逛页面
+	$('.wushuju_btn').click(function(){
+		api.execScript({
+			name:'root',
+	        script: 'xyc_stroll();'
+        });
+	})
+	function xycclick(obj){
+		var id = $(obj).attr("data-id");
+		api.openWin({
+	        name: 'mi_dd_details_w',
+	        url: 'mi_dd_details_w.html',
+	        reload:true,
+	   		vScrollBarEnabled: false,
+	   		pageParam:{id:id}
+        });
+	}
+apiready = function() {
+		var currentPage = 0;
+				
+		api.setRefreshHeaderInfo({
+			visible : true,
+			bgColor : '#2e364a',
+			textColor : '#fff',
+			textDown : '下拉刷新...',
+			textUp : '松开刷新...',
+			showTime : true
+		}, function(ret, err) {			
+			getData(0);
+			currentPage=0;
+			api.refreshHeaderLoadDone();
+		});
+		api.addEventListener({
+	        name:'del__dd1'
+        },function(ret,err){
+        	getData(0);	
+        	currentPage=0;	
+        });
+        
+		getData(0);	
+					
+		//滚动到底部
+		api.addEventListener({
+		    name:'scrolltobottom'
+		},function(ret,err) {
+			var totalNum=$('input[name=totalNum]').val();
+			if(currentPage < (totalNum - 1)) {			
+				currentPage++;
+		    	getData(currentPage);
+		    }
+		})
+	}
+	function openNext(xyc,count,id,OrderNo) {
+		api.openWin({
+	        name: xyc,
+	        url: xyc+'.html',
+	        opaque: true,
+	        reload:true,
+	        vScrollBarEnabled: false,
+	        pageParam:{count:count,id:id,status:3,OrderNo:OrderNo}
+	    });
+	}
+	function openFm(xyc,count,id){
+//		window.event? window.event.cancelBubble = true : e.stopPropagation();
+		var name = "mi_dd_mask_f";
+	    var width = api.winWidth;
+	    var height = api.winHeight;
+	    api.openFrame({
+		    name: name,
+		    url: name+'.html',
+		    bounces: false,
+		    opaque: false,
+		    reload: true,
+		    vScrollBarEnabled: false,
+		    pageParam:{ headerHeight: 0,tid:"0", count:count,id:id},
+		    rect: {
+		        x: 0,
+		        y: 0,
+		        w: width,
+		        h: height
+		    }
+		});	
+	}
+	function getData(page) {
+		var info = is_login();
+		var param = {};
+		if (!info) {
+			to_login();
+			return false;
+		}
+		for (var p in info) {
+			param[p] = info[p];
+		}
+		    
+	 
+	    	api.showProgress({
+		        title: '加载中',
+		        modal: false
+		    });
+	   
+	    param.page = page;
+	    param.status = 1;
+	    ajaxRequest('order/payment', 'post',param, function (ret,err) {
+	    api.hideProgress();
+	         if (ret.status && !isEmpty(ret.info.data)) {
+	         	$('.wushuju').addClass('none');
+	            var content = $api.dom('#money');
+	            var tpl = $api.byId('payment').text;
+	            var tempFn = doT.template(tpl);
+	            $('input[name=totalNum]').val(ret.info.page);
+	            if(page==0){
+	            	$api.html(content,'');
+	           	 	$api.html(content, tempFn(ret.info.data));
+	            }else{
+	            	$api.append(content, tempFn(ret.info.data));
+	            }		        
+	            api.hideProgress();
+
+	            api.parseTapmode();
+	         }else{
+	         	$('.wushuju').removeClass('none');
+	         	$('#money').html('');
+	         }
+	    });
+	}
+
+	function del(id){
+			$("#dd_"+id).addClass('none');
+		}
+</script>
+</html>

@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+  <head>
+    <title>
+    </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="css/ui-on.css">
+    <link rel="stylesheet" href="css/ui-tab.css">
+    <link rel="stylesheet" href="css/ui-input.css">
+    <link rel="stylesheet" href="css/ui-img.css">
+    <link rel="stylesheet" href="css/ui-res.css">
+    <link rel="stylesheet" href="css/ui-list.css">
+    <link rel="stylesheet" href="css/ui-base.css">
+    <link rel="stylesheet" href="css/ui-box.css">
+    <link rel="stylesheet" href="css/ui-color.css">
+	<link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/ui-btn.css">
+    <link rel="stylesheet" href="css/ui-card.css">
+    <script src="js/y_control.js"></script>
+	<script src="js/y_click.js"></script>
+	<script src="js/dis_control.js"></script>
+	<script src="js/config.js"></script>
+	<script src="js/y_json.js"></script>
+    <script src="js/y_tmpl.js"></script>
+    <script src="js/y_anim.js"></script>
+    <script src="js/y_icache.js"></script>
+	<style>
+        input[type="radio"]:checked+div.tp-fuid {
+            background-image: url(./images/icon-check.png) ;
+        }
+        input[type="radio"]+div.tp-fuid {
+            background-image: url(./images/icon-uncheck.png) ;
+        }
+        .umw15 {
+            min-width:1.5em;
+        }
+        .uinn22{
+            padding:.6em .185em;
+        }
+        .lovebtn0{
+            background-image: url('./images/like_0.png');
+        }
+        .lovebtn1{
+            background-image: url('./images/like_1.png');
+        }
+        .lovebtn2{
+            background-image: url('./images/like_0.png');
+        }
+        .lovebtn3{
+            background-image: url('./images/like_3.png');
+        }
+        .lovepic{
+            width: 4.3em;
+            height: 1.5em;
+        }
+        .umar-love{
+            margin-right: 4.5em;
+        }
+
+	</style>
+  </head>
+<body class="um-vp" ontouchstart="zy_touch('')" id="mybody">
+    <div class="uinn18">
+        <div class="uba b-gra c-wh uc-a">
+            <div id="activity_admin">
+                <div class="uc-t ubb ub b-gra t-bla ub-ac lis">
+                    <div class="ub-f1 ut-s ulev-3" id="admin_title">启用加好友模式</div>
+                    <div class="swi uc-a1 uba b-gra"  ontouchstart="zy_touch('c-gra')" onclick="adminSelect(false);">
+                        <div class="uabs swi-btn us" id="admin_btn"></div>
+                    </div>
+                </div>
+                <div class="uc-t ubb ub b-gra t-bla ub-ac lis" id="bar_love">
+                    <div class="ub-f1 ut-s ulev-3">启用对好感模式</div>
+                    <div class="swi uc-a1 uba b-gra"  ontouchstart="zy_touch('c-gra')" onclick="viewSelect(false);">
+                        <div class="uabs swi-btn us" id="switch_btn"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="uc-t ubb ub b-gra ub-ac umh4 lis">
+                <div class="ub ub-f1 ub-ac tx-r ut-s ulev-3"><div id="total_title"></div>数</div>
+                <div class="ub ub-ac tx-r">
+                    <div id="member_credit"></div>
+                    <!--<div id="total_credit"></div>-->
+                </div>
+            </div>
+            <div class="uc-t ub ub-ac umh4 lis" ontouchstart="zy_touch('c-gra')" onclick="my_share_members();">
+                <div class="tx-r ut-s ulev-3 ub ub-ac">我的<div id="my_title">约伴</div>记录</div>
+				<div class="ub ub-f1 ub-ver">
+					  <div class="ub ub-f1">
+					  	     <div class="ub-f1 tx-r" id="my_credit"></div>
+                			 <div class="res8 lis-sw ub-img4"></div>
+					  </div>
+					  <div class=" tx-r t-gra umar-r" id="pay_fact">
+					  </div>
+				</div>
+            </div>
+        </div>
+    </div>
+    <div class="t-bla ub-ac lis" id="member_list">
+        <div id="btn_list1" class="uhide">
+            <div class="ub">
+                <div class="umar-b ulev-1s uhide" id="btn_manage">
+                    <div class="ub ulev0 uinn11 c-org umar-r umar-l" ontouchstart="zy_touch('btn-act1')" onclick="admin_submit('verify');">
+                        <div class="ub t-wh">批准</div>
+                    </div>
+                    <div class="ub ulev0 uinn11 c-org umar-r umar-l" ontouchstart="zy_touch('btn-act1')" onclick="admin_submit('replenish');">
+                        <div class="ub t-wh">通知验证</div>
+                    </div>
+                    <div class="ub ulev0 uinn11 c-org umar-r umar-l" ontouchstart="zy_touch('btn-act1')" onclick="admin_submit('delete');">
+                        <div class="ub t-wh">拒绝</div>
+                    </div>
+                </div>
+                <div class="ub umar-b ulev-1s" id="btn_friend">
+                    <div class="ub ulev0 uinn11 c-org umar-r umar-l" ontouchstart="zy_touch('btn-act1')" onclick="friendAdd();">
+                        <div class="ub t-wh">加好友</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="toverify" class="uhide">
+            <div class="ub">
+                <div class="ub-f1 ub ub-ac ut-s c-wh1 uinn5 umar-b1" id="title0">待审批</div>
+            </div>
+            <div class="ub umar-b1 c-gra5">
+                <div class="ub-f1" id="users0" ></div>
+            </div>
+        </div>
+        <div class="ub">
+            <div class="ub-f1 ub ub-ac ut-s c-wh1 uinn5 umar-b1" id="title1">男性成员</div>
+        </div>
+        <div class="ub umar-b1 c-gra5">
+            <div class="ub-f1" id="users1" ></div>
+        </div>
+        <div class="ub">
+            <div class="ub-f1 ub ub-ac ut-s c-wh1 uinn5 umar-b1" id="title2">女性成员</div>
+        </div>
+        <div class="ub umar-b1 c-gra5">
+            <div class="ub-f1" id="users2" ></div>
+        </div>
+        <div id="btn_list2" class="uhide">
+        </div>
+    </div>
+</body>
+<script>
+zy_init();
+var params = getStorJson('params');
+var tid = params.tid;
+var fid = params.fid;
+var module = get_module(fid);
+var op = forums[module].op;
+setHtml('total_title', module == 'trend' ? op: '活动成员' + op/* + '&nbsp;/&nbsp;'*/);
+setHtml('my_title', op);
+var startstamp = params.startstamp;
+var memberlist = {};//已经通过的
+var applylist = {};//报名的
+var toverifylist = '';
+var uid = getstorage('UID');
+var lovemodel = false;//默认不开启对好感模式
+var adminmodel = true;
+var my_credit = 0;
+var curpage = 1, totpage = 1, updr = '';
+var ucurl = getstorage('ucurl');
+if(!ucurl) ucurl = guc;
+var isactivitymaster = 0;
+var selected_users = {};
+var gender = '';
+var fromCache = 0
+
+window.uexOnload=function(t)
+{
+    if(module == 'trend'){
+		//攻略
+        zy_anim_push('activity_admin', 'uhide');
+        zy_anim_push('member_list', 'uhide');
+        loadcredits();
+    }else{
+        setPageBounce(downcb, upcb);
+        zy_initcache();
+        loadmemberlist('', '1');
+        if(fromCache) loadmemberlist('', '');
+    }
+};
+
+function downcb(){
+    updr = '0';
+    //resetBV('0');
+    loadmemberlist('', '');
+}
+function upcb(){
+    updr = '1';
+    if (curpage < totpage) {
+        loadmemberlist(curpage + 1, '');
+    }else resetBV('1');
+}
+function loadmemberlist(pg, f){
+    var url = forum_url + "&mod=ajax&action=memberlist&tid=" + tid + '&fid=' + fid;
+    resetBV(updr);
+    fromCache = checkKey(url);
+    if(!fromCache) uexWindow.toast('1','5','加载中...',"");
+    $.getJSON(url, function (json){
+        uexWindow.closeToast();
+        var f_members = {}, m_members = {}, f_count = 1, m_count = 1, apply = {};
+        var key;
+        if(json){
+            if(zy_tmpl_count(json.list2verify) + zy_tmpl_count(json.list) > 4)//列表长时上下都显示按钮
+                setHtml('btn_list2', $$('btn_list1').innerHTML);
+            //未批准的显示在前面
+            if(zy_tmpl_count(json.list2verify)){
+                zy_anim_pop('toverify', 'uhide');
+            }else zy_anim_push('toverify', 'uhide');
+            toverifylist = json.list2verify;//
+            show_members(toverifylist, 0);
+            //已经批准的
+            memberlist = json.list;//初始化
+            gender = int(json.mygender);
+            var mygender = gender ? gender : 1
+            $$('title' + (3 - mygender)).innerHTML = '男性成员';
+            $$('title' + mygender).innerHTML = '女性成员';
+            if(zy_tmpl_count(json.list)){
+                for(key in json.list){
+                    apply = json.list[key];
+                    if(apply.gender == 1){
+                        apply.number = m_count;
+                        m_members[m_count++] = apply;
+                    }else if(apply.gender == 2){
+                        apply.number = f_count;
+                        f_members[f_count++] = apply;
+                    }
+                }
+            }
+            show_members(f_members, mygender);//异性排在前面
+            show_members(m_members, 3 - mygender);
+            //if(int(json.apply_status)) zy_anim_pop('apply_status', 'uhide');//我参加了，显示我的约伴记录
+            //setHtml('total_credit', json.total_credit);
+            setHtml('member_credit', json.member_credit /*+ '&nbsp;/&nbsp;'*/);
+            my_credit = json.my_credit;
+            setHtml('my_credit', my_credit);
+			
+			//显示折扣信息
+			setHtml('pay_fact', '本次活动可优惠'+json.my_credit_pay+'元');
+			
+			
+            viewSelect(true);//不改变对好感模式的情况下，刷新列表
+            imgCacheCall();
+
+            //管理工具栏
+            isactivitymaster = json.isactivitymaster;//是否管理员
+            if(int(isactivitymaster)){
+                zy_anim_push('btn_manage', 'ub');
+                zy_anim_pop('btn_manage', 'uhide');//管理员的按钮默认hide
+                $$('admin_title').innerHTML = '启用管理模式'
+                adminSelect(true);//默认开启管理模式，刷新也不改变
+                if(zy_tmpl_count(json.list2verify) + zy_tmpl_count(json.list) > 4)//列表长时上下都显示按钮
+                    setHtml('btn_list2', $$('btn_list1').innerHTML);
+            }
+        }
+    }, 'json', getJsonErr, 'GET', '', f);
+}
+function loadcredits(){
+    var url = forum_url + "&mod=ajax&action=memberlist&tid=" + tid + '&fid=' + fid;
+    if(!checkKey(url) || aa) uexWindow.toast('1','5','加载中...',"");
+    $.getJSON(url, function (json){
+        uexWindow.closeToast();
+        if(json){
+            //if(int(json.apply_status)) zy_anim_pop('apply_status', 'uhide');//我参加了，显示我的约伴记录
+            setHtml('total_credit', json.total_credit);
+            my_credit = json.my_credit;
+            setHtml('my_credit', my_credit);
+        }
+    });
+}
+function show_members(members, sort){//sort表示列表的第一块还是第二块
+    var sharecredit =  '<div id="credit_${uid}">' +
+                            '<div class="ub ub-ac ufr t-gra ulev-1">' +
+                                '<div class="umh2 umw1 ub-img8 im-credit"></div>' +
+                                '<div class="t-gra umar-r">约伴</div>${credit}' +
+								 '<div class="t-gra umar-r">${cb:credit_pay}</div>' +
+                            '</div>' +
+                        '</div>';
+    var lovebtn = '';
+    var chk =
+        '<div class="uhide" onclick="friend_click(${uid}, ${applyid})" id="chk_${uid}">'
+            +'<div class="ub ulev0 uinn11">'
+                +'<input class="uhide" type="radio" name="cbx_${uid}" id="cbx_${uid}">'
+                +'<div class="umh2 umw15 ub-img5 tp-fuid lpic"></div>'
+            +'</div>'
+        +'</div>';
+    if(sort == 1){//待批准0和同性2不显示发好感按钮
+        lovebtn =  '<div class="ub-img5 lovebtn${ulove} lovepic ufr uhide" id="love_${uid}" ontouchstart="zy_touch(\'c-gra\')" onclick="sendlove(\'${ulove}\',\'${uid}\');">'
+                +'</div>';
+    }
+    var ftl =
+        '<div class="ub ub-ac" id="users_${uid}" ontouchstart="zy_touch(\'c-gra\')">'
+            + (1 || isactivitymaster ? chk : '')
+            +'<div class="uinn22" onclick="user_click(${uid},\'${username}\');">'
+                + (sort ? '<div class="c-wh uba uc-a2 ulev-1 fpic b-gra tx-c ulh1 t-org">${number}</div>' : '')
+                +'<div class="lis-th2 ub-img5 uc-a1 us"><img src="images/mylogo.png" class="inforpic" ${cb:avatar} id="am_${uid}"></div>'
+            +'</div>'
+            +'<div class="ub ub-ver ub-f3 ulev0 uinn22 ubb b-gra">'
+                +'<div class="ub umar-b1 umar-t">'
+                    +'<div class="ub ub-f1" onclick="user_click(${uid},\'${username}\');">${username}${cb:verify}</div>'
+                    + lovebtn + sharecredit
+                +'</div>'
+                +'<div class="ub ub-f1 ulev-1" id="p_${uid}" onclick="user_click(${uid},\'${username}\');">'
+                    +'${cb:profile}'
+                +'</div>'
+            +'</div>'
+        +'</div>';
+    var res = '';
+    var length = zy_tmpl_count(members);
+    if(length > 0){
+        res = zy_tmpl(ftl,members,length,j2vCb);
+        setHtml('users' + sort, res);
+    }else setHtml('users' + sort, '');
+    if(int(isactivitymaster)) add_chk(members);
+}
+function j2vCb(d,c){
+    var str = '';
+    if(c.length>1)
+    {
+        switch(c[1])
+        {
+            case 'avatar':
+                var src = ucurl+d.uid;
+                var picid = 'am_'+d.uid;
+                pushCacheCall(function(){
+                    dis_imgcache(picid,src,src,imgLoadSucSrc,imgLoadErrSrc,null,'',1);
+                });
+                break;
+            case 'profile':
+                if(d.age)  str = d.age + '岁，';
+                if(d.height) str += d.height + 'cm，';
+                if(d.occupation) str += d.occupation;
+                str = '<div class="ub-ac tx-c">'+ str +'</div>';
+                break;
+            case 'verify':
+                if(int(d.verify) == 1){
+                    str = '<strong class="user-v umar-l">验</strong>';
+                }else{
+                    str = '<strong class="user-not-v umar-l">未验证</strong>';
+                }
+                break;
+			case 'credit_pay':
+                if(int(d.credit_pay) >0){
+                    str = ',优惠'+d.credit_pay+'元';
+                }else{
+                    str = '';
+                }
+                break;
+        }
+    }
+    return str;
+}
+
+function user_click(uid, username){
+    setstorage('params','{"uid":"'+uid+'", "username":"'+username+'"}');
+    openwin('friend_information','friend_information.html','10');
+}
+function sendlove(flag, touid){
+    if(flag == '') flag = 0;
+    if(lovemodel && (flag==0 || flag==2)){
+        //发送对好感指令并返回结果
+        var url = plugin_url + '&id=ulove:ulove&tion=sendlove&pid=1&starttime=' +startstamp+'&tid='+tid+'&uid='+touid;
+        uexWindow.toast('1','5','加载中...',"");
+        $.getJSON(url, function (json){
+            var str = '发送失败';
+            uexWindow.closeToast();
+            if(json){
+                str = json.message ? json.message : '发送成功';
+                if(json.status == 1){
+                    //改变对好感相关的头像
+                    zy_anim_pop('love_'+touid, 'lovebtn'+flag);
+                    zy_anim_push('love_'+touid, 'lovebtn'+(int(flag)+1));
+                }
+            }
+            uexWindow.toast('0','5',str,"2000");
+        })
+    }
+}
+/**
+ * 设置是否启动对好感模式
+ */
+function viewSelect(isrefresh){
+    if(!isrefresh && zy_tmpl_count(toverifylist) + zy_tmpl_count(memberlist) < 1){
+        uexWindow.toast('0','5','没有活动成员', 2000);
+        return;
+    }
+
+    var id = "switch_btn";
+    var ch = $$(id);
+     if(!isrefresh){
+        lovemodel = !lovemodel;
+        if(!gender) {
+            uexWindow.toast('0','5', '你需要打开单身名片！', '2000');
+            return;
+        }
+     }
+     
+    if(ch){
+        if(lovemodel){
+            ch.style.left = '2.15em';
+        }else{
+            ch.style.left = '0em';
+        }
+        for(var val in memberlist){
+            var item = memberlist[val];
+            if(item.gender != gender){
+                if(lovemodel){
+                    zy_anim_pop('love_'+item.uid, 'uhide');
+                    zy_anim_push('credit_'+item.uid, 'uhide');
+                }else{
+                    zy_anim_push('love_'+item.uid, 'uhide');
+                    zy_anim_pop('credit_'+item.uid, 'uhide');
+                }
+            }
+        }
+    }
+}
+function add_chk(list){
+    for(var val in list){
+        var item = list[val];
+        if(adminmodel){
+            zy_anim_pop('chk_'+item.uid, 'uhide');
+        }else{
+            zy_anim_push('chk_'+item.uid, 'uhide');
+        }
+    }
+};
+/**
+ * 管理员启用管理模式，或者成员启动加好友模式批量加好友
+ */
+function adminSelect(isrefresh){
+    if(zy_tmpl_count(toverifylist) + zy_tmpl_count(memberlist) < 1){
+        uexWindow.toast('0','5','没有活动成员', 2000);
+        return;
+    }
+    var id = "admin_btn";
+    var ch = $$(id);
+    if(!isrefresh){//提交后的刷新，保持原有的按钮状态
+        adminmodel = !adminmodel;
+    }
+
+    if(ch){
+        if(adminmodel){
+            ch.style.left = '2.15em';
+            zy_anim_pop('btn_list1', 'uhide');
+            zy_anim_pop('btn_list2', 'uhide');
+        }else{
+            ch.style.left = '0em';
+            zy_anim_push('btn_list1', 'uhide');
+            zy_anim_push('btn_list2', 'uhide');
+        }
+        add_chk(toverifylist);
+        add_chk(memberlist);
+    }
+}
+/**
+ * 我的约伴/推荐记录，点击
+ */
+function my_share_members(){
+    if(!my_credit){
+        uexWindow.toast('0','5','你没有'+ op +'过!',2000);
+        return;
+    }
+    setstorage('params','{"uid":"' + uid + '", "tid":"'+ tid + '", "fid":"'+ fid + '"}');
+    openwin('share_member','share_member.html','10');
+}
+/**
+ * 管理员选择用户
+ */
+function friend_click(uid, applyid){
+    if(event.srcElement == $$('cbx_' + uid) || $$('cbx_' + uid).disabled){
+        return;
+    }
+    var checked = $$('cbx_' + uid).checked;
+    $$('cbx_' + uid).checked = !checked;
+    if(!checked){//点击选中了
+        selected_users[uid] = {"uid" : uid, "applyid": applyid};
+    }else if(selected_users[uid]){
+        delete selected_users[uid];
+    }
+}
+function submitConfirm(operation){
+    var key;
+    var applyids = '';
+    var glue = '';
+    for(key in selected_users){
+        applyids += glue + selected_users[key].applyid;
+        glue = '_';
+    }
+    //uidstring=1表明提交的用户字符串链接的，网站微信是数组
+    var url = forum_url + '&mod=misc&action=activityapplylist&applylistsubmit=yes&fromapp=1&' + '&operation=' + operation + '&tid='+ tid + '&applyidarray=' + applyids;
+    uexWindow.toast('1','5','加载中...',"");
+    $.getJSON(url, function (json){
+        var str = '操作失败';
+        uexWindow.closeToast();
+        if(json){
+            str = json.message ? json.message : '操作成功！';
+            if(json.status == 1){
+                switch (operation){
+                    case 'verify':
+                        loadmemberlist('', '');//刷新列表
+                        adminSelect(true);//启用管理模式
+                        break;
+                    case 'replenish':
+                        break;
+                    case 'delete':
+                        //从所在的列表中清除
+                        for(key in selected_users){
+                            removeNode('users_' + key);
+                        }
+                        break;
+                }
+                //清空selected_users，取消所有的选择
+                for(key in selected_users){
+                    if($$('cbx_' + key)) $$('cbx_' + key).checked = false;
+                }
+                selected_users = {};
+            }
+        }
+        uexWindow.toast('0','5',str,"2000");
+    })
+}
+function admin_submit(operation){
+    var length = int(zy_tmpl_count(selected_users));
+    if(!length){
+        uexWindow.toast('0','5','请选择成员', 2000);
+        return;
+    }
+    if(operation == 'delete'){
+        uexWindow.cbConfirm = function(opId, dataType, data){
+            if(int(data)==0) {
+                submitConfirm(operation);
+            }
+        };
+        var mycars = ['确定','取消'];
+        uexWindow.confirm('操作确人', '你确定要拒绝已选择的用户？', mycars);
+    }else submitConfirm(operation);
+}
+function friendAdd(){
+    var length = int(zy_tmpl_count(selected_users));
+    if(!length){
+        uexWindow.toast('0','5','请选择成员', 2000);
+        return;
+    }
+    //var str = '{"wname":"friend_information", "popname":"content", "fuid":"'+uid+'"}';
+    var fuids = '';
+    var glue = '';
+    for(key in selected_users){
+        fuids += glue + selected_users[key].uid;
+        glue = '_';
+    }
+    var str = '{"fuid":"' + fuids +'"}';
+    setstorage('params',str);
+    openwin('friend_add', 'friend_add.html', '10');
+}
+</script>
+</html>

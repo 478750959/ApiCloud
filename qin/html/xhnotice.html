@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+<head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+     <link rel="stylesheet" href="../css/api.css">
+     <link rel="stylesheet" href="../css/common.css">
+    <title>限号日推送</title>
+    <style>
+        #wrap{
+           background: #F0F0F0;
+
+        }
+
+        #header span{
+
+          height: 44px;
+          line-height: 44px;
+
+
+
+         }
+
+        /*.head-left{
+        float: left;
+        margin-left:10px;
+       font-size: 11pt;
+       background: url(../image/wallet_base_action_bar_back_normal.png) no-repeat;
+       background-position: left center;
+       background-size: 30% 75%;
+       margin-left: -5px;
+       }
+
+       .head-left p{
+        margin-left: 15px;
+       }
+*/
+    .head-left{
+        float: left;
+        margin-left:10px;
+       font-size: 11pt;
+       background: url(../image/wallet_base_action_bar_back_normal.png) no-repeat;
+       background-position: left center;
+       background-size: 20% 30%;
+       /*margin-left: -1px;*/
+       }
+
+       .head-left p{
+        margin-left: 30px;
+        margin-top:1px;
+       }   
+       #detail {
+        clear:both;
+        margin: 10px auto;
+        background: white;
+        /*line-height: 1.5;*/
+       padding-top:10px;
+       }
+      
+
+       .detail li{
+        height: 30px;
+        /*line-height: 30px;*/
+       /* font-weight: bold;*/
+        margin:0px;
+        z-index: 0;
+        position: relative;
+        border-bottom: 1px solid #F0F0F0;
+        padding-left: 10px;
+        padding-top: 10px;
+        position: relative;
+
+       }
+      #main p{
+        color: gray;
+        font-size: 12px;
+        padding-left: 10px;
+      }
+       #onoff{
+        position: absolute;
+        right: 5px;
+        top:8px;
+        
+        width: 50px;
+        height:25px;
+        background:red;
+        z-index: 1;
+       }
+       #switchoff{
+        position: absolute;
+        background:white;
+         width: 20px;
+        height:20px;
+        right:8px;
+        top:10px;
+        z-index: 100;
+       }
+      #switchoff:hover{
+        -webkit-transform: translate(-25px, 0px);
+        -moz-transform: translate(-25px,0px);
+        -ms-transform: translate(-25px,0px);
+        -o-transform: translate(-25px,0px);
+        transform: translate(-25px,0px);
+
+      }
+    </style>
+      
+</head>
+<body>
+    <div id="wrap">
+    <div id="header">
+            <span class="head-left" tapmode onclick="goback()"><p>限号日推送</p></span>
+            
+        </div>
+     
+        <div id="main">
+          
+            <div id="detail">
+               <ul class="detail">
+                 <li>
+                   <h4>限号日推送</h4>
+                   <!-- <p>关闭后将不向您推送限号日的订单</p> -->
+                    <div id="onoff">
+                      
+                    </div>
+                    <div id="switchoff">
+                      
+                    </div>
+
+                 </li>
+                
+               </ul>
+             </div>
+             <p>关闭后将不向您推送限号日的订单</p>
+          </div>
+                 
+            
+            
+
+
+        </div>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>     
+</body>
+</html>

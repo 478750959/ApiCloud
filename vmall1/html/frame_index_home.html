@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/common.css"/>
+    <style>
+    body{background-color:rgb(247,247,247);font-size:14px;}
+    .home-product-title{font-size:14px;color:rgb(0,0,0);margin-bottom:2px;font-family: 'microsoft yahei';white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+    .home-product-desc{font-size:10px;color:rgb(155,155,155);margin-bottom:2px;font-family: 'microsoft yahei';white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+    .home-product-price{font-size:12px;color:rgb(0,0,0);margin-bottom:2px;font-family: 'microsoft yahei';white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+    .ec-slider{height:150px;width:100%;}
+    .favorable-top{display:-webkit-box;}
+    .favorable-top img{height:90px;}
+    .favorable-top-item{height:90px;display:-webkit-box;-webkit-box-flex:1;border:0px solid rgb(111,111,111);margin:8px;overflow:hidden;}
+    .favorable-top-left{margin-right:0;}
+    .favorable-bottom{width:100%;background-color:rgb(255,255,255);}
+    .favorable-bottom-ul{border-top:1px solid rgb(225,225,225);border-bottom:1px solid rgb(225,225,225);}
+    .favorable-bottom-item{box-sizing:border-box;width:50%;/*padding:12px 25px 12px 10px;*/border-bottom:1px solid rgb(222,222,222);border-right:1px solid rgb(225,225,255);float:left;height:100px;position:relative;}
+    .favorable-bottom-1{height:200px;padding:12px 0 0 10px;}
+    .favorable-bottom-item-left{display:inline-block; width:75px;padding:12px 0 0 10px;}
+    .favorable-bottom-item-right{position:absolute;top:0;right:0px;}
+    .favorable-bottom-item-div{}
+    .favorable-bottom-item-title{font-size:13px;color:rgb(0,0,0);}
+    .favorable-bottom-item-desc{font-size:10px;color:rgb(155,155,155);margin:5px 0;max-height:36px;overflow:hidden }
+    .favorable-bottom-item-price{font-size:12px;color:rgb(0,0,0);/* margin:0 0 15px 0; */}
+    .favorable-bottom-item-img{height:99px;width:99px;}
+    .favorable-bottom-item-img-1{display:block;height:130px;margin:0 auto;/*padding-left:15px;*/}
+    .hotWord{height:175px;width:100%;border-top:1px solid rgb(222,222,222);border-bottom:1px solid rgb(222,222,222);}
+    .hotWord-title{padding:10px;}
+    .hotWord-li{margin:30px 0;}
+    .hotWord-li-1{margin-top:15px;}
+    .hotWord-li-p{width:33.33%;float:left;border-left:1px solid rgb(222,222,222);box-sizing:border-box;text-align: center;}
+    .hotWord-li-p-span{font-size:12px;}
+    .boutique{border-top:1px solid rgb(222,222,222);}
+    .boutique-title{padding:10px;}
+    .boutique-ul{border-bottom:1px solid rgb(222,222,222);}
+    .boutique-li{height:190px;width:50%;background-color:rgb(255,255,255);float:left;border-right:1px solid rgb(222,222,222);border-bottom:1px solid rgb(222,222,222);padding:0 0 0 10px;box-sizing:border-box;position:relative;}
+    .boutique-li-left{float:left;}
+    .boutique-li-right{float:right;}
+    .boutique-li-img{display:block;height:130px;margin:10px auto 0 auto;}
+    .slideMore{height:60px;width:100%;background-color:rgb(247,247,247);}
+    .slideMore-main{line-height:60px;text-align:center;font-size: 16px}
+    .slideMore-main-arrow{height:15px;width:10px;background-color:rgb(240,240,240);background:url(../image/sprites3.png) -20px -30px no-repeat;}
+    </style>
+</head>
+<body>
+    <div class="ec-slider"></div>
+    <div class="favorable">
+        <div class="favorable-top" id="favorable-top">
+            <script id="favorable-top-template" type="text/x-dot-template">
+            <div class="favorable-top-item favorable-top-left" onclick="openWinFavorable('win_favorable_top','http://mt.vmall.com/ryb0k1.html')"><img class="lazy" src="../image/mask.png" data-original="{{=it.home_favorable_1.url}}"></div>
+            <div class="favorable-top-item favorable-top-right" onclick="openWinFavorable('win_favorable_top','http://m.vmall.com/search/index?keywords=12')"><img class="lazy" src="../image/mask.png" data-original="{{=it.home_favorable_2.url}}"></div>
+            </script>
+        </div>
+        <div class="favorable-bottom" id="favorable-bottom">
+            <script id="favorable-bottom-template" type="text/x-dot-template">
+            <ul class="favorable-bottom-ul after">
+                <li class="favorable-bottom-item favorable-bottom-1" onclick="openHomeWin('win_product','{{=it[0].id}}')">
+                    <i class="tag{{=it[0]['tag']}}"></i>
+                    <p class="favorable-bottom-item-title">{{=it[0].shortName}}</p>
+                    <p class="favorable-bottom-item-desc">{{=it[0].intro}}</p>
+                    <p class="favorable-bottom-item-price">&yen;{{=it[0].price}}.00</p>
+                    <div class="favorable-bottom-item-div">
+                        <img class="favorable-bottom-item-img-1 lazy" src="../image/mask.png" data-original="{{=it[0].thumbnail.url}}">
+                    </div>
+                </li>
+
+                {{for(var i=1;i<=6;i++){}}
+                    <li id="favorable-bottom-2" class="favorable-bottom-item" tapmode onclick="openHomeWin('win_product','{{=it[i].id}}')">
+                    <i class="tag{{=it[i]['tag']}}"></i>
+                        <div class="favorable-bottom-item-left">
+                            <p class="favorable-bottom-item-title">{{=it[i].shortName}}</p>
+                            <p class="favorable-bottom-item-desc">{{=it[i].intro}}</p>
+                            <p class="favorable-bottom-item-price">&yen;{{=it[i].price}}.00</p>
+                        </div>
+                        <div class="favorable-bottom-item-right">
+                            <img class="favorable-bottom-item-img lazy" src="../image/mask.png" data-original="{{=it[i].thumbnail.url}}">
+                        </div>
+                    </li>
+                {{}}}
+            </ul>
+            </script>
+        </div>
+        <div class="hr-10"></div>
+        <div class="hotWord">
+            <p class="hotWord-title">热点聚焦</p>
+            <ul class="hotWord-ul" id="hotWord-ul">
+                <script type="text/x-dot-template" id="hotWord-template">
+                <li class="hotWord-li after hotWord-li-1">
+                    <p class="hotWord-li-p" tapmode onclick="openSearchWin('{{=it['p01']}}');"><span class="hotWord-li-p-span">{{=it['p01']}}</span></p>
+                    <p class="hotWord-li-p" tapmode onclick="openSearchWin('{{=it['p02']}}');"><span class="hotWord-li-p-span">{{=it['p02']}}</span></p>
+                    <p class="hotWord-li-p" tapmode onclick="openSearchWin('{{=it['p03']}}');"><span class="hotWord-li-p-span">{{=it['p03']}}</span></p>
+                </li>
+                <li class="hotWord-li after hotWord-li-2">
+                    <p class="hotWord-li-p" tapmode onclick="openSearchWin('{{=it['p04']}}');"><span class="hotWord-li-p-span">{{=it['p04']}}</span></p>
+                    <p class="hotWord-li-p" tapmode onclick="openSearchWin('{{=it['p05']}}');"><span class="hotWord-li-p-span">{{=it['p05']}}</span></p>
+                    <p class="hotWord-li-p" tapmode onclick="openSearchWin('{{=it['p06']}}');"><span class="hotWord-li-p-span">{{=it['p06']}}</span></p>
+                </li>
+                <li class="hotWord-li after hotWord-li-3">
+                    <p class="hotWord-li-p" tapmode onclick="openSearchWin('{{=it['p07']}}');"><span class="hotWord-li-p-span">{{=it['p07']}}</span></p>
+                    <p class="hotWord-li-p" tapmode onclick="openSearchWin('{{=it['p08']}}');"><span class="hotWord-li-p-span">{{=it['p08']}}</span></p>
+                    <p class="hotWord-li-p" tapmode onclick="openSearchWin('{{=it['p09']}}');"><span class="hotWord-li-p-span">{{=it['p09']}}</span></p>
+                </li>
+                </script>
+            </ul>
+        </div>
+        <div class="hr-10"></div>
+        <div class="boutique">
+            <p class="boutique-title">精品推荐</p>
+            <ul class="boutique-ul after" id="boutique-ul">
+                <script type="text/x-dot-template" id="boutique-ul-template">
+                {{for(var key in it){}}
+                    <li class="boutique-li boutique-li-left" tapmode onclick="openHomeWin('win_product','{{=it[key].id}}')">
+                            <i class="tag{{=it[key]['tag']}}"></i>
+                            <img class="boutique-li-img lazy" src="../image/mask.png" data-original="{{=it[key]['thumbnail']['url']}}">
+                            <p class="home-product-price">&yen;{{=it[key]['price']}}</p>
+                            <p class="home-product-title">{{=it[key]['shortName']}}</p>
+                            <p class="home-product-desc">{{=it[key]['intro']}}</p>
+                    </li>
+                {{}}}
+                </script>
+            </ul>
+        </div>
+        <!-- <div class="slideMore">
+            <div class="slideMore-main">
+                <span class="slideMore-main-arrow"></span><span class="slideMore-main-arrow"></span>&nbsp;向左滑动浏览更多商品
+            </div>
+        </div> -->
+    </div>
+<script src="../script/api.js"></script>
+<script src="../script/doT.min.js"></script>
+<script src="../script/common.js"></script>
+<script src="../script/jquery.min.js"></script>
+<script src="../script/jquery.lazyload.min.js"></script>
+<!-- <script type="text/javascript" src="../script/swipe.js"></script> -->
+<script type="text/javascript">
+var openSearchWin = function(param){
+    api.openWin({
+        name:'Win_search',
+        url:'./Win_search.html',
+        pageParam:{searchWord:param},
+        delay:200
+    })
+}
+
+var openHomeWin = function(name,pId){
+        api.openWin({
+            name:name,
+            url:name+'.html',
+            pageParam:{pId:pId},
+            delay:100
+        });
+}
+
+var reloadMe = function(){
+    location.reload();
+    // alert('execute');
+}
+
+var openWinFavorable = function(name,url){
+    api.openWin({
+        name:name,
+        url:name+'.html',
+        pageParam:{
+            url:url
+        },
+        delay:100
+    });
+}
+
+apiready = function () {
+    api.showProgress();
+    var query = api.require("query");
+    var model = api.require("model");
+    var scrollIdJson = [];
+    var imgsArr = [];
+    query.createQuery(function(ret, err) {
+        if (ret && ret.qid) {
+            var queryId = ret.qid;
+            /*query.limit({
+                qid:queryId,
+                value:'9'
+            });*/
+        query.desc({
+            qid:queryId,
+            column:"favorableSort"
+        });
+
+            model.findAll({
+                class: "product",
+                qid: queryId
+            }, function(ret, err){
+                // alert(JSON.stringify(ret));
+                var template=document.getElementById('favorable-bottom-template').innerHTML;
+                document.getElementById('favorable-bottom').innerHTML=doT.template( template )( ret );
+                $("img.lazy").lazyload({effect:'fadeIn',threshold:'50'});
+                // alert("ret: " + JSON.stringify(ret) + "\nerr: " + JSON.stringify(err));
+            });
+        }
+    });
+    model.findById({
+        class: "img",
+        id: "559b4a2d9b60c9ee01f13c32"
+    }, function(ret, err){
+        // alert(ret.thumbnail.url);
+        var template=document.getElementById('favorable-top-template').innerHTML;
+        document.getElementById('favorable-top').innerHTML=doT.template( template )( ret );
+        $("img.lazy").lazyload({effect:'fadeIn'});
+    });
+
+    query.createQuery(function(ret, err) {
+        if (ret && ret.qid) {
+            var queryId = ret.qid;
+            model.findAll({
+                class:"slider_home",
+                qid:queryId
+            },function(ret,err){
+                var i=0;
+                while(ret[0]['id'+i]){
+                     scrollIdJson.push(ret[0]['id'+i]);
+                     imgsArr.push(ret[0]['img'+i]['url']);
+                     i+=1;
+                }
+                var UIScrollPicture = api.require('UIScrollPicture');
+                UIScrollPicture.open({
+                    rect:{
+                        x:0,
+                        y:0,
+                        w:api.winWidth,
+                        h:150
+                    },
+                    data:{
+                        paths:imgsArr
+                    },
+                    styles:{
+                        indicator:{
+                            align:'right',
+                            activeColor:'rgb(255,255,255)',
+                            color:'#9B9B9B'
+                        }
+                    },
+                    placeholderImg:'widget://image/mask.png',
+                    interval:3,
+                    auto:true,
+                    loop:true,
+                    fixedOn:'frame_index_home',
+                    fixed:false
+                },function(ret,err){
+                    if(ret.status){
+                        if(ret.eventType === 'click'){
+                            //点击图片的操作
+                            openHomeWin('win_product',scrollIdJson[ret.index]);
+                        }
+                     }
+                });
+            });
+        }
+    });
+
+
+    // 取出'精品推荐'的数据
+    query.createQuery(function(ret, err) {
+        if (ret && ret.qid) {
+            var queryId = ret.qid;
+
+            query.limit({
+                qid:queryId,
+                value:"14"
+            });
+
+            query.desc({
+                qid: queryId,
+                column: "boutiqueSort"
+            })
+
+            model.findAll({
+                class: "product",
+                qid: queryId
+            }, function(ret, err){
+                var boutique_ul_template = document.getElementById('boutique-ul-template').innerHTML;
+                document.getElementById('boutique-ul').innerHTML = doT.template(boutique_ul_template)(ret);
+                $("img.lazy").lazyload({effect:'fadeIn'});
+                api.hideProgress();
+            });
+        }
+    });
+
+    // 取出'热门搜索'的数据
+    model.findById({
+        class: "popular",
+        id: "55cc32832f83c7a114055a76"
+    }, function(ret, err){
+        var hotWord_template = document.getElementById('hotWord-template').innerHTML;
+        document.getElementById('hotWord-ul').innerHTML = doT.template(hotWord_template)(ret);
+        // alert(JSON.stringify(ret));
+    });
+}
+</script>
+</body>
+</html>

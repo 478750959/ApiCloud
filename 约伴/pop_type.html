@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+  <head>
+    <title>
+    </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="css/ui-img.css">
+	<link rel="stylesheet" href="css/ui-input.css">
+    <link rel="stylesheet" href="css/ui-res.css">
+    <link rel="stylesheet" href="css/ui-btn.css">
+    <link rel="stylesheet" href="css/ui-base.css">
+    <link rel="stylesheet" href="css/ui-box.css">
+    <link rel="stylesheet" href="css/ui-color.css">
+	<link rel="stylesheet" href="css/ui-list.css">
+	<link rel="stylesheet" href="css/style.css">
+    <script src="js/y_control.js"></script>
+    <script src="js/y_click.js"></script>
+	<script src="js/y_anim.js"></script>
+	<script src="js/dis_control.js"></script>
+	<script src="js/y_tmpl.js"></script>
+    <script>
+	</script>
+  </head>
+<body class="um-vp">
+	<div style="height:4em;"></div>
+	<div class="uc-a b-gra uba2 uinn c-wh uinn17" style="z-index:100">
+		<div class="ulev0 t-blu" style="">
+			选择版块/分类
+			<img src="images/delpic.png" class="ufr" style="width:1.2em; height:1.2em;" ontouchstart="zy_touch('')" onclick="movepop(1);"/>
+		</div>
+		<div class="b-gra uba1 umar-t umar-b" style="width:100%;"></div>
+		<div class="ulev0">选择版块</div>
+		<div class="uba b-gra uc-a1 uinn6 umar-t">    
+		 	<div ontouchstart="zy_touch('btn-act')" class="ub ub-ac lis uc-a1 c-m7">     
+		 		<div class="ub-f1 ub b-gra sel"> 
+					<div class="ub-f1 ut-s ulev0 t-gra6 tx-l" id="t1">请选择版块</div>  
+					<select name="sel0" selectedindex="0"  style="border:none !important; " id="s1" onchange="selectmenu('s1')">
+				 	</select> 
+				 </div> 
+				 <div class="res11 lis-sw1 ub-img5"></div>  
+		 	</div>   
+		</div>
+		<div class="ulev0" style="margin-top:1em;">选择分类</div>
+		<div class="uba b-gra uc-a1 uinn6 umar-t">    
+		 	<div ontouchstart="zy_touch('btn-act')" class="ub ub-ac lis uc-a1 c-m7">     
+		 		<div class="ub-f1 ub b-gra sel"> 
+					<div class="ub-f1 ut-s ulev0 t-gra6 tx-l" id="t2">请选择分类</div>  
+					<select class="uhide" name="sel0" selectedindex="0" style="border:none !important; " id="s2" onchange="selectmenu('s2');" onclick="showMsg();"></select>
+					<select class="" name="sel1" selectedindex="0" style="border:none !important;" disabled="disabled" id="s3"></select> 
+				 </div>
+				 <div class="res11 lis-sw1 ub-img5"></div>   
+		 	</div>    
+		</div>
+	</div>
+</body>
+<script>
+zy_init();
+var params = getStorJson('params');
+var fid = params.fid;
+var clsid = params.clsid;
+var e1 = $$('s1');
+var e2 = $$('s2');
+var forums = getStorJson('forums');
+var classs = null;
+var scount = 0;
+var sIndex = 0;
+var selObj = {};
+var pps = 0;
+var tmid = 0;
+window.uexOnload = function ()
+{
+	//logs('pop_type::uexOnload()--->forums='+getstorage('forums'));
+	movepop();
+	addoptions();
+}
+
+var moving = 0;
+function movepop(i){
+	//uexWindow.closePopover('pop_type');
+	logs('movepop()-->pps='+pps);
+	if(isSML && i){
+		uexWindow.closePopover('pop_type');
+	}
+	else{
+		if(moving) return;
+		if(tmid){
+			clearTimeout(tmid);
+			tmid = 0;
+		}
+		
+		var dx = '-800';
+		if(pps) dx = '800';
+		disShowAnim(dx, '0', animCb);
+		pps = !pps;
+		moving = 1;
+	}
+}
+
+function animCb(){
+	moving = 0;
+}
+
+function selectmenu(id){
+	zy_selectmenu(id, myslcb);
+}
+
+function j2vCb(d,c)
+{
+	 if(c.length>1)
+	 {
+		switch(c[1])
+		{
+			case 'fid':
+				if (fid && fid == d.fid) {
+					setHtml('t1', d.name);
+					sIndex = scount;
+				}
+				scount++;
+				return d.fid;
+		}
+		return "";
+	 }
+}
+function addoptions(){
+	forumsl = zy_tmpl_count(forums);
+	var tmpl = '<option value="${cb:fid}">${name}</option>${cb:cls}';
+ 	var res = zy_tmpl(tmpl,forums,forumsl,j2vCb);
+ 	setHtml('s1', res);
+ 	
+    if(e1){
+    	e1.value = '';
+		
+		if (fid) {
+			e1.selectedIndex = sIndex;
+			myslcb('s1', fid);
+			
+			if(clsid){
+				var item = forums[fid];
+				var str = item.cls[clsid];
+				
+				setHtml('t2', str);
+				e2.typeid = clsid;
+			}
+		}
+		else 
+			e1.selectedIndex = -1;
+    }
+}
+
+function myslcb(id, index){
+	logs('myslcb()-->id='+id+', fid='+index);
+	if(id=='s1'){
+		var str = '';
+		var fos = forums[index];
+		var cls = fos.cls;
+		var ele = $$('s2');
+		selObj.fid = index;
+		classs = cls;
+		if(cls){
+			var si = 0;
+			for(var k in cls){
+				str += '<option value="'+k+'">'+cls[k]+'</option>';
+				if(clsid && Int(clsid)==k && ele){
+					setHtml('t2', cls[k]);
+					ele.selectedIndex = si;
+				}
+				si++;
+			}
+			zy_hide('s3');
+			zy_show('s2');
+			setHtml('t2', '请选择分类');
+		}else{
+			setHtml('t2', '暂无分类');
+			selObj.typeid = '';
+			zy_hide('s2');
+			zy_show('s3');
+			tmid = setTimeout('movepop();tmid=0', 1000);
+		}
+		setHtml('s2', str);
+	    if(ele){
+	    	ele.value = '';
+	    	ele.selectedIndex = -1;
+	    }
+		
+		fid = index;
+		if(cls && fos.req) selObj.typerq = 1;
+		else  selObj.typerq = '';
+	}
+	else{
+		selObj.typeid = index;
+		setTimeout('movepop();', 1000);
+	}
+	setStorJson('selObj', selObj);
+}
+
+function showMsg(){
+	//if(!classs) uexWindow.toast('0','5','没有分类', 2000);
+}
+</script>
+</html>

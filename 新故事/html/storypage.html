@@ -1,0 +1,543 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=0, width=device-width"/>
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="format-detection" content="address=no" />
+    <title>api</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <style>
+		html,body{height: 100%}
+		body{
+			background-color: #f2f2f2; font-size: 14px;
+		}
+        #header{
+			background-color: #55abce;
+			text-align: center; color: #fff;
+			width: 100%; position: relative;
+		}
+		#header .back-icon{
+			display: inline-block; width: 40px; height: 40px;
+			background: url(../image/arr-l.png) no-repeat center center; 
+			-webkit-background-size: 14px 18px;
+			background-size: 14px 18px;
+			position: absolute; left: 0; bottom: 0;
+		}
+		#header h1{
+			font-size: 20px;
+			height: 44px; line-height: 44px; margin: 0em; color: #fff;
+		}
+		.input-wrap{
+			padding: 20px 10px; position: relative;
+			margin-top:10px;
+		}
+		.txt{
+			border: 1px solid #e6e6e6; border-radius: 6px; padding: 10px;
+			width: 100%; outline: none;
+			height:100px;
+			-webkit-box-sizing: border-box;
+			box-sizing: border-box;
+		}
+		
+       
+		 
+		#cover{
+		  height: 180px; text-align: center; position: relative;
+		  margin-top:10px;
+		   margin-bottom:30px;
+		}
+		#cover .cover{
+			-webkit-filter: blur(20px);
+			filter: blur(20px); 
+			opacity: .8;
+		}
+		#cover img{
+			position: absolute; left: 0;
+		}
+		#cover label{
+			position: relative; z-index: 5; color: #000;
+			text-shadow: 2px 2px 2px #ccc;
+		}
+		#avatar{
+			width: 100%; height: 200px;  margin: 0 auto; padding: 20px 0;
+			position: relative; z-index: 5;
+		}
+		#avatar img{
+			width: 100%; height: 200px;border-radius: 10px;  border: 1px solid #fff;
+			 background: url(../image/blank.png) no-repeat;
+		}
+		
+		.do{
+		   display:block;
+		   float:right;
+		   width:100px;
+		   margin-top:-30px;
+		   color:#fff;
+		   font-size:1.2em;
+		   text-align: right;
+		   padding-right: 15px;
+		}
+	    
+	   a.btn, button.btn, input.btn{
+			border:1px solid #4390af; border-radius: 6px; background-color: #55abce;
+			padding: 10px 0; display: block; margin: 0 10px;
+			font-size: 16px; color: #fff; text-align: center;
+		}
+
+		a.btn.active{
+			background-color: #3394bb;
+		}
+		
+		#story-tp{
+		margin-top:15px;
+		height:150px;
+		 width: 95%;
+		
+		}
+		#story-tp img{
+		 height:100%;
+		 margin-left:2.5%;
+		 width: 100%;
+		 border-radius: 10px; 
+		 background: url(../image/blank.png) no-repeat;
+		 
+		}
+		
+		#story-tp .edit{
+			position: relative; top: -10%;left:95%; bottom: 12px;
+			display: inline-block; width: 20px; height: 20px;
+			background:#55abce url(../image/edit.png) no-repeat center center;
+			background-size: 13px 13px;
+			border: 3px solid #fff; border-radius: 50px;
+		}
+	    
+		
+		
+		#story li a .edit{
+			position: relative; top:-10%;left:95%; bottom: 12px;
+			display: inline-block; width: 20px; height: 20px;
+			background:#55abce url(../image/edit.png) no-repeat center center;
+			background-size: 13px 13px;
+			border: 3px solid #fff; border-radius: 50px;
+		}
+		
+      
+      
+	   #story ul
+	   {    
+	     list-style-type: none !important;
+	      width:100%; 
+	      margin-top: 20px;
+	   }
+	   
+	   #story li{
+	   
+	   	 display:block;
+		 height:155px;	
+		 width:90%; 
+		 border-bottom: 1px solid #CCCCCC;
+		 margin-left: 5%;
+	   }
+	   
+	   #story li:last-child{
+	      border-bottom: 0px !important; 
+	   }
+	   
+	   #story  li a{
+		
+		 display:block;
+		 height:auto;
+		}
+	
+	   #story  li a img{    
+	      position:relative;
+	      overflow: hidden;
+	      text-align: center;
+		  height: 140px; max-width: 300px; width: 92%; margin-top:-10px;
+		  margin-bottom:10px;
+		  -webkit-border-radius: 30px;
+		  border-radius: 30px; 
+		  padding: 5px;
+		  
+	    }
+	   
+	   #story  li .left-l{
+		 float:left;
+		 width:55%;
+		}
+		
+		#story li .right-l{
+		 float:right;
+		 width:43%;
+		}
+		
+	
+	
+		#story  h2{
+		  font-size: 16px; padding-left: 1em; padding-bottom: .8em;
+		  margin-top:5px;
+		}
+		
+		
+		#story  p{
+		  padding: 1em; padding-top: 0;  text-overflow: ellipsis;
+		  width: 100%; overflow: hidden; color: #999;
+		/*  -webkit-box-sizing: border-box;*/
+		  /*box-sizing: border-box;*/
+		 margin-right: 15px;
+		 margin-left: -15px;
+		 height: 100px;
+		}
+		
+    </style>
+</head>
+
+<body>
+    <div id="wrap">
+        <div id="header">
+            <a class="back-icon" tapmode="" onclick="api.closeWin()"></a>
+            <h1>五一游长城</h1>
+			<a class="do" tapmode="" onclick="publish()">发布</a>
+        </div>
+        <div id="main">
+       
+            <div id="story-tp">
+			   <img src="../image/blank.png" id="pic" onclick="getnewpic()"/>
+			   <i class="edit"></i>
+			</div>
+		  
+			
+			<div class="input-wrap">
+                <textarea class="txt" id="stitle" placeholder="旁白"  value="" onkeypress="validateWordNum(event)"></textarea>
+                <i class="del" tapmode="" onclick="delWord(this)"></i>
+            </div>
+			
+	
+            <a class="btn" style="margin-top:10px;" tapmode="active" onclick="fileup()">添加</a>
+			
+		     <script id="page-template" type="text/x-dot-template">
+               {{ for(var i=0, len=it.length; i<len; i++) {}}
+					<li>
+				   		<a tapmode="listActive" data-id="{{=it[i].id}}" onclick="openRest(this);">
+						<div class="left-l">
+						   <img src="{{=it[i].pagepic}}"/>
+						   <!--<i class="edit"></i>-->
+							</div>
+							<div class="right-l">
+						 	  <p>{{=it[i].pagecontent}}</p>
+						   </div>						   
+				     </a>
+				    </li>
+			   {{ } }}
+	          </script>
+	           
+			 <div id="story">
+				<ul id="list"></ul>
+			</div>
+			
+
+        </div>
+    </div>
+
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript" src="../script/doT.min.js"></script>
+<script>
+apiready = function() {
+	
+	 var storyid = api.pageParam['id'];
+	 var storyname = api.pageParam['name'];
+	 
+	 //alert(storyid+storyname);
+	 
+	 $api.text($api.dom($api.byId('header'), 'h1'),storyname);
+	 
+	  api.addEventListener({
+           name: 'keyback'
+       }, function(ret, err){
+          go2back(); 
+       });   
+       
+       loadData(storyid);   
+       
+        
+};
+function getnewpic() {
+    api.getPicture({
+            sourceType : 'library',
+            encodingType : 'jpg',
+            mediaValue : 'pic',
+            destinationType : 'url',
+            allowEdit : true,
+            quality : 50,
+            saveToPhotoAlbum : false
+    }, function(ret, err) {
+            if (ret) {
+                 $api.setStorage('ppicurl',ret.data);
+          		 $api.attr($api.byId('pic'),'src', ret.data);
+			     //fileup(ret.data, 1);
+            } else {
+                     api.alert({
+                            msg : err.msg
+                    });
+            };
+    });
+ }
+ 
+ function publish(){
+  $api.rmStorage('storyid');
+   api.toast({msg: '发布成功！', location: 'middle'});
+   api.execScript({name:'root', script:'refreshdata();'});
+  setTimeout(function(){
+	api.closeToWin({
+	    name: 'root'
+	    });
+	}, 200);
+ 
+ }
+function fileup() {
+	
+	var url = $api.getStorage('ppicurl');
+	
+	var strs = url.split("/");
+	
+	var fname = strs[strs.length-1];
+	
+	var model = api.require('model');
+	
+	model.config({
+	    appId : 'A6986807204147',
+	    appKey : '45603BB9-AE8A-4B15-6CFC-24F8BF56CF3A',
+	    host: 'https://d.apicloud.com/'
+	});
+	var now = Date.now();
+	//alert(now);
+	model.uploadFile({
+	        report : true,
+	        data : {
+	           
+	            file : {
+	                    name : fname,
+	                    url : url
+	            },
+	            values : {
+	                    key1 : 'aa',
+	                    key2 : 'bb'
+	                }
+	        }
+	}, function(ret, err) {
+	        if (ret) {
+	              
+	               var state = ret.state;
+	                
+		           if (state==1) {
+		                        //上传完成
+		               $api.jsonToStr(ret);
+		            }else if ( state==0 ){
+
+		            }else if (state==2){
+		                    //上传失败
+		              $api.jsonToStr(ret);
+		              return false;
+	                    
+		            } 
+		            
+		            if(ret.url){
+						$api.setStorage('ppicurl',ret.url);
+//						
+//						$api.attr($api.byId('pic'),'src', ret.url);
+						insertstorypage(ret.url)
+						
+		           
+		            }
+		            return true;
+		        } 
+	});
+}	
+
+function insertstorypage(ppic){
+    
+    if(!checkinput()){
+     
+      api.toast({msg: '您还没有输入的旁白，亲！', location: 'middle'});
+	 
+	  event.preventDefault();
+	  
+	  return;
+    
+    }
+   
+    if (!ppic){
+	       api.toast({msg: '图片忘传了，亲！', location: 'middle'});
+		 
+		  event.preventDefault();
+		  
+		  return;
+	   
+	   }
+	
+	var storyid = $api.getStorage('storyid');
+   
+	if (!storyid){
+	
+	   api.toast({msg: '出错了，需要重新打开应用！', location: 'middle'});
+	   
+	   return;
+	}
+	
+	
+	   
+	var ppic = $api.getStorage('ppicurl'); 
+	
+	var pagecontent = $api.val($api.byId('stitle'));
+	
+	var values = {
+					storyid: storyid,
+					pagecontent: pagecontent,
+					pagepic:ppic
+				};
+						
+	api.showProgress({modal: false});
+	 var model = api.require('model');
+     var query = api.require('query');
+     model.config({appId:'A6974887568667',appKey:'09652FAC-1E1B-D3C4-90BB-2BC09472893F',host: 'https://d.apicloud.com'});
+
+		var param = {class:'storydetail', value:values};
+			model.insert(param, function(ret, err){
+			if(ret ){
+				$api.rmStorage('ppicurl');
+				api.toast({msg: '提交成功', location: 'middle'});
+				loadData(storyid);
+//				alert('loaded');
+				api.hideProgress();	
+//				setTimeout(function(){
+////					api.closeWin();//关闭此页面
+//				}, 2000);
+	    	}else{
+	    		if(ret){
+	    			api.toast({msg: ret.msg, location: 'middle'});
+	    		}else if(err){
+	    			api.toast({msg: err.msg, location: 'middle'});
+	    		}else{
+	    			api.toast({msg: '数据错误', location: 'middle'});
+	    		}	
+	    	}
+			});
+			
+			//delWord($api.byId('stitle'));
+			
+}
+function go2back(){
+	var pic = $api.getStorage('ppicurl');
+	
+	if((checkinput())||(pic))
+	{
+	  api.confirm({
+	    title: '重要',
+	    msg: '内容已修改，确定取消本次创作？',
+	    buttons:['确定', '取消']
+		},function(ret,err){
+		    if(ret.buttonIndex == 1){
+		      $api.rmStorage('ppicurl');
+		      $api.rmStorage('storyid');
+		      api.execScript({name:'root', script:'refreshdata();'});
+		     // canelpic();
+			     api.closeToWin({
+		             name: 'root'
+	             });
+		    }
+		});
+	}else{
+	 api.closeWin();//关闭此页面
+	
+	}
+}
+function validateWordNum(event){
+	var value = $api.val($api.byId('stitle'));
+	if(value.length >= 100){
+		api.toast({msg: '您输入的内容已超过100字！', location: 'middle'});
+		event.preventDefault();
+	}
+}
+function delWord(el) {
+var input = $api.prev(el, '.txt');
+	input.value = '';
+}
+
+function checkinput(){
+ 
+   var value = $api.val($api.byId('stitle'));
+	if(value.length <= 0){
+		
+	 return false;
+	
+	}else{
+	   
+	  return true;
+	
+	}
+}
+
+
+function loadData(storyid) {
+	
+    var model = api.require('model');
+	var query = api.require('query');
+	model.config({
+		 appId : 'A6974887568667',
+   		 appKey : '09652FAC-1E1B-D3C4-90BB-2BC09472893F',
+   		 host: 'https://d.apicloud.com/'
+	});
+	
+	query.createQuery(function(ret, err) {
+		if (ret && ret.qid) {
+			var queryId = ret.qid;
+			// 排序
+			query.desc({qid: queryId, column: 'createdAt'});
+			query.whereEqual({
+	            qid: queryId,
+	            column: 'storyid',
+	            value:storyid 
+	        });
+		
+			model.findAll({
+					class: "storydetail",
+					qid: queryId
+				},
+				function (ret, err){
+				  if (ret) {
+			                var content = $api.byId('list');
+			                var tpl = $api.byId('page-template').text;
+			                var tempFn = doT.template(tpl);
+			                content.innerHTML = tempFn(ret);
+			                //alert(tempFn(ret));
+			                api.parseTapmode();
+							//$api.html(content, html);
+			            } else {
+			                api.toast({
+			                    msg: err.msg
+			                });
+			            }
+				})
+		}
+
+	})
+}
+
+function openRest(el) {
+    var dataId = $api.attr(el, 'data-id');
+    return;
+    api.openWin({
+        name: 'restaurant',
+        url: 'restaurant.html',
+        opaque: true,
+        pageParam: {dataId: dataId},
+        vScrollBarEnabled: false
+    });
+
+}
+</script>
+</html>

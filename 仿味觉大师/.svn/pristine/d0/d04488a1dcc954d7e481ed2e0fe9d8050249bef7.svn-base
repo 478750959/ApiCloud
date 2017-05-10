@@ -1,0 +1,34 @@
+
+.bold {
+    font-weight: bold;
+}
+.container{
+   padding: 0.6em; 
+}
+.list-item {
+    padding-top: 0.6em;
+    padding-bottom: 0.6em;
+    padding-left:0.6em;
+    padding-right:0.6em;
+    line-height: 1.6em;
+}
+.list-empty {
+    padding-top: 0.6em;
+    padding-bottom: 0.6em;
+    padding-left:0.6em;
+    padding-right:0.6em;
+    line-height: 1.6em;
+}
+
+
+
+.separator{
+    height:0.6em;
+    background-color: #eee;
+}
+.b-none{
+    border: none;
+}
+
+
+

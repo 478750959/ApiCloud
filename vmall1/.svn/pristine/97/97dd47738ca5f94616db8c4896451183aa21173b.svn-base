@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+	<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+	<link rel="stylesheet" href="../css/api.css">
+	<style>
+	.module1-item1{height:75px;width:100%;border-bottom:1px solid rgb(200,200,200);line-height: 75px}
+	.module1-item1-account{display:none;}
+	.module1-item1-img{height:75px;width:75px;background:url(../image/user_defaulthead@2x.png) center no-repeat;background-size:70%;display:inline-block;}
+	.module1-item1-word{}
+	.module1-item1-ul li{float:left;}
+	.module1-item1-login{float:right !important;height:35px;width:25%;border:1px solid rgb(100,100,100);margin:20px;border-radius:1em;text-align:center;line-height: 35px;background-color:rgb(251,251,251);}
+	.module1-item2{border-bottom:1px solid rgb(200,200,200);}
+	.module1-item2-ul li{float:left;width:25%;height:70px;text-align: center;}
+	.module1-item2-item-number{font-size:2em;margin:5px 0;}
+	.title{height:35px;background-color:rgb(247,247,247);padding:0 0 0 15px;line-height: 35px;}
+	.module2{border-top:1px solid rgb(200,200,200);border-bottom:1px solid rgb(200,200,200);}
+	.module2-ul{margin:0 10px;}
+	.module2-ul li{height:55px;width:100%;border-bottom:1px solid rgb(200,200,200);}
+	.module2-ul li div{float:left;line-height: 55px;}
+	.module2-li-li-icon{background:url(../image/home.png) center no-repeat;background-size:60%; height:55px;width:55px;}
+	.module2-li-li-arrow{background:url(../image/setting_cell_arrow@2x.png) center no-repeat;background-size:20%;height:55px;width:35px;float:right !important;}
+	.module2-li-liEnd{border-bottom:0 none !important;}
+	.logout{height:50px;width:90%;margin:20px auto;background-color:rgb(224,29,32);border-radius:1em;color:rgb(255,255,255);text-align:center;line-height:50px;display:none;}
+	</style>
+</head>
+	<body>
+		<div class="module1">
+			<div class="module1-item1">
+				<ul class="module1-item1-ul after">
+					<li class="module1-item1-img" id="module1-item1-img"></li>
+					<li class="module1-item1-account" id="module1-item1-account"></li>
+					<li class="module1-item1-word">欢迎进入华为商城</li>
+					<li class="module1-item1-login" id="module1-item1-login" tapmode>立即登录</li>
+				</ul>
+			</div>
+			<div class="module1-item2">
+				<ul class="module1-item2-ul after">
+					<li class="module1-item2-payment">
+						<span class="module1-item2-item-number">0</span>
+						<p>代付款</p>
+					</li>
+					<li class="module1-item2-Receiving">
+						<span class="module1-item2-item-number">0</span>
+						<p>代收货</p>
+					</li>
+					<li class="module1-item2-coupon ">
+						<span class="module1-item2-item-number">0</span>
+						<p>优惠券</p>
+					</li>
+					<li class="module1-item2-center">
+						<span class="module1-item2-item-number">0</span>
+						<p>消息中心</p>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div class="title">我的</div>
+		<div class="module2">
+			<ul class="module2-ul">
+				<li class="module2-li-indent">
+					<div class="module2-li-li-icon"></div>
+					<div class="module2-li-li-word">全部订单</div>
+					<div class="module2-li-li-arrow"></div>
+				</li>
+				<li class="module2-li-order">
+					<div class="module2-li-li-icon"></div>
+					<div class="module2-li-li-word">我的预约</div>
+					<div class="module2-li-li-arrow"></div>
+				</li>
+				<li class="module2-li-address">
+					<div class="module2-li-li-icon"></div>
+					<div class="module2-li-li-word">收货地址</div>
+					<div class="module2-li-li-arrow"></div>
+				</li>
+				<li class="module2-li-returns">
+					<div class="module2-li-li-icon"></div>
+					<div class="module2-li-li-word">退换货管理</div>
+					<div class="module2-li-li-arrow"></div>
+				</li>
+				<li class="module2-li-priority">
+					<div class="module2-li-li-icon"></div>
+					<div class="module2-li-li-word">优先购通道</div>
+					<div class="module2-li-li-arrow"></div>
+				</li>
+				<li class="module2-li-vip module2-li-liEnd">
+					<div class="module2-li-li-icon"></div>
+					<div class="module2-li-li-word">会员频道</div>
+					<div class="module2-li-li-arrow"></div>
+				</li>
+			</ul>
+		</div>
+		<div class="title">服务</div>
+		<div class="module2">
+			<ul class="module2-ul">
+				<li class="module2-li-indent">
+					<div class="module2-li-li-icon"></div>
+					<div class="module2-li-li-word">帮助中心</div>
+					<div class="module2-li-li-arrow"></div>
+				</li>
+				<li class="module2-li-order">
+					<div class="module2-li-li-icon"></div>
+					<div class="module2-li-li-word">服务网点</div>
+					<div class="module2-li-li-arrow"></div>
+				</li>
+				<li class="module2-li-address">
+					<div class="module2-li-li-icon"></div>
+					<div class="module2-li-li-word">联系客服</div>
+					<div class="module2-li-li-arrow"></div>
+				</li>
+				<li class="module2-li-returns module2-li-liEnd">
+					<div class="module2-li-li-icon"></div>
+					<div class="module2-li-li-word">意见反馈</div>
+					<div class="module2-li-li-arrow"></div>
+				</li>
+			</ul>
+		</div>
+		<div class="title">设置</div>
+		<div class="module2">
+			<ul class="module2-ul">
+				<li class="module2-li-indent">
+					<div class="module2-li-li-icon"></div>
+					<div class="module2-li-li-word">消息通知设置</div>
+					<div class="module2-li-li-arrow"></div>
+				</li>
+				<li class="module2-li-order module2-li-liEnd">
+					<div class="module2-li-li-icon"></div>
+					<div class="module2-li-li-word">版本升级</div>
+					<div class="module2-li-li-arrow"></div>
+				</li>
+			</ul>
+		</div>
+		<div class="logout" id="logout">退出账号</div>
+<script src="../script/api.js"></script>
+<script src="../script/common.js"></script>
+<script>
+var reloadMe = function(){
+    location.reload();
+}
+
+
+apiready = function(){
+	
+	/*// var time = new Date().getTime();
+	alert(time-$api.getStorage('reload'));
+	$api.setStorage('reload',time);
+	// alert(typeof time);
+	// alert(typeof parseInt($api.getStorage('reload')));
+	// alert(parseInt($api.getStorage('reload')));
+	// alert(JSON.stringify($api.getStorage('reload')));*/
+	var user = $api.getStorage('user');
+	if(user){
+		document.getElementById('module1-item1-login').style.display='none';
+		document.getElementById('module1-item1-img').style.background='url(../image/share_platform_qqfriends@2x.png) center/70% no-repeat';
+		document.getElementsByClassName('module1-item1-word')[0].style.display='none';
+		document.getElementById('module1-item1-account').innerHTML=user['username'];
+		document.getElementById('module1-item1-account').style.display='block';
+		document.getElementById('logout').style.display='block';
+	}
+}
+
+document.getElementById('logout').onclick=function(){
+	$api.clearStorage ();
+	location.reload();
+}
+
+document.getElementById('module1-item1-login').onclick=function(){
+	var user = $api.getStorage('user');
+	// alert(user);
+	if(user){
+		alert('已登录');
+		alert(JSON.stringify(user));
+	} else {
+	 	openWin('Win_login');
+	}
+}
+</script>
+	</body>
+</html>

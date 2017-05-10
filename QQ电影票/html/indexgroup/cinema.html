@@ -1,0 +1,479 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>APP</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/common.css" />
+    <style>
+        html,body{
+            background-color: #2B2B2B;
+        }
+        #wrap{
+            /*display: block;*/
+        }
+    	#main {
+    		background: #2B2B2B;
+            padding-top: 0;
+            /*overflow-y: hidden;*/
+            overflow-y: auto;
+    	}
+    /*列表显示电影院*/
+        #cinema_list_box{
+            font-size: 14px;
+            position: relative
+        }
+        #cinema_list_box .cinema_list_innner{
+            position: relative;
+        }
+        #cinema_list_box .area{
+            color: #656565;
+            width: 100%;
+            height: 46px;
+            line-height: 60px;
+            background-color: #2B2B2B;
+            position: absolute;
+            left: 0;
+            top: 0;
+            z-index: 1;
+        }
+        #cinema_list_box .area.bottom{
+            line-height: 60px;
+            bottom: 0;
+        }
+        #cinema_list_box .area.active{
+            color: #656565;
+            /*position: fixed;*/
+            left: 0;
+            top: 0;
+            /*text-indent: 1.1em;*/
+        }
+        #cinema_list_box .area_shadow{
+            width: 100%;
+            height: 46px;
+            position: relative;
+        }
+        #cinema_list_box .cinema_list{
+
+        }
+        #cinema_list_box .cinemas{
+            width: 100%;
+            height: 45px;
+            background-color: #373737;
+            margin: 4px auto;
+            display: -webkit-box;
+            -webkit-box-orient:horizontal;
+            /*display: -webkit-flex;
+            display: flex;*/
+        }
+        #cinema_list_box .cinemas:active{
+            background-color: #2D2D2D;
+        }
+        #cinema_list_box .cinemas span{
+            position: relative;
+        }
+        #cinema_list_box .name{
+            color: #FFF;
+            height: 45px;
+            line-height: 45px;
+            float: left;
+            text-indent: 15px;
+            -webkit-box-flex: 1; 
+            -webkit-flex: 1;
+            flex: 1;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+        #cinema_list_box .distance{
+            float: left;
+            color: #727272;
+            padding: 0 1em;
+            height: 45px;
+            line-height: 45px;
+        }
+        #cinema_list_box .cinema_right{
+            float: left;
+        }
+        #cinema_list_box .status{
+            float: left;
+            width: 14px;
+            height: 45px;
+            line-height: 45px;
+            padding: 0 1px;
+        }
+        #cinema_list_box .status_t{
+            background: url(../../res/drawable-xhdpi/ico_ticket.png) center center no-repeat;
+            background-size: 14px 14px;
+        }
+        #cinema_list_box .status_s{
+            background: url(../../res/drawable-xhdpi/ico_seat.png) center center no-repeat;
+            background-size: 14px 14px;
+        }
+        #cinema_list_box .status_g{
+            background: url(../../res/drawable-xhdpi/ico_tuan.png) center center no-repeat;
+            background-size: 14px 14px;
+        }
+        #cinema_list_box .price{
+            color: #F4B800;
+            float: right;
+            padding-right: 1em;
+            height: 45px;
+            line-height: 45px;
+        }
+        
+    /*列表显示电影院end*/
+    /*底部*/
+        .movie_footer_shadow{
+            height: 44px;
+            width: 100%;
+            background: #3C3C3C;
+        }
+    	#movie_footer{
+            /*position: fixed;*/
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+    		height: 44px;
+    		width: 100%;
+    		background: #3C3C3C;
+    		/*display: -webkit-box;
+			display: -webkit-flex;
+		 	display: flex;
+		 	-webkit-flex-direction: row;
+		 	flex-direction: row;*/
+		}
+		#movie_footer .movie_footer_inner{
+			/*-webkit-box-flex: 1;
+			-webkit-flex: 1;
+			flex: 1;*/
+            display: inline-block;
+            width: 33%;
+			color: #707070;
+			text-align: center;
+			line-height: 44px;
+            float: left;
+		}
+        #movie_footer .selectArea{
+            display: none;color: #FFC500;
+        }
+        #movie_footer .selectArea a{
+            color: #FFC500;
+        }
+        #movie_footer.active .selectArea{
+            display: inline-block;
+            background: url(../../res/drawable-xhdpi/arrow_top.9.png) right top no-repeat;
+            background-size: 11px 11px;
+        }
+        #movie_footer.active .movie_footer_inner{
+            width: 25%;
+        }
+		#movie_footer a{
+			color: #707070;
+		}
+		#movie_footer a.active{
+			color: #FFC500;
+		}
+    /*底部end*/
+    /*地区列表*/
+    #selectList{
+        position: absolute;
+        /*position: relative;*/
+        bottom: 44px;
+        left: 0;
+        z-index: 4;
+        display: none;
+        width: 97px;
+        height: 400px;
+        overflow: scroll;
+        /*box-shadow在这里会出现问题*/
+        /*box-shadow: #000 4px -8px 30px;*/
+    }
+    #movie_footer .selectArea.active #selectList{
+        display: block;
+    }
+    #selectList .selectListArea{
+        width: 97px;
+        height:40px;
+        display: block;
+        color: #FFF;
+        background: url(../../res/drawable-xhdpi/title_bar_bg.9.png) center center repeat-x;
+        background-size: 19px 40px;
+        line-height: 40px;
+        text-align: center;
+        /*position: relative;*/
+        /*z-index: 4;*/
+    }
+    #selectList .selectListArea:active{
+        background: url(../../res/drawable-xhdpi/title_bar_bg_press.9.png) center center repeat-x;
+        background-size: 19px 40px;
+        color: #F4B800;
+    }
+    #fast_city_list_wrap{
+        display: none;
+        position: absolute;
+        z-index: 3;
+        width: 100%;
+        height: 100%; 
+        left: 0;
+        top: 0;
+    }
+    #fast_city_list_wrap.active{
+        display: block;
+    }
+    
+    /*地区列表end*/
+    </style>
+</head>
+<body>
+    <div id="wrap">
+        <!-- <div id="fast_city_list_wrap">
+        
+        </div> -->
+        <div id="main"> 
+            <!-- 列表显示电影院 -->
+            <div id="cinema_list_box">
+                <div class="cinema_list_innner">
+                    <div class="area_shadow">
+                        
+                    </div>
+                    <div class="area">附近影院</div>
+                    <ul class="cinema_list">
+                        <li class="cinemas" tapmode>
+                            <span class="name">什么什么影院</span>
+                            <span class="distance">400m</span>
+                            <span class="cinema_right">
+                                <i class="status status_t"></i>
+                                <i class="status status_s"></i>
+                                <i class="status status_g"></i>
+                            </span>
+                            <span class="price">
+                                ￥32.5起
+                            </span>
+                        </li>
+                        <li class="cinemas" tapmode>
+                            <span class="name">什么什么什么什么什么什么影院</span>
+                            <span class="distance">400m</span>
+                            <span class="cinema_right">
+                                <i class="status status_t"></i>
+                                <i class="status status_s"></i>
+                                <i class="status status_g"></i>
+                            </span>
+                            <span class="price">
+                                ￥32.5起
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="cinema_list_innner">
+                    <div class="area_shadow">
+                        
+                    </div>
+                    <div class="area">东城</div>
+                    <ul class="cinema_list">
+                        <li class="cinemas" tapmode>
+                            <span class="name">什么什么影院</span>
+                            <!-- <span class="distance">400m</span> -->
+                            <span class="cinema_right">
+                                <i class="status status_t"></i>
+                                <i class="status status_s"></i>
+                                <i class="status status_g"></i>
+                            </span>
+                            <span class="price">
+                                ￥32.5起
+                            </span>
+                        </li>
+                        <li class="cinemas" tapmode>
+                            <span class="name">什么什么什么什么什么什么影院</span>
+                            <!-- <span class="distance">400m</span> -->
+                            <!-- <span class="cinema_right">
+                                <i class="status status_t"></i>
+                                <i class="status status_s"></i>
+                                <i class="status status_g"></i>
+                            </span> -->
+                            <span class="price">
+                                暂不支持购票
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="cinema_list_innner">
+                    <div class="area_shadow">
+                        
+                    </div>
+                    <div class="area">朝阳</div>
+                    <ul class="cinema_list">
+                        <li class="cinemas" tapmode>
+                            <span class="name">什么什么影院</span>
+                            <!-- <span class="distance">400m</span> -->
+                            <span class="cinema_right">
+                                <i class="status status_t"></i>
+                                <i class="status status_s"></i>
+                                <i class="status status_g"></i>
+                            </span>
+                            <span class="price">
+                                ￥32.5起
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- 列表显示电影院end -->
+        </div>
+        <!-- 底部 -->
+        <div class="movie_footer_shadow"></div>
+        <div id="movie_footer" class="">
+            <div class="movie_footer_inner selectArea" onclick="openSelectArea();" tapmode>
+                <a>附近影院</a>
+                
+            </div>
+        	<div class="movie_footer_inner condition">
+        		<a class="a active">&nbsp;&nbsp;全部&nbsp;&nbsp;</a>
+        	</div>
+        	<div class="movie_footer_inner condition">
+        		<a class="a">可订座</a> 
+        	</div>
+        	<div class="movie_footer_inner condition">
+        		<a class="a">可购票</a>
+        	</div>
+        </div>
+        <!-- 底部end -->
+    </div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/common.js"></script>
+<script type="text/javascript" src="../../script/zepto.js"></script>
+<script type="text/javascript" src="../../script/listMove.js"></script>
+
+<script>
+    var movie_footer = $api.byId('movie_footer');
+    var cinema_list_box = $api.byId('cinema_list_box');
+    var changeStyle = function(style){
+        $api.setStorage('cinemaStyle',style);
+        if (style == 'cinema_map') {
+            cinema_list_box.style.display = 'none';
+            openIndexMap();
+            $api.addCls(movie_footer,'active');
+        } else{
+            closeIndexMap();
+            cinema_list_box.style.display = 'block';
+            $api.removeCls(movie_footer,'active');
+        }
+    };
+	apiready = function(){
+        // 下拉刷新需要配合tabBar，不然影响页面布局,放弃
+        // api.setRefreshHeaderInfo({
+        //     visible: true,
+        //     bgColor: '#2B2B2B',
+        //     textColor: '#656565',
+        //     textDown: '下拉刷新',
+        //     textUp: '释放立即刷新',
+        //     showTime: true
+        // }, function(ret, err){
+        //     setTimeout(function(){
+        //         api.refreshHeaderLoadDone();
+        //     },1000);
+        // });
+        
+
+        Zepto(function($){
+            // changeIndexStyleBtn('cinema_list');
+
+            var listArr,aList,len,curPoint = 0;
+            var startPos = 0;
+            var startY = 0;
+            var dis = 0;
+            var $listBox = $(cinema_list_box);
+//----------------------------------------------------------------//
+            // tabBar
+            // var tabBar = api.require('tabBar');
+            // var openTabBar = function(){
+            //     // 不能随frame滑动，暂时不用
+            //     tabBar.open({
+            //         bgImg:'widget://res/tabBar.png',
+            //         selectImg:'widget://res/tabBar.png',
+            //         items:[
+            //             {
+            //                 title:'全部',
+            //                 img: 'widget://res/tabBar.png'
+            //             },{
+            //                 title:'可订座',
+            //                 img: 'widget://res/tabBar.png'
+            //             },{
+            //                 title:'可购票',
+            //                 img: 'widget://res/tabBar.png'
+            //             }
+            //         ]
+            //     },function(ret,err){
+            //         api.alert({msg:ret.index});
+            //     });
+            // };
+            // openTabBar();
+            // 
+            // var unitInit = function(){
+            //     listArr = [];
+            //     aList = $('.cinema_list_innner');
+            //     len = aList.length;
+            //     curPoint = 0;
+            //     for (var i = 0; i < len; i++) {
+            //         listArr.push(aList.eq(i).offset().top);
+            //         listArr.push(aList.eq(i).offset().top + aList.eq(i).height());    
+            //     };
+            // };
+            // unitInit();
+            // var curUnit = function(num){
+            //     console.log(num);
+                
+            // };
+            // var listInit = function(){
+            //     // 父级元素transform的情况下，子元素的position： fiexd属性不生效；
+            //     // 此方法没用……
+            //     var listMove = new MovingList($listBox.get(0),{
+            //         conf: {
+            //             maxDis: $listBox.height()-$('#wrap').height()+$('.movie_footer_shadow').height()+10,
+            //             listArr: listArr
+            //         }
+            //     });
+            // };
+            // listInit();
+        
+//------------------------------------------------------------//
+            // 影院详情
+            $('#cinema_list_box').on('click', '.cinemas', function(event) {
+                goCinemaDetail();
+                event.preventDefault();
+            });
+
+            var $movie_footer = $(movie_footer);
+    		$movie_footer.on('click', '.condition', function(event) {
+                $movie_footer.find('.movie_footer_inner .a').removeClass('active');
+                $(this).find('a').addClass('active');
+                event.preventDefault();
+            });
+
+            // 点击底部附近影院 调出区域列表
+            window.openSelectArea = function(){
+                // api.alert({msg:$movie_footer.height()});
+                api.openFrame({
+                    name: 'selectarea',
+                    url: '../citylist/selectarea.html',
+                    bounces: false,
+                    pageParam: {
+                        height: $movie_footer.height()
+                    },
+                    rect: {
+                        x: 0,
+                        y: 0,
+                        w: 'auto',
+                        h: 'auto'
+                    }
+                });
+            };
+                
+            // });
+        });
+	};
+</script>
+</html>

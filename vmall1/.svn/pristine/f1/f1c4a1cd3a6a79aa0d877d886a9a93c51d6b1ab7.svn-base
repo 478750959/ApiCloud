@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+	<title></title>
+	<link rel="stylesheet" href="../css/api.css">
+	<style>
+	body{font-size:16px;}
+	.wrap{min-height:100%;width:100%;background-color:rgb(247,247,247);display:-webkit-flex;justify-content:flex-end;}
+	.wrap-left{width:30%;min-height:100%;border-right:1px solid rgb(216,216,216);box-sizing:border-box;position:fixed;left:0;top:0;}
+	.wrap-left li{padding:25px 10px 25px 15px;position:relative;}
+	.wrap-left-ul-li-arrow{position:absolute;top:25px;right:-1px;height:20px;width:11px;background:url(../image/arrowtoleft.png) center/100% no-repeat;}
+	.wrap-right{width:70%;min-height:100%;background-color:rgb(239,239,239);}
+	.wrap-right-ul{display:none;box-sizing:border-box;}
+	.wrap-right-li{height:85px;border-bottom:1px solid rgb(222,222,222);padding:10px;display:-webkit-box;}
+	.wrap-right-ul-img{height:65px;width:65px;}
+	.wrap-right-ul-word{height:65px;line-height:65px;width:100%;display:-webkit-box;-webkit-box-flex:1;margin: 0 0 0 15px;}
+	</style>
+</head>
+<body>
+	<div class="wrap after">
+		<div class="wrap-left">
+			<ul class="wrap-left-ul" id="wrap-left-ul">
+			</ul>
+		</div>
+		<div class="wrap-right" id="wrap-right">
+<!-- 			<ul class="wrap-right-ul after" id="wrap-right-ul">
+				<li class="wrap-right-li">
+					<img class="wrap-right-ul-img" src="../image/6 Plus.jpg" alt="">
+					<span class="wrap-right-ul-word">荣耀</span>
+				</li>
+			</ul>
+ -->		</div>
+	</div>
+<!-- 
+//错误实例
+{{for(var kk in it){}}
+	{{if(it[key]['id']===it[kk]['pid'])}}
+		<li class="wrap-right-li">
+			<img class="wrap-right-ul-img" src="{{=it[kk]['img']['url']}}" alt="">
+			<span class="wrap-right-ul-word">{{=it[kk]['name']}}</span>
+		</li>
+	{{}}}
+{{}}}
+
+//正确
+{{for(var kk in it){}}
+	{{if(it[key]['id']===it[kk]['pid']){}}
+		<li class="wrap-right-li">
+			<img class="wrap-right-ul-img" src="{{=it[kk]['img']['url']}}" alt="">
+			<span class="wrap-right-ul-word">{{=it[kk]['name']}}</span>
+		</li>
+	{{}}}
+{{}}}
+ -->
+	<script type="text/x-dot-template" id="wrap-left-ul-template">
+	{{for(var key in it){}}
+		{{if(it[key]['pid']==='0'){}}
+			<li class="wrap-left-ul-li" onclick="current_item({{=ii}});">{{=it[key]['name']}}<i class=""></i></li>
+			{{ii+=1;}}
+		{{}}}
+	{{}}}
+	</script>
+	<script type="text/x-dot-template" id="wrap-right-template">
+	{{for(var key in it){}}
+		{{if(it[key]['pid']==='0'){}}
+			<ul class="wrap-right-ul after">
+				{{for(var kk in it){}}
+					{{if(it[key]['id']===it[kk]['pid']){}}
+						<li class="wrap-right-li">
+							<img class="wrap-right-ul-img lazy" src="../image/mask.png" data-original="{{=it[kk]['img']['url']}}">
+							<span class="wrap-right-ul-word">{{=it[kk]['name']}}</span>
+						</li>
+					{{}}}
+				{{}}}
+			</ul>
+		{{}}}
+	{{}}}
+	</script>
+	</script>
+	<script src="../script/api.js"></script>
+	<script src="../script/doT.min.js"></script>
+	<script src="../script/jquery.min.js"></script>
+	<script src="../script/jquery.lazyload.min.js"></script>
+	<script>
+	var ii=0;
+	var previous_item_symbol=0;
+	var current_item_symbol=0;
+	var current_item = function(symbol){
+		document.getElementsByClassName('wrap-left-ul-li')[previous_item_symbol].getElementsByTagName("i")[0].className="";
+		document.getElementsByClassName('wrap-left-ul-li')[previous_item_symbol].style.color="rgb(0,0,0)";
+		document.getElementsByClassName('wrap-right-ul')[previous_item_symbol].style.display="none";
+
+		document.getElementsByClassName('wrap-left-ul-li')[symbol].getElementsByTagName("i")[0].className="wrap-left-ul-li-arrow";
+		document.getElementsByClassName('wrap-left-ul-li')[symbol].style.color="rgb(176,0,0)";
+		document.getElementsByClassName('wrap-right-ul')[symbol].style.display="block";
+		previous_item_symbol=symbol;
+	}
+/*	var ret = 
+[
+	{
+		"id": "55979ee3c212cca057608312",
+		"name": "手机",
+		"sort": 100,
+		"pid": "0",
+		"createdAt": "2015-07-04T08:52:51.872Z",
+		"updatedAt": "2015-07-04T09:05:59.764Z"
+	},
+	{
+		"id": "5597a0154327b8ca57d55c19",
+		"name": "平板&穿戴",
+		"sort": 99,
+		"pid": "0",
+		"createdAt": "2015-07-04T08:57:57.417Z",
+		"updatedAt": "2015-07-04T09:05:58.365Z"
+	},
+	{
+		"id": "5597a040c212cca057608313",
+		"name": "智能家居",
+		"sort": 98,
+		"pid": "0",
+		"createdAt": "2015-07-04T08:58:40.614Z",
+		"updatedAt": "2015-07-04T09:05:56.940Z"
+	},
+	{
+		"id": "5597a1134327b8ca57d55c1a",
+		"name": "必备配件",
+		"sort": 97,
+		"pid": "0",
+		"createdAt": "2015-07-04T09:02:11.162Z",
+		"updatedAt": "2015-07-04T09:05:55.440Z"
+	},
+	{
+		"id": "5597a127d1ad6c8b7e540676",
+		"name": "基础配件",
+		"sort": 96,
+		"pid": "0",
+		"createdAt": "2015-07-04T09:02:31.987Z",
+		"updatedAt": "2015-07-04T09:05:53.968Z"
+	},
+	{
+		"id": "5597a13bdeb71bc057686c38",
+		"name": "潮流配件",
+		"sort": 95,
+		"pid": "0",
+		"createdAt": "2015-07-04T09:02:51.448Z",
+		"updatedAt": "2015-07-04T09:05:52.362Z"
+	},
+	{
+		"id": "5597a195d1ad6c8b7e540677",
+		"name": "荣耀",
+		"sort": 100,
+		"pid": "55979ee3c212cca057608312",
+		"img": {
+			"url": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/7b9915779b2a16688780b4a25b43853e.jpg",
+			"name": "6 Plus.jpg",
+			"id": "55e2be83ba5fcc787aed6d64"
+		},
+		"createdAt": "2015-07-04T09:04:21.303Z",
+		"updatedAt": "2015-08-30T08:27:47.191Z"
+	},
+	{
+		"id": "5597a2138d7f78ac7e028698",
+		"name": "畅玩",
+		"sort": 99,
+		"pid": "55979ee3c212cca057608312",
+		"img": {
+			"url": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/b9f1fddef075547f9a0fe8282c88c6ea.jpg",
+			"name": "畅玩.jpg",
+			"id": "55e2be8e63df92b17fc518bb"
+		},
+		"createdAt": "2015-07-04T09:06:27.272Z",
+		"updatedAt": "2015-08-30T08:27:58.237Z"
+	},
+	{
+		"id": "5597a239d1ad6c8b7e540678",
+		"name": "华为 Mate/P系列",
+		"sort": 98,
+		"pid": "55979ee3c212cca057608312",
+		"img": {
+			"url": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/785e9b3488ff468f6b838abb860aaef1.jpg",
+			"name": "P8.jpg",
+			"id": "55e2be9a63df92b17fc518bc"
+		},
+		"createdAt": "2015-07-04T09:07:05.935Z",
+		"updatedAt": "2015-08-30T08:28:10.648Z"
+	},
+	{
+		"id": "5597a2581bd907957e577438",
+		"name": "G/Y系列",
+		"sort": 97,
+		"pid": "55979ee3c212cca057608312",
+		"img": {
+			"url": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/cc34d7c707ffaa9db328b3fdefd5d7ef.jpg",
+			"name": "G Y系列.jpg",
+			"id": "55e2bea3ba5fcc787aed6d66"
+		},
+		"createdAt": "2015-07-04T09:07:36.334Z",
+		"updatedAt": "2015-08-30T08:28:19.085Z"
+	},
+	{
+		"id": "5597a2a24327b8ca57d55c1b",
+		"name": "平板电脑",
+		"sort": 100,
+		"pid": "5597a0154327b8ca57d55c19",
+		"img": {
+			"url": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/396dc6106b2cb8bf3da6ea4b52274d3b.jpg",
+			"name": "平板.jpg",
+			"id": "55e2bea7ba5fcc787aed6d67"
+		},
+		"createdAt": "2015-07-04T09:08:50.887Z",
+		"updatedAt": "2015-08-30T08:28:23.898Z"
+	},
+	{
+		"id": "5597a2b31945fff87efb1aa9",
+		"name": "手环",
+		"sort": 99,
+		"pid": "5597a0154327b8ca57d55c19",
+		"img": {
+			"url": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/bb02c139069495adb81de792489854f6.jpg",
+			"name": "B2手机端.jpg",
+			"id": "55e2beb18b194ef14f90318d"
+		},
+		"createdAt": "2015-07-04T09:09:07.899Z",
+		"updatedAt": "2015-08-30T08:28:33.736Z"
+	},
+	{
+		"id": "55e2b3a363df92b17fc5188f",
+		"name": "手表",
+		"sort": 98,
+		"pid": "5597a0154327b8ca57d55c19",
+		"img": {
+			"url": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/4683bfd68e1b1b5355c82a4bc3cf4e40.jpg",
+			"name": "手表.jpg",
+			"id": "55e2beb48b194ef14f90318e"
+		},
+		"createdAt": "2015-08-30T07:41:23.402Z",
+		"updatedAt": "2015-08-30T12:40:24.314Z"
+	},
+	{
+		"id": "55e2bb850a10582e5bcf2a75",
+		"name": "电视盒子",
+		"sort": 98,
+		"pid": "5597a040c212cca057608313",
+		"img": {
+			"url": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/8c027f8756c9dd2457988cc0d7a16cd0.jpg",
+			"name": "荣耀盒子.jpg",
+			"id": "55e2bec3a40107a307fd7085"
+		},
+		"createdAt": "2015-08-30T08:15:01.389Z",
+		"updatedAt": "2015-08-30T12:40:39.346Z"
+	},
+	{
+		"id": "55e2bb7da40107a307fd707d",
+		"name": "路由器",
+		"sort": 99,
+		"pid": "5597a040c212cca057608313",
+		"img": {
+			"url": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/7a45727e35b97af432c33cb82b561856.jpg",
+			"name": "荣耀路由.jpg",
+			"id": "55e2bec6a40107a307fd7086"
+		},
+		"createdAt": "2015-08-30T08:14:53.193Z",
+		"updatedAt": "2015-08-30T12:40:37.205Z"
+	},
+	{
+		"id": "55e2bb760a10582e5bcf2a74",
+		"name": "电力猫",
+		"sort": 100,
+		"pid": "5597a040c212cca057608313",
+		"img": {
+			"url": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/f7c4c1e83fa1772ffe377aff7e75954b.jpg",
+			"name": "荣耀电力猫.jpg",
+			"id": "55e2becb0a10582e5bcf2a82"
+		},
+		"createdAt": "2015-08-30T08:14:46.396Z",
+		"updatedAt": "2015-08-30T12:40:34.093Z"
+	},
+	{
+		"id": "55e2bc098db471757817b086",
+		"name": "头戴耳机",
+		"sort": 95,
+		"pid": "5597a1134327b8ca57d55c1a",
+		"img": {
+			"url": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/875fcba22a520f1a89108d2b65beb271.jpg",
+			"name": "头戴耳机.jpg",
+			"id": "55e2becf8db471757817b093"
+		},
+		"createdAt": "2015-08-30T08:17:13.917Z",
+		"updatedAt": "2015-08-30T12:41:32.113Z"
+	},
+	{
+		"id": "55e2bc0063df92b17fc518b2",
+		"name": "入耳式耳机",
+		"sort": 96,
+		"pid": "5597a1134327b8ca57d55c1a",
+		"img": {
+			"url": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/692ec7cb0690dd93b24cdd5090793bac.jpg",
+			"name": "入耳式耳机.jpg",
+			"id": "55e2bed48b194ef14f90318f"
+		},
+		"createdAt": "2015-08-30T08:17:04.827Z",
+		"updatedAt": "2015-08-30T12:41:30.401Z"
+	},
+	{
+		"id": "55e2bbf80a10582e5bcf2a78",
+		"name": "蓝牙耳机",
+		"sort": 97,
+		"pid": "5597a1134327b8ca57d55c1a",
+		"img": {
+			"url": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/a7a6bfedd2a7baecc882d5616c1e230b.jpg",
+			"name": "蓝牙耳机.jpg",
+			"id": "55e2bed8a40107a307fd7087"
+		},
+		"createdAt": "2015-08-30T08:16:56.116Z",
+		"updatedAt": "2015-08-30T12:41:28.151Z"
+	},
+	{
+		"id": "55e2bbecf585759a5a9da1f7",
+		"name": "贴膜",
+		"sort": 98,
+		"pid": "5597a1134327b8ca57d55c1a",
+		"img": {
+			"url": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/d37a9b350a222fe536ab0f96aee63b5c.jpg",
+			"name": "贴膜.jpg",
+			"id": "55e2bee7a40107a307fd7088"
+		},
+		"createdAt": "2015-08-30T08:16:44.304Z",
+		"updatedAt": "2015-08-30T12:41:16.550Z"
+	},
+	{
+		"id": "55e2bbe48b194ef14f903185",
+		"name": "保护套",
+		"sort": 99,
+		"pid": "5597a1134327b8ca57d55c1a",
+		"img": {
+			"url": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/6b2faef937d85ef1a110bf84a7250133.jpg",
+			"name": "保护套.jpg",
+			"id": "55e2bef063df92b17fc518be"
+		},
+		"createdAt": "2015-08-30T08:16:36.402Z",
+		"updatedAt": "2015-08-30T12:41:14.497Z"
+	},
+	{
+		"id": "55e2bbdd63df92b17fc518b1",
+		"name": "保护壳",
+		"sort": 100,
+		"pid": "5597a1134327b8ca57d55c1a",
+		"img": {
+			"url": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/634af2ca70f64aa5c6c734078de48f1b.jpg",
+			"name": "保护壳.jpg",
+			"id": "55e2bef3ba5fcc787aed6d68"
+		},
+		"createdAt": "2015-08-30T08:16:29.461Z",
+		"updatedAt": "2015-08-30T12:41:12.842Z"
+	},
+	{
+		"id": "55e2bcb463df92b17fc518b3",
+		"name": "盒子遥控器",
+		"sort": 95,
+		"pid": "5597a127d1ad6c8b7e540676",
+		"img": {
+			"url": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/ce958f39337e95e73369d47f6b06e67b.jpg",
+			"name": "盒子遥控器.jpg",
+			"id": "55e2bff18b194ef14f903193"
+		},
+		"createdAt": "2015-08-30T08:20:04.028Z",
+		"updatedAt": "2015-08-30T12:42:02.451Z"
+	},
+	{
+		"id": "55e2bca78b194ef14f903187",
+		"name": "U盘/存储卡",
+		"sort": 96,
+		"pid": "5597a127d1ad6c8b7e540676",
+		"img": {
+			"url": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/ee4fa615cd912d0fb5952cc7d3dfdddc.jpg",
+			"name": "内存卡.jpg",
+			"id": "55e2bff5ddce758e4df5667c"
+		},
+		"createdAt": "2015-08-30T08:19:51.550Z",
+		"updatedAt": "2015-08-30T12:42:00.830Z"
+	},
+	{
+		"id": "55e2bc908b194ef14f903186",
+		"name": "卡托/线材",
+		"sort": 97,
+		"pid": "5597a127d1ad6c8b7e540676",
+		"img": {
+			"url": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/b4d03a1817f7e0e95caf3a26f7086ae5.jpg",
+			"name": "卡托线材.jpg",
+			"id": "55e2c00ca40107a307fd708f"
+		},
+		"createdAt": "2015-08-30T08:19:28.330Z",
+		"updatedAt": "2015-08-30T12:41:58.725Z"
+	},
+	{
+		"id": "55e2bc83ba5fcc787aed6d5b",
+		"name": "电池/充电器",
+		"sort": 98,
+		"pid": "5597a127d1ad6c8b7e540676",
+		"img": {
+			"url": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/2b3ea330c6f44d43413f887dc1fc1517.jpg",
+			"name": "电池 充电器.jpg",
+			"id": "55e2c00fa40107a307fd7090"
+		},
+		"createdAt": "2015-08-30T08:19:15.306Z",
+		"updatedAt": "2015-08-30T12:41:55.418Z"
+	},
+	{
+		"id": "55e2bc728db471757817b088",
+		"name": "移动电源",
+		"sort": 99,
+		"pid": "5597a127d1ad6c8b7e540676",
+		"img": {
+			"url": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/d0ce9045563f005d8d9729752848737f.jpg",
+			"name": "移动电源.jpg",
+			"id": "55e2c023ddce758e4df5667d"
+		},
+		"createdAt": "2015-08-30T08:18:58.694Z",
+		"updatedAt": "2015-08-30T12:41:52.159Z"
+	},
+	{
+		"id": "55e2bc6aa40107a307fd707f",
+		"name": "蓝牙音箱",
+		"sort": 100,
+		"pid": "5597a127d1ad6c8b7e540676",
+		"img": {
+			"url": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/e0c25263b25b2d2952d8885100289fca.jpg",
+			"name": "蓝牙音箱.jpg",
+			"id": "55e2c0268b194ef14f903194"
+		},
+		"createdAt": "2015-08-30T08:18:50.683Z",
+		"updatedAt": "2015-08-30T12:41:50.501Z"
+	},
+	{
+		"id": "55e2bdc063df92b17fc518b8",
+		"name": "创意配件",
+		"sort": 92,
+		"pid": "5597a13bdeb71bc057686c38",
+		"img": {
+			"url": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/6481d085fec9a39469f632276e6edaa5.jpg",
+			"name": "创意配件.jpg",
+			"id": "55e2c10363df92b17fc518c7"
+		},
+		"createdAt": "2015-08-30T08:24:32.315Z",
+		"updatedAt": "2015-08-30T12:42:43.607Z"
+	},
+	{
+		"id": "55e2bdb763df92b17fc518b7",
+		"name": "钥匙扣",
+		"sort": 93,
+		"pid": "5597a13bdeb71bc057686c38",
+		"img": {
+			"url": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/fa8344fdd5e59e31d14b7884092a9b71.jpg",
+			"name": "钥匙扣.jpg",
+			"id": "55e2c1068db471757817b098"
+		},
+		"createdAt": "2015-08-30T08:24:23.714Z",
+		"updatedAt": "2015-08-30T12:42:41.952Z"
+	},
+	{
+		"id": "55e2bdac8db471757817b08f",
+		"name": "智能灯饰",
+		"sort": 94,
+		"pid": "5597a13bdeb71bc057686c38",
+		"img": {
+			"url": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/0981f3b39162b2ed7abdfa242ffda5e2.jpg",
+			"name": "智能灯饰.jpg",
+			"id": "55e2c10a0a10582e5bcf2a86"
+		},
+		"createdAt": "2015-08-30T08:24:12.798Z",
+		"updatedAt": "2015-08-30T12:42:40.656Z"
+	},
+	{
+		"id": "55e2bd93ba5fcc787aed6d60",
+		"name": "车载电器",
+		"sort": 95,
+		"pid": "5597a13bdeb71bc057686c38",
+		"img": {
+			"url": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/2d80550312d50d9120cc43cb2af63d85.jpg",
+			"name": "车载电器.jpg",
+			"id": "55e2c1110a10582e5bcf2a87"
+		},
+		"createdAt": "2015-08-30T08:23:47.803Z",
+		"updatedAt": "2015-08-30T12:42:39.404Z"
+	},
+	{
+		"id": "55e2bd8dddce758e4df56676",
+		"name": "健康家居",
+		"sort": 96,
+		"pid": "5597a13bdeb71bc057686c38",
+		"img": {
+			"url": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/800d533e289e41a40b6bb4f253b1935c.jpg",
+			"name": "健康家居.jpg",
+			"id": "55e2c1158db471757817b099"
+		},
+		"createdAt": "2015-08-30T08:23:41.358Z",
+		"updatedAt": "2015-08-30T12:42:38.148Z"
+	},
+	{
+		"id": "55e2bd340a10582e5bcf2a7c",
+		"name": "摄像机/镜头",
+		"sort": 97,
+		"pid": "5597a13bdeb71bc057686c38",
+		"img": {
+			"url": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/42d090ce87a60317c53ab50d792a9ebb.jpg",
+			"name": "摄像头.jpg",
+			"id": "55e2c1190a10582e5bcf2a88"
+		},
+		"createdAt": "2015-08-30T08:22:12.893Z",
+		"updatedAt": "2015-08-30T12:42:35.897Z"
+	},
+	{
+		"id": "55e2bd26f585759a5a9da1f9",
+		"name": "智能开关/插座",
+		"sort": 98,
+		"pid": "5597a13bdeb71bc057686c38",
+		"img": {
+			"url": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/d027dbfc804db8210e4134531a5c6035.jpg",
+			"name": "插座.jpg",
+			"id": "55e2c11cddce758e4df56682"
+		},
+		"createdAt": "2015-08-30T08:21:58.380Z",
+		"updatedAt": "2015-08-30T12:42:31.587Z"
+	},
+	{
+		"id": "55e2bd130a10582e5bcf2a7b",
+		"name": "自拍杆/器",
+		"sort": 99,
+		"pid": "5597a13bdeb71bc057686c38",
+		"img": {
+			"url": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/e7de6eddf36a91fec6085c17a3f35827.jpg",
+			"name": "自拍杆.jpg",
+			"id": "55e2c1200a10582e5bcf2a89"
+		},
+		"createdAt": "2015-08-30T08:21:39.694Z",
+		"updatedAt": "2015-08-30T12:42:28.471Z"
+	},
+	{
+		"id": "55e2bd06a40107a307fd7080",
+		"name": "支架",
+		"sort": 100,
+		"pid": "5597a13bdeb71bc057686c38",
+		"img": {
+			"url": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/c8ba509a6a3522e5284dedb689dbd0e5.jpg",
+			"name": "支架钥匙扣.jpg",
+			"id": "55e2c1268b194ef14f903198"
+		},
+		"createdAt": "2015-08-30T08:21:26.166Z",
+		"updatedAt": "2015-08-30T12:42:25.079Z"
+	}
+];*/
+		apiready=function(){
+			api.showProgress();
+			var query = api.require("query");
+			query.createQuery(function(ret,err){
+				if(ret&&ret.qid){
+					var queryId=ret.qid;
+
+					query.limit({
+						qid:queryId,
+						value:"1000"
+					});
+
+					query.desc({
+						qid: queryId,
+						column: "sort"
+					});
+
+					var model=api.require('model');
+
+					model.findAll({
+						class:'category',
+						qid:queryId
+					},function(ret,err){
+						/*alert(ret[0]['pid']);
+						alert(typeof ret[0]['pid']);*/
+						var wrap_left_ul_template = document.getElementById('wrap-left-ul-template').innerHTML;
+						document.getElementById('wrap-left-ul').innerHTML = doT.template(wrap_left_ul_template)(ret);
+						var wrap_right_template = document.getElementById('wrap-right-template').innerHTML;
+						document.getElementById('wrap-right').innerHTML=doT.template(wrap_right_template)(ret);
+						current_item(current_item_symbol);
+						$("img.lazy").lazyload({
+							effect:'slideDown'
+						});
+						api.hideProgress();
+					});
+				}
+			});
+		}
+	</script>
+</body>
+</html>

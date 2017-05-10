@@ -1,0 +1,83 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>report</title>
+		<link rel="stylesheet" type="text/css" href="../css/api.css" />
+		<link rel="stylesheet" type="text/css" href="../css/common.css" />
+		<style>
+			#wrap {
+				height: 100%;
+				display: -webkit-box;
+				display: -webkit-flex;
+				display: flex;
+				-webkit-box-orient: vertical;
+				-webkit-flex-flow: column;
+				flex-flow: column;
+			}
+			
+			#main {
+				-webkit-box-flex: 1;
+				-webkit-flex: 1;
+				flex: 1;
+			}
+			
+			#footer ul {
+				margin-left:20px;
+				margin-right:20px;
+				margin-bottom:20px;
+				display: -webkit-box;
+				display: -webkit-flex;
+				display: flex;
+				-webkit-box-orient: horizontal;
+				-webkit-flex-direction: row;
+				flex-direction: row;
+			}
+
+			#footer ul li {
+				-webkit-box-flex: 1;
+				-webkit-flex: 1;
+				flex: 1;
+				text-align :center;
+				height:75px;
+			}
+
+			#footer ul li a {
+				font-size: 16px;
+				color: #ffffff;
+				-webkit-background-size: 44px 44px !important;
+				background-size: 44px 44px !important;
+				display: block;
+				padding-top: 46px;
+			}
+			
+			.navigation {
+				background: url(../image/home/home_icon5.png) center center no-repeat;
+			}
+			.autognosis {
+				background: url(../image/home/home_icon6.png) center center no-repeat;
+			}
+			.news {
+				background: url(../image/home/home_icon7.png) center center no-repeat;
+			}
+			
+		</style>
+	</head>
+	<body>
+		<div id="wrap" style="background:rgba(0,0,0,0.5)">
+			<div id="main" onclick="hideSelf()">
+				
+			</div>
+			<div id="footer">
+				<ul style="background: url(../image/bottombg.png) repeat center center">
+	                <li><a class="navigation" tapmode="active" onclick="openWin('navigation_framework','医院导航')">医院导航</a></li>
+	                <li><a class="autognosis" tapmode="active" onclick="openWin('autognosis','症状自诊')">症状自诊</a></li>
+	                <li><a class="news" tapmode="active" onclick="openWin('news','医院资讯')">医院资讯</a></li>
+	            </ul>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../script/api.js"></script>
+	<script type="text/javascript" src="../script/more.js"></script>
+</html>

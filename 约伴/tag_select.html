@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+<head>
+	<title></title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+	<link rel="stylesheet" href="css/ui-btn.css">
+	<link rel="stylesheet" href="css/ui-base.css">
+	<link rel="stylesheet" href="css/ui-box.css">
+	<link rel="stylesheet" href="css/ui-color.css">
+	<link rel="stylesheet" href="css/ui-res.css">
+	<link rel="stylesheet" href="css/style.css">
+    <script src="js/y_control.js"></script>
+	<script src="js/y_click.js"></script>
+	<script src="js/dis_control.js"></script>
+	<script>
+	</script>
+</head>
+<body class="um-vp c-gra5" ontouchstart>
+    <div id="page_0" class="up ub ub-ver" tabindex="0">
+        <div id="header" class="c-blu3 uh">
+
+        	<div class="c-m2 t-wh">
+				<a class="btn btn-l btn-a ub ub-ac" ontouchstart="zy_touch('btn-act1')" onclick="closeEditor();">       
+					<div class="ulim"><img src="images/back.png" class="sbtn"></div>
+				</a>
+                <h1 class="ut ulev0 ut-s tx-c" id="ttl">&nbsp;</h1>
+				<a class="btn btn-r btn-n ub ub-ac" ontouchstart="zy_touch('btn-act1')" onclick="submit();">       
+					<div class="ulim" id="btn_right">确定</div>
+				</a>
+			</div>
+        </div>
+        <div id="content" class="ub-f1 tx-l t-bla"></div>
+    </div>
+</body>
+<script>
+zy_init();
+var params = getStorJson('params');
+var type = params.type;
+if(!params.tid) setHtml('btn_right', '确定');
+var tts = '选择圈子';
+setHtml('ttl', tts);
+
+window.uexOnload = function(type){
+    if (!type) {
+        zy_con("content", "tag_select_content.html", 0, $$("header").offsetHeight);
+    }
+	window.onorientationchange=window.onresize=function()
+	{
+		zy_resize("content",0,$$("header").offsetHeight);				
+	}
+}
+
+function submit(){
+	ueppscript('tag_select', 'content', 'submit();');
+}
+
+function closeEditor(){
+	ueppscript('tag_select', 'content', 'closeEditor();');
+}
+
+</script>
+</html>

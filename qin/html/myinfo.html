@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+<head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+     <link rel="stylesheet" href="../css/api.css">
+     <link rel="stylesheet" href="../css/common.css">
+    <title>我的资料</title>
+    <style>
+        #wrap{
+           background: #F0F0F0;
+
+        }
+
+        #header span{
+
+          height: 44px;
+          line-height: 44px;
+         }
+
+        
+      .head-left{
+        float: left;
+        margin-left:10px;
+       font-size: 11pt;
+       background: url(../image/wallet_base_action_bar_back_normal.png) no-repeat;
+       background-position: left center;
+       background-size: 30% 30%;
+       margin-left: -5px;
+       }
+
+       .head-left p{
+        margin-left: 30px;
+        margin-top:1px;
+       }
+    
+     #ipic{
+       clear: both;
+       background-color: #E33801;
+       width: 100%;
+       height: 100px;
+       border-top: 1px solid gray;
+
+      }
+      #ipic img{
+        display: block;
+        position:relative;
+        width: 80px;
+         margin: 0 auto;
+        border-radius: 50%;
+        margin-top: 10px;
+      }
+      .detail{
+       clear: both;
+       /*padding-top: 10px;*/
+     }
+      .detail ul{
+       /* height: 55px;*/
+        clear: both;
+        line-height: 1.5;
+        background: white;
+        margin: 0px auto;
+       }
+      
+
+       .detail li{
+        height: 30px;
+        line-height: 30px;
+        /*font-weight: bold;*/
+        z-index: 0;
+        position: relative;
+        border-bottom: 1px solid #F0F0F0;
+        padding-left:10px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+
+       }
+
+       .detail li span.arrow{
+        width: 14px;
+        height: 14px;
+        background:url(../image/wallet_base_indicator_arrow.png) no-repeat center center !important;
+        z-index: 100 !important;
+        position: absolute;
+        top:10px;
+        right: 5px;
+
+        
+      }
+
+       .detail li span.arrow p{
+        position: relative;
+        width: 100px;
+        left:-100px;
+        top:-5px;
+        text-align: right;
+
+
+       }
+        
+      .dotinfo{
+         background:url(../image/ic_flag_red.png) no-repeat;
+         background-size: 5px 5px;
+         background-position: right ;
+         position: relative;
+
+         
+
+      }
+    </style>
+</head>
+<body>
+    <div id="wrap">
+    <div id="header">
+            <span class="head-left" tapmode onclick="goback()"><p>我的资料</p></span>
+            
+        </div>
+      <div id="ipic">
+        <img src="../image/avatar_pic_example.png" alt="用户头像" width="80px" height="80px"/>
+      </div>
+        <div id="main">
+          
+            <div class="detail">
+               <ul id="detail">
+                 <li>手机号<span>:155****8022(不可修改)</span></li>
+                 <li  tapmode="" onclick="Openitem(1)">称呼<span class="arrow"><p>邱先生</p></span></li>
+                 <li  tapmode="" onclick="Openitem(2)">修改密码<span class="arrow"></span></li>
+                 <li  tapmode="" onclick="Openitem(3)">我的信用值<span class="arrow"></span></li>
+                 <li  tapmode="" onclick="Openitem(4)">实名认证<span class="arrow"><p>尚未认证</p></span></li>
+                 <li  tapmode="" onclick="Openitem(5)">车主资料<span class="arrow"><p class="dotinfo">完善度50%</p></span></li>
+               </ul>
+             </div>
+
+          </div>
+                 
+            
+            
+
+
+        </div>
+ <script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>  
+<script type="text/javascript">
+function Openitem(index){
+    var url = '';
+    var name = '';
+	 switch(index){
+	   case 1:
+	   url ='nickname.html';
+	   name = 'nickname';
+	   break;
+	   case 2:
+	   url ='modifypwd.html';
+	   name = 'modifypwd';
+	   break;
+	   case 3:
+	  
+	   url ='aq.html';
+	    name = 'aq';
+	   break;
+	   case 4:
+	   url ='authentication.html';
+	   name = 'authentication';
+	   break;
+	   
+	   case 5:
+	   url ='smallpro.html';
+	   name = 'smallpro';
+	   break;
+	  
+	 }
+	 api.openWin({
+	     name: name,
+	     url: url
+     });
+}
+</script>     
+</body>
+</html>

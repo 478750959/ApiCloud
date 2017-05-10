@@ -1,0 +1,302 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>设置</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/xyc.css"/>
+    <style>
+    	#header{
+    		
+    	}
+    </style>
+</head>
+<body>
+<div id="wrap">
+	<header id='header'>
+		<div class="miHeader">
+        	<a href='javascript:;' class='head_icon back' onclick='api.closeWin();'></a>
+        	<span class='mi_head_txt'></span>
+        </div>
+	</header>
+	<div id='main'></div>
+</div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/font.js"></script>
+<script type="text/javascript" src="../script/zepto.js"></script>
+<script type="text/javascript" src="../script/comm.js"></script>
+<script>
+	apiready = function(){
+		var name = "";
+		var header = $api.byId('header');
+	    $api.fixIos7Bar(header);
+	    var width = api.winWidth;
+	    var headerPos = $api.offset(header);
+	    var height = api.winHeight - headerPos.h;
+	    api.setStatusBarStyle({
+		    style: 'dark'
+		});
+	    switch(api.pageParam.count) {
+			case 11:
+				$('.mi_head_txt').text('订单修改');
+				name='mi_help_next_f';
+				src = '../image/help_dd_xiugai.png';
+				break;
+			case 12://更换手机号
+				$('.mi_head_txt').text('订单修改');
+				name='mi_help_next_f';
+				src = '../image/help_dd_xiugai.png';
+				break;
+			case 13:
+				$('.mi_head_txt').text('订单修改');
+				name='mi_help_next_f';
+				src = '../image/help_dd_xiugai.png';
+				
+				break;
+			case 14://确认修改
+				$('.mi_head_txt').text('订单修改');
+				name='mi_help_next_f';
+				src = '../image/help_dd_xiugai.png';
+				
+				break;
+			case 15://确认修改
+				$('.mi_head_txt').text('订单修改');
+				name='mi_help_next_f';
+				src = '../image/help_dd_xiugai.png';
+				break;
+			case 21:
+				$('.mi_head_txt').text('包裹异常');
+				name='mi_help_next_f';
+				src = '../image/help_dd_bgyc.png';
+				break;
+			case 22:
+				$('.mi_head_txt').text('包裹异常');
+				name='mi_help_next_f';
+				src = '../image/help_dd_bgyc.png';
+				break;
+			case 31:
+				$('.mi_head_txt').text('售后服务');
+				name='mi_help_next_f';
+				src = '../image/help_dd_shfw.png';
+				break;
+			case 32:
+				$('.mi_head_txt').text('售后服务');
+				name='mi_help_next_f';
+				src = '../image/help_dd_shfw.png';
+				break;
+			case 33:
+				$('.mi_head_txt').text('售后服务');
+				name='mi_help_next_f';
+				src = '../image/help_dd_shfw.png';
+				break;
+			case 34:
+				$('.mi_head_txt').text('售后服务');
+				name='mi_help_next_f';
+				src = '../image/help_dd_shfw.png';
+				break;
+			case 35:
+				$('.mi_head_txt').text('售后服务');
+				name='mi_help_next_f';
+				src = '../image/help_dd_shfw.png';
+				break;
+			case 36:
+				$('.mi_head_txt').text('售后服务');
+				name='mi_help_next_f';
+				src = '../image/help_dd_shfw.png';
+				break;
+			case 37:
+				$('.mi_head_txt').text('售后服务');
+				name='mi_help_next_f';
+				src = '../image/help_dd_shfw.png';
+				break;
+			case 38:
+				$('.mi_head_txt').text('售后服务');
+				name='mi_help_next_f';
+				src = '../image/help_dd_shfw.png';
+				break;
+			case 39:
+				$('.mi_head_txt').text('售后服务');
+				name='mi_help_next_f';
+				src = '../image/help_dd_shfw.png';
+				break;
+			case 310:
+				$('.mi_head_txt').text('售后服务');
+				name='mi_help_next_f';
+				src = '../image/help_dd_shfw.png';
+				break;
+			case 311:
+				$('.mi_head_txt').text('售后服务');
+				name='mi_help_next_f';
+				src = '../image/help_dd_shfw.png';
+				break;
+			case 312:
+				$('.mi_head_txt').text('售后服务');
+				name='mi_help_next_f';
+				src = '../image/help_dd_shfw.png';
+				break;
+			case 41:
+				$('.mi_head_txt').text('物流配送');
+				name='mi_help_next_f';
+				src = '../image/help_dd_wlps.png';
+				break;
+			case 42:
+				$('.mi_head_txt').text('物流配送');
+				name='mi_help_next_f';
+				src = '../image/help_dd_wlps.png';
+				break;
+			case 43:
+				$('.mi_head_txt').text('物流配送');
+				name='mi_help_next_f';
+				src = '../image/help_dd_wlps.png';
+				break;
+			case 44:
+				$('.mi_head_txt').text('物流配送');
+				name='mi_help_next_f';
+				src = '../image/help_dd_wlps.png';
+				break;
+			case 45:
+				$('.mi_head_txt').text('物流配送');
+				name='mi_help_next_f';
+				src = '../image/help_dd_wlps.png';
+				break;
+			case 46:
+				$('.mi_head_txt').text('物流配送');
+				name='mi_help_next_f';
+				src = '../image/help_dd_wlps.png';
+				break;
+			case 47:
+				$('.mi_head_txt').text('物流配送');
+				name='mi_help_next_f';
+				src = '../image/help_dd_wlps.png';
+				break;
+			case 48:
+				$('.mi_head_txt').text('物流配送');
+				name='mi_help_next_f';
+				src = '../image/help_dd_wlps.png';
+				break;
+			case 51:
+				$('.mi_head_txt').text('结算支付');
+				name='mi_help_next_f';
+				src = '../image/help_buy_jszf.png';
+				break;
+			case 52:
+				$('.mi_head_txt').text('结算支付');
+				name='mi_help_next_f';
+				src = '../image/help_buy_jszf.png';
+				break;
+			case 53:
+				$('.mi_head_txt').text('结算支付');
+				name='mi_help_next_f';
+				src = '../image/help_buy_jszf.png';
+				break;
+			case 54:
+				$('.mi_head_txt').text('结算支付');
+				name='mi_help_next_f';
+				src = '../image/help_buy_jszf.png';
+				break;
+			case 55:
+				$('.mi_head_txt').text('结算支付');
+				name='mi_help_next_f';
+				src = '../image/help_buy_jszf.png';
+				break;
+			case 61:
+				$('.mi_head_txt').text('选购商品');
+				name='mi_help_next_f';
+				src = '../image/help_buy_xgsp.png';
+				break;
+			case 62:
+				$('.mi_head_txt').text('选购商品');
+				name='mi_help_next_f';
+				src = '../image/help_buy_xgsp.png';
+				break;
+			case 71:
+				$('.mi_head_txt').text('注册登录');
+				name='mi_help_next_f';
+				src = '../image/help_buy_zcdl.png';
+				break;
+			case 72:
+				$('.mi_head_txt').text('注册登录');
+				name='mi_help_next_f';
+				src = '../image/help_buy_zcdl.png';
+				break;
+			case 73:
+				$('.mi_head_txt').text('注册登录');
+				name='mi_help_next_f';
+				src = '../image/help_buy_zcdl.png';
+				break;
+			case 74:
+				$('.mi_head_txt').text('注册登录');
+				name='mi_help_next_f';
+				src = '../image/help_buy_zcdl.png';
+				break;
+			case 81:
+				$('.mi_head_txt').text('投诉与建议');
+				name='mi_help_next_f';
+				src = '../image/help_other_tsyjy.png';
+				break;
+			case 82:
+				$('.mi_head_txt').text('投诉与建议');
+				name='mi_help_next_f';
+				src = '../image/help_other_tsyjy.png';
+				break;
+			case 83:
+				$('.mi_head_txt').text('投诉与建议');
+				name='mi_help_next_f';
+				src = '../image/help_other_tsyjy.png';
+				break;
+			case 84:
+				$('.mi_head_txt').text('投诉与建议');
+				name='mi_help_next_f';
+				src = '../image/help_other_tsyjy.png';
+				break;
+			case 85:
+				$('.mi_head_txt').text('投诉与建议');
+				name='mi_help_next_f';
+				src = '../image/help_other_tsyjy.png';
+				break;
+			case 91:
+				$('.mi_head_txt').text('忘记密码');
+				name='mi_help_next_f';
+				src = '../image/help_other_wjmm.png';
+				break;
+		}
+	    api.openFrame({
+		    name: name,
+		    url: name+'.html',
+		    softInputMode:'pan',
+		    bounces: false,
+		    opaque: true,
+		    vScrollBarEnabled: false,
+		    pageParam:{name:name,src:src},
+		    rect: {
+		        x: 0,
+		        y: headerPos.h,
+		        w: width,
+		        h: height
+		    }
+		});	
+	}
+	function save() {
+		var param = api.pageParam.count;						
+		if(param==4){			
+			api.execScript({
+	        name:'mi_set_head_w',
+	        frameName:'mi_set_tel_f',
+	        script: 'bind_phone();'
+        	});
+		}
+		if(param==6){
+			api.execScript({
+	        name:'mi_set_head_w',
+	        frameName:'mi_set_password_f',
+	        script: 'save_pwd();'
+        	});
+		}
+		
+	}
+	
+	
+</script>
+</html>

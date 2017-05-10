@@ -1,0 +1,83 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/common.css"/>
+</head>
+<style>
+    body {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+    }
+
+    .content {
+        -webkit-box-flex: 1;
+    }
+
+
+    .order {
+        color: #ffffff;
+        font-size: 16px;
+        background-image: url("../image/icon_order_now@2x.png");
+        background-position-x: 35% !important;
+        padding: 15px !important;
+        text-align: center;
+    }
+
+    .footer {
+        background-color: #FD7822;
+    }
+</style>
+<body>
+<header>
+    <div class="header">
+        <div class="back btn" tapmode="" onclick="api.closeWin()"></div>
+
+        <div class="title" id="title">产品详情</div>
+        <div class="bell btn" tapmode="" onclick="bell()"></div>
+        <div class="dock btn" tapmode="" onclick="menu()"></div>
+    </div>
+</header>
+<div class="content">
+
+</div>
+<footer class="footer">
+    <div class="btn order" tapmode="" onclick="api.alert({msg:'预订成功!'})">立即预定</div>
+</footer>
+<script src="../script/zepto.min.js"></script>
+<script>
+    apiready = function () {
+        fixIos7Bar($("header"));
+        var $bodyH = $("body").height();
+        var $headerH = $("header").height();
+        var $footerH = $("footer").height();
+        var $contentH = $bodyH - $headerH - $footerH;
+        api.openFrame({
+            name: 'frm_toursDetail_con',
+            url: 'frm_toursDetail_con.html',
+            rect: {
+                x: 0,
+                y: $headerH,
+                w: 'auto',
+                h: $contentH
+            },
+            bgColor: '#E5E5E5'
+        })
+    }
+    function bell() {
+        api.toast({msg: '订阅成功', location: 'top'})
+    }
+    function menu(){
+        api.openFrame({
+            name: 'frm_slider_header_menu',
+            url: 'frm_slider_header_menu.html',
+            rect: {x: 0, y: $("header").height(), w: 'auto', h: 'auto'},
+            bounces: false,
+            bgColor: 'rgba(51,51,51,0.6)'
+        })
+    }
+</script>
+</body>
+</html>

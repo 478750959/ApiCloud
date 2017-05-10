@@ -1,0 +1,434 @@
+<!doctype html>
+<html style="background: none;">
+<head>
+    <meta charset="UTF-8">
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>我的订单</title>
+    <link rel="stylesheet" type="text/css" href="../css/ly.css"/>
+    <style>
+    	#logo{
+    		height:100%;
+    		display:block;
+    	}
+	</style>
+</head>
+<body style="background: none;">
+
+<div id="wrap">
+<div id="main">
+   	<div class="ly_mask ly_delt">
+	    <div class="icon ly_confbuy" >
+	    	<dl class="fix">
+	    		<dt ><img src="" id="logo"></dt>
+	    		<dd>
+	    			<p class="price">¥<span id="money"></span></p>
+	    			<p id="title"></p>
+	    		</dd>
+	    	</dl>	    	
+	    	<script id="attribute" type="text/x-dot-template">
+	    		{{ for(var i in it['name']) { }}
+			    	<div class="size lysize fix">			    	
+			    		<h2 class="xych">{{=it['name'][i].attr_name}}</h2>
+			    		{{ var data=it['attr'][it['name'][i].id];}}
+			    		{{ for(var j in data){ }}	
+			    			<span class="xyc_span"   attr_type="{{=it['name'][i].attr_name}}"   attr_name=''   attr_id=''        onclick="sel(this,'{{=j}}','{{=data[j]}}')"     >{{=data[j]}}</span>
+						{{ } }}
+			    	</div>
+		    	{{ } }}
+	    		</script>	    	
+	    	<div id="attr">	    			    	    	
+	    	</div>	
+	    	<div class="size buynum fix">
+	    		<h2>购物数量</h2>
+	    		<p>
+	    			<span class="jian">-</span>
+	    			<input type="number" value="1" class="mid" /> 
+	    			
+	    			<span class="add">+</span>
+	    		</p>
+	    	</div>	    	
+	    	<a href="javascript:void(0);"        class="buy">确认购买</a>
+			<span class="cancle" onclick="api.closeFrame()"> </span>
+	    </div>
+    </div> 	
+</div>
+</div>	
+</body>
+<script type="text/javascript" src="../script/api.js"></script>	
+<script type="text/javascript" src="../script/comm.js"></script>
+<script type="text/javascript" src="../script/font.js"></script>
+<script type="text/javascript" src="../script/zepto.js"></script>
+<script type="text/javascript" src="../script/doT.min.js"></script>	
+<script type="text/javascript" src="../script/ly.js"></script>
+<script>
+	$('.jian').click(function() {
+		var text = parseInt($(this).next().val());
+		if(text<=1) {
+			text =1;
+			$(this).next('.mid').val('1');
+			return false;
+		}else{
+			text--;
+			$(this).next('.mid').val(text);
+		}
+		
+	})
+	////购物数量++
+	$('.add').click( function() {
+		var text = parseInt($(this).prev().val());
+		text++;
+		$(this).prev('.mid').val(text);
+	})
+	//判断是否为小数点
+	function check(c)
+	{
+	    var re = /^[1-9]*[1-9][0-9]*$/ ;  
+    	return re.test(c)  
+	}
+	$('.mid').focus(function() {
+		function a(id) {
+			var aaa = $(id).val();	 //输入框里边的值
+			b = function() {
+				var s = 0;			//修改后的值
+				$(id).bind('blur', function() {
+					s =parseInt($(id).val());	
+					s -= aaa;
+					$(id).unbind("blur");	
+				});
+			}
+			return b;
+		}
+		var ss = a(this);
+		ss();
+	})
+//点击切换效果
+    function sel(obj,id,attr){    
+    	$(obj).attr('attr_id',id);
+    	$(obj).attr('attr_name',attr);
+    	$(obj).siblings('span').attr('attr_id',0);
+    	$(obj).siblings('span').attr('attr_name','');
+		$(obj).addClass('current').siblings('span').removeClass('current');						
+	}
+	
+	apiready = function () {	
+		var param = {};
+		var ware={};
+		var info = is_login();	
+		var xycid = api.pageParam.count;
+		var id = api.pageParam.id;
+			    ajaxRequest('goods/get_attr', 'post',{id:id}, function (ret,err) {
+			    	if(err){
+			    		api.toast({
+	                        msg:err.msg
+                        });
+                        return false;
+			    	}
+			    	if (ret.status) {			    	
+			        	ware = ret.info.ware;			        	
+						var attribute = ret.info.attribute;
+			        	//内容
+			        	$("#title").html(ware.goods_name);
+			        	//金钱 
+			        	$("#money").html(ware.shop_price);			        	
+			        	//头像
+			        	$("#logo").attr("src",ware.logo);			        	
+			        	//属性
+			        	var content = $api.dom('#attr');
+						var tpl = $api.byId('attribute').text;
+			    		var tempFn = doT.template(tpl);
+						$api.html(content, tempFn(attribute));		
+						add_car(ware.is_pri);
+						add_buy(ware.is_pri);
+			         }
+			        
+			    });	
+			
+			function add_car(is_pri){
+				//加入购物车	    
+	    if(xycid==1||xycid==5){	    	
+			$('.buy').text('确定');
+			$('.buy').click(function(){	
+				if(ware.is_on_sale=='否'){
+					api.toast({
+						msg:'该商品已下架！'
+					});
+					return false;
+				}			
+				var ii=0;
+				var attribute='';
+				var ids = '';
+				$.each($('.xyc_span'),function(k,v){												
+					if($(v).attr('attr_id')!=0  && $(v).attr('attr_name')!=''){	
+						ii++;					
+						ids+=$(v).attr('attr_id')+',';
+						attribute+= $(v).attr('attr_type')+':'+$(v).attr('attr_name')+';';
+					}					
+				});
+				ids = ids.substring(0,ids.length-1);																	
+				if($('.xych').size()!=ii ){
+					api.toast({
+	                    msg:'请选择产品属性'
+                    });
+                    return false;
+				}
+				var shopNum = $('.mid').val();
+		    	//循环获取属性id	    	
+		    	if(shopNum > 1000){
+		    		api.toast({
+		                    msg:'数量不能大于999'
+	                    });
+	                    return false;
+		    	}
+				if(!check($('.mid').val())){
+					api.toast({
+			            msg:'数量填写错误'
+			        });
+			        $('.mid').val(1)
+			        return false;
+				}		    				    			
+				//判断有木有登录 没有登录加入缓存
+				if (!isEmpty(info)){
+					for (var p in info) {
+						param[p] = info[p];
+					}
+					param.goods_attr_id  = ids;
+				 	param.goods_attribute = attribute;
+				 	param.goods_name = ware.goods_name;
+				 	param.shop_price = ware.shop_price;
+				 	param.goods_logo = ware.logo;
+				 	param.goods_number = $('.mid').val();
+				 	param.goods_id = id;
+				 	ajaxRequest('cart/cartadd', 'post',param,function(ret,err){
+						
+						if(err){
+							api.toast({
+								msg:err.msg
+							});
+							return false;
+						}
+						if(ret.status){						 	
+			                 //发送到mi_f的监听事件
+						       api.sendEvent({
+				                	name:'num_change'
+				                });
+						       //发送到购物车编辑的监听事件
+						       api.sendEvent({
+							       name: 'del_car'			  
+							   });
+						       //发送到购物车的头部的监听事件。
+						       api.sendEvent({
+						           name:'xyc_price',
+						       })
+							$api.rmStorage('cartshopping');
+							if(xycid==1){
+								api.execScript({
+									name:'bill_dethead_w',
+									frameName:'bill_det_f',
+					                script: 'xyc()'
+				                }); 
+				                api.execScript({
+									name:'bill_dethead_in_w',
+									frameName:'bill_det_f',
+					                script: 'xyc()'
+				                }); 
+							}else{
+								 api.execScript({
+									name:'bill_confirm_w',
+									frameName:'bill_spxq_f',
+					                script: 'xyc()'
+				                }); 	
+							}						 
+			               		               
+						}else{
+							api.toast({
+								msg:ret.info
+							});
+						}
+					
+					})
+				}else{
+				
+			    	var shopNum = $('.mid').val();
+				    	//循环获取属性id	    	
+				    	if(shopNum > 1000){
+				    		api.toast({
+				                    msg:'数量不能大于999'
+			                    });
+			                    return false;
+				    	}
+						if(!check($('.mid').val())){
+							api.toast({
+					            msg:'数量填写错误'
+					        });
+					        $('.mid').val(1)
+					        return false;
+						}	
+				//判断有没有登陆下缓存中的购物车
+					var  cartShopping = isEmpty($api.getStorage('cart'))?{}:$api.getStorage('cart');
+					var cart = {};
+					 if(!isEmpty(cartShopping)){
+					 	cart['goods_attr_id']  = ids;
+					 	cart['goods_attribute'] = attribute;
+					 	cart['goods_name'] = ware.goods_name;
+					 	cart['shop_price'] = ware.shop_price;
+					 	cart['goods_logo'] = ware.logo;
+					 	cart['goods_number'] = $('.mid').val();
+					 	cart['goods_id'] = id;
+						var num=0;
+						var is_ok;
+						for(var p in cartShopping){
+							if(id == cartShopping[p]['goods_id'] && attribute == cartShopping[p]['attribute']){
+									cartShopping[p]['goods_number'] = parseInt(cartShopping[p]['goods_number'])+parseInt(cart['goods_number']);
+									$api.setStorage('cart',cartShopping);
+								    is_ok = cartShopping[p]['goods_number'];	
+							}
+							num++;
+						}
+						
+						if(isEmpty(is_ok)){
+							cartShopping[num] = cart; 
+				 		    $api.setStorage('cart',cartShopping);
+						}
+						api.sendEvent({
+			                	name:'num_change'
+			                });
+						api.execScript({
+								name:'bill_dethead_w',
+								frameName:'bill_det_f',
+				                script: 'xyc();'
+			                }); 
+			                api.execScript({
+								name:'bill_confirm_w',
+								frameName:'bill_spxq_f',
+				                script: 'xyc();'
+			                }); 		                
+						//没有直接生成一个本地缓存
+					 }else{
+					 	cart['goods_attr_id']  = ids;
+					 	cart['goods_attribute'] = attribute;
+					 	cart['goods_name'] = ware.goods_name;
+					 	cart['shop_price'] = ware.shop_price;
+					 	cart['goods_logo'] = ware.logo;
+					 	cart['goods_number'] = $('.mid').val();
+					 	cart['goods_id'] = id;
+					 	cartShopping[0] = cart;
+					 	$api.setStorage('cart',cartShopping);
+					 	api.execScript({
+								name:'bill_dethead_w',
+								frameName:'bill_det_f',
+				                script: 'xyc();'
+			                }); 
+			                api.execScript({
+								name:'bill_confirm_w',
+								frameName:'bill_spxq_f',
+				                script: 'xyc();'
+			                }); 
+			               api.sendEvent({
+			                	name:'num_change'
+			                });
+					 } 
+					           
+				}
+				
+			})
+		}
+			}    
+		
+		
+		function add_buy(is_pri){
+		
+		//确认购买
+		if(xycid==2||xycid==4){
+			$('.buy').text('确认购买');
+			$('.buy').click(function(){	
+			if(ware.is_on_sale=='否'){
+					api.toast({
+						msg:'该商品已下架！'
+					});
+					return false;
+				}					
+			var shopNum = $('.mid').val();
+				    	//循环获取属性id	    	
+	    	if(shopNum > 1000){
+	    		api.toast({
+	                    msg:'数量不能大于999'
+                    });
+                    return false;
+	    	}
+			if(!check($('.mid').val())){
+				api.toast({
+		            msg:'数量填写错误'
+		        });
+		        $('.mid').val(1)
+		        return false;
+			}				
+				var ii=0;
+				var attribute='';
+				var ids = '';
+				$.each($('.xyc_span'),function(k,v){												
+					if($(v).attr('attr_id')!=0  && $(v).attr('attr_name')!=''){	
+						ii++;					
+						ids+=$(v).attr('attr_id')+',';
+						attribute+= $(v).attr('attr_type')+':'+$(v).attr('attr_name')+';';
+					}					
+				});
+				ids = ids.substring(0,ids.length-1);																	
+				if($('.xych').size()!=ii ){
+					api.toast({
+	                    msg:'请选择产品属性'
+                    });
+                    return false;
+				}						    				    			    				  
+			for (var p in info) {
+				param[p] = info[p];
+			}
+			param.goods_attr_id = ids;
+			param.goods_attribute = attribute;
+		 	param.goods_name = ware.goods_name;
+		 	param.shop_price = ware.shop_price;
+		 	param.goods_logo = ware.logo;		 	
+		 	param.goods_number = $('.mid').val();
+		 	param.goods_id = id;
+			//查看库存量 	
+			ajaxRequest('cart/cartnum', 'post',param,function(ret,err){
+					if(err){
+						api.toast({msg:err.msg});
+						return false;
+					}
+					if(ret.status){
+						if (info){
+							api.openWin({
+						        name: 'bill_qrdd_w',
+						        url: 'bill_qrdd_w.html',
+						        opaque: true,
+						        reload: true,
+						        pageParam:{count:2,param:param,status:1,is_pri:is_pri},
+						        vScrollBarEnabled: false
+						    });
+					    }else{
+					    	$api.setStorage('shopbuffer',param);
+					    	//用来处理  在逛逛页面点击购买但没有登录的情况
+					    	//localstorage存入一个值  ccccccc = 1
+					    	$api.setStorage('ccccccc',1);
+					    	to_login();
+					    	api.closeFrame();
+                             
+					    }
+					}else{
+						api.toast({
+		                    msg:ret.info
+	                    });
+					}
+			}); 					 				
+			})
+		}
+	}	
+  }
+
+</script>
+</html>
+
+
+
+

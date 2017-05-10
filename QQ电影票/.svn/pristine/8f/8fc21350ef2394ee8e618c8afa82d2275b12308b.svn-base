@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<widget id="A6992689932064" version="0.0.1">
+  <name>QQ电影票</name>
+  <description>QQ电影票是腾讯旗下在线电影票订购网站，为您提供低至4折起、场场特价的折扣通用电影兑换券，还有免费抢票活动。</description>
+  <author email="realxiebin@sina.com" href="http://www.apicloud.com">颉彬</author>
+  <content src="index.html"/>
+  <preference name="pageBounce" value="true"/>
+  <preference name="appBackground" value="rgba(0,0,0,0)"/>
+  <preference name="windowBackground" value="rgba(0,0,0,0.0)"/>
+  <preference name="frameBackgroundColor" value="rgba(0,0,0,0.0)"/>
+  <preference name="hScrollBarEnabled" value="true"/>
+  <preference name="vScrollBarEnabled" value="true"/>
+  <preference name="autoLaunch" value="true"/>
+  <preference name="fullScreen" value="false"/>
+  <preference name="autoUpdate" value="false"/>
+  <preference name="smartUpdate" value="false"/>
+  <preference name="iOS7StatusBarAppearance" value="true"/>
+  <permission name="readPhoneState"/>
+  <permission name="call"/>
+  <permission name="sms"/>
+  <permission name="camera"/>
+  <permission name="record"/>
+  <permission name="location"/>
+  <permission name="fileSystem"/>
+  <permission name="internet"/>
+  <permission name="bootCompleted"/>
+  <permission name="hardware"/>
+  <permission name="contact"/>
+  <access origin="*"/>
+  <feature name="bMap">
+    <param name="android_api_key" value="6QvLMYfto4m7nzhyI50CVWhX"/>
+    <param name="ios_api_key" value="3z4i064z0bB50tNCWo3uDB1y"/>
+  </feature>
+</widget>

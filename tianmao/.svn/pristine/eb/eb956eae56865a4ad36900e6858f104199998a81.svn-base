@@ -1,0 +1,209 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>APP</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/common.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/fun.css" />
+    <style>
+        #main{
+            padding: 0;
+        }
+        
+    </style>
+</head>
+<body>
+    <div id="wrap">
+        <div id="main">
+            <div class="search_box" tapmode="tap-active" onclick="openCommon('search','搜索');">
+                <div class="search_inner">
+                    <i class="search_icon"></i>
+                    搜索关键字
+                </div>    
+            </div>
+            <div class="topic" tapmode="tap-active" onclick="openCommon('topic','天天都是APEC蓝');">
+                <div class="topic_header clearfix">
+                    <div class="topic_header_left pull-left">
+                        <img src="../../image/fun_topic_icon2.png" alt="">
+                    </div>
+                    <div class="topic_header_center pull-left">
+                        <span class="title">天天都是APEC蓝</span>
+                        <span class="brief">向雾霾宣战 天天都是APEC蓝</span>
+                    </div>
+                    <span class="type topic_text">89张图片</span>
+                </div>
+                <div class="topic_pic_box">
+                    <div class="topic_pic_group clearfix">
+                        <div class="topic_pic_inner">
+                            <img src="../../image/fun_topic_pic1.png" alt="">
+                        </div>
+                        <div class="topic_pic_inner">
+                            <img src="../../image/fun_topic_pic2.png" alt="">
+                        </div>
+                        <div class="topic_pic_inner">
+                            <img src="../../image/fun_topic_pic3.png" alt="">
+                        </div>
+                        <div class="topic_pic_inner">
+                            <img src="../../image/fun_topic_pic4.png" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="topic" tapmode="tap-active" onclick="openCommon('topic','天天都是APEC蓝');">
+                <div class="topic_header clearfix">
+                    <div class="topic_header_left pull-left">
+                        <img src="../../image/fun_topic_icon1.png" alt="">
+                    </div>
+                    <div class="topic_header_center pull-left">
+                        <span class="title">晒出你的Hollister Look！</span>
+                        <span class="brief">不怕太出众 就怕不热</span>
+                    </div>
+                    <span class="type topic_text">89张图片</span>
+                </div>
+                <div class="topic_pic_box">
+                    <div class="topic_pic_group clearfix">
+                        <div class="topic_pic_inner">
+                            <img src="../../image/fun_topic_pic5.png" alt="">
+                        </div>
+                        <div class="topic_pic_inner">
+                            <img src="../../image/fun_topic_pic6.png" alt="">
+                        </div>
+                        <div class="topic_pic_inner">
+                            <img src="../../image/fun_topic_pic7.png" alt="">
+                        </div>
+                        <div class="topic_pic_inner">
+                            <img src="../../image/fun_topic_pic8.png" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="topic" tapmode="tap-active" onclick="openCommon('topic','天天都是APEC蓝');">
+                <div class="topic_header clearfix">
+                    <div class="topic_header_left pull-left">
+                        <img src="../../image/fun_topic_icon2.png" alt="">
+                    </div>
+                    <div class="topic_header_center pull-left">
+                        <span class="title">天天都是APEC蓝</span>
+                        <span class="brief">向雾霾宣战 天天都是APEC蓝</span>
+                    </div>
+                    <span class="type topic_text">89张图片</span>
+                </div>
+                <div class="topic_pic_box">
+                    <div class="topic_pic_group clearfix">
+                        <div class="topic_pic_inner">
+                            <img src="../../image/fun_topic_pic1.png" alt="">
+                        </div>
+                        <div class="topic_pic_inner">
+                            <img src="../../image/fun_topic_pic2.png" alt="">
+                        </div>
+                        <div class="topic_pic_inner">
+                            <img src="../../image/fun_topic_pic3.png" alt="">
+                        </div>
+                        <div class="topic_pic_inner">
+                            <img src="../../image/fun_topic_pic4.png" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="topic" tapmode="tap-active" onclick="openCommon('topic','天天都是APEC蓝');">
+                <div class="topic_header clearfix">
+                    <div class="topic_header_left pull-left">
+                        <img src="../../image/fun_topic_icon1.png" alt="">
+                    </div>
+                    <div class="topic_header_center pull-left">
+                        <span class="title">晒出你的Hollister Look！</span>
+                        <span class="brief">不怕太出众 就怕不热</span>
+                    </div>
+                    <span class="type topic_text">89张图片</span>
+                </div>
+                <div class="topic_pic_box">
+                    <div class="topic_pic_group clearfix">
+                        <div class="topic_pic_inner">
+                            <img src="../../image/fun_topic_pic5.png" alt="">
+                        </div>
+                        <div class="topic_pic_inner">
+                            <img src="../../image/fun_topic_pic6.png" alt="">
+                        </div>
+                        <div class="topic_pic_inner">
+                            <img src="../../image/fun_topic_pic7.png" alt="">
+                        </div>
+                        <div class="topic_pic_inner">
+                            <img src="../../image/fun_topic_pic8.png" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div> 
+            <div class="topic" tapmode="tap-active" onclick="openCommon('topic','天天都是APEC蓝');">
+                <div class="topic_header clearfix">
+                    <div class="topic_header_left pull-left">
+                        <img src="../../image/fun_topic_icon2.png" alt="">
+                    </div>
+                    <div class="topic_header_center pull-left">
+                        <span class="title">天天都是APEC蓝</span>
+                        <span class="brief">向雾霾宣战 天天都是APEC蓝</span>
+                    </div>
+                    <span class="type topic_text">89张图片</span>
+                </div>
+                <div class="topic_pic_box">
+                    <div class="topic_pic_group clearfix">
+                        <div class="topic_pic_inner">
+                            <img src="../../image/fun_topic_pic1.png" alt="">
+                        </div>
+                        <div class="topic_pic_inner">
+                            <img src="../../image/fun_topic_pic2.png" alt="">
+                        </div>
+                        <div class="topic_pic_inner">
+                            <img src="../../image/fun_topic_pic3.png" alt="">
+                        </div>
+                        <div class="topic_pic_inner">
+                            <img src="../../image/fun_topic_pic4.png" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="topic" tapmode="tap-active" onclick="openCommon('topic','天天都是APEC蓝');">
+                <div class="topic_header clearfix">
+                    <div class="topic_header_left pull-left">
+                        <img src="../../image/fun_topic_icon1.png" alt="">
+                    </div>
+                    <div class="topic_header_center pull-left">
+                        <span class="title">晒出你的Hollister Look！</span>
+                        <span class="brief">不怕太出众 就怕不热</span>
+                    </div>
+                    <span class="type topic_text">89张图片</span>
+                </div>
+                <div class="topic_pic_box">
+                    <div class="topic_pic_group clearfix">
+                        <div class="topic_pic_inner">
+                            <img src="../../image/fun_topic_pic5.png" alt="">
+                        </div>
+                        <div class="topic_pic_inner">
+                            <img src="../../image/fun_topic_pic6.png" alt="">
+                        </div>
+                        <div class="topic_pic_inner">
+                            <img src="../../image/fun_topic_pic7.png" alt="">
+                        </div>
+                        <div class="topic_pic_inner">
+                            <img src="../../image/fun_topic_pic8.png" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>  
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/common.js"></script>
+<script type="text/javascript">
+    var topicPicInner = $api.domAll('.topic_pic_inner');
+    var domW = $api.offset(topicPicInner[0]).w;
+    for (var i = 0,len = topicPicInner.length; i < len; i++) {
+        $api.css(topicPicInner[i],'height: '+domW+'px;');
+    }
+    apiready = function(){
+
+    };
+</script>
+</html>

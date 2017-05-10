@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+  <head>
+    <title>
+    </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="css/ui-input.css">
+    <link rel="stylesheet" href="css/ui-on.css">
+    <link rel="stylesheet" href="css/ui-img.css">
+    <link rel="stylesheet" href="css/ui-res.css">
+    <link rel="stylesheet" href="css/ui-list.css">
+    <link rel="stylesheet" href="css/ui-base.css">
+    <link rel="stylesheet" href="css/ui-box.css">
+    <link rel="stylesheet" href="css/ui-color.css">
+	<link rel="stylesheet" href="css/style.css">
+    <script src="js/y_control.js"></script>
+    <script src="js/y_click.js"></script>
+	<script src="js/y_json.js"></script>
+	<script src="js/y_tmpl.js"></script>
+	<script src="js/y_icache.js"></script>
+	<!--<script src="js/y_slide.js"></script>--><!--加载影响编辑框的点击响应速度，所以注销-->
+	<script src="js/dis_control.js"></script>
+	<script src="js/config.js"></script>
+    <script>
+	</script>
+  </head>
+<body class="um-vp">
+	<!--查找用户-->
+	<div class=""  id="page1"  tabindex="0">
+		<div class="c-wh">
+            <div class="ub ubb b-gra ub-ac umh3 lis">
+                <div class="ut-s umw4">用户名</div>
+                <div class="ub ub-f1 tx-r">
+                    <div class="uinput uh">
+                        <div class="uinn1">
+                            <input placeholder="请输入用户名称" type="text" class="uc-n ulev0 tx-r" id="un" value="">
+                        </div>
+                        <!--<div class="ufl ubl ubr ubb b-org" style="height: .3em; width: 100%;"></div>-->
+                    </div>
+                </div>
+            </div>
+			<div class="ub ubb b-gra ub-ac umh4 lis">
+			    <div class="ut-s umw4">性别</div>
+				<div class="ub-f1 sel tx-r">
+					<div class="ub-f1 ut-s ulev0 t-bla" id="ua">不限</div>  
+					<select name="sel0" selectedindex="0"  style="border:none !important; " id="s00" onchange="zy_selectmenu(this.id)">  
+				  		<option>不限</option>  
+				  		<option>男</option>  
+				  		<option>女</option>
+				 	</select> 
+				 </div>
+		  		<div class="res8 lis-sw ub-img4"></div>
+		 	</div>
+
+			<div class=" ub ubb b-gra ub-ac umh4 lis">
+		 		<div class="ut-s umw4">年龄段</div>
+				<div class="ub-f1 sel tx-r">
+					<div class="ub-f1 ut-s ulev0 t-bla" id="us">不限</div>  
+					<select name="sel1" selectedindex="0"  style="border:none !important; " id="s11" onchange="zy_selectmenu(this.id)">  
+				  		<option>不限</option>  
+				  		<option>16~22岁</option>
+						<option>23~30岁</option>
+						<option>31~40岁</option>
+						<option>40岁以上</option>
+				 	</select> 
+				 </div>  
+		  		<div class="res8 lis-sw ub-img4"></div>   
+		 	</div>  
+		</div>
+		<!--<div class="uba  b-gra c-wh us uc-a" style="margin-top:1em;">
+		  	<div class="uc-t ubb ub b-gra c-m2 t-bla ub-ac umh4 lis">   
+		   		<div class="tx-r ut-s ulev-3">有头像的</div>
+				<div class="ub-f1"></div>    
+		  		<div class="t-blu ulev0">
+					<div class="swi uc-a1 uba b-gra" ontouchstart="zy_touch('c-gra')" onclick="my_swi();">
+						<div class="ub" id="swi" style="height:100%; width:50%;">
+							<div class="ub-fh">
+							</div>
+							<div class="ub-fh">
+								<div class="uabs swi-btn us"></div>
+							</div>
+						</div>
+					</div>
+				</div> 
+		 	</div>
+		</div>-->
+	</div>
+
+	<!--查找结果-->
+	<div class="" style="display:none;" id="page2">
+		<div class="b-gra uc-n" id="reslist">
+			<div></div>
+	  	</div>
+	</div>
+</body>
+<script>
+zy_init();
+var nowpage = 'page1';
+var curpage = 1;
+var totpage = 1;
+var upt = '';
+var update = {};
+var mySlide = null;
+var esx = $$('s00');
+var eag = $$('s11');
+var topt = 1; 
+var ucurl = getstorage('ucurl');
+if(!ucurl) ucurl = guc;
+
+window.uexOnload = function (){
+	setPageBounce(downcb, upcb);
+	//hiddenPageBounce();
+	zy_initcache();
+};
+function endFun(){} 
+function transEnd(evt){}
+/*function my_swi(){
+	if(mySlide){
+		var mp = mySlide.maxPoint;
+		var cp = mySlide.currentPoint;
+		var tp = 0;
+		if(cp<mp) tp=cp+1;
+		mySlide.moveToPoint(tp);
+		topt = tp;
+	}
+}*/
+
+function downcb(){
+	if (nowpage == 'page2') {
+		upt = '0';
+		update['0'] = 1;
+		loadListSearch('');
+	}
+	else resetBV('0');
+}
+function upcb(){
+	if (nowpage=='page2' && curpage<totpage) {
+		upt = '1';
+		update['1'] = 1;
+		loadListSearch(curpage+1);
+	}
+	else
+		resetBV('1');
+}
+
+function pagecb(p){
+	logs('pagecb()-->p='+p);
+	//if(p=='page1') hiddenPageBounce();
+	//else showPageBounce();
+}
+function back_(){
+	if(nowpage=='page1') uescript('friend_search', 'closewin();');
+	else {
+		my_page_switch('page2', 'page1', pagecb);
+		nowpage = 'page1';
+	}
+}
+
+function search(){
+	logs('search()-->');
+	my_page_switch('page1','page2', pagecb);
+	nowpage = 'page2';
+	loadListSearch('');
+}
+
+function loadListSearch(pn){
+    if(going) return;
+    going = 1;
+	var un = $$('un').value;
+	var uid = '';//$$('uid').value;
+	var us = esx.selectedIndex; /*0不限，1男，2女*/
+	var ua = ''; /*不限：'0-9999'; '16-22'岁; '23-30'岁; '31-40'岁; 40以上：'41-9999';*/
+	var uh = topt?0:1;//$$('uh').checked;  /*无''; 有'1'*/
+	
+	var age1 = 0;
+	var age2 = 99999;
+	var si = eag.selectedIndex;
+	if(si==1){
+		age1 = 16;
+		age2 = 22;
+	}
+	else if(si==2){
+		age1 = 23;
+		age2 = 30;
+	}
+	else if(si==3){
+		age1 = 31;
+		age2 = 40;
+	}
+	else if(si==4){
+		age1 = 41;
+		age2 = 99999;
+	}
+	
+	var sun = '';
+	var suid = '';
+	var sus = '&gender='+us;
+	var sua = '&startage='+ age1 + '&endage='+age2;
+	var suh = '';
+	if(un) sun = '&username='+encodeURIComponent(un);
+	if(uid) suid = '&uid='+uid;
+	if(uh) suh = '&avatarstatus=1';
+	
+	var url = home_url+'&mod=spacecp&ac=search&searchsubmit=true&type=all' + sun + suid + sus + sua + suh + '&page='+pn;
+	logs('loadListSearch()-->url='+url);
+	uexWindow.toast('1','5','加载中...','');
+	$.getJSON(url, loadListSearchCb, 'json', getJsonErr, 'POST', '', '');
+}
+function loadListSearchCb(json){
+	uexWindow.closeToast();
+    going = 0;
+	if(update[upt]){
+		update[upt] = 0;
+		resetBV(upt);
+	}
+	
+	if(json){
+		var list = json.list;
+		var ll = zy_tmpl_count(list);
+		var res = '';
+		
+		curpage = Int(json.zywy_curpage);
+		totpage = Int(json.zywy_totalpage);
+			
+		if(ll){
+			var tmpl = '<li ontouchstart="zy_touch(\'c-gra\')" onclick="go2new5(\'${uid}\', \'${username}\', \'${isfriend}\')" class="uc-n ubb ub b-gra t-bla ub-ac lis" id="${uid}">'
+							+'<div class="lis-th2 ub-img uc-a1">'
+				     			+'<img src="images/mylogo.png" class="inforpic" ${cb:img} id="uid_${uid}"/>'
+				     		+'</div> '	 
+				 			+'<div class="ub-f1 ub ub-ver">'
+				 	    		+'<div class="ulev0">${username}</div>'
+				    			+'${cb:doing}'
+				 			+'</div> '
+				 		+'</li>  '
+						+'<li class="ubt1"></li>';
+			res = zy_tmpl(tmpl,list,ll,j2vCb);
+		}
+		else{
+			res = '<div class="uinn8 tx-c">没找到你所查找的用户</div>'
+		}
+		
+		var cContent = $$('reslist');
+		if(curpage==1)
+       	{
+       		while(cContent.childElementCount>1)
+       		{
+       			cContent.removeChild(cContent.firstElementChild);
+       		}
+       	}
+		
+		var node = document.createElement("ul");
+		node.innerHTML = res;
+		cContent.insertBefore(node,cContent.lastElementChild);
+        imgCacheCall();
+	}
+}
+function j2vCb(d,c)
+{
+	var str = '';
+	 if(c.length>1)
+	 {
+		switch(c[1])
+		{
+			case 'doing':
+				str = d.doing ? '<div class="ulev-1 umh4 t-gra ut-s umar-t">' + d.doing + '</div>' : '';
+			break;
+			case 'isfriend':
+				if(d.isfriend==0) str = '<div class="ufr c-blu4 t-wh uc-a ulev-2 uinn11 umar-t">未添加</div>'
+			break;
+			case 'img':
+				var src = ucurl+d.uid;
+				var picid = 'uid_'+d.uid;
+                pushCacheCall(function(){
+                    dis_imgcache(picid,src,src,imgLoadSucSrc,imgLoadErrSrc,null,'',1);
+                });
+			break;
+		}
+	 }
+	 return str;
+}
+
+function go2new5(uid, username, isf){
+	setstorage('params','{"uid":"'+uid+'", "username":"'+username+'", "isfriend":"'+isf+'"}');
+	openwin('friend_information','friend_information.html','10');
+}
+
+/*mySlide = new zySlide('swi', 'H', endFun, 1, transEnd);
+mySlide.moveToPoint(1);*/
+</script>
+</html>

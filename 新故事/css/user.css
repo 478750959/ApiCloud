@@ -1,0 +1,117 @@
+body{
+  background-color: #f2f2f2; height:auto;
+}
+#cover{
+  height: 180px; text-align: center; position: relative;
+}
+#cover .cover{
+    -webkit-filter: blur(20px);
+    filter: blur(20px); 
+    opacity: .8;
+}
+#cover img{
+    position: absolute; left: 0;
+}
+#cover label{
+    position: relative; z-index: 5; color: #fff;
+    text-shadow: 2px 2px 2px #999;
+}
+#avatar{
+    width: 100px; height: 100px;  margin: 0 auto; padding: 20px 0;
+    position: relative; z-index: 5;
+   
+}
+#avatar img{
+    width: 100px; height: 100px; border-radius: 100px; border: 4px solid #fff;
+}
+#avatar .edit{
+    position: absolute; right: 4px; bottom: 12px;
+    display: inline-block; width: 20px; height: 20px;
+    background:#55abce url(../image/edit.png) no-repeat center center;
+    background-size: 13px 13px;
+    border: 3px solid #fff; border-radius: 20px;
+}
+
+#tab{
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-flex-direction: row;
+  flex-direction: row;
+  text-align: center;
+}
+#tab li{
+  -webkit-box-flex: 1; 
+  -webkit-flex: 1;
+  flex: 1;
+}
+#tab li a{
+  height: 65px; display: block; 
+  background: rgba(26,26,26,.8) url(../image/border-v.png) no-repeat right center;
+  background-size: 1px 45px;
+}
+
+#tab li:last-child a{
+    background-image: none; 
+}
+#tab li a span{
+    color: #fff; font-size: 24px; margin-top: 6px; margin-bottom: 6px;
+}
+#tab li a div{
+    color: #fff; opacity: .5; font-size: 12px;
+}
+#tab li a.active, #tab li a.light{
+  -webkit-box-shadow: inset 0px -14px 30px -14px #55abce;
+  box-shadow: inset 0px -14px 30px -14px #55abce;
+  position: relative;
+}
+#tab li a.active:after, #tab li a.light:after{
+  content: ""; position: absolute; bottom: -4px; z-index: 10;
+  display: inline-block; width: 20px; height: 4px;
+  background:url(../image/arr-d.png) no-repeat; 
+  -webkit-background-size: 20px 4px;
+  background-size: 20px 4px;
+  right: 40%;
+}
+#tab li a.active span, #tab li a.active div, #tab li a.light span, #tab li a.light div{
+  color: #55abce; 
+}
+
+#activity{
+  margin-top: 220px; background-color: #f2f2f2;
+}
+#activity h2{
+  font-size: 16px; padding-left: 1em; padding-bottom: .8em;
+}
+#activity a{
+	display:block; padding-top:20px;
+}
+#activity .pic{
+  overflow: hidden;
+  text-align: center;
+  height: 160px; min-width: 320px; width: 92%; margin:0 auto 20px;
+  -webkit-border-radius: 6px;
+  border-radius: 6px; 
+  background-repeat: no-repeat;
+  background-position: center top;
+  -webkit-background-size: cover;
+  background-size: cover;
+}
+#activity img{
+  width: 100%; border-radius: 6px;
+}
+#activity p{
+  padding: 1em; padding-top: 0; white-space: nowrap; text-overflow: ellipsis;
+  width: 100%; overflow: hidden; color: #999;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+#activity .item{
+  -webkit-box-shadow: 0px 4px 4px #dddcdc;
+  box-shadow: 0px 4px 4px #dddcdc;
+  background-color: #fff; margin-bottom: 14px;
+}
+#activity .item a{
+  display: block;
+}

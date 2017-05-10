@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+<head>
+	<title></title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="../../css/ui-img.css">
+    <link rel="stylesheet" href="../../css/ui-list.css">
+	<link rel="stylesheet" href="../../css/ui-tab.css">
+	<link rel="stylesheet" href="../../css/ui-btn.css">
+	<link rel="stylesheet" href="../../css/ui-base.css">
+	<link rel="stylesheet" href="../../css/ui-box.css">
+	<link rel="stylesheet" href="../../css/ui-color.css">
+	<link rel="stylesheet" href="../../css/ui-res.css">
+	<link rel="stylesheet" href="../../css/style.css">
+    <script src="../../js/config.js"></script>
+    <script src="../../js/y_control.js"></script>
+	<script src="../../js/y_click.js"></script>
+	<script src="../../js/y_anim.js"></script>
+	<script src="../../js/dis_control.js"></script>
+    <!--<script src="script/common.js"></script>-->
+	<script>
+	</script>
+</head>
+<body class="um-vp c-gra5" ontouchstart>
+    <div id="page_0" class="up ub ub-ver c-gra5" tabindex="0">
+        <!--header开始-->
+        <div id="header" class="c-blu3 uh">
+        	<div class="c-m2 t-wh" id="hd1">
+        		<!--按钮开始-->
+				<a class="btn btn-l btn-a ub ub-ac" ontouchstart="zy_touch('btn-act1')" onclick="closewin();">       
+					<div class="ulim"><img src="../../images/back.png" class="sbtn"></div>
+				</a>
+				<!--按钮结束-->
+                <h1 class="ut ulev0 ut-s tx-c" tabindex="0" id="title">正文</h1>
+			</div>
+			<div style="height:1px;"></div>
+        </div>
+        <!--header结束--><!--content开始-->
+        <div id="content" class="ub-f1 tx-l t-bla">
+			
+        </div>
+        <!--content结束-->
+    </div>
+</body>
+<script>
+zy_init();
+var params = getStorJson('params');
+var wname = params.wname;
+var popname = params.popname;
+var applied = 0;
+setTitle();
+window.uexOnload = function(type){
+    if (!type) {
+		//更新标题
+		var title=params.title;
+        if(title) $$("title").innerHTML=title;
+		
+		setTimeout(function(){
+			var hh = $$("header").offsetHeight;
+			setstorage('headerHeight', hh);
+			my_con("content", "detail_content.html", 0, hh, 'false');
+		}, 50);
+    }
+
+	window.onorientationchange=window.onresize=function(){
+		zy_resize("content",0,$$("header").offsetHeight);				
+	}
+};
+
+/**
+ * 根据内容初始化后的要约状态，添加要约按钮
+ * _applied：2表示浏览者为发起人，按钮为查看要约
+ */
+function addJoinNode(_applied){
+    if($$('btnr')) removeNode('btnr');//因为使用了缓存，初始化窗口时，此函数会被调用两次
+	var str = '我要约';
+	var cc = $$('hd1');
+	var node = createEle("div");
+	if(force_int(_applied) == 1) str = '取消要约';
+    else if(force_int(_applied) == 2) str = '查看要约';
+
+    applied = _applied;
+	node.innerHTML = '<div class="ulim" id="btnr">'+str+'</div>';
+	node.className = 'btn btn-r btn-n ub ub-ac';
+	node.onclick = join;
+	cc.insertBefore(node,cc.lastElementChild);
+}
+/**
+ * 按钮的click事件，参加，取消，或者查看要约，都在content中进行处理，其中参加时，包含了查看要约的逻辑
+ */
+function join(){
+    if (!checkLogin()) return;
+    if(int(applied) == 0 || int(applied) == 2){//参加或查看要约
+        ueppscript('dating_detail', 'content', "go2members('', '', '', '', '0');");//applied=0
+    }else if(int(applied) == 1){//取消
+        uexWindow.cbConfirm = function(opId, dataType, data){
+            if(Int(data)==0) ueppscript('dating_detail', 'content', 'activityCancel();')
+        };
+        var mycars = ['确定','取消'];
+        uexWindow.confirm('提示', '你确定取消要约？', mycars);
+    }else if(int(applied) == 2){//查看要约
+
+    }
+}
+/**
+ * 点击join后从content返回result，applied表示要约的状态
+ */
+function joinResult(_applied){
+    if(int(_applied) == 2) return;//如果浏览者是发起人，按钮一直为查看要约
+    var str = '取消要约';
+    applied = _applied;
+	if(force_int(_applied) == 0){
+		str = '我要约';
+	}
+	setHtml('btnr', str);
+}
+
+function setTitle(){
+    setHtml('title', '神秘约会内容');
+}
+</script>
+</html>

@@ -1,0 +1,443 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>APP</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/common.css" />
+    <style>
+        #main{
+
+        }
+        .broadcast{
+            border: #CDCDCD 1px solid;
+            border-bottom: none;
+            margin-bottom: 1em;
+            /*  */
+            /*display:none;*/
+        }
+        .broadcast_header{
+            border-bottom: #CDCDCD 1px solid;
+            position: relative;
+        }
+        .broadcast_header_left{
+            height: 55px;
+            width: 55px;
+            float: left;
+        }
+        .broadcast_header_left img{
+            height: 35px;
+            display: block;
+            border-radius: 18px;
+            margin: 10px auto 0 auto;
+        }
+        .broadcast_header_center{
+
+        }
+        .title{
+            font-size: 13px;
+            color: #58616D;
+            width: 100%;
+            padding-top: 11px;
+            display: block;
+        }
+        .brief{
+            font-size: 0.7em;
+            color: #BDBDBD;
+            width: 100%;
+            margin: 6px 0 3px 0;
+            display: block;
+        }
+        .type{
+            color: #FFF;
+            position: absolute;
+            right: 0;
+            top: 50%;
+            -webkit-transform: translateY(-50%);
+                    transform: translateY(-50%);
+            font-size: 10px;
+            padding: 4px 6px;
+        }
+        .broadcast .type.bro{
+            background-color: #CE55CF;
+        }
+        .broadcast_content_box{
+
+        }
+        .broadcast_content_left{
+            float: left;
+            width: 50%;
+            position: relative;
+        }
+        .broadcast_content_text_box{
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.6);
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-orient: vertical;
+            box-orient: vertical;
+            -webkit-flex-direction: column;
+            flex-direction: column;
+        }
+        .broadcast_content_text_box .left_quotes,.broadcast_content_text_box .right_quotes{
+            display: block;
+            position: relative;
+            width: 100%;
+            height: 20px;
+        }
+        .broadcast_content_text_box .text{
+            -webkit-box-flex: 1;
+            -webkit-flex: 1;
+            flex: 1;
+            padding: 0 30px;
+            font-size: 10px;
+            line-height: 16px;
+            color: #FFF;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: normal;
+        }
+        .broadcast_content_text_box .left_quotes img,.broadcast_content_text_box .right_quotes img{
+            position: absolute;
+            width: 15px;
+            height: 10px;
+        }
+        .broadcast_content_text_box .left_quotes img{
+            left: 12px;
+            top: 10px;
+        }
+        .broadcast_content_text_box .right_quotes img{
+            right: 12px;
+            bottom: 10px;
+        }
+        .broadcast_content_box img{
+            float: right;
+            width: 50%;
+        }
+        .broadcast_content_left .anti{
+            float: left;
+            width: 100%;
+            -webkit-transform: rotateY(180deg);
+                    transform: rotateY(180deg);
+        }
+
+        .discount{
+            border: #CDCDCD 1px solid;
+            margin-bottom: 1em;
+        }
+        .discount_header{
+            position: relative;
+        }
+        .discount_header_left{
+            height: 55px;
+            width: 82px;
+            float: left;
+        }
+        .discount_header_left img{
+            height: 35px;
+            display: block;
+            margin: 10px auto 0 auto;
+        }
+        .discount_header_center{
+
+        }
+        .discount .type.dis{
+            background-color: #FD5447;
+        }
+        .discount_content_box{
+            background-color: #FFF;
+        }
+        .discount_content_box .details{
+            float: left;
+            width: 50%;
+        }
+        .discount_content_box .details img{
+            display: block;
+            width: 100%;
+        }
+        .discount_content_box .details .spans{
+            height: 26px;
+            line-height: 26px;
+        }
+        .discount_content_box .spans .cp,.discount_content_box .spans .op{
+            line-height: 26px;
+            height: 26px;
+            float: left;
+            margin: 0 5px;
+        }
+        .discount_content_box .spans .cp{
+            color: #C40000;
+            font-size: 10px;
+        }
+        .discount_content_box .spans .op{
+            color: #999999;
+            font-size: 8px;
+            text-decoration: line-through;
+        }
+        .discount_shop{
+            background: #FAFAFA url(../../res/img/featured_dividing_line.png) center center no-repeat;
+            background-size: 1px 19px;
+        }
+        .discount_shop span{
+            font-size: 13px;
+            color: #6E6E6E;
+            width: 50%;
+            float: left;
+            height: 39px;
+            line-height: 39px;
+            text-align: center;
+        }
+
+
+        .new_pro{
+            border: #CDCDCD 1px solid;
+            margin-bottom: 1em;
+        }
+        .new_pro_header{
+            position: relative;
+        }
+        .new_pro_header_left{
+            height: 55px;
+            width: 82px;
+            float: left;
+        }
+        .new_pro_header_left img{
+            height: 35px;
+            display: block;
+            margin: 10px auto 0 auto;
+        }
+        .new_pro_header_center{
+
+        }
+        .new_pro .type.new{
+            background-color: #76C411;
+        }
+        .new_pro_content_box{
+            background-color: #FFF;
+        }
+        .new_pro_content_box img{
+            width: 100%;
+        }
+        .new_pro_shop{
+            background: #FAFAFA url(../../res/img/featured_dividing_line.png) center center no-repeat;
+            background-size: 1px 19px;
+        }
+        .new_pro_shop span{
+            font-size: 13px;
+            color: #6E6E6E;
+            width: 50%;
+            float: left;
+            height: 39px;
+            line-height: 39px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div id="wrap">
+        <div id="main">
+            <!-- 小广播部分 -->
+            <div class="broadcast" tapmode="tap-active" onclick="openCommon('broadcast','Laneige/兰芝')">
+                <div class="broadcast_header clearfix">
+                    <div class="broadcast_header_left pull-left">
+                        <img src="../../image/miaomiao_icon.png" alt="">
+                    </div>
+                    <div class="broadcast_header_center pull-left">
+                        <span class="title">喵喵说</span>
+                        <span class="brief">8小时前，发布了新广播</span>
+                    </div>
+                    <span class="type bro">小广播</span>
+                </div>
+                <div class="broadcast_content_box clearfix">
+                    <div class="broadcast_content_left">
+                        <img src="../../image/featured_big_b1.png" class="anti" alt="">
+                        <div class="broadcast_content_text_box">
+                            <div class="left_quotes">
+                                <img src="../../res/img/tm_brand_view_card_dot_1.png" alt="">
+                            </div>
+                            <p class="text">
+                                LANEGE在法语中是自然之“雪”的意思，代表用不干涸的自信。20年以来作为全球女性认可的补水保湿专家！
+                            </p>
+                            <div class="right_quotes">
+                                <img src="../../res/img/tm_brand_view_card_dot_2.png" alt="">
+                            </div>
+                        </div>
+                    </div>
+                    <img src="../../image/featured_big_b1.png" alt="">
+                </div>
+            </div>
+            <div class="broadcast" tapmode="tap-active" onclick="openCommon('broadcast','Laneige/兰芝')">
+                <div class="broadcast_header clearfix">
+                    <div class="broadcast_header_left pull-left">
+                        <img src="../../image/miaomiao_icon.png" alt="">
+                    </div>
+                    <div class="broadcast_header_center pull-left">
+                        <span class="title">喵喵说</span>
+                        <span class="brief">8小时前，发布了新广播</span>
+                    </div>
+                    <span class="type bro">小广播</span>
+                </div>
+                <div class="broadcast_content_box clearfix">
+                    <div class="broadcast_content_left">
+                        <img src="../../image/featured_big_b2.png" class="anti" alt="">
+                        <div class="broadcast_content_text_box">
+                            <div class="left_quotes">
+                                <img src="../../res/img/tm_brand_view_card_dot_1.png" alt="">
+                            </div>
+                            <p class="text">
+                                夏普公司创立于1912年，已有百年历史，现已在世界25个国家，62个地区开展业务，是一个以诚意和创…
+                            </p>
+                            <div class="right_quotes">
+                                <img src="../../res/img/tm_brand_view_card_dot_2.png" alt="">
+                            </div>
+                        </div>
+                    </div>
+                    <img src="../../image/featured_big_b2.png" alt="">
+                </div>
+            </div>
+            <div class="broadcast"  tapmode="tap-active" onclick="openCommon('broadcast','Laneige/兰芝')">
+                <div class="broadcast_header clearfix">
+                    <div class="broadcast_header_left pull-left">
+                        <img src="../../image/miaomiao_icon.png" alt="">
+                    </div>
+                    <div class="broadcast_header_center pull-left">
+                        <span class="title">喵喵说</span>
+                        <span class="brief">8小时前，发布了新广播</span>
+                    </div>
+                    <span class="type bro">小广播</span>
+                </div>
+                <div class="broadcast_content_box clearfix">
+                    <div class="broadcast_content_left">
+                        <img src="../../image/featured_big_b3.png" class="anti" alt="">
+                        <div class="broadcast_content_text_box">
+                            <div class="left_quotes">
+                                <img src="../../res/img/tm_brand_view_card_dot_1.png" alt="">
+                            </div>
+                            <p class="text">
+                                温控专家膳魔师百年来传递着简单悠长的温暖滋味，风靡欧、美、日，是全世界最悠久的真空保温品牌，也是全球保温杯…
+                            </p>
+                            <div class="right_quotes">
+                                <img src="../../res/img/tm_brand_view_card_dot_2.png" alt="">
+                            </div>
+                        </div>
+                    </div>
+                    <img src="../../image/featured_big_b3.png" alt="">
+                </div>
+            </div>
+            <div class="broadcast" tapmode="tap-active" onclick="openCommon('broadcast','Laneige/兰芝')">
+                <div class="broadcast_header clearfix">
+                    <div class="broadcast_header_left pull-left">
+                        <img src="../../image/miaomiao_icon.png" alt="">
+                    </div>
+                    <div class="broadcast_header_center pull-left">
+                        <span class="title">喵喵说</span>
+                        <span class="brief">8小时前，发布了新广播</span>
+                    </div>
+                    <span class="type bro">小广播</span>
+                </div>
+                <div class="broadcast_content_box clearfix">
+                    <div class="broadcast_content_left">
+                        <img src="../../image/featured_big_b4.png" class="anti" alt="">
+                        <div class="broadcast_content_text_box">
+                            <div class="left_quotes">
+                                <img src="../../res/img/tm_brand_view_card_dot_1.png" alt="">
+                            </div>
+                            <p class="text">
+                                尼康创立于1917年，至今已有90多年历史。在“信赖和创造”的企业理念引导下，积极开展以光学产品的开发和销售为主的各…
+                            </p>
+                            <div class="right_quotes">
+                                <img src="../../res/img/tm_brand_view_card_dot_2.png" alt="">
+                            </div>
+                        </div>
+                    </div>
+                    <img src="../../image/featured_big_b4.png" alt="">
+                </div>
+            </div>
+            <!-- 小广播部分 end -->
+            <!-- 优惠部分 -->
+            <div class="discount" tapmode="tap-active" data-url="http://cherry.m.tmall.com" data-title="cherry" onclick="toDetail(this);">
+                <div class="discount_header clearfix">
+                    <div class="discount_header_left pull-left">
+                        <img src="../../image/cherry_logo.png" alt="">
+                    </div>
+                    <div class="discount_header_center pull-left">
+                        <span class="title">Cherry/樱桃</span>
+                        <span class="brief">13分钟前，有商品开始促销</span>
+                    </div>
+                    <span class="type dis">优惠哈</span>
+                </div>
+                <div class="discount_content_box clearfix">
+                    <div class="details">
+                        <img src="../../image/cherry_p1.png" alt="">
+                        <div class="spans">
+                            <span class="cp">￥359.00</span>
+                            <span class="op">390.00</span>
+                        </div>
+                    </div>
+                    <div class="details">
+                        <img src="../../image/cherry_p2.png" alt="">
+                        <div class="spans">
+                            <span class="cp">￥29.00</span>
+                            <span class="op">39.00</span>
+                        </div>
+                    </div>
+                    <div class="details">
+                        <img src="../../image/cherry_p3.png" alt="">
+                        <div class="spans">
+                            <span class="cp">￥50.00</span>
+                            <span class="op">60.00</span>
+                        </div>
+                    </div>
+                    <div class="details">
+                        <img src="../../image/cherry_p4.png" alt="">
+                        <div class="spans">
+                            <span class="cp">￥390.00</span>
+                            <span class="op">400.00</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="discount_shop clearfix">
+                    <span>进入官方旗舰店</span>
+                    <span>更多优惠</span>
+                </div>
+            </div>
+            <!-- 优惠部分 end -->
+            <div class="new_pro" tapmode="tap-active" data-url="http://cherry.m.tmall.com" data-title="cherry" onclick="toDetail(this);">
+                <div class="new_pro_header clearfix">
+                    <div class="new_pro_header_left pull-left">
+                        <img src="../../image/cherry_logo.png" alt="">
+                    </div>
+                    <div class="new_pro_header_center pull-left">
+                        <span class="title">Cherry/樱桃</span>
+                        <span class="brief">13分钟前，有商品全新上架</span>
+                    </div>
+                    <span class="type new">上新啦</span>
+                </div>
+                <div class="new_pro_content_box clearfix">
+                    <img src="../../image/cherry_np1.png" alt=""> 
+                </div>
+                <div class="new_pro_shop clearfix">
+                    <span>进入官方旗舰店</span>
+                    <span>更多新品</span>
+                </div>
+            </div>
+            <!-- 新品上架 -->
+
+            <!-- 新品上架 end -->
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/common.js"></script>
+<script type="text/javascript">
+    apiready = function(){
+
+    };
+</script>
+</html>

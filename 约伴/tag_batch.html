@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+  <head>
+    <title>
+    </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="css/ui-btn.css">
+    <link rel="stylesheet" href="css/ui-input.css">
+    <link rel="stylesheet" href="css/ui-res.css">
+    <link rel="stylesheet" href="css/ui-list.css">
+    <link rel="stylesheet" href="css/ui-base.css">
+    <link rel="stylesheet" href="css/ui-box.css">
+    <link rel="stylesheet" href="css/ui-color.css">
+	<link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/ui-tab.css">
+    <script src="js/y_control.js"></script>
+    <script src="js/y_click.js"></script>
+	<script src="js/config.js"></script>
+	<script src="js/dis_control.js"></script>
+	<script src="js/y_json.js"></script>
+	<script src="js/y_anim.js"></script>
+    <script src="js/y_tmpl.js"></script>
+    <style>
+        body {
+            /*background-image: url(images/login_bg.png);
+            background-repeat:  no-repeat;
+            background-size: 100%;*/
+        }
+    </style>
+  </head>
+<body class="um-vp" ontouchstart>
+    <div id="page_0" class="up ub ub-ver" tabindex="0">
+        <div id="header" class="uh c-blu3">
+            <div class="c-blu3 t-wh">
+                <a class="btn btn-l btn-a ub ub-ac" ontouchstart="zy_touch('btn-act1')" onclick="closewin();">
+                    <div class="ulim"><img src="images/back.png" class="sbtn"></div>
+                </a>
+                <h1 class="umh5 ulev0 ut-s tx-c" id="ttl">&nbsp;</h1>
+            </div>
+        </div>
+        <div id="header1" class="c-blu3 uh ub-f1 ub ub-ac ub-pc ub-ver">
+            <div class="ub ub-f1 ub-ver ub-pc ub-ac">
+                <div class="ulev3 t-wh">一生的朋友</div>
+                <div class="ulev3 t-wh umar-t">在什么圈子？</div>
+            </div>
+            <div class="ub ub-ac ulev2 t-wh umh3">点击建立我的圈子</div>
+        </div>
+        <div id="content" class="t-bla ub-ac c-gra umh10"></div>
+        <div id="footer" class="ub ub-ver ub-pc ub-ac uf t-wh">
+            <div class="ub ub-pc ub-ac c-gra uh umh3">
+                <div class="ub ub-pc" id="chksts">
+                </div>
+            </div>
+
+            <div class="ub umh5 ub-ac c-wh uh ub-pc ubt b-gra" onclick="submit();">
+                确定
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+zy_init();
+var index_cur = 0;
+var css_cur = 'c-blu3';
+var recommend_tags = {};
+var params = getStorJson('params');
+var wname = '';
+var popname = '';
+if(params && params.wname) wname = params.wname;
+if(params && params.popname) popname = params.popname;
+window.uexOnload = function(){
+    var osH;
+    var idc = "content";
+    var chkst = '';
+    if (isSML){
+        osH = $$("header").offsetHeight + $$("header1").offsetHeight;
+        zy_con(idc, "tag_batch_content.html", 0, osH);
+        return;
+    }
+
+    var frames = [];
+    //var i  圈子页数
+    for(var i=0; i<6; i++){
+        frames.push({
+            name: 'frame' + i,
+            url: './tag_batch_content.html',
+            pageParam: {index: i},
+            bounces: false
+        });
+        chkst += '<div class="umar-r ub-pc"><div class="uba b-org uc-a uinn16" id="chkst_' + i + '"></div></div>';
+    }
+    setHtml('chksts', chkst);
+    setTimeout(function(){zy_anim_push('chkst_0', css_cur);}, 100);//显示第一个小圆点
+    osH = $$("header").offsetHeight + $$("header1").offsetHeight;
+    Y.conFrameGroup(idc, 0, osH, frames, 'pointerCallback');
+    //生成framegroup时，frame有可能不初始化而导致uexOnload不执行，手动执行下
+    /*Y.setFrameGroupIndex({
+        name:'content',
+        index:0,
+        scroll:true
+    });*/
+    setTimeout(function(){//conFrameGroup有可能是异步的，延迟加载
+        ueppscript('tag_batch', 'frame' + index_cur, 'uexOnload();');
+    }, 2000);//如果太快，可能还没有初始化apiready
+
+};
+
+function pointerCallback(index){
+    ueppscript('tag_batch', 'frame' + index, 'uexOnload();');
+    if(index == index_cur) return;
+    var p_pre = $$("chkst_" + index_cur);
+    var p_cur = $$("chkst_" + index);
+    zy_anim_pop(p_pre, css_cur);
+    zy_anim_push(p_cur, css_cur);
+    index_cur = index;
+}
+function submit(){
+    if(going) return;
+    if(!zy_tmpl_count(recommend_tags)){
+        uexWindow.toast('0', '5', '你还没有选择圈子', "2000");
+        return;
+    }
+    var tagids = '';
+    var glue = '';
+    for(var key in recommend_tags){
+        tagids += glue + key;
+        glue = '_';
+    }
+    going = 1;
+    uexWindow.toast('1', '5', '加载中...', "2000");
+    var url = home_url + '&mod=misc&ac=recommend_tags&submit=1&tagids=' + tagids;
+    $.getJSON(url, function (json){
+        going = 0;
+        uexWindow.closeToast();
+        if(int(json.status)){
+            uexWindow.toast('0', '5', '圈子添加成功', "2000");
+            close_tag_batch();
+            //todo 根据所选圈子，刷新首页
+        }
+    });
+}
+function change_tagids(tagid){
+    if(recommend_tags[tagid]) delete recommend_tags[tagid];
+    else recommend_tags[tagid] = tagid;
+}
+function close_tag_batch(){
+    if(wname && popname){
+        if(wname == 'friend' && popname == 'content'){
+            ueppscript('root', 'content2', 'loadFriendTags(\'\', \'\');');
+            ueppscript('friend', 'content', 'loadCards(\'\', \'\');');
+        }else ueppscript(wname, popname, 'loadFriendTags(\'\', \'\');');
+    }
+    setTimeout(function(){closewin(0, 'tag_batch');},2000);
+}
+</script>
+</html>

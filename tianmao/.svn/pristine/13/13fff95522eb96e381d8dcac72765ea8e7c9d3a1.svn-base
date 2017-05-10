@@ -1,0 +1,204 @@
+.fun_follow{
+    width: 100%;
+    margin-bottom: 7px;
+    background-color: #FFF;
+}
+/*pic/video*/
+
+.fun_follow_header{
+    position: relative;
+}
+.title{
+    font-size: 15px;
+    color: #58616D;
+    width: 100%;
+    padding-top: 11px;
+    display: block;
+}
+.brief{
+    font-size: 0.7em;
+    color: #BDBDBD;
+    width: 100%;
+    margin: 6px 0 3px 0;
+    display: block;
+}
+.fun_follow_header_left{
+    height: 64px;
+    width: 69px;
+    float: left;
+}
+.fun_follow_header_left img{
+    height: 35px;
+    display: block;
+    margin: 11px auto 0 auto;
+    border-radius: 18px;
+}
+.fun_follow_header_center{
+
+}
+.fun_follow .type{
+    display: block;
+    position: absolute;
+    right: 7px;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+            transform: translateY(-50%);
+    width: 54px;
+    height: 18px;
+    background: url(../res/img/tm_post_follow.png) center center no-repeat;
+    background-size: 54px 18px;
+    /*tm_post_follow.png*/
+}
+.fun_follow .type.followed{
+    background: url(../res/img/tm_post_has_follow.png) center center no-repeat;
+    background-size: 54px 18px;
+}
+.fun_follow_media{
+    width: 100%;
+    position: relative;
+}
+.fun_follow_media img{
+    width: 100%;
+}
+.fun_follow .text{
+    height: 52px;
+    line-height: 52px;
+    color: #393939;
+    font-size: 13px;
+    text-indent: 1em;
+}
+.fun_follow_media .play_btn{
+    display: none;
+    width: 64px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%,-50%);
+            transform: translate(-50%,-50%);
+}
+.fun_follow.video .fun_follow_media .play_btn{
+    display: block;
+}
+.btn_group{
+    height: 52px;
+    line-height: 52px;
+    text-align: center;
+}
+.btn_group .span_btn{
+    height: 52px;
+    line-height: 52px;
+    margin: 0 10px;
+}
+.btn_group .i_icon{
+    height: 27px;
+    width: 31px;
+    display: inline-block;
+    vertical-align: middle;
+}
+.btn_group .comment{
+    background: url(../res/img/tm_post_mainpage_comment.png) center center no-repeat;
+    background-size: 100% 100%;
+}
+.btn_group .like{
+    background: url(../res/img/tm_post_mainpage_like.png) center center no-repeat;
+    background-size: 100% 100%;
+}
+.btn_group .share{
+    background: url(../res/img/tm_post_mainpage_share.png) center center no-repeat;
+    background-size: 100% 100%;
+}
+.to_details{
+    height: 43px;
+    border-top: 1px solid #CCC;
+    width: 100%;
+    line-height: 43px;
+}
+.to_details span{
+    font-size: 12px;
+    padding-left: 10px;
+    padding-right: 10px;
+    background-color: #EAEAEA;
+    color: #717171;
+    height: 27px;
+    line-height: 27px;
+    margin-left: 10px;
+    margin-right: -10px;
+}
+.to_details .like{
+
+}
+.to_details .comment{
+
+}
+
+/*topic*/
+.search_box{
+    padding: 1em 1em;
+    background-color: #FFF;
+}
+.search_inner{
+    background-color: #EFEFF4;
+    height: 35px;
+    border-radius: 18px;
+    text-align: center;
+    line-height: 35px;
+    color: #888888;
+}
+.search_icon{
+    display: inline-block;
+    background: url(../res/img/tmall_icon_search.png) center center no-repeat;
+    background-size: 100% 100%;
+    width: 20px;
+    height: 20px;
+    vertical-align: middle;
+}
+
+.topic{
+    background-color: #FFF;
+    border-bottom: 1px solid #CCC;
+    margin-bottom: 15px;
+}
+.topic_header{
+    position: relative;
+}
+.topic .title{
+    color: #000;
+    font-size: 15px;
+    padding-top: 22px;
+    padding-bottom: 4px;
+}
+.topic .topic_text{
+    position: absolute;
+    font-size: 13px;
+    right: 1em;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+            transform: translateY(-50%);
+    color: #BDBDBD;
+}
+
+.topic_header_left{
+    width: 86px;
+    height: 86px;
+}
+.topic_header_left img{
+    width: 60px;
+    margin-left: 13px;
+    margin-top: 13px;
+    display: block;
+}
+.topic_pic_box{
+    padding: 0 8px;
+}
+.topic_pic_group{
+    padding-bottom: 12px;
+}
+.topic_pic_inner{
+    float: left;
+    width: 25%;
+}
+.topic_pic_inner img{
+    display: block;
+    height: 98%;
+    margin: 0 auto;
+}

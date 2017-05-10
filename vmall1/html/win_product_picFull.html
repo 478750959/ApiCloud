@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+	<title></title>
+	<link rel="stylesheet" href="../css/api.css">
+	<style>
+	html,body{height:100%;}
+	.swipe{overflow: hidden;visibility: visible;position: relative;width:100%;height:100%;background-color:rgb(255,255,255);}
+	.swipe-wrap{overflow: hidden;position: relative;width:100%;height:100%;}
+	.swipe-wrap > div{float:left;width:100%;position: relative;} 
+	.swipe-wrap-item{width:100%;height:100%;display:-webkit-box;-webkit-box-pack:center;-webkit-box-align:center;}
+	.swipe-wrap-item img{height:350px;}
+	.swipe-num{position:absolute;top:50px;left:45%;color:rgb(222,222,222);}
+	#swipe-num-current{color:rgb(22,22,22);font-size:1.5em;}
+	#swipe-num-total{color:rgb(222,222,222)}
+	</style>
+</head>
+<body>
+	<div id='slider' class='swipe'>
+		<div class='swipe-wrap' id="swipe-wrap">
+		<script id="slider-template" type="text/x-dot-template">
+			{{for(var key in it['productImg'][0]){ }}
+				<div class="swipe-wrap-item"><img src="{{=it['productImg'][0][key]}}"></div>
+			{{ } }}
+		</script>
+		</div>
+		<div id="swipe-num" class="swipe-num">
+			<span id="swipe-num-current">1</span>/<span id="swipe-num-total">100</span>
+		</div>
+	</div>
+	<script src="../script/api.js"></script>
+	<script src="../script/swipe.js"></script>
+	<script type="text/javascript" src="../script/doT.min.js"></script>
+	<script>
+
+		// set pic total value
+		apiready = function () {
+			var model = api.require("model");
+			model.findById({
+			    class: "product",
+			    id: api.pageParam.pId
+			}, function(ret, err){
+				// alert(JSON.stringify(ret));
+				var template = document.getElementById('slider-template').innerHTML;
+				document.getElementById('swipe-wrap').innerHTML=doT.template(template)(ret);
+				document.getElementById('swipe-num-total').innerHTML=document.getElementsByClassName('swipe-wrap-item').length;
+				window.mySwipe = new Swipe(document.getElementById('slider'), {
+				startSlide: 0,
+				speed: 400,
+				auto: 3000,
+				continuous: false,
+				disableScroll: false,
+				stopPropagation: false,
+				callback: function(index, elem) {
+
+				// set pic current value
+				document.getElementById('swipe-num-current').innerHTML = index+1;
+
+				},
+				transitionEnd: function(index, elem) {}
+				});
+			});
+
+		}
+	</script>
+</body>
+</html>

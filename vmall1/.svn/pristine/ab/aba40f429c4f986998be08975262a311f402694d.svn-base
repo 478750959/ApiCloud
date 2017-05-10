@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head
+>	<meta charset="UTF-8">
+	<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+	<link rel="stylesheet" type="text/css" href="../css/api.css"/>
+	<style>
+	body{background-color:rgb(247,247,247);}
+	.header{height:50px;background-color:rgb(224,29,32);display:-webkit-flex;display: flex;}
+	.header-arrow{background:url(../image/icon11_1.png) center/30% no-repeat;height:50px;width:50px;}
+	.header-word{line-height: 50px;font-size: 1.5em;color:rgb(255,255,255);}
+	.cartEmpty{display:none;justify-content:center;margin: 200px 0 0 0;}
+	.cartEmpty-img{display:block; background:url(../image/empty_shopping.png) center/100% no-repeat;width:60px;height:45px;margin:0 auto;}
+	.cartEmpty-word{text-align:center;margin:10px 0 0 0;color:rgb(136,136,136);}
+	.goshopping{height:40px;width:90%;background-color:rgb(251,251,251);position:absolute;bottom:20px;margin:0 5%;border-radius:1em;line-height:40px;text-align:center;border:1px solid rgb(222,222,222);display:none;}
+	.goPay{height:60px;width:100%;background-color:rgb(240,240,240);border-top:1px solid rgb(200,200,200);box-sizing:border-box;position:fixed;bottom:0px;display:-webkit-flex;justify-content:space-between;line-height: 60px}
+	.goPay-left{width:75%;line-height:25px;padding:5px 0 5px 20px;}
+	.goPay-left-bottom-price{color:rgb(224,29,32);}
+	.goPay-right{width:25%;background-color:rgb(240,63,1);text-align:center;}
+	.goPay-right-word{color:rgb(255,255,255);font-size:1.2em;}
+	.product-list{background-color:rgb(255,255,255);margin-top:1.2em;}
+	.product-list-header{padding:10px;display:-webkit-flex;justify-content:space-between;border-top:1px solid rgb(238,238,238);}
+	.product-list-header-delete{width:1.5em;height:1.5em;background:url(../image/icon_delete.png) 0 0/95.1% no-repeat;}
+	.product-list-wrap{border-top:1px solid rgb(238,238,238);border-bottom:1px solid rgb(238,238,238);}
+	.product-list-wrap-item{display:-webkit-box;border-bottom:1px solid rgb(222,222,222);margin:0 10px;padding:10px 0;}
+	.product-list-wrap-item-checkbox{width:30px;height:30px;background:url(../image/icon4_1.png) no-repeat 0 -35px/110%;margin:20px 0 0 0;}
+	.product-list-wrap-item-img{height:75px;width:75px;}
+	.product-list-wrap-item-detail{display:-webkit-flex;flex-direction:column;justify-content:space-between;-webkit-box-flex:1;}
+	.product-list-wrap-item-detail-p1{overflow:hidden;height:32px;}
+	.product-list-wrap-item-detail-p2{display:-webkit-flex;justify-content:space-between;padding-bottom:5px;}
+	.product-list-wrap-item-detail-p2-price{height:25px;line-height:40px;}
+	.product-list-wrap-item-detail-p2-num span{text-align: center;line-height: 25px;height:25px;width:25px;border:1px solid rgb(222,222,222);vertical-align:middle;font-size:1.6em;}
+	.product-list-wrap-item-detail-p2-num-num{height:25px;width:50px;border-top:1px solid rgb(222,222,222);border-bottom:1px solid rgb(222,222,222);vertical-align:middle;text-align: center;}
+	</style>
+</head>
+	<body>
+		<div class="header">
+			<div class="header-arrow" tapmode onclick="api.closeWin();"></div>
+			<div class="header-word" tapmode onclick="api.closeWin();">购物车</div>
+		</div>
+		<div class="cartEmpty" id="cartEmpty">
+			<div class="cartEmpty-img"></div>
+			<div class="cartEmpty-word">╯▂╰ 购物车都饿扁了，快去喂它吧</div>
+		</div>
+		<div class="goshopping" id="goshopping" tapmode onclick="api.closeToWin({name:'root'});">去购物</div>
+		<div class="goPay" id="goPay">
+			<div class="goPay-left">
+				<p class="goPay-left-top">共优惠&nbsp;:&nbsp;&#165;<span>0.00</span></p>
+				<p class="goPay-left-bottom">商品总价&nbsp;:&nbsp;<span class="goPay-left-bottom-price">&#165;5000.00</span></p>
+			</div>
+			<div class="goPay-right">
+				<span class="goPay-right-word">去结算</span>
+			</div>
+		</div>
+		<div class="product-list" id="product-list">
+			<header class="product-list-header">
+				<span class="product-list-header-wrod">购物清单</span>
+				<i class="product-list-header-delete"></i>
+			</header>
+			<div class="product-list-wrap" id="product-list-wrap">
+				<!-- <div class="product-list-wrap-item">
+					<div class="product-list-wrap-item-checkbox"></div>
+					<img class="product-list-wrap-item-img" src="../image/142_142_1.jpg">
+					<div class="product-list-wrap-item-detail">
+						<p class="product-list-wrap-item-detail-p1">华为 HUAWEI Mate7 指纹识别 八核 双卡双待双通 标配移动定制版（月光银）</p>
+						<p class="product-list-wrap-item-detail-p2">
+							<span class="product-list-wrap-item-detail-p2-price">&#165;2099</span>
+							<span class="product-list-wrap-item-detail-p2-num">
+								<span class="product-list-wrap-item-detail-p2-num-minus">－</span><input class="product-list-wrap-item-detail-p2-num-num" type="tel" value="1"><span class="product-list-wrap-item-detail-p2-num-plus">＋</span>
+							</span>
+						</p>
+					</div>
+				</div> -->
+			</div>
+		</div>
+		<script type="text/x-dot-template" id="product-list-wrap-template">
+			{{for(var key in it){}}
+				<div class="product-list-wrap-item">
+					<div class="product-list-wrap-item-checkbox"></div>
+					<img class="product-list-wrap-item-img" src="{{=it[key]['thumbnail']['url']}}">
+					<div class="product-list-wrap-item-detail">
+						<p class="product-list-wrap-item-detail-p1">{{=it[key]['longName']}}</p>
+						<p class="product-list-wrap-item-detail-p2">
+							<span class="product-list-wrap-item-detail-p2-price">&#165;{{=it[key]['price']}}</span>
+							<span class="product-list-wrap-item-detail-p2-num">
+								<span class="product-list-wrap-item-detail-p2-num-minus">－</span><input class="product-list-wrap-item-detail-p2-num-num" type="tel" value="1"><span class="product-list-wrap-item-detail-p2-num-plus">＋</span>
+							</span>
+						</p>
+					</div>
+				</div>
+			{{}}}
+		</script>
+		<script src="../script/api.js"></script>
+		<script src="../script/doT.js"></script>
+		<script>
+		var cartList_info=[];
+		apiready=function(){
+			api.showProgress();
+			if($api.getStorage('cart')){
+				document.getElementById('cartEmpty').style.display="none";
+				document.getElementById('goshopping').style.display="none";
+				document.getElementById('product-list').style.display="block";
+				document.getElementById('goPay').style.display="block";
+
+				var query = api.require("query");
+				query.createQuery(function(ret, err) {
+				    if (ret && ret.qid) {
+				        var queryId = ret.qid;
+
+				        var model = api.require("model");
+
+				        model.findAll({
+				            class: "product",
+				            qid: queryId
+				        }, function(ret, err){
+						// alert(JSON.stringify(ret));
+						// alert(JSON.stringify($api.getStorage('cart')));
+						for(var key in $api.getStorage('cart')){
+				            	for(var kk in ret){
+								if(ret[kk]['id']===$api.getStorage('cart')[key]['productId']){
+									cartList_info.push(ret[kk]);
+									break;
+								}
+				            	}
+				            }
+				            var template=document.getElementById('product-list-wrap-template').innerHTML;
+				            document.getElementById('product-list-wrap').innerHTML = doT.template(template)(cartList_info);
+						document.getElementsByClassName('product-list-wrap-item')[document.getElementsByClassName('product-list-wrap-item').length-1].style.borderBottom="0 none";
+						api.hideProgress();
+						// alert(JSON.stringify(cartList_info));
+					  });
+					}
+				});
+			} else {
+				document.getElementById('cartEmpty').style.display="block";
+				document.getElementById('goshopping').style.display="block";
+				document.getElementById('product-list').style.display="none";
+				document.getElementById('goPay').style.display="none";
+				api.hideProgress();
+			}
+
+		}
+		</script>
+	</body>
+</html>

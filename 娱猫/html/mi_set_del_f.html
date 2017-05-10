@@ -1,0 +1,59 @@
+<!doctype html>
+<html style="background:transparent;">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>MI</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <!--<link rel="stylesheet" type="text/css" href="../css/common.css"/>-->
+    <link rel="stylesheet" type="text/css" href="../css/xyc.css"/>
+</head>
+<body style="background:rgba(0,0,0,0.4)">
+<div id="wrap">
+    <div id="main">
+    	<div class='mi_set_add_tc'>
+			<h3>确定删除收货地址?</h3>
+			<h6>删除之后将无法恢复</h6>
+			<ul>
+				<li class='tanchuang_quxiao' onclick='api.closeFrame();'>取消</li>
+				<li onclick="del_add()">确定</li>
+			</ul>
+		</div>
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/comm.js"></script>
+<script type="text/javascript" src="../script/font.js"></script>
+<script type="text/javascript" src="../script/zepto.js"></script>
+<script>
+	function del_add(){
+		var param={};
+	 	param.id=api.pageParam.add_id;
+		ajaxRequest('addr/del_add','post',param,function(ret,err){
+			if(err){
+				api.toast({
+	                msg:err.msg
+	            });
+	            return false;
+			}
+			if(ret.status){				
+				api.execScript({
+			        name:'mi_set_head_w',
+			        frameName:'mi_set_add_f',
+			        script: 'add_del("'+param.id+'");'
+		        });	
+		        api.closeFrame();		
+			}else{
+				if(ret.info=='no_login'){
+					to_login();
+					return false;
+				}
+				api.toast({
+	                msg:ret.info
+	            });
+			}
+		});	
+	}	
+</script>
+</html>

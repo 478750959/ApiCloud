@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+	<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>逛逛——男士</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <!--<link rel="stylesheet" type="text/css" href="../css/xyc.css"/>-->
+    <!--<link rel="stylesheet" type="text/css" href="../css/stroll_gg.css"/>-->		
+    <style>
+    	html,body{
+    		background:#fefdfa;
+    	}
+    	.xyc_stroll_ul{
+    		width:100%;
+    		height:0.8rem;
+    		background:#f7f7f7;
+    		display:-webkit-box;
+    		-webkit-box-sizing:border-box;
+    		-webkit-box-pack: justify;
+    		padding:0 0.3rem;
+    		font-size:0.24rem;
+    	}
+    	.xyc_stroll_ul li{
+    		width:2.6rem;
+    		height:0.76rem;
+    		border-bottom:0.04rem solid #f7f7f7;
+    		text-align: center;
+    		line-height:0.76rem;
+    		color:#939393;
+    	}
+    	.xyc_stroll_ul .xyc_stroll_li{
+			color:#ee7a7a;
+    		border-bottom:0.04rem solid #ee7a7a;
+    	}
+    </style>
+	</head>
+<body>
+	<div id="header">
+		<div class="miHeader">
+        	<a href='javascript:;' class='head_icon back' onclick='api.closeWin();'></a>
+        	<span class='mi_head_txt'></span>
+        </div>
+        <ul class="xyc_stroll_ul clearfix">
+        	<li class="xyc_stroll_li">人气排行</li>
+        	<li>最新上市</li>
+        </ul>
+	</div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/font.js"></script>
+<script type="text/javascript" src="../script/zepto.js"></script>
+<script type="text/javascript" src="../script/comm.js"></script>
+<script>
+apiready = function () {
+	var biaoti = api.pageParam.title;
+	if(biaoti==''||biaoti==undefined){
+		$('.mi_head_txt').text('逛逛');
+	}else{
+		$('.mi_head_txt').text(biaoti);
+	}
+	var i = 0;	
+	$('.xyc_stroll_ul li').click( function() {
+		i = $(this).index();
+		$(this).addClass('xyc_stroll_li').siblings().removeClass('xyc_stroll_li');
+		api.setFrameGroupIndex({
+		    name: 'xyc_tab',
+		    index:i,
+		});
+	})
+	var header = $api.byId('header');
+    $api.fixIos7Bar(header);
+    var width = api.winWidth;
+    var headerPos = $api.offset(header);
+    var height = api.winHeight - headerPos.h;
+//  var goods_lst=$api.getStorage('goods_lst');
+//  if(!isEmpty(goods_lst)){
+//  	
+//  }else{
+//  	var param={'id':api.pageParam.id};
+//  	var info=is_login();
+//  	for(var p in info){
+//  		param[p]=info[p];
+//  	}
+//  	ajaxRequest('sort/get_lst','post',param,function(ret,err){
+//  		var data2=ret.info.new_time.data;
+//  		var data1=ret.info.ren_qi.data;
+//  		var num = ret.info.num;
+    		api.setStatusBarStyle({
+			    style: 'dark'
+			});
+      			api.openFrameGroup ({
+				    name: 'xyc_tab',
+				    background:'#fff',
+				    scrollEnabled:false,
+				    rect:{x:0, y:headerPos.h, w:width, h:height},
+				    index:i,
+				    preload:2,
+				    frames:
+				    [{
+				        name: 'stroll_gg_man_h', 
+				        url: 'stroll_gg_man_h.html', 
+//				          pageParam:{data:data1,num:num,id:api.pageParam.id},  
+				          pageParam:{id:api.pageParam.id},  
+				        bounces:true,
+				        bgColor: '#fff', 
+				        vScrollBarEnabled:false,
+				    },{
+				        name: 'stroll_gg_man_h2', 
+				        url: 'stroll_gg_man_h2.html', 
+//				        pageParam:{data:data2,num:num,id:api.pageParam.id}, 
+				        pageParam:{id:api.pageParam.id}, 
+				        bounces:true,
+				        bgColor: '#fff', 
+				        vScrollBarEnabled:true,
+				        hScrollBarEnabled:false
+				    }]
+				}, function(ret, err){
+			
+				});			
+				   		
+//  	});
+    }
+</script>
+</html>

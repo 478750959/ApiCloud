@@ -1,0 +1,66 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>MI</title>
+		<link rel="stylesheet" type="text/css" href="../css/api.css"/>
+		<style>
+			html,body{
+				background:white;
+			}
+			.help_lists{
+				padding:0.1rem 0.3rem 0;
+			}
+			.help_list{
+				padding:0 0.1rem;
+				border-bottom:1px solid #dddddd;
+				height:0.8rem;
+				line-height:0.8rem;
+				font-size:0.26rem;
+				color:#565656;
+			}
+			.help_txt{
+				width:5.56rem;
+				height:1.4rem;
+				margin:0.75rem auto 0;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="wrap">
+			<div id="main">
+				<div class="help_lists">
+					<div class="help_list" onclick = "openNext('mi_help_next_head_w',31)">买到的商品可以退换吗？</div>
+					<div class="help_list" onclick = "openNext('mi_help_next_head_w',32)">如何办理退货？</div>
+					<div class="help_list" onclick = "openNext('mi_help_next_head_w',33)">退货后什么时候退款？</div>
+					<div class="help_list" onclick = "openNext('mi_help_next_head_w',34)">没有单据能退货吗？</div>
+					<div class="help_list" onclick = "openNext('mi_help_next_head_w',35)">退货能上门取件吗？</div>
+					<div class="help_list" onclick = "openNext('mi_help_next_head_w',36)">不同订单退货能一起回寄吗？</div>
+					<div class="help_list" onclick = "openNext('mi_help_next_head_w',37)">退货很久还没到账？</div>
+					<div class="help_list" onclick = "openNext('mi_help_next_head_w',38)">拒收包裹后什么时候退款？</div>
+					<div class="help_list" onclick = "openNext('mi_help_next_head_w',39)">退款金额如何计算？</div>
+					<div class="help_list" onclick = "openNext('mi_help_next_head_w',310)">退货的运费有补贴吗？</div>
+					<div class="help_list" onclick = "openNext('mi_help_next_head_w',311)">退款方式和时效？</div>
+					<div class="help_list" onclick = "openNext('mi_help_next_head_w',312)">退款到哪里？</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../script/api.js"></script>
+	<script type="text/javascript" src="../script/font.js"></script>
+	<script>
+		function openNext(xyc, count) {
+			api.openWin({
+				name : xyc,
+				url : xyc + '.html',
+				opaque : false,
+				reload : true,
+				vScrollBarEnabled : false,
+				pageParam : {
+					count : count
+				}
+			});
+		}
+	</script>
+</html>

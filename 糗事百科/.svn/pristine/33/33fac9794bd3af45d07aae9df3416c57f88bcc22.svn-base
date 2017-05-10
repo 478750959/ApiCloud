@@ -1,0 +1,93 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>APP</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/common.css" />
+    <link rel="stylesheet" href="../../css/light.css" class="light-style">
+    <link rel="stylesheet" href="../../css/dark.css" class="dark-style" disabled>
+    <style>
+    
+    </style>
+</head>
+<body class="qiushi-frame-in-detail">
+    <div id="wrap">
+        <div id="main">
+            <div class="qiushi-box">
+                <div class="qiushi-content-text">
+                    <p class="text">觉得挺好笑！。。。。究竟要多少字？</p>
+                </div>
+                <div class="qiushi-content-img">
+                    <img src="../../image/app95680733.jpg" alt="">
+                </div>
+                <div class="status-box">
+                    <span class="agree">
+                        <span class="agree-count">1000</span>
+                        好笑&nbsp;·
+                    </span>
+                    <span class=" comment">
+                        <span class=" comment-count">1000</span>
+                        评论
+                    </span>
+                </div>
+                <div class="btns-group clearfix">
+                    <div class="icon icon-agree pull-left" tapmode="tap-active" onclick=""></div>
+                    <div class="icon icon-disagree pull-left" tapmode="tap-active" onclick=""></div>
+                    <div class="icon icon-share" tapmode="tap-active" onclick="qiushiDetailToShareOption(this)" data-id="100100004"></div>
+                </div>
+            </div>
+            <div class="message-box clearfix">
+                <div class="message-box-left pull-left">
+                    <div class="message-box-img">
+                        <img src="../../image/2012100413195471481.jpg" alt="">
+                    </div>
+                </div>
+                <div class="message-box-right">
+                    <div class="message-box-top clearfix">
+                        <span class="message-box-user pull-left">
+                            糗百DA叔
+                        </span>
+                        <span class="message-box-stage pull-right">
+                            1
+                        </span>
+                    </div>
+                    <p class="message-box-msg">
+                        很费电话费的！！！你没听听对面有没有什麽声音！！
+                    </p>
+                </div>
+            </div>
+            <div class="message-box">
+                <div class="message-box-left pull-left">
+                    <div class="message-box-img">
+                        <img src="../../image/09-014416_603.jpg" alt="">
+                    </div>
+                </div>
+                <div class="message-box-right">
+                    <div class="message-box-top clearfix">
+                        <span class="message-box-user pull-left">
+                            树荫的感觉
+                        </span>
+                        <span class="message-box-stage pull-right">
+                            2
+                        </span>
+                    </div>
+                    <p class="message-box-msg">
+                        呵呵呵，玩微博么？博物杂志说了，这特么是玩具！谁家猫头鹰屁股坐树枝爪子抓另一根树枝啊！
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/theme.js"></script>
+<script type="text/javascript" src="../../script/common.js"></script>
+<script type="text/javascript">
+    apiready = function(){
+
+
+    }
+</script>
+</html>

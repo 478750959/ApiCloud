@@ -1,0 +1,229 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>MI</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <style>
+    	.xinshui_main{
+    		padding:0 0 0.4rem;
+    	}
+    	.xinshui_main li{
+    		height:auto;
+    		padding:0.2rem 0.16rem 0;
+    		background:white;
+    		margin-bottom:0.2rem;
+    	}
+    	.xinshui_title{
+    		font-size:0.34rem;
+    		color:#0b0b0b;
+    		word-break:break-all;
+    		line-height:0.54rem;
+    		font-weight:normal;
+    	}
+    	.xinshui_img{
+    		width:100%;
+    		height:auto;
+    		display:block;
+    		margin:0.15rem 0;
+    	}
+    	.xinshui_miaoshu{
+    		font-weight:normal;
+    		font-size:0.22rem;
+    		color:#b4b4b4;
+    		line-height:0.36rem;
+    		word-break:break-all;
+    	}
+    	.xinshui_yuedu{
+    		font-size:0.26rem;
+    		color:#0d0d0d;
+    		line-height:0.6rem;
+    		margin-top:0.1rem;
+    		border-top:1px solid #f8f6f0;
+    		background:url(../image/xinshui_yuedu.png) no-repeat right center;
+    		background-size:0.11rem 0.16rem;
+    	}
+    </style>
+</head>
+<body>
+<script id="xinshui_list" type="text/x-dot-template">
+	{{ for(var p in it) { }}	
+		<li class='xinshui_li'                my_id="{{=it[p].id}}"    title="{{=it[p].title}}"    img="{{=it[p].logo}}"             onclick="detail(this)" >    
+			<h3 class="xinshui_title">{{=it[p].title}}</h3>
+			<img     src="../image/zhanwei.png"              data-echo="{{=it[p].logo}}"  alt="" class="xinshui_img"/>
+			<h5 class="xinshui_miaoshu">{{=it[p].intro}}</h5>
+			<div class="xinshui_yuedu">阅读原文</div>
+		</li>
+	{{ } }}
+</script>
+<div id="wrap">
+    <div id="main">
+    	<div class="xinshui_main">
+    		<ul id='xinshui_ul'>
+    		
+    		</ul>
+    	</div>
+
+    </div>
+</div>
+<input type='hidden' name='total'>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/font.js"></script>
+<script type="text/javascript" src="../script/comm.js"></script>
+<script type="text/javascript" src="../script/doT.min.js"></script>
+<script type="text/javascript" src="../script/zepto.js"></script>
+<script type="text/javascript" src="../script/echo.js"></script>
+<script>
+	//点击进入下个页面，将id,img,title传递到下个页面，来打开不同的frame。
+	function detail(obj){
+		var id=$(obj).attr('my_id');
+		var img=$(obj).attr('img');
+		var title=$(obj).attr('title');
+		api.openWin({
+		    name: 'xinshui_details_w',
+		    url: 'xinshui_details_w.html',
+		    reload:true,
+		    vScrollBarEnabled: false,
+		    pageParam:{
+		    'id':id,
+		    'goods_pic':img,
+		    'goods_name':title
+		    }
+	    });
+	}
+	//显而易见这个函数是为了ajax数据的请求
+	function get_list(param) {
+			var xin_obj={}; 
+			var xin=isEmpty($api.getStorage('xin')) ?  '' : $api.getStorage('xin');		                                                                
+            var net_type=isEmpty($api.getStorage('net_type'))  ?  ''  :  $api.getStorage('net_type');  
+            xin='';                  
+            if(xin && net_type==0){
+            	xin_obj=$api.getStorage('xin_obj');
+            	for(var p in xin){
+            		var img=SHA1(xin[p].logo);           		
+            		if(xin_obj[img]==undefined){
+            			xin[p].logo="../image/zhanwei.png";
+            		}else{
+            			xin[p].logo=xin_obj[img];
+            		}
+            	}
+            	api.hideProgress();
+            	var interText = doT.template($("#xinshui_list").text());
+            	$("#xinshui_ul").html('');
+				$("#xinshui_ul").html(interText(xin));	
+				echo.init({
+					      offset: 100,
+					      throttle: 250,
+					      unload: false,
+					      callback: function (element, op) {}
+					    });
+            }else{	        	           
+				ajaxRequest('xinshui/get_lst', 'post', param, function(ret, err) {
+				api.hideProgress();
+					if (err) {
+						api.toast({
+							msg : err.msg
+						});
+						return false;
+					}
+					if (ret.status) {
+						var total = ret.info.total;	//数据的总页数为total
+						var data = ret.info.data;
+						//data 为ret.info下的二维数组。 即需要获取的值。包含id，logo,intro,title,
+						$('input[name=total]').val(total);
+						var interText = doT.template($("#xinshui_list").text());	//doT.js的写法，将页面中script的模板作为变量存储起来。
+						//当page为0的时候。即初始化或者下拉刷新状态
+						if (param.page == 0) {							
+							//缓存第一页数据
+							var img=new Array();
+							for(var p in data){
+								data[p].logo=data[p].logo+'!xs';
+								img.push(data[p].logo);								
+							} 	
+							$api.setStorage('xin',data);							
+								Cacheimg(img);
+								function Cacheimg(src){																
+									var n=0;
+									var len=src.length;							
+		                            s(src,n);                           										
+									function s(src,n){
+											api.imageCache({
+			                                url:src[n],
+			                                thumbnail:false
+			                                }, function(ret, err) {
+			                                    if (ret) { 
+		                                    	if (n == len) {										
+													return;
+												}
+												s(src,n + 1);	                                                                                                                                                                                                                                                                                                  
+			                                    var path = ret.url; 				                                    		                                    				                                    	                                                                                                                                                                                                                                                                      
+			                                    xin_obj[SHA1(src[n])]=path;
+			                                    $api.setStorage('xin_obj',xin_obj);					                                                                       
+			                                    }
+		                            	})                           						
+									}
+								};															
+							$("#xinshui_ul").html('');
+							$("#xinshui_ul").html(interText(data));					//doT.js的写法，将doT的数据传输interText（data）  data为ajax获取过来的数据
+						} else {			//追加新的data数据
+							$("#xinshui_ul").append(interText(data));
+						}
+						echo.init({
+					      offset: 100,
+					      throttle: 250,
+					      unload: false,
+					      callback: function (element, op) {}
+					    });
+					} else {
+						api.toast({
+							msg : ret.info
+						});
+					}
+				});
+            } 
+	}
+	var page = 0;	 //变量page为记录第几页
+	apiready = function() {
+		api.showProgress({
+			style: 'default',
+		    title: '加载中',
+		    modal: false
+        });
+		//初始化
+		get_list({
+			page : 0
+		});
+//		下拉刷新的状态，
+		api.setRefreshHeaderInfo({
+			visible : true,
+			bgColor : '#2e364a',
+			textColor : '#fff',
+			textDown : '下拉刷新...',
+			textUp : '松开刷新...',
+			showTime : true
+		}, function(ret, err) {
+			page = 0;
+			get_list({
+				page : 0
+			});
+			api.refreshHeaderLoadDone();
+		});
+		//监听到达底部刷新，获取新的数据
+		api.addEventListener({
+			name : 'scrolltobottom'
+		}, function(ret, err) {
+			var total = $('input[name=total]').val();
+			if (page < total - 1) {		//当page小于总页数-1的时候  ，让page自加，将page加上的值通过ajax提交更新
+				page++;
+				get_list({
+					page : page
+				});
+			}
+		})
+	}
+
+</script>
+</html>

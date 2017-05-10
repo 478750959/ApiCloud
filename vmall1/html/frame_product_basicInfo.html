@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html>
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="../css/api.css">
+		<link rel="stylesheet" type="text/css" href="../css/common.css">
+		<style>
+	body{font-family:'microsoft yahei';}
+	.product-layout-interval{border-top:1px solid rgb(222,222,222);border-bottom:1px solid rgb(222,222,222);box-sizing:border-box;padding:12px;}
+	.swipe{overflow: hidden;visibility: visible;position: relative;width:100%;height:360px;background-color:rgb(242,242,242);}
+	.swipe-wrap{overflow: hidden;position: relative;}
+	.swipe-wrap > div{float:left;width:100%;position: relative;} 
+	.swipe-wrap-item img{width:100%;height:360px;}
+	.swipe-title{background-color:rgba(150,150,150,.7);position:absolute;height:48px;width:100%;bottom:0;left:0;padding:10px 50px 10px 10px;box-sizing:border-box;color:rgb(255,255,255);font-size:14px;}
+	.swipe-title-share{height:40px;width:40px;background:url(../image/other_sort.png) no-repeat;background-size:100%;position:absolute;right:10px;top:5px;}
+	.swipe-position{position:absolute;top:0;left:160px;}
+	.swipe-position li{height:5px;width:5px;border-radius:10px;margin:0 2px 0 0; background-color:rgb(204,204,204);display:inline-block;}
+	.swipe-position-li-active{background-color:rgb(224,29,32) !important;}
+	.productIntro{}
+	.productIntro-item{}
+	.productIntro-price{font-size:16px;color:rgb(224,29,32);}
+	.productIntro-price span{float:right;font-size:10px;border:1px solid rgb(224,29,32);color:rgb(224,29,32);}
+	.productIntro-desc{font-size:12px;margin: 10px 0;}
+	.productIntro-service{font-size:14px;}
+	.proForm-wrap{margin:0 0 5px 0;}
+	.proForm-wrap-item{float:left;border:1px solid rgb(200,200,200);border-radius:10px; padding:8px 10px;margin:0 5px 5px 0;}
+	.proForm-number{margin:10px 0 0 0;}
+	.proForm-number p{float:left;height:30px;line-height:30px;margin:2px 10px 0 0;}
+	.proForm-number-item{height:30px;width:30px;border:1px solid rgb(200,200,200);float:left;text-align:center;line-height:30px;}
+	.proForm-number-input{text-align:center;width:60px;border-left:0 none !important;border-right:0 none !important;}
+	.productAbout-title{display:-webkit-box;}
+	.productAbout-line{display:-webkit-box;-webkit-box-flex:1;margin:10px 20px;border-top:1px solid rgb(222,222,222);}
+	.productAbout-item{padding:20px 0;border-bottom:1px solid rgb(222,222,222);display:-webkit-box;}
+	.productAbout-item-word{display:-webkit-box;-webkit-box-flex:1;}
+	.productAbout-item-arrow{width:10px;height:15px;margin:0 10px 0 0;}
+	 </style>
+</head>
+	<body id="body">
+		<div id="body-wrap"></div>
+		 <!-- onclick="productPicFull(api.pageParam.pId);" -->
+	</body>
+	<script id="body-template" type="text/x-dot-template">
+		<div id='slider' class='swipe' tapmode="">
+			<div class='swipe-wrap' id="swipe-wrap">
+				{{ for(var key in it['productImg'][0]){ }}
+					<div class="swipe-wrap-item"><img src="{{=it['productImg'][0][key]}}"></div>
+				{{ } }}
+			</div>
+			<div class="swipe-title">
+				{{=it['longName']}}
+				<span class="swipe-title-share" id="swipe-title-share" onclick="swipe_title_share();"></span>
+			</div>
+			<ul id="swipe-position" class="swipe-position">
+				{{ for(var key in it['productImg'][0]){ }}
+					<li></li>
+				{{ } }}
+			</ul>
+		</div>
+		<div class="product-layout-interval productIntro">
+			<div id="price-doT">
+				<div class="productIntro-item productIntro-price">&yen;{{=it['price']}}.00 <span>满&nbsp;100元免运费</span></div>
+			</div>
+			<div class="productIntro-item productIntro-desc">
+				{{=it['description']}}
+			</div>
+			<div class="productIntro-item productIntro-service">
+				<dl>
+					<dt>服务:</dt>
+					<dd>{{=it['service']}}</dd>
+				</dl>
+			</div>
+		</div>
+		<div class="hr-10"></div>
+		<form class="product-layout-interval proForm" action="">
+			<div class="proForm-wrap proForm-type after" id="proForm-type">
+				<p>制式:</p>
+					{{for(var key in it['type']){}}
+						<div class="proForm-wrap-item proForm-wrap-item-type" tapmode onclick="choiceType({{=key}})">{{=it['type'][key]['type']}}</div>
+					{{}}}
+			</div>
+
+			<div class="proForm-wrap proForm-color after" id="proForm-color">
+				<p>颜色:</p>
+					{{for(var key in it['color']){}}
+						<div class="proForm-wrap-item proForm-wrap-item-color" tapmode onclick="choiceColor({{=key}})">{{=it['color'][key]}}</div>
+					{{}}}
+			</div>
+
+			<div class="proForm-wrap proForm-number after">
+				<p>数量:</p>
+				<div class="proForm-number-item proForm-number-minus" id="proForm-number-minus" tapmode onclick="quantityMinus();">－</div>
+				<input class="proForm-number-item proForm-number-input" id="proForm-number-input" type="number" value="1" onblur="productNum_input();">
+				<div class="proForm-number-item proForm-number-plus" id="proForm-number-plus" tapmode onclick="quantityPlus();">＋</div>
+			</div>
+		</form>
+		<div class="hr-10"></div>
+		<div class="product-layout-interval productAbout" id="productAbout">
+			<div class="productAbout-title">
+				<span class="productAbout-line"></span><span class="productAbout-word">关联商品</span><span class="productAbout-line"></span>
+			</div>
+			{{for(var key in it['about']){}}
+				{{for(var keykey in it['about'][key]){}}
+					<div class="productAbout-item" id="productAbout-item" onclick="openProductFrame('win_product','{{=it['about'][key][keykey]}}')"><span class="productAbout-item-word">{{=keykey}}</span><span class="productAbout-item-arrow">〉</span></div>
+				{{}}}
+			{{}}}
+		</div>
+	</script>
+	<script id="img-template" type="text/x-dot-template">
+			<div class='swipe-wrap' id="swipe-wrap">
+				{{ for(var key in it['productImg'][0]){ }}
+					<div class="swipe-wrap-item"><img src="{{=it['productImg'][0][key]}}"></div>
+				{{ } }}
+			</div>
+			<div class="swipe-title">
+				{{=it['longName']}}
+				<span class="swipe-title-share" id="swipe-title-share" onclick="swipe_title_share();"></span>
+			</div>
+			<ul id="swipe-position" class="swipe-position">
+				{{ for(var key in it['productImg'][0]){ }}
+					<li></li>
+				{{ } }}
+			</ul>
+	</script>
+	<script id="price-template" type="text/x-dot-template">
+		<div class="productIntro-item productIntro-price">&yen;{{=it['price']}}.00 <span>满&nbsp;100元免运费</span></div>
+	</script>
+		<script src="../script/api.js"></script>
+		<script src="../script/common.js"></script>
+		<script src="../script/swipe.js"></script>
+		<script type="text/javascript" src="../script/doT.min.js"></script>
+		<script type="text/javascript" src="../script/jquery.min.js"></script>
+		<script>
+		var typeNum = null;
+		var colorNum = null;
+		var productData = null;
+		var productId = null;
+		var productShopping = {};
+/*		var ret =
+{
+	"id": "559dbff996be88b05f97c29e",
+	"shortName": "荣耀7",
+	"longName": "华为 荣耀7 双卡双待双通 移动4G版 16GB存储（冰河银）",
+	"description": "荣耀818玩出不一样！8月11日-12日、17日-18日每天10:08/16:00/20:00，免预约疯狂购！8月5日-16日还有优购码任你抽哦！",
+	"service": "此商品有华为终端发货、开具发票,并提供售后服务。",
+	"intro": "卓越移动互联体验",
+	"price": 1999,
+	"about": [
+		{
+			"荣耀7 套餐版": "111"
+		},
+		{
+			"套餐版": "55c8483f2b49f1da37e575b0"
+		}
+	],
+	"thumbnail": {
+		"url": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/a73e0e93fda4d5970f4dd96919decd79.jpg",
+		"name": "360反馈意见截图16491222355171.jpg",
+		"id": "55c73c83491e5b493de92d96"
+	},
+	"productImg": [
+		{
+			"0": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/ef204c563dd2b311e88ae191b6dbd529.jpg",
+			"1": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/8a70330c0a52e1ba8eb838d4637957c7.jpg",
+			"2": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/16e8ff9bf9b9dea10d8ff9424464a8d3.jpg",
+			"3": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/7e3db99c732314f2f25dcda135416b0c.jpg",
+			"4": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/26c4f9ffa013a8d0425c6b30b939ccdc.jpg",
+			"5": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/07d476bc583588d362fce7239c535541.jpg",
+			"6": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/1d1060e3db9b88ed380e5537a4e1bc79.jpg",
+			"7": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/2a9b1beaba6843dcebd3d5bf9038b80e.jpg"
+		}
+	],
+	"is_sale": 1,
+	"is_visible": 1,
+	"sort": 102,
+	"favorableSort": 100,
+	"boutiqueSort": 50,
+	"tag": 5,
+	"stock": 5,
+	"color": [
+		"冰河银",
+		"典雅灰",
+		"荣耀金"
+	],
+	"type": [
+		{
+			"0": "55d97ba554a36e6043461c94",
+			"1": "55d97bf1e94b0b8f31176f10",
+			"2": "0",
+			"type": "电信4G版"
+		},
+		{
+			"0": "0",
+			"1": "55d98326fba5b1932353dabc",
+			"2": "55d982c8519625905ef30ce8",
+			"type": "全网通版"
+		},
+		{
+			"0": "0",
+			"1": "0",
+			"2": "55d97222e94b0b8f31176ef3",
+			"type": "全网通镭雕版"
+		},
+		{
+			"0": "55d98224f5f1f044242e7253",
+			"1": "55d97ca3ced00d0f6f048f4b",
+			"2": "0",
+			"type": "双4G版"
+		},
+		{
+			"0": "55d952b7e94b0b8f31176eae",
+			"1": "55d9568d519625905ef30c85",
+			"2": "0",
+			"type": "移动4G版"
+		}
+	],
+	"createdAt": "2015-07-09T00:27:37.800Z",
+	"updatedAt": "2015-08-26T10:45:05.251Z"
+};*/
+
+		apiready = function () {
+			api.showProgress();
+			var model = api.require('model');
+			model.findById({
+				class:'product',
+				id:api.pageParam.pId
+			},function(ret,err){
+				productData=ret;
+				var template = document.getElementById('body-template').innerHTML;
+				document.getElementById('body-wrap').innerHTML=doT.template(template)(ret);
+				/***是否显示关联产品 -start-*/
+				if(!ret['about'][0]){
+					document.getElementById('productAbout').style.display='none';
+				}
+				/*是否显示关联产品 -end-***/
+
+				/***是否显示制式 -start-*/
+				if(!ret['type'][0]['type']){
+					document.getElementById('proForm-type').style.display='none';
+				}
+				/*是否显示制式 -end-***/
+
+				/***是否显示颜色 -start-*/
+				if(!ret['color'][0]){
+					document.getElementById('proForm-color').style.display='none';
+				}
+				/*是否显示颜色 -end-***/
+
+				/***根据产品ID改变初始制式和颜色的borderColor -start-*/
+				for(var key in ret['type']){
+					for(var keykey in ret['type'][key]){
+						if(ret['type'][key][keykey]===api.pageParam.pId){
+							typeNum=key;
+							colorNum=keykey;
+						}
+					}
+				}
+				// 如果查不到,则默认为0
+				if(typeNum===null||colorNum===null){
+					typeNum=0;
+					colorNum=0;
+				}
+				/*根据产品ID改变初始制式和颜色的borderColor -end-***/
+				window.mySwipe = new Swipe(document.getElementById('slider'), {
+				startSlide: 0,
+				speed: 400,
+				auto: 3000,
+				continuous: true,
+				disableScroll: false,
+				stopPropagation: false,
+				callback: function(index, elem) {
+					var swipePoint = document.getElementById('swipe-position').getElementsByTagName('li');
+					var i = swipePoint.length;
+					while(i--) {
+						swipePoint[i].className="";
+					}
+					swipePoint[index].className="swipe-position-li-active";
+				},
+				transitionEnd: function(index, elem) {}
+				});
+				changeColor();
+				productId_add(api.pageParam.pId);
+				productNum_input();
+			});
+			api.hideProgress();
+		}
+
+		var choiceType = function(key){
+			typeNum=key;
+			var num = document.getElementById('proForm-type').childNodes.length;
+			for(var i=0;num-1>i;i++){
+				document.getElementsByClassName('proForm-wrap-item-type')[i].style.border = '1px solid rgb(222,222,222';
+			}
+			var colorObjNum = -1;
+			for(var key in productData['type'][typeNum]){
+				// alert(JSON.stringify(productData['type'][typeNum]));
+				if(productData['type'][typeNum][key]==='0'){
+					document.getElementsByClassName('proForm-wrap-item-color')[key].style.border='1px solid rgb(245,245,245)';
+					document.getElementsByClassName('proForm-wrap-item-color')[key].style.color='rgb(200,200,200)';
+
+					if(parseInt(key) ===parseInt(colorNum)){
+						colorNum=null;
+					}
+				} else if(key!=='type'){
+					document.getElementsByClassName('proForm-wrap-item-color')[key].style.border='1px solid rgb(200,200,200)';
+					document.getElementsByClassName('proForm-wrap-item-color')[key].style.color='rgb(0,0,0)';
+				}
+			}
+			choiceId();
+		}
+
+		var choiceColor = function(key){
+			colorNum=key;
+			var num = document.getElementById('proForm-color').childNodes.length;
+			for(var i=0;num-1>i;i++){
+				document.getElementsByClassName('proForm-wrap-item-color')[i].style.border = '1px solid rgb(222,222,222';
+			}
+			if(!parseInt(productData['type'][typeNum][colorNum])){
+				document.getElementsByClassName('proForm-wrap-item-color')[key].style.border='1px solid rgb(245,245,245)';
+				document.getElementsByClassName('proForm-wrap-item-color')[key].style.color='rgb(200,200,200)';
+			}
+
+			choiceId();
+		}
+
+		var choiceId = function(){
+			changeColor();
+			productId=productData['type'][typeNum][colorNum];
+			if(parseInt(productId)){
+				/*alert('ok');
+				alert(productId);*/
+				/*api.ajax({
+					url: 'https://d.apicloud.com/mcm/api/product/55d98326fba5b1932353dabc',
+					method: 'post',
+					dataType: 'json',
+					returnAll:false,
+					headers: {
+						"Content-type": "application/json;charset=UTF-8",
+						"X-APICloud-AppId": 'A6989146966299',
+						"X-APICloud-AppKey": 'EA1BE39B-6F58-34C0-6024-A23AA024A85F'
+					}
+				},function(ret,err){
+					alert(JSON.stringify(ret));
+					alert(JSON.stringify(err));
+					if (ret) {
+						var urlJson = JSON.stringify(ret);
+						api.alert({msg: urlJson});
+					}else {
+						api.alert({
+						msg:('错误码：'+err.code+'；错误信息：'+err.msg+'网络状态码：'+err.statusCode)
+							});
+					}
+				});*/
+
+				var model = api.require("model");
+				model.findById({
+					class: "product",
+					id: productId
+				}, function(ret, err){
+					doTTemplate(ret);
+					productId_add(productId);
+				});
+			}/* else {
+				alert('no');
+			}*/
+
+		}
+
+		var doTTemplate = function(ret){
+			var template = document.getElementById('img-template').innerHTML;
+			document.getElementById('slider').innerHTML=doT.template(template)(ret);
+
+			var template = document.getElementById('price-template').innerHTML;
+			document.getElementById('price-doT').innerHTML=doT.template(template)(ret);
+
+			window.mySwipe = new Swipe(document.getElementById('slider'), {
+			startSlide: 0,
+			speed: 400,
+			auto: 3000,
+			continuous: true,
+			disableScroll: false,
+			stopPropagation: false,
+			callback: function(index, elem) {
+				var swipePoint = document.getElementById('swipe-position').getElementsByTagName('li');
+				var i = swipePoint.length;
+				while(i--) {
+					swipePoint[i].className="";
+				}
+				swipePoint[index].className="swipe-position-li-active";
+			},
+			transitionEnd: function(index, elem) {}
+			});
+		}
+
+		var changeColor = function(){
+			document.getElementsByClassName('proForm-wrap-item-type')[typeNum].style.border="1px solid rgb(224,29,32)";
+			if(colorNum!==null){
+				document.getElementsByClassName('proForm-wrap-item-color')[colorNum].style.border="1px solid rgb(224,29,32)";
+			}
+		}
+
+		var quantityPlus = function(){
+			var quantityNum = parseInt(document.getElementById('proForm-number-input').value);
+			quantityNum+=1;
+			document.getElementById('proForm-number-input').value = quantityNum;
+			productNum_input();
+		}
+
+		var quantityMinus = function(){
+			var quantityNum = parseInt(document.getElementById('proForm-number-input').value);
+			if(quantityNum<=0){
+				return;
+			}
+			quantityNum-=1;
+			document.getElementById('proForm-number-input').value = quantityNum;
+			productNum_input();
+		}
+
+		var openProductFrame = function(name,pId){
+			var aa = parseInt(Math.random()*1000)+'aa';
+			api.openWin({
+				name:aa,
+				url:name+'.html',
+					pageParam:{pId:pId},
+					reload:true,
+					delay:100
+			});
+		}
+
+		var productPicFull = function(pId) {
+			api.openWin({
+				name:'win_product_picFull',
+				url:'win_product_picFull.html',
+				bgColor:'rgb(255,255,255)',
+				scaleEnabled:true,
+				pageParam:{pId:pId}
+			});
+		}
+
+		var swipe_title_share = function(){
+			var wx = api.require('wx');
+			wx.isInstalled(function(ret, err){
+				if(ret.installed){
+					// alert("当前设备已安装微信客户端");
+					wx.shareWebpage({
+						scene: 'timeline',
+						title: '测试标题',
+						description: '分享内容的描述',
+						thumb: 'widget://close.jpg',
+						contentUrl: 'http://apicloud.com'
+					}, function(ret, err){
+						if(ret.status){
+							alert('分享成功');
+						}else{
+							alert(err.code);
+						}
+					});
+				}else{
+						alert('当前设备未安装微信客户端');
+				}
+			});
+		}
+
+		var productId_add = function(id){
+			productShopping['productId']=id;
+			$api.setStorage('shopping',productShopping);
+		}
+
+		var productNum_input = function(){
+			productShopping['num']=document.getElementById('proForm-number-input').value;
+			$api.setStorage('shopping',productShopping);
+		}
+
+		</script>
+</html>

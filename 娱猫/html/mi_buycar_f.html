@@ -1,0 +1,377 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>MI</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/xyc.css"/>
+    <style>
+    	html,body{
+    		background:white;
+    	}
+    	.wushuju{
+    		position:relative;
+    	}
+    	.wushuju_img1{
+    		display:block;
+    		width:1.59rem;
+    		height:1.42rem;
+    		position:absolute;
+    		left:50%;
+    		margin-left:-0.8rem;
+    		top:1.5rem;
+    	}
+    	.wushuju_img2{
+    		top:3.25rem;
+    		left:50%;
+    		margin-left:-1.15rem;
+    		display:block;
+    		width:2.3rem;
+    		height:0.7rem;
+    		position:absolute;
+    	}
+    	.wushuju_btn{
+    		position:absolute;
+    		top:4.8rem;
+    		left:50%;
+    		margin-left:-1.15rem;
+    		height:0.64rem;
+    		width:2.36rem;
+    		text-align:center;
+    		line-height:0.64rem;
+    		font-size:0.32rem;
+    		color:#656564;
+    		border:0.02rem solid #656564;
+    		border-radius:0.1rem;
+    	}
+    </style>
+</head>
+<body>
+	<script id="cartshopping" type="text/x-dot-template">
+		{{if(it != ''){  }}
+			{{ for(var i in it){ }}
+		<li id="myadd_{{=it[i].id}}" class="xyc_li_hide">
+			<div class="mi_buycar_list">
+				<div class="mi_buycar_check">
+					<input type='checkbox' class='mi_buycar_xz' onclick='xycclick(this)'    goods_name="{{=it[i].goods_name}}"   is_pri="{{=it[i].is_pri}}"              is_on_sale="{{=it[i].is_on_sale}}"        data-id="{{=it[i].id}}"/>
+					<div class="mi_buycar_checkdiv"></div>
+				</div>
+				<div class="mi_buycar_imgtxt"  onclick="to_goods({{=it[i].goods_id}})">
+    				<div class="mi_buycar_img"><img src='{{=it[i].goods_logo}}!gl'></div>
+    				<div class="mi_buycar_txt">
+    					<p>{{=it[i].goods_name}}:{{=it[i].goods_attribute}}</p>
+    					<h4><span>￥</span>
+    					<em  is_on_sale="{{=it[i].is_on_sale}}"    is_pri="{{=it[i].is_pri}}"       num="{{=it[i].goods_number}}" >{{=it[i].shop_price}}</em>
+    					<span style="color: #a6a6a6;font-size: 0.2rem;">x{{=it[i].goods_number}}{{ if(it[i].is_pri==2) { }}(预售){{ } }}</span>
+    					</h4>
+    					{{ if(it[i].is_on_sale=='否') {   }}<a class="mi_buycar_bbsx"></a>{{  }  }}   					
+    					<!--<p style="color: #a6a6a6;font-size: 0.2rem;">x<span style="color: #a6a6a6;font-size: 0.2rem;">{{=it[i].goods_number}}</span></p>-->
+<!--    					<a class="mi_buycar_bbsx"></a>-->
+    				</div>
+				</div>
+			</div>
+			<a class='mi_buycar_del'>删<br/>除</a>
+		</li>
+			{{ } }}
+		{{ }else{ }}
+		{{ } }}
+		
+    </script>		
+<div id="wrap">
+    <div id="main">
+    	<div class="wushuju none">
+			<img src='../image/buycar_noneicon.png' class='wushuju_img1'/>
+			<img src='../image/buycar_nonetxt.png' class='wushuju_img2'/>
+			<div class="wushuju_btn" onclick="openNext()">去逛逛</div>
+    	</div>
+    	<ul class="mi_buycar_lists" id="cart">
+    		   	
+		
+    	</ul>
+    	
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/comm.js"></script>
+<script type="text/javascript" src="../script/font.js"></script>
+<script type="text/javascript" src="../script/zepto.js"></script>
+<script type="text/javascript" src="../script/doT.min.js"></script>	
+<script>
+//从确认订单页面点击立即购买传过来的
+	function xychide(){
+		
+		$('.xyc_li_hide').each(function(){
+			if($(this).children('.mi_buycar_list').children('.mi_buycar_check').find('.mi_buycar_xz').prop('checked')==true){
+				$(this).addClass('none');
+			}
+		})
+	}
+function to_goods(id){
+		api.openWin({
+			name : 'bill_dethead_w',
+			url :  'bill_dethead_w.html',
+			opaque : true,
+			delay : 1000,
+			vScrollBarEnabled : false,
+			pageParam : {
+				goods_id:id
+			}
+		});	
+	}
+	//如果没有数据，点击去逛逛按钮跳转到逛逛页面
+	function openNext(){
+		api.execScript({
+			name:'root',
+	        script: 'xyc_scroll();'
+        });
+	}
+	var xid='';
+	function abc(){
+		var is_pri=0;
+		$.each($('.xyc_li_hide'),function(k,v){
+			var obj=$(v).find('input');
+			if(obj.prop('checked')==true){
+				is_pri=obj.attr('is_pri');
+			}
+		});		
+		var ss = xid.substring(0, xid.length-1);//截取字符串最后的一个逗号
+		if(chk==0){
+			api.toast({
+	            msg:'请选择结算产品'
+            });
+            return false;
+		}		
+		api.openWin({
+	        name: 'bill_qrdd_w',
+	        url: 'bill_qrdd_w.html',
+	        opaque: true,
+	        reload: false,
+	        vScrollBarEnabled: false,
+	        pageParam:{count:22,status:2,id:ss,'is_pri':is_pri}
+	    });
+	}
+//	mi_buycar_head页面传过来的 全选
+	function select(flag){
+			con = 0;
+			chk = 0;
+			xid = 0;
+		$(".mi_buycar_xz").prop("checked", flag);
+		var sum = 0; 
+		if(flag==true){
+			chk = $(".mi_buycar_xz").filter(":checked").size(); 		
+			var goods='';
+			var len=$(".mi_buycar_lists li").length;
+			var m=0;
+			var n=0;
+			$(".mi_buycar_xz").next().addClass('yuan');
+			$(".mi_buycar_lists li").each(function() {
+				var myobj=$(this).children().children('.mi_buycar_check').children('.mi_buycar_xz');
+				var is_on_sale=$(myobj).attr('is_on_sale');
+				var is_pri=$(myobj).attr('is_pri');				
+				var goods_name=$(myobj).attr('goods_name');				
+				if(is_on_sale=='否' ){
+					api.sendEvent({name:'not_all'});					
+					myobj.next('.mi_buycar_checkdiv').removeClass('yuan');					
+					goods+=goods_name+',';           
+				}	
+//				myobj.prop('checked',false);				
+				if(is_pri==1){
+//					myobj.prop('checked',true);	
+					n++;					
+				}else if(is_pri==2){
+					m++;
+//					api.sendEvent({name:'not_all'});										
+//					myobj.next('.mi_buycar_checkdiv').removeClass('yuan');				
+				}
+				var obj=$(this).children().children(".mi_buycar_imgtxt").children().find("em");			
+				if(obj.attr('is_on_sale')=='是'){						
+					sum += parseInt(Number(obj.html())*100*obj.attr('num'));
+					con = sum;
+					xid += $(this).children().children(".mi_buycar_check").children(".mi_buycar_xz").attr('data-id')+','; 
+				}								
+			});			
+			if(goods!=''){
+				api.toast({
+		            msg:goods+'，已经下架，无法结算！'
+	            });		             		          
+			}
+			if(n>0 && m>0){		
+				con=0;
+				sum=0;
+				xid=0;	
+				$(".mi_buycar_xz").next().removeClass('yuan');
+				$(".mi_buycar_lists li").each(function() {
+					var myobj=$(this).children().children('.mi_buycar_check').children('.mi_buycar_xz');
+					myobj.prop('checked',false);	
+				});			
+				api.sendEvent({name:'not_all'});	
+				api.toast({
+	                msg:'预售商品和在售商品请分别结算下单！'
+                });               
+			}			
+		}else{
+			$(".mi_buycar_xz").next().removeClass('yuan');
+			xid = '';
+			con = 0;
+		}
+		api.execScript({
+			name:'mi_buycar_head_w',
+	        script: '$("#xyc_zongjia").html("'+sum/100+'");'
+        });
+		
+	}
+	var con =0;	//总价格
+	var chk = 0;	//总个
+//	每个按钮点击
+	function xycclick(obj){
+		var is_on_sale=$(obj).attr('is_on_sale');
+		var is_pri=$(obj).attr('is_pri');
+		var goods_name=$(obj).attr('goods_name');
+		if(is_on_sale=='否'){
+			api.toast({
+	            msg:goods_name+'，已经下架，无法结算！'
+            });
+            return false;
+		}	
+		var size = $(".mi_buycar_xz").size();
+		chk = $(".mi_buycar_xz").filter(":checked").size(); 
+	    var flage = $(obj).prop("checked");	    
+	    if(flage ==true){	    
+	       
+	        var myobj=$(obj).parents('.mi_buycar_check').next().find('h4 em');
+	        var my_obj=$(obj).parent('.mi_buycar_check').parent('.mi_buycar_list').parent('.xyc_li_hide').siblings('.xyc_li_hide').children('.mi_buycar_list').children('.mi_buycar_check').children('.mi_buycar_xz');	        
+	        var is_ok=true;
+        	if(is_pri==2){//预售
+	    		$.each(my_obj,function(k,v){	    		
+	    			if($(v).attr('is_pri')==1 && $(v).prop('checked')==true){
+	    				api.toast({
+	    					msg:'预售商品和在售商品不能同时结算！'
+	    				});
+	    				is_ok=false;	    				
+	    			}
+	    		});	    	
+	    	}else if(is_pri==1){
+	    		$.each(my_obj,function(k,v){
+	    			if($(v).attr('is_pri')==2 && $(v).prop('checked')==true){
+	    				api.toast({
+	    					msg:'预售商品和在售商品不能同时结算！'
+	    				});
+	    				is_ok=false;	    				
+	    			}
+	    		});	  
+	    	}
+	    	if(is_ok){
+	    		$(obj).prop('checked',true);
+	    		$(obj).next().addClass('yuan');
+	    	}else{
+	    		$(obj).prop('checked',false);
+	    		return false;
+	    	}	    	 
+	        con += parseInt(Number(myobj.text())*100*myobj.attr('num'));
+	    	xid += $(obj).attr('data-id')+',';
+	    }else{	    	
+	  		$(obj).next().removeClass('yuan');
+	  		$(obj).prop('checked',false);
+	  		var myobj=$(obj).parents('.mi_buycar_check').next().find('h4 em');
+	  		con -= parseInt(Number(myobj.text())*100*myobj.attr('num'));	   		
+	   		var sum = xid.split(",");
+	   		xid = "";
+	   		for(var i=0; i<sum.length-1; i++) {
+	   			if($(obj).attr('data-id') != sum[i]) {
+	   				xid += sum[i]+",";
+	   			}
+	   		}
+	    }	    	    	    	   
+	    api.execScript({
+	        script: 'all('+size+','+chk+','+con+');'
+        });
+	}
+	//删除功能
+	function add_del(id) {
+		$('#myadd_' + id).remove();
+		api.closeFrame({
+	        name: 'buycar_del_f'
+        });
+	}
+	function getlst(page,m){
+		var info = is_login();
+		if(!info){
+			to_login();
+			return false;
+		}
+		var param = {};
+		for (var p in info) {
+			param[p] = info[p];
+		}
+		param.page=page;
+		if(m==0){
+			 api.showProgress({
+				title : '加载中',
+				modal : false
+			});
+		}		
+		ajaxRequest('cart/cartlst', 'post',param,function(ret,err){	
+		api.hideProgress();		
+			if(err){
+				api.toast({
+					msg:err.msg
+				});
+				return false;
+			}
+			 var content = $api.dom('#cart');
+			if(ret.status  && !isEmpty(ret.info.data)){
+			      $('.wushuju').addClass('none');
+				  var data = ret.info.data;
+				  totalNum=ret.info.page;				 
+				  var tpl = $api.byId('cartshopping').text;
+				  var tempFn = doT.template(tpl);
+				  if(page==0){
+				  	 con =0;	//总价格
+					 chk = 0;	//总个
+					 xid='';
+				  	 $api.html(content,'');
+				  	 $api.html(content, tempFn(data));
+				  }else{
+				  	 $api.append(content, tempFn(data));
+				  }				 
+				  $api.setStorage('cartshopping',data); 			
+			}else{
+				$api.html(content,'');
+				$('.wushuju').removeClass('none');
+			}
+		
+		})	
+	}	
+		var currentPage = 0;
+    	var totalNum=0;
+    apiready = function () {   	
+		getlst(0,0);
+		//从删除页面传过来的监听，目的是为了刷新页面。
+		//滚动到底部
+		api.addEventListener({
+	        name:'to_buy'
+        },function(ret,err){
+        	con = 0;
+			chk = 0;
+			if(ret.value.num==1){
+				getlst(0,1);
+			}else{
+				getlst(0,0);
+			}        	
+        	api.sendEvent({name:'xyc_price'});
+        	currentPage=0;
+        });	
+//		var	totalNum=0;
+		api.addEventListener({
+			    name:'scrolltobottom'
+		},function(ret,err) {
+			if(currentPage < (totalNum - 1)) {			
+				currentPage++;
+		    	getlst(currentPage,0);
+		    }
+		})	 				   		
+    }	
+</script>
+</html>

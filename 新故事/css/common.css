@@ -1,0 +1,164 @@
+html,body{height: 100%}
+body{
+    background-color: #f2f2f2; font-size: 14px;
+}
+#header{
+    background-color: #55abce;
+    text-align: center; color: #fff;
+    width: 100%; position: relative;
+}
+#header .back-icon{
+    display: inline-block; width: 40px; height: 40px;
+    background: url(../image/arr-l.png) no-repeat center center; 
+    -webkit-background-size: 14px 18px;
+    background-size: 14px 18px;
+    position: absolute; left: 0; bottom: 0;
+}
+#header h1{
+    font-size: 20px;
+    height: 44px; line-height: 44px; margin: 0em; color: #fff;
+}
+#header .main h1, #header .news h1, #header .life h1, #header .activity h1{
+    background: url(../image/logo.png) no-repeat center center;
+    -webkit-background-size: 100px 25px; 
+    background-size: 100px 25px; 
+    font-size: 0px;
+}
+#header .news .submenu li, #header .activity .submenu li{
+    height: 40px; line-height: 40px;
+}
+#header .news .submenu li a, #header .activity .submenu li a{
+    display: block; text-align: center; 
+    background: url(../image/border.png) no-repeat right center;
+    -webkit-background-size: 2px 36px;
+    background-size: 2px 36px;
+}
+#header .news .submenu li a.light, #header .news .submenu li a.active{
+    color: #55abce;
+}
+#header .news .submenu li:last-child a, #header .activity .submenu li:last-child a{
+    background: none;
+}
+#header .news .submenu a i, #header .activity .submenu a i{
+    display: inline-block; width: 16px; height: 16px;
+    -webkit-background-size: contain !important; 
+    background-size: contain !important; 
+    margin-right: .5em; vertical-align: text-bottom;
+
+}
+#header .news .submenu .hot i{
+    background: url(../image/hot.png) no-repeat left center;
+}
+#header .news .submenu .hot.light i, #header .news .submenu .hot.active i{
+    background: url(../image/hot-l.png) no-repeat left center;
+}
+#header .news .submenu .local i{
+    background: url(../image/local.png) no-repeat left center;
+}
+#header .news .submenu .local.light i, #header .news .submenu .local.active i{
+    background: url(../image/local-l.png) no-repeat left center;
+}
+#header .news .submenu .topic i{
+    background: url(../image/topic.png) no-repeat left center;
+}
+#header .news .submenu .topic.light i, #header .news .submenu .topic.acitve i{
+    background: url(../image/topic-l.png) no-repeat left center;
+}
+#header .activity .submenu .city i{
+    background: url(../image/local.png) no-repeat left center;
+}
+#header .activity .submenu .hot i{
+    background: url(../image/menu.png) no-repeat left center;
+}
+#header .activity .submenu li{
+    background: url(../image/arr-b.png) no-repeat 90% center;
+    -webkit-background-size: 9px 4px;
+    background-size: 9px 4px;
+}
+#header .activity .submenu li.active{
+    background: url(../image/arr-t.png) no-repeat 90% center;
+    -webkit-background-size: 9px 4px;
+    background-size: 9px 4px;
+}
+#header .activity .submenu li.active a{
+    color: #55abce;
+}
+#header .activity .submenu .active .city i{
+    background: url(../image/local-l.png) no-repeat left center;
+}
+#header .activity .submenu .active .hot i{
+    background: url(../image/menu-l.png) no-repeat left center;
+}
+
+#header .user{
+    position: relative;
+}
+#header .user a{
+    position: absolute; right: 0px; bottom: 0px; color: #fff; display: inline-block;
+    width: 60px; height: 40px; line-height: 40px;
+}
+
+#nav{
+    background-color: #404040; border-top:2px solid #7a7a7a; 
+    width: 100%;
+    text-align: center;
+}
+#nav h5{
+    color: white;
+}
+#nav li a{
+    -webkit-background-size: 24px 24px !important;
+    background-size: 24px 24px !important;
+}
+#nav li.active a, #nav a.active{
+    color: #55abce;
+} 
+#nav .main{
+    background: url(../image/home.png) no-repeat center 4px;
+}
+#nav .main.active, #nav li.active .main{
+    background: url(../image/home-l.png) no-repeat center 4px;
+}
+#nav .news{
+    background: url(../image/news-icon.png) no-repeat center 4px;
+}
+#nav .news.active, #nav li.active .news{
+    background: url(../image/news-l.png) no-repeat center 4px;
+}
+#nav .life{
+    background: url(../image/life-icon.png) no-repeat center 4px;
+}
+#nav .life.active, #nav li.active .life{
+    background: url(../image/life-l.png) no-repeat center 4px;
+}
+#nav .activity{
+    background: url(../image/activity-icon.png) no-repeat center 4px;
+}
+#nav .activity.active, #nav li.active .activity{
+    background: url(../image/activity-l.png) no-repeat center 4px;
+}
+#nav .user{
+    background: url(../image/user-icon.png) no-repeat center 4px;
+}
+#nav .user.active, #nav li.active .user{
+    background: url(../image/user-l.png) no-repeat center 4px;
+}
+#nav a{
+    color: #707070; display: block; padding-top: 30px; padding-bottom: 4px;
+}
+.con{font-size: 28px; text-align: center;}
+
+.shadow{
+    -webkit-box-shadow: 0px 4px 4px #dddcdc;
+    box-shadow: 0px 4px 4px #dddcdc;
+}
+
+a.btn, button.btn, input.btn{
+    border:1px solid #4390af; border-radius: 6px; background-color: #55abce;
+    padding: 10px 0; display: block; margin: 0 10px;
+    font-size: 16px; color: #fff; text-align: center;
+}
+
+a.btn.active{
+	background-color: #3394bb;
+}

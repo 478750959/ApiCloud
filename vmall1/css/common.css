@@ -1,0 +1,6 @@
+html,body{height: 100%;width:100%;}
+.tag4:before{content:'热卖';background-color:rgb(224,29,32);}
+.tag5:before{content:'首发';background-color:rgb(6,189,4);}
+.tag6:before{content:'新品';background-color:rgb(6,189,4);}
+.tag4,.tag5,.tag6{position:absolute;right:0;top:0;height:2.4em;width:2.4em;overflow:hidden;z-index:99;}
+.tag4:before,.tag5:before,.tag6:before{display:block;width:4.6em;height:1.3em;position:absolute;top:12%;left:.6em;color:rgb(255,255,255);text-align:center;font-style:normal;font-size:.6em;line-height: 1.45em;-webkit-transform:rotate(45deg);}

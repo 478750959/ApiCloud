@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+<head>
+	<title>
+	</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+	<link rel="stylesheet" href="css/ui-img.css">
+	<link rel="stylesheet" href="css/ui-res.css">
+	<link rel="stylesheet" href="css/ui-list.css">
+	<link rel="stylesheet" href="css/ui-base.css">
+	<link rel="stylesheet" href="css/ui-box.css">
+	<link rel="stylesheet" href="css/ui-color.css">
+	<link rel="stylesheet" href="css/style.css">
+    <script src="js/y_control.js"></script>
+    <script src="js/y_click.js"></script>
+	<script src="js/y_tmpl.js"></script>
+	<script src="js/dis_control.js"></script>
+	<script src="js/config.js"></script>
+	<script src="js/y_json.js"></script>
+	<script src="js/y_icache.js"></script>
+	<!--
+	<script src="js/socketio/socket.io.js"></script>
+	<script src="msg_detail_yb_content_client.js"></script>
+	<script src="msg_detail_yb_content_android.js"></script>
+	<script src="js/sign/md5.js"></script>	
+    -->
+    <script src="js/module/chatBox_yueban.js"></script>
+	
+	
+	<script src="js/socketio/talkUtil.js"></script>	
+	
+	
+	<script src="script/api.js"></script>
+		
+	<script></script>
+	<style>
+	.ext-bg-send {
+	white-space:normal;
+	border:8px solid rgba(0,0,0,0.2);
+	border-top-width: 8px;
+	-webkit-border-image: url(images/sender-.png) 7 16 9 8 stretch stretch;
+	}
+	
+		.ext-bg-send_my {
+	white-space:normal;
+	border:8px solid rgba(0,0,0,0.2);
+	border-right-width: 16px;
+	border-top-width: 8px;
+	-webkit-border-image: url(images/sender-.png) 7 16 9 8 stretch stretch;
+	}
+	
+	.ext-bg-send-j{
+	position:absolute;
+	right:0;
+	top:0;
+	margin-top:.2em;
+	z-index:100;
+	display:block;
+	}
+	.ext-bg-recv-j{
+	right:auto;
+	left:0;
+	}
+	.ext-bg-recv {
+	-webkit-border-image: url(images/recv-.png) 7 16 9 16 stretch stretch;
+	border-left-width: 16px;
+	}
+	.ext-dateline{
+	position: absolute;
+	bottom: -1.8em;
+	font-size: .7em;
+	font-weight: normal;
+	overflow: visible;
+	width: 100%;
+	text-align: center;
+	}
+	.ext-txt-color{
+	color:#4a4a4a;
+	}
+	.ui-li-desc {
+	font-size: .75em;
+	font-weight: normal;
+	display: block;
+	margin: -.5em 0 .6em;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	padding: 0 0.2em;
+	}
+	.ui-listview {
+		margin: 0;
+		counter-reset: listnumbering
+	}
+	</style>
+</head>
+<body class="um-vp c-gra" ontouchstart>
+    
+	<div class="c-gra" style="position: absolute;width: 100%;height: 100%;"  id="list">
+            <div id="allMsg" class="uhide tx-c umar-t" ontouchstart="zy_touch('c-gra')" onclick="getHistoryMsgFromDB()">下拉查看历史</div>
+            <div id="history" class="c-gra">
+                <!--此区域显示历史消息-->
+            </div>
+            <div id="topN" class="c-gra">
+                <!--此区域显示前10条消息-->
+            </div>
+            <div id="news" class="c-gra">
+                <!--此区域最新消息-->
+                <!--
+                <li><div class="ub ub-pc ub-ac"><div class="c-gra1 ulev-1 t-wh" style="padding: 0.1em 0em;">11月26日晚上20:41</div></div></li>
+                <li id="1_91" style="padding-top:.5em;"><div class="uc-n"> <div ontouchstart="zy_touch('c-gra')" onclick="msg_menu(1, 91);" class="ub t-bla ub-at lis "><div class="lis-th2 ub-img uc-a1"><img src="images/mylogo.png" class="inforpic" id="91"></div><div class="ub-f1 ub">
+                	
+                	  <div class="ub ub-ver">
+                	  	<div><div class="ulev-1 ufl" style="margin-left: 1em;">张三</div></div>  
+					   <div>
+	                	<div style="margin:0;word-break:break-all;" class="ui-li-desc ext-txt-color ext-bg-send ulev0 uof ext-bg-recv">
+					         <img src="http://118.123.10.130:53106/YHApp/img/getById.do?key=123&id=b1014058-7ca5-4f21-a1e1-44a9678c48fc&size=080100"  />
+					    </div>
+					   <div class="ext-bg-send-j ext-bg-recv-j"><img src="images/recv-j-.png"></div>
+					  </div>
+					  
+					 </div>  
+					   
+				
+				<div class="ub-f1"></div></div><div style="width:2em;"></div> </div> </div></li>
+                <li id="3_92" style="padding-top:.5em;">
+					<div class="uc-n"> 
+					<div ontouchstart="zy_touch('c-gra')" onclick="msg_menu(3, 92);" class="ub t-bla ub-at lis ub-rev ub-pe">
+						<div class="lis-th2 ub-img uc-a1"><img src="images/mylogo.png" class="inforpic" id="92"></div>
+						<div class="ub-f1 ub">
+							<div class="ub ub-ver">
+									
+									 <div>
+										<div style="margin:0;word-break:break-all;" class=" ub-f1 ui-li-desc ext-txt-color ext-bg-send_my ulev0 uof ">我发送我发送我发送我发送我发送我发送我发送我发送我发送</div>
+										<div class="ext-bg-send-j"><img src="images/sender-j-.png"></div>
+									</div>
+									<div><div class="ulev-1 ufr" style="margin-right: 1em;">张三</div></div>
+							</div>
+							<div class="ub-f1"></div>
+						</div>
+						<div style="width:2em;"></div> 
+					</div> 
+					</div>
+				</li>
+             -->
+            </div>
+            <div id="msg_end1"><a id="msg_end" href="#1"></a></div>
+    </div>
+	
+</body>
+<script>
+
+var YHChatTmp;//apicloud 聊天插件
+
+var emotionData=null; /* 存储表情信息: JSON对象,以 表情字符 为属性名, 以 表情图片URL 为值.*/
+var isconnect=false;//网络是否连接上
+var msgId_arr = new Array();//记录聊天页面接受到的消息id数组
+zy_init();
+window.uexOnload = function (type){
+    if(!type){
+        
+        //聊天界面显示时间用
+        setstorage('msgtimelast',"null");//每次进入聊天界面时缓存值清空。
+        
+        
+        //初始化表情
+        var sourcePath = "widget://image/chatBox/emotion";
+        getImgsPaths(sourcePath, function(emotion){
+            emotionData = emotion;
+        });
+        ///////////////////
+        
+        
+        if(isAndroid&&appId=="11337745"){
+		    loadJS('msg_detail_yb_content_android.js');
+            //执行回调
+            uexYHChat.cbOnMsg = receiveMsg;
+		}
+		if(isAndroid&&appId=="A6960886767610"){
+			YHChatTmp = api.require('YHChat');//apicloud 聊天插件
+            loadJS('msg_detail_yb_content_android_apicloud.js');
+           //loadJS('js/socketio/socket.io.js');
+		   // loadJS('msg_detail_yb_content_client.js');
+            
+		}else {
+		    loadJS('js/socketio/socket.io.js');
+		    loadJS('msg_detail_yb_content_client.js');
+		}
+        //监控android返回键事件
+        //uexWindow.setReportKey(0,1);
+        //uexWindow.onKeyPressed = onKeyPressed;
+        ///////////////////////////////////////////////
+		
+
+        uexWindow.toast('1','5','正在连接中...','8000');//‘1’表示等待关闭
+		setTimeout(function(){
+	        if(isconnect==false){
+		        uexWindow.closeToast();
+		        uexWindow.toast('0','5','抱歉，网络不稳定，请再试试。','2000');
+	        }
+		}, 8000);//如果8秒后还未连接上，则手动退出。
+
+		setTimeout(function(){getChatServer();}, 100);//调用聊天逻辑
+		
+		zy_initcache(function(){});//初始化本地缓存状态
+
+		setPageBounce(downcb,upcb);//上下刷新
+        reportBarOpen();//显示举报浮动提示
+        
+        //部分手机不支持chatbox闪退则用inputfilead代替
+        var chatboxsupport=getstorage('chatboxsupport');
+        
+        if(chatboxsupport==null||chatboxsupport==""||chatboxsupport=="yes"){
+           openChatbox();
+        }else{
+           openInputFiled();//chatbox闪退的moto手机支持InputFiled插件。
+        }
+         
+	}
+}
+
+/*
+function onKeyPressed(keyCode){
+       alert(keyCode);
+       if(isAndroid){
+           if(keyCode==0){
+                //socket退出。
+                quitSocket();
+                //执行“互动”浮动窗口里的更新列表函数，以便获取最新的消息数。
+                uexWindow.evaluatePopoverScript("root","content3","loadList()");
+                closewin();
+                alert("quit ok");
+           }
+       }
+}*/
+
+function downcb(){
+	//下拉回调
+	if ($$('allMsg').style.display == "none") {
+		resetBV(0);//已经取到结果了后就不再刷新。
+		return;
+	}
+	if(currentFactMsgCount<10){
+		resetBV(0);//已连接后，反馈的实际消息数，若小于10，则无需刷新。
+		return;
+	}else {
+		getHistoryMsgFromDB();//获取全部历史消息。已实现分页查询功能，每次获取20条。
+	}
+}
+function upcb(){
+	//上拉回调
+	resetBV(1);//不下拉操作。
+}
+
+/**
+ * 通知服务端已退出聊天室
+ * 该方法在此html页面返回时触发。
+ */
+function quitSocket(){
+
+	try{
+	       if(isAndroid&&appId=="11337745"){
+		   	   uexYHChat.quitServer("");//android插件：退出聊天服务器。""不能省略
+		   	   uexLog.sendLog("(appcan plugin)android talk quit..... ");
+		   }else if (isAndroid&&appId=="A6960886767610") {
+			   var param = {};
+		       YHChatTmp.quitServer(param);//android插件：退出聊天服务器。""不能省略
+		   	   uexLog.sendLog("(apicloud plugin)android talk quit..... ");
+		   }else{
+		   	    //其余系统均走socket io.js
+			   	var msg_json={};
+				msg_json.room=currentRoomId;
+				msg_json.client=currentClientId;
+				msg_json.userId=currentUserId;//发送人
+				msg_json.data="";
+				if(socket!=null){
+					socket.emit('roomQuit', msg_json);//通知服务端已退出聊天室
+				}	
+		   }
+     }catch(e){
+     	//alert(e.name + ":" + e.message);
+     }
+}
+
+var mu={};
+
+/**
+ * 点击聊天界面消息图像时处理逻辑：显示菜单，如查看该用户信息、加她为好友、返回
+ * @params aid： 消息发送人uid
+ * @params pid： 消息发送人uid
+ */
+function msg_menu(aid, pid)
+{   
+   //alert("aid"+aid+"pid"+pid);
+    mu.aid = aid;//消息发送人id
+    mu.pid = pid;
+    
+    var currentUserId = getstorage('UID');//当前用户id
+    if(aid == currentUserId){
+      return;
+    }
+    
+    go2info();
+    /*
+    //直接进入他的主页。不用菜单模式了。
+    var array = ['进入TA的主页'];
+    uexWindow.cbActionSheet = cbActionSheet1;
+    uexWindow.actionSheet('', '返回', array);
+    */
+}
+
+/**
+ * msg_menu回调函数
+ */
+function cbActionSheet1(opId, dataType, data){
+    //data==0 //['进入TA的主页']
+    //data==1 //['返回']
+    if(data==0){
+      go2info();
+    }
+}
+
+/**
+ * 查看TA的主页
+ */
+function go2info(){
+    var username="TA的信息";
+    setstorage('params','{"uid":"'+mu.aid+'", "username":"'+username+'", "isfriend":""}');
+    openwin('friend_information','friend_information.html','10');
+    //此处有问题：若已打开了聊天页面，此处再次打开聊天页面时仍然显示为老的信息。实际上应该关闭老的聊天页面打开新的。
+    setTimeout(function(){
+    	uescript("msg_detail_yb","goBack_direct()");//先执行关闭逻辑再打开新窗口
+    }, 300);//关闭此浮动窗口,延迟0.3秒
+    
+}
+
+/**
+ * 字符串（如20141112143040）转换为date对象
+ */
+function strToDate(str){
+    var yyyy = str.substr(0,4);//年
+    var mm = str.substr(4,2);//月
+    var dd = str.substr(6,2);//日
+    var hour = str.substr(8,2);//时
+    var minitue = str.substr(10,2);//分
+    var second = str.substr(12,2);//秒
+    var s=yyyy+"/"+mm+"/"+dd+" "+hour+":"+minitue+":"+second;
+    return new Date(Date.parse(s));
+}
+
+/**
+ * date1是否比date2晚gap分钟。如date1=2014-10-01 10:10:00,date2=2014-10-01 10:16:00,gap=5,则返回true
+ */
+function DateAfter(date1,date2,gap){
+    var gap_t=(date2.getTime() - date1.getTime())/(60*1000);//间隔多少分钟
+    if(gap_t>=gap){
+        return true;
+    }else{
+        return false;
+    }
+}
+
+/**
+ * 在聊天界面显示日期效果。date1为js date格式
+ */
+function showChatDate(date1){
+     var date_current = new Date();
+     var gap_t=(date_current.getTime() - date1.getTime())/(60*1000);//间隔多少分钟
+     if(gap_t>(24*60)){
+        return date1.format("MM月dd日 hh:mm");
+     }else{
+         //今天的消息
+         if(gap_t<2){
+            return "刚刚";
+         }else if(gap_t<5){
+            return "5钟之前";
+         }else if(gap_t<10){
+            return "十分钟之前";
+         }else{
+             return date1.format("hh:mm");
+         }
+     }  
+}
+
+
+
+
+/**
+ * 在聊天界面收到消息后，应该更新缓存，否则刷新还是出现小红点，但是已经看过了。
+ */
+function updateMsgListWhenNewsCome(msgObj){
+    
+    //msgObj JSON格式key包括client,userId,data,time,msgId,room,其中time格式为20141112101521(yyyyMMddHHmmss),room格式为talk_3-557597
+    var currentRoomId=getstorage('currentRoomId');//客户端所在的聊天室id，格式如“talk_1-3 or talk_1111”
+    //从缓存中获取currentDataList。
+    var currentDataList = loadMsgListFromStorage();
+    //currentDataList数组格式 msg_content: "蛮好的",msg_sender: "1996",msg_time: "2014-10-04 17:17:01",msg_title: "本周六15:00，喜欢游泳的小伙伴来游泳吧。地址:海富花 ...",room_id: "talk_1996",isnew:"1",isread:"0"
+    //为啥偶尔报错，提示currentDataList为null。
+    if(currentDataList==null){
+       return;
+    }
+    for (var i = 0; i < currentDataList.length; i++) {
+            var currentData = currentDataList[i];
+            if(currentData.room_id == currentRoomId){
+                currentData.isnew = 0;//是否新消息
+                currentData.isread = 1;//是否已读
+                currentData.msg_time = strToDate(msgObj.time).format("yyyy-MM-dd hh:mm:ss");//需将输入格式20141112101521转成"2014-10-04 17:17:01"
+                currentData.msg_sender = msgObj.userId;//消息发送人uid
+                currentData.msg_content = msgObj.data;//消息内容
+            }           
+    } 
+    //更新小红点计数
+    //updatePm(currentDataList);//应该不用执行这个逻辑的。
+    saveDataListToStarage(currentDataList);
+    
+}
+
+/* -------------------------------------------------------------- */
+
+/* 一个工具方法: 可以获取 所有表情图片的名称和真实url地址, 以JSON对像形式返回;
+ 其中以表情文本为 属性名, 以图片真实路径为属性值. */
+
+function getImgsPaths(sourcePathOfChatBox, callback){
+    var jsonPath = sourcePathOfChatBox + ".json";
+
+    /*if(emotionData!=null){
+	   return;
+    }*/
+        
+
+    api.readFile({
+        path: jsonPath
+    }, function(ret, err){
+        if(ret.status){
+            var emotionArray = JSON.parse(ret.data);
+
+            var emotion = {};
+
+            for(var idx in emotionArray){
+                var emotionItem = emotionArray[idx];
+
+                var emotionText = emotionItem["text"];
+                var emotionUrl = "./image/chatBox/emotion/" + emotionItem["name"] + ".png";
+
+                emotion[emotionText] = emotionUrl;
+            }
+            
+            /* 把 emotion对象 回调出去. */
+            if("function" === typeof(callback)){
+                callback(emotion);
+            }
+
+        }
+    });
+}
+
+/////////////////////////////////////////////////////////
+/* 将文字中的表情符号翻译成图片url,并可自定义图片尺寸. */
+function transText(text, imgWidth, imgHeight){
+
+        var imgWidth = imgWidth || 30;
+        var imgHeight = imgHeight || 30;
+
+        var regx= /\[(.*?)\]/gm
+
+        var textTransed = text.replace(regx,function(match){
+            var imgSrc = emotionData[match];
+
+            if( ! imgSrc){ /* 说明不对应任何表情,直接返回即可.*/
+                return match;
+            }
+
+            var img = "<img src='" + imgSrc+ "' width='" + imgWidth +  "' height ='" + imgHeight +"' />";
+
+            return img;
+        });
+
+        return textTransed;
+}
+
+/**
+ * 聊天消息转换成图标形式
+ */
+function transText_chat(text){
+     
+     var text_img = transMsg(text);
+     
+     return text_img;
+     
+}
+
+function getImgURL(imgText){
+	//[哈哈]->01
+	//[嘻嘻]->02
+	//[死吧]->99
+	var imgWidth = 30;
+    var imgHeight = 30;
+
+    var key="["+imgText+"]";
+    if(emotionData==null){
+		return imgText;
+	}
+	var imgSrc = emotionData[key];
+    if(imgSrc == undefined){ /* 说明不对应任何表情,直接返回即可.*/
+        return imgText;
+    }
+
+    var img = "<img src='" + imgSrc+ "' width='" + imgWidth +  "' height ='" + imgHeight +"' />";
+
+    return img;
+}
+
+/**
+将消息内容中表情中文转换为img地址。
+*/
+function transMsg(msg){
+	//输入内容："123[嘻嘻][123][哈哈]asas[]"
+	//输出内容："123<img src='ss.png'/>[123]<img src='ss.png'/>asas[]"
+	
+	if(msg==""){
+		return "";
+	}
+	var len=msg.length;
+	var pos_left=msg.indexOf("[",0);//第一次出现"["的位置,检索的字符串值没有出现，则该方法返回 -1
+	var pos_right=msg.indexOf("]",0);//第一次出现"]"的位置,检索的字符串值没有出现，则该方法返回 -1
+	if(pos_left!=-1&&pos_right!=-1){
+		//包含[]情况,需要循环变量替换。
+		var msg_new = new Array(0);//替换后的内容
+		if(pos_left>0){
+			msg_new.push(msg.substring(0,pos_left));
+		}
+	
+		while(pos_right>pos_left){
+			var imgText=msg.substring(pos_left+1,pos_right);//表情中文
+			var imgId=getImgURL(imgText);//表情中文对应的url
+			//if(imgId!=""){
+				msg_new.push("&nbsp;"+imgId);
+			//}
+			var pos_left_t=msg.indexOf("[",pos_right);//从上次位置开始找
+			var pos_right_t=msg.indexOf("]",pos_left_t);//从上次位置开始找
+		    //如果本次未找到，则返回，否则继续循环。
+		    if(pos_left_t==-1||pos_right_t==-1){
+		    	msg_new.push(msg.substring(pos_right+1));
+		    	break;
+		    }
+		    msg_new.push(msg.substring(pos_right+1,pos_left_t));
+		    pos_left=pos_left_t;
+		    pos_right=pos_right_t;
+		}
+		
+		return  msg_new.join("");
+		
+	}else{
+		//不包含[]或至包含一个[或]情况
+		return msg;
+	}
+}
+//////////////////////////////////////////////////
+
+/**
+ * 打开页面，显示聊天图像
+ */
+function showLargeImg(imgid){
+	var img_width=window.innerWidth;
+	var img_height=img_width;
+	var imgsize="";
+	var t=parseInt(img_width);
+	if(t<100){
+		imgsize="0"+t+"0"+t;
+	}else if(t>=1000){
+		imgsize="999999";
+	}else{
+		imgsize=""+t+""+t;
+	}
+	imgsize="600600";//为提高服务端不需要每次生成图像，全部手机型号分辨率考虑一致，待以后网络硬件牛逼了再个性化。
+    // var api_url = yh_talk_server+"img/getById.do?key=c4ca4238a0b923820dcc509a6f75849b&size=600400&id="+imgid;
+	var api_url = yh_talk_server+"img/getById.do?key=c4ca4238a0b923820dcc509a6f75849b&size="+imgsize+"&id="+imgid;
+	var arr = [];
+	arr[0] = api_url;
+	uexImageBrowser.open(arr,'0','1');//‘0’表示打开第一张图，‘1’表示直接打开图片，ios下貌似没效果。		  
+}
+
+/**
+ * 聊天建立服务端连接时传入签名信息，防止第三方攻击服务器。经测试不稳定，暂停使用。
+ */
+function getSign(){
+  var pass="20150316";
+  var id="uid"+getstorage('UID');
+  //hex_md5函数来自md5.js
+  var sign=hex_md5(id + "" + pass);
+  return id+"-"+sign;
+}
+
+
+/**
+ * 在聊天页面，新消息是否已存在.存在则返回true
+ */
+function checkMsgExist(msgId){
+//修复多次渲染问题：由于客户端和服务端会自动断开连接后重连情况，因此会频繁调用此逻辑，如果页面未关闭的话，则列表重复。
+//解决办法：每次新来消息放入临时变量中，新消息根据msgId比对，不一样则显示。
+  var isexist=false;
+  if(msgId_arr!=null && msgId_arr.length > 0){
+     for(var i= 0; i< msgId_arr.length; i++){
+        //查找
+        if(msgId_arr[i] == msgId){
+           isexist=true;//存在
+           break;//结束查找
+        }
+     }
+  }
+  msgId_arr.push(msgId);//先存入新消息id
+  return isexist;
+}
+
+
+/**
+ * 打开chatbox
+ */
+function openChatbox(){
+    //如果客户端支持chatbox的话则记录信息
+	setstorage('chatboxsupport',"no");
+	
+	if(window.isOpenChatBox){
+	    return; // 已经打开 chatBox, 那就不再继续再打开了.
+	}
+	var chatBox = api.require('chatBox');
+	var sourcePath = "widget://image/chatBox/emotion"; 
+	//alert("222:"+chatBox);
+	
+	chatBox.open({
+	    "switchButton": {
+	        "faceNormal": "widget://image/chatBox/face1.png",
+	        "faceHighlight": "widget://image/chatBox/face2.png",
+	        "addNormal": "widget://image/chatBox/add1.png",
+	        "addHighlight": "widget://image/chatBox/add2.png",
+	        "keyboardNormal": "widget://image/chatBox/key1.png",
+	        "keyboardHighlight": "widget://image/chatBox/key2.png"
+	    },
+	    "sourcePath": sourcePath,
+	    "addButtons": [
+	        {
+	            "normal": "widget://image/chatBox/cam1.png",
+	            "highlight": "widget://image/chatBox/cam2.png",
+	            "title": "拍照"
+	        },
+	        {
+	            "normal": "widget://image/chatBox/album1.png",
+	            "highlight": "widget://image/chatBox/album2.png",
+	            "title": "照片"
+	        }
+	    ],
+	    "pageControl":{
+	                 "normalColor":"#c4c4c4",
+	                 "highlightColor":"#9e9e9e"
+	    }
+	},function(ret,err){
+	    /* 此回调会在两种情况下触发:
+	     * 1. 用户输入文字或表情
+	     * 2. 用户 点击了 添加界面 的自定义按钮.
+	     */
+	    //alert("333");
+	    /* 用户点击了 添加界面的 自定义按钮. */
+	    if(ret["click"]){
+	        /* 用户点击 相机 图标 */
+	        if(0 == ret.index){
+	            openImgBox("camera");
+	        }
+	        
+	        /* 用户点击 相册 图标 */
+	        if(1 == ret.index){
+	           //var sourceType = "album";//library图片库，两个参数有啥区别？？？
+	            openImgBox("library");
+	        }
+	        return;
+	    }
+	
+	    /* 用户输入了表情或者文字. */
+	
+	    /* 使用读文件 方法,读json文件.*/
+	    //ret.msg已经翻译成中文了。如"aaa[嘻嘻]"
+	    //
+	    //var sendMsg = transText(ret.msg);//将"aaa[嘻嘻]"翻译成"aaa<img src='../../aaa.png'/>"
+	    diyChat(ret.msg);
+	
+	});
+	//alert("444");
+	window.isOpenChatBox = true; // 标记 chatBox 示例已经打开.
+	//alert("555");
+	//输入框回调函数处理
+	chatBox.setInputFieldListener(function(ret,err){
+	   var e=ret.eventType;//move:输入框弹动事件;change:输入框高度改变事件
+	   var h_input=ret.inputFieldH;//输入框高度
+	   var h_view=ret.chatViewH;//view高度
+	   var total=h_input+h_view;//chaobox总高度
+	   
+	   if(total>0){
+	      //动态改变footer的高度没效果。
+	      //document.getElementById("footer").style.height=''+(int(chatboxheight)+10)+'px';
+	   } 
+	});
+	//alert("666");
+	//如果客户端支持chatbox的话则记录信息
+	setstorage('chatboxsupport',"yes");
+}
+
+function openInputFiled(){
+    //如果客户端支持chatbox的话则记录信息
+	setstorage('chatboxsupport',"no");
+	var obj = api.require('inputField');
+	obj.open({
+	    bgColor:'#f2f2f2',
+	    lineColor:'#d9d9d9',
+	    fileBgColor:'#fff',
+	    borderColor:'#b3b3b3',
+	    sendImg:'widget://res/send.png',
+	    sendImgHighlight:'widget://res/sendHigh.png'
+	},function(ret,err) {
+		var msg=ret.msg;
+		diyChat(msg);
+	});
+}
+
+</script>
+</html>

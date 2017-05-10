@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<widget id="A6992519669329" version="0.0.1">
+  <name>天猫</name>
+  <description>天猫是阿里巴巴旗下天猫（tmall.com）专为手机打造的时尚购物应用，集天猫商品的浏览、购买、搜索、支付、物流查询、旺旺在线沟通等功能于一体，帮助您在手机上随时、随地、随心的网购。全新4.5版，关注功能升级，你感兴趣的品牌上新、活动、优惠信息一网打尽，增加了更易于手机端操作的图片分享频道——“范儿”（fun），购物不仅仅是一种消费，更是一种态度，在天猫，你有你的范儿！</description>
+  <author email="realxiebin@sina.com" href="http://www.apicloud.com">lalalalalala</author>
+  <content src="index.html"/>
+  <preference name="pageBounce" value="true"/>
+  <preference name="appBackground" value="rgba(0,0,0,0)"/>
+  <preference name="windowBackground" value="rgba(0,0,0,0.0)"/>
+  <preference name="frameBackgroundColor" value="rgba(0,0,0,0.0)"/>
+  <preference name="hScrollBarEnabled" value="true"/>
+  <preference name="vScrollBarEnabled" value="true"/>
+  <preference name="autoLaunch" value="true"/>
+  <preference name="fullScreen" value="false"/>
+  <preference name="autoUpdate" value="true"/>
+  <preference name="smartUpdate" value="false"/>
+  <preference name="iOS7StatusBarAppearance" value="true"/>
+  <permission name="readPhoneState"/>
+  <permission name="call"/>
+  <permission name="sms"/>
+  <permission name="camera"/>
+  <permission name="record"/>
+  <permission name="location"/>
+  <permission name="fileSystem"/>
+  <permission name="internet"/>
+  <permission name="bootCompleted"/>
+  <permission name="hardware"/>
+  <permission name="contact"/>
+  <access origin="*"/>
+  <feature name="baiduMap">
+    <param name="android_api_key" value="KXPqPc3ZrIirxx6KoER90rxC"/>
+    <param name="ios_api_key" value="d5LQO05C5BAyAXjzOkkLvQrC"/>
+  </feature>
+</widget>

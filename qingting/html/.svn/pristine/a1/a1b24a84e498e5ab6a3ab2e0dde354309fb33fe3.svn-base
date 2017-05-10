@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title></title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<script src="../script/api.js"></script>
+<style>
+    html,body,header,section,footer,nav,div,ul,ol,li,img,a,span,em,del,center,strong,var,fieldset,form,label,dt,dd,cite,input,hr,time,mark,code,figcaption,figure,textarea{
+        margin:0;
+        border:0;
+        padding:0;
+        font-family: Tahoma, Geneva, sans-serif;
+        font-style:normal;
+    }
+html,body {
+    -webkit-touch-callout:none;
+    -webkit-text-size-adjust:none;
+    -webkit-tap-highlight-color:rgba(0, 0, 0, 0);
+    -webkit-user-select:none;
+}
+header,footer,section,nav,img,a,button,em,del,strong,var,fieldset,label,cite,small,time,mark,code,figcaption,figure,textarea{
+    display:block;
+}
+header,section,footer,nav {
+    position:relative;
+    overflow:hidden;
+}
+ol,ul{
+    list-style:none;
+}
+input,button,textarea {
+    border:0;
+    margin:0;
+    padding:0;
+    font-size:1em;
+    line-height:1em;
+    -webkit-appearance:none;
+    background-color:rgba(0, 0, 0, 0);
+}
+span{
+    display:inline-block;
+}
+a,a:visited{
+    text-decoration:none;
+}
+    
+    
+    body{
+        background-color: #fff;
+    }
+    #logo{
+        width: 150px; height: 150px; margin: 32px auto 32px;
+    }
+    #web{
+        text-align: center; color:#87b1d1; 
+    }
+    #intro{
+        color: #898989; letter-spacing: 2px; line-height: 1.5;
+        padding: 40px 25px;
+    }
+    #read{
+        text-align: center;
+    }
+    #read .btn{
+        display: inline-block; width: 256px; height:50px;
+        background: #7dc2ef url(../image/audio.png) no-repeat center; 
+        background-size: 35px 28px;
+        border: 1px solid #7dc2ef;
+        border-radius: 6px;
+    }
+    .hover{
+        background-color: #64a7d3 !important;
+    }
+    dl{
+        text-align: center; margin: 0;
+    }
+    dl dt{
+        color:#808080; margin-bottom: 56px; margin-top: 30px;
+    }
+    dl dd span{
+        margin-bottom: 50px; margin-top: 10px; color:#5f97c2;
+    }
+    dl dd img{
+        display: block; width: 160px; height: 160px; margin: 0 auto;
+    }
+</style>
+</head>
+<body>
+    <img id="logo" src="../icon/icon150x150.png" />
+    <div id="web">
+        	菜谱百科
+    </div>
+    <div id="web">
+        cookwiki.bmob.cn
+    </div>
+    <div id="intro">
+          <p>菜谱百科是一款涵盖家常菜、快手菜、创意菜、素菜、凉菜、面食、粥、汤、自制调味料等类型菜谱制作大全为一体的APP应用。</p>
+    </div>
+    <br />
+    <br />
+</body>
+<script>
+
+apiready = function() {
+
+}
+
+</script>
+</html>

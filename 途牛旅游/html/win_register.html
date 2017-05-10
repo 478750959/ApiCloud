@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport"
+          content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/common.css"/>
+    <style>
+        body {
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            background-image: url(../image/bg.jpg);
+            background-size: 100%;
+        }
+        header{
+            border: none;
+        }
+        .header {
+            padding: 0 15px;
+        }
+        .cancel {
+            background-image: url("../image/ad_close_gray@2x.png");
+            background-size: 40px;
+            background-repeat: no-repeat no-repeat;
+            background-position: center;
+        }
+        .content {
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-box-flex: 1;
+        }
+
+        .title {
+            color: #FFFFFF;
+            text-align: center;
+            line-height: 80px;
+            font-size: 25px;
+            -webkit-box-flex: 1;
+        }
+
+        i {
+            display: block;
+            width: 30px;
+            height: 30px;
+            background-size: 30px;
+            background-repeat: no-repeat no-repeat;
+            background-position: center;
+        }
+
+        .user {
+            background-image: url("../image/login_account@2x.png");
+        }
+
+        .password {
+            background-image: url("../image/logn_password@2x.png");
+        }
+
+        .input-wrap {
+            padding: 5px 10px;
+            display: -webkit-box;
+            background-color: rgba(255, 255, 255, 0.8);
+        }
+
+        .input-wrap:first-child {
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+        }
+
+        .input-wrap:last-child {
+            border-bottom-left-radius: 5px;
+            border-bottom-right-radius: 5px;
+        }
+
+        .form {
+            margin: 0 20px;
+            line-height: 30px;
+        }
+
+        .input-wrap input {
+            display: block;
+            -webkit-box-flex: 1;
+            height: 32px;
+        }
+
+        input {
+            padding-left: 10px;
+        }
+
+
+        .footer, .form {
+            -webkit-box-flex: 1;
+        }
+
+        #register {
+            display: block;
+            color: #ffffff;
+            margin: 0 40px;
+            text-align: center;
+            border-radius: 5px;
+            height: 40px;
+            line-height: 40px;
+            margin-top: 15px;
+            background-color: #FF7800;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <div class="header ">
+        <div tapmode="" class="cancel btn" onclick="api.closeWin()"></div>
+        <div class="title" id="title">注册</div>
+        <div tapmode="" class=" btn" onclick=""></div>
+    </div>
+</header>
+<div class="content">
+    <div class="form">
+        <div class="input-wrap" style="border-bottom: 1px solid #d4d4d4;">
+            <i class="user"></i>
+            <input type="text" placeholder="用户名" class="txt" id="username" value=""/>
+        </div>
+        <div class="input-wrap">
+            <i class="password"></i>
+            <input type="password" placeholder="密码" class="txt" id="password" value=""/>
+        </div>
+    </div>
+    <footer class="footer">
+        <div class=" yellow" id="register" tapmode="yellow-btn-active" onclick="login()">注册并登录</div>
+    </footer>
+
+</div>
+<script src="../script/zepto.min.js"></script>
+<script>
+    apiready = function () {
+        fixIos7Bar($(".header"));
+        api.addEventListener({
+            name: 'keyback'
+        }, function (ret, err) {
+            api.closeWidget();
+        });
+        $(".content").css("height", $("body").height() - $("footer").height() - $(".header").height());
+    };
+
+    function login() {
+        api.openSlidLayout({
+            type: 'left',
+            leftEdge: api.winWidth / 6.67,
+            fixedPane: {
+                name: 'win_homeFixed',
+                url: 'win_homeFixed.html'
+            },
+            slidPane: {
+                name: 'win_homeSlider',
+                url: 'win_homeSlider.html'
+            }
+        }, function (ret) {
+
+        });
+    }
+</script>
+</body>
+</html>

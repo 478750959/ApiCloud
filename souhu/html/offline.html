@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+  <title>HTML</title>
+  
+  <!-- Replace favicon.ico & apple-touch-icon.png in the root of your domain and delete these references -->
+  <link rel="shortcut icon" href="/favicon.ico">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="stylesheet" type="text/css" href="../css/api.css" />
+  <link rel="stylesheet" type="text/css" href="../css/slidepage.css" />
+
+	<style>
+		html {width: 100%;height: 100%;}
+		body {background: #DFE2E6;width: 100%;height: 100%;}
+		#topbar {background: #EBECF0; height:50px; border-bottom: 1px solid #DDDFE3;}
+		.btn_click {background: #DADDE0;}
+		#topbar_title {display: inline-block;font-size: 24px; line-height: 50px;padding-left: 10px;}
+		.scrollbar {
+			display: -webkit-box;    /*必不可少*/
+			display: -webkit-flex;
+			text-align: center; height: 40px; line-height: 40px;background: #EBECF0;font-size: 12px;position: relative;}
+		.flex1 {-webkit-box-flex:1;-webkit-flex: 1;flex:1;color: #909090;}
+		.indexbar {position: absolute;/*background: #0fc;*/width: 50%;height: 5px;left: 0px;bottom: 0px;}
+		.redbox {background: #DB4646;width: 40px;height: 5px;position: relative;left: auto;right: auto; margin-left: auto; margin-right: auto;}
+	</style>
+</head>
+
+<body>
+	
+	<!-- <div id="topbar">
+        <p id="topbar_title">离线观看</p>
+    </div>
+
+    <div class="scrollbar" id="scrollbar">
+    	<div class="bar1 flex1">缓存</div>
+    	<div class="bar2 flex1" id="matchwidth">本地</div>
+    	<div class="indexbar" id="indexbar"><div class="redbox"></div></div>
+    </div> -->
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script>
+	function emptyopt () {
+	}
+
+	apiready = function () {
+		
+		// var header = $api.byId('topbar');
+  //       $api.fixIos7Bar(header); 
+  //       var headerPos = $api.offset(header);
+  //       var scrollbar = $api.byId('scrollbar');
+  //       var scrollbarPos = $api.offset(scrollbar);
+
+
+// 		api.openFrameGroup ({
+// 			name: 'offline',
+// 			background:'#FFFFFF',
+// 			scrollEnabled: true,
+// //			头部  50  底部 60 底部边框 1
+// 			// rect:{x:0, y:headerPos.h, w:'auto', h:api.winHeight-headerPos.h-footerPos.h},
+// 			rect:{x:0, y:headerPos.h+scrollbarPos.h, w:'auto', h:api.frameHeight-headerPos.h-scrollbarPos.h},
+// 			index:0,
+// 			frames:
+// 			    [{
+// 			        name: 'cache', 
+// 			        url: './offline/offline_cache.html', 
+// 			        pageParam:{}, 
+// 			        bounces:false, 
+// 			        opaque:true,
+// 			        bgColor: '#FFFFFF', 
+// 			        vScrollBarEnabled:false,
+// 			        hScrollBarEnabled:false
+// 			    },{
+// 			        name: 'local', 
+// 			        url: './offline/offline_local.html', 
+// 			        pageParam:{}, 
+// 			        bounces:false, 
+// 			        opaque:true,
+// 			        bgColor: '#FFFFFF', 
+// 			        vScrollBarEnabled:false,
+// 			        hScrollBarEnabled:false
+// 			    }]
+// 			}, 
+// 			function(ret, err){
+// 				var name = ret.name;
+// 				var index = ret.index;
+
+// 				// randomSwitchBtn(name, index);
+// 			});
+
+	}
+</script>
+</html>

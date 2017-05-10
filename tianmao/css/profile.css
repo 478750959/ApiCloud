@@ -1,0 +1,282 @@
+#main{
+    padding: 0;
+}
+.profile_box{
+    height: 182px;
+    width: 100%;
+    background: url(../res/img/tm_bg_profile_banner_normal.png) center center no-repeat;
+    background-size: 100% 100%;
+}
+.profile_box.ta{
+    background: url(../res/img/tm_bg_profile_banner_savvy.png) center center no-repeat;
+    background-size: 100% 100%;
+}
+.profile_top{
+    width: 100%;
+    height: 121px;
+    position: relative;
+}
+.profile_top.ta{
+    height: 134px;
+}
+.profile_top .msg_icon{
+    position: absolute;
+    right: 24px;
+    color: #FFF;
+    top: 13px;
+    width: 26px;
+    height: 18px;
+    background: url(../res/img/tm_mytmall_icon_message.png) center center no-repeat;
+    background-size: 100% 100%;
+    /*padding:4px;*/
+}
+.profile_top .qrcode-icon{
+    position: absolute;
+    right: 24px;
+    color: #FFF;
+    top: 13px;
+    width: 24px;
+    height: 24px;
+    background: url(../res/img/tm_icon_fun_qrcode.png) center center no-repeat;
+    background-size: 100% 100%;
+    /*padding:4px;*/
+}
+.profile_top .config{
+    position: absolute;
+    right: 24px;
+    color: #FFF;
+    bottom: 13px;    
+}
+.profile_top .user-icon{
+    position: absolute;
+    width: 90px;
+    height: 90px;
+    left: 50%;
+    top: 14px;
+    display: block;
+    border-radius: 45px;
+    -webkit-transform: translateX(-50%);
+            transform: translateX(-50%);
+}
+.profile_top .user-box{
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+            transform: translateX(-50%);
+}
+.user-box .user-name{
+    color: #FFF;
+}
+.profile_top .user-gender{
+    display: inline-block;
+    width: 15px;
+    height: 19px;
+    vertical-align: bottom;
+}
+.user-gender.male{
+    background: url(../res/img/tm_icon_gender_male.png) center center no-repeat;
+    background-size: 15px 19px;
+}
+.user-gender.female{
+    background: url(../res/img/tm_icon_gender_female.png) center center no-repeat;
+    background-size: 15px 19px;
+}
+.login_btn{
+    border: 1px solid #FFF;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%,-50%);
+            transform: translate(-50%,-50%);
+    padding: 0.5em 1em;
+    border-radius: 5px;
+    color: #FFF;
+}
+
+
+
+.profile_box .tabBar-ta{
+    height: 42px;
+    width: 100%;
+}
+.tabBar-ta .tabBar_inner{
+    float: left;
+    width: 33%;
+    height: 100%;
+    background: url(../res/img/profile_white_dividing.png) right center no-repeat;
+    background-size: 1px 100%;
+
+}
+.tabBar-ta .tabBar_inner.last{
+    background: none;
+}
+.tabBar-ta .tabBar_inner span{
+    height: 42px;
+    line-height: 42px;
+    text-align: center;
+    display: block;
+    color: #FFF;
+}
+.tabBar-ta .tabBar_inner .follow-icon{
+    background: url(../res/img/ic_btn_pin_normal.png) center center no-repeat;
+    background-size: 90px 26px;
+}
+.tabBar-ta .tabBar_inner .follow-icon.followed{
+    background: url(../res/img/ic_btn_pined_normal.png) center center no-repeat;
+    background-size: 90px 26px;
+}
+.tabBar-ta .tabBar_inner:active .follow-icon,.tabBar-ta .tabBar_inner.tap-active .follow-icon{
+    background: url(../res/img/ic_btn_pin_press.png) center center no-repeat;
+    background-size: 90px 26px;
+}
+.tabBar-ta .tabBar_inner:active .follow-icon.followed,.tabBar-ta .tabBar_inner.tap-active .follow-icon.followed{
+    background: url(../res/img/ic_btn_pined_press.png) center center no-repeat;
+    background-size: 90px 26px;
+}
+.my-intro{
+    padding: 0.9em 0.5em;
+    color: #6A6A6A;
+    background-color: #FFF;
+}
+
+
+
+.photos-header{
+    height: 45px;
+    border-top: 1px solid #CCC;
+    background-color: #FFF;
+}
+.photos-header .tabs-inner{
+    width: 33%;
+    text-align: center;
+    float: left;
+    height: 45px;
+    line-height: 45px;
+    background: url(../res/img/profile_white_dividing.png) right center no-repeat;
+    background-size: 1px 100%;
+}
+.photos-header .tabs-inner.last{
+    background: none;
+}
+.photos-header .tabs-inner .tabs-icon{
+    display: inline-block;
+    width: 16px;
+    height: 45px;
+    vertical-align: bottom;
+}
+.tabs-inner .tabs-icon.mypost{
+    background: url(../res/img/tm_ic_mypost_normal.png) center center no-repeat;
+    background-size: 16px 16px;
+}
+.tabs-inner.active .tabs-icon.mypost{
+    background: url(../res/img/tm_ic_mypost_pressed.png) center center no-repeat;
+    background-size: 16px 16px;
+}
+.tabs-inner .tabs-icon.like{
+    background: url(../res/img/tm_ic_like_normal.png) center center no-repeat;
+    background-size: 16px 16px;
+}
+.tabs-inner.active .tabs-icon.like{
+    background: url(../res/img/tm_ic_like_selected.png) center center no-repeat;
+    background-size: 16px 16px;
+}
+.tabs-inner .tabs-icon.pics{
+    background: url(../res/img/tm_ic_pics_normal.png) center center no-repeat;
+    background-size: 16px 16px;
+}
+.tabs-inner.active .tabs-icon.pics{
+    background: url(../res/img/tm_ic_pics_press.png) center center no-repeat;
+    background-size: 16px 16px;
+}
+.tabs-inner .tabs-text{
+    color: #888888;
+    height: 45px;
+    line-height: 45px;
+}
+.tabs-inner.active .tabs-text{
+    color: #C41000;
+}
+
+
+.profile_box .tabBar{
+    height: 61px;
+    width: 100%;
+    background-color: rgba(0,0,0,0.6);
+}
+.tabBar .tabBar_inner{
+    float: left;
+    width: 20%;
+    height: 100%;
+    background: url(../res/img/profile_tabBar_dividing.png) right center no-repeat;
+    background-size: 1px 100%;
+}
+
+.tabBar .tabBar_inner:active,.tabBar .tabBar_inner.tap-active{
+    background: #A5A5A5 url(../res/img/profile_tabBar_dividing.png) right center no-repeat;
+    background-size: 1px 100%;
+}
+.tabBar .tabBar_inner.last{
+    background: none;
+}
+.tabBar .tabBar_inner.last:active,.tabBar .tabBar_inner.last.tap-active{
+    background: #A5A5A5;
+}
+.tabBar_inner .text{
+    font-size: 0.7em !important;
+}
+.tabBar_inner .num_top,.tabBar_inner .text{
+    color: #FFF;
+    margin-top: 0.5em;
+    display: block;
+    text-align: center;
+
+}
+
+
+.profile_detail_container{
+    padding-right: 0.75em;
+}
+.profile_detail_box{
+    margin-top: 0.75em;
+}
+.profile_detail_inner{
+    width: 33.3%;
+    padding-left: 0.75em;
+}
+.profile_detail{
+    background-color: #FFF;
+}
+.profile_detail:active,.profile_detail.tap-active{
+    background-color: #CBCBCB;
+}
+.profile_detail img{
+    margin: 0 auto;
+    padding: 1em 0;
+    width: 40px;
+    display: block;
+}
+.profile_detail .title{
+    display: block;
+    font-size: 0.9em;
+    text-align: center;
+    margin-bottom: 0.7em;
+    text-indent: 0 !important;
+}
+.profile_detail .brief{
+    display: block;
+    font-size: 0.5em;
+    color: #9E9E9E;
+    text-align: center;
+    padding-bottom: 1em;
+    text-indent: 0 !important;
+}
+/*<div class="profile_detail_box">
+                <div class="profile_detail_inner">
+                    <div class="profile_detail">
+                        <img src="../../image/profile_item1.png" alt="">
+                        <span class="title">全部订单</span>
+                        <span class="brief">查看所有</span>
+                    </div>
+                </div>
+            </div>*/

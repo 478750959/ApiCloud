@@ -1,0 +1,113 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>APP</title>
+		<link rel="stylesheet" type="text/css" href="../css/api.css" />
+		<link rel="stylesheet" type="text/css" href="../css/common.css" />
+		<link rel="stylesheet" type="text/css" href="../css/detail.css" />
+	</head>
+	<body>
+		<div id="wrap">
+			<script id="record-template" type="text/x-dot-template">
+				<section class="content">
+					<div class="left text-overflow">
+						检查者
+					</div>
+					<div class="middle text-overflow">
+						{{=it.userName}}
+					</div>
+				</section>
+				<section class="content">
+					<div class="left text-overflow">
+						检查单号
+					</div>
+					<div class="middle text-overflow">
+						{{=it.checkNum}}
+					</div>
+				</section>
+				<section class="content">
+					<div class="left text-overflow">
+						检查名称
+					</div>
+					<div class="middle text-overflow">
+						{{=it.checkName}}
+					</div>
+				</section>
+				<section class="content">
+					<div class="left text-overflow">
+						检验项目
+					</div>
+					<div class="middle text-overflow">
+						{{=it.project}}
+					</div>
+				</section>
+				<section class="content">
+					<div class="left text-overflow">
+						检验日期
+					</div>
+					<div class="middle text-overflow">
+						{{=it.checkDate}}
+					</div>
+				</section>
+				<section class="content">
+					<div class="left text-overflow">
+						检查部门
+					</div>
+					<div class="middle text-overflow">
+						{{=it.checkDept}}
+					</div>
+				</section>
+				
+				<section class="content">
+					<div class="left text-overflow">
+						检查医生
+					</div>
+					<div class="middle text-overflow">
+						{{=it.checkDoctor}}
+					</div>
+				</section>
+				
+				<section class="content">
+					<div class="left text-overflow">
+						身份证号
+					</div>
+					<div class="middle text-overflow">
+						{{=it.IDNo}}
+					</div>
+				</section>
+				<section class="content">
+					<div class="left text-overflow">
+						门诊卡号
+					</div>
+					<div class="middle text-overflow">
+						{{=it.SSN}}
+					</div>
+				</section>
+				<section class="content">
+					<div class="left text-overflow">
+						医保号
+					</div>
+					<div class="middle text-overflow">
+						{{=it.medicareNo}}
+					</div>
+				</section>
+				
+			</script>
+			<div id="main">
+				<section class="content header_bg">
+					<div class="middle">检查信息</div>
+				</section>
+				<section id="content">
+					
+				</section>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../script/api.js"></script>
+	<script type="text/javascript" src="../script/zepto.min.js"></script>
+	<script type="text/javascript" src="../script/doT.min.js"></script>
+	<script type="text/javascript" src="../script/constants.js"></script>
+	<script type="text/javascript" src="../script/check_deail.js"></script>
+</html>

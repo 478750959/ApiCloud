@@ -1,0 +1,37 @@
+<<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<link href="../css/user.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+<div class="box">
+  <div class="top"></div>
+  <div class="users">
+     <div class="home"></div>
+     <h2>用户名</h2>
+  </div>
+  <div class="news">
+     <div class="nw_1"><h3>账户设置</h3></div>
+   </div>
+   <div class="nw_2"><div class="nw"></div><h3>完善信息</h3></div>
+  <div class="nw_3"><div class="z3"></div><h3>修改密码</h3></div>
+  <div class="nw_4">
+     <div class="z4"><h3>我的相关</h3></div>
+   </div>
+  <div class="nw_5"><div class="z5"></div><h3>预约记录</h3></div>
+  <div class="nw_6"><div class="z6"></div><h3>报告单记录</h3></div>
+  <div class="nw_7"><div class="z7"></div><h3>常用就诊人</h3></div>
+  <div class="nw_8">
+     <div class="z8"><h3>设置</h3></div>
+   </div>
+  <div class="nw_9"><div class="z9"></div><h3>实时推送</h3></div>
+  <div class="nw_10"><div class="z10"></div><h3>关于</h3><div class="zz"></div></div>
+  <div class="footer">
+    <a href="#"><h3>退出当前账号</h3></a>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,113 @@
+[v-cloak],.hidden {
+  display: none;
+}
+@-webkit-keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+.content{
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+    -webkit-animation-name: fadeIn;
+    animation-name: fadeIn;
+}
+footer {
+    bottom: 0;
+    width: 100%;
+    height: 2rem;
+    padding: 0;
+    table-layout: fixed;
+}
+.footer-input{
+	border:1px solid #999;
+	border-radius:0.3em;
+	width:100%;
+	padding-left:0.4em;
+	height:1.8em;
+}
+.whole-img{
+	width:100%;
+}
+.portrait{
+	background:url(../portrait/101.jpg);
+	width:3em;
+	height:3em;
+	background-size:contain;
+	background-repeat:no-repeat;
+	background-position:center;
+	border-radius:50%;
+}
+.uinn{
+	padding:0.5rem;
+}
+.uinn-v{
+	padding:0 0.5rem;
+}
+.uinn-l{
+	padding-left:0.5rem;
+}
+.uinn-r{
+	padding-right:0.5rem;
+}
+.umar-a{
+	margin:0.5rem;
+}
+.umar-t{
+	margin-top:0.5rem;
+}
+.umar-b{
+	margin-bottom:0.5rem;
+}
+.umar-l{
+	margin-left:0.5rem;
+}
+.umar-r{
+	margin-right:0.5rem;
+}
+
+.ulev1{
+	font-size:1.15rem;
+}
+.ulev-1{
+	font-size:0.75rem;
+}
+.ulev-2{
+	font-size:0.65rem;
+}
+.border-b{
+	border-bottom:1px solid gray;
+}
+.color-name{
+	color:#5C6198;
+}
+.color-item-title{
+	color: #922;
+}
+.line-1{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.item-num{
+	padding:0.6rem;
+	min-width:2rem;
+}
+

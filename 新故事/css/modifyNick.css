@@ -1,0 +1,23 @@
+.input-wrap{
+    padding: 20px 10px; position: relative;
+}
+.txt{
+    border: 1px solid #e6e6e6; border-radius: 6px; padding: 10px;
+    width: 100%; outline: none;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.light{
+    border-color: #55abce;
+}
+.del{
+    display: inline-block; background: #e6e6e6 url(../image/del.png) no-repeat center;
+    width: 18px; height: 18px; position: absolute; right:20px; top: 30px;
+    border-radius: 18px; 
+    -webkit-background-size: 10px 10px;
+    background-size: 10px 10px;
+    visibility: hidden;
+}
+.show{
+    visibility:visible;
+}

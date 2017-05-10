@@ -1,0 +1,63 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>report</title>
+		<link rel="stylesheet" type="text/css" href="../css/api.css" />
+		<link rel="stylesheet" type="text/css" href="../css/common.css" />
+		<link rel="stylesheet" type="text/css" href="../css/report.css" />
+	<head>
+	<body>
+		<div id="wrap">
+			<div id="main">
+				<div class="hp_input one">
+					<span class="title">姓名:</span>
+					<input type="text" id="name" value=""></input>
+				</div>
+				
+				<div class="hp_input two">
+					<span class="title">号码:</span>
+					<input type="text" id="num" value=""></input>
+					<span tapmode="" class="scan"></span>
+				</div>
+				<button tapmode="buttonActive" class="button blue" id="comfirm" onclick="openWin()">确定</button>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../script/api.js"></script>
+	<script type="text/javascript" src="../script/zepto.min.js"></script>
+	<script type="text/javascript" src="../script/constants.js"></script>
+	<script>
+		apiready = function() {
+			
+		};
+		
+		function openWin(){
+			var name = $('#name').val();
+			var num = $('#num').val();
+			
+			if (!(num && $api.trimAll(num))) {
+				api.alert({
+					msg : '请输入号码!'
+				});
+				return;
+			}
+					
+			
+			if(CHECK_LOGIN()){
+				api.openWin({
+					name : 'report_detail',
+					url : 'framework.html',
+					pageParam : {
+						'index' : 0,
+						'depName' : '化验结果',
+						'num' : num,
+						'type':'report_detail'
+					},
+				});
+			}
+		}
+		
+	</script>
+</html>

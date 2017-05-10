@@ -1,0 +1,319 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>APP</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/common.css" />
+    <style>
+        body,html{
+            background: transparent;
+        }
+        #main{
+            padding: 0;
+            position: relative;
+            background-color: #C8C8C8;
+        }
+        .topic_img{
+            width: 100%;
+            display: block;
+        }
+        .topic_des{
+            background-color: #FFF;
+        }
+        .topic_des_top{
+            height: 46px;
+        }
+        .topic_des_title{
+            width: 66%;
+            height: 46px;
+            line-height: 46px;
+            color: #323232;
+            text-indent: 0.75em;
+            display: inline-block;
+        }
+        .topic_des_follow{
+            width: 33%;
+            height: 46px;
+            display: inline-block;
+            background: url(../../res/img/tm_btn_pin.png) left center no-repeat;
+            background-size: 4em 1.1em;
+        }
+        .topic_des_follow.active{
+            background: url(../../res/img/tm_btn_pinned.png) left center no-repeat;
+            background-size: 4em 1.1em;
+        }
+        .topic_des .des{
+            color: #888888;
+            font-size: 0.9em;
+            padding: 0.1em 0.9em 0.9em 0.9em;
+            border-bottom: 1px solid #CCC;
+        }
+        .photos_header{
+            height: 40px;
+        }
+        .photos_count{
+            color: #000;
+            text-indent: 0.9em;
+            height: 40px;
+            line-height: 40px;
+            display: inline-block;
+        }
+        .photos_filter{
+            padding-right: 0.75em;
+        }
+        .photos_filter span{
+            color: #060606;
+            font-size: 0.9em;
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            padding: 0 0.2em;
+            display: inline-block;
+        }
+        .photos_filter span.active{
+            color: #FF2525;
+        }
+        .photos_filter .new{
+
+        }
+        .photos_filter .divid{
+            padding: 0;
+            color: #777777;
+        }
+        .photos_filter .hot{
+
+        }
+        .photos{}
+        .photos table{
+            border-collapse: collapse;
+        }
+        table tr{
+            width: 100%;
+        }
+        table td{
+            border: 2px solid #EEEEF0;
+            width: 33%;
+            background-color: #FFF;
+        }
+        table img{
+            width: 100%;
+        }
+        .photos_table{
+            display: none;
+        }
+        .photos_table.active{
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div id="wrap">
+        <div id="main">
+            <img src="../../image/topic_img.png" alt="" class="topic_img">
+            <div class="topic_des">
+                <div class="topic_des_top clearfix">
+                    <span class="topic_des_title pull-left">
+                        天天都是APEC蓝
+                    </span>
+                    <i class="topic_des_follow pull-left">
+                    </i>
+                </div>
+                <p class="des">向雾霾宣战，天天都是APEC蓝！！11月13日~11月24日，晒出你与蓝天的</p>
+                <div class="photos_header clearfix">
+                    <span class="photos_count pull-left">93张照片</span>
+                    <a class="photos_filter pull-right">
+                        <span class="new active" tapmode="tap-active" onclick="changeTable(0);">最新</span>
+                        <span class="divid">|</span>
+                        <span class="hot" tapmode="tap-active" onclick="changeTable(1);">最热</span>
+                    </a>
+                </div>
+                
+            </div>
+            <div class="photos">
+                <table class="photos_table active">
+                    <tr>
+                        <td>
+                            <img src="../../image/topic_pics1.png" alt="">
+                        </td>
+                        <td>
+                            <img src="../../image/topic_pics2.png" alt="">
+                        </td>
+                        <td>
+                            <img src="../../image/topic_pics3.png" alt="">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <img src="../../image/topic_pics7.png" alt="">
+                        </td>
+                        <td>
+                            <img src="../../image/topic_pics8.png" alt="">
+                        </td>
+                        <td>
+                            <img src="../../image/topic_pics9.png" alt="">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <img src="../../image/topic_pics10.png" alt="">
+                        </td>
+                        <td>
+                            <img src="../../image/topic_pics11.png" alt="">
+                        </td>
+                        <td>
+                            <img src="../../image/topic_pics12.png" alt="">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <img src="../../image/topic_pics13.png" alt="">
+                        </td>
+                        <td>
+                            <img src="../../image/topic_pics14.png" alt="">
+                        </td>
+                        <td>
+                            <img src="../../image/topic_pics15.png" alt="">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <img src="../../image/topic_pics16.png" alt="">
+                        </td>
+                        <td>
+                            <img src="../../image/topic_pics17.png" alt="">
+                        </td>
+                        <td>
+                            <img src="../../image/topic_pics18.png" alt="">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <img src="../../image/topic_pics1.png" alt="">
+                        </td>
+                        <td>
+                            <img src="../../image/topic_pics2.png" alt="">
+                        </td>
+                        <td>
+                            <img src="../../image/topic_pics3.png" alt="">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <img src="../../image/topic_pics19.png" alt="">
+                        </td>
+                        <td>
+                            <img src="../../image/topic_pics20.png" alt="">
+                        </td>
+                        <td>
+                            <img src="../../image/topic_pics21.png" alt="">
+                        </td>
+                    </tr>
+                </table>
+                <table class="photos_table">
+                    <tr>
+                        <td>
+                            <img src="../../image/topic_pics19.png" alt="">
+                        </td>
+                        <td>
+                            <img src="../../image/topic_pics20.png" alt="">
+                        </td>
+                        <td>
+                            <img src="../../image/topic_pics21.png" alt="">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <img src="../../image/topic_pics7.png" alt="">
+                        </td>
+                        <td>
+                            <img src="../../image/topic_pics8.png" alt="">
+                        </td>
+                        <td>
+                            <img src="../../image/topic_pics9.png" alt="">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <img src="../../image/topic_pics10.png" alt="">
+                        </td>
+                        <td>
+                            <img src="../../image/topic_pics11.png" alt="">
+                        </td>
+                        <td>
+                            <img src="../../image/topic_pics12.png" alt="">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <img src="../../image/topic_pics13.png" alt="">
+                        </td>
+                        <td>
+                            <img src="../../image/topic_pics14.png" alt="">
+                        </td>
+                        <td>
+                            <img src="../../image/topic_pics15.png" alt="">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <img src="../../image/topic_pics16.png" alt="">
+                        </td>
+                        <td>
+                            <img src="../../image/topic_pics17.png" alt="">
+                        </td>
+                        <td>
+                            <img src="../../image/topic_pics18.png" alt="">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <img src="../../image/topic_pics1.png" alt="">
+                        </td>
+                        <td>
+                            <img src="../../image/topic_pics2.png" alt="">
+                        </td>
+                        <td>
+                            <img src="../../image/topic_pics3.png" alt="">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <img src="../../image/topic_pics1.png" alt="">
+                        </td>
+                        <td>
+                            <img src="../../image/topic_pics2.png" alt="">
+                        </td>
+                        <td>
+                            <img src="../../image/topic_pics3.png" alt="">
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/common.js"></script>
+<script type="text/javascript">
+    var changeTable = function(index){
+        var tabs = $api.domAll('.tabs-inner');
+        var tabsTable = $api.domAll('.photos_table');
+        if (index == 0) {
+            $api.addCls($api.dom('.photos_filter .new'),'active');
+            $api.removeCls($api.dom('.photos_filter .hot'),'active');
+            $api.addCls(tabsTable[0],'active');
+            $api.removeCls(tabsTable[1],'active');
+        } else{
+            $api.removeCls($api.dom('.photos_filter .new'),'active');
+            $api.addCls($api.dom('.photos_filter .hot'),'active');
+            $api.removeCls(tabsTable[0],'active');
+            $api.addCls(tabsTable[1],'active');
+        }
+    };
+    apiready = function(){
+
+    }
+</script>
+</html>

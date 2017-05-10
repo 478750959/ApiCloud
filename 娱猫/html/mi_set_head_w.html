@@ -1,0 +1,150 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>设置</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/xyc.css"/>
+    <style>
+    	.opacity{
+    		opacity:0;
+    	}
+    </style>
+</head>
+<body>
+<div id="wrap">
+	<header id='header'>
+		<div class="miHeader">
+        	<a href='javascript:;' class='head_icon back' onclick='api.closeWin();'></a>
+        	<span class='mi_head_txt'></span>
+        </div>
+	</header>
+	<div id='main'></div>
+    <div id='footer' class="xyc_footer opacity" onclick="save()"></div>
+</div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/font.js"></script>
+<script type="text/javascript" src="../script/zepto.js"></script>
+<script type="text/javascript" src="../script/comm.js"></script>
+<script>
+	apiready = function(){
+		var name = "";
+		var height;
+		
+		var header = $api.byId('header');
+	    $api.fixIos7Bar(header);
+	    var width = api.winWidth;
+	    var footer = $api.byId('footer');
+	    var footerPos = $api.offset(footer);
+	    var headerPos = $api.offset(header);
+	    switch(api.pageParam.count) {
+			case 3:
+				$('.mi_head_txt').text('设置');
+				name='mi_set_nickname_f';
+				$('.xyc_footer').addClass('opacity');
+				height = api.winHeight - headerPos.h;
+				break;
+			case 4://更换手机号
+				$('.mi_head_txt').text('设置');
+				name = "mi_set_tel_f";
+				$('.xyc_footer').removeClass('opacity');
+				$('.xyc_footer').text('绑定手机号');
+				height = api.winHeight - headerPos.h - footerPos.h;
+				break;
+			case 5:
+				$('.mi_head_txt').text('设置');
+				name = "mi_set_add_f";
+				$('.xyc_footer').addClass('opacity');
+				height = api.winHeight - headerPos.h;
+				$('.mi_head_txt').text('收货地址');
+				break;
+			case 6://确认修改
+				$('.mi_head_txt').text('密码修改');
+				name ='mi_set_password_f';
+				$('.xyc_footer').removeClass('opacity');
+				$('.xyc_footer').text('确认修改');
+				height = api.winHeight - headerPos.h - footerPos.h;
+				break;
+			case 9:	//意见反馈
+				name = 'mi_yjfk_f';
+				$('.mi_head_txt').text('意见反馈');
+				$('.xyc_footer').removeClass('opacity');
+				$('.xyc_footer').text('提交');
+				height = api.winHeight - headerPos.h - footerPos.h;
+				break;
+//			case 31:
+//				$('.mi_head_txt').text('自助服务');
+//				name='mi_help_my_f';
+//				$('.xyc_footer').addClass('opacity');
+//				height = api.winHeight - headerPos.h;
+//				break;
+			case 32:
+				$('.mi_head_txt').text('订单问题');
+				name='mi_help_dd_f';
+				$('.xyc_footer').addClass('opacity');
+				height = api.winHeight - headerPos.h;
+				break;
+			case 33:
+				$('.mi_head_txt').text('购物问题');
+				name='mi_help_buy_f';
+				$('.xyc_footer').addClass('opacity');
+				height = api.winHeight - headerPos.h;
+				break;
+			case 34:
+				$('.mi_head_txt').text('其它问题');
+				name='mi_help_other_f';
+				$('.xyc_footer').addClass('opacity');
+				height = api.winHeight - headerPos.h;
+				break;
+		}
+	    api.setStatusBarStyle({
+		    style: 'dark'
+		});
+	    
+	    api.openFrame({
+		    name: name,
+		    url: name+'.html',
+		    softInputMode:'resize',
+		    bounces: false,
+		    opaque: true,
+		    reload:true,
+		    vScrollBarEnabled: false,
+		    pageParam:{name:name,shop:api.pageParam.shop},
+		    rect: {
+		        x: 0,
+		        y: headerPos.h,
+		        w: width,
+		        h: height
+		    }
+		});	
+	}
+	function save() {
+		var param = api.pageParam.count;						
+		if(param==4){			
+			api.execScript({
+	        name:'mi_set_head_w',
+	        frameName:'mi_set_tel_f',
+	        script: 'bind_phone();'
+        	});
+		}
+		if(param==6){
+			api.execScript({
+	        name:'mi_set_head_w',
+	        frameName:'mi_set_password_f',
+	        script: 'save_pwd();'
+        	});
+		}
+		if(param==9){
+			api.execScript({
+	        name:'mi_set_head_w',
+	        frameName:'mi_yjfk_f',
+	        script: 'save();'
+        	});
+		}
+	}
+	
+	
+</script>
+</html>

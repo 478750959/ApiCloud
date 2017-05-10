@@ -1,0 +1,392 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>MI</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <style>
+		.register_con{
+			max-width:6.4rem;
+			margin:0 auto;
+			padding-top:1rem;
+		}
+		/*获取验证码的模块*/
+		.set_tel_hq{
+			float:left;
+			margin-left:0.2rem;
+			width:1.68rem;
+			height:0.76rem;
+			border:0.02rem solid #56b3a3;
+			background:#f4fffd;
+			border-radius:0.1rem;
+			font-size:0.24rem;
+			color:#56b3a3;
+			line-height:0.76rem;
+			text-align:center;
+			position:relative;
+		}
+		.set_tel_hq_a{
+			position:absolute;
+			left: 4.46rem;
+			top: 0;
+			width:1.68rem;
+			height:0.76rem;
+			border:0.02rem solid #56b3a3;
+			background:#f4fffd;
+			border-radius:0.1rem;
+			font-size:0.24rem;
+			color:#56b3a3;
+			line-height:0.76rem;
+			text-align:center;
+		}
+		/*获取验证码的模块*/
+		.register_list p{
+			float:left;
+			width:1.16rem;
+			padding-right:0.3rem;
+			line-height:0.8rem;
+			color:#565656;
+			font-size: 0.28rem;
+			text-align:right;
+		}
+		.register_input{
+			float:left;
+			width:4.7rem;
+			display:-webkit-box;
+			-webkit-box-sizing: border-box;
+			height:0.8rem;
+			border:1px solid #dedcdc;
+			border-radius:0.1rem;
+			font-size:0.26rem;
+			line-height:0.75rem;
+			padding-left:0.3rem;
+		}
+		.register_input2{
+			width:2.8rem;
+		}
+		.register_list{
+			margin-bottom:0.2rem;
+			position:relative;
+		}
+		.register_btn{
+			width:3.66rem;
+			height:0.9rem;
+			margin:0.8rem auto 0.3rem;
+			background:#ff7f88;
+			font-size:0.3rem;
+			color:white;
+			line-height:0.9rem;
+			text-align:center;
+		}
+		.register_login{
+			color:#999999;
+			font-size:0.28rem;
+			text-align:center;
+			width:100%;
+			line-height:0.3rem;
+		}
+		/*勾选框*/
+		.register_agree{
+			margin-top:0.4rem;
+			padding-left:1.46rem;
+		}
+		.register_box{
+			float:left;
+			position: relative;
+			width:0.4rem;
+			height:0.4rem;
+			
+		}
+		.register_checkGg{
+			position:absolute;
+			top:0;
+			left:0;
+			width:0.4rem;
+			height:0.4rem;
+			display:-webkit-box;
+			-webkit-box-sizing: border-box;
+			border:1px solid #dedcdc;
+			z-index: 2;
+		}
+		.register_checkbox{
+			position:absolute;
+			left:0;
+			top:0;
+			width:0.4rem;
+			height:0.4rem;
+			z-index:3;
+			opacity:0;
+		}
+		.check_ok{
+			background:url(../image/check_ok.png) no-repeat center center;
+			background-size:0.26rem 0.31rem;
+		}
+		.register_agree_p{
+			float:left;
+			font-size:0.28rem;
+			color:#999999;
+			margin-left:0.1rem;
+			line-height:0.4rem;
+		}
+		.register_agree_p span{
+			color:#ff7f88;
+		}
+	</style>
+</head>
+
+<body>
+<div id="wrap">
+    <div id="main">
+    	<div class="register_con">
+    		<div class="register_list clearfix">
+    			<p>手机号</p>
+    			<input type='tel' class='register_input' name='phone'/>
+    		</div>
+    		<div class="register_list clearfix">
+    			<p>验证码</p>
+    			<input type='tel' class='register_input register_input2' name='code'  />
+    			<div class='set_tel_hq'>
+	    			获取验证码
+	    			
+	    		</div>
+	    		<a class='set_tel_hq_a none'>60</a>
+    		</div>
+    		<div class="register_list clearfix">
+    			<p>密码</p>
+    			<input type='password' class='register_input'  name='password'/>
+    		</div>
+    		<div class="register_agree clearfix">
+	    		<div class="register_box">
+	    			<input type='checkbox' checked='checked' class="register_checkbox" />
+	    			<div class="register_checkGg check_ok"></div>
+	    		</div>
+	    		<p class="register_agree_p">我已看过并接受<span class="register_user" onclick="openNext('mi_sethead_w',3)">《用户协议》</span></p>
+	    	</div>
+    	</div> 	
+    	
+    	<div class="register_btn"  onclick="">注&nbsp;册</div>
+    	<div class="register_login" id='register_login'>有账号直接登录</div>
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/comm.js"></script>
+<script type="text/javascript" src="../script/font.js"></script>
+<script type="text/javascript" src="../script/zepto.js"></script>
+<script>
+//点击用户协议跳转的页面
+function openNext(xyc, id) {
+	api.openWin({
+		name : xyc,
+		url : xyc + '.html',
+		opaque : true,
+		bounces :false,			
+		vScrollBarEnabled : false,
+		pageParam : {
+			count : id
+		}
+	});
+}
+//普通手机号注册
+function regc(param, callBack) {
+	api.hideProgress();
+	var phone = param.phone, password = param.password, code = param.code;
+	if (phone == '') {
+		api.toast({
+			msg : '手机号不能为空!',
+			location : 'middle'
+		});
+		return false;
+	}
+//	var regex = /^0?(13[0-9]|15[012356789]|18[0123456789]|17[0]|14[57])[0-9]{8}$/;
+	var regex = /^0?(13|15|18|17|14)[0-9]{9}$/;
+	if (!regex.test(phone)) {
+		api.toast({
+			msg : '手机号格式不正确!',
+			location : 'middle'
+		});
+		return false;
+	}
+	if (code == '') {
+		api.toast({
+			msg : '验证码不能为空!',
+			location : 'middle'
+		});
+		return false;
+	}
+	if (password == '') {
+		api.toast({
+			msg : '密码不能为空!',
+			location : 'middle'
+		});
+		return false;
+	}
+	if (!/^[0-9a-zA-Z]{6,16}$/.test(password)) {
+		api.toast({
+			msg : '密码为6-16位的字母和数字!',
+			location : 'middle'
+		});
+		return false;
+	}
+	param.m = 1;
+	param.password = SHA1(param.password);
+	//TODO:密码加密处理
+	api.showProgress({
+		title : '注册中',
+		modal : false
+	});
+	ajaxRequest('user/register', 'post', param, function(ret, err) {
+		api.hideProgress();
+		if (err) {
+			api.toast({
+				msg : ret.msg
+			});
+			return false
+		}
+		callBack(ret);
+	});
+}
+
+	//获取验证码
+var is_ok=true;
+function get_code(param, callBack) {
+	api.showProgress({
+		title : '处理中',
+		modal : false
+	});
+	if(is_ok){
+			is_ok=false;
+			ajaxRequest('user/get_code', 'post', param, function(ret, err) {
+				is_ok=true;
+				api.hideProgress();
+				if (err) {
+					api.toast({
+						msg : ret.msg
+					});
+					return false
+				}
+				callBack(ret);
+			});
+	}
+	
+
+}
+
+// checkbox 选择同意或者不同意的效果
+	
+	$('.register_checkbox').click(function(){
+		var flage = $(this).prop("checked");
+	
+		if(flage==true){
+			$(this).next().addClass('check_ok');
+		}else{
+			$(this).next().removeClass('check_ok');
+		}
+	})
+//	apiready = function () {
+		//获取验证码
+
+			$('.set_tel_hq').click(function() {
+				var phone = $.trim($('input[name=phone]').val());
+				
+				if (phone == '') {
+					api.toast({
+						msg : '手机号不能为空!',
+						location : 'middle'
+					});
+					return false;
+				}
+//				var regex = /^0?(13[0-9]|15[012356789]|18[0123456789]|17[0]|14[57])[0-9]{8}$/;
+				var regex = /^0?(13|15|18|17|14)[0-9]{9}$/;
+				if (!regex.test(phone)) {
+					api.toast({
+						msg : '手机号格式不正确!',
+						location : 'middle'
+					});
+					return false;
+				}
+				//控制60秒
+				//倒计时.........................
+				get_code({
+					'phone' : phone,
+					m : 1
+				}, function(ret) {
+					if (ret.status) {
+						var x = parseInt($(".set_tel_hq_a").text());
+						var t;
+						$(".set_tel_hq_a").removeClass("none")
+						t = setInterval(function() {
+							x--;
+							if (x < 1) {
+								$('.set_tel_hq').text('重新获取')
+								$(".set_tel_hq_a").addClass("none")
+								x = 60;
+								clearInterval(t);
+							};
+							$(".set_tel_hq_a").text(x);
+						}, 1000)
+					} else {
+						api.toast({
+							msg : ret.info,
+							location : 'middle'
+						});
+						return false;
+					}
+				});
+			});
+			//注册
+			$('.register_btn').click(function() {
+				var phone = $.trim($('input[name=phone]').val());
+				var password = $.trim($('input[name=password]').val());
+				var code = $.trim($('input[name=code]').val());
+				var flag = $('.register_checkbox').prop("checked");
+				if(flag==false){
+					api.toast({
+						msg : '请同意用户协议',
+						location : 'middle'
+					});
+					return false;
+				}
+				regc({
+					phone : phone,
+					password : password,
+					code : code
+				}, function(ret) {
+					if (ret.status) {
+						api.toast({
+							msg : '注册成功!',
+							location : 'middle'
+						});
+						var obj = ret.info.login_info;
+						$api.setStorage("mine", obj);
+//						insert('user', obj, function(ret) {
+//							if (ret.status) {
+//								
+//							}
+//						})
+						//切换登录页面
+						setTimeout(function() {
+							$('input').val('');
+							api.execScript({
+								name : 'root',
+								script : 'to_ucenter("login_head_w");'
+							});
+						}, 600);
+					} else {
+						api.toast({
+							msg : ret.info,
+							location : 'middle'
+						});
+						return false;
+					}
+				});
+			});
+			//直接登录
+			$('.register_login').click(function() {
+				to_login();
+			}) 
+//}
+
+</script>
+</html>

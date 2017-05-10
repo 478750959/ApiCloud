@@ -1,0 +1,84 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/key.css"/>
+    <style>
+    	#main{
+    		width:100%;
+    		height:100%;
+    	}
+    	.welcome_main{
+    		width:100%;
+    		height:100%;
+    		background:url(../image/welcome_bg.png) no-repeat;
+    		background-size:100% 100%;
+    		position: relative;
+    	}
+    	.welcome_main img{
+    		display:block;
+    		position: absolute;
+    	}
+    	.dh{
+    		width:100%;
+    		height:100%;
+    		top:0;
+    		left:0;
+    		z-index:1;
+    	}
+    	.logo{
+    		width:2.29rem;
+    		height:2.57rem;
+    		left:50%;
+    		top:33%;
+    		margin-left:-1.15rem;
+    		z-index: 2;
+    	}
+    	.txt{
+    		width:0.95rem;
+    		height:0.15rem;
+    		left:50%;
+    		top:92%;
+    		z-index:3;
+    		margin-left:-0.475rem;
+    	}
+    	
+    </style>
+</head>
+<body>
+<div id="wrap">
+    <div id="main">
+		 <div class="welcome_main">
+		 	<img src="../image/welcome_dh.png" class="dh rotateOutDownLeft"/>
+		 	<img src="../image/welcome_logo.png" class="logo"/>
+		 	<img src="../image/welcome_txt.png" class="txt"/>
+		 </div>
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/comm.js"></script>
+<script type="text/javascript" src="../script/font.js"></script>
+<script type="text/javascript" src="../script/zepto.js"></script>
+<script>
+
+
+		setTimeout(function(){
+			api.execScript({
+				name:"root",
+		        script: 'openTab("bill_f","bill_f")'
+	        });
+		},1000)
+
+//点击图片列表进入标签页面
+	$(".welcome_main").click(function() {
+		api.execScript({
+			name:"root",
+	        script: 'openTab("bill_f","bill_f")'
+        });
+	});
+</script>
+</html>

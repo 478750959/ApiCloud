@@ -1,0 +1,69 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>APP</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/common.css" />
+    <style>
+        #wrap{
+            background-color: #FFF;
+        }
+        #main{
+            padding: 0;
+            position: relative;
+        }
+
+        #main .detail{
+            text-indent: 2em;
+            line-height: 1.5em;
+            padding: 1em;
+        }
+        #main .detail_img_1{
+            width: 90%;
+            display: block;
+            margin: 1em auto;
+        }
+        #main .detail_to_movie_detail{
+            display: block;
+            width: 90%;
+            margin: 0 auto;
+            background-color: #FFC600;
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            color: #FFF;
+        }
+        #main .detail_to_movie_detail:active{
+            background-color: #C5A123;
+        }
+        #main .shadow{
+            height: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div id="wrap">
+        <div id="main">
+            <p class="detail">影片改编自詹姆斯·达什纳撰写的同名反乌托邦科幻小说三部曲的第一本。 
+                讲述了一个叫托马斯（迪伦·欧布莱恩 Dylan O'Brien 饰）的男孩在电梯中醒来，他发现自己失忆了，除了名字什么都记不得。当电梯打开，他来到了一个陌生的地方“林间空地”。这里四周被高大的石头墙包围着，墙外有一群巨大的怪兽威胁着墙内人们的生命。墙内住着50位男孩，他们都被困在了绵延不绝的迷宫森林当中。一天，电梯为他们送来了一个女孩特雷莎（卡雅·斯考达里奥 Kaya Scodelario 饰），她是来到“林间空地”的第一个女孩。此后，迷宫逐渐开始发生变化，一切都陷入了混乱中，托马斯和特雷莎决定一起走上破解迷宫之路，找出迷宫背后令人不寒而栗的秘密。 
+            </p>
+            <img src="../../image/act_detail.jpg" alt="" class="detail_img_1">
+            <span onclick="goDetail();" class="detail_to_movie_detail" tapmode>
+                点击立即购票
+            </span>
+            <div class="shadow"></div>
+        </div>
+
+    </div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/common.js"></script>
+<script type="text/javascript">
+
+    apiready = function(){
+
+    };
+</script>
+</html>

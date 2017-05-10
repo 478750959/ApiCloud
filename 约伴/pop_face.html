@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+  <head>
+    <title>
+    </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="css/ui-btn.css">
+    <link rel="stylesheet" href="css/ui-res.css">
+    <link rel="stylesheet" href="css/ui-base.css">
+    <link rel="stylesheet" href="css/ui-box.css">
+	<link rel="stylesheet" href="css/ui-tab.css">
+	<link rel="stylesheet" href="css/style.css">
+    <script src="js/y_control.js"></script>
+    <script src="js/y_click.js"></script>
+	<script src="js/dis_control.js"></script>
+	<style>
+	.tab2
+	{
+		height:1.75em;padding:0.2em 0.1em
+	}
+	</style>
+  </head>
+<body class="um-vp" ontouchstart="zy_cc(this);">
+	<div class="ub ub-ver ub-fv" style="">
+		<div class="ub-f1" ontouchstart="zy_touch('c-gra')" onclick="closepop();"></div>
+		<div id="faces">
+			<div class="ub tab2">
+				<div class="ub-f1 ub ub-ver tab-act">
+					<div class="ub-f1 ub-img5" style="background-image:url('images/forum/1.png');"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+<script>
+zy_init();
+var params = getStorJson('params');
+var type = params.type;
+var show = 1;
+var isSML = getstorage('simulate');
+initshowface();
+
+var wh = 0;
+window.uexOnload = function ()
+{
+	wh = getstorage('offsetHeight');;
+	logs('movepop-->uexOnload-->wh='+wh);
+	if(!isSML) movepop();
+}
+function closepop(){
+	if(isSML) uexWindow.closePopover('pop_face');
+	else movepop();
+}
+
+/*插入表情*/
+function initshowface() {
+	var i;
+	var str = '';
+	var n = 30;
+	var folder = 'home';
+	
+	if (type=="thread" || type=="msg" || type=='reply') {
+		n = 24;
+		folder = 'forum';
+	}
+	
+	var div1 = '<div class="ub tab2">';
+	var div2 = '</div>';
+	for (i = 1; i < (n+1); i++) {
+		var ss = '<div class="ub-f1 ub ub-ver tab-act" ontouchstart="zy_touch();" onclick="insertface('+i+');">'
+					+'<div class="ub-f1 ub-img5" style="background-image:url(images/'+ folder + '/' + i + '.png);"></div>'
+				+'</div>';
+		var res = i % 6;
+		if(res==0) str += ss + div2;
+		else if(res==1) str += div1 +ss;
+		else str += ss;
+	}
+	setHtml('faces', str);
+}
+
+var moving = 0;
+function movepop(){
+	if(moving) return;
+	
+	var dy = wh;
+	if(show) dy = '-'+wh;
+	logs('movepop-->dy='+dy);
+	disShowAnim('0', dy, animCb);
+	show = !show;
+	moving = 1;
+}
+
+function animCb(){
+	moving = 0;
+}
+
+function closeFace(){
+	if(!show) movepop()
+}
+
+function insertface(i){
+	ueppscript('editor', 'content', 'insertface('+i+');')
+}
+</script>
+</html>

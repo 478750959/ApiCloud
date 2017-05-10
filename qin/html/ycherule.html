@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+<head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+     <link rel="stylesheet" href="../css/api.css">
+     <link rel="stylesheet" href="../css/common.css">
+    <title>用车必读</title>
+    <style>
+        #wrap{
+           background: #F0F0F0;
+
+        }
+
+        #header span{
+
+          height: 44px;
+          line-height: 44px;
+
+
+
+         }
+
+        /*.head-left{
+        float: left;
+        margin-left:10px;
+       font-size: 11pt;
+       background: url(../image/wallet_base_action_bar_back_normal.png) no-repeat;
+       background-position: left center;
+       background-size: 30% 75%;
+       margin-left: -5px;
+       }
+
+       .head-left p{
+        margin-left: 15px;
+       }*/
+
+    .head-left{
+        float: left;
+        margin-left:10px;
+       font-size: 11pt;
+       background: url(../image/wallet_base_action_bar_back_normal.png) no-repeat;
+       background-position: left center;
+       background-size: 20% 30%;
+      /* margin-left: -5px;*/
+       }
+
+       .head-left p{
+        margin-left: 25px;
+        margin-top:1px;
+       }   
+    
+      .detail{
+       clear: both;
+       margin-top: -30px;
+     }
+      .detail ul{
+      clear: both;
+       height: auto;
+        line-height: 1.5;
+        background: white;
+        margin: 0px auto;
+       
+
+       }
+
+       .detail li{
+        height: 30px;
+        line-height: 30px;
+       /* font-weight: bold;*/
+        z-index: 0;
+        position: relative;
+        border-bottom: 1px solid #F0F0F0;
+        color: gray;
+        padding-left: 10px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+
+       }
+
+
+
+       .detail li span.arrow{
+        width: 14px;
+        height: 14px;
+        background:url(../image/wallet_base_indicator_arrow.png) no-repeat center center !important;
+        z-index: 100 !important;
+        position: absolute;
+        top:10px;
+        right: 5px;
+
+        
+      }
+
+      
+   
+
+
+      
+    </style>
+</head>
+<body>
+    <div id="wrap">
+    <div id="header">
+            <span class="head-left" tapmode onclick="goback()"><p>用车必读</p></span>
+            
+        </div>
+      
+        
+              <div id="ipic" class="detail">
+              
+             
+               <ul id="detail">
+                 <li tapmode="" onclick="Openitem(1)">用车须知<span class="arrow"></span></li>
+                 <li tapmode="" onclick="Openitem(2)">代金券使用规则<span class="arrow"></span></li>
+                 <li tapmode="" onclick="Openitem(3)">常见问题<span class="arrow"></span></li>
+                  <li tapmode="" onclick="Openitem(4)">51用车保险方案<span class="arrow"></span></li>
+                 <li tapmode="" onclick="Openitem(5)">小客车合乘协议<span class="arrow"></span></li>
+                 <li tapmode="" onclick="Openitem(6)">法律声明<span class="arrow"></span></li>
+                 
+               </ul>
+             </div>
+
+                        
+            
+            
+
+
+        </div>
+<script type="text/javascript" src="../script/api.js"></script>
+
+<script type="text/javascript" src="../script/common.js"></script>  
+<script type="text/javascript">
+function Openitem(index){
+    var url = '';
+    var name = '';
+	 switch(index){
+	   case 1:
+	   url ='ycheguide.html';
+	   name = 'ycheguide';
+	   break;
+	   case 2:
+	   url ='vocherrule.html';
+	   name = 'vocherrule';
+	   break;
+	   case 3:
+	  
+	   url ='aq.html';
+	    name = 'aq';
+	   break;
+	   case 4:
+	   url ='insurance.html';
+	   name = 'insurance';
+	   break;
+	   
+	   case 5:
+	   url ='smallpro.html';
+	   name = 'smallpro';
+	   break;
+	   case 6:
+	   url ='lawclaim.html';
+	   name = 'lawclaim';
+	   break;
+	 }
+	 api.openWin({
+	     name: name,
+	     url: url
+     });
+}
+</script>   
+</body>
+</html>

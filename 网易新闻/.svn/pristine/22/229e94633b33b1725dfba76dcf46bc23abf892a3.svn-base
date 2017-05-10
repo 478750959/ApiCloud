@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<widget id="A6961750411369" version="0.0.1">
+    <name>网易新闻</name>
+    <description>网易新闻</description>
+    <author email="" href="http://www.apicloud.com">snow</author>
+    <content src="index.html"/>
+    <preference name="pageBounce" value="false"/>
+    <preference name="windowBackground" value="/image/xx.jpg"/>
+    <preference name="hScrollBarEnabled" value="true"/>
+    <preference name="vScrollBarEnabled" value="true"/>
+    <preference name="autoLaunch" value="true"/>
+    <preference name="fullScreen" value="false"/>
+    <preference name="smartUpdate" value="true"/>
+    <preference name="debug" value="false"/>
+    <preference name="iOS7StatusBarAppearance" value="true"/>
+    <permission name="readPhoneState"/>
+    <permission name="call"/>
+    <permission name="camera"/>
+    <permission name="record"/>
+    <permission name="location"/>
+    <permission name="fileSystem"/>
+    <permission name="internet"/>
+    <permission name="bootCompleted"/>
+    <permission name="hardware"/>
+    <access origin="*"/>
+</widget>

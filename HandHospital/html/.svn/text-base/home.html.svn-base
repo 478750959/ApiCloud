@@ -1,0 +1,82 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>APP</title>
+		<link rel="stylesheet" type="text/css" href="../css/api.css" />
+		<link rel="stylesheet" type="text/css" href="../css/common.css" />
+		<link rel="stylesheet" type="text/css" href="../css/home.css" />
+	</head>
+	<body>
+		<div id="wrap">
+			<div id="main">
+				<div id='slide' class='swipe'>
+					<div class='swipe-wrap' id="banner-content">
+						<div>
+							<img src="../image/banner.jpg" />
+						</div>
+						<div>
+							<img src="../image/banner2.jpg" />
+						</div>
+						<div>
+							<img src="../image/banner3.jpg" />
+						</div>
+					</div>
+					<ul id="pointer">
+						<li>
+							<a class="active"></a>
+						</li>
+						<li>
+							<a></a>
+						</li>
+						<li>
+							<a></a>
+						</li>
+					</ul>
+				</div>
+				<div id="content">
+					<section id="section1">
+						<a id="order" tapmode onclick="openWin('order')"> 
+							<span></span><br/>
+							<label>快速预约</label> 
+						</a>
+						<a id="report" tapmode onclick="openWin('report')">
+							<span></span><br/>
+							<label>取报告单</label>
+						</a>
+					</section>
+					<section id="section2">
+						<a id="callnum" tapmode onclick="openWin('callnum')">
+							<span></span><br/>
+							<label>排队叫号</label>
+						</a>
+						<a id="healthy" tapmode onclick="openWin('healthy')"> 
+							<span></span><br/>
+							<label>健康档案</label>
+						</a>
+					</section>
+					<section id="section3">
+						<a id="navigation" tapmode onclick="openWin('navigation_framework','医院导航')">
+							<span></span><br/>
+							<label>医院导航</label>
+						</a>
+						<a id="autognosis" tapmode onclick="openWin('autognosis','症状自诊')"> 
+							<span></span><br/>
+							<label>症状自诊</label>
+						</a>
+						<a id="news" tapmode onclick="openWin('news','医院资讯')"> 
+							<span></span><br/>
+							<label>医院资讯</label>
+						</a>
+					</section>
+				</div>
+
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../script/api.js"></script>
+	<script type="text/javascript" src="../script/doT.min.js"></script>
+	<script type="text/javascript" src="../script/swipe.js"></script>
+	<script type="text/javascript" src="../script/home.js"></script>
+</html>

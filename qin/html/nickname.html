@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+     <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+     <link rel="stylesheet" href="../css/api.css">
+     <link rel="stylesheet" href="../css/common.css">
+    <title>修改昵称</title>
+    <style>
+       #header span{
+
+        height: 44px;
+        line-height: 44px;
+
+       }
+
+        /*.head-left{
+        float: left;
+        margin-left:10px;
+       font-size: 11pt;
+       background: url(../image/wallet_base_action_bar_back_normal.png) no-repeat;
+       background-position: left center;
+       background-size: 30% 75%;
+       margin-left: -5px;
+       }
+
+       .head-left p{
+        margin-left: 15px;
+       }*/
+       .head-left{
+        float: left;
+        margin-left:10px;
+       font-size: 11pt;
+       background: url(../image/wallet_base_action_bar_back_normal.png) no-repeat;
+       background-position: left center;
+       background-size: 30% 30%;
+       margin-left: -5px;
+       }
+
+       .head-left p{
+        margin-left: 30px;
+        margin-top:1px;
+       }
+
+       .head-right{
+
+         float: right;
+        margin-right: 5px;
+        font-size: 15pt;
+       /* color: rgba(0,0,0,.5);*/
+        font-weight: bold;
+
+       }
+       #main{
+            background: #E6E6E6;
+            margin: 0;
+            padding: 0;
+
+       }
+      
+       #info{
+        clear:left;
+        width: 45%;
+        margin:10px auto;
+       padding-top:10px;
+       } 
+       #tel{
+         
+
+         width: 20%;
+       }
+
+      
+       .tel{
+          margin-bottom: 10px;
+          margin-top: 15px;        
+          background:white;
+          height: 32px;
+         
+
+       }
+      
+       label{
+        color: gray !important;
+        font-size: 12px;
+       }
+       
+    </style>
+</head>
+<body>
+    <div id="wrap">
+        <div id="header">
+            <span class="head-left" tapmode onclick="goback()"><p>修改昵称</p></span>
+            <span class="head-right">保存</span>
+        </div>
+        <div id="main">
+            
+             <div id="info">
+                <input type="text" class="tel" id="tel" placeholder="邱"/>
+                <input type="radio" name="sex" id="male" checked>先生
+                <input type="radio" name="sex" id="femal">女士
+                <br/>
+                <label>姓氏和性别仅可以修改一次哦</label>
+
+             </div>
+             
+             
+        </div>
+
+    </div>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>      
+</body>
+</html>

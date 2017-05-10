@@ -1,0 +1,436 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=0, width=device-width"/>
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="format-detection" content="address=no" />
+    <title>api</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <style>
+		html,body{height: 100%}
+		body{
+			background-color: #f2f2f2; font-size: 14px;
+		}
+        #header{
+			background-color: #55abce;
+			text-align: center; color: #fff;
+			width: 100%; position: relative;
+		}
+		#header .back-icon{
+			display: inline-block; width: 40px; height: 40px;
+			background: url(../image/arr-l.png) no-repeat center center; 
+			-webkit-background-size: 14px 18px;
+			background-size: 14px 18px;
+			position: absolute; left: 0; bottom: 0;
+		}
+		#header h1{
+			font-size: 20px;
+			height: 44px; line-height: 44px; margin: 0em; color: #fff;
+		}
+		
+		a.btn, button.btn, input.btn{
+			border:1px solid #4390af; border-radius: 6px; background-color: #55abce;
+			padding: 10px 0; display: block; margin: 0 10px;
+			font-size: 16px; color: #fff; text-align: center;
+		}
+
+		a.btn.active{
+			background-color: #3394bb;
+		}
+		.input-wrap{
+			padding: 20px 10px; position: relative;
+		}
+		.txt{
+			border: 1px solid #e6e6e6; border-radius: 6px; padding: 10px;
+			width: 100%; outline: none;
+			-webkit-box-sizing: border-box;
+			box-sizing: border-box;
+		}
+		
+		textarea{
+		  height:100px;
+		}
+         .input-wrap{
+         	padding: 20px 10px 0;
+         }
+		 
+		#cover{
+		  height: 180px; text-align: center; position: relative;
+		}
+		#cover .cover{
+			-webkit-filter: blur(20px);
+			filter: blur(20px); 
+			opacity: .8;
+		}
+		#cover img{
+			position: absolute; left: 0;
+		}
+		#cover label{
+			position: relative; z-index: 5; color: #000;
+			text-shadow: 2px 2px 2px #ccc;
+		}
+		#avatar{
+			width: 90%; height: 200px;  margin: 0 auto; padding: 20px 0;
+			position: relative; z-index: 5;
+		}
+		#avatar img{
+			width: 100%; height: 200px;border-radius: 10px;  border: 1px solid #fff;
+			 background: url(../image/blank.png) no-repeat;
+		}
+		#avatar .edit{
+			position: absolute; right: -5px; bottom: 12px;
+			display: inline-block; width: 20px; height: 20px;
+			background:#55abce url(../image/edit.png) no-repeat center center;
+			background-size: 13px 13px;
+			border: 3px solid #fff; border-radius: 50px;
+		}
+		
+    </style>
+</head>
+
+<body>
+    <div id="wrap">
+        <div id="header">
+            <a class="back-icon" tapmode="" onclick="go2back()"></a>
+            <h1>故事创作</h1>
+        </div>
+        <div id="main">
+            <div class="input-wrap">
+			    
+                <input type="text" placeholder="故事名称" onfocus="edit(this)" onblur="cancel(this)" class="txt" id="sname" value="" />
+                <i class="del" tapmode="" onclick="delWord(this)"></i>
+            </div>
+			
+			<div class="input-wrap">
+                <textarea class="txt" id="stitle" placeholder="故事简介"  value="" onkeypress="validateWordNum(event)"></textarea>
+                <i class="del" tapmode="" onclick="delWord(this)"></i>
+            </div>
+			
+				
+			<div id="cover">
+                <img class="cover" />
+                <div id="avatar">
+                    <img src="../image/blank.png" id="feiye" onclick="getnewpic()"/>
+                    <i class="edit"></i>
+                    <!-- <label id="pictitle">添加图片</label>-->
+                </div>
+                
+            </div>
+	        <div id="prc"></div>
+            <a class="btn" style="margin-top:100px;" tapmode="active" onclick="fileup()">提交</a>
+
+        </div>
+    </div>
+
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
+<script>
+apiready = function() {
+	api.addEventListener({
+           name: 'keyback'
+       }, function(ret, err){
+          go2back(); 
+       });
+};
+
+function getnewpic() {
+    api.getPicture({
+            sourceType : 'library',
+            encodingType : 'jpg',
+            mediaValue : 'pic',
+            destinationType : 'url',
+            allowEdit : true,
+            quality : 50,
+            saveToPhotoAlbum : false
+    }, function(ret, err) {
+            if (ret) {
+                 //var_dump(ret);
+                 $api.setStorage('spicurl',ret.data);
+                 $api.attr($api.byId('feiye'),'src', ret.data);
+            } else {
+                     api.alert({
+                            msg : err.msg
+                    });
+            };
+    });
+ }
+
+function fileup(){
+    
+	var url =  $api.getStorage('spicurl');
+	
+	var strs = url.split("/");
+	
+	var fname = strs[strs.length-1];
+	
+	var model = api.require('model');
+	
+	model.config({
+	    appId : 'A6974887568667',
+	    appKey : '09652FAC-1E1B-D3C4-90BB-2BC09472893F',
+	    host: 'https://d.apicloud.com/'
+	});
+	
+	
+	var now = Date.now();
+	
+	model.uploadFile({
+	        report : true,
+	        data : {
+	           
+		            file : {
+		                    name : fname,
+		                    url : url
+		            },
+		            values : {
+		                    key1 : 'aa',
+		                    key2 : 'bb'
+		                }
+	        		}
+				}, function(ret, err) {
+			        if (ret) {
+			              
+			               var state = ret.state;
+			                
+				           if (state==1) {
+				                        //上传完成
+				              
+				               //alert($api.jsonToStr(ret));
+				             
+				            }else if ( state==0 ){
+				             
+		 
+				            }else if (state==2){
+				                    //上传失败
+				              $api.jsonToStr(ret);
+				             
+			                    
+				            } 
+				            
+				            if(ret.url){
+								//上传后更新storage
+								$api.setStorage('spicurl',ret.url);
+								 
+								 //alert('spicurl'+ret.url);
+								//$api.attr($api.byId('feiye'),'src', ret.url);
+								
+				                 insertstory(ret.url);
+				            }
+				            
+				           
+				        } 
+				         
+		   });
+  
+  
+}
+	
+function insertstory(pic){
+	
+	 if(!checkinput()){
+	     
+	      api.toast({msg: '好的故事简介不可少啊，亲！', location: 'middle'});
+		 
+		  event.preventDefault();
+		  
+		  return;
+	    
+	    }
+	
+	   if (!pic){
+	       api.toast({msg: '图片忘传了，亲！', location: 'middle'});
+		 
+		  event.preventDefault();
+		  
+		  return;
+	   
+	   }
+	  
+	   var values = {
+			userid: $api.getStorage('usr').uid,
+//			storyid: "100001",
+			storyname: $api.val($api.byId('sname')),
+			storymodel: "1",
+			storytitle: $api.val($api.byId('stitle')),
+		    storypic:pic
+	   };
+	 api.showProgress({modal: false});
+	 var model = api.require('model');
+     var query = api.require('query');
+     model.config({appId:'A6974887568667',appKey:'09652FAC-1E1B-D3C4-90BB-2BC09472893F',host: 'https://d.apicloud.com'});
+
+		var param = {class:'story', value:values};
+			model.insert(param, function(ret, err){
+			if(ret){
+				    $api.rmStorage('spicurl');
+				    $api.setStorage('spicid',ret.id);
+				    $api.setStorage('storyid',ret.id);
+				    
+				    var storyid = ret.id;
+				    var storyname = ret.storyname;
+	
+						var values = {
+							storyid: ret.id,
+							pagecontent: $api.val($api.byId('stitle')),
+							pagepic:pic
+						};
+						
+						var param = {class:'storydetail', value:values};
+						model.insert(param, function(ret, err){
+						if(ret){
+						      //
+						  }
+						  else{
+						       if(ret){
+					    			api.toast({msg: ret.msg, location: 'middle'});
+					    		}else if(err){
+					    			api.toast({msg: err.msg, location: 'middle'});
+					    		}else{
+					    			api.toast({msg: '数据错误', location: 'middle'});
+					    		}	
+						   }
+					
+						 })
+					   
+					    api.hideProgress();
+					    
+					    api.confirm({
+							    title: '故事首页创建成功',
+							    msg: '继续添加故事内容？',
+							    buttons:['确定', '取消']
+							},function(ret,err){
+							    if(ret.buttonIndex == 1){
+							      //alert(ret.id+'----'+ret.storyname)
+							       newstorypage(storyid,storyname);  
+							    }
+							    else{
+							       //api.execScript({name:'main', script:'refreshdata();'});
+							      api.execScript({name:'top', script:'refreshdata();'});
+							       api.closeToWin({
+								             name: 'root'
+							             });
+							    }
+							});
+
+	    	}else{
+	    		if(ret){
+	    			api.toast({msg: ret.msg, location: 'middle'});
+	    		}else if(err){
+	    			api.toast({msg: err.msg, location: 'middle'});
+	    		}else{
+	    		    //alert('new--');
+	    			api.toast({msg: '数据错误', location: 'middle'});
+	    		}	
+	    	}
+			});
+	
+}	
+function newstorypage(storyid,storyname){
+ 
+ 
+ if(storyid&&storyname){
+     
+	  api.openWin({
+	        name: 'newstory',
+	        url: '../html/storypage.html',
+	        bounces: false,
+	        pageParam : {'id':storyid,'name':storyname}
+	        });
+  }else{
+    api.toast({msg: '数据错误', location: 'middle'});
+  }
+}
+
+
+function go2back(){
+	var pic = $api.getStorage('spicurl');
+	
+	if((checkmodify())||(pic))
+	{
+	  api.confirm({
+	    title: '重要',
+	    msg: '内容已修改，确定取消本次创作？',
+	    buttons:['确定', '取消']
+		},function(ret,err){
+		    if(ret.buttonIndex == 1){
+		      $api.rmStorage('spicurl');
+		       $api.rmStorage('storyid');
+		     // canelpic();
+		     api.closeToWin({
+	             name: 'root'
+             });
+		    }
+		});
+	}else{
+	 api.closeWin();//关闭此页面
+	
+	}
+}
+
+
+function validateWordNum(event){
+	var value = $api.val($api.byId('stitle'));
+	if(value.length >= 100){
+		api.toast({msg: '您输入的内容已超过100字！', location: 'middle'});
+		event.preventDefault();
+	}
+}
+
+function delWord(el) {
+var input = $api.prev(el, '.txt');
+input.value = '';
+}
+
+function checkinput(){
+    var ret1 = true,ret2=true;
+    var value = $api.val($api.byId('sname'));
+	if(value.length <= 0){
+	 ret1 = false;
+	}
+	
+	value = $api.val($api.byId('stitle'));
+	if(value.length <= 0){
+	 ret2 = false;
+	}
+	
+	return ret1&&ret2;
+	
+}
+
+function checkmodify(){
+    var ret1 = false,ret2=false;
+    
+    var value = $api.val($api.byId('sname'));
+	
+	if(value.length >0){
+	
+	 ret1 = true;
+	
+	}
+	
+	value = $api.val($api.byId('stitle'));
+	if(value.length>0){
+	 ret2 = true;
+	}
+	
+	return ret1||ret2;
+
+} 
+
+function var_dump(o){
+    var str = [];
+    var pre = '';
+    typeof o == 'function' && '';
+    typeof o == 'string' ? alert(o) : alert(each.call(o));
+    function each(o){
+        for (var p in this) {
+            typeof this[p] == 'object' && (pre += '[' + p + '].', each.call(this[p])) || str.push(pre + '[' + p + ']->[' + this[p] + '] /r/n')
+        }
+        return str.join('');
+    }
+}   
+</script>
+</html>

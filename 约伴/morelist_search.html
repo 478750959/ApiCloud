@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+  <head>
+    <title>
+    </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="css/ui-img.css">
+	<link rel="stylesheet" href="css/ui-input.css">
+    <link rel="stylesheet" href="css/ui-res.css">
+    <link rel="stylesheet" href="css/ui-btn.css">
+    <link rel="stylesheet" href="css/ui-base.css">
+    <link rel="stylesheet" href="css/ui-box.css">
+    <link rel="stylesheet" href="css/ui-color.css">
+	<link rel="stylesheet" href="css/ui-list.css">
+	<link rel="stylesheet" href="css/style.css">
+    <script src="js/y_control.js"></script>
+    <script src="js/y_click.js"></script>
+	<script src="js/y_json.js"></script>
+	<script src="js/y_anim.js"></script>
+	<script src="js/y_tmpl.js"></script>
+	<script src="js/dis_control.js"></script>
+	<script src="js/y_icache.js"></script>
+	<script src="js/config.js"></script>
+    <script>
+	</script>
+  </head>
+<body class="um-vp" ontouchstart="zy_cc(this);">
+	<div class="b-gra uc-n" id="list">
+		<div></div> 
+  	</div>
+</body>
+<script>
+zy_init();
+var view = ['forum', 'user', 'album'];
+var index = 0;
+var uid = getstorage('UID');
+var params = getStorJson('params');
+var curpage = 1;
+var totpage = 1;
+var upt = '';
+var update = {};
+var cContent = $$('list');
+var eleKey = $$('keywords');
+var kr = {};
+var ucurl = getstorage('ucurl');
+if(!ucurl) ucurl = guc;
+
+window.uexOnload = function ()
+{
+	setPageBounce(downcb, upcb);
+	zy_initcache();
+	
+	loadSearchRec();
+}
+function downcb(){
+	var kw= getstorage('keywords');;
+	if(kw){
+		upt = '0';
+		update['0'] = 1;
+		loadList('', '');
+	}
+	else resetBV('0');
+}
+function upcb(){
+	if (curpage < totpage) {
+		upt = '1';
+		update['1'] = 1;
+		loadList(curpage + 1, '');
+	}
+	else resetBV('1');
+}
+
+function loadList(pn, flag, rec){
+	var kw= getstorage('keywords');;
+	if (kw){
+		if(rec) searchRec(kw);
+		kw = encodeURIComponent(kw);
+	}
+	
+	var url = search_url + "&mod="+view[index] + "&searchsubmit=yes&page=" + pn +"&kw=" + kw;
+	logs('search-->url='+url);
+	uexWindow.toast('1','5','加载中...',"");
+	$.getJSON(url, loadListCb, 'json', getJsonErr, 'POST', '', flag);
+}
+function loadListCb(json){
+	uexWindow.closeToast();
+	if(update[upt]){
+		update[upt] = 0;
+		resetBV(upt);
+	}
+		
+	if(json){
+		if (Int(json.status)<1) {
+			uexWindow.toast('0','5',json.message,2000);
+			return;
+		}
+		
+		var list = json.list;
+		var length = zy_tmpl_count(list);
+		if(0)//(list && list[0])
+		{
+			var id0 = 0;
+			var id1 = list[0].doid;
+			if(cContent && cContent.children[0] && cContent.children[0].children[0]) id0=cContent.children[0].children[0].id;
+			logs('id0='+id0+', id1='+id1);
+			if(id0==id1) return;
+		}
+		
+		var cp = json.zywy_curpage;
+		var tp = json.zywy_totalpage;
+		
+		if(cp) curpage = Int(cp);
+		if(tp) totpage = Int(tp);
+		if(curpage==1)
+       	{
+       		while(cContent.childElementCount>1)
+       		{
+       			cContent.removeChild(cContent.firstElementChild);
+       		}
+       	}
+		
+		var res = '';
+		if (length > 0) {
+			var tmpl = '${cb:idtype}';
+			res = zy_tmpl(tmpl,list,zy_tmpl_count(list),j2vCb);
+		}
+		else{
+			res = '<div class="uinn8 tx-c">没有搜到你所需要的资料</div>';
+		}
+		
+		
+		var node = document.createElement("ul");
+		node.innerHTML = res;;
+		cContent.insertBefore(node,cContent.lastElementChild);
+        imgCacheCall();
+	}
+}
+function j2vCb(d,c)
+{
+	var str = '';
+	 if(c.length>1)
+	 {
+		switch(c[1])
+		{
+			case 'idtype':
+				if(index==0){
+					str = '<li class="ub umh6 uinn ubb b-gra ub-ac ub-pc" id="'+d.tid+'" ontouchstart="zy_touch(\'c-gra\')" onclick="go2new5('+d.tid+');">'
+							+'<div class="ub-f1 ub ub-ver">'
+								+'<div class="t-bla ulev0 ut-s">'+d.subject+'</div>'
+								+'<div class="t-gra1 ulev-1 ub-f1 umar-t ulh uof">'
+									+d.message
+								+'</div>'
+								+'<div class="ub ub-ac t-gra ulev-2 umar-t"> '
+					 		    	+'<div class="umh2 umw2 ub-img5 im3 lpic"></div> '
+					 		    	+d.replies
+					 		    	+'<div class="umh2 umw2 ub-img5 im4 lpicl lpic"></div> '
+					 		    	+'<div class="ub-f1">'+d.views+'</div>'
+									+'<div class="umh2 umw2 ub-img5 im5 lpic"></div>'
+				 		    	+d.dateline
+					 		   +'</div>'
+							+'</div>'
+							+'<div class="res8 lis-sw ub-img4"></div>'
+						+'</li><li class="ubt1"></li>';
+				}
+				else if(index==1){
+					str = '<li ontouchstart="zy_touch(\'c-gra\')" onclick="go2new5(\''+d.albumid+'\', \''+d.albumname+'\', \''+d.uid+'\');" class="uc-n ubb ub b-gra t-bla ub-ac lis">'
+				  			+'<div class="ub-f1 ub ub-ver">'	     
+				 				+'<div class="ulev-3 t-gra">'+d.username+'</div>'
+				 	    		+'<div class="ulev-3 umh4 t-bla umar-t">'+d.albumname+'</div>'
+				 			+'</div>'
+							+'<div class="lis-th2 ub-img5 uc-a1">'
+				     			+'<img src="'+d.pic+'" class="inforpic" />'
+				     		+'</div>'
+							+'<div class="res8 lis-sw ub-img4"></div>'
+				 		+'</li><li class="ubt1"></li>'; //d.dateline
+				}
+				else if(index==2){					
+					str = '<li ontouchstart="zy_touch(\'c-gra\')" onclick="go2new5('+d.uid+', \''+d.username+'\', \''+d.isfriend+'\');" class="uc-n ubb ub b-gra t-bla ub-ac lis" id="'+d.uid+'">'
+				 			+'<div class="lis-th2 ub-img5 uc-a1">'
+	     						+'<img src="images/loading.gif" class="inforpic" id="uid_'+d.uid+'"/>'
+	     					+'</div> '
+							+'<div class="ub-f1 ub ub-ver">	' 
+				 	    		+'<div class="ulev0 umar-t">'+d.username+'</div>'//<img src="'+pic+'" class="online"/></div>'
+								+'<div>'
+									+'<div class="ub-f1"></div>'
+				    			+'</div> '
+				    			+'<div class="ulev-1 umh4 t-gra ut-s umar-t uof">'+d.message+'</div>'	 
+				 			+'</div> '
+							+'<div class="res8 lis-sw ub-img4"></div>  '    
+				 		+'</li>  '
+						+'<li class="ubt1"></li>';
+						
+                    var src = ucurl + d.uid;
+                    var picid = 'uid_'+d.uid;
+                    pushCacheCall(function(){
+                        dis_imgcache(picid,src,src,imgLoadSucSrc,imgLoadErr,null,'', 1);
+                    });
+				}
+				else if(index==3){
+					str = '<li class="ub umh6 uinn ubb b-gra" id="a_'+d.aid+'" ontouchstart="zy_touch(\'c-gra\')" onclick="go2new5('+d.aid+');">'
+							+'<div class="ub-f1 ub ub-ver">'
+								+'<div class="t-bla ulev0 ut-s">'+d.title+'</div>'
+								+'<div class="t-gra1 ulev-1 ub-f1 umar-t ulh uof maxh">'
+									//+'${content}'
+								+'</div>'
+								+'<div class="ub ub-ac t-gra ulev-2 umar-t"> '
+					 		    	+'<div class="umh2 umw2 ub-img5 im5 lpic"></div>'
+							 		+d.dateline
+					 		    +'</div>'
+							+'</div>'
+							//+'${cb:img}'
+						+'</li><li class="ubt1"></li>';
+				}
+				else{
+					str = '<li ontouchstart="zy_touch(\'c-gra\')" onclick="go2new5('+d.uid+', '+d.blogid+');" class="uc-n ubb ub b-gra t-bla ub-ac lis" id="'+d.blogid+'">'
+							+'<div class="ub-f1 ub ub-ver">'	 
+					    		+'<div class="ulev-3 t-gra">'+d.username+'</div>'		    
+								+'<div class="ulev-3 umh4 t-bla">'+d.subject+'</div>' 
+					    		+'<div class="ub ub-ac t-gra ulev-2">' 
+							    	+'<div class="ub-f1"></div>'
+									+'<div class="umh2 umw2 ub-img5 im5 lpicl lpic"></div>'
+							    	+d.dateline
+							    +'</div>' 
+							+'</div>'
+							+'<div class="res8 lis-sw ub-img4"></div> '   
+						+'</li>'
+						+'<li class="ubt1"></li>';
+				}
+				break;
+		}
+	 }
+	 return str;
+}
+
+function go2new5(a, b, c){
+	//['forum', 'album', 'user', 'portal', 'blog'];
+	var str = '';
+	var wnm = '';
+	var url = '';
+	if(index==0){
+		str = '{"tid":"'+a+'"}';
+		wnm = 'forum_detail';
+	}
+	else if(index==1){
+		str = '{"view":"other", "albumid":"'+a+'", "albumname":"'+b+'", "aluid":"'+c+'"}';
+		wnm = 'album_list';
+	}
+	else if(index==2){
+		str = '{"uid":"'+a+'", "username":"'+b+'", "isfriend":"'+c+'"}';
+		wnm = 'friend_information';
+	}
+	else if(index==3){
+		str = '{"aid":"'+a+'"}';
+		wnm = 'portal_detail';
+	}
+	else {
+		str = '{"uid":"'+a+'", "blogid":"'+b+'"}';
+		wnm = 'blog_detail';
+	}
+	url = wnm + '.html';
+	
+	logs('go2new5()-->index='+index+', params='+str);
+	setstorage('params', str);
+	openwin(wnm, url, '10');
+}
+
+function selected(i){
+	index = i - 1;
+	logs('selected()-->index='+index);
+	
+	var kw = getstorage('keywords');
+	if(kw) loadList('', '', '1');
+}
+
+function searchRec(k){
+	var l = zy_tmpl_count(kr);
+	if(l<6){
+		kr[l] = {};
+		kr[l].kw = k;
+		kr[l].view = view[index];
+	}
+	else{
+		var kk = getstorage('keywords');
+		for(var i=0; i<6; i++){
+			//var kk = eleKey.value;
+			var vv = view[index];
+			
+			if(kr[i].kw==k && kr[i].view==vv) return;
+			
+			if(i!=5){
+				kk = kr[i+1].kw;
+				vv = kr[i+1].view;
+			}
+			kr[i].kw = kk;
+			kr[i].view = vv;
+		}
+	}
+	var str = JSON.stringify(kr);
+	var nm = 'SKW'+uid;
+	setstorage(nm, str);
+}
+function loadSearchRec(){
+	var nm = 'SKW'+uid;
+	kr = getStorJson(nm);
+	var l = zy_tmpl_count(kr);
+	if(l>0){
+		var tmpl = '<div ontouchstart="zy_touch(\'btn-act\')" onclick="search(\'${kw}\', \'${view}\');" class="uc-n ubb ub b-gra t-bla ub-ac umh4 lis"> '  
+			   			+'<div class="ub-f1 ut-s">${kw}</div>'   
+			 		+'</div>'
+					+'<div class="ubt1"></div>';
+		var res = zy_tmpl_r(tmpl,kr,l,null);
+		setHtml(cContent, res+'<div></div>');
+	}
+}
+function search(k, v){
+	logs('search()-->k='+k+', v='+v);
+	//eleKey.value = k;
+	setstorage('keywords', k);
+	uescript('morelist', 'setKeywords();')
+	if(k) zy_show('btnd');
+	var ttl = ['搜内容', '搜用户', '搜相册'];
+	for(var i=0; i<view.length; i++){
+		if(view[i]==v){
+			if (index != i) {
+				var scr = 'index='+(i+1)+'; setHtml("ttl", "'+ttl[i]+'");';
+				uescript('morelist', scr);
+			}
+			index = i;
+			break;
+		}
+	}
+	loadList('', '');
+}
+
+</script>
+</html>

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/common.css"/>
+    <style>
+        .detail-header{
+            border-bottom: 1px solid #CDCDCD;
+            background-color: #DD3237;
+        }
+        .back{
+            background-size: 40px!important;
+            background-image: url("../image/weather_back@2x.png");
+            background-position: right!important;
+        }
+
+        .detail-header a{
+            padding:25px;
+        }
+        .title{
+            color: #FFFFFF;
+            text-align: center;
+            line-height:50px;
+            font-size: 18px;
+        }
+
+        .mine li, .bottom li {
+            display: inline-block;
+            width: 32%;
+            text-align: center;
+            padding: 20px 0 6px;
+            background-size: 30px;
+            background-repeat: no-repeat;
+            background-position: top;
+        }
+
+        .activity {
+            margin: 0 10px;
+        }
+
+        .activity li {
+            position: relative;
+            padding: 15px 0;
+            background-size: 8px;
+            background-repeat: no-repeat;
+            background-position: right;
+            background-image: url("../image/setting_cell_arrow@2x.png");
+            border-bottom: 1px solid #F6F6F6;
+        }
+        .no-arrow{
+            background-image:none!important;
+        }
+        .value {
+            position: absolute;
+            right:20px;
+        }
+
+        .btn {
+            display: block;
+            color: #FFFFFF;
+            margin: 0 40px;
+            text-align: center;
+            border-radius: 8px;
+            height: 40px;
+            line-height: 40px;
+            border: 1px solid #CECECE;
+            background-color:#DD3237 ;
+            margin-top: 20px;
+        }
+        .user-photo{
+            background-position: center center;
+            background-size: 30px;
+            width: 30px;
+            height: 30px;
+            bottom: 7px;
+            background-image: url("../image/user_weiboimage_netease@2x.png");
+        }
+    </style>
+</head>
+<body>
+<header>
+    <div class="header detail-header">
+        <a class="back" tapmode="" onclick="closeWin()"></a>
+        <div class="title" id="title">个人设置</div>
+        <a></a>
+    </div>
+</header>
+<ul class="activity">
+    <li class="no-arrow">
+        <span class="key">通行证</span>
+        <span class="value "></span>
+    </li>
+    <li>
+        <span class="key">头像</span>
+        <span class="value user-photo">
+        </span>
+    </li>
+    <li>
+        <span class="key">昵称</span>
+        <span class="value">北京的雪</span>
+    </li>
+    <li>
+        <span class="key">匿名跟帖</span>
+        <span class="value"></span>
+    </li>
+    <li>
+        <span class="key">我的金币</span>
+        <span class="value">720</span>
+    </li>
+    <li>
+        <span class="key">我的等级</span>
+        <span class="value">跟帖局处长LV8</span>
+    </li>
+</ul>
+<div class="btn" id="login" tapmode="" onclick="logout()">登出</div>
+<script src="../script/zepto.min.js"></script>
+<script>
+    apiready = function () {
+        fixIos7Bar($(".header"));
+    };
+
+
+    function closeWin() {
+        api.closeWin({
+
+        })
+    }
+    function logout() {
+        api.showProgress();
+        var user = api.require('user');
+        user.logout(function(ret, err){
+            api.hideProgress();
+            if(ret){
+                api.confirm({
+                    title: '确定要登出账号?',
+                    buttons:[ '取消', '确定']
+                },function(ret,err){
+                    if(ret.buttonIndex == 2){
+                        localStorage.removeItem('userId');
+                        api.execScript({
+                            name:'user',
+                            script:'checkUserId()'
+                        });
+                        api.execScript({
+                            name:'root',
+                            script:'checkUserId()'
+                        })
+                        closeWin();
+                    }else{
+
+                    }
+                });
+            }else{
+                api.toast({msg: err.message, location: "middle"})
+            }
+        });
+    }
+</script>
+</body>
+</html>

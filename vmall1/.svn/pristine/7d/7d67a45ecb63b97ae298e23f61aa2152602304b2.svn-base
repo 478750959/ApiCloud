@@ -1,0 +1,14 @@
+function openWin(name,pId) {
+	api.openWin({
+		name:name,
+		url:name+'.html',
+                         pageParam:{pId:pId}
+	});
+}
+
+function openFrame(name) {
+	api.openFrame({
+		name:name,
+		url:name+'.html'
+	});
+}

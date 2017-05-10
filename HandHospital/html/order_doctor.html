@@ -1,0 +1,90 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>order</title>
+		<link rel="stylesheet" type="text/css" href="../css/api.css" />
+		<link rel="stylesheet" type="text/css" href="../css/common.css" />
+		<link rel="stylesheet" type="text/css" href="../css/order_doctor.css" />
+	</head>
+	<body>
+		<div id="wrap">
+			<div id="main">
+				<script id="doc-template" type="text/x-dot-template">
+					<div class="headerBg">
+						<h1>{{=it.realName}}</h1>
+					</div>
+					<div class="content">
+						<img tapmode="" class="docHeader" src="{{=it.doctorImg}}"></img>
+						<h1>职称:{{=it.technicalTitle}}</h1>
+						<h2>主治:{{=it.skill}}</h2>
+					</div>
+				</script>
+				
+				<script id="select-template" type="text/x-dot-template">
+					{{ for(var i=0; i<it.length; i++) { }}
+						<div class="select_header" onclick="select(this,'{{=i}}')">
+							<div class="time">
+								<p>
+									{{=it[i].time}}
+								</p>
+								<span>{{=it[i].datetime}}</span>
+							</div>
+							<div class="cost">
+								{{=it[i].cost}}
+							</div>
+							<div class="num">
+								{{=it[i].num}}
+							</div>
+							<div class="select" tapmode="active" >
+								<span class="radiospan radionocheck"></span>
+							</div>
+						</div>
+					{{ } }}
+				</script>
+				
+				<div id="submain">
+					<div class="doctorBg" id="doctorBg">
+						
+					</div>
+					<div class="select_header">
+						<div class="time">
+							就诊时间
+						</div>
+						<div class="cost">
+							费用
+						</div>
+						<div class="num">
+							预约号
+						</div>
+						<div class="select">选择</div>
+					</div>
+					<div id="select-content">
+					</div>
+				</div>
+
+				<section  tapmode="grayActive">
+					<div class="left">
+						预约人
+					</div>
+					<div class="middle">
+						<p id="orderName">
+							张三
+						</p>
+					</div>
+					<a class="right"></a>
+				</section>
+
+				<button class="button blue" id="orderBtn" tapmode="" onclick="order()">
+					确认预约
+				</button>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../script/api.js"></script>
+	<script type="text/javascript" src="../script/zepto.min.js"></script>
+	<script type="text/javascript" src="../script/doT.min.js"></script>
+	<script type="text/javascript" src="../script/constants.js"></script>
+	<script type="text/javascript" src="../script/order_doctor.js"></script>
+</html>

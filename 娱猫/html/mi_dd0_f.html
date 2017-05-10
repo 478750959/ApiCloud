@@ -1,0 +1,390 @@
+<!doctype html>
+<html style="background: #f7f7f7;">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>我的订单</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <!--<link rel="stylesheet" type="text/css" href="../css/common.css"/>-->
+    <link rel="stylesheet" type="text/css" href="../css/ly.css"/>
+    <style>    	
+    	.wushuju{
+    		position:relative;
+    	}
+    	.wushuju_img1{
+    		display:block;
+    		width:1.59rem;
+    		height:1.41rem;
+    		position:absolute;
+    		left:50%;
+    		margin-left:-0.8rem;
+    		top:1.5rem;
+    	}
+    	.wushuju_img2{
+    		top:3.25rem;
+    		left:50%;
+    		margin-left:-2.185rem;
+    		display:block;
+    		width:4.37rem;
+    		height:0.7rem;
+    		position:absolute;
+    	}
+    	.wushuju_btn{
+    		position:absolute;
+    		top:4.8rem;
+    		left:50%;
+    		margin-left:-1.15rem;
+    		height:0.64rem;
+    		width:2.36rem;
+    		text-align:center;
+    		line-height:0.64rem;
+    		font-size:0.32rem;
+    		color:#656564;
+    		border:0.02rem solid #656564;
+    		border-radius:0.1rem;
+    	}
+    </style>
+</head>
+<body style="background: #f7f7f7;">
+<script id="whole" type="text/x-dot-template">
+	{{if(it != ''){  }}
+	{{ for(var i in it) { }}	 
+	<div class="dd_box" id="dd_{{=it[i].id}}" >
+		<div class="xyc_dd_boxTop"  data-id="{{=it[i].id}}" onclick="xycclick(this)" >
+			<div class='xyc_dd_top'>
+				<div class="xyc_dd_topL">订单号：<span>{{=it[i].OrderNo}}</span></div>
+				<div class="xyc_dd_topR">下单日期：<span>{{=it[i].addtime}}</span></div>
+				<div class="xyc_dd_topR">订单状态：<span>
+				{{ switch(it[i].order_status){  }}
+					{{case '0':}}
+						已取消
+					{{break;}}
+					{{case '1':}}
+						待付款
+					{{break;}}
+					{{case '2':}}
+						待发货
+					{{break;}}
+					{{case '3':}}
+						待收货
+					{{break;}}
+					{{case '4':}}
+						待评价	
+					{{break;}}
+					{{case '5':}}
+						已评价	
+					{{break;}}
+					{{case '6':}}
+						退款完成	
+					{{break;}}				
+				{{ } }}
+				</span></div>
+			</div>
+			<a href="javascript:void(0);" class="wrapper" >
+			{{  if(it[i].goods!='') {  }}   	
+			{{ for( var j=0,data=it[i].goods;j<data.length;j++ ){ }}
+				<div class="dd_details_list">
+					<div class="dd_details_img"><img src="{{=data[j].goods_logo}}"></div>
+					<div class="dd_details_txt">
+						<h4>{{=data[j].goods_name}}</h4>
+						<h4>{{=data[j].goods_attribute}}</h4>
+						<h4>x{{=data[j].goods_number}}</h4>	
+					</div>
+					<div class="dd_details_price">
+						<h3>￥<span>{{=data[j].shop_price}}</span></h3>
+					</div>
+				</div>	
+			{{ } }}		
+			{{  }  }}								
+			</a>
+			<p class="ly_sum">共<span>{{=it[i].num}}</span>件商品，合计<em>{{=it[i].Total}}</em>元</p>
+		</div>
+		<p class="bom fix">
+		<!--<a href="javascript:void(0);"  onclick="link_kf()"    class="del rt sub">联系客服</a>-->
+		{{ switch(it[i].order_status){  }}
+		{{case '0':}}
+			<a href="javascript:void(0);" class="del rt delt"    onclick="openFm('mi_dd_mask_f',11,{{=it[i].id}},this)">删除订单</a>
+		{{break;}}
+		{{case '1':}}
+			<a href="javascript:void(0);" class="del rt sub" onclick="openNext('bill_qrdd_w',110,'{{=it[i].id}}','{{=it[i].OrderNo}}')">付款</a>
+			<a href="javascript:void(0);" class="del rt cancle" onclick="openFm('mi_dd_mask_f',12,'{{=it[i].OrderNo}}')">取消订单</a>
+		{{break;}}
+		{{case '2':}}
+			{{ if(it[i].is_remind == '0'){ }}
+			<a href="javascript:void(0);" class="del rt tx" onclick="deLiver({{=it[i].id}},this)">提醒发货</a>
+			{{ }else{ }}
+			<a href="javascript:void(0);" class="del rt tx">提醒成功</a>
+			{{ } }}
+		{{break;}}
+		{{case '3':}}
+		<!--	<a href="javascript:void(0);" class="del rt" onclick="openNext('mi_dd_head_w',7,{{=it[i].id}})">查看物流</a>-->
+			<a href="javascript:void(0);" class="del rt sub" onclick="confirm({{=it[i].id}},this)">确认收货</a>
+		{{break;}}
+		{{case '4':}}
+	<!--		<a href="javascript:void(0);" class="del rt" onclick="openNext('mi_dd_head_w',7,{{=it[i].id}})">查看物流</a>-->
+			<a href="javascript:void(0);" class="del rt" onclick="appraise()">评价订单</a>
+			<a href="javascript:void(0);" class="del rt delt" onclick="openFm('mi_dd_mask_f',11,{{=it[i].id}},this)">删除订单</a>
+		{{break;}}
+		{{case '5':}}
+			<a href="javascript:void(0);" class="del rt delt"    onclick="openFm('mi_dd_mask_f',11,{{=it[i].id}},this)">删除订单</a>
+		{{break;}}
+		{{ } }}
+			
+		</p>				
+	</div>
+	{{ } }}
+	{{ }else{ }}
+	{{ } }}	
+</script>
+<div id="wrap">
+    <div id="main">
+    	<div class="wushuju none">
+			<img src='../image/dd_noneicon.png' class='wushuju_img1'/>
+			<img src='../image/dd_nonetxt.png' class='wushuju_img2'/>
+			<div class="wushuju_btn"    onclick="to_gg()">去逛逛</div>
+    	</div>
+		<!--        、、、、、、、、、、、 全部 、、、、、、、、、                          -->
+		
+		<div class="dd_all quanbu" id="all">	
+			
+		</div>
+
+    </div>
+    <!--        、、、、、、、、、、、 提醒成功蒙版、、、、、、、、、                          -->
+    <div class="ly_mask ly_dy none">
+	    <p>提醒成功！</p>
+    </div>  	
+</div>	
+<input type='hidden' name='totalNum' value='0'>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/comm.js"></script>
+<!--<script type="text/javascript" src="../script/debug.js"></script>-->
+<script type="text/javascript" src="../script/doT.min.js"></script>
+<script type="text/javascript" src="../script/font.js"></script>
+<script type="text/javascript" src="../script/zepto.js"></script>
+<script type="text/javascript" src="../script/ly.js"></script>
+<script>
+	function link_kf(){
+		api.openWin({
+				name : 'mi_sethead_w',
+				url : 'mi_sethead_w.html',
+				opaque : true,		
+				slidBackEnabled:false,	
+				vScrollBarEnabled : false,
+				pageParam : {
+					count : 2
+				}
+			});
+	}
+	function to_gg(){
+		api.execScript({
+			name:'root',
+	        script: 'xyc_stroll();'
+        });
+	}
+	function  appraise(){
+			var param={'xci':'dpj','from':'dd0'};							
+			api.openWin({
+		        name: 'mi_dd_tab_head_w',
+		        url: 'mi_dd_tab_head_w.html',
+		        opaque: true,
+		        reload:true,
+		        opaque : true,		
+				slidBackEnabled:false,	
+				vScrollBarEnabled : false,
+		        pageParam:param
+		    });			
+	}
+	function xycclick(obj){
+		var id = $(obj).attr("data-id");
+		api.openWin({
+	        name: 'mi_dd_details_w',
+	        url: 'mi_dd_details_w.html',
+	        reload:true,
+	   		vScrollBarEnabled: false,
+	   		pageParam:{id:id}
+        });
+	}
+	//点击支付跳转到结算页面
+	function confirm(id,obj){
+		var info = is_login();
+		var param={};
+		if (!info) {
+			to_login();
+			return false;
+		}else{
+			for (var p in info) {
+			param[p] = info[p];
+			}
+		   param.id=id;
+			ajaxRequest('order/charge', 'post', param,function(ret,err){
+				if(err){
+					api.toast({
+						msg:err.msg
+					});
+					return false;
+				}
+				if(ret.status){
+					api.toast({
+						msg:ret.info
+					});
+					$(obj).parent("p").parent("div").css("display","none");
+				}else{
+					api.toast({
+						msg:ret.info
+					});
+				}
+			})
+		}
+	}
+	function deLiver(id,obj){
+	var info = is_login();
+	var param={};
+		if (!info) {
+			to_login();
+			return false;
+		}else{
+			for (var p in info) {
+			param[p] = info[p];
+			}
+		   param.id=id;
+			ajaxRequest('order/remind', 'post', param,function(ret,err){
+				
+				if(err){
+					api.toast({
+						msg:err.msg
+					});
+					return false;
+				}
+				if(ret.status){
+					api.toast({
+						msg:ret.info
+					});
+					$(obj).text("提醒成功");
+				}else{
+					api.toast({
+						msg:ret.info
+					});
+				}
+	
+			})
+		}
+	
+	}
+	function openNext(xyc,count,id,OrderNo) {
+		api.openWin({
+	        name: xyc,
+	        url: xyc+'.html',
+	        opaque: true,
+	        reload:true,
+	        delay: 500,
+	        vScrollBarEnabled: false,
+	        pageParam:{count:count,id:id,status:3,OrderNo:OrderNo}
+	    });
+	}
+	function openFm(xyc,count,id){
+//		var name = 'mi_dd_mask_f';
+//		window.event? window.event.cancelBubble = true : e.stopPropagation();
+	    var width = api.winWidth;
+	    var height = api.winHeight;
+	    api.openFrame({
+		    name: xyc,
+		    url: xyc+'.html',
+		    bounces: false,
+		    opaque: false,
+		    reload: true,
+		    vScrollBarEnabled: false,
+		    pageParam:{count:count,id:id},
+		    rect: {
+		        x: 0,
+		        y: 0,
+		        w: width,
+		        h: height
+		    }
+		});	
+		
+	}
+
+	//对应的页面分页
+	
+
+	function getData(page) {		   
+	    var param = {};
+   		var info = is_login();
+		if (!info) {
+			to_login();
+		}
+		for (var p in info) {
+			param[p] = info[p];
+		}
+	   
+	    	 api.showProgress({
+		        title: '加载中',
+		        modal: false
+		    });
+//	    api.hideProgress();
+	    param.page = page;
+	    ajaxRequest('order/total', 'post',param, function (ret,err) {
+	    	api.hideProgress();
+	    	api.parseTapmode();
+	        if (ret.status && !isEmpty(ret.info.data)) {
+	        	$('.wushuju').addClass('none');
+	            var content = $api.dom('#all');
+	            var tpl = $api.byId('whole').text;
+	            var tempFn = doT.template(tpl);
+	            $('input[name=totalNum]').val(ret.info.page);
+	            if(page==0){	
+//	            		$api.html(content,'');            	
+						$('#all').empty();
+	            	  	$api.html(content, tempFn(ret.info.data));
+	            }else{
+	            	  $api.append(content, tempFn(ret.info.data));
+	            }		      	           
+	         }else{
+	         		$('.wushuju').removeClass('none');
+//	         		alert(1);
+	         		$('#all').html('');
+	         }
+	    });
+	}
+	apiready = function(){
+		getData(0);
+		var currentPage = 0;
+		api.setRefreshHeaderInfo({
+			visible : true,
+			bgColor : '#2e364a',
+			textColor : '#fff',
+			textDown : '下拉刷新...',
+			textUp : '松开刷新...',
+			showTime : true
+		}, function(ret, err) {				
+			getData(0);
+			currentPage=0;
+			api.refreshHeaderLoadDone();
+		});
+		//滚动到底部
+		api.addEventListener({
+		    name:'scrolltobottom'
+		},function(ret,err) {
+			var totalNum=$('input[name=totalNum]').val();
+			if(currentPage < (totalNum - 1)) {			
+				currentPage++;
+		    	getData(currentPage);
+		    }
+		})
+		api.addEventListener({
+	        name:'get_tab'
+        },function(ret,err){       	
+        	getData(0);
+        	currentPage=0;
+        });		
+	}
+	function del(id){
+		$("#dd_"+id).addClass('none');
+	}
+</script>
+</html>
+
+
+

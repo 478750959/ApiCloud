@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>精选</title>
+<meta charset="utf-8">
+<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+<link rel="stylesheet" href="../css/base.css">
+
+<style>
+	html, body{
+		width: 100%;
+		height: 100%;
+	}
+	body{
+		/*background-color: #FAFAFA;*/
+		background-color: #E6E6E6;
+
+	}
+	ul,li{
+		list-style: none;
+	}
+	ul{
+		width: 100%;
+	}
+	li{
+		display: -webkit-box;
+		border-bottom: 1px solid #e0e0e0;
+		line-height: 50px;
+		height: 50px;
+		background-color: #FFFFFF;
+	}
+	.left{
+		-webkit-box-flex: 1;
+		width: 100%;
+		/*display: -webkit-box;*/
+		font-size: 1.1em;
+		padding-left: 10px;
+		-webkit-box-align: center;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+		overflow: hidden;
+	}
+	.right{
+		width: 25px;
+		display: -webkit-box;
+		background: url(../image/forward.png) no-repeat center;
+		-webkit-background-size: 10px 17px;
+	}
+	.listActive{
+		/*background-color: #0fc !important;*/
+		background-color: #fff !important;
+	}
+	.nodata{
+		display: -webkit-box;
+		-webkit-box-align: center;
+		-webkit-box-pack: center;
+		background-color: #FAFAFA;
+		-webkit-box-flex: 1;
+		font-size: 14px;
+		padding-top: 40px;
+	}
+	.loadmore {height: 40px; line-height: 40px; text-align: center; font-size: 14px;border-top: 1px solid #e0e0e0;display: none;}
+
+	.activity-card {margin: 10px; background-color: #fafafa; border-radius: 5px;}
+	.activity-img {padding: 10px;}
+	.activity-img img {width: 100%; border-radius: 5px;}
+	.activity-title {text-align: center; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding: 10px 10px 20px 10px; font-size: 1.1em;}
+	
+</style>
+</head>
+<body>
+	<div id="main">
+		<!-- <div class="activity-card">
+			<div class="activity-img">
+				<img src="../image/360activitycover01.jpg" alt="">
+			</div>
+			<div class="activity-title">
+				经过测试你说的什么的呢我u是的
+			</div>
+		</div> -->
+			<!-- <li tapmode="listActive" onclick="beforeActivityDetail(1)">
+			<div class="left">经过测试你说的什么的呢我u是的</div>
+			<a class="right"></a>
+			</li> -->
+	</div>
+	<div class="loadmore">
+		加载更多
+	</div>
+</body>
+<script src="../script/api.js"></script>
+<script src="../script/common.js"></script>
+<script>
+	var pageIndex = 0;
+	var inLoading = false;
+	var needLoadMore = false;
+	var jsonList = [];
+
+	var totalcount      = 0;
+	var alreadyshow     = 0;
+	var limitItemNum	= 5;
+
+	var model ;
+	var query ;
+	var isReload_;
+	
+	apiready = function() {
+		api.showProgress({
+			modal: false
+		});
+
+		model = api.require('model');
+		query = api.require('query');
+		model.config({
+			 appId : 'A6974887568667',
+	   		 appKey : '09652FAC-1E1B-D3C4-90BB-2BC09472893F',
+	   		 host: 'https://d.apicloud.com/'
+		});
+
+		//下拉到页面底部，加载更多
+		api.addEventListener({
+			name: 'scrolltobottom'
+		}, function() {
+			var loadmore = $api.dom('.loadmore');
+            
+			if (alreadyshow <= totalcount ) {
+				loadmore.style.display = 'block';
+				api.showProgress({title: '加载更多……',modal: true });
+				loadData(false);
+			}
+			else {
+				loadmore.style.display = 'none';
+			}
+
+//			 if (needLoadMore) {
+//			 	loadData(false);
+//			 }
+		});
+		//下拉刷新
+		api.setRefreshHeaderInfo({
+			visible: true,
+			// bgColor: '#F2F2F2',
+			bgColor: '#E6E6E6',
+			textColor: '#000000',
+			textDown: '下拉刷新',
+			textUp: '释放刷新',
+		}, function(ret, err) {
+		    getTotalNum();
+		   // alert(alreadyshow+'--'+totalcount);
+		    alreadyshow = 0;
+		    jsonList = [];
+		    $api.html($api.byId('main'), '')
+		    // api.hideProgress();
+		    //api.refreshHeaderLoadDone();
+			loadData(true);
+		});
+
+		getTotalNum ();
+//		alert('1--'+totalcount);
+		loadData(true);
+	};
+
+	function setAllcount (ret, err) {
+		if (ret) {
+			totalcount = ret.count
+			// alert(JSON.stringify(ret));
+		}
+		else{
+			// alert(JSON.stringify(err));
+		}
+	}
+
+	// 获取全部表中全部条目
+	function getTotalNum () {
+		query.createQuery(function(ret, err) {
+			if (ret && ret.qid) {
+				var queryId = ret.qid;
+				model.count({
+					class: "story",
+					qid: queryId
+				}, setAllcount);
+			}
+		});
+	}
+
+	function ajaxBack(ret, err) {
+	
+		inLoading = false;
+		if (ret) {
+			if (ret.length > 0) {
+				// jsonList = ret;
+				// var html = createContent();
+				// pageIndex++;
+				// $api.html($api.byId('main'), '<ul id="list">' + html + '</ul>');
+				jsonList = jsonList.concat(ret);
+				var html = createContent();
+				pageIndex++;
+				alreadyshow += limitItemNum;
+				$api.append($api.byId('main'), html);
+				
+				api.refreshHeaderLoadDone();
+				setTimeout(function() {
+					api.hideProgress();
+				}, 300);
+
+				api.parseTapmode();
+			} else if (ret.length == 0) {
+				api.refreshHeaderLoadDone();
+				api.hideProgress();
+				if (isReload_) { //如果是刷新
+					var html = '<div class="nodata">暂无活动</div>';
+					$api.html($api.byId('main'), html);
+				}
+			}
+
+			if (pageIndex < ret.pages) {
+				needLoadMore = true;
+			} else {
+				needLoadMore = false;
+			}
+		} else {
+			api.refreshHeaderLoadDone();
+			api.hideProgress();
+			if (ret) {
+				api.toast({
+					msg: ret.msg,
+					location: 'middle'
+				});
+			} else if (err) {
+				api.toast({
+					msg: err.msg,
+					location: 'middle'
+				});
+			} else {
+				api.toast({
+					msg: '数据错误',
+					location: 'middle'
+				});
+			}
+			var html = '<div class="nodata">数据错误，请下拉刷新重试！</div>';
+			$api.html($api.byId('main'), html);
+		}
+	}
+
+	function loadData(isReload_) {
+		if (inLoading) { //如果还在加载中，不执行操作
+			return;
+		}
+		inLoading = true;
+		if (isReload_) { //下拉刷新，即重新载入,pageIndex为0
+//		 getTotalNum ();
+//		 alreadyshow = 0;
+		 pageIndex = 0;
+		}
+
+		query.createQuery(function(ret, err) {
+			if (ret && ret.qid) {
+				var queryId = ret.qid;
+
+				// 设置limit
+				query.skip({qid: queryId, value:parseInt(alreadyshow)+''});
+				query.limit({qid: queryId, value:limitItemNum+''});
+				query.desc({qid: queryId, column: 'createdAt'});
+				
+				model.findAll({
+						class: "story",
+						qid: queryId
+					},
+					ajaxBack);
+			}
+
+		});
+	}
+
+	function createContent() {
+		var html = '';
+		for (var i = alreadyshow; i < jsonList.length; i++) {
+			html += '<div class="activity-card" tapmode="listActive" onclick="beforeActivityDetail('+i+')">';
+			html += '<div class="activity-img"><img src="' + jsonList[i].storypic + '" width="75px" height="200px"/></div>';
+			html += '<div class="activity-title">' + jsonList[i].storytitle + '</div></div>';
+
+			// html += '<li tapmode="listActive" onclick="beforeActivityDetail(' + i + ')">';
+			// html += '<div class="left">' + jsonList[i].aname + '</div>';
+			// html += '<a class="right"></a>';
+			// html += '</li>';
+		}
+		return html;
+	}
+	
+function refreshdata(){
+alert('refreshdata');
+ getTotalNum ();
+ loadData(true);
+
+}
+
+function beforeActivityDetail(index) {
+  //  alert(jsonList[index].id);
+	activityDetail(jsonList[index].id);
+}
+
+function activityDetail(id) {
+	api.openWin({
+		name: 'storycard',
+        url: '../html/storycard.html',
+		pageParam: {
+			id: id
+		},
+		showProgress: true
+	});
+}
+</script>
+</html>

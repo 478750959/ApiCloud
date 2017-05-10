@@ -1,0 +1,193 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>user</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/common.css"/>
+    <style>
+        .unlogin {
+            border-bottom: 1px solid #9D8C7B;
+        }
+
+        .unlogin img {
+            width: 100%;
+            -webkit-filter: blur(8px);
+            opacity: .7;
+        }
+
+        .user-img {
+            position: absolute;
+            top: 20px;
+            width: 75px;
+            height: 75px;
+            left: 0;
+            right: 0;
+            margin: auto;
+            border: 5px solid #9F9887;
+            border-radius: 100%;
+        }
+
+        .user-img img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .login {
+            width: 90px;
+            padding: 5px 10px;
+            position: absolute;
+            top: 110px;
+            left: 0;
+            right: 0;
+            margin: auto;
+            background-color: #3BBB65;
+            color: #FFFFFF;
+        }
+
+        .category {
+            margin-top: 5px;
+            border-bottom: 1px solid #bebebe;
+        }
+
+        .category li {
+            display: inline-block;
+            width: 24%;
+            text-align: center;
+            padding: 20px 0 10px;
+            background-size: 30px;
+            background-repeat: no-repeat;
+            background-position: top;
+        }
+
+        .category li span {
+            margin: 15px 10px 0 10px;
+        }
+
+        .order {
+            background-image: url("../image/user_menu_order@2x.png");
+        }
+
+        .chat {
+            background-image: url("../image/user_menu_chat@2x.png");
+        }
+
+        .snap_up {
+            background-image: url("../image/user_menu_snap_up@2x.png");
+        }
+
+        .coupon {
+            background-image: url("../image/user_menu_coupon@2x.png");
+        }
+
+        .user-setting li:not(:last-child) {
+            position: relative;
+            padding: 3px 10px;
+            background-size: 20px;
+            background-repeat: no-repeat;
+            background-position: 95%;
+            background-image: url("../image/arrow_grey_right_normal.png");
+        }
+
+        .user-setting li:last-child {
+            position: relative;
+            padding: 3px 10px;
+        }
+
+        .user-setting li:last-child span {
+            padding: 10px 0 10px 50px;
+        }
+
+        .user-setting li:last-child div {
+            position: absolute;
+            right: 5%;
+            top: 13px;
+            color: #e6e6e6;
+            font-size: 10px;
+        }
+
+        .user-setting li span {
+            display: block;
+            padding: 10px 50px;
+            background-size: 20px;
+            background-repeat: no-repeat;
+            background-position: 5%;
+
+        }
+
+        .subscribe {
+            background-image: url("../image/user_menu_subscribe@2x.png");
+        }
+
+        .favorite {
+            background-image: url("../image/user_menu_favorite@2x.png");
+        }
+
+        .comment {
+            background-image: url("../image/user_menu_comment@2x.png");
+        }
+
+        .bankcard {
+            background-image: url("../image/user_menu_bankcard@2x.png");
+        }
+
+        .message {
+            background-image: url("../image/user_menu_message@2x.png");
+        }
+
+        .setting {
+            background-image: url("../image/user_menu_setting@2x.png");
+        }
+
+        .update {
+            background-image: url("../image/user_menu_update@2x.png");
+        }
+    </style>
+</head>
+<body>
+<div class="unlogin" tapmode="" onclick="login()">
+    <img src="../image/t1.jpg">
+    <button class="login" >立即登录</button>
+</div>
+<div class="user-img">
+    <img src="../image/user_avatar_unlogin@2x.png">
+</div>
+<div class="content">
+    <ul class="category">
+        <li class="order" tapmode="" onclick="login()"><span>
+            我的订单
+        </span></li>
+        <li class="chat" tapmode="" onclick="login()"><span>
+            同团聊
+        </span></li>
+        <li class="snap_up" tapmode="" onclick="login()"><span>
+            我的抢购
+        </span></li>
+        <li class="coupon" tapmode="" onclick="login()"><span>
+            优惠卡券
+        </span></li>
+
+    </ul>
+    <ul class="user-setting">
+        <li tapmode="liActive" onclick="login()"><span class="subscribe">特价订阅</span></li>
+        <li tapmode="liActive" onclick="login()"><span class="favorite">我的收藏</span></li>
+        <li tapmode="liActive" onclick="login()"><span class="comment">我的点评</span></li>
+        <li tapmode="liActive" onclick="login()"><span class="bankcard">我的银行卡</span></li>
+        <li tapmode="liActive" onclick="login()"><span class="message">消息通知</span></li>
+        <li tapmode="liActive" onclick="login()"><span class="setting">设置</span></li>
+        <li tapmode="liActive" onclick="login()"><span class="update">版本更新</span><div>已是最新版本</div></li>
+    </ul>
+</div>
+</body>
+<script type="text/javascript" src="../script/zepto.min.js"></script>
+<script>
+    function login() {
+        api.openWin({
+            name: 'win_login',
+            url: 'win_login.html',
+            bounces: false
+        })
+    }
+</script>
+</html>

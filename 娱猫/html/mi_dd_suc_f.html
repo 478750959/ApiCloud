@@ -1,0 +1,65 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>感谢评价</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <!--<link rel="stylesheet" type="text/css" href="../css/common.css"/>-->
+    <link rel="stylesheet" type="text/css" href="../css/ly.css"/>
+</head>
+<body style="background: #fff;">
+<div id="wrap">
+	<header id='header'>
+		<div class="miHeader">
+        	<!--<a href='javascript:;' class='head_icon back' onclick='api.closeWin();'></a>-->
+        	<span class='mi_head_txt'>感谢评价</span>
+        </div>
+	</header>
+    <div id="main">
+		<div class="pj_suc">
+			<img src="../image/ly_gift.jpg"/>
+			<p>感谢您的评价！</p>
+		</div>
+    </div>
+</div>	
+<div class="fix pj_fb">
+	<a href="javascript:void(0);" class="go" onclick="openNext('mi_dd_tab_head_w')">确定</a>
+</div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/font.js"></script>
+<script>
+	function openNext(xyc){
+			var param={};			
+			if(api.pageParam.is_all=='all'){
+				  param={'xci':'dd0'};	
+			}else if(api.pageParam.is_all=='not_all'){
+				param={'xci':'dpj'};
+			}		 				
+			api.openWin({
+		        name: xyc,
+		        url: xyc+'.html',
+		        opaque: true,
+		        reload:true,
+		        opaque : true,		
+				slidBackEnabled:false,	
+				vScrollBarEnabled : false,
+		        pageParam:param
+		    });				
+}
+	apiready=function(){		
+		var header = $api.byId('header');
+   	    $api.fixIos7Bar(header);
+		api.addEventListener({
+	        name:'keyback'
+        },function(ret,err){
+        	openNext('mi_dd_tab_head_w');
+        });           	     
+	}
+</script>
+</html>
+
+
+
+

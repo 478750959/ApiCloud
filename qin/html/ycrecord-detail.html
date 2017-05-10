@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+<head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+     <link rel="stylesheet" href="../css/api.css">
+     <link rel="stylesheet" href="../css/common.css">
+    <title>已取消用车</title>
+    <style>
+        #wrap{
+           background: #F0F0F0;
+        }
+
+        #header span{
+          height: 44px;
+          line-height: 44px;
+         }
+
+      .head-left{
+       float: left;
+       margin-left:10px;
+       font-size: 11pt;
+       background: url(../image/wallet_base_action_bar_back_normal.png) no-repeat;
+       background-position: left center;
+       background-size: 20% 30%;
+       margin-left: -5px;
+       }
+
+       .head-left p{
+        margin-left: 25px;
+        margin-top:1px;
+       }   
+       h3{
+           font-weight: normal;
+           color: red;
+        }
+       #result1{
+        height: 150px;
+       }
+        #result2{
+        height: 180px;
+        /*display: none;*/
+       }
+       .result{
+          clear:both;
+          text-align: center;
+          /*height: 150px;*/
+          line-height: 20px;
+          padding-top: 5px;
+          /*padding-bottom:  5px;*/
+          background: white;
+          border-bottom: 1px solid rgba(0,0,0,.2);
+          border-top: 1px solid rgba(0,0,0,.2);
+       }
+       .result p{
+        color: gray;
+       /* margin-top: 10px;*/
+       font-size: 16px;
+      }
+
+      .result p:first-child{
+        margin-bottom: 15px;
+      }
+       .alignleft{
+        width: 250px;
+        margin: 0 auto;
+        text-align: left;
+        margin-top: 10px;
+       }
+        #cheinfo{
+          width: 100%;
+          height: auto;
+          background: white;
+
+        }
+        #che-left{
+          float: left; 
+         /* background:url(../image/co-19.jpg) no-repeat left center;
+          background-size:*/ 
+          width: 20%;
+          /*margin-left: 10px;*/
+          padding-left: 10px;
+         
+          margin-top: 10px;
+        }
+        #che-left img{
+          border-radius: 50%;
+        }
+        #che-right{
+          float: left; 
+          width: 75%;
+          text-align: left;
+          padding-top: 10px;
+           padding-left: -10px;
+
+        }
+        #che-right p{
+          margin-top: 8px;
+        }
+
+        #pic{
+          width: 100%;
+          padding-top: 10px;
+
+        }
+        #pic img{
+          width: 42%;
+          margin-left: 5%;
+          padding-top: 10px;
+
+        }
+        #redo{
+          width: 90%;
+          margin: 0 auto;
+          margin-top:15px;
+          
+
+        }
+       .tel{
+         width: 100%;    
+         height: 32px;
+
+        
+         background-color: #E33801;
+         color: white;
+         
+
+       }
+    </style>
+</head>
+<body>
+    <div id="wrap">
+    <div id="header">
+            <span class="head-left" tapmode onclick="goback()"><p>我的用车记录</p></span>
+        </div>
+      
+        <div id="main">
+            <div id="result1" class="result">
+                <h3>您已取消本次用车</h3>
+                <p>用车费已全部退回</p>
+                <p class="alignleft">出&nbsp;发：<span>04月19日(周日)09:40</span></p>
+                <p class="alignleft">起&nbsp;点:<span>北京市昌平区西大街</span></p>
+                <p class="alignleft">终&nbsp;点:<span>韦伯豪家园</span></p>
+            </div>
+
+            <div id="result2" class="result">
+                <h3>本次用车完成</h3>
+                <p class="alignleft">出&nbsp;发：<span>04月19日(周日)09:40</span></p>
+                <p class="alignleft">起&nbsp;点:<span>北京市昌平区西大街</span></p>
+                <p class="alignleft">终&nbsp;点:<span>韦伯豪家园</span></p>
+                <p class="alignleft">用车费:<span>￥28</span></p>
+                <p class="alignleft">实&nbsp;付:<span>￥1元(使用1元体验券)</span></p>
+            </div>
+
+             <div id="result3" class="result">
+                 <h3>非常抱歉，这次木有车主接单</h3>
+                <p>请猛戳用车<a href="">用车小绝招</a></p>
+                <p class="alignleft">出&nbsp;发：<span>04月19日(周日)09:40</span></p>
+                <p class="alignleft">起&nbsp;点:<span>北京市昌平区西大街</span></p>
+                <p class="alignleft">终&nbsp;点:<span>韦伯豪家园</span></p>
+            </div>
+
+            <div id="cheinfo">
+                <div id="che-left">
+                  <img src="../image/co-19.jpg" width="48px" height="48px "  alt="头像" >
+                </div>
+                <div id="che-right">
+                  <h3>李先生</h3>
+                  <p class="star">评价:46|信用12</p>
+                  <p>舒适型</p>
+                  <p>黑色 大众迈腾 车牌号码 ***R28</p>
+                </div>
+                <div id="pic">
+                  <img src="../image/car_photo_positive.png" alt="">
+                  <img src="../image/car_photo_45_degree.png" alt="">
+                </div>
+
+            </div>
+            <div id="redo">
+             <input type="button" class="tel" value="再次用车">
+             </div>
+        </div>  
+        </div>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>          
+</body>
+</html>

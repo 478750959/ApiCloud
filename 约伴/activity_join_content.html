@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+  <head>
+    <title></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="css/ui-input.css">
+    <link rel="stylesheet" href="css/ui-btn.css">
+    <link rel="stylesheet" href="css/ui-img.css">
+    <link rel="stylesheet" href="css/ui-res.css">
+    <link rel="stylesheet" href="css/ui-list.css">
+    <link rel="stylesheet" href="css/ui-base.css">
+    <link rel="stylesheet" href="css/ui-box.css">
+    <link rel="stylesheet" href="css/ui-color.css">
+	<link rel="stylesheet" href="css/ui-tab.css">
+	<link rel="stylesheet" href="css/style.css">
+    <script src="js/y_control.js"></script>
+    <script src="js/y_click.js"></script>
+	<script src="js/dis_control.js"></script>
+	<script src="js/y_json.js"></script>
+	<script src="js/config.js"></script>
+    <script src="js/y_anim.js"></script>
+    <script src="js/y_msg_yueha.js"></script>
+    <script src="js/project/profile.js"></script>
+    <script>
+
+	</script>
+  <style>
+      .ps{
+          margin: 0px;
+          border: 0px;
+          width: 100%;
+          height: 100%;
+          -webkit-appearance: none;
+          padding: .4em 0;
+          line-height: 1.2em;
+          background: none;
+          text-decoration: none;
+          font-size: 0.875em;
+          display: block;
+      }
+      .p_title{
+          min-width: 4em;
+      }
+  </style>
+  </head>
+<body class="um-vp">
+<div class="uc-a uinn18 uhide" id="wrap">
+    <form name="postform" id="postform">
+        <div class="uc-tl uc-tr" id="profilebox">
+
+        </div>
+    </form>
+    <div style="height:.5em;"></div>
+</div>
+
+</body>
+<script>
+zy_init();
+var params = getStorJson('params');
+var tid = params.tid;
+var htmls = '';
+var o_single = ''//仅仅是配合profile.js
+
+window.uexOnload = function (){
+    loadprofile(tid, '');
+};
+function submit(){
+    apply_submit(tid);
+}
+function closepop_apply(){
+    uescript('activity_join', 'closewin();');
+}
+
+function apply_submit(tid){
+    if(!checkinput()) return;
+    if(going) return;
+    going = 1;
+    uexWindow.toast('1', '5', '正在提交，请稍候...', '');//500ms后关闭toast
+    var value = '';
+    var url = forum_url + '&mod=ajax&action=activityapplies&submit=1&tid='+tid;
+    for(var key in htmls){
+        value = $$('postform')[key].value;
+        if(value) value = encodeURIComponent(value);
+        url += '&' + key +'=' + value;
+    }
+
+    $.getJSON(url, function(json) {
+        going = 0;
+        //var str = '报名成功';
+        var str = '已提交发起者审核，请耐心等待';    // 更新提示语 by tom 20150331
+
+        if(json==0) str = '报名失败';
+        else if(json && (int(json.status) == 0 || int(json.status) == 2)){//2参加过
+            if (json.message)  str = json.message;
+        } else{
+            uescript('forum_detail', 'joinResult("")');
+            ueppscript('forum_detail', 'content', 'add_members();');
+        }
+        uexWindow.toast('0', '5', str, 1500);
+        setTimeout('closepop_apply();', 1500);
+    }, 'json', getJsonErr, 'POST', '', '');
+}
+
+function go2mobiles(){
+    //sl.style.readonly = "true";
+    var str = '{"view":"activity_join_content"}';
+    setstorage('params',str);
+    uexWindow.toast('0', '5', '输入新的手机号需要手机验证', 2500);
+    setTimeout(function(){
+      openwin('verify_mobile', 'verify_mobile.html', '10');
+    }, 1500);
+}
+//报名手机号验证后，自动带会手机号,供跨窗口调用
+function getJoininfor(){
+    var params = getStorJson('params');
+    var view = params.view;
+    var mobile = params.mobile;
+    if(view=='verify_mobile'){
+        if(!mobile) return ;
+        setValue('mobile', mobile);
+    }
+}
+</script>
+</html>

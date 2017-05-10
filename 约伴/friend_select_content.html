@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+  <head>
+    <title>
+    </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+   	<link rel="stylesheet" href="css/ui-img.css">
+	<link rel="stylesheet" href="css/ui-input.css">
+    <link rel="stylesheet" href="css/ui-res.css">
+    <link rel="stylesheet" href="css/ui-btn.css">
+    <link rel="stylesheet" href="css/ui-base.css">
+    <link rel="stylesheet" href="css/ui-box.css">
+    <link rel="stylesheet" href="css/ui-color.css">
+	<link rel="stylesheet" href="css/ui-list.css">
+	<link rel="stylesheet" href="css/style.css">
+    <script src="js/y_control.js"></script>
+    <script src="js/y_click.js"></script>
+	<script src="js/dis_control.js"></script>
+	<script src="js/y_json.js"></script>
+	<script src="js/y_icache.js"></script>
+	<script src="js/y_tmpl.js"></script>
+	<script src="js/y_slide.js"></script>
+	<script src="js/config.js"></script>
+    <script>
+	</script>
+    <style>
+        input[type="radio"]:checked+div.tp-fuid {
+            background-image: url(./images/icon-check.png) ;
+        }
+        input[type="radio"]+div.tp-fuid {
+            background-image: url(./images/icon-uncheck.png) ;
+        }
+        .umw15 {
+            min-width:1.5em;
+        }
+    </style>
+  </head>
+<body class="um-vp c-gra5" ontouchstart>
+    <!--1度人脉-->
+    <div class="b-gra uc-n" id="list">
+        <div></div>
+    </div>
+</body>
+<script>
+zy_init();
+var params = getStorJson('params');
+var tag_friends = {};//如果不声明就是数组
+tag_friends = getStorJson('tag_friends');
+var uid = getstorage('UID');
+var selected_users = {};
+var ucurl = getstorage('ucurl');
+if(!ucurl) ucurl = guc;
+var curpage = 1;
+var totpage = 1;
+var upt = '';//0,顶部弹动，1，底部弹动
+var update = {};
+var going = 0;
+var fromCache = 0;
+window.uexOnload = function ()
+{
+	//setPageBounce(downcb, upcb);
+	zy_initcache();
+
+    load1dFriends('', '1');
+    if(fromCache) load1dFriends('', '');
+};
+
+function downcb(){
+    upt = '0';
+    update['0'] = 1;
+    load1dFriends('', '');
+}
+function upcb(){
+	if (curpage < totpage) {
+        upt = '1';
+        update['1'] = 1;
+        load1dFriends(curpage+1, '');
+	}
+	else{
+        resetBV('1');
+    }
+}
+
+function load1dFriends(pn, flag){
+    if(going) return;
+    var url = home_url + '&mod=space&do=friend&bigpage=1&page='+ pn;
+    going = 1;
+    fromCache = checkKey(url);
+    if(!fromCache) uexWindow.toast('1','5','加载中...',"");
+    var f = pn?'':'1';
+    $.getJSON(url, loadListCb, 'json', getJsonErr, 'POST', '', flag, f);
+}
+
+function loadListCb(json){
+	uexWindow.closeToast();
+    going = 0;
+    if(update[upt]){
+        update[upt] = 0;
+        resetBV(upt);
+    }
+
+	if(json){
+		if (Int(json.status)<1) {
+			uexWindow.toast('0','5',json.message,2000);
+			return;
+		}
+		
+		var cContent = $$('list');
+		var res = '';
+		var list = json.list;
+        for(var val in list){//已存在的打勾
+            if(tag_friends[list[val].fuid]){
+                list[val].selected = 'disabled checked="1"';
+            }
+        }
+		var length = zy_tmpl_count(list);
+		if(length>0){
+			var tmpl = '<li ontouchstart="zy_touch(\'c-gra\')" onclick="friend_click(${fuid}, \'${fusername}\')" class="uc-n ubb ub b-gra t-bla ub-ac lis" id="${fuid}">'
+                            +'<div class="lis-th4 ub-img uc-a1">'
+                                +'<img src="images/mylogo.png" class="inforpic2" ${cb:img} id="1d_${fuid}"/>'
+                            +'</div> '
+                            +'<div class="ub-f1 ulev0 uinn5">${fusername}</div>'
+                            +'<div class="ufr uinn5">'
+                                +'<div class="ub ulev0">'
+                                    +'<input class="uhide" type="radio" name="cbx_${fuid}" id="cbx_${fuid}" ${selected}>'
+                                    +'<div class="umh2 umw15 ub-img5 tp-fuid"></div>'
+                                +'</div>'
+                            +'</div>'
+                        +'</li>';
+
+			res = zy_tmpl(tmpl,list,length,j2vCb);
+			curpage = Int(json.zywy_curpage);
+			totpage = Int(json.zywy_totalpage);
+		}
+		else{
+			res = '<div class="uinn8 tx-c">暂无朋友列表</div>';
+		}
+		
+		if(curpage==1){
+       		while(cContent.childElementCount>1)	{
+       			cContent.removeChild(cContent.firstElementChild);
+       		}
+       	}
+		
+		var node = document.createElement("ul");
+		node.innerHTML = res;
+		cContent.insertBefore(node,cContent.lastElementChild);
+        imgCacheCall();
+	}
+}
+function friend_click(fuid, fusername){
+    if(event.srcElement == $$('cbx_' + fuid) || $$('cbx_' + fuid).disabled){
+        return;
+    }
+    var checked = $$('cbx_' + fuid).checked;
+    $$('cbx_' + fuid).checked = !checked;
+    if(!checked){//点击选中了
+        selected_users[fuid] = {"fuid" : fuid, "fusername" : fusername};
+    }else if(selected_users[fuid]){
+        delete selected_users[fuid];
+    }
+}
+
+function j2vCb(d,c)
+{
+	var str = '';
+	 if(c.length>1)
+	 {
+		switch(c[1])
+		{
+			case 'img':
+				var src = ucurl+d.uid;
+				var picid = '1d_'+d.uid;
+                pushCacheCall(function(){
+                    dis_imgcache(picid,src,src,imgLoadSucSrc,imgLoadErrSrc,null,'',1);
+                });
+    			break;
+            case 'tags':
+                for (var tagid in d.tags) {
+                    str += '<div class="ufr uba b-org uc-a ulev-2 uinn11">'+ tagid +'</div>';
+                }
+                break;
+		}
+	 }
+	 return str;
+}
+
+function updateLists(){
+	load1dFriends('', '');
+}
+
+function submit(){
+    var friendtag_wname = 'friendtag_edit';
+    if(params.openwin) friendtag_wname = params.openwin; //friendtag_member
+    setStorJson('tag_friends', selected_users);
+    ueppscript(friendtag_wname, 'content', 'update5();');
+    setTimeout("uescript('friend_select', 'closewin();');", 1000);
+}
+
+function closeEditor(){
+    uescript('friend_select', 'closewin();');
+}
+</script>
+</html>

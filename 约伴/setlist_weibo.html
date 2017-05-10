@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+  <head>
+    <title>
+    </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="css/ui-on.css">
+    <link rel="stylesheet" href="css/ui-img.css">
+    <link rel="stylesheet" href="css/ui-res.css">
+    <link rel="stylesheet" href="css/ui-list.css">
+    <link rel="stylesheet" href="css/ui-base.css">
+    <link rel="stylesheet" href="css/ui-box.css">
+    <link rel="stylesheet" href="css/ui-color.css">
+	<link rel="stylesheet" href="css/style.css">
+    <script src="js/y_control.js"></script>
+    <script src="js/y_click.js"></script>
+	<script src="js/dis_control.js"></script>
+	<script src="js/dis_share.js"></script>
+    <script>
+	</script>
+  </head>
+<body class="um-vp" ontouchstart>
+	<div class="uinn18">
+		<div class="uba b-gra c-wh uc-a">  
+		  	<div ontouchstart="zy_touch('btn-act')" class="uc-t ubb ub b-gra t-bla ub-ac lis">     
+		 		<div class="ub-img5 im25 morepic"></div>  
+		   		<div class="ub-f1 ut-s ulev0">腾讯微博</div>  
+				<input class="uhide" type="checkbox" id="wb_ip_0">	
+				<div class="swi uc-a1 uba b-gra"  ontouchstart="zy_touch('')" onclick="wbSelect(0);">
+					<div class="uabs swi-btn us"></div>
+				</div>
+		 	</div>   
+		 	<div ontouchstart="zy_touch('btn-act')" class="ub ubb b-gra t-bla ub-ac lis">    
+		  		<div class="ub-img5 im26 morepic"></div>    
+		 		<div class="ub-f1 ut-s ulev0">新浪微博</div>
+				<input class="uhide" type="checkbox" id="wb_ip_1">	
+				<div class="swi uc-a1 uba b-gra"  ontouchstart="zy_touch('')" onclick="wbSelect(1);">
+					<div class="uabs swi-btn us"></div>
+				</div>
+		 	</div>    
+			<div ontouchstart="zy_touch('btn-act')"  class="uc-b ub  t-bla ub-ac lis">    
+		  		<div class="ub-img5 im27 morepic"></div>     
+		 		<div class="ub-f1 ut-s ulev0">网易微博</div>  
+				<input class="uhide" type="checkbox" id="wb_ip_2">	
+				<div class="swi uc-a1 uba b-gra"  ontouchstart="zy_touch('')" onclick="wbSelect(2);">
+					<div class="uabs swi-btn us"></div>
+				</div>
+		    </div>   
+		</div>
+	</div>
+</body>
+<script>
+zy_init();
+var uid = getstorage('UID');
+var tokey = [];
+window.uexOnload = function ()
+{
+	setPageBounce('', '');
+}
+function myslcb(i){
+	checkslide(i, true);
+}
+function wbSelect(i){
+	var id = "wb_ip_"+i;
+	var ch = $$(id);
+	if(ch){
+		if(!ch.checked) 
+		{
+			weibo_open(i, uid, myslcb, 'setlist');
+		}
+		else
+		{
+			setstorage(tokey[i], '');
+			delweibo(i, tokey[i]);
+			checkslide(i, false);
+		}
+	}
+}
+function checkslide(i, flag)
+{
+	var id = "wb_ip_"+i;
+	var ch = $$(id);
+	if(ch) ch.checked=flag;
+}
+
+var token = '';
+for(var i=0; i<3; i++){
+	tokey[i] = 'key_'+uid+'_'+i;
+	token = getstorage(tokey[i]);
+	if(token) checkslide(i, true);
+}
+</script>
+</html>

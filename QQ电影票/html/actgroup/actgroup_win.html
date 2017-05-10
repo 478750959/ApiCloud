@@ -1,0 +1,158 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>Hello APP</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/common.css" />
+    <style>
+        #backBtn{
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: auto;
+            height: 48px;
+            background: url(../../res/drawable-xhdpi/arrow_left_yellow.png) 8px center no-repeat;
+            background-size: 7px 14px;
+        }
+        #backBtn:active{
+            background-color: #191919;
+        }
+        #backBtn .chooseCityImg{
+            display: inline-block;
+            border: none;
+            outline: none;
+            width: 32px;
+            height: 32px;
+            float: left;
+            margin-left: 22px;
+            margin-top: 7px;
+            
+        }
+        #backBtn .chooseCityBackSpan{
+            color: #D4A82A;
+            line-height: 48px;
+            padding: 0 1em;
+        }
+        #headerBanner .banner{
+            width: 33%;
+        }
+        #headerBanner .longer{
+            width: 34%;
+        }
+        #headerBanner .banner_split.bs1{
+            left: 33%;
+        }
+        #headerBanner .banner_split.bs2{
+            left: 67%;
+        }
+    </style>
+</head>
+<body ontouchstart="">
+    <div id="wrap">
+        <div id="header">
+            <a id="backBtn" onclick="api.closeWin();" tapmode>
+                <img src="../../res/drawable-hdpi/ic_launcher.png" class="chooseCityImg">
+                <span class="chooseCityBackSpan">活动</span>
+            </a>
+        </div>
+        <div id="headerBanner">
+            <div class="banner frame_name active" onclick="changeActMenu(0);">免费抢票</div>
+            <div class="banner frame_name longer" onclick="changeActMenu(1);">QQ电影观察</div>
+            <div class="banner frame_name" onclick="changeActMenu(2);">团购专场</div>
+            <div class="banner_split bs1"> </div>
+            <div class="banner_split bs2"> </div>
+        </div>
+        <div id="main">
+                
+        </div>
+        <div id="footer">
+            <h5>Copyright &copy;2014 </h5>
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/zepto.js"></script>
+<script type="text/javascript" src="../../script/common.js"></script>
+<script type="text/javascript">
+
+    apiready = function(){
+        
+        var chooseCityBtn = $api.byId('chooseCityBtn');
+        var header = $api.byId('header');
+        $api.fixIos7Bar(header); 
+
+        var headerBanner = $api.byId('headerBanner');
+        var footer = $api.byId('footer');
+        window.headerPos = $api.offset(header);
+        window.headerBannerPos = $api.offset(headerBanner);
+        var footerPos = $api.offset(footer);
+        var main = $api.byId('main');
+        var mainPos = $api.offset(main);
+
+        window.wW = api.winWidth;
+        window.wH = api.winHeight;
+        var w = parseInt(wW/3);
+        var h = parseInt(wH*4/5);
+        var banner_bar = $api.byId('banner_bar');
+        var aFrameName = $api.domAll('#headerBanner .frame_name');
+        var chooseStyleBtn = $api.byId('chooseStyleBtn');
+        // 上方的导航，原版效果没有实现
+        function changeBanner(num){
+            for(var i = 0,len = aFrameName.length;i < len; i++ ){
+                $api.removeCls(aFrameName[i],'active');
+            }
+            $api.addCls(aFrameName[num],'active');
+        };
+        var showNum = $api.getStorage('actgroup');
+        // framegroup活动的窗口组，
+        function openFrameGroup(){
+
+            api.setWinAttr({
+                bounces: false
+            });
+            api.openFrameGroup({
+                name: 'act_frameGroup',
+                bounces: false,
+                index: showNum,
+                rect: {
+                    x: 0,
+                    y: headerPos.h+headerBannerPos.h,
+                    w: 'auto',
+                    h: wH-headerPos.h-headerBannerPos.h
+                },
+                scrollEnabled: true,
+                frames: [
+                    {
+                        name: 'ticket',
+                        url: './ticket.html',
+                        bounces: false,
+                        opaque: true,
+                        bgColor: '#000'
+                    },{
+                        name: 'view',
+                        url: './view.html',
+                        bounces: false,
+                        opaque: true,
+                        bgColor: '#000'
+                    },{
+                        name: 'pro',
+                        url: './pro.html',
+                        bounces: false,
+                        opaque: true,
+                        bgColor: '#000'
+                    }
+                ]
+            },function(ret,err){
+                var index = ret.index;
+                var name = ret.name;
+                changeBanner(index);               
+            });
+            
+        };
+        openFrameGroup();
+        
+    };
+</script>
+</html>

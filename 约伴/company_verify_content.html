@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+<head>
+    <title>
+    </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="css/ui-img.css">
+    <link rel="stylesheet" href="css/ui-res.css">
+    <link rel="stylesheet" href="css/ui-list.css">
+    <link rel="stylesheet" href="css/ui-base.css">
+    <link rel="stylesheet" href="css/ui-box.css">
+    <link rel="stylesheet" href="css/ui-input.css">
+    <link rel="stylesheet" href="css/ui-color.css">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/y_control.js"></script>
+    <script src="js/y_click.js"></script>
+    <script src="js/y_icache.js"></script>
+    <script src="js/dis_control.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/y_json.js"></script>
+    <script>
+    </script>
+</head>
+<body class="um-vp" ontouchstart="zy_cc(this);">
+<div class="t-bla ub-ac lis">
+    <div class="uc-n uinput">
+        <div class="uinn1">
+            <input placeholder="请输入单位或高校邮箱" type="text" class="uc-n ulev1" id="email" oninput="email_oninput();">
+        </div>
+        <div class="ubl ubr ubb b-org" style="height: .3em; width: 100%;"></div>
+    </div>
+</div>
+</body>
+<script>
+    zy_init();
+    var params = getStorJson('params');
+    var o_company = '';//如果通过界面传递，就可以减少网络传输
+    var o_email = '';
+    var wm = '';
+    var pop = '';
+    if(params.company) o_company = params.company;
+    if(params.email) o_email = params.email;
+    if(params.wm) wm = params.wm;
+    if(params.pop) wm = params.pop;
+    var rolemoduleid = params.rolemoduleid;
+    var ucurl = getstorage('ucurl');
+    window.uexOnload = function(){
+        setPageBounce('', '');
+        if(o_email){
+            setValue('email', o_email);
+            uescript('company_verify', "setHtml('company', '" + o_company + "');");
+        }else{
+            loademail();
+        }
+    };
+    function loademail(){
+        var url = forum_url + '&mod=ajax&action=checkemail&prompt=1&rolemoduleid=' + rolemoduleid;
+        $.getJSON(url, function(json) {
+            if(json.status != '0' && json.email) {
+                setValue('email', json.email);
+                o_email = json.email;
+                if(json.company) uescript('company_verify', "setHtml('company', '" + json.company + "');");
+            }
+        }, 'json', getJsonErr, 'POST', '', '');
+    }
+    /**
+     * 三星手机上，产生网络通讯和sethtml都会导致键盘缩回，因此在window中通讯，sethtml时确保信息不同
+     */
+    function email_oninput(){
+        //检查是否有@和.
+        var email = getValue('email');
+        email = trim(email);
+        if(email.indexOf('@') == -1 || email.indexOf('.') == -1){
+            return;
+        }
+        var re = /\w+([-+.]\w+)*@\w+([-.]\w+)*\.(com|cn|hk|net|org|gov)$/;
+        if(!re.test(email)) return;
+        uescript('company_verify', 'email_oninput("'+ email +'", "'+ rolemoduleid +'");');
+    }
+    function submit(){
+        if(going) return;
+        var str = '提交失败';
+        var email = getValue('email');
+        email = trim(email);
+
+        if(email.indexOf('@') == -1 || email.indexOf('.') == -1 ){
+            str = '邮箱格式不正确，请修改';//modify
+            uexWindow.toast('0', '5', str, 1500);
+            return;
+        }else if(email == o_email){      //added by tom 20150327: 邮箱没改变时提示消息
+            uexWindow.cbConfirm = function(opId, dataType, data){
+                //放弃修改，关闭窗口
+                if(Int(data)==0) {
+                    uescript("company_verify","closewin();");
+                }
+            };
+            var mycars = ['确定','取消'];
+            uexWindow.confirm('你尚未修改邮箱', '确定放弃修改？', mycars);
+            return;
+        }
+
+        //提交email
+        going = 1;
+        uexWindow.toast('1', '5', '正在提交...', 1500);
+        var url = forum_url + '&mod=ajax&action=checkemail&email=' + encodeURIComponent(email)+ '&rolemoduleid=' + rolemoduleid;
+        $.getJSON(url, function(json) {
+            going = 0;
+            uexWindow.closeToast();
+            if(json.status != '0') {
+                str = json.message ? json.message : '保存成功';
+                if(json.company){
+                    var obj = {"company" : json.company, "email" : email};//modify
+                    setStorJson('params', obj);//在资料界面显示
+                }
+                setstorage('verifying', '1');//在资料界面显示
+                if(wm == 'manage_role'){
+                    ueppscript('manage_role', 'content', 'update_verify();');
+                }
+                uexWindow.toast('0', '5', str, 1500);
+                setTimeout('uescript("company_verify","closewin();")', 1500);
+            }else {
+                if(json.message) str = json.message;
+                uexWindow.toast('0', '5', str, 1500);
+            }
+        }, 'json', getJsonErr, 'POST', '', false);
+    }
+</script>
+</html>

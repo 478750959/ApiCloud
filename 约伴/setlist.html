@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+<head>
+    <title></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="css/ui-btn.css">
+	<link rel="stylesheet" href="css/ui-base.css">
+	<link rel="stylesheet" href="css/ui-box.css">
+	<link rel="stylesheet" href="css/ui-color.css">
+	<link rel="stylesheet" href="css/ui-res.css">
+	<link rel="stylesheet" href="css/style.css">
+    <script src="js/y_control.js"></script>
+	<script src="js/y_click.js"></script>
+	<script src="js/dis_control.js"></script>
+    <script>
+    </script>
+</head>
+<body class="um-vp c-gra" ontouchstart>
+    <div id="page_0" class="up ub ub-ver" tabindex="0">
+        <!--header开始-->
+        <div id="header" class="c-blu3 uh">
+        	<div class="c-m2 t-wh" id="hhh">
+				<a class="btn btn-l btn-a ub ub-ac" ontouchstart="zy_touch('btn-act1')" onclick="closewin();">       
+					<div class="ulim"><img src="images/back.png" class="sbtn"></div>
+				</a>
+                <h1 class="ut ulev0 ut-s tx-c" tabindex="0" id="ttl">&nbsp;</h1>
+			</div>
+        </div>
+		
+        <!--header结束--><!--content开始-->
+        <div id="content" class="ub-f1 tx-l t-bla">
+            
+        </div>
+        <!--content结束-->
+    </div>
+</body>
+<script>
+zy_init();
+var url = '';
+var ttl = '';
+function submit(){
+	ueppscript('setlist','content', 'submit();');
+}
+function onts(){
+	zy_touch('');
+}
+var params = getStorJson('params');
+if (params.view == 'browsing') {
+	url = 'setlist_browsing.html';
+	ttl = '浏览设置';
+}	
+else if(params.view=='upload'){
+	url = 'setlist_upload.html';
+	ttl = '上传设置';
+}
+else if(params.view=='privacy'){
+	url = 'setlist_privacy.html';
+	ttl = '隐私设置';
+	var cContent = $$('hhh');
+	var res = '<div class="ulim">保存</div>';
+	var node = document.createElement("div");
+	node.innerHTML = res;
+	node.className = "btn btn-r btn-n ub ub-ac";
+	node.onclick = submit;
+	node.ontouchstart = onts;
+	cContent.insertBefore(node,cContent.lastElementChild);
+}
+else if(params.view=='secure'){
+	url = 'setlist_secure.html';
+	ttl = '修改密码';
+	var cContent = $$('hhh');
+	var res = '<div class="ulim">保存</div>';
+	var node = document.createElement("div");
+	node.innerHTML = res;
+	node.className = "btn btn-r btn-n ub ub-ac";
+	node.onclick = submit;
+	node.ontouchstart = onts;
+	cContent.insertBefore(node,cContent.lastElementChild);
+}
+else if(params.view=='weibo'){
+	url = 'setlist_weibo.html';
+	ttl = '同步微博';
+}
+
+if(ttl) setHtml('ttl', ttl);
+
+window.uexOnload = function(type){	
+    if (!type) {
+        zy_con("content", url, 0, $$("header").offsetHeight);
+    }
+	window.onorientationchange=window.onresize=function()
+	{
+		zy_resize("content",0,$$("header").offsetHeight);				
+	}
+}
+
+</script>
+</html>

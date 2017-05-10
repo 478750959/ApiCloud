@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+	    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+	    <title>首页</title>
+	    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+	    <link rel="stylesheet" type="text/css" href="../css/common.css"/>
+		<style>
+
+            /*item-list*/
+            .item-list{
+                
+            }
+            .item-list.item-list-detail{
+                margin-bottom: 5px;
+            }
+            .item-list-title{
+                display: -webkit-box;
+                display: -webkit-flex;
+                display: flex;
+
+                  padding: 8px;
+                  border: 1px solid #e7e7e7;
+            }
+            .item-list-title .flex-1{
+                -webkit-box-flex: 4;
+                -webkit-flex: 4;
+                flex: 4;
+            }
+            .item-list-title .flex-1 .title{
+                font-size: 16px;
+            }
+            .item-list-title .flex-1 div{
+                margin-bottom: 6px;
+            }
+            .item-list-title .flex-2 div{
+                display: block
+                height: 19px;
+                line-height: 19px;
+                margin-bottom: 6px;
+            }
+            .item-list-title .flex-1 div:last-child,
+            .item-list-title .flex-2 div:last-child{
+                margin-bottom: 0;
+            }
+            .item-list-title .flex-1 .info{
+                font-size: 12px;
+                color: #999;
+            }
+            .item-list-title .flex-1 .info .score{
+                color: #f49d1a;
+            }
+            .item-list-title .flex-1 .info .star{
+                font-size: 0;
+            }
+            .item-list-title .flex-1 .info .star i{
+                font-size: 16px;
+                margin-right: 2px;
+            }
+            .item-list-title .flex-2{
+                -webkit-box-flex: 1;
+                -webkit-flex: 1;
+                flex: 1;
+
+                text-align: right;
+                font-size: 12px;
+                color: #999;
+            }
+            .item-list li{
+                padding: 8px;
+                border-bottom: 1px solid #e7e7e7;
+                overflow: hidden;
+            }
+            .item-list li .item-list-img{
+               float: left; 
+               position: relative;
+               margin-right: 15px;
+               width: 120px;
+               height: 105px;
+               overflow: hidden;
+            }
+            .item-list.item-list-detail li .item-list-img{
+               width: 67px;
+               height: 61px;
+               position: relative;
+            }
+            .item-list.item-list-detail li .item-list-info .item-list-info-1{
+                margin-bottom: 5px;
+            }
+            .item-list.item-list-detail li .item-list-info .item-list-info-1 span{
+                display: none;
+            }
+            .item-list.item-list-detail li .item-list-info .item-list-info-2{
+                display: none;
+            }
+            .item-list li .item-list-info{
+                display: -webkit-box;
+                display: -webkit-flex;
+                display: flex;
+
+                -webkit-box-orient: vertical;
+                -webkit-flex-direction: column;
+                flex-direction: column;
+                overflow: hidden;
+            }
+            .item-list li .item-list-info .item-list-info-1{
+                padding: 5px 0;
+                display: -webkit-box;
+                display: -webkit-flex;
+                display: flex;
+                -webkit-flex-direction: row;
+                flex-direction: row;
+
+                -webkit-box-flex: 1;
+                -webkit-flex: 1;
+                flex: 1;
+            }
+            .item-list li .item-list-info .item-list-info-1 h3{
+                color: #333;
+                font-weight: 400;
+                font-size: 16px;
+                -webkit-box-flex: 2;
+                -webkit-flex: 2;
+                flex: 2;
+            }
+            .item-list li .item-list-info .item-list-info-1 span{
+                font-size: 12px;
+                color: #999;
+            }
+            .item-list li .item-list-info .item-list-info-2{
+                padding: 5px 0;
+                line-height: 1.5;
+                
+            }
+            .item-list li .item-list-info .item-list-info-2 p{
+                font-size: 14px;
+                color: #999;
+                overflow : hidden;
+                
+                display: -webkit-flex;
+                display: flex;
+                display: -webkit-box;
+
+                -webkit-line-clamp: 2;
+                -webkit-box-orient: vertical;
+                -webkit-flex-direction: column;
+                flex-direction: column;
+            }
+            .item-list li .item-list-info .item-list-info-3{
+                display: -webkit-box;
+                display: -webkit-flex;
+                display: flex;
+                -webkit-flex-direction: row;
+                flex-direction: row;
+                -webkit-box-align: center;
+                -webkit-align-items: center;
+                align-items: center;
+
+                -webkit-box-align: baseline;
+                -webkit-align-items: baseline;
+                align-items: baseline;
+            }
+            .item-list li .item-list-info .item-list-info-3 .flex{
+                font-size: 12px;
+                color: #999;
+                -webkit-box-flex: 1;
+                -webkit-flex: 1;
+                flex: 1;
+            }
+            .item-list li .item-list-info .item-list-info-3 .flex-1{
+                font-size: 12px;
+                color: #999;
+                display: inline-block;
+                margin-right: 10px;
+            }
+            .item-list li .item-list-info .item-list-info-3 .flex-1 em{
+                font-size: 20px;
+                font-weight: bold;
+                color: #32b9ab;
+                
+            }
+            .item-list li .item-list-info .item-list-info-3 .flex-2{
+                display: -webkit-box;
+                display: -webkit-flex;
+                display: flex;
+
+                -webkit-box-pack: start;
+                -webkit-justify-content: flex-start;
+                justify-content: flex-start;
+            }
+            .item-list li .item-list-info .item-list-info-3 .flex-2 span{
+                border-radius: 3px;
+                padding: 2px;
+                color: #f49d1a;
+                border: 1px solid #f49d1a;
+            }
+            .item-list li .item-list-info .item-list-info-3 .flex-3{
+                display: -webkit-box;
+                display: -webkit-flex;
+                display: flex;
+                -webkit-box-flex: 1.8;
+                -webkit-flex: 1.8;
+                flex: 1.8;
+
+                -webkit-box-pack: end;
+                -webkit-justify-content: flex-end;
+                justify-content: flex-end;
+                
+            }
+            .item-list-all{
+                font-size: 14px;
+                color: #32b9a8;
+                text-align: center;
+                height: 40px;
+                line-height: 40px;
+            }
+
+            /*icon*/
+
+            .i-dealtype{
+                display: inline-block;
+                padding: 8px;
+                vertical-align: top;
+            }
+            .i-dealtype-tuan{
+                background: url(../image/ic_global_list_lable_groupon.png) no-repeat center center;
+                -webkit-background-size: 17px;
+                background-size: 17px;
+            }
+            .i-dealtype-pai{
+                background: url(../image/ic_global_list_lable_queue.png) no-repeat center center;
+                -webkit-background-size: 17px;
+                background-size: 17px;
+            }
+            .i-dealtype-juan{
+                background: url(../image/ic_global_list_lable_voucher.png) no-repeat center center;
+                -webkit-background-size: 17px;
+                background-size: 17px;
+            }
+            .i-star:after{
+                content: '★';
+            }
+            .i-star-gold{
+                color: #f49d1a;
+            }
+            .i-star-gray{
+                color: #E2E2E2;
+                position: relative;
+            }
+            .i-star-gray .i-star-gold{
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 50%;
+                overflow: hidden;
+            }
+            .i-arror-down{
+                display: inline-block;
+                padding: 9px;
+                background: url(../image/ic_global_arrow_down_green.png) no-repeat center top;
+                -webkit-background-size: 12px;
+                background-size: 12px;
+                vertical-align: middle;
+            }
+            .i-nobooking{
+                position: absolute;
+                top: 0;
+                left: 0;
+                z-index: 10;
+                display: inline-block;
+                padding: 22px;
+                background: url(../image/ic_nobooking_list.png) no-repeat center top;
+                -webkit-background-size: 45px;
+                background-size: 45px;
+                vertical-align: middle;
+            }
+
+            </style>
+	   </style>
+	</head>
+	<body>
+	<div id="main"> 
+        <!-- 首页列表 -->
+        <div class="box item-list item-list-detail">
+            <div class="tap item-list-title">
+                <div class="flex-1">
+                    <div class="title">
+                        <span class="poiname">鸿毛酒楼</span>
+                        <i class="i-dealtype i-dealtype-tuan"></i>
+                        <i class="i-dealtype i-dealtype-pai"></i>
+                        <i class="i-dealtype i-dealtype-juan"></i>
+                    </div>
+                    <div class="info">
+                        <span class="star">
+                            <i class="i-star i-star-gold"></i>
+                            <i class="i-star i-star-gold"></i>
+                            <i class="i-star i-star-gold"></i>
+                            <i class="i-star i-star-gray">
+                                <i class="i-star i-star-gold"></i>
+                            </i>
+                            <i class="i-star i-star-gray"></i>
+                        </span>
+                        <span class="score">4.3分</span>
+                        <span class="people">(80人)</span>
+                    </div>
+                </div>
+                <div class="flex-2">
+                    <div class="distance">上地713km</div>
+                    <div class="classify">日韩料理</div>
+                </div>
+            </div>
+            <ul class="item-list-cont">
+                <li class="tap clearfix" tapmode="tap-active" onclick="openItemDetail()">
+                    <div class="item-list-img">
+                        <img src="../image/bg_default_poi_list.png" alt="">
+                    </div>
+                    <div class="item-list-info">
+                        <div class="item-list-info-1">
+                            <h3>合辑护甲</h3>
+                            <span>145.0km</span>
+                        </div>
+                        <div class="item-list-info-2">
+                            <p>【北京市】奥斯卡货到付款双方开始，免预约免预约免预约【北京市】奥斯卡货到付款双方开始，免预约免预约免预约</p>
+                        </div>
+                        <div class="item-list-info-3">
+                            <div class="flex-1">
+                                <span><em>12.9</em>元</span>
+                            </div>
+                            <div class="flex flex-2">
+                                <span>立减5元</span>
+                            </div>
+                            <div class="flex flex-3">
+                                <span>已售271608</span>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+
+                <li class="tap clearfix" tapmode="tap-active" onclick="openItemDetail()">
+                    <div class="item-list-img">
+                        <img src="../image/bg_default_poi_list.png" alt="">
+                    </div>
+                    <div class="item-list-info">
+                        <div class="item-list-info-1">
+                            <h3>合辑护甲</h3>
+                            <span>145.0km</span>
+                        </div>
+                        <div class="item-list-info-2">
+                            <p>【北京市】奥斯卡货到付款双方开始，免预约免预约免预约</p>
+                        </div>
+                        <div class="item-list-info-3">
+                            <div class="flex-1">
+                                <span><em>89.99</em>元</span>
+                            </div>
+                            <div class="flex flex-2">
+                                <del>120元</del>
+                            </div>
+                            <div class="flex flex-3">
+                                <span>已售271608</span>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+
+                <li class="tap clearfix" tapmode="tap-active">
+                    <div class="item-list-img">
+                        <img src="../image/bg_default_poi_list.png" alt="">
+                    </div>
+                    <div class="item-list-info">
+                        <div class="item-list-info-1">
+                            <h3>合辑护甲</h3>
+                            <span>145.0km</span>
+                        </div>
+                        <div class="item-list-info-2">
+                            <p>【北京市】奥斯卡货到付款双方开始，免预约免预约免预约</p>
+                        </div>
+                        <div class="item-list-info-3">
+                            <div class="flex-1">
+                                <span><em>89.99</em>元</span>
+                            </div>
+                            <div class="flex flex-2">
+                                <del>120元</del>
+                            </div>
+                            <div class="flex flex-3">
+                                <span>已售271608</span>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+
+                <li class="tap clearfix" tapmode="tap-active" onclick="openItemDetail()">
+                    <div class="item-list-img">
+                        <img src="../image/bg_default_poi_list.png" alt="">
+                    </div>
+                    <div class="item-list-info">
+                        <div class="item-list-info-1">
+                            <h3>合辑护甲</h3>
+                            <span>145.0km</span>
+                        </div>
+                        <div class="item-list-info-2">
+                            <p>【北京市】奥斯卡货到付款双方开始，免预约免预约免预约</p>
+                        </div>
+                        <div class="item-list-info-3">
+                            <div class="flex-1">
+                                <span><em>12.9</em>元</span>
+                            </div>
+                            <div class="flex flex-2">
+                                <del>20元</del>
+                            </div>
+                            <div class="flex flex-3">
+                                <span>已售271608</span>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <!-- 首页列表 -->
+        <div class="box item-list item-list-detail">
+            <div class="tap item-list-title">
+                <div class="flex-1">
+                    <div class="title">
+                        <span class="poiname">鸿毛酒楼</span>
+                        <i class="i-dealtype i-dealtype-tuan"></i>
+                        <i class="i-dealtype i-dealtype-pai"></i>
+                        <i class="i-dealtype i-dealtype-juan"></i>
+                    </div>
+                    <div class="info">
+                        <span class="star">
+                            <i class="i-star i-star-gold"></i>
+                            <i class="i-star i-star-gold"></i>
+                            <i class="i-star i-star-gold"></i>
+                            <i class="i-star i-star-gray">
+                                <i class="i-star i-star-gold"></i>
+                            </i>
+                            <i class="i-star i-star-gray"></i>
+                        </span>
+                        <span class="score">4.3分</span>
+                        <span class="people">(80人)</span>
+                    </div>
+                </div>
+                <div class="flex-2">
+                    <div class="distance">上地713km</div>
+                    <div class="classify">日韩料理</div>
+                </div>
+            </div>
+            <ul class="item-list-cont">
+                <li class="tap clearfix" tapmode="tap-active">
+                    <div class="item-list-img">
+                        <img src="../image/bg_default_poi_list.png" alt="">
+                        <i class="i-nobooking"></i>
+                    </div>
+                    <div class="item-list-info">
+                        <div class="item-list-info-1">
+                            <h3>合辑护甲</h3>
+                            <span>145.0km</span>
+                        </div>
+                        <div class="item-list-info-2">
+                            <p>【北京市】奥斯卡货到付款双方开始，免预约免预约免预约【北京市】奥斯卡货到付款双方开始，免预约免预约免预约</p>
+                        </div>
+                        <div class="item-list-info-3">
+                            <div class="flex-1">
+                                <span><em>12.9</em>元</span>
+                            </div>
+                            <div class="flex flex-2">
+                                <span>立减5元</span>
+                            </div>
+                            <div class="flex flex-3">
+                                <span>已售271608</span>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+
+                <li class="tap clearfix" tapmode="tap-active">
+                    <div class="item-list-img">
+                        <img src="../image/bg_default_poi_list.png" alt="">
+                    </div>
+                    <div class="item-list-info">
+                        <div class="item-list-info-1">
+                            <h3>合辑护甲</h3>
+                            <span>145.0km</span>
+                        </div>
+                        <div class="item-list-info-2">
+                            <p>【北京市】奥斯卡货到付款双方开始，免预约免预约免预约【北京市】奥斯卡货到付款双方开始，免预约免预约免预约</p>
+                        </div>
+                        <div class="item-list-info-3">
+                            <div class="flex-1">
+                                <span><em>12.9</em>元</span>
+                            </div>
+                            <div class="flex flex-2">
+                                <span>立减5元</span>
+                            </div>
+                            <div class="flex flex-3">
+                                <span>已售271608</span>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+
+                <li class="tap clearfix" tapmode="tap-active">
+                    <div class="item-list-img">
+                        <img src="../image/bg_default_poi_list.png" alt="">
+                    </div>
+                    <div class="item-list-info">
+                        <div class="item-list-info-1">
+                            <h3>合辑护甲</h3>
+                            <span>145.0km</span>
+                        </div>
+                        <div class="item-list-info-2">
+                            <p>【北京市】奥斯卡货到付款双方开始，免预约免预约免预约</p>
+                        </div>
+                        <div class="item-list-info-3">
+                            <div class="flex-1">
+                                <span><em>89.99</em>元</span>
+                            </div>
+                            <div class="flex flex-2">
+                                <del>120元</del>
+                            </div>
+                            <div class="flex flex-3">
+                                <span>已售271608</span>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+
+                <li class="tap clearfix" tapmode="tap-active">
+                    <div class="item-list-img">
+                        <img src="../image/bg_default_poi_list.png" alt="">
+                    </div>
+                    <div class="item-list-info">
+                        <div class="item-list-info-1">
+                            <h3>合辑护甲</h3>
+                            <span>145.0km</span>
+                        </div>
+                        <div class="item-list-info-2">
+                            <p>【北京市】奥斯卡货到付款双方开始，免预约免预约免预约</p>
+                        </div>
+                        <div class="item-list-info-3">
+                            <div class="flex-1">
+                                <span><em>89.99</em>元</span>
+                            </div>
+                            <div class="flex flex-2">
+                                <del>120元</del>
+                            </div>
+                            <div class="flex flex-3">
+                                <span>已售271608</span>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+
+                <li class="tap clearfix" tapmode="tap-active">
+                    <div class="item-list-img">
+                        <img src="../image/bg_default_poi_list.png" alt="">
+                    </div>
+                    <div class="item-list-info">
+                        <div class="item-list-info-1">
+                            <h3>合辑护甲</h3>
+                            <span>145.0km</span>
+                        </div>
+                        <div class="item-list-info-2">
+                            <p>【北京市】奥斯卡货到付款双方开始，免预约免预约免预约</p>
+                        </div>
+                        <div class="item-list-info-3">
+                            <div class="flex-1">
+                                <span><em>12.9</em>元</span>
+                            </div>
+                            <div class="flex flex-2">
+                                <del>20元</del>
+                            </div>
+                            <div class="flex flex-3">
+                                <span>已售271608</span>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+	
+    <script type="text/javascript" src="../script/api.js"></script>
+	<script type="text/javascript">
+        function openItemDetail(){
+            api.openWin({
+                name: 'win_detailItem',
+                url: 'win_detailItem.html',
+                animation:{
+                    type:"movein",                //动画类型（详见动画类型常量）
+                    subType:"from_right",       //动画子类型（详见动画子类型常量）
+                    duration:300                //动画过渡时间，默认300毫秒
+                }
+            })
+        }
+
+        window.onload = function() {
+
+            var $item = $api.domAll('.item-list-detail');
+            for (var i = 0; i < $item.length; i++) {
+                var $ul = $api.domAll($item[i], '.item-list-cont');
+                var $li = $api.domAll($item[i], '.item-list-cont li');
+                var $liLength = $li.length;
+                if($liLength > 2){
+                    for (var j = 0; j < $li.length; j++) {
+                        if(j > 1){
+                            $li[j].style.display="none";
+
+                        }
+                    };
+                    $api.append($ul[0],'<div class="tap item-list-all" tapmode="tap-active">\
+                        查看其它<span>'+(parseInt($li.length) - 2)+'</span>个优惠<i class="i-arror-down"></i></div>');
+                }
+
+                var $itemAllBtn = $api.dom($item[i],'.item-list-all');
+
+                (function(i){
+                    if($itemAllBtn){
+                       $api.addEvt($itemAllBtn, 'click', function(){
+                            var $li = $api.domAll($item[i], '.item-list-cont li');
+                            var $itemAllBtn = $api.dom($item[i],'.item-list-all');
+                            for (var j = 0; j < $li.length; j++) {
+                                $li[j].style.display="block";
+                            };
+                            $api.remove($itemAllBtn);
+                       }); 
+                    }
+                })(i)
+                
+            };
+
+        } 
+
+        
+		apiready = function(){
+            api.setRefreshHeaderInfo({
+                visible: true,
+                bgColor: '#ccc',
+                textColor: '#fff',
+                textDown: '下拉刷新...',
+                textLoading:'载入中',
+                textUp: '松手刷新...',
+                showTime: true
+            }, function (ret, err) {
+                alert('ajax拉取数据并拼装完毕！');
+                api.refreshHeaderLoadDone();
+            });
+		}
+	</script> 
+	</body>
+
+</html>

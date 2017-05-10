@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+  <title>HTML</title>
+  
+  <!-- Replace favicon.ico & apple-touch-icon.png in the root of your domain and delete these references -->
+  <link rel="shortcut icon" href="/favicon.ico">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="stylesheet" type="text/css" href="../css/api.css" />
+  <link rel="stylesheet" type="text/css" href="../css/egret.css" />
+
+	<style>
+		html {width: 100%;height: 100%;background:transparent;}
+		body {background: rgba(0,0,0,0.6);width: 100%;height: 100%;overflow: hidden;}
+
+		.floatbox {position: absolute; background: #fff; border-radius: 3px; bottom: 0; width: 100%;}
+		.floatheader {height: 40px; line-height: 40px; font-size: 14px; color: #999; text-align: left; margin-left: 20px;}
+		.floatbody {border-bottom: 1px solid #D0D2D6;}
+		.floatbodybtn {width: 20px;height: 20px;background: #0fc;}
+		.floatfooter {height: 40px; line-height: 40px; font-size: 18px;}
+
+		/* 水平等宽样式 */
+		.floatbox .item {font-size: 16px; padding-left: 15px; color: #999;padding-right: 15px;background-color: #f5f5f5;}
+		.floatbox .item:last-child {border-bottom: 0;}
+		.floatbox .checkmark {width: 20px; float: right; margin-top: 18px; margin-right: 10px;}
+		.floatbox .title {height: 60px;line-height: 60px;color: #0A9DCD;border-radius: 3px 3px 0 0;border-bottom: 2px solid #0A9DCD;}
+
+		.row {display: -webkit-box;display: -webkit-flex;}
+		.col {-webkit-box-flex:1; -webkit-flex:1; flex:1;box-flex:1;text-align: center;height: 90px;}
+		.col img {width: 50px;margin-top: 10px;}
+		.col div {margin-top: 5px; color: #7d7d7d; font-size: 14px;}
+		/* 悬浮样式 */
+		.floatbox .item .row .btnhover {background-color: #00aeef;}
+
+	</style>
+</head>
+
+<body>
+	<div id="topbar"></div>
+	<div class="floatbox">
+		
+	</div>
+	
+	
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script>
+
+apiready = function(){
+	setTimeout(closeframe , 2000);
+
+}
+
+function closeframe () {
+	api.closeFrame({name:'musiclist_collect'});
+}
+
+</script>
+</html>

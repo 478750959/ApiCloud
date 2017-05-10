@@ -1,0 +1,581 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>APP</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/common.css" />
+    <style>
+        html,body{
+            background-color: #2B2B2B;
+        }
+        /* 网状透明背景 */
+        #main {
+            background: #2B2B2B;
+            position: relative;
+            padding: 0 2%;
+            z-index: 2;
+            /*overflow-x: hidden;*/
+            /*overflow-y: scroll;*/
+        }
+        /*此处是背景处模糊的图片*/
+        #bg_blur{
+            -webkit-filter: blur(10px);
+            filter: blur(10px);
+            width: 100%;
+            height: 100%;
+            opacity: 0.3;
+            position: absolute;
+            left: 0;
+            top: 0;
+            display: none;
+            z-index: 3;
+        }
+        #bg_blur.active{
+            display: block;
+        }
+        /*左侧滑动条*/
+        #fixedLeft,#fixedLeftTop,#fixedLeftBottom,#fixedLeftMiddle,#fixedLeftBar{
+            width: 2em;
+        }
+        #fixedLeft{
+            display: none; 
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            z-index: 5;
+        }
+            /*左侧滑动条上下部分*/
+        #fixedLeftTop,#fixedLeftBottom{
+            background: url(../../res/drawable-xhdpi/time_line.png) center top repeat-y;
+            background-size: 7px 1em;
+            height: 49%;
+        }
+            /*左侧滑动条中间部分*/
+        #fixedLeftMiddle{
+            height: 2%;
+        }
+            /*左侧滑动条滑动部分*/
+        #fixedLeftBar{
+            height: 2%;
+            background: url(../../res/drawable-xhdpi/time_point_showing.png) center top repeat-y;
+            background-size: 15px 1em;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+        #fixedLeftBar.will{
+            background: url(../../res/drawable-xhdpi/time_point_will_show.png) center top repeat-y;
+            background-size: 15px 1em;
+        }
+        /*左侧滑动条 end*/
+        /*右侧影片介绍*/
+        #fixedRight{
+            display: none;
+            position: absolute;
+            z-index: 4;
+            right: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            /*overflow: hidden;*/
+        }
+        #movieList{
+            text-align: -webkit-center;
+        }
+        #fixedRight .movies{
+            /*width: 281px;
+            height: 415px;*/
+            width: 17em;
+            height: 25.5em;
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;
+            padding: .5em 1.5em;
+        }
+        #fixedRight .movies .moviesTransBox{
+            -webkit-box-flex: 1; 
+            -webkit-flex: 1;
+            flex: 1;
+            /*display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;*/
+            text-align:center;
+            position: relative;
+        }
+        #fixedRight .movies img{
+            width: 100%;
+            height: 100%;
+            display: block;
+            /*margin: auto;*/
+            box-shadow: #000 0px 0px 40px;
+            background: lightpink;
+        }
+        #fixedRight .movies label{
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 66px;
+            background: transparent url(../../res/drawable-xhdpi/shadow_pic_t.png) center center no-repeat;
+        }
+        #fixedRight .movies label span{
+            float: left;
+        }
+        #fixedRight .movies label .title{
+            color: #fff;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+            width: 79%;
+            text-align: left;
+            line-height: 66px;
+            height: 100%;
+            text-indent: 1em;
+        }
+        #fixedRight .movies label .score{
+            color: #FCC301;
+            width: 21%;
+            text-align: left;
+            line-height: 66px;
+            height: 100%;
+        }
+        /*右侧影片介绍 end*/
+        #fixedLeft.active{
+            display: block;
+        }
+        #fixedRight.active{
+            display: block;
+        }
+        /*movies列表（省流量）*/
+        #moviesBox{
+            /*width: 100%;*/
+            /*height: 100%;*/
+            /*position: absolute;*/
+            overflow-x: hidden; 
+        }
+        #moviesBox .moviesInnerBox{
+            float: left;
+            width: 32%;
+            position: relative;
+        }
+        #moviesBox .moviesInnerBox img{
+            width: 80%;
+            margin: 10% auto 6% auto;
+            display: block;
+        }
+        #moviesBox .moviesInnerBox .moviesInnerA{
+            position: relative;
+            display: block;
+            width: 80%;
+            margin: 0 auto;
+            font-size: .8em;
+        }
+        #moviesBox .moviesInnerA span{
+            float: left;
+        }
+        #moviesBox .moviesInnerA .title{
+            color: #fff;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+            width: 79%;
+            text-align: center;
+        }
+        #moviesBox .moviesInnerA .score{
+            color: #FCC301;
+            width: 21%;
+            text-align: left;
+        }
+        /*movies列表（省流量）end*/
+    </style>
+</head>
+<body>
+    <div id="wrap">
+        
+        <div id="main">
+            <img src="../../image/1.jpg" alt="" id="bg_blur">
+            <!-- 左侧滑动条上下部分 -->
+            <!-- <div id="fixedLeft" style="display: block;">
+                <div id="fixedLeftTop">    
+                </div>
+                <div id="fixedLeftMiddle">
+                </div>
+                <div id="fixedLeftBottom">
+                </div>
+                <div id="fixedLeftBar"> 
+                </div>
+            </div> -->
+            <!-- 左侧滑动条上下部分end -->
+            <!-- 大图列表显示模式(右侧主体部分) -->
+            <div id="fixedRight" style="display: block;">
+                <ul id="movieList">
+                    <li class="movies">
+                        <div class="moviesTransBox">
+                            <img src="../../image/1.jpg" alt="">
+                            <label>
+                                <span class="title">忍者神龟：变种时代</span>
+                                <span class="score">8.2</span>
+                            </label>
+                        </div>
+                    </li>
+                    <li class="movies">
+                        <div class="moviesTransBox">
+                            <img src="../../image/2.jpg" alt="">
+                            <label>
+                                <span class="title">一个人的武林</span>
+                                <span class="score">8.0</span>
+                            </label>
+                        </div>
+                    </li>
+                    <li class="movies">
+                        <div class="moviesTransBox">
+                            <img src="../../image/3.jpg" alt="">
+                            <label>
+                                <span class="title">移动迷宫</span>
+                                <span class="score">8.4</span>
+                            </label>
+                        </div>
+                    </li>
+                    <li class="movies">
+                        <div class="moviesTransBox">
+                            <img src="../../image/4.jpg" alt="">
+                            <label>
+                                <span class="title">银河护卫队</span>
+                                <span class="score">9.0</span>
+                            </label>
+                        </div>
+                    </li>
+                    <li class="movies">
+                        <div class="moviesTransBox">
+                            <img src="../../image/5.jpg" alt="">
+                            <label>
+                                <span class="title">恐怖电影院</span>
+                                <span class="score">4.9</span>
+                            </label>
+                        </div>
+                    </li>
+                    <li class="movies">
+                        <div class="moviesTransBox">
+                            <img src="../../image/1.jpg" alt="">
+                            <label>
+                                <span class="title">忍者神龟：变种时代</span>
+                                <span class="score">8.2</span>
+                            </label>
+                        </div>
+                    </li>
+                    <li class="movies">
+                        <div class="moviesTransBox">
+                            <img src="../../image/2.jpg" alt="">
+                            <label>
+                                <span class="title">一个人的武林</span>
+                                <span class="score">8.0</span>
+                            </label>
+                        </div>
+                    </li>
+                    <li class="movies">
+                        <div class="moviesTransBox">
+                            <img src="../../image/3.jpg" alt="">
+                            <label>
+                                <span class="title">移动迷宫</span>
+                                <span class="score">8.4</span>
+                            </label>
+                        </div>
+                    </li>
+                    <li class="movies">
+                        <div class="moviesTransBox">
+                            <img src="../../image/4.jpg" alt="">
+                            <label>
+                                <span class="title">银河护卫队</span>
+                                <span class="score">9.0</span>
+                            </label>
+                        </div>
+                    </li>
+                    <li class="movies">
+                        <div class="moviesTransBox">
+                            <img src="../../image/5.jpg" alt="">
+                            <label>
+                                <span class="title">恐怖电影院</span>
+                                <span class="score">4.9</span>
+                            </label>
+                        </div>
+                    </li>
+                    <li class="movies">
+                        <div class="moviesTransBox">
+                            <img src="../../image/1.jpg" alt="">
+                            <label>
+                                <span class="title">忍者神龟：变种时代</span>
+                                <span class="score">8.2</span>
+                            </label>
+                        </div>
+                    </li>
+                    <li class="movies">
+                        <div class="moviesTransBox">
+                            <img src="../../image/2.jpg" alt="">
+                            <label>
+                                <span class="title">一个人的武林</span>
+                                <span class="score">8.0</span>
+                            </label>
+                        </div>
+                    </li>
+                    <li class="movies">
+                        <div class="moviesTransBox">
+                            <img src="../../image/3.jpg" alt="">
+                            <label>
+                                <span class="title">移动迷宫</span>
+                                <span class="score">8.4</span>
+                            </label>
+                        </div>
+                    </li>
+                    <li class="movies">
+                        <div class="moviesTransBox">
+                            <img src="../../image/4.jpg" alt="">
+                            <label>
+                                <span class="title">银河护卫队</span>
+                                <span class="score">9.0</span>
+                            </label>
+                        </div>
+                    </li>
+                    <li class="movies">
+                        <div class="moviesTransBox">
+                            <img src="../../image/5.jpg" alt="">
+                            <label>
+                                <span class="title">恐怖电影院</span>
+                                <span class="score">4.9</span>
+                            </label>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <!-- 大图列表显示模式(右侧主体部分)end -->
+            <!-- 小图列表显示模式 -->
+            <div id="moviesBox" style="display: none;">
+                <div class="moviesInnerBox">
+                    <img src="../../image/1.png" alt="">
+                    <a class="moviesInnerA">
+                        <span class="title">超体</span>
+                        <span class="score">5.9</span>
+                    </a>
+                </div>
+                <div class="moviesInnerBox">
+                    <img src="../../image/2.png" alt="">
+                    <a class="moviesInnerA">
+                        <span class="title">移动迷宫</span>
+                        <span class="score">5.9</span>
+                    </a>
+                </div>
+                <div class="moviesInnerBox">
+                    <img src="../../image/3.png" alt="">
+                    <a class="moviesInnerA">
+                        <span class="title">银河护卫队</span>
+                        <span class="score">5.9</span>
+                    </a>
+                </div>
+                <div class="moviesInnerBox">
+                    <img src="../../image/4.png" alt="">
+                    <a class="moviesInnerA">
+                        <span class="title">心花路放</span>
+                        <span class="score">5.9</span>
+                    </a>
+                </div>
+                <div class="moviesInnerBox">
+                    <img src="../../image/5.png" alt="">
+                    <a class="moviesInnerA">
+                        <span class="title">宙斯之子：赫拉克勒斯</span>
+                        <span class="score">5.9</span>
+                    </a>
+                </div>
+                <div class="moviesInnerBox">
+                    <img src="../../image/6.png" alt="">
+                    <a class="moviesInnerA">
+                        <span class="title">恐怖电影院</span>
+                        <span class="score">5.9</span>
+                    </a>
+                </div>
+                <div class="moviesInnerBox">
+                    <img src="../../image/7.png" alt="">
+                    <a class="moviesInnerA">
+                        <span class="title">大话西游之大圣娶亲</span>
+                        <span class="score">5.9</span>
+                    </a>
+                </div>
+                <div class="moviesInnerBox">
+                    <img src="../../image/8.png" alt="">
+                    <a class="moviesInnerA">
+                        <span class="title">大话西游之月光宝盒</span>
+                        <span class="score">5.9</span>
+                    </a>
+                </div>
+                <div class="moviesInnerBox">
+                    <img src="../../image/9.png" alt="">
+                    <a class="moviesInnerA">
+                        <span class="title">不能说的夏天</span>
+                        <span class="score">5.9</span>
+                    </a>
+                </div>
+                <!-- !!! -->
+                <div class="moviesInnerBox">
+                    <img src="../../image/7.png" alt="">
+                    <a class="moviesInnerA">
+                        <span class="title">大话西游之大圣娶亲</span>
+                        <span class="score">5.9</span>
+                    </a>
+                </div>
+                <div class="moviesInnerBox">
+                    <img src="../../image/8.png" alt="">
+                    <a class="moviesInnerA">
+                        <span class="title">大话西游之月光宝盒</span>
+                        <span class="score">5.9</span>
+                    </a>
+                </div>
+                <div class="moviesInnerBox">
+                    <img src="../../image/9.png" alt="">
+                    <a class="moviesInnerA">
+                        <span class="title">不能说的夏天</span>
+                        <span class="score">5.9</span>
+                    </a>
+                </div><div class="moviesInnerBox">
+                    <img src="../../image/7.png" alt="">
+                    <a class="moviesInnerA">
+                        <span class="title">大话西游之大圣娶亲</span>
+                        <span class="score">5.9</span>
+                    </a>
+                </div>
+                <div class="moviesInnerBox">
+                    <img src="../../image/8.png" alt="">
+                    <a class="moviesInnerA">
+                        <span class="title">大话西游之月光宝盒</span>
+                        <span class="score">5.9</span>
+                    </a>
+                </div>
+                <div class="moviesInnerBox">
+                    <img src="../../image/9.png" alt="">
+                    <a class="moviesInnerA">
+                        <span class="title">不能说的夏天</span>
+                        <span class="score">5.9</span>
+                    </a>
+                </div><div class="moviesInnerBox">
+                    <img src="../../image/7.png" alt="">
+                    <a class="moviesInnerA">
+                        <span class="title">大话西游之大圣娶亲</span>
+                        <span class="score">5.9</span>
+                    </a>
+                </div>
+                <div class="moviesInnerBox">
+                    <img src="../../image/8.png" alt="">
+                    <a class="moviesInnerA">
+                        <span class="title">大话西游之月光宝盒</span>
+                        <span class="score">5.9</span>
+                    </a>
+                </div>
+                <div class="moviesInnerBox">
+                    <img src="../../image/9.png" alt="">
+                    <a class="moviesInnerA">
+                        <span class="title">不能说的夏天</span>
+                        <span class="score">5.9</span>
+                    </a>
+                </div>
+            </div>
+            <!-- 小图列表显示模式end -->
+        </div>
+
+    </div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/common.js"></script>
+<script type="text/javascript" src="../../script/zepto.js"></script>
+<script type="text/javascript" src="../../script/moving.js"></script>
+<script>
+    // var fixedLeft = $api.byId('fixedLeft');
+    var $fixedRight = $api.byId('fixedRight');
+    var movieList = $api.byId('movieList');
+    var moviesBox = $api.byId('moviesBox');
+    // var bgBlur = $api.byId('bg_blur');
+    var changeStyle = function(style){
+        $api.setStorage('movieStyle',style);
+        $fixedRight.style.display = 'none';
+        moviesBox.style.display = 'none';
+        // fixedLeft.style.display = 'none';
+        // bgBlur.style.display = 'none';
+        if (style == 'list') {
+            moviesBox.style.display = 'block';
+        } else{
+            $fixedRight.style.display = 'block';
+            // fixedLeft.style.display = 'block';
+            // bgBlur.style.display = 'block';
+        }
+    };
+    apiready = function(){
+        Zepto(function($){
+            // 确定两种列表
+
+            var fW = $(window).width();
+            var fH = $(window).height();
+            var fixedLeftBar = $api.byId('fixedLeftBar');
+            // 计算滑动时必需的参数
+                // 中间线
+            var middleLine = parseInt(fH/2);
+                // 单个单位的 rect
+            var $movieUnit = $('#movieList .movies');
+            $.each($movieUnit, function(index, val) {
+                $(this).css({
+                    height: fW*0.78/0.67+'px',
+                    width: fW*0.78+'px'
+                });
+            });
+            var rect =  $movieUnit.offset();//api.rect
+
+            var $movieList = $(movieList);
+            var $moviesBox = $(moviesBox);
+            // var $fixedLeft = $(fixedLeft);
+            
+            var movingUnitL = parseInt(fH*1.3);
+            var topToTop = middleLine - (rect.height)/2;
+            var oDis = fH/(movieList.children.length);
+            // fixedLeftBar.style.height = oDis+'px';
+            $movieList.css('padding-top', topToTop);
+            // 参数end
+            // 太卡放弃
+            // 初始化swipe,添加删除movieUnit时可以调用；
+            // window.swipeInit = function(){
+            //     var moveUnits = $api.domAll('#fixedRight .movies');
+            //     window.movingUnit = new Moving(
+            //         movieList,
+            //         {
+            //             dir: 'y',
+            //             conf: {
+            //                 distance: rect.height,//这个是每个单位的长度
+            //                 stanScale: 0.9//这个是缩放比例
+            //             },
+            //             l: movingUnitL,//这个是移动一个单位距离所需的滑动距离
+            //             touchStartFn: function(){  
+            //             },
+            //             callback: function() {
+            //             },
+            //             transEndFn: function() {
+            //                 // bgBlur
+            //                 var $curUnit = $(this.nodes[this.currentPoint]);
+            //                 $(bgBlur).attr('src',$curUnit.find('img').attr('src'));
+            //                 fixedLeftBar.style.webkitTransform = 'translate(0,'+oDis*this.currentPoint+'px)'
+            //             }
+            //         }
+            //     );
+            // };
+            // swipeInit();           
+            
+            $moviesBox.on('click','.moviesInnerBox',function(e){
+                goDetail({
+                });
+            });
+            $movieList.on('click','.movies',function(e){
+                goDetail({
+                });
+            });
+
+        });
+    };
+    // apiready();
+</script>
+</html>

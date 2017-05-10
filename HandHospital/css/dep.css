@@ -1,0 +1,71 @@
+#main {
+	-webkit-box-flex: 1;
+	-webkit-flex: 1;
+	flex: 1;
+	padding: 8px;
+}
+.doctorBg {
+	margin-top: 8px;
+	border: 1px solid #dddcdc;
+	-webkit-box-shadow: 2px 2px 2px #dddcdc;
+	box-shadow: 2px 2px 2px #dddcdc;
+	width: 100%;
+	height: 100px;
+	background: #ffffff;
+	border-radius: 5px;
+	-webkit-border-radius: 5px;
+}
+
+.headerBg {
+	text-align: center;
+	width: 100%;
+	background: rgb(64,177,192);
+	border-radius: 5px 5px 0 0;
+	-webkit-border-radius: 5px 5px 0 0;
+	position: relative;
+}
+.headerBg h1 {
+	font-size: 14px;
+	height: 30px;
+	line-height: 33px;
+	margin: 0em;
+	color: #ffffff;
+}
+
+.content {
+	width: 100%;
+	border-radius: 0px 0px 5px 5px;
+	-webkit-border-radius: 0px 0px 5px 5px;
+	position: relative;
+}
+
+.content .docHeader {
+	display: inline-block;
+	width: 60px;
+	height: 60px;
+	background: url(../image/doc_default.png) no-repeat center center;
+	-webkit-background-size: 60px;
+	background-size: 60px;
+	position: absolute;
+	left: 18px;
+	border-radius: 30px;
+	-webkit-border-radius: 30px;
+}
+
+.content h1 {
+	position: absolute;
+	display: inline-block;
+	font-size: 18px;
+	color: #5e5e5e;
+	left: 90px;
+	top: 10px;
+}
+
+.content h2 {
+	position: absolute;
+	display: inline-block;
+	font-size: 14px;
+	color: #b6b6b6;
+	left: 90px;
+	top: 40px;
+}

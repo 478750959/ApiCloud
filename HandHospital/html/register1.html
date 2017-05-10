@@ -1,0 +1,49 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>report</title>
+		<link rel="stylesheet" type="text/css" href="../css/api.css" />
+		<link rel="stylesheet" type="text/css" href="../css/common.css" />
+		<link rel="stylesheet" type="text/css" href="../css/report.css" />
+	</head>
+	<body>
+		<div id="wrap">
+			<div id="main">
+				<div class="hp_input one">
+					<span class="title">验证码:</span>
+					<input type="text" id="phoneNumber" value="">
+					</input>
+				</div>
+				<button tapmode="buttonActive" class="button blue" id="comfirm" onclick="next()">
+					下一步
+				</button>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../script/api.js"></script>
+	<script type="text/javascript" src="../script/constants.js"></script>
+	<script>
+		apiready = function() {
+		};
+		function next() {
+			//练习环境无手机验证码,所以这里不进行判断,直接下一卡
+			openWin('password','设置密码');
+		}
+		
+		function openWin(type,title){
+			api.openWin({
+				name : type,
+				url : 'framework.html',
+				pageParam : {
+					'index' : 0,
+					'depName' : title,
+					'type':type,
+					'phoneNumber' : api.pageParam.phoneNumber,
+					'newUser' : api.pageParam.newUser
+				},
+			});
+		}
+	</script>
+</html>

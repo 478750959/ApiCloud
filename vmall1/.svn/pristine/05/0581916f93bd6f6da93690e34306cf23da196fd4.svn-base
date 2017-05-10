@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+	<link rel="stylesheet" href="../css/api.css">
+	<title></title>
+	<style>
+	html,body{background-color:rgb(247,247,247);height:100%;}
+	.title{height:70px;width:100%;background:url(../image/honor.jpg) no-repeat center center;}
+	.honor-item{margin:0 8px;border:1px solid rgb(236,236,236);background-color:rgb(255,255,255);}
+	.honor-img{/* height:160px; */width:100%;background-color:rgb(222,222,222);margin:0 0 -4px 0;}
+	.honor-buy{padding:10px 7px;}
+	.honor-buy-left{float: left}
+	.honor-buy-left-title{margin:0 0 3px 0;}
+	.honor-buy-left-content{color:rgb(163,163,163);font-size:11px;}
+	.honor-buy-right{float: right}
+	.honor-buy-right-span{height:30px;width:70px;border:1px solid rgb(216,216,216);text-align: center;line-height:30px;background-color:rgb(251,251,251);border-radius:10px;margin:0 0 0 5px;}
+	</style>
+</head>
+<body>
+	<div class="wrap">
+		<div class="title"></div>
+		<div class="honor-item">
+			<img class="honor-img" src="../image/20150707110620995.jpg">
+			 <div class="honor-buy after">
+				<div class="honor-buy-left">
+					<p class="honor-buy-left-title">7月14日 10:08</p>
+					<p class="honor-buy-left-content">7月14日10:08准点开售</p>
+				</div>
+				<div class="honor-buy-right">
+					<span class="honor-buy-right-span">闹钟提醒</span><span class="honor-buy-right-span">等待抢购</span>
+				</div>
+			</div>
+		</div>
+		<div class="hr-10"></div>
+		<div class="honor-item">
+			<img class="honor-img" src="../image/20150707110620995.jpg">
+			 <div class="honor-buy after">
+				<div class="honor-buy-left">
+					<p class="honor-buy-left-title">7月14日 10:08</p>
+					<p class="honor-buy-left-content">7月14日10:08准点开售</p>
+				</div>
+				<div class="honor-buy-right">
+					<span class="honor-buy-right-span">闹钟提醒</span><span class="honor-buy-right-span">等待抢购</span>
+				</div>
+			</div>
+		</div>
+		<div class="hr-10"></div>
+		<div class="honor-item">
+			<img class="honor-img" src="../image/20150707110620995.jpg">
+			 <div class="honor-buy after">
+				<div class="honor-buy-left">
+					<p class="honor-buy-left-title">7月14日 10:08</p>
+					<p class="honor-buy-left-content">7月14日10:08准点开售</p>
+				</div>
+				<div class="honor-buy-right">
+					<span class="honor-buy-right-span">闹钟提醒</span><span class="honor-buy-right-span">等待抢购</span>
+				</div>
+			</div>
+		</div>
+		<div class="hr-10"></div>
+		<div class="honor-item">
+			<img class="honor-img" src="../image/20150707110620995.jpg">
+			 <div class="honor-buy after">
+				<div class="honor-buy-left">
+					<p class="honor-buy-left-title">7月14日 10:08</p>
+					<p class="honor-buy-left-content">7月14日10:08准点开售</p>
+				</div>
+				<div class="honor-buy-right">
+					<span class="honor-buy-right-span">闹钟提醒</span><span class="honor-buy-right-span">等待抢购</span>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

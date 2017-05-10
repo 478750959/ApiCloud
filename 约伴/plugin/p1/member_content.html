@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+  <head>
+    <title>
+    </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="../../css/ui-on.css">
+    <link rel="stylesheet" href="../../css/ui-tab.css">
+    <link rel="stylesheet" href="../../css/ui-input.css">
+    <link rel="stylesheet" href="../../css/ui-img.css">
+    <link rel="stylesheet" href="../../css/ui-res.css">
+    <link rel="stylesheet" href="../../css/ui-list.css">
+    <link rel="stylesheet" href="../../css/ui-base.css">
+    <link rel="stylesheet" href="../../css/ui-box.css">
+    <link rel="stylesheet" href="../../css/ui-color.css">
+	<link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/ui-btn.css">
+    <link rel="stylesheet" href="../../css/ui-card.css">
+    <script src="../../js/y_control.js"></script>
+	<script src="../../js/y_click.js"></script>
+	<script src="../../js/dis_control.js"></script>
+	<script src="../../js/config.js"></script>
+	<script src="../../js/y_json.js"></script>
+    <script src="../../js/y_tmpl.js"></script>
+    <script src="../../js/y_anim.js"></script>
+    <script src="../../js/y_icache.js"></script>
+    <script src="script/common.js"></script>
+	<style>
+        input[type="radio"]:checked+div.tp-fuid {
+            background-image: url(../../images/icon-check.png) ;
+        }
+        input[type="radio"]+div.tp-fuid {
+            background-image: url(../../images/icon-uncheck.png) ;
+        }
+        .umw15 {
+            min-width:1.5em;
+        }
+        .uinn22{
+            padding:.6em .185em;
+        }
+	</style>
+  </head>
+<body class="um-vp" ontouchstart="zy_touch('')" id="mybody">
+    <div class="t-bla ub-ac lis" id="member_list">
+        <div class="ub ub-ac ut-s c-wh1 uinn5 umar-b1">
+            <div class="ub-f1" id="title1">已经接受</div>
+            <div class="" id="count1" ></div>
+        </div>
+        <div class="ub umar-b1 c-gra5">
+            <div class="ub-f1" id="users1" ></div>
+        </div>
+        <div id="toverify" class="">
+            <div class="ub ub-ac ut-s c-wh1 uinn5 umar-b1">
+                <div class="ub-f1" id="title0">要约的人</div>
+                <div class="" id="count0" ></div>
+            </div>
+            <div class="ub umar-b1 c-gra5">
+                <div class="ub-f1" id="users0" ></div>
+            </div>
+        </div>
+        <div id="btn_list2" class="uhide">
+        </div>
+    </div>
+</body>
+<script>
+zy_init();
+var params = getStorJson('params');
+var tid = params.tid;
+var memberlist = {};//已经通过的
+var applylist = {};//报名的
+var toverifylist = '';
+var adminmodel = true;
+var curpage = 1, totpage = 1, updr = '';
+var ucurl = getstorage('ucurl');
+if(!ucurl) ucurl = guc;
+var isactivitymaster = 0;
+var selected_users = {};
+var fromCache = 0;
+
+window.uexOnload=function(t)
+{
+    setPageBounce(downcb, upcb);
+    zy_initcache();
+    loadmemberlist('', '1');
+    if(fromCache) loadmemberlist('', '');
+};
+
+function downcb(){
+    updr = '0';
+    //resetBV('0');
+    loadmemberlist('', '');
+}
+function upcb(){
+    updr = '1';
+    if (curpage < totpage) {
+        loadmemberlist(curpage + 1, '');
+    }else resetBV('1');
+}
+function loadmemberlist(pg, f){
+    var url = forum_url + "&mod=ajax&action=datinglist&tid=" + tid + '&fid=' + fid;
+    resetBV(updr);
+    fromCache = checkKey(url);
+    if(!fromCache) uexWindow.toast('1','5','加载中...',"");
+    $.getJSON(url, function (json){
+        uexWindow.closeToast();
+        if(json){
+            if(zy_tmpl_count(json.list2verify) + zy_tmpl_count(json.list) > 4)//列表长时上下都显示按钮
+                setHtml('btn_list2', $$('btn_list1').innerHTML);
+            toverifylist = json.list2verify;//
+            show_members(toverifylist, 0);
+            //已经批准的
+            memberlist = json.list;//初始化
+            show_members(memberlist, 1);//异性排在前面
+            imgCacheCall();
+
+            //管理工具栏
+            isactivitymaster = json.isactivitymaster;//是否管理员
+            if(int(isactivitymaster)){
+                if(zy_tmpl_count(json.list2verify) + zy_tmpl_count(json.list) > 4)//列表长时上下都显示按钮
+                    setHtml('btn_list2', $$('btn_list1').innerHTML);
+            }
+        }
+    }, 'json', getJsonErr, 'GET', '', f);
+}
+
+function show_members(members, sort){//sort表示列表的第一块还是第二块
+    var verify_btn = '';
+    if(sort == 0){//约会申请的都有接受按钮
+        verify_btn =  '<div class="ub-ac c-org uinn11 ufr t-wh" id="verify_${uid}" ontouchstart="zy_touch(\'c-gra\')" onclick="submit(\'${applyid}\');">接受</div>';
+    }
+    var ftl =
+        '<div class="ub ub-ac" id="users_${uid}" ontouchstart="zy_touch(\'c-gra\')">'
+            +'<div class="uinn22" onclick="user_click(${uid},\'${username}\');">'
+                +'<div class="lis-th2 ub-img5 uc-a1 us"><img src="../../images/mylogo.png" class="inforpic" ${cb:avatar} id="am_${uid}"></div>'
+            +'</div>'
+            +'<div class="ub ub-ver ub-f3 ulev0 uinn22 ubb b-gra">'
+                +'<div class="ub umar-b1 umar-t">'
+                    +'<div class="ub ub-f1" onclick="user_click(${uid},\'${username}\');">${username}${cb:verify}</div>'
+                    + verify_btn
+                +'</div>'
+                +'<div class="ub ub-f1 ulev-1" id="p_${uid}" onclick="user_click(${uid},\'${username}\');">'
+                    +'${cb:profile}'
+                    +'<div class="ub-ac t-gra">${cb:distance}</div>'
+                +'</div>'
+            +'</div>'
+        +'</div>';
+    var res = '';
+    var length = zy_tmpl_count(members);
+    if(length > 0){
+        res = zy_tmpl(ftl,members,length,j2vCb);
+        setHtml('users' + sort, res);
+        setHtml('count' + sort, length + '人');
+    }else{
+        setHtml('users' + sort, '');
+        setHtml('count' + sort, '0人');
+    }
+}
+function j2vCb(d,c){
+    var str = '';
+    if(c.length>1)
+    {
+        switch(c[1])
+        {
+            case 'avatar':
+                var src = ucurl+d.uid;
+                var picid = 'am_'+d.uid;
+                pushCacheCall(function(){
+                    dis_imgcache(picid,src,src,imgLoadSucSrc,imgLoadErrSrc,null,'',1);
+                });
+                break;
+            case 'profile':
+                if(d.age)  str = d.age + '岁, ';
+                if(d.height) str += d.height + 'cm, ';
+                if(d.occupation) str += d.occupation;
+                str = '<div class="ub-ac ub-f1">'+ str +'</div>';
+                break;
+            case 'verify':
+                if(int(d.verify) == 1){
+                    str = '<strong class="user-v umar-l">验</strong>';
+                }else{
+                    str = '<strong class="user-not-v umar-l">未验证</strong>';
+                }
+                break;
+            case 'distance':
+                str = get_distance(d.distance);
+                break;
+        }
+    }
+    return str;
+}
+
+function user_click(uid, username){
+    setstorage('params','{"uid":"'+uid+'", "username":"'+username+'"}');
+    openwin('friend_information','../../friend_information.html','10');
+}
+function submit(touid){
+    var url = forum_url + '&mod=misc&action=activityapplylist&applylistsubmit=yes&fromapp=1&' + '&operation=verify&tid='+ tid + '&fid='+ fid + '&applyidarray=' + touid;
+    uexWindow.toast('1','5','加载中...',"");
+    $.getJSON(url, function (json){
+        var str = '操作失败';
+        uexWindow.closeToast();
+        if(json){
+            str = json.message ? json.message : '操作成功！';
+            if(json.status == 1){
+                loadmemberlist('', '');//刷新列表
+            }
+        }
+        uexWindow.toast('0','5',str,"2000");
+    })
+}
+</script>
+</html>

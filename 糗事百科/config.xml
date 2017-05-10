@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?><widget id="A6992607821067" security="false" version="0.0.1">
+  <name>糗事百科</name>
+  <description>糗事百科客户端是一款笑话段子分享社区应用，海量形形色色的糗事和内涵笑话，让你爆笑连连，生活乐不停！当然，你也可以将自己以及身边的糗事分享到糗事百科供他人一乐。</description>
+  <author email="realxiebin@sina.com" href="http://www.apicloud.com">lalalalalala</author>
+  <content src="index.html"/>
+  <preference name="pageBounce" value="true"/>
+  <preference name="appBackground" value="rgba(0,0,0,0)"/>
+  <preference name="windowBackground" value="rgba(0,0,0,0.0)"/>
+  <preference name="frameBackgroundColor" value="rgba(0,0,0,0.0)"/>
+  <preference name="hScrollBarEnabled" value="true"/>
+  <preference name="vScrollBarEnabled" value="true"/>
+  <preference name="autoLaunch" value="true"/>
+  <preference name="fullScreen" value="false"/>
+  <preference name="autoUpdate" value="true"/>
+  <preference name="smartUpdate" value="false"/>
+  <preference name="iOS7StatusBarAppearance" value="true"/>
+  <permission name="readPhoneState"/>
+  <permission name="call"/>
+  <permission name="sms"/>
+  <permission name="camera"/>
+  <permission name="record"/>
+  <permission name="location"/>
+  <permission name="fileSystem"/>
+  <permission name="internet"/>
+  <permission name="bootCompleted"/>
+  <permission name="hardware"/>
+  <permission name="contact"/>
+  <access origin="*"/>
+</widget>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<widget id="A6992692406137" version="0.0.1">
+    <name>途牛旅游</name>
+    <description>途牛旅游</description>
+    <author email="" href="http://www.apicloud.com">snow</author>
+    <content src="index.html"/>
+    <preference name="pageBounce" value="true"/>
+    <preference name="windowBackground" value="/image/xx.jpg"/>
+    <preference name="hScrollBarEnabled" value="true"/>
+    <preference name="vScrollBarEnabled" value="true"/>
+    <preference name="autoLaunch" value="true"/>
+    <preference name="fullScreen" value="false"/>
+    <preference name="iOS7StatusBarAppearance" value="true"/>
+    <permission name="readPhoneState"/>
+    <permission name="call"/>
+    <permission name="camera"/>
+    <permission name="record"/>
+    <permission name="location"/>
+    <permission name="fileSystem"/>
+    <permission name="internet"/>
+    <permission name="bootCompleted"/>
+    <permission name="hardware"/>
+    <access origin="*"/>
+</widget>

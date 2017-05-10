@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+  <head>
+    <title>
+    </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="css/ui-img.css">
+    <link rel="stylesheet" href="css/ui-res.css">
+    <link rel="stylesheet" href="css/ui-list.css">
+    <link rel="stylesheet" href="css/ui-base.css">
+    <link rel="stylesheet" href="css/ui-box.css">
+    <link rel="stylesheet" href="css/ui-color.css">
+	<link rel="stylesheet" href="css/ui-input.css">
+    <link rel="stylesheet" href="css/ui-tab.css">
+	<link rel="stylesheet" href="css/style.css">
+    <script src="js/y_control.js"></script>
+    <script src="js/y_click.js"></script>
+    <script src="js/dis_control.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/y_json.js"></script>
+    <script src="js/y_tmpl.js"></script>
+    <script src="js/y_anim.js"></script>
+    <script>
+	</script>
+    <style>
+        .drdc{
+            -webkit-transition: all 0.2s ease-in-out;
+        }
+
+        input[type="radio"]:checked+div.drdc{
+            -webkit-transform: scale(1,1);
+        }
+
+        input[type="radio"]+div.drdc{
+            -webkit-transform: scale(0,0);
+        }
+        .uinn30{
+            padding: 1em 0 .5em 0;
+        }
+        .ulim1 {
+            line-height: normal;/*placeholder居中设置*/
+            white-space: nowrap;
+        }
+    </style>
+  </head>
+<body class="um-vp c-wh1" ontouchstart="zy_cc(this);">
+    <div class="ubb b-gra t-bla ub-ac lis c-wh">
+        <div class="ub ub-ac">
+            <div class="ub-f1 ut-s t-gra2">已选圈子</div>
+            <div class="ut-s ulev-1 uhide" id="matchtags">已为你选定共同圈子</div>
+        </div>
+        <div class="ub uinn30">
+            <div class="ub-f1 umh4" id="selected_tags">
+                <div class="ub ub-ac ub-pc ufl b-gra3 uba uc-a2">
+                    <div class="ulev1 umar-l t-gra3 ub ub-ac">+</div>
+                    <input placeholder="输入圈子" type="text" class="ub tx-l uinn5 ulev-1 umw4 ulim1" id="input_tag" value="" size="6" onchange="tag_oninput();"
+                           onkeydown="this.onkeyup();" onkeyup="this.size=this.value.length+4">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="t-bla ub-ac lis">
+        <div class="ub t-bla ub-ac">
+            <div class="ub-f1 ut-s t-gra2">点击选择圈子</div>
+            <div class="ufr uc-a">
+            </div>
+        </div>
+        <div class="ub uinn30">
+            <div class="ub-f1" id="user_tags"></div>
+        </div>
+        <div class="ub ub-ver">
+            <div class="t-gra2 ulev-1 umar-t20 umar-b1" id="prompt">提示</div>
+            <div class="uhide"  id="mytags">
+                <div class="ufl uba b-org uc-a2 ub-ac ulev-1 uinn3 umar-r umar-b">
+                    <div class="t-gra3 ulev-1 umw2">&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                </div>
+                <div class="ufl uc-a2 ub-ac ulev-1 uinn3 umar-b">
+                    <div class="t-bla">红色表示我的圈子</div>
+                </div>
+            </div>
+
+            <div class="uhide"  id="friendtags" >
+                <div class="ufl uba b-blu1 uc-a2 ub-ac ulev-1 uinn3 umar-r umar-b">
+                    <div class="t-gra3 ulev-1 umw2">&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                </div>
+                <div class="ufl uc-a2 ub-ac ulev-1 uinn3 umar-b">
+                    <div class="t-bla">蓝色表示好友的圈子</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+zy_init();
+var params = getStorJson('params');
+var uid = getstorage('UID');
+var fuid ='';
+
+var selected_tags = {};
+var input_tags = [];
+var selected_tagid = 0;
+var json_obj = {};
+if(params.fuid) fuid = params.fuid;//可以为多个fuid用_号相连
+var fromCache = 0;
+window.uexOnload=function(type)
+{
+    loadFriendTags('', '');//使用缓存，selected_tag会重复
+    //if(fromCache) loadFriendTags('', '');
+};
+
+function loadFriendTags(pn, flag){
+    var url = home_url + '&mod=spacecp&ac=friend&op=select_tag&fuid=' + fuid;//
+    fromCache = checkKey(url);
+    if(!fromCache)uexWindow.toast('1','5','加载中...',"");
+    $.getJSON(url, function (json){
+        if(json){
+            var tl = '';
+            var res = '';
+            var cf = '';
+            json_obj = json;
+            for(var val in json){
+                var item = json[val];
+                var length = zy_tmpl_count(item);
+                if(val == 'match_tags'){
+                    for( var key in item){
+                        selected_tags[key] = item[key];//初始化
+                    }
+                    //selected_tags = item;
+                    tl = selected_tag_html(0, '');
+                    res = zy_tmpl(tl,item,length);
+                    setHtml('selected_tags', res + $$('selected_tags').innerHTML);
+                    if(length > 0) zy_anim_pop(matchtags, 'uhide');//显示共同圈子提示
+                }else if(val == 'user_tags'){
+                    cf = 'tags_handle(\''+ val +'\',${tagid})';
+                    tl = '<div class="ufl uba b-org uc-a2 t-bla ub-ac ulev-1 uinn5 umar-r umar-b" id="' + val + '_${tagid}" ontouchstart="zy_touch(\'c-gra\')" onclick="'+ cf +'">'
+                            +'<div class="ut-s">${tagname}</div>'
+                            +'</div>';
+                    res = zy_tmpl(tl,item,length);
+                    setHtml(val, res);
+                    if(length > 0){
+                        zy_anim_pop(mytags, 'uhide');//显示我的圈子提示
+                        //zy_anim_pop(prompt, 'uhide');
+                    }
+                }else if(val == 'fuser_tags'){//添加到user_tags的后面,添加好友时用到
+                    cf = 'tags_handle(\''+ val +'\',${tagid})';
+                    tl = '<div class="ufl uba b-blu1 uc-a2 t-bla ub-ac ulev-1 uinn5 umar-r umar-b" id="' + val + '_${tagid}" ontouchstart="zy_touch(\'c-gra\')" onclick="'+ cf +'">'
+                            +'<div class="ut-s">${tagname}</div>'
+                            +'</div>';
+                    res = zy_tmpl(tl,item,length);
+                    setHtml('user_tags', $$('user_tags').innerHTML + res);
+                    if(length > 0){
+                        zy_anim_pop(friendtags, 'uhide');//显示好友的圈子提示
+                        //zy_anim_pop(prompt, 'uhide');
+                    }
+                }
+            }
+        }
+    }, 'json', getJsonErr, 'POST', '', flag);
+}
+function selected_tag_html(tagid, tagname){
+    if(!tagid){//为批量,匹配得来
+        tagid = "${tagid}";
+        tagname = "${tagname}";
+    }
+    var val = 'selected_tags';
+    var tmpl = '<div class="ub ufl uba b-org uc-a2 t-bla ub-ac ulev-1 uinn5 umar-r umar-b" id="' + val + '_'+ tagid
+            + '" ontouchstart="zy_touch(\'c-gra\')" onclick="selected_tag_click(\''+ val +'\',\''+ tagid +'\');">'
+            +'<div class="ut-s">' + tagname + '</div>'
+            +'<input class="uhide" type="radio" id="rd' + tagid + '">'
+            +'<div class="ub-img5 im10 tagpic drdc" style="display:none;" id="rdimg' + tagid + '"></div>'
+            +'</div>';
+    return tmpl;
+}
+
+function selected_tag_click(type, tagid){
+    if($$('rd' + tagid).checked){
+        tags_handle(type, tagid)
+    }else{
+        clear_selected_tag();
+        $$('selected_tags_' + tagid).style.backgroundColor = '#EB0000';
+        $$('selected_tags_' + tagid).style.color = 'white';
+        $$('rdimg' + tagid).style.display = '';
+        setTimeout(function(){$$('rd' + tagid).checked = true;},50)//显示后再开始动画效果
+        selected_tagid = tagid;
+    }
+}
+function clear_selected_tag(){
+    if($$('selected_tags_' + selected_tagid)){
+        $$('selected_tags_' + selected_tagid) . style. backgroundColor = 'transparent';
+        $$('selected_tags_' + selected_tagid).style.color = 'black';
+        $$('rd' + selected_tagid).checked = false;
+        var tagid = selected_tagid;//避免后续全局变量在selected_tag_click中改变
+        setTimeout(function(){
+            if($$('rdimg' + tagid)) $$('rdimg' + tagid).style.display = 'none';
+        },200)//动画显示完毕再隐藏
+    }
+    selected_tagid = 0;
+}
+/**
+ * @param type
+ * @param tagid:当type为input_tag时，tagid为tagname
+ */
+function tags_handle(type, tagid){
+    var tagname;
+    if(type == 'input_tag'){//输入圈子时
+        tagname = tagid;
+        tagid = '@' + tagid + '@';//输入的圈子没有id，tagname特殊处理后代替tagid
+    }else if(type == 'user_tags'){
+        tagname = json_obj.user_tags[tagid].tagname;
+    }else if(type == 'fuser_tags'){//出现在selected_tags栏目中，准备保存
+        tagname = json_obj.fuser_tags[tagid].tagname;
+    }
+    //如果已经选择，则变为不选择，反之亦然
+    clear_selected_tag();
+    if(selected_tags[tagid]){
+        delete selected_tags[tagid];
+        removeNode('selected_tags_' + tagid);
+    }else{
+        selected_tags[tagid] = {tagid: tagid, tagname: tagname};
+        var node = createEle("div");
+        node.innerHTML = selected_tag_html(tagid, tagname);
+        //$$('selected_tags').appendChild(node);
+        var cContent = $$('selected_tags');
+        cContent.insertBefore(node, cContent.lastElementChild);
+    }
+}
+function friendSubmit(){
+    if(!tag_oninput()) return;
+    var length = zy_tmpl_count(selected_tags);
+    if(length < 1){
+        uexWindow.toast('0','5',"请选择圈子", 2000);//todo 改为confirm，没有选择圈子是否继续？
+        return;
+    }
+    var tagids = '';
+    //var tagnames = '';
+    var glue = '';
+    for(var key in selected_tags){
+        //tagnames += selected_tags[key][tagname] + ' ';
+        tagids += glue + key;
+        glue = '_';
+    }
+    tagids = encodeURIComponent(tagids);//tagids可能有输入的中文tag名称: 123_456_@音乐@_678
+    var url = home_url + "&mod=spacecp&ac=friend&op=add&uid="+fuid+"&tagids="+ tagids +"&note=&addsubmit=1";
+    if(going) return;
+    uexWindow.toast('1','5','请稍候...',"");
+    going = 1;
+    $.getJSON(url, friendSubmitCb, 'json', getJsonErr, 'POST', '', '');
+}
+function friendSubmitCb(json){
+    going = 0;
+    var msg = '操作失败';
+    uexWindow.closeToast();
+    if(json && int(json.status) > 0){//1,2,3
+        if(params.wname && params.popname){
+            ueppscript(params.wname, params.popname, 'friendAddBack('+ json.status +', '+ fuid +');');
+        }
+        setTimeout(function(){closeSelector();}, 2000);
+        msg = json.msg ? json.msg : '操作成功';
+    }else if(json.msg) msg = json.msg;
+    uexWindow.toast('0','5', msg, 2000);
+}
+function getJsonErr2(s){
+    isok = true;
+    resetBV('0');
+    resetBV('1');
+    var str = '返回数据有误！';
+    if(s.status=='-1') str = '无网络，连接失败^_^！';
+    uexWindow.toast('0','5',str,"1500");
+    logs('getJsonErr2-->msg='+s.message);
+}
+function closeSelector(){
+    //setStorJson(dataName[2], ImgObj);
+    uescript('friend_add', 'closewin();');
+}
+
+function tag_oninput(){
+    //检查
+    var input_tag = getValue('input_tag');
+    input_tag = trim(input_tag);
+    if(!input_tag) return true;//可以继续往后
+    for(var key in selected_tags){
+        var tag_name = selected_tags[key]['tagname'];
+        if(input_tag == tag_name){
+            uexWindow.toast('0', '5', '输入圈子名称已存在', '1500');
+            return false;
+        }
+    }
+    if(input_tag.length < 2){
+        uexWindow.toast('0', '5', '输入圈子名称太短', '1500');
+        return false;
+    }
+    if(input_tag.length > 6){
+        uexWindow.toast('0', '5', '输入圈子名称太长', '1500');
+        return false;
+    }
+    //圈子名称保存，提交的时候可以拼接
+    tags_handle('input_tag', input_tag);
+    //输入框恢复原状
+    setValue('input_tag', '');
+    $$('input_tag').size = 6;
+    return true;
+}
+</script>
+</html>

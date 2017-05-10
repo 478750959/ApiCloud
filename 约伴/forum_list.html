@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+<head>
+	<title></title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+	<link rel="stylesheet" href="css/ui-btn.css">
+	<link rel="stylesheet" href="css/ui-base.css">
+	<link rel="stylesheet" href="css/ui-box.css">
+	<link rel="stylesheet" href="css/ui-color.css">
+	<link rel="stylesheet" href="css/ui-res.css">
+	<link rel="stylesheet" href="css/style.css">
+    <script src="js/y_control.js"></script>
+	<script src="js/y_click.js"></script>
+	<script src="js/dis_control.js"></script>
+    <script src="js/config.js"></script>
+	<script>
+	</script>
+</head>
+    <body class="um-vp" ontouchstart>
+        <div id="page_0" class="up ub ub-ver c-gra5" tabindex="0">
+            <!--header开始-->
+           <div id="header" class="c-blu3 uh">
+            	<div class="c-m2 t-wh ub">
+            		<div class="umw4" ontouchstart="zy_touch('btn-act1')" onclick="closewin();">
+						<div class="btn btn-l btn-a ub ub-ac">       
+							<div class="ulim"><img src="images/back.png" class="sbtn"></div>
+						</div>
+					</div>
+	                <h1 class="ub-f1 ut ulev0 ut-s tx-c" tabindex="0" id="title">&nbsp;</h1>
+					<div class="umw4" ontouchstart="zy_touch('btn-act1')" onclick="addforum();">
+						<div class="btn btn-r btn-img ub ub-ac" id="af">
+				        	<div class="ulim"><img src="images/sbtn.png" class="sbtn" /></div>             
+				        </div>
+					</div>
+				</div>
+				<div style="height:1px;"></div>
+            </div>
+           <!--header结束--><!--content开始-->
+            <div id="content" class="ub-f1 tx-l t-bla">
+                
+            </div>
+            <!--content结束-->
+        </div>
+    </body>
+<script>
+zy_init();
+var params = getStorJson('params');
+var title = '';
+if(params.view=='thread') title='记录';
+else if(params.view=='reply') title='最新回复';
+else if(params.view=='me') title='我的记录';
+else title=params.username+'的记录';
+if(title) setHtml('title', title);
+
+var canAct = 1;
+if(params.view!='me'){
+	removeNode('af');
+	canAct = 0;
+}
+
+window.uexOnload = function(type){
+    if (!type) {
+        zy_con("content", "forum_list_content.html", 0, $$("header").offsetHeight);
+    }
+	window.onorientationchange=window.onresize=function()
+	{
+		zy_resize("content",0,$$("header").offsetHeight);				
+	}
+}
+function addforum(){
+	if(!canAct) return;
+	/*setstorage('params','{"type":"thread", "wname":"forum_list"}');
+	openwin('editor','editor.html','12');*/
+    editmenu();
+}
+function editmenu(){
+    var array = ['发'+ forums.interest.name, '发'+ forums.trend.name];
+    var fid = '';
+    uexWindow.cbActionSheet = function (opId, dataType, data){
+        if(data != "0" && data != "1") return;
+        if(data == "0"){
+            fid = forums.interest.fid;
+            fname = forums.interest.name;
+        }
+        if(data == "1"){
+            fid = forums.trend.fid;
+            fname = forums.trend.name;
+        }
+        setstorage('params','{"wname":"root", "popname":"content1", "fid" : "'+ fid +'", "title" : "'+ fname +'"}');
+        openwin('editor','editor.html','10');
+    }
+    uexWindow.actionSheet('', '取消', array);
+}
+</script>
+</html>

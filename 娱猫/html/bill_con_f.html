@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>服务</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../css/xyc.css" />
+    <style>
+    	.bill_con{
+			margin: 0 auto;
+/*			padding:0.3rem 0.2rem;*/
+		}
+		.bill_img{
+			background:white;
+			/*padding:0.16rem 0.16rem 0;*/
+			overflow:hidden;
+		}
+		.bill_img_con{
+			position:relative;
+			/*margin-bottom:0.2rem;*/
+		}
+		.bill_img img{
+			display:block;
+			width:100%;
+		}
+		.bill_labelBox{
+			position:absolute;			
+			min-width:1.15rem;
+			height:0.6rem;
+		}
+		.bill_label{
+			min-width:1.15rem;
+			height:0.6rem;
+			/*margin-top:-0.225rem;*/
+			opacity:0.01;
+		    
+			/*display:-webkit-box;*/
+		}
+		/*.bill_sports{
+			position:absolute;
+			top:-0.39rem;
+			left:-0.39rem;
+			background:transparent;
+			background-size:100% 100%;
+			width:0.78rem;
+			height: 0.78rem;
+			/*-webkit-animation: pulse ease-out 1s infinite;*//*}*/
+		.bill_label_l{
+			float:left;
+			width:0.32rem;
+			margin:0;
+			height:0.6rem;
+			/*background:url(../image/bill_label_l.png) no-repeat;*/
+			/*background-size:100% 100%;*/
+			
+		}
+		.bill_label_c{		    
+			float:left;
+			font-size:0.2rem;
+			text-align:center;
+			margin:0;
+			padding:0 0.5rem;
+			line-height:0.6rem;
+			color:white;
+			/*-webkit-flex:1;*/
+			min-width:0.6rem;
+			height:0.6rem;
+			background:url(../image/bill_label_c.png) repeat-x;
+			background-size:100% 100%;
+		}
+		.bill_top_icon{
+			position:fixed;
+			z-index:999;
+			bottom:0.3rem;
+			width:0.41rem;
+			height:0.32rem;
+			background:url(../image/bill_con_icon.png) no-repeat;
+			background-size:100% 100%;
+			left:50%;
+			margin-left:-0.2rem;
+			-webkit-animation: start 1s infinite linear;
+		}
+    </style>
+</head>
+	<script id="bill_labels" type="text/x-dot-template">
+	{{  for(var p in it) {  }}
+	<div class="bill_img_con">
+		<img src="{{=p}}" alt=''/>
+    		{{ for(var i=0,data=it[p];i<data.length;i++) {  }}
+    		<div class="bill_labelBox"  style='top:{{=data[i].tag_y}};left:{{=data[i].tag_x}};'>
+	    		<div class='bill_label clearfix' onclick="xyctap(this)" tag_point="{{=data[i].tag_point}}"   goods_id="{{=data[i].goods_id}}"    goods_from_url="{{=data[i].goods_from_url}}">
+	    			<!--<div class="bill_label_l"></div>-->
+	    			<div class="bill_label_c">{{=data[i].tag_name}}</div>
+	    		</div>
+	    		<!--<div class="bill_sports"></div>-->
+    		</div>
+    		{{  } }}
+    </div>
+    {{  }   }}
+    	
+    </script>
+<body>
+	<div id="wrap">
+		<div id="main">
+			<div class='bill_top_icon'></div>
+			<div class='bill_con'>
+				<div class="bill_img">
+
+				</div>
+				<!--<ul>
+					<li class='bill_column'>
+						<div class='con'>
+							<div class='pic'><img src="../image/img/555/a/6.jpg" alt=''/></div>
+							<div class="bill_label">衣服</div>
+						</div>
+					</li>
+					<li class='bill_column'>
+					</li>
+				</ul>-->
+			</div>
+		</div>
+	</div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>	
+	<script type="text/javascript" src="../script/zepto.js"></script>	
+	<script type="text/javascript" src="../script/font.js"></script>
+	<script type="text/javascript" src="../script/comm.js"></script>
+	<script type="text/javascript" src="../script/doT.min.js"></script>
+<script>
+
+
+//	当页面滚动到距离底部还有60px的时候，让下滑图标消失
+$(window).scroll(function(){
+	// 网页文档的高度 - 上滚距离 - 当前window的高度
+	var loadHeight = $(document).height() - $(window).scrollTop() - $(window).height();
+	if (loadHeight < 60) {
+		$('.bill_top_icon').addClass('none');
+	}else{
+		$('.bill_top_icon').removeClass('none');
+	}
+})
+function get_data(){	
+		var interText = doT.template($("#bill_labels").html());
+		$(".bill_img").html(interText(api.pageParam.data));		
+//		$(".bill_img").html(interText(data));		
+}
+//function xycclick(obj){
+//	$(obj).addClass('none');
+//	$(obj).prev().removeClass('none');
+////	var left = parseInt($(this).parent().css('left'));
+////	var long = parseInt('-'+$(this).prev().width());
+// 	var fx = $(obj).prev().attr('tag_point');
+// 	//0代表朝左方向，1代表朝右方向。
+//	if(fx==1){
+//		$(obj).prev().css({'-webkit-transform':'rotate(180deg)','-webkit-transform-origin':'0% 50%'})
+//		$(obj).prev().children('.bill_label_c').css('-webkit-transform','rotate(180deg)');
+//	}else{}
+//}
+function xyctap(o){
+	var goods_id=$(o).attr('goods_id');
+	var goods_from_url=$(o).attr('goods_from_url');	
+	if(goods_id==0){
+//		if(is_login()){
+			api.openWin({
+		        name:'bill_con_goods_head_w',
+		        url: 'bill_con_goods_head_w.html',
+		        opaque : true,
+				reload : true,
+				vScrollBarEnabled : false,
+				pageParam : {
+					u:goods_from_url
+				}
+	        });
+//		}else{
+//			to_login();
+//		}
+	}else{
+		api.openWin({
+			name : 'bill_dethead_w',
+			url :  'bill_dethead_w.html',
+			opaque : true,
+			delay : 500,
+			vScrollBarEnabled : false,
+			pageParam : {
+				count : 3,
+				goods_id:goods_id
+			}
+		});	
+	}
+}
+apiready=function(){
+	get_data();
+}
+</script>
+</html>

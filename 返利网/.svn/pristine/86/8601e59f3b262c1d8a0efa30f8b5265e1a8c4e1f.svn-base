@@ -1,0 +1,239 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>Hello APP</title>
+    <link rel="stylesheet" type="text/css" href="./css/api.css" />
+    <link rel="stylesheet" type="text/css" href="./css/common.css" />
+    <style>
+        .logo{
+            position: relative;
+            height: 32px;
+            margin-left: 13px;
+            margin-top: 8px;
+            margin-right: 10px;
+        }
+        .search-box{
+            position: relative;
+            -webkit-box-flex: 1;
+            -webkit-flex: 1;
+            flex: 1;
+            padding-right: 3px;
+            padding-top: 4px;
+        }
+        .search-box-inner{
+            height: 40px;
+            background-color: #FFF;
+            border-radius: 4px;
+        }
+        .search-box-inner .icon-search{
+            height: 100%;
+            width: 20px;
+            background: url(./res/search_icon.png) center center no-repeat;
+            background-size: 20px 20px;
+            float: left;
+            margin-left: 5px;
+        }
+        .search-box-inner .search-fake-input{
+            height: 100%;
+            line-height: 40px;
+            padding-left: 3px;
+            color: #B8B8B8;
+            font-size: 14px;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+            display: block;
+
+        }
+    </style>
+</head>
+<body>
+    <div id="wrap">
+        <div id="header">
+            <div class="header-content clearfix">
+                <img src="./res/new_logo.png" alt="" class="pull-left logo">
+                <div class="search-box" tapmode="tap-active" data-title="输入关键词，搜索拿返利" onclick="toNativeSearch(this);">
+                    <div class="search-box-inner">
+                        <i class="icon-search"></i>
+                        <span class="search-fake-input">
+                            输入关键词，搜索拿返利
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="main">
+                
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="./script/api.js"></script>
+<script type="text/javascript" src="./script/common.js"></script>
+<script type="text/javascript">
+    var indexOrGuide = function(){
+        if ($api.getStorage('firsttime')) {
+            api.setFrameGroupAttr({
+                name: 'guide',
+                hidden: 'true'
+            });
+            api.openFrame({
+                name: 'home',
+                url: './html/home.html',
+                bounces: false,
+                rect: {
+                    x: 0,
+                    y: headerPos.h,
+                    w: 'auto',
+                    h: mainPos.h
+                }
+            });
+        } else {
+            
+            api.openFrameGroup({
+                name: 'guide',
+                background: '#000000',
+                scrollEnabled: true,
+                rect: {
+                    x: 0,
+                    y: 0,
+                    w: 'auto',
+                    h: 'auto'
+                },
+                index: 0,
+                frames:[
+                    {
+                        name: 'guide1', 
+                        url: './html/guide/guide1.html', 
+                        pageParam:{}, 
+                        bounces:false, 
+                        opaque:true,
+                        bgColor: '#1CA428'
+                    },{
+                        name: 'guide2', 
+                        url: './html/guide/guide2.html', 
+                        pageParam:{}, 
+                        bounces:false, 
+                        opaque:true,
+                        bgColor: '#9448B4'
+                    },{
+                        name: 'guide3', 
+                        url: './html/guide/guide3.html', 
+                        pageParam:{}, 
+                        bounces:false, 
+                        opaque:true,
+                        bgColor: '#249ADA'
+                    }
+                ]
+            }, function(ret, err){
+                var name = ret.name;
+                var index = ret.index;
+                $api.setStorage('firsttime',true);
+            });
+        }
+    };
+    var indexToWeb = function(options){
+        api.openWin({
+            name: 'webpage',
+            url: './html/web/webpage.html',
+            pageParam: options,
+            bounces: false,
+            rect: {
+                x: 0,
+                y: 0,
+                w: 'auto',
+                h: 'auto'
+            },
+            reload: true,
+            showProgress: true
+        });
+    };
+    var indexToWebS = function(options){
+        api.openWin({
+            name: 'webpage-in',
+            url: './html/web/webpage-in.html',
+            pageParam: options,
+            bounces: false,
+            rect: {
+                x: 0,
+                y: 0,
+                w: 'auto',
+                h: 'auto'
+            },
+            reload: true,
+            showProgress: true
+        });
+    };
+    var indexToNative = function(options){
+        api.openWin({
+            name: 'nativepage',
+            url: './html/web/nativepage.html',
+            pageParam: options,
+            bounces: false,
+            rect: {
+                x: 0,
+                y: 0,
+                w: 'auto',
+                h: 'auto'
+            }
+        });
+    };
+    var indexToNativeS = function(options){
+        api.openWin({
+            name: 'nativepage',
+            url: './html/web/nativewin.html',
+            pageParam: options,
+            bounces: false,
+            rect: {
+                x: 0,
+                y: 0,
+                w: 'auto',
+                h: 'auto'
+            }
+        });
+    };
+    var indexToNativeSearch = function(options){
+        api.openWin({
+            name: 'nativesearch',
+            url: './html/web/native-search-win.html',
+            pageParam: options,
+            bounces: false,
+            rect: {
+                x: 0,
+                y: 0,
+                w: 'auto',
+                h: 'auto'
+            }
+        });
+    };
+    var indexToMission = function(index){
+        api.openWin({
+            name: 'mission1',
+            url: './html/native/mission1-win.html',
+            bounces: false,
+            rect: {
+                x: 0,
+                y: 0,
+                w: 'auto',
+                h: 'auto'
+            }
+        });
+    };
+    apiready = function(){
+        // 阻止首页弹动
+        api.setWinAttr({
+            bounces: false
+        });
+        // 阻止首页弹动 end
+
+        var header = $api.byId('header');
+        $api.fixIos7Bar(header); 
+        window.headerPos = $api.offset(header);
+        var main = $api.byId('main');
+        window.mainPos = $api.offset(main);
+        indexOrGuide();
+        
+    };
+</script>
+</html>

@@ -1,0 +1,461 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>MI</title>
+		<link rel="stylesheet" type="text/css" href="../css/api.css"/>
+		<style>
+			.login_con {
+				width: 4.54rem;
+				padding-top: 0.35rem;
+				margin: 0 auto;
+			}
+			.login_input {
+				display: -webkit-box;
+				width: 100%;
+				height: 0.8rem;
+				border: 1px solid #dedcdc;
+				border-radius: 0.1rem;
+				-webkit-box-sizing: border-box;
+				padding: 0.26rem;
+				font-size: 0.24rem;
+				line-height: 0.28rem;
+				color: #565656;
+				outline: none;
+				margin-bottom: 0.2rem;
+			}
+			.login_btn {
+				width: 100%;
+				height: 0.9rem;
+				background: #ff7f88;
+				text-align: center;
+				line-height: 0.9rem;
+				font-size: 0.32rem;
+				color: white;
+				margin-top: 0.4rem;
+			}
+			.telAndfor {
+				width: 100%;
+				-webkit-box-sizing: border-box;
+				margin-top: 0.4rem;
+				display: -webkit-box;
+				-webkit-box-pack: justify;
+				padding: 0 0.1rem;
+			}
+			.telAndfor p {
+				line-height: 0.25rem;
+				font-size: 0.2rem;
+				color: #999999;
+			}
+			h6 {
+				font-weight: normal;
+				font-size: 0.24rem;
+				color: #565656;
+				text-align: center;
+				line-height: 0.24rem;
+				margin-top: 0.75rem;
+				background: url(../image/login_h6.png) no-repeat center center;
+			}
+			.login_icon {
+				width: 100%;
+				margin: 0.42rem auto 0;
+				display: -webkit-box;
+				-webkit-box-pack: center;
+			}
+			.login_i {
+				width: 1.8rem;
+				height: 1rem;
+			}
+			.login_weixin {
+				background: url(../image/login_weixin.png) center 0 no-repeat;		
+				background-size:contain;
+			}
+			.login_sina {
+				background: url(../image/login_sina.png) center 0 no-repeat;
+				background-size: contain;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="wrap">
+			<div id="main">
+				<div class="login_con">
+					<input type="text" placeholder="昵称/手机号" class="login_input"  name="nick_phone">
+					<input type="password" placeholder="密码" class="login_input" name="password">
+					<div class="login_btn"   onclick="do_login()">
+						登&nbsp;录
+					</div>
+					<div class="telAndfor">
+						<!--<p class="tellogin_btn none" onclick='opennext("login_telforget_head_w",1)'>手机登录</p>-->
+						<p class="forget_btn" onclick='opennext("login_telforget_head_w",2)'>
+							忘记密码？
+						</p>
+					</div>
+				</div>
+				<h6  class='h6'>第三方登录</h6>
+				<div class="login_icon">
+					<div class="login_weixin login_i"   onclick="weixin_login()"></div>
+					<div class="login_sina login_i"  onclick="sina_login()"></div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../script/api.js"></script>
+	<script type="text/javascript" src="../script/comm.js"></script>
+	<script type="text/javascript" src="../script/zepto.js"></script>
+	<script type="text/javascript" src="../script/font.js"></script>
+	<script>
+	apiready=function(){
+			$('.login_weixin').addClass('none');
+			$('.login_sina').addClass('none');
+			$('.h6').addClass('none');		
+			var appBundle;
+			if (api.systemType == 'ios'){
+			    appBundle = 'wechat://';
+			    app_installed(appBundle,function(ret){
+			    	if(ret){	
+			    		$('.h6').removeClass('none');			    		    		
+			    		$('.login_weixin').removeClass('none');
+			    	}
+			    });
+			    appBundle = "sinaweibo://";
+			    app_installed(appBundle,function(ret){
+			    	if(ret){
+			    		$('.h6').removeClass('none');				    				    		
+			    		$('.login_sina').removeClass('none');
+			    	}
+			    });
+			}else{
+				$('.h6').removeClass('none');	
+				$('.login_sina').removeClass('none');		    		    		
+			    $('.login_weixin').removeClass('none');
+			} 											
+	}			
+	//普通用户登陆
+function login(param, callBack) {
+	var nick_phone = param.nick_phone, password = param.password;
+	if (nick_phone == '') {
+		api.toast({
+			msg : '手机号或昵称不能为空!',
+			location : 'middle'
+		});
+		return false;
+	}
+	if (password == '') {
+		api.toast({
+			msg : '密码不能为空!',
+			location : 'middle'
+		});
+		return false;
+	}
+	api.showProgress({
+		title : '登录中',
+		modal : false
+	});
+	param.password = SHA1(password);
+	//TODO:密码加密处理
+	ajaxRequest('login/login', 'post', param, function(ret, err) {	
+		api.hideProgress();
+		if (err) {
+			api.toast({
+				msg : err.msg
+			});
+			return false
+		}
+		callBack(ret);
+	});
+}
+	
+		function opennext(xyc, type) {
+			api.openWin({
+				name : xyc,
+				url : xyc + '.html',
+				opaque : true,
+				reload : true,
+				delay : 400,
+				vScrollBarEnabled : false,
+				pageParam : {
+					count : type
+				}
+			});
+		}
+
+		function go_center() {
+			//			api.alert({msg:is_login()});
+//			setTimeout(function() {				
+				api.closeWin({
+					name : 'login_telforget_head_w'
+				});
+				$('input').val('');
+				//发送到逛逛列表
+				api.sendEvent({name:'gg_flush'});
+				//跟goods mark页面
+				api.sendEvent({name:'xxxx'});
+				//发送到index上
+				api.execScript({
+					name : 'root',
+					script : 'to_ucenter("login_head_w")'
+				});
+				
+//			}, 200);
+		}
+
+		//普通手机或昵称进行登录
+		function do_login() {
+			var nick_phone = $.trim($('input[name=nick_phone]').val());
+			var password = $.trim($('input[name=password]').val());
+			login({
+				'nick_phone' : nick_phone,
+				'password' : password
+			}, function(ret) {				
+				if (ret.status) {
+					var user = ret.info.login_info;
+					$api.setStorage('mine', user);
+//					replace_into('user', user, function(ret) {
+//						if (ret.status) {
+//							//													alert('用户信息');
+//							//														go_center();
+//						}
+//					})
+					var wx = ret.info.wx_info;
+					if (!isEmpty(wx)) {
+						$api.setStorage('wx', wx);
+//						replace_into('wxif', wx, function(ret) {
+//							if (ret.status) {
+//								//													alert('新浪信息');
+//							}
+//						});
+					}
+					var sina = ret.info.sina_info;
+					if (!isEmpty(sina)) {
+						$api.setStorage('sina', sina);
+//						replace_into('sinaif', sina, function(ret) {
+//							if (ret.status) {
+//								//													alert('新浪信息');
+//							}
+//						});
+					}
+					//跳转到个人中心页面
+//					api.toast({
+//						msg : '登录成功！'
+//					});
+					
+					go_center();
+				} else {
+					api.toast({
+						msg : ret.info
+					});
+				}
+			});
+		}
+
+		//微信登录
+		function weixin_login() {
+			api.showProgress({
+				title : '授权中',
+				modal : false
+			});
+			setTimeout(function(){
+					api.hideProgress();
+				},1500);
+			var myobj = api.require('weiXin');
+			myobj.registerApp(function(ret, err) {
+				if (ret.status) {
+					myobj.auth(function(data, err) {
+						if (data.status) {
+							var token = data.token;
+							myobj.getUserInfo(function(msg, err) {
+								if (msg.status) {
+									msg.token = token;
+									ajaxRequest('auth/getwxif', 'post', msg, function(info, err) {
+										api.hideProgress();
+										if (err) {
+											api.toast({
+												msg : err.msg
+											});
+											return false
+										}
+										if (!info.status) {
+											api.toast({
+												msg : info.info,
+												location : 'middle'
+											});
+										} else {										
+											if (info.info == 'no_bind') {//没有授权,填写手机号绑定
+												var obj = {};
+												obj.auth = {												
+													'wx_openid' : msg.openid
+												};
+												$api.setStorage('bind', obj);
+												api.openWin({
+													name : 'mi_set_head_w',
+													url : 'mi_set_head_w.html',
+													opaque : true,
+													reload : true,
+													vScrollBarEnabled : false,
+													pageParam : {
+														count : 4														
+													}
+												});
+											} else {//有手机号直接到个人中心
+												var user = info.info.login_info;
+												var wx = info.info.wx_info;
+												var sina = info.info.sina_info;
+												if (!isEmpty(sina)) {
+													$api.setStorage('sina', sina);
+//													replace_into('sina_if', wx, function(ret) {
+//														if (ret.status) {
+//															//													alert('新浪信息');
+//														}
+//													});
+												}
+												$api.setStorage('mine', user);
+												$api.setStorage('wx', wx);
+//												replace_into('wxif', wx, function(ret) {
+//													if (ret.status) {
+//														//													alert('新浪信息');
+//													}
+//												});
+//												replace_into('user', user, function(ret) {
+//													if (ret.status) {
+//														//													alert('用户信息');
+//														//														go_center();
+//													}
+//												})
+												api.sendEvent({name:'gg_flush'});
+												//跟goods mark页面
+												api.sendEvent({name:'xxxx'});
+//												setTimeout(function() {
+													api.execScript({
+														name : 'root',
+														script : 'to_ucenter("login_head_w");'
+													});
+//												}, 100);
+											}
+										}
+									});
+								} else {
+//									api.toast({
+//										msg : err.msg,
+//										location : 'middle'
+//									});
+								}
+							});
+						} else {
+//							api.toast({
+//								msg : err.msg,
+//								location : 'middle'
+//							});
+						}
+					});
+				} else {
+//					api.toast({
+//						msg : err.msg,
+//						location : 'middle'
+//					});
+				}
+			});
+		}
+
+		function sina_login() {
+			api.showProgress({
+				title : '授权中',
+				modal : false
+			});
+			setTimeout(function(){
+					api.hideProgress();
+				},1500);
+			var myobj = api.require('sinaWeiBo');
+			myobj.auth(function(ret, err) {
+				if (ret.status) {
+					var token = ret.accessToken;
+					myobj.getUserInfo(function(ret, err) {
+						if (ret.status) {
+							ret.userInfo.sina_token = token;
+							var sina_info = ret.userInfo;
+							api.hideProgress();
+							ajaxRequest('auth/getsinaif', 'post', sina_info, function(ret, err) {
+								if (err) {
+									api.toast({
+										msg : err.msg
+									});
+									return false
+								}
+								if (!ret.status) {
+									api.toast({
+										msg : ret.info,
+										location : 'middle'
+									});
+								} else {
+									if (ret.info == 'no_bind') {//没有授权,填写手机号绑定
+										var obj = {};
+										obj.auth = {
+											'sina_uid' : sina_info.id
+										};
+										$api.setStorage('bind', obj);
+										api.openWin({
+											name : 'mi_set_head_w',
+											url : 'mi_set_head_w.html',
+											opaque : true,
+											reload : true,
+											vScrollBarEnabled : false,
+											pageParam : {
+												count : 4
+											}
+										});
+									} else {//有手机号直接到个人中心
+										var user = ret.info.login_info;
+										var sina = ret.info.sina_info;
+										var wx = ret.info.wx_info;
+										$api.setStorage('mine', user);
+										$api.setStorage('sina', sina);
+										if (!isEmpty(wx)) {
+											$api.setStorage('wx', wx);
+//											replace_into('wxif', wx, function(ret) {
+//												if (ret.status) {
+//													//													alert('新浪信息');
+//												}
+//											});
+										}
+//										replace_into('sinaif', sina, function(ret) {
+//											if (ret.status) {
+//												//													alert('新浪信息');
+//											}
+//										});
+//										replace_into('user', user, function(ret) {
+//											if (ret.status) {
+//												//													alert('用户信息');
+//												//														go_center();
+//											}
+//										})
+										//跟goods mark页面
+										api.sendEvent({name:'xxxx'});
+										api.sendEvent({name:'gg_flush'});
+//										setTimeout(function() {
+											api.execScript({
+												name : 'root',
+												script : 'to_ucenter("login_head_w");'
+											});
+//										}, 100);
+									}
+								}
+							});
+						}else {
+//							api.toast({
+//								msg : err.msg,
+//								location : 'middle'
+//							});
+						}
+					})
+				} else {
+//					api.toast({
+//						msg : err.msg,
+//						location : 'middle'
+//					});
+				}
+			});
+		}
+		
+	</script>
+</html>

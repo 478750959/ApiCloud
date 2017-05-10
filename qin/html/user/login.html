@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,initial-scale=1.0,width=device-width"/>
+    <title>APP</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/common.css" />
+<style>
+html,body{
+	  margin:0;
+	  padding:0;
+	   }
+body{	   
+ background:#AFE05B;
+ height: 100%;
+
+ }
+
+ #main{
+	  margin:0 auto;
+	  padding:0;
+	  width:90%;
+	  height: 100%;
+	
+	  
+ }
+ #main .in_put {
+	 width:100% !important;
+	 height:30px;
+	 border:none;
+	 border:2px #FFF solid;
+	 font-size:16px;
+	 line-height:18px;
+	 border-radius:1px;
+	 margin-bottom:5px;
+	
+	
+	}
+label{
+	 font-family:Verdana, Geneva, sans-serif;
+     width:100% !important;
+	 margin-bottom:1px;
+	}
+#loginform{
+  position:relative;
+  top: 25px;
+  font-family:Verdana, Geneva, sans-serif;
+
+}
+
+ #login{
+ width:100% !important;
+ 
+ background-color: #A5A5A5;
+ padding: 10px;
+ border-radius:5px;
+ 
+}
+
+#line{
+margin-top: 200px;
+text-align:center;
+}
+#account{
+
+	  width:100%;
+
+     margin-top: 10px;
+
+}
+.third{
+ float: left;
+ margin-left: 10px;
+ width:60px;
+ height: 60px;
+ 
+}
+hr{
+/*color: #FFFFFF !important;*/
+border: 1px  #FFFFFF solid;
+  margin-top: 2px;
+}
+
+.goto1{
+float: left;
+  margin-top: 10px;
+}
+
+.goto2{
+  margin-top: 10px;
+  float: right;
+}
+</style>
+</head>
+
+<body>
+	<div id="main">
+	     <div id="loginform">
+			<label for="uname"><!--账号-->
+			 <input type="text" class="in_put" id="uname" name="uname"  value="" placeholder="手机号码" autofocus="autofocus"/>
+			 </label><br />
+			  <label for="oprice"><!--密码-->
+			 <input type="password" class="in_put" id="pwd" name="pwd"  value="" placeholder="密码"/>
+			 </label> <br />
+			  <button id="login" onclick="Login()">登录</button>
+			  <button id="forget" class="goto1" onclick="goto2()">手机注册</button>
+			  <button id="reg" class="goto2" onclick="goto1()">忘记密码</button>	
+		 </div>
+		 <div id="line">		 
+		   	用其他帐号登录
+		   <hr />
+		 </div>
+		 <div id="account">
+		  <img src="../../image/login_ico_weibo.png" class="third" onclick="wblogin()"/>		  
+		  <!--<img src="../../image/logo_ico_weixinpay.png" class="third" onclick=""/>-->
+		  <img src="../../image/login_ico_qq.png" class="third" onclick="qqlogin()"/>
+		  <!--<img src="../../image/login_ico_zhifubo.png" class="third" onclick=""/>-->
+		  <img src="../../image/1432712039501_jd.jpg" class="third" onclick="jdlogin()"/>
+		 </div>
+	</div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/common.js"></script>
+<script type="text/javascript">
+function Login() {
+    api.showProgress({
+        title: '正在登录...',
+        modal: false
+    });
+    var name = $api.val($api.byId('uname'));
+    var pwd = $api.val($api.byId('pwd'));
+
+    var loginUlr = '/user/login';
+    var bodyParam = {
+        username: name,
+        password: pwd
+    }
+    ajaxRequest(loginUlr, 'post', JSON.stringify(bodyParam),'', function (ret, err) {
+        if (ret) {
+            $api.setStorage('uid', ret.userId);
+            $api.setStorage('uname', ret.username);
+            $api.setStorage('token', ret.id);
+//          setTimeout(function () {
+//              api.closeWin();
+//          }, 100);
+            api.alert({
+                msg: '登录成功！'
+            }, function () {
+                api.closeWin();
+            });
+            
+        } else {
+           
+            var einfo = err;
+//          if (err.status=='401')
+//          {
+//	            api.alert({
+//	                msg: '邮箱尚未验证'
+//	            });
+//          }
+//          alert('json'+JSON.stringify(err));
+            api.alert({
+                msg: err.msg
+            },function(ret, err){
+            if (einfo.statusCode=='401'){
+               api.alert({
+	                msg: '邮箱尚未验证'
+	            });
+	         }   
+	             alert('json'+JSON.stringify(einfo));
+            });
+        }
+        api.hideProgress();
+    })
+}
+
+function wblogin(){
+	var sinaWeiBo = api.require('sinaWeiBo');
+	sinaWeiBo.auth(function(ret,err){
+	    if (ret.status) {
+	        api.alert({
+	            title: '微博授权',
+	            msg: '授权成功'
+	        });
+	       
+	        var params = {
+	            token:ret.accessToken,
+	            uid : ret.userID
+	        }
+ 
+	         sinaWeiBo.getUserInfo(params,function(ret,err){
+			 if (ret.status) {
+			        alert(JSON.stringify(ret.userInfo));
+			        api.alert({msg: '获取成功'});
+			    }else{
+			        api.alert({msg:err.msg});
+			    }
+			});
+				        
+	        
+	    }else{
+	        api.alert({msg:'授权失败'+err.msg});
+	    }
+	});
+
+}
+
+function qqlogin(){
+	var obj = api.require('qq');
+	obj.installed(function(ret,err){
+	    if(ret.status){
+	       api.alert({msg: "安装"});
+	       obj.login(function(ret,err){
+			    api.alert({
+			        title: 'id和token',
+			        msg: ret.openId + ret.accessToken
+			    });
+			});
+	       
+	    }else{
+	        api.alert({msg: "没有安装"});
+	    } 
+	});
+
+}
+function jdlogin(){
+      var jd = api.require('jd');
+	  jd.login({
+	    appKey:'F7E188290D59BD58FDA262E03A355542',
+	    appSecret:'a13d7611c4f4498ea79d95e861a5a554',
+	    redirectUri:'http://yunsmart.com',
+	    naviColor:'#f00'
+	  },function(ret,err){
+	    if(ret){
+	        alert(JSON.stringify(ret));
+	        
+	    }else{
+	        alert(JSON.stringify(err));
+	    }
+	  });
+    
+    }
+
+function goto1(){
+	api.openWin({
+		name: 'forget',
+		url: 'reg.html'
+	});
+}
+
+function goto2(){
+	api.openWin({
+		name: 'reg',
+		url: 'reg.html'
+	});
+}
+
+function validtel()
+{
+	var tel =$api.val( $api.byId('uname'), val);
+	var telReg = !!tel.match(/^(0|86|17951)?(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$/);
+	//如果手机号码不能通过验证
+	return telReg
+
+}
+</script>
+</html>

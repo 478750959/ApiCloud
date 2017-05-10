@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+<head>
+	<title>
+	</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+	<link rel="stylesheet" href="css/ui-img.css">
+	<link rel="stylesheet" href="css/ui-res.css">
+	<link rel="stylesheet" href="css/ui-list.css">
+	<link rel="stylesheet" href="css/ui-base.css">
+	<link rel="stylesheet" href="css/ui-box.css">
+	<link rel="stylesheet" href="css/ui-color.css">
+	<link rel="stylesheet" href="css/style.css">
+    <script src="js/y_control.js"></script>
+    <script src="js/y_click.js"></script>
+	<script src="js/y_tmpl.js"></script>
+	<script src="js/dis_control.js"></script>
+	<script src="js/config.js"></script>
+	<script src="js/y_json.js"></script>
+	<script src="js/socketio/socket.io.js"></script>
+	<script src="js/socketio/talkUtil.js"></script>
+	<script src="msg_detail_yb_content.js"></script>
+	<script src="js/y_icache.js"></script>
+	
+	<script></script>
+	<style>
+	.ext-bg-send {
+	white-space:normal;
+	border:8px solid rgba(0,0,0,0.2);
+	border-right-width: 16px;
+	border-top-width: 8px;
+	-webkit-border-image: url(images/sender-.png) 7 16 9 8 stretch stretch;
+	}
+	.ext-bg-send-j{
+	position:absolute;
+	right:0;
+	top:0;
+	margin-top:.2em;
+	z-index:100;
+	display:block;
+	}
+	.ext-bg-recv-j{
+	right:auto;
+	left:0;
+	}
+	.ext-bg-recv {
+	-webkit-border-image: url(images/recv-.png) 7 16 9 16 stretch stretch;
+	border-left-width: 16px;
+	}
+	.ext-dateline{
+	position: absolute;
+	bottom: -1.8em;
+	font-size: .7em;
+	font-weight: normal;
+	overflow: visible;
+	width: 100%;
+	text-align: center;
+	}
+	.ext-txt-color{
+	color:#4a4a4a;
+	}
+	.ui-li-desc {
+	font-size: .75em;
+	font-weight: normal;
+	display: block;
+	margin: -.5em 0 .6em;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	padding: 0 0.2em;
+	}
+	.ui-listview {
+		margin: 0;
+		counter-reset: listnumbering
+	}
+	</style>
+</head>
+<body class="um-vp" ontouchstart>
+	<div id="history">
+		<!--此区域显示历史消息-->
+	</div>
+		<div id="allMsg" class="tx-c umar-t" ontouchstart="zy_touch('c-gra')" onclick="getHistoryMsgFromDB()">下拉可查看历史消息</div>
+		<div id="list">
+			<!--此区域最新消息-->
+		<!--
+		<li id="1_91" style="padding-top:.5em;"><div class="uc-n"> <div ontouchstart="zy_touch(\'c-gra\')" onclick="msg_menu(1, 91);" class="ub t-bla ub-at lis "><div class="lis-th2 ub-img uc-a1"><img src="images/mylogo.png" class="inforpic" id="91"></div><div class="ub-f1 ub"><div class="ub-at ub-pt"><div style="margin:0;word-break:break-all;" class="ui-li-desc ext-txt-color ext-bg-send ulev0 uof ext-bg-recv">别人</div><div class="ext-bg-send-j ext-bg-recv-j"><img src="images/recv-j-.png"></div></div><div class="ub-f1"></div></div><div style="width:2em;"></div> </div> </div></li>
+		
+		<li id="3_92" style="padding-top:.5em;"><div class="uc-n"> <div ontouchstart="zy_touch(\'c-gra\')" onclick="msg_menu(3, 92);" class="ub t-bla ub-at lis ub-rev ub-pe"><div class="lis-th2 ub-img uc-a1"><img src="images/mylogo.png" class="inforpic" id="92"></div><div class="ub-f1 ub"><div class="ub-at ub-pt"><div style="margin:0;word-break:break-all;" class="ui-li-desc ext-txt-color ext-bg-send ulev0 uof ">我发送</div><div class="ext-bg-send-j"><img src="images/sender-j-.png"></div></div><div class="ub-f1"></div></div><div style="width:2em;"></div> </div> </div></li>
+		-->
+		
+	</div>
+</body>
+<script>
+zy_init();
+window.uexOnload = function (type){
+    if(!type){
+		uexWindow.toast('0','5','连接中...',-1);
+		getChatServer();//调用聊天逻辑
+		zy_initcache(function(){});//初始化本地缓存状态
+
+		setPageBounce(downcb,upcb);//上下刷新
+	}
+}
+
+function downcb(){
+	//下拉回调
+	if ($$('allMsg').style.display == "none") {
+		resetBV(0);//已经取到结果了后就不再刷新。
+		return;
+	}
+	if(currentFactMsgCount<10){
+		resetBV(0);//已连接后，反馈的实际消息数，若小于10，则无需刷新。
+		return;
+	}else {
+		getHistoryMsgFromDB();//获取全部历史消息。下一步优化，每次获取当天消息。
+	}
+}
+function upcb(){
+	//上拉回调
+	resetBV(1);//不下拉操作。
+}
+
+
+
+
+</script>
+</html>

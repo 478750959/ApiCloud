@@ -1,0 +1,72 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>APP</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/common.css" />
+    <link rel="stylesheet" href="../../css/light.css" class="light-style">
+    <link rel="stylesheet" href="../../css/dark.css" class="dark-style" disabled>
+</head>
+<body>
+    <div id="wrap">
+        <div id="main">
+			<div id='sys-info' style="text-align:left;margin:10px;border:1px;"></div>
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/theme.js"></script>
+<script type="text/javascript" src="../../script/common.js"></script>
+<script type="text/javascript">
+    apiready = function(){
+		var ver = api.version;
+		var sType = api.systemType;
+		var sVer = api.systemVersion;
+		var id = api.deviceId;
+		var model = api.deviceModel;
+		var name = api.deviceName;
+		var cType = api.connectionType;
+		var wgtParam = api.wgtParam || '';
+		if(wgtParam){
+			wgtParam = JSON.stringify(wgtParam);
+		}
+		var pageParam = api.pageParam || '';
+		if(pageParam){
+			pageParam = JSON.stringify(pageParam);
+		}
+		var appParam = api.appParam || '';
+		if(appParam){
+			appParam = JSON.stringify(appParam);
+		}
+		var wgtRootDir = api.wgtRootDir;
+		var winName = api.winName;
+		var winWidth = api.winWidth;
+		var winHeight = api.winHeight;
+		var frameName = api.frameName||'';
+		var frameWidth = api.frameWidth||'';
+		var frameHeight = api.frameHeight||'';
+
+		var str = '<ul>';
+		str += '<li>版本信息: '+ ver +'</li>';
+		str += '<li>系统类型: '+ sType +'</li>';
+		str += '<li>系统版本: '+ sVer +'</li>';
+		str += '<li>设备标识: '+ id +'</li>';
+		str += '<li>设备型号: '+ model +'</li>';
+		str += '<li>设备名称: '+ name +'</li>';
+		str += '<li>网络状态: '+ cType +'</li>';
+		str += '<li>根目录: '+ wgtRootDir +'</li>';
+		str += '<li>主窗口名字: '+ winName +'</li>';
+		str += '<li>主窗口宽度: '+ winWidth +'</li>';
+		str += '<li>主窗口高度: '+ winHeight +'</li>';
+		str += '<li>子窗口名字: '+ frameName +'</li>';
+		str += '<li>子窗口宽度: '+ frameWidth +'</li>';
+		str += '<li>子窗口高度: '+ frameHeight +'</li>';
+		str += '</ul>';
+
+		$api.byId('sys-info').innerHTML = str;
+
+    }
+</script>
+</html>

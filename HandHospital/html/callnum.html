@@ -1,0 +1,42 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>report</title>
+		<link rel="stylesheet" type="text/css" href="../css/api.css" />
+		<link rel="stylesheet" type="text/css" href="../css/common.css" />
+		<link rel="stylesheet" type="text/css" href="../css/callnum.css" />
+	</head>
+	<body>
+		<div id="wrap">
+			<div id="main">
+				<script id="line-template" type="text/x-dot-template">
+					{{ for(var i=0; i<it.length; i++) { }}
+						<div tapmode="" class="leftpart">
+							<a tapmode style="background-image: url('{{=it[i].depImg}}');"></a></br>
+							<span class="scondenspan">{{=it[i].depName}}</span>
+						</div>
+						<span class="middle">前面还有<span class="num">{{=it[i].num}}</span>位在等待</span>
+						<div tapmode="" class="rightpart">
+							<span class="num">{{=it[i].num}}</span><span class="firstspan">号</span></br>
+							<span class="scondenspan">我的预约号</span>
+						</div>
+					{{ } }}
+				</script>
+				<div class="content" id="content">
+					
+				</div>
+
+				<button class="button blue" id="showAllNum" tapmode="" onclick="openWin()">
+					科室实时叫号
+				</button>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../script/api.js"></script>
+	<script type="text/javascript" src="../script/zepto.min.js"></script>
+	<script type="text/javascript" src="../script/doT.min.js"></script>
+	<script type="text/javascript" src="../script/constants.js"></script>
+	<script type="text/javascript" src="../script/callnum.js"></script>
+</html>

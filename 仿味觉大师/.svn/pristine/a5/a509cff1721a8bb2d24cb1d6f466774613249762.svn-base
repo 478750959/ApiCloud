@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>味觉大师</title>
+<meta name="viewport" content="initial-scale=1, maximum-scale=1">
+<link rel="shortcut icon" href="/favicon.ico">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+<link rel="stylesheet" href="css/sm.css">
+<link rel="stylesheet" href="css/sm-extend.css">
+<link rel="stylesheet" href="css/ui-box.css">
+<link rel="stylesheet" href="css/my.css">
+<style type="text/css">
+
+
+.show-item img {
+	width: 100%;
+}
+
+.title-icon {
+	margin-right: 0.6rem;
+	background-color: red;
+}
+
+.more {
+	float: right;
+}
+
+.descp {
+	font-size: 0.65rem;
+	color: gray;
+}
+.big-img{
+	max-height:15em;
+}
+</style>
+</head>
+<body>
+	<div class="page-group">
+		<div class="page" id="page-index">
+			<header class="bar bar-nav">
+				<a class="icon icon-search pull-right"></a>
+				<h1 class='title'>秀场</h1>
+			</header>
+            <nav class="bar bar-tab">
+                <a class="tab-item" href="./index.html" external> <span class="icon icon-home"></span> <span class="tab-label">首页</span> </a>
+                <a class="tab-item" href="./restaurant.html" external> <span class="icon icon-gift"></span> <span class="tab-label">精选餐厅</span> </a>
+                <a class="tab-item active" href="./show.html" external> <span class="icon icon-star"></span> <span class="tab-label">秀场</span> </a>
+                <a class="tab-item" href="./master.html" external> <span class="icon icon-app"></span> <span class="tab-label">大师菜谱</span> </a>
+                <a class="tab-item" href="./my.html" external> <span class="icon icon-me"></span> <span class="tab-label">我的</span> </a>
+            </nav>
+			<div id="content" class="content">
+				<div class="buttons-tab">
+					<a href="#tab1" class="tab-link active button">推荐</a> <a
+						href="#tab2" class="tab-link button">排行</a> 
+					<a href="#tab3"
+						class="tab-link button">关注</a>
+					<a href="#tab4"
+						class="tab-link button">我的</a>
+				</div>
+				<div class="tabs">
+					<div id="tab1" class="tab active">
+						<div class="show-item umar-b" v-for="x in items">
+							<a href="./show/detail.html?id={{x.id}}">
+							<div class="ub ub-ac umar-a ulev-1">
+								<div class="portrait"></div>
+								<div class="ub-f1 umar-l">
+									<div class="ub">
+										<div class="color-name ub-f1">{{x.showname}}</div>
+										<div class="color-gray ulev-1">50分钟前</div>
+									</div>
+								</div>
+							</div>
+							<img :src="x.img_path" class="big-img" />
+							<div class="ub umar-l umar-r uinn border-b ulev1">
+								<div class="ub-f1"><span class="icon icon-star uinn-v umar-r"></span><span class="icon icon-message uinn-v"></span></div>
+								<div class="">...</div>
+							</div>
+							<div class="ulev-1 uinn"><a>{{x.showname}}：</a>{{x.descp}}</div>
+							<div class="ub ub-ac">
+								<div class="icon icon-star umar-l umar-r">
+								</div>
+								<div class="ub-f1 color-name">
+									{{x.star_num}}人赞过
+								</div>
+							</div>
+							</a>
+						</div>
+						
+						
+					</div>
+					<div id="tab2" class="tab">
+						<div class="content-block">
+							<p>排行列表</p>
+						</div>
+					</div>
+					<div id="tab3" class="tab">
+						<div class="content-block">
+							<p>关注列表</p>
+						</div>
+					</div>
+					<div id="tab4" class="tab">
+						<div class="content-block">
+							<p>我的列表</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+	<script type='text/javascript' src='js/zepto.min.js'
+		charset='utf-8'></script>
+	<script type='text/javascript' src='js/sm.js' charset='utf-8'></script>
+	<script type='text/javascript' src='js/sm-extend.min.js'
+		charset='utf-8'></script>
+	<script type='text/javascript' src='js/vue.min.js' charset='utf-8'></script>
+    <script type='text/javascript' src='js/pluto.js' charset='utf-8'></script>
+</body>
+<script type='text/javascript' src='js/api.js' charset='utf-8'></script>
+<script type="text/javascript">
+
+	
+	$(document).on("pageInit", "#page-index", function(e, pageId, $page) {
+		var newsVM=new Vue({
+			el:"#content",
+			ready:function(){
+				var _this=this;
+				GetLocal('./data/show.json',function(resp){
+					// logs(resp,true);
+					abs2full(resp.items,"img_path","");
+					_this.items=resp.items;
+		    		
+				});
+			},
+			data:{
+				items:[],
+			}
+		});
+	});
+	$(document).on("pageInit", "#page-show", function(e, pageId, $page) {
+    	var vm = new Vue({
+			el : "#"+pageId,
+			ready : function() {
+				var _this = this;
+				var request = getRequest();
+				console.log(request)
+				GetLocal('../data/show.json', function(resp) {
+                    abs2full(resp.items,"img_path","");
+                    _this.one = getOne(resp.items,request["id"]);
+					_this.$nextTick(function(){
+						$("#"+pageId).find(".content").removeClass("hidden");
+					});
+				});
+			},
+			data : {
+				one : {},
+			}
+		});
+    });
+	$.init();
+</script>
+</html>

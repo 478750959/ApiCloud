@@ -1,0 +1,367 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <style>
+    	html,body{
+    		background:#fefdfa;
+    	}
+    	.stroll_main{
+    		padding:0.2rem;
+    	}
+    	.stroll_con_ul{
+    		position: relative;
+    		width:100%;
+    	}
+    	.stroll_con_ul li{
+    		width:48.5%;
+    		height:auto;
+    		display:-webkit-box;
+    		-webkit-box-sizing: border-box;
+    		border:1px solid #f8f6f0;
+    		padding:0.16rem;
+    		background:white;
+    		 -webkit-box-orient:vertical;
+    	}
+    	.xyc_stroll_li_div{
+    		width:100%;
+    		height:auto;
+    		position:relative;
+    	}
+    	.xyc_stroll_li_div img{
+    		display:block;
+    		width:100%;
+    		height:auto;
+    	}
+    	.stroll_con_txt{
+    		font-size:0.24rem;
+    		line-height:0.3rem;
+    		margin-top:0.14rem;
+    		width:100%;
+    		text-overflow:ellipsis; white-space:nowrap; overflow:hidden;
+    		color:#565656;
+    	}
+    	.xyc_stroll_li_dw{
+    		height: 0.6rem;
+			width:100%;
+			position:absolute;
+			bottom: 0;
+			background:#000000;
+			z-index: 10;
+			opacity: 0.5;
+    	}
+    	.gg-mtex{
+			position: absolute;
+			width: 100%;
+			height: 0.6rem;
+			top: 0;
+			z-index:999;
+		}
+		.gg-zan{
+			position: absolute;
+			top:0.15rem;
+			right:0.6rem;
+			display: -webkit-box;
+			text-align: center;
+			font-size: 0.25rem;
+			padding-right: 0.15rem;
+			border-right: 0.02rem solid #b2b2b2;
+		
+		}
+		.gg-zan p{
+			-webkit-flex: 1;
+			color: #FFFFFF;
+			line-height:0.38rem;
+		}
+		.gg-zan span{
+			display:block;
+			-webkit-flex: 1;
+			width:0.31rem;
+			height: 0.31rem;
+			display: inline-block;
+			padding-left:0.15rem ;
+			background:url(../image/ggstar.png) no-repeat center center;
+			background-size: contain;
+		}
+		.gg-zan .togglestar{
+			background:url(../image/ggstar2.png) no-repeat center center;
+			background-size: contain;
+		}
+		.gg-share{
+			position: absolute;
+			width: 0.6rem;
+			height: 0.3rem;
+			top: 0.15rem;
+			right: 0;
+			display: inline-block;
+			background: url(../image/bill_fx.png) no-repeat center center;
+			background-size: contain;
+		}
+    </style>
+</head>
+<body>
+<script id="bill_labels" type="text/x-dot-template">
+{{  for(var p in it) {  }}
+	 <li>	            
+        	    <div class="xyc_stroll_li_div">        	    
+        	       <img src="{{=it[p].logo}}" alt="man"    onclick="to_goods({{=it[p].id}})">
+        	       <div class="xyc_stroll_li_dw">
+        	       	    <div class="gg-mban"></div>
+        	       	    <div class="gg-mtex">
+        	       	    	<div class="gg-zan">
+	        	       	    	<span   goods_id="{{=it[p].id}}"        {{ if(it[p].ck==1) { }} class="togglestar"  {{ } }}             onclick="toggle(this)"></span>
+	        	       	    	<p>{{=it[p].num}}</p>
+        	       	    	</div>
+	        	       	    <div class="gg-share" onclick="openFm('bill_share_f',this)"    goods_pic="{{=it[p].logo}}"   goods_name="{{=it[p].goods_name}}"></div>
+        	       	    </div>	        	       	    
+        	       </div> 
+        	    </div>
+        	    <p class="stroll_con_txt">{{=it[p].goods_name}}</p>          	   
+	        </li>
+	       {{ } }}
+</script>
+<div id="main" class="none">	
+	<div class="stroll_main">
+		<ul class="stroll_con_ul" id="container">		
+			
+	     </ul>
+     </div>
+</div>
+<input name='total' type='hidden'>	
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/comm.js"></script>
+<script type="text/javascript" src="../script/font.js"></script>
+<script type="text/javascript" src="../script/zepto.js"></script>
+<script type="text/javascript" src="../script/doT.min.js"></script>
+<script type="text/javascript" src="../script/imagesloaded.pkgd.min.js"></script>
+<script type="text/javascript" src="../script/wookmark.js"></script>
+<script>
+	//点击收藏图标
+function love(param,callback){
+	var info=is_login();
+	if(!info){
+//		api.toast({
+//	        msg:'请登录！'
+//      });
+		to_login();
+        return false;
+	}
+	for(var p in info){
+		param[p]=info[p];
+	}
+	var is_true=true;
+	if(is_true){
+		is_true=false;
+		ajaxRequest('user/goods_coll','post',param,function(ret,err){
+			is_true=true
+			if(err){
+				api.toast({
+		            msg:err.msg
+	            });
+	            return false;
+			}
+			if(ret.status){
+				callback(ret.status);
+			}else{
+//				api.toast({msg:ret.info});
+			}
+		});
+	}	
+}
+	function toggle(obj){
+		var goods_id=$(obj).attr('goods_id');
+		if($(obj).attr('class')=='togglestar'){//取消
+			love({goods_id:goods_id,m:1},function(ret){
+				if(ret){
+					$(obj).siblings('p').html(parseInt($(obj).siblings('p').html())-1);
+					$(obj).removeClass('togglestar');	
+					//监听事件，如果-1成功的话则执行我的收藏列表页总数-1
+					api.execScript({
+				        name:'root',
+				        frameName:'mi_f',
+				        script: 'get_num()'
+			        });				
+				}
+			});
+		}else{//确定
+			love({goods_id:goods_id,m:2},function(ret){
+				if(ret){
+					$(obj).siblings('p').html(parseInt($(obj).siblings('p').html())+1);
+					$(obj).addClass('togglestar');
+					//监听事件，如果-1成功的话则执行我的收藏列表页总数+1
+					api.execScript({
+				        name:'root',
+				        frameName:'mi_f',
+				        script: 'get_num()'
+			        });		
+				}
+			});
+		}
+	}
+	//分享功能
+	function openFm(xyc,obj){
+		var goods_name=$(obj).attr('goods_name');
+		var goods_pic=$(obj).attr('goods_pic');
+	    var width = api.winWidth;
+	    var height = api.winHeight;
+	    api.openFrame({
+		    name: 'bill_share_f',
+		    url: 'bill_share_f.html',
+		    bounces: false,
+		    opaque: false,
+		    reload: true,
+		    vScrollBarEnabled: false,	
+		    pageParam :{
+				goods_name:goods_name,
+				goods_pic:goods_pic,
+				m:'goods'
+			},  
+		    rect: {
+		        x: 0,
+		        y: 0,
+		        w: width,
+		        h: height
+		    }
+		});	
+	}
+	function to_goods(id){
+		api.openWin({
+			name : 'bill_dethead_w',
+			url :  'bill_dethead_w.html',
+			opaque : true,
+			delay : 500,
+			vScrollBarEnabled : false,
+			pageParam : {
+				count : 3,
+				goods_id:id
+			}
+		});	
+	}
+	function aaa() {
+	      // Instantiate wookmark after all images have been loaded
+          var wookmark,
+          container = '#container',
+          $container = $(container);
+          imagesLoaded(container, function () {
+              api.hideProgress();
+	 	 	  $('#main').removeClass('none');	
+	          wookmark = new Wookmark(container, {
+		          offset: 8, // Optional, the distance between grid items
+		          autoResize: true,
+		          align:"left"
+		      });
+	      });
+	      $('.gg-share').addClass('none');			
+			var appBundle;
+			if (api.systemType == 'ios'){
+			    appBundle = 'wechat://';
+			    app_installed(appBundle,function(ret){
+			    	if(ret){			    		
+			    		$('.gg-share').removeClass('none');			    					    	
+			    	}
+			    });
+			    appBundle = "sinaweibo://";
+			    app_installed(appBundle,function(ret){
+			    	if(ret){			    		
+			    		$('.gg-share').removeClass('none');
+			    	}	
+			    });
+			} else{
+					$('.gg-share').removeClass('none');
+			}
+	  };    
+	function get_mylist(param){	
+		var info=is_login();
+		if(info){
+			for(var p in info){
+				param[p]=info[p];
+			}
+		}
+	    ajaxRequest('sort/get_mylst', 'post',param,function(ret,err){//
+		    if (err) {
+				api.toast({
+					msg : err.msg
+				});
+				return false;
+			}
+			if (ret.status) {			
+				var data = ret.info.data;
+				$('input[name=total]').val(ret.info.num);
+				var interText = doT.template($("#bill_labels").text());
+				if(param.page==0){
+					$("#container").html('');
+					$("#container").html(interText(data));
+				}else{
+					$("#container").append(interText(data));
+				}				
+				api.refreshHeaderLoadDone();
+				aaa();
+			} 
+		})
+	}
+//	function get_data(){
+//		var data = api.pageParam.data;		
+//		$('input[name=total]').val(api.pageParam.num);
+//		var interText = doT.template($("#bill_labels").text());
+//		$("#container").html(interText(data));
+// 		aaa();
+//	}	
+	apiready=function(){
+//			$('.gg-share').addClass('none');			
+//			var appBundle;
+//			if (api.systemType == 'ios'){
+//			    appBundle = 'wechat://';
+//			    app_installed(appBundle,function(ret){
+//			    	if(ret){			    		
+//			    		$('.gg-share').removeClass('none');			    					    	
+//			    	}
+//			    });
+//			    appBundle = "sinaweibo://";
+//			    app_installed(appBundle,function(ret){
+//			    	if(ret){			    		
+//			    		$('.gg-share').removeClass('none');
+//			    	}	
+//			    });
+//			} 
+		api.showProgress({
+			style: 'default',
+		    title: '加载中',
+		    modal: false
+        });			
+		get_mylist({
+					page : 0,
+					id : api.pageParam.id,
+					m:'2'					
+				}); 	
+		var page=0;		
+		api.addEventListener({
+	        name:'gg_flush'
+        },function(ret,err){
+        	get_mylist({
+					page : 0,
+					id : api.pageParam.id,
+					m:'2'					
+				}); 	        	
+        });					
+		api.addEventListener({
+            name:'scrolltobottom'
+        },function(ret,err){   
+        	var total=$('input[name=total]').val();        
+        	if (page < total - 1) {
+				page++;
+				get_mylist({
+					page : page,
+					id : api.pageParam.id,
+					m:'2'					
+				});
+			}	
+//			var interHtml = doT.template($("#bill_labels").html());
+//			$('#container').append(interHtml(ret.info));			
+        });
+	}    
+</script>
+</html>

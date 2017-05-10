@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+  <head>
+    <title>
+    </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="css/ui-input.css">
+    <link rel="stylesheet" href="css/ui-on.css">
+    <link rel="stylesheet" href="css/ui-img.css">
+    <link rel="stylesheet" href="css/ui-res.css">
+    <link rel="stylesheet" href="css/ui-list.css">
+    <link rel="stylesheet" href="css/ui-base.css">
+    <link rel="stylesheet" href="css/ui-box.css">
+    <link rel="stylesheet" href="css/ui-color.css">
+	<link rel="stylesheet" href="css/style.css">
+    <script src="js/y_control.js"></script>
+	<script src="js/dis_control.js"></script>
+    <script src="js/y_click.js"></script>
+	<script src="js/config.js"></script>
+	<script src="js/y_json.js"></script>
+    <script>
+	</script>
+  </head>
+<body class="um-vp" ontouchstart>
+	<div class="uinn18">
+		<div class="uba b-gra c-wh uc-a">
+			<div ontouchstart="zy_touch('btn-act')" class="uc-t ubb ub b-gra c-m2 t-bla ub-ac umh4 lis">   
+		   		<div class="ut-s rpass tx-r ulev0">原密码</div>    
+		  		<div class="tx-r t-gra umar-l">
+					<div class="c-wh uc-n b-gra uinput uinn4">    
+						<input placeholder="请输入原密码"  type="password" class="uc-n ulev0" id="op">   
+					</div>
+				</div> 
+		 	</div>
+			<div ontouchstart="zy_touch('btn-act')"  class="ubb c-m2 b-gra ub t-bla ub-ac umh4 lis">     
+		 		<div class="ut-s rpass tx-r ulev0">新密码</div>     
+				<div class="tx-r t-gra umar-l">
+					<div class="c-wh uc-n b-gra uinput uinn4">    
+						<input placeholder="请输入新密码"  type="password" class="uc-n ulev0" id="np1">   
+					</div>
+				</div>
+		    </div>      
+			<div ontouchstart="zy_touch('btn-act')"  class="uc-b c-m2 ub t-bla ub-ac umh4 lis">     
+		 		<div class="ut-s rpass tx-r ulev0">新密码</div>
+				<div class="tx-r t-gra umar-l">
+					<div class="c-wh uc-n b-gra uinput uinn4">    
+						<input placeholder="请确认新密码"  type="password" class="uc-n ulev0" id="np2">   
+					</div>
+				</div> 
+		    </div>   
+		</div>
+	</div>
+	<div class="lpicl">密码修改成功将自动注销，请牢记密码</div>
+</body>
+<script>
+zy_init();
+window.uexOnload = function ()
+{
+	setPageBounce('', '');
+}
+function submit(){
+	var op = $$('op').value;
+	var np1 = $$('np1').value;
+	var np2 = $$('np2').value;
+	
+	if(!op){
+		uexWindow.toast('0','5','抱歉，原密码不能为空',2000);
+		return;
+	}
+	else if(!np1 || !np2){
+		uexWindow.toast('0','5','抱歉，新密码不能为空',2000);
+		return;
+	}
+	else if(np1 != np2){
+		uexWindow.toast('0','5','抱歉，两次输入的密码不一致',2000);
+		return;
+	}
+	
+	op = encodeURIComponent(op);
+	np1 = encodeURIComponent(np1);
+	np2 = encodeURIComponent(np2);
+	
+	var url = home_url + "&mod=spacecp&ac=profile&operation=password&oldpassword="+op+"&newpassword="+np1+"&newpassword2="+np2+"&emailnew="+''+"&pwdsubmit=true&passwordsubmit=true";
+	$.getJSON(url, function(json) {
+		if(json.status){
+			if(json.status == '1'){
+					uexWindow.toast('0','5',"密码修改成功",2000);
+                    setstorage('params','{"view":"setlist_secure"}');
+                    closewin(0, 'setting');
+					/*setTimeout(function(){
+                        closewin(0, 'setlist');
+                    }, 2000);*/
+					setTimeout(function(){
+                        uescript('root', "openwin('login', 'login.html', '10');");
+                    }, 2000);
+					uescript('root', 'logoutSuccess();');
+			}else{
+                var str = json.message;
+				uexWindow.toast('0','5',str,2000);
+			}
+		}
+	});
+}
+</script>
+</html>

@@ -1,0 +1,111 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>APP</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/common.css" />
+    <style>
+        html,body{
+            background: transparent;
+        }
+        #header{
+            background-color: transparent;
+            margin-bottom: 10px;
+        }
+        #main{
+            padding: 0;
+            /*background-color: #000;*/
+        }
+        .list_box{
+            width: 72%;
+            margin: 0 auto;
+            position: relative;
+            z-index: 3;
+        }
+        .list_box li{
+            text-align: center;
+            float: left;
+            width: 49%;
+            color: #2E2E2E;
+            background-color: rgba(255,255,255,0.7);
+            height: 2.5em;
+            line-height: 2.5em;
+            font-size: 1em;
+        }
+        .list_box li.active{
+            color: #CD2E2E;
+        }
+        .list_box .l{
+            border-left: 1px solid #CCCCCC;
+        }
+        .list_box .r{
+            border-right: 1px solid #CCCCCC;
+            border-left: none;
+        }
+        .list_box .t{
+            border-top: 1px solid #CCCCCC;
+        }
+        .list_box .b{
+            border-bottom: 1px solid #CCCCCC;
+        }
+        .list_box .l.t{
+            border-top-left-radius: 6px;
+            border-right: 1px solid rgba(255,255,255,0.1);
+        }
+        .list_box .l.m{
+            border-top: 1px solid rgba(255,255,255,0.1);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            border-right: 1px solid rgba(255,255,255,0.1);
+        }
+        .list_box .l.b{
+            border-bottom-left-radius: 6px;
+            border-right: 1px solid rgba(255,255,255,0.1);
+        }
+        .list_box .r.t{
+            border-top-right-radius: 6px;
+        }
+        .list_box .r.m{
+            border-top: 1px solid rgba(255,255,255,0.1);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .list_box .r.b{
+            border-bottom-right-radius: 6px;
+        }
+        .shadow{
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            left: 0;
+            top: 0;
+            z-index: 2;
+        }
+    </style>
+</head>
+<body>
+    <div id="wrap">
+        <div id="header">
+        </div>
+        <div id="main"> 
+            <ul class="list_box clearfix">
+                <li class="active l t">全部</li>
+                <li class="r t">新品</li>
+                <li class="l m">优惠</li>
+                <li class="r m">专享</li>
+                <li class="l b">专题</li>
+                <li class="r b">小广播</li>
+            </ul>
+        </div>
+        <div class="shadow" tapmode="tap-active" onclick="api.closeFrame({name:'featured_frame'});"></div>
+    </div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript">
+    apiready = function(){
+        // var h = api.pageParam.h;
+        var header = $api.byId('header');
+        $api.fixIos7Bar(header); 
+    }
+</script>
+</html>

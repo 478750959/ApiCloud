@@ -1,0 +1,66 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>设置</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <style>
+    </style>
+</head>
+<body>
+<div id="wrap">
+	<header id='header'>
+		<div class="miHeader">
+        	<a href='javascript:;' class='head_icon back' onclick='api.closeWin();'></a>
+        	<span class='mi_head_txt'>商品详情</span>
+        </div>
+	</header>
+	<div id='main'></div>
+</div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/font.js"></script>
+<script type="text/javascript" src="../script/comm.js"></script>
+<script>
+	apiready = function(){
+	    var header = $api.byId('header');
+	    $api.fixIos7Bar(header);
+	    var width = api.winWidth;
+	    var headerPos = $api.offset(header);
+	    var height = api.winHeight - headerPos.h;
+	    api.setStatusBarStyle({
+		    style: 'dark'
+		});
+	    api.openFrame({
+		    name: 'lbbniu',
+		    url: api.pageParam.u,
+		    bounces: false,
+		    opaque: true,
+		    vScrollBarEnabled: false,
+		    rect: {
+		        x: 0,
+		        y: headerPos.h,
+		        w: width,
+		        h: height
+		    }
+		});	
+		if(!is_login()){
+			api.openFrame({
+			    name: 'goods_mark',
+			    url: 'goods_mark.html',
+			    bounces: false,
+			    opaque: false,
+			    reload:true,
+			    vScrollBarEnabled: false,
+			    rect: {
+			        x: 0,
+			        y: 0,
+			        w: width,
+			        h: api.winHeight
+			    }
+			});	
+		}
+	}
+</script>
+</html>

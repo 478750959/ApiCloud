@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+  <head>
+    <title>我的访客，访问我的人，共同好友
+    </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="css/ui-img.css">
+    <link rel="stylesheet" href="css/ui-res.css">
+    <link rel="stylesheet" href="css/ui-list.css">
+    <link rel="stylesheet" href="css/ui-base.css">
+    <link rel="stylesheet" href="css/ui-box.css">
+    <link rel="stylesheet" href="css/ui-color.css">
+	<link rel="stylesheet" href="css/style.css">
+    <script src="js/y_control.js"></script>
+    <script src="js/y_click.js"></script>
+	<script src="js/y_json.js"></script>
+	<script src="js/y_tmpl.js"></script>
+	<script src="js/y_icache.js"></script>
+	<script src="js/dis_control.js"></script>
+	<script src="js/config.js"></script>
+    <script>
+	</script>
+  </head>
+<body class="um-vp" ontouchstart>
+	<!--我的访客-->
+	<div class="b-gra uc-n" id="list">
+		<div></div>
+  	</div>
+</body>
+<script>
+zy_init();
+var uid = getstorage('UID');
+var params = getStorJson('params');
+var view = params.view;
+var fuid=params.fuid;    //被访问好友id，共同好友用
+var curpage = 1;
+var totpage = 1;
+var upt = '';
+var update = {};
+var cContent = $$('list');
+var ucurl = getstorage('ucurl');
+if(!ucurl) ucurl = guc;
+var fromCache = 0;
+window.uexOnload = function ()
+{
+	setPageBounce(downcb, upcb);
+	zy_initcache();
+	loadList('', '1');
+    if(fromCache) loadList('', '');
+};
+function downcb(){
+	upt = '0';
+	update['0'] = 1;
+	loadList('', '');
+}
+function upcb(){
+	if (curpage < totpage) {
+		upt = '1';
+		update['1'] = 1;
+		loadList(curpage + 1, '');
+	}
+	else resetBV('1');
+}
+
+function loadList(pn, flag){
+    if(going) return;
+    going = 1;
+	var url = home_url+"&mod=space&do=friend&view="+view+"&page="+ pn+'&uid='+uid;
+    if('linkf'===view){ // 取共同好友，uid为被访问者的uid  by tom
+        url = home_url+"&mod=space&do=friend&view="+view+"&page="+ pn+'&uid='+fuid;
+    }
+    fromCache = checkKey(url);
+	if(!fromCache ) uexWindow.toast('1','5','加载中...',"");
+	var f = pn?'':'1';
+	$.getJSON(url, loadListCb, 'json', getJsonErr, 'POST', '', flag, f);
+}
+function loadListCb(json){
+	uexWindow.closeToast();
+    going = 0;
+	if(update[upt]){
+		update[upt] = 0;
+		resetBV(upt);
+	}
+		
+	if(json){
+		if (Int(json.status)<1) {
+			uexWindow.toast('0','5',json.message,2000);
+			return;
+		}
+		
+		var list = json.list;
+		var length = zy_tmpl_count(list);
+		if(list && list[0]){
+			var id0 = 0;
+			var id1 = list[0].ldateline;
+			if(cContent && cContent.children[0] && cContent.children[0].children[0]) id0=cContent.children[0].children[0].id;
+			if(id0==id1) return;
+		}
+		
+		var res = '';
+		if (length > 0) {
+			var tmpl = '<li ontouchstart="zy_touch(\'c-gra\')" onclick="showMenu(\'${uid}\', \'${username}\', \'${isfriend}\');" class="uc-n ubb ub b-gra t-bla ub-ac lis uof" id="${ldateline}">'
+				 			+'<div class="lis-th2 ub-img5 uc-a1">'
+				     			+'<img src="images/mylogo.png" ${cb:pic} class="inforpic" id="pic${uid}"/>'
+				     		+'</div>'
+							+'<div class="ub-f1 ub ub-ver">'
+
+                                +'<div class="ub ub-ac umar-b">'
+                                    +'<div class="ub ub-ac ub-f1">${username}</div>'
+                                    +'<div class="ub ub-ac">${cb:friend_status}</div>'
+                                +'</div>'
+                                +'<div class="ub ub-ac umar-t t-gra ulev-2">'
+                                    +'<div class="ub-f1"></div>'
+                                    +'<div class="umh2 umw2 ub-img5 im5 lpic"></div>'
+                                    +'${lastvisit}'
+                                +'</div>'
+				 			+'</div>'
+
+			 		+'</li> '
+					+'<li class="ubt1"></li>';
+			res = zy_tmpl(tmpl,list,zy_tmpl_count(list),j2vCb);
+			
+			curpage = Int(json.zywy_curpage);
+			totpage = Int(json.zywy_totalpage);
+		}
+		else{
+			res = '<div class="uinn10 tx-c">暂无记录</div>';
+		}
+		
+		if(curpage==1){
+       		while(cContent.childElementCount>1)
+       		{
+       			cContent.removeChild(cContent.firstElementChild);
+       		}
+       	}
+		
+		var node = document.createElement("ul");
+		node.innerHTML = res;
+		cContent.insertBefore(node,cContent.lastElementChild);
+        imgCacheCall();
+	}
+}
+function j2vCb(d,c)
+{
+	var str = '';
+	 if(c.length>1)
+	 {
+		switch(c[1])
+		{
+			case 'pic':
+				var src = ucurl + d.uid;					
+				var picid = 'pic' + d.uid;
+                pushCacheCall(function(){
+                    dis_imgcache(picid,src,src,imgLoadSucSrc,imgLoadErrSrc,null,'',1);
+                });
+				break;
+			case 'friend_status':
+				switch(int(d.friend_status)){
+                    case 1:
+                        str = '你已申请加好友';
+                            break;
+                    case 2:
+                        str = 'TA向你申请好友';
+                        break;
+                    case 3:
+                        str = '一度好友';
+                        break;
+				}
+                str= '<div class="ulev-1 t-gra">' + str + '</div>';
+                break;
+		}
+	 }
+	 return str;
+}
+
+function showMenu(uid, unm, isf){
+	/*if(isf!='1'){
+		var array = ['查看主页'];
+		array[1] = '添加好友';
+		uexWindow.cbActionSheet = function (opId, dataType, data){
+			var i=int(data);
+			if(i==0){
+				go2new5(uid, unm, isf);
+			}
+			else if(i==1){
+				if(isf!='1') friendAdd(uid);
+			}
+			else{}
+		};
+		uexWindow.actionSheet('', '取消', array);
+	}
+	else*/ go2new5(uid, unm, isf);
+}
+
+function go2new5(uid, username, isf){
+	setstorage('params','{"uid":"'+uid+'", "username":"'+username+'", "isfriend":"'+isf+'"}');
+    if ('linkf'===view ){
+        openwin('friend_info','friend_information.html','10');
+    }else{
+        openwin('friend_information','friend_information.html','10');
+    }
+
+}
+</script>
+</html>

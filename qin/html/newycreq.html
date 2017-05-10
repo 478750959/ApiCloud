@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="en">
+<head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+     <link rel="stylesheet" href="../css/api.css">
+     <link rel="stylesheet" href="../css/common.css">
+    <title>新用车接单</title>
+    <style>
+        #wrap{
+           background: #F0F0F0;
+
+        }
+
+        #header span{
+
+          height: 44px;
+          line-height: 44px;
+
+
+
+         }
+
+        .head-left{
+        float: left;
+        margin-left:10px;
+       font-size: 11pt;
+       background: url(../image/wallet_base_action_bar_back_normal.png) no-repeat;
+       background-position: left center;
+       background-size: 20% 30%;
+       margin-left: -5px;
+       }
+
+       .head-left p{
+        margin-left: 30px;
+        margin-top:1px;
+       }   
+        .head-right{
+
+         float: right;
+        margin-right: 5px;
+        font-size: 15pt;
+
+
+
+       }
+       .head-right img{
+        width: 20px;
+        height: 4px;
+        margin-top: 10px;
+
+       }
+       #map{
+        z-index: 1;
+       }
+     
+      #plan{
+        width: 100%;
+        height: 180px;
+        background: #E6E6E6;
+        position: absolute;
+        z-index: 100;
+       /* top: 45%;*/
+        bottom: 0px;       
+
+
+      }
+      #br{
+        background: white;
+        width: 90%;
+        margin-left: 5%;
+        margin-right: 5%;
+        padding-bottom: 5px;
+        padding-top: 5px;
+       /* margin:0 auto;*/
+       /* border:2px solid white;*/
+        position: absolute;
+        bottom: 65px;
+      }
+      #time{
+
+        padding-top: 5px;
+        padding-bottom: 5px;
+        color: gray;
+        background: white;
+        position: relative;
+      }
+      #time img{
+        /*width: 12px;
+        height: 12px;*/
+       /* border-radius: 50%;*/
+        position: relative;
+        padding-left: 5px;
+        /*border:1px solid black;*/
+
+      }
+      #con{
+        position:absolute;
+       left: 20%;
+       bottom:20%;
+        width: 80%;
+         border-bottom:1px solid rgba(0,0,0,.1);
+         padding-bottom: 5px;
+      }
+
+      .arrow{
+        width: 14px;
+        height: 14px;
+       /* background:url(../image/wallet_base_indicator_arrow.png) no-repeat center center !important;*/
+        z-index: 100 !important;
+        position: absolute;
+        /*top:20px;*/
+        right: 15%;
+        color: red;
+      }
+
+      #formto{
+        background: white;
+        position: relative;
+
+      }
+
+      #formto p{
+        padding-bottom: 5px;
+        padding-top: 5px;
+        padding-left: 10px;
+      }
+
+      #formto img{
+        width: 24px;
+        height: 24px;
+        position: absolute;
+        right:  10px;
+        top:15px;
+      }
+      .green{
+        width: 14px;
+        height: 14px;
+background:url(../image/icon_order_start_s.png) no-repeat left center !important;
+background-size: 12px 12px !important;
+
+      }
+      .red{
+        width: 14px;
+        height: 14px;
+        background:url(../image/icon_order_end_s.png) no-repeat left center !important;
+        background-size: 12px 12px !important;
+      }
+      .tow{
+        color: gray;
+      }
+      #action{
+       /* padding-top: 30px;*/
+       height: 40px;
+       width: 100%;
+        text-align: center;
+        color: gray;
+        position: absolute;
+        bottom: 0px;  
+        padding-top: 10px;
+        padding-bottom: 5px;   
+        margin-top: 10px; 
+        background: white;
+
+      }
+
+
+      #btncode{
+         
+         width: 50%;    
+         height: 32px;
+        
+         background-color: #E33801;
+         color: white;
+
+         /*margin-bottom: 10px;*/
+         /* margin-top: 15px;  */      
+         
+         
+
+
+       }
+       #btncode-n{
+         
+         width: 40%;    
+         height: 32px;
+        
+        /* background-color: #E33801;*/
+         border:1px solid #E33801;
+         color: white;
+
+         /*margin-bottom: 10px;*/
+          /*margin-top: 15px; */       
+         color: red;
+         
+
+
+       }
+       
+    </style>
+      
+</head>
+<body>
+    <div id="wrap">
+       <div id="header">
+            <span class="head-left" tapmode onclick="goback()"><p>今天(周五) 19:40</p></span>
+            <span class="head-right">
+              <img src="../image/icon_menu_more.png" alt="帮助"/>
+            </span>
+        </div>
+        <div id="main">
+           <div id="map">
+            <!-- <img src="../image/mock_map.png"  alt="">-->
+
+           </div>
+           
+           <div id="plan">
+               <div id="br">
+               <div id="time">
+             <img src="../image/icon_profile_nor.png" width="32px" height="32px" alt="">
+                  <div id="con">
+                   S女士
+                 <span class="arrow">￥23</span>
+                 </div>
+               </div>
+
+               <div id="formto">
+                  <p tapmode="" onclick="openadd()"><span class="green"></span>北京市昌平区回龙观西大街龙华园</p>
+                  <p class="tow" tapmode="" onclick="openadd()"><span class="red"></span>将去向何处</p>
+                   <!-- <img src="../image/icon_swap_start_end.png" alt=""> -->
+               </div>
+               </div>
+               <div id="action">
+                <!-- <p>设置好时间地点，即可开始用车</p> -->
+               <input type="button" id="btncode-n" value="不    接">
+               <input type="button" id="btncode" value="立即接单">
+               </div>
+           </div>
+
+
+
+        </div>
+    </div>
+ <script type="text/javascript" src="../script/api.js"></script>
+ 
+<script type="text/javascript" src="../script/common.js"></script>  
+<script type="text/javascript">
+function openadd(){
+  api.openWin({
+	  name: 'findpos',
+	  url: 'findpos.html'
+  });
+}
+
+apiready = function(){
+    var header = $api.byId('header');
+    $api.fixIos7Bar(header); 
+    var headerPos = $api.offset(header);
+    var main = $api.byId('main');
+    var mainPos = $api.offset(main);
+	var map = api.require('baiduMap');
+	map.open({
+	    x: 0,
+	    y: 46,
+//	    w: 320,
+	    h: mainPos.h*0.7
+	},function(ret,err){
+	    if(ret.status){
+	          map.showUserLocation({
+			    isShow:true,
+			    trackingMode:'none'
+			});
+	    }
+	});
+}
+</script>    
+</body>
+</html>

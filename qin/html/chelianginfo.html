@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+     <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+     <link rel="stylesheet" href="../css/api.css">
+     <link rel="stylesheet" href="../css/common.css">
+    <title>车主资料</title>
+    <style>
+       #header span{
+       
+        height: 44px;
+        line-height: 44px;
+
+       }
+
+       .head-left{
+        float: left;
+        margin-left:10px;
+       font-size: 11pt;
+       background: url(../image/wallet_base_action_bar_back_normal.png) no-repeat;
+       background-position: left center;
+       background-size: 30% 30%;
+       margin-left: -5px;
+       }
+
+       .head-left p{
+        margin-left: 30px;
+       }
+       
+       #main{
+            background: #E6E6E6;
+            margin: 0;
+            padding: 0;
+
+       }
+
+       
+      .row{
+       display: block;
+       text-align: center;
+       margin: 0px;
+       padding:0px;
+  
+      }
+      .detail{
+        text-align: left;
+      }
+
+      .detail ul{
+        height:auto;
+        line-height: 1.5;
+        background: white;
+        width: 95%;
+        margin: 10px auto;
+       
+
+       }
+
+       .detail li{
+        font-family: serif;
+        height: 30px;
+        font-weight:bold;
+        z-index: 0;
+        position: relative;
+
+       }
+
+      
+     .detail li span.arrow{
+        width: 14px;
+        height: 14px;
+        background:url(../image/wallet_base_indicator_arrow.png) no-repeat center center !important;
+        z-index: 100 !important;
+        position: absolute;
+        top:6px;
+        right: 5px;
+
+        
+      }
+      .detail li span.arrow p{
+        position: relative;
+        width: 140px;
+        left:-140px;
+        top:-5px;
+        text-align: right;
+        color: gray;
+
+
+       }
+
+      .detail li span.arrow-{
+        width: 14px;
+        height: 14px;
+       /* background:url(../image/wallet_base_indicator_arrow.png) no-repeat center center !important;*/
+        z-index: 100 !important;
+        position: absolute;
+        top:6px;
+        right: 5px;
+
+        
+      }
+      .detail li span.arrow- p{
+        position: relative;
+        width: 150px;
+        left:-140px;
+        top:-5px;
+        text-align: right;
+        color: gray;
+
+
+       }
+
+      .info-title{
+       margin-left: 2.5%;
+       margin-top:10px;
+
+
+      }
+      
+    </style>
+</head>
+<body>
+    <div id="wrap">
+        <div id="header">
+            
+            <span class="head-left" tapmode onclick="goback()"><p>车主资料</p></span>
+            
+        </div>
+        <div id="main">
+            <div class="detail">
+               <span class="info-title">车辆信息</span>
+               <ul>
+                 <li>车辆品牌<span class="arrow-"><p>奥迪银色（豪华型)</p></span></li>
+                 <li>车牌号码<span class="arrow-"><p>京****956</p></span></li>
+               </ul>
+             </div>
+
+             <div class="detail">
+               <span class="info-title">证件信息</span>
+               <ul>
+                 <li>驾驶本和行驶证<span class="arrow"><p>尚未提交</p></span></li>
+               </ul>
+             </div>
+
+             <div class="detail">
+               <span class="info-title">车辆照片</span>
+               <ul>
+                 <li>正面照/45度照<span class="arrow"><p>尚未提交</p></span></li>
+                 
+               </ul>
+             </div>
+            
+        </div>
+
+    </div>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>      
+</body>
+</html>

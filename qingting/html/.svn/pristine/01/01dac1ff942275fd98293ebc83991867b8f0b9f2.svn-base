@@ -1,0 +1,93 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,initial-scale=1.0,width=device-width"/>
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../css/common.css" />
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css" />
+	<style>
+		body{
+			padding:5px;
+		}
+		.list-group-item:hover{
+	    	background:#F6F6F6;
+	    }
+	    .col-xs-4{
+	    	text-align:right;
+	    }
+	</style>
+</head>
+<body>
+<div id="111"></div>
+<div class="container-fluid">
+	<div class="row">
+		<div class="panel panel-default">
+		  <div class="panel-heading">应用设置</div>
+		
+		  <ul class="list-group">
+		    <li class="list-group-item">
+		    	<div class="row">
+					<div class="col-xs-8">移动网络下列表显示图片</div>
+					<div class="col-xs-4" id="showImgOn3GInput">
+						
+					</div>
+				</div>
+			</li>
+		  </ul>
+		</div>
+	</div>
+	<div class="row">
+		<div class="panel panel-default">
+		  <div class="panel-heading">关于</div>
+		
+		  <ul class="list-group">
+		    <li class="list-group-item" tapmode="active" onclick="openWin('privacy','privacy.html',null)">隐私说明</li>
+		    <li class="list-group-item" tapmode="active" onclick="openWin('about','about.html',null)">关于应用</li>
+		    <li class="list-group-item">
+				<div class="row">
+					<div class="col-xs-8">当前版本</div>
+					<div class="col-xs-4">
+						<span id="verson"></span>
+					</div>
+				</div>
+			</li>
+		  </ul>
+		</div>
+	</div>
+</div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript">
+
+apiready = function(){
+	var showImgOn3GStatus = $api.getStorage('showImgOn3G');
+	var showImgOn3GInput;
+	
+	if(showImgOn3GStatus == "true"){
+		showImgOn3GInput = "<input id='showImgOn3G' type='checkbox' onclick='changeSetting()' checked/>";
+	}
+	else{
+		showImgOn3GInput = "<input id='showImgOn3G' type='checkbox' onclick='changeSetting()'/>";
+	}
+	document.getElementById("showImgOn3GInput").innerHTML = showImgOn3GInput;
+
+	$api.html($api.byId("verson"),api.appVersion);
+
+};
+
+function changeSetting(){
+	var showImgOn3G =  document.getElementById("showImgOn3G");
+	
+	$api.setStorage('showImgOn3G',showImgOn3G.checked);
+
+	api.toast({
+	    msg: '设置已保存',
+	    duration:2000,
+	    location: 'bottom'
+	});
+}
+</script>
+</html>

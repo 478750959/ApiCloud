@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+	<link rel="stylesheet" type="text/css" href="../css/api.css"/>
+	<style>
+	.head{height:50px;background-color:rgb(224,29,32);}
+	.head-ul{display:-webkit-box;}
+	/*.head-ul li{float:left;}*/
+	.head-ul-arrow{height:50px;width:50px;background:url(../image/previous_arrow@2x.png) center/70% no-repeat;margin:0 0 010px;}
+	.head-ul-title{height:50px;line-height: 55px;width:100%;color:rgb(255,255,255);font-size:1.3em;display:-webkit-box;-webkit-box-flex:1;}
+	</style>
+</head>
+	<body>
+		<div class="head">
+			<ul class="head-ul after">
+				<li class="head-ul-arrow" onclick="api.closeWin();"></li>
+				<li class="head-ul-title">荣耀手环Zero&荣耀小K倾情首发，预约赢大奖</li>
+			</ul>
+		</div>
+		<script>
+		apiready = function(){
+			api.openFrame({
+				name:'win_favorable_top',
+				url:api.pageParam.url,
+				rect:{
+					x:0,
+					y:50,
+					w:'auto',
+					h:'auto'
+				}
+			});
+		}
+		</script>
+	</body>
+</html>

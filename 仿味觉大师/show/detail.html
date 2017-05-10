@@ -1,0 +1,61 @@
+<div class="page-group">
+	<div id="page-show" class="page">
+		<header class="bar bar-nav">
+			<h1 class='title'>秀场详情</h1>
+			<a class="button button-link button-nav pull-left back"> <span
+				class="icon icon-left"></span> 返回
+			</a>
+		</header>
+		<div class="content hidden" style="padding-bottom:4em;">
+			<div class="">
+				<img class="whole-img" :src="one.img_path">
+			</div>
+			<div class="ub message umar-a">
+				<div class="portrait"
+					style="background-image:url(./portrait/101.jpg)"></div>
+				<div class="ub-f1 umar-l">
+					<div class="ub">
+						<div class="color-name ub-f1">小尼小胸</div>
+						<div class="color-gray ulev-1">52分钟前</div>
+					</div>
+					<div class="ulev-1 umar-t">{{one.descp}}</div>
+				</div>
+			</div>
+			<div class="ub ub-ac umar-l uinn-l">
+				<div class="icon icon-star umar-a"></div>
+				<div class="ub-f1 umar-a color-name">{{one.star_num}}人赞过</div>
+			</div>
+			<div class="ub ub-ac umar-l uinn-l">
+				<div class="icon icon-message umar-a"></div>
+				<div class="ub-f1 umar-a color-name">{{one.comment_num}}条评论</div>
+			</div>
+			<div class="ub message umar-a">
+				<div class="portrait"
+					style="background-image:url(./portrait/201.jpg)"></div>
+				<div class="ub-f1 umar-l">
+					<div class="ub">
+						<div class="color-name ub-f1">王大治</div>
+						<div class="color-gray ulev-1">14分钟前</div>
+					</div>
+					<div class="ulev-1 umar-t">这道菜贵吗？</div>
+				</div>
+			</div>
+		</div>
+		<footer class="bar">
+			<div class="ub ub-ac">
+				<div class="icon icon-star"></div>
+				<div class="ub-f1" style="padding:0 0.6em;">
+					<input type="text" class="footer-input" placeholder="添加评论..">
+				</div>
+				<div class="icon icon-check"></div>
+			</div>
+
+		</footer>
+	</div>
+	<script type="text/javascript">
+		$(function() {
+
+		});
+	</script>
+</div>
+

@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+     <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+     <link rel="stylesheet" href="../css/api.css">
+     <link rel="stylesheet" href="../css/common.css">
+    <title>正在呼叫车主</title>
+    <style>
+       #header span{
+
+        height: 44px;
+        line-height: 44px;
+
+       }
+
+     
+       .head-left{
+        float: left;
+        margin-left:10px;
+       font-size: 11pt;
+       background: url(../image/wallet_base_action_bar_back_normal.png) no-repeat;
+       background-position: left center;
+       background-size: 30% 30%;
+       margin-left: -5px;
+       }
+
+       .head-left p{
+        margin-left: 35px;
+        margin-top:1px;
+       }
+       .head-right{
+
+         float: right;
+        margin-right: 5px;
+        font-size: 15pt;
+
+       }
+       #main{
+            background: #E6E6E6;
+            margin: 0;
+            padding: 0;
+
+       }
+
+        #top{
+          margin: 0 auto;
+          position: absolute;
+          top: 44px;
+          width: 100%;
+          height: 35%;
+          background:url(../image/radar_scan_bg.png) no-repeat center center;
+          background-size: cover;
+
+       } 
+       #data{
+        text-align: center;
+        color: white;
+        position: relative;
+        /*top:75%;*/
+        width: 150px;
+        margin:0 auto;
+        padding-left:7%;
+        z-index: 111;
+        font-weight: bold;
+        margin-top: -38%;
+       }
+
+       #data p{
+        font-size: 56px;
+        padding-bottom: 5%;
+        
+       }
+
+        /*@keyframes my{
+         from  {
+                 -webkit-transform: rotate(0deg);
+                 -moz-transform: rotate(0deg);
+                 -ms-transform: rotate(0deg);
+                 -o-transform: rotate(0deg);
+                 transform: rotate(0deg);
+         }
+
+         to  {
+             -webkit-transform: rotate(360deg);
+             -moz-transform: rotate(360deg);
+             -ms-transform: rotate(360deg);
+             -o-transform: rotate(360deg);
+             transform: rotate(360deg);
+         }
+         
+
+       }*/
+       
+       #bg{
+        width:50%;
+        margin: 0 auto;
+          position: absolute;
+          width: 100%;
+          top:45%;
+          z-index: 100;
+       }
+
+       #bg img{
+          position: relative;
+          left:25%;
+         /* width: 50%;
+          height: 50%  !important;
+          padding-left: 25%;
+         padding-right:  25%;*/
+        /* transform-origin:50% 0%;*/
+         -webkit-animation:my 0.5s infinite;
+         -o-animation: my 0.5s infinite ;
+         animation: my 0.5s infinite;
+
+       }
+
+       #radar {
+           margin: 0 auto;
+          position: absolute;
+          width: 100%;
+          top:80%;
+          
+         z-index: 1;
+
+         display: none;/*//动画暂未实现*/
+         
+        }
+
+        #radar img{
+          position: relative;
+          /*height: 300px;*/
+          width: 100%;
+          /*width: 100%;
+          height: 100%  !important;*/
+        
+         /*padding-left: 50%;*/
+        /* padding-right:  50%;*/
+         /*transform-origin:50% 0%;
+         -webkit-animation:my 2.5s infinite;
+         -o-animation: my 2.5s infinite ;
+         animation: my 2.5s infinite;*/
+         
+         /*top = top center = center top = 50% 0
+         right = right center = center right = 100%或(100% 50%)
+         bottom = bottom center = center bottom = 50% 100%
+         left = left center = center left = 0或(0 50%)
+         center = center center = 50%或（50% 50%）
+         top left = left top = 0 0
+         right top = top right = 100% 0
+         bottom right = right bottom = 100% 100%
+         bottom left = left bottom = 0 100%*/
+
+        }
+        #con {
+          width: 100%;
+          margin: 0 auto;
+          position: absolute;
+          bottom: 25%;
+          text-align: center;
+
+        }
+        #con p{
+          padding-bottom: 5px;
+          padding-top: 5px;
+
+        }
+        #con span{
+          padding-left: 5px;
+          padding-right: 5px;
+        }
+         .red{
+          color: red;
+        }
+        .gr{
+          color: gray;
+        }
+       
+       #bottom{
+               
+         margin: 0 auto;
+          position: absolute;
+          bottom: 0px;
+
+       }
+        #bottom img{
+         height: 10%;
+         width: 90%;
+         position:relative;
+         left:5%;
+         /*padding-left: 10%;
+         padding-right:  10%;*/
+         padding-bottom: 10px;
+        }
+
+</style>
+</head>
+<body>
+    <div id="wrap">
+        <div id="header">
+            <span class="head-left"><p>正在呼叫车主</p></span>
+            <span class="head-right" tapmode onclick="goback()">取消</span>
+        </div>
+        <div id="main">
+             <div id="top">
+                 <div id="bg">
+                 <img src="../image/radar_push_number_bg.png" alt="搜寻中">
+                 <div id="data">
+                 <p>87</p>
+                 <span>位车主已收到</span>
+                 </div>
+                 </div>
+                 
+                <div id="radar">
+                <img src="../image/radar_scan_args.png" alt="搜寻中">
+                </div>
+             </div>
+             <div id="con">
+                <p>剩余<span class="red">4</span>分钟<p>
+                <p class="gr">休息一会儿，我们正在努力为您通知更多车主</p>
+             </div>
+             <div id="bottom">
+                 <img src="../image/order_boot_ad1.png" alt="">
+             </div>
+
+        </div>
+
+    </div>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/common.js"></script> 
+<script type="text/javascript">
+function cancelche(){
+ api.closeToWin({
+	 name: 'passenger'
+ });
+
+}
+</script>  
+</body>
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,initial-scale=1.0,width=device-width"/>
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../css/common.css" />
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css" />
+	<style>
+		body{
+			padding:5px;
+		}
+		.row{
+			padding:5px;
+			border:#DDDDDD 1px solid;
+			-moz-border-radius: 8px;      /* Gecko browsers */
+		    -webkit-border-radius: 8px;   /* Webkit browsers */
+		    border-radius:8px;            /* W3C syntax */
+		   	margin-bottom:10px;
+		}
+		.row:hover{
+	    	background:#F6F6F6;
+	    }
+	    hr{
+	    	border:0;
+	    	background-color:#F0F0E1;
+	    	height:1px;
+	    	margin-bottom:10px;
+	    }
+	</style>
+</head>
+
+<body>
+<div class="container-fluid" id="pageListCont"></div>
+</body>
+
+<script id="pageTpl" type="text/html">
+<div class="row">
+	<div itemId="{{ d.id }}" onclick="openDetail(this)">
+		<div class="col-xs-12">
+			<h4 class="text-success">{{ d.title }}</h4>
+		</div>
+		<div class="col-xs-12">
+			<p><span class="label label-default">Tags</span> {{ d.tags }}</p>
+		</div>
+		<div class="col-xs-12">
+			<p><img src="{{ d.albums }}" class="img-responsive"></p>
+		</div>
+	</div>
+	<div class="col-xs-12">
+		<hr />
+		<label class="btn btn-link" itemId="{{ d.id }}" onclick="createFavorites(this)">
+			<span class="glyphicon glyphicon-heart"></span> 收藏
+		</label>
+	</div>
+</div>
+</script>
+<script id="pageTplNoImg" type="text/html">
+<div class="row">
+	<div itemId="{{ d.id }}" onclick="openDetail(this)">
+		<div class="col-xs-12">
+			<h4 class="text-success">{{ d.title }}</h4>
+		</div>
+		<div class="col-xs-12">
+			<p><span class="label label-default">Tags</span> {{ d.tags }}</p>
+		</div>
+	</div>
+	<div class="col-xs-12">
+		<hr />
+		<label class="btn btn-link" itemId="{{ d.id }}" onclick="createFavorites(this)">
+			<span class="glyphicon glyphicon-heart"></span> 收藏
+		</label>
+	</div>
+</div>
+</script>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript" src="../script/laytpl.js"></script>
+<script type="text/javascript" src="../script/DBapi.js"></script>
+<script type="text/javascript" src="../script/zepto.min.js"></script>
+<script type="text/javascript">
+
+apiready = function(){
+	loadSearchListData(api.pageParam.key);
+	
+	api.addEventListener({
+		name:"scrolltobottom"	
+	},function(ret,err){
+		loadSearchListData(api.pageParam.key);
+	});
+};
+</script>
+</html>

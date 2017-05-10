@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,initial-scale=1.0,width=device-width"/>
+    <title>APP</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/common.css" />
+<style>
+html,body{
+	  margin:0;
+	  padding:0;
+	   }
+body{	   
+ background:#AFE05B;
+ height: 100%;
+ }
+
+ #main{
+	  margin:0 auto;
+	  padding:0;
+	  width:90%;
+	  height: 100%;
+	
+	  
+ }
+ #main .in_put {
+	 width:100% !important;
+	 height:30px;
+	 border:none;
+	 border:2px #FFF solid;
+	 font-size:16px;
+	 line-height:18px;
+	 border-radius:1px;
+	 margin-bottom:10px;
+	
+	
+	}
+label{
+	 font-family:Verdana, Geneva, sans-serif;
+     font-weight:bold;
+     width:100% !important;
+	 
+	}
+#loginform{
+  position:relative;
+  top: 25px;
+}
+
+ #login{
+ width:100% !important;
+ background-color: #A5A5A5;
+ padding: 10px;
+ border-radius:5px;
+}
+#forget{
+ margin-top: 10px;
+ 
+}
+#line{
+margin-top: 130px;
+text-align:center;
+}
+#account{
+
+	  width:100%;
+
+     margin-top: 10px;
+
+}
+.third{
+ float: left;
+ margin-left: 10px;
+ width:60px;
+ height: 60px;
+ 
+}
+hr{
+/*color: #FFFFFF !important;*/
+border: 1px  #FFFFFF solid;
+  margin-top: 2px;
+}
+
+</style>
+</head>
+
+<body>
+	<div id="main">
+	     <div id="loginform">
+			<!--<label for="uname">账号
+			 <input type="text" class="in_put" d="uname" name="uname"  value="" placeholder="邮箱" autofocus="autofocus"/>
+			 </label><br />-->
+			  <label for="pwd"><!--密码-->
+			 <input type="password" class="in_put" id="pwd" name="pwd"  value="" placeholder="密码"/>
+			 </label> <br />
+			 <label for="pwd"><!--密码确认-->
+			 <input type="text" class="in_put" id="pwd2" name="pwd2"  value="" placeholder="密码确认"/>
+			 </label> <br/>
+			  <button id="login" onclick="savepwd()()">设置</button>
+			 <!-- <button id="forget">直接登录</button>-->	
+		 </div>
+		 
+	</div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/common.js"></script>
+<script type="text/javascript">
+function Modifypwd() {
+    api.showProgress({
+//      title: '注册中...',
+        modal: false
+    });
+    
+    var pwd = $api.byId('pwd2').value;
+    
+    var registerUrl = '/user/'+$api.getStorage('uid');
+    var bodyParam = {
+        password: pwd
+        
+    }    
+    var token= $api.getStorage('token')
+    if (!token){
+    
+       return;
+    }
+    ajaxRequest(registerUrl, 'put', JSON.stringify(bodyParam),token,function (ret, err) {
+        if (ret) {
+            api.alert({
+                msg: '修改成功！'
+            }, function () {
+                api.closeWin();
+            });
+
+        } else {
+            api.alert({
+                msg: err.msg
+            });
+        }
+        api.hideProgress();
+    })
+}
+
+function savepwd(){
+api.closeToWin({
+	name: 'root'
+});
+
+}
+</script>
+</html>

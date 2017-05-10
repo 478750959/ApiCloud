@@ -1,0 +1,406 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>Hello APP</title>
+    <link rel="stylesheet" type="text/css" href="./css/api.css" />
+    <link rel="stylesheet" type="text/css" href="./css/common.css" />
+</head>
+<body ontouchstart="">
+    <div id="wrap">
+        <div id="header" class="home">
+        <!-- <div id="header" class="fun"> -->
+            <!-- home，首页header -->
+            <div class="header_content home">
+                <div class="btn_left" tapmode="tap-active" onclick="openClassify();">
+                    
+                </div>
+                <div class="search_box" >
+                    <i class="home_icon_search" tapmode="tap-active" onclick="openCommon('search','搜索');"></i>
+                    <i class="search_voiceinput_btn" tapmode="tap-active" onclick="openSpeechRec();"></i>
+                    <span class="text" tapmode="tap-active" onclick="openCommon('search','搜索');">搜索"双11"，好货马上到手</span>
+                </div>
+                
+                <div class="btn_right" tapmode="tap-active" onclick="openScanner();">
+                    
+                </div>
+            </div>
+            <!-- home，首页header end -->
+            <!-- featured，首页header -->
+            <div class="header_content featured">
+                <a class="btn_middle" onclick="openFeaturedFrame();" tapmode="tap-active">
+                    <span>全部</span>
+                    <i class="middle_arr down"></i>
+                </a>
+                <div class="btn_right" tapmode="tap-active" onclick="openCommon('broadcast','Laneige/兰芝')">
+                    <img src="./res/img/tm_brand_index_follow_icon.png" alt="关注" class="follow">
+                </div>
+            </div>
+            <!-- featured，首页header end -->
+            <!-- fun，首页header -->
+            <div class="header_content fun">
+                <div class="btn_left" tapmode="tap-active" onclick="openCommon('msg','消息盒子')">
+                    <img src="./res/img/tm_ic_feed_me.png" alt="范儿" class="toFun">
+                </div>
+                <a class="btn_middle">
+                    范儿
+                    <!-- <i class="middle_arr down"></i> -->
+                </a>
+                <div class="btn_right" tapmode="tap-active" onclick="openCommon('msg','消息盒子')">
+                    <img src="./res/img/tm_mytmall_icon_message.png" alt="消息" class="toMsg">
+                </div>
+                <div id="navBar_fun">
+                    <span class="navBar_btn active" onclick="jumpToFun(0);" tapmode="tap-active">
+                        推荐
+                    </span>
+                    <span class="navBar_btn" onclick="jumpToFun(1);" tapmode="tap-active">
+                        视频
+                    </span>
+                    <span class="navBar_btn" onclick="jumpToFun(2);" tapmode="tap-active">
+                        话题
+                    </span>
+                    <span class="navBar_btn" onclick="jumpToFun(3);" tapmode="tap-active">
+                        关注
+                    </span>
+                    <span class="navBar_bar">
+                        <div class="navBar_bar_inner"></div>
+                    </span>
+                </div>
+            </div>
+            <!-- fun，首页header end -->
+            <!-- cart，首页header -->
+            <div class="header_content cart">
+                <a class="btn_middle" tapmode="tap-active">
+                    购物车
+                    <!-- <i class="middle_arr down"></i> -->
+                </a>
+            </div>
+            <!-- cart，首页header end -->
+            <!-- index页5种header:::home,featured,fun,cart,profile -->
+        </div>
+        <div id="main">
+                
+        </div>
+        <div id="footer">
+            <!-- 原生代替tabBar -->
+            <ul id="footer_list">
+                <li class="list_li home active" onclick="changeIndexFrame(0);" tapmode="tap-active">
+                    <span class="text">天猫</span>
+                </li>
+                <li class="list_li follow" onclick="changeIndexFrame(1);" tapmode="tap-active">
+                    <span class="text">关注</span>
+                </li>
+                <li class="list_li fun" onclick="changeIndexFrame(2);" tapmode="tap-active">
+                    <span class="text">范儿</span>
+                </li>
+                <li class="list_li cart" onclick="changeIndexFrame(3);" tapmode="tap-active">
+                    <span class="text">购物车</span>
+                </li>
+                <li class="list_li profile" onclick="changeIndexFrame(4);" tapmode="tap-active">
+                    <span class="text">我</span>
+                </li>
+                <li class="list_bar">
+                    <div class="list_bar_inner"></div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="./script/api.js"></script>
+<script type="text/javascript" src="./script/common.js"></script>
+<script type="text/javascript">
+    // 下方tabBar，不好用放弃，用原生写
+    var aFooterList = $api.domAll('#footer_list .list_li');
+    var listBar = $api.dom('#footer_list .list_bar');
+    //::::搜索框用js加上宽度，来适应屏幕尺寸
+        var searchBox = $api.dom('.home .search_box');
+        var searchBoxW = $api.offset(searchBox).w;
+        var homeIcon1W = $api.offset($api.dom(searchBox,'.home_icon_search')).w;
+        var homeIcon2W = $api.offset($api.dom(searchBox,'.search_voiceinput_btn')).w;
+        var homeSearchText = $api.dom(searchBox,'.text');
+        var homeSearchTextW = searchBoxW-homeIcon1W-homeIcon2W;
+        $api.css(homeSearchText,'width:'+homeSearchTextW+'px');
+
+    var navBarFun = $api.dom('#navBar_fun');
+    var aNavBarBtn = $api.domAll('#navBar_fun .navBar_btn');
+    var navBarBar = $api.dom('#navBar_fun .navBar_bar');
+    var setNavBarBtn = function(index){
+        $api.addCls(aNavBarBtn[index],'active');
+        navBarBar.style.webkitTransform = 'translateX('+index*100+'%)';
+        for (var i = 0; i < 4; i++) {
+            if (i != index) {
+                $api.removeCls(aNavBarBtn[i],'active');
+            }   
+        }
+    };
+    var jumpToFun = function(index){
+        api.setFrameGroupIndex ({
+            name: 'fun',
+            index: index,
+            scroll: true
+        });
+    }
+    //::::搜索框js加上宽度，来适应屏幕尺寸 end
+    // tabBar切换状态，同时切换header与frame
+    var frameJson = {
+        '0': 'home',
+        '1': 'featured',
+        '2': 'fun',
+        '3': 'cart',
+        '4': 'profile'
+    };
+    var changeIndexFrame = function(index){
+        header.className = frameJson[index];
+        for (var i = 0; i < 5; i++) {
+            if (i == index) {
+                $api.addCls(aFooterList[index],'active');
+            } else{
+                $api.removeCls(aFooterList[i],'active');
+            }
+        };
+        listBar.style.webkitTransform = 'translateX('+index*100+'%)';
+        openIndexFrames(index);
+    };
+
+    // 关注分类frame
+    var openFeaturedFrame = function(){
+        api.openFrame({
+            name: 'featured_frame',
+            url: './html/main/featured_frame.html',
+            // pageParam: {
+            //     h: $api.offset(header).h
+            // },
+            bounces: false,
+            rect: {
+                x: 0,
+                y: 0,
+                w: 'auto',
+                h: 'auto'
+            }
+        });
+    };
+
+    // 链接到淘宝页面
+    var indexToDetail = function(title,url){
+
+        api.openWin({
+            name: 'detailwinweb',
+            url: './html/detailframes/detailwinweb.html',
+            pageParam: {
+                title: title,
+                url: url
+            },
+            rect: {
+                x: 0,
+                y: 0,
+                w: 'auto',
+                h: 'auto'
+            }
+        });
+    }; 
+    // 链接到淘宝页面 end
+    // 打开分类列表
+    var indexOpenClassify = function(){
+        api.openWin({
+            name: 'detailclassify',
+            url: './html/detailframes/detailclassify.html',
+            bounces: false,
+            rect: {
+                x: 0,
+                y: 0,
+                w: 'auto',
+                h: 'auto'
+            }
+        });
+    };
+    // 打开分类列表 end
+    // 语音识别
+    var indexOpenSpeechRec = function(){
+        api.openWin({
+            name: 'record',
+            url: './html/detailframes/record.html',
+            pageParam: {
+                name: '语音搜索',
+                title: '语音搜索'
+            },
+            rect: {
+                x: 0,
+                y: 0,
+                w: 'auto',
+                h: 'auto'
+            }
+        });
+    };
+    // 语音识别 end
+    // 二维码
+    var indexOpenScanner = function(){
+        var scanner = api.require('scanner');
+        scanner.open(function(ret,err) {
+            api.alert({
+                title: '扫描结果', 
+                msg: ret.msg
+            });
+        });
+    };
+    // 二维码 end
+    // 通用header的window
+    var indexOpenCommon = function(name,title){
+
+        api.openWin({
+            name: name,
+            url: './html/detailframes/'+name+'.html',
+            pageParam: {
+                name: name,
+                title: title
+            },
+            rect: {
+                x: 0,
+                y: 0,
+                w: 'auto',
+                h: 'auto'
+            }
+        });
+    }
+    // 通用header的window end
+    // 打开分享浮动窗口
+    var indexOpenShareframe = function(){
+        api.openFrame({
+            name: 'shareframe',
+            url: './html/detailframes/shareframe.html',
+            bounces: false,
+            rect:{
+                x: 0,
+                y: 0,
+                w: 'auto',
+                h: 'auto'
+            }
+        });
+        api.bringFrameToFront({
+            from: 'shareframe'
+        });
+    };
+    // 打开分享浮动窗口 end
+
+    apiready = function(){
+
+        // 阻止首页弹动
+        api.setWinAttr({
+            bounces: false
+        });
+        // 阻止首页弹动 end
+
+        window.header = $api.byId('header');
+        $api.fixIos7Bar(header); 
+        var headerPos = $api.offset(header);
+        var main = $api.byId('main');
+        var mainPos = $api.offset(main);
+        var footer = $api.byId('footer');
+        var footerPos = $api.offset(footer);
+
+        // 切换frame
+        // 打开app先设置funIndex为0；
+        $api.setStorage('funIndex',0);
+        window.openIndexFrames = function(index){
+            var funIndex = $api.getStorage('funIndex');
+            if (index == 2) {
+                var funH = $api.offset(navBarFun).h;
+                api.openFrameGroup ({
+                    name: 'fun',
+                    background: '#EEEEF0',
+                    scrollEnabled: true,
+                    rect: {
+                        x: 0,
+                        y: headerPos.h + funH,
+                        w: 'auto',
+                        h: mainPos.h - funH
+                    },
+                    index: funIndex,
+                    frames:
+                    [{
+                        name: 'funrecommend', 
+                        url: './html/main/funrecommend.html', 
+                        pageParam:{}, 
+                        bounces:true, 
+                        opaque:true,
+                        bgColor: '#EEEEF0'
+                    },{
+                        name: 'funvideo', 
+                        url: './html/main/funvideo.html', 
+                        pageParam:{}, 
+                        bounces:true, 
+                        opaque:true,
+                        bgColor: '#EEEEF0'
+                    },{
+                        name: 'funtopic', 
+                        url: './html/main/funtopic.html', 
+                        pageParam:{}, 
+                        bounces:true, 
+                        opaque:true,
+                        bgColor: '#EEEEF0'
+                    },{
+                        name: 'funfollow', 
+                        url: './html/main/funfollow.html', 
+                        pageParam:{}, 
+                        bounces:true, 
+                        opaque:true,
+                        bgColor: '#EEEEF0'
+                    }]
+                }, function(ret, err){
+                    var name = ret.name;
+                    var index = ret.index;
+                    $api.setStorage('funIndex',index);
+                    setNavBarBtn(index);
+                });
+            } else{
+                if (index == 4) {
+                    api.openFrame({
+                        name: frameJson[index],
+                        url: './html/main/'+frameJson[index]+'.html',
+                        bounces: true,
+                        rect: {
+                            x: 0,
+                            y: $api.offset(header).h,
+                            w: 'auto',
+                            h: mainPos.h + footerPos.h
+                        }
+                    });
+                } else{
+                    api.openFrame({
+                        name: frameJson[index],
+                        url: './html/main/'+frameJson[index]+'.html',
+                        bounces: true,
+                        rect: {
+                            x: 0,
+                            y: headerPos.h,
+                            w: 'auto',
+                            h: mainPos.h
+                        }
+                    });  
+                }
+                
+            }
+            for (var i = 0; i < 5; i++) {
+                if (i == index) {
+
+                } else{
+                    if (i == 2) {
+                        api.setFrameGroupAttr({
+                            name: 'fun',
+                            hidden: true
+                        });
+                    } else{
+                        api.setFrameAttr({
+                            name: frameJson[i],
+                            hidden: true
+                        });
+                    }
+                    
+                }
+                
+            };
+        };
+        changeIndexFrame(0);
+    };
+</script>
+</html>

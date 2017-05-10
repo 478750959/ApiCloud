@@ -1,0 +1,240 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>MI</title>
+		<link rel="stylesheet" type="text/css" href="../css/api.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/xyc.css"/>
+		<style>
+			html, body {
+				background: white;
+			}
+			.mi_list_txt{
+				min-width:1.55rem;
+			}
+		</style>
+	</head>
+	<body>		                   
+		<div id="wrap">
+			<div id="main">
+				<div class='mi_top main' onclick = "openNext('mi_sethead_w',1)">
+					<div class='mi_photo'>
+						<img  alt='' id='photo1'/>
+					</div>
+					<h2 class='mi_name' id ='name1'>我的昵称</h2>
+				</div>
+				<div class='mi_nav'>
+					<ul id="container">
+						<li id='li1' onclick = "openNext('mi_buycar_head_w',1)">
+							购物车<span>(<b  id="car_number">0</b>)</span>
+						</li>
+						<li id='li2' onclick = "openNext('mi_buycar_head_w',2)">
+							我的收藏<span>(<b id="my_love">0</b>)</span>						
+						</li>
+					</ul>
+				</div>
+				<div class="mi_kb"></div>
+				<div class='mi_list'>
+					<ul>
+						<li onclick="openNext('mi_dd_tab_head_w',1)">
+							<i class='mi_list_icon mi_i1'></i>
+							<p class='mi_list_txt'>
+								全部订单
+							</p>
+							<b class='mi_list_next'></b>
+						</li>
+						<li onclick="openNext('mi_set_head_w',9)">
+							<i class='mi_list_icon mi_i3'></i>
+							<p class='mi_list_txt'>
+								意见反馈
+							</p>
+							<b class='mi_list_next'></b>
+						</li>
+						<li onclick="check_version()" class="panduanai none">
+							<i class='mi_list_icon mi_i4'></i>
+							<p  class='mi_list_txt mycheck'>
+								当前版本
+							</p>
+							<span class='mi_list_sm'>1.1.1</span>
+						</li>
+						<li onclick = openNext('mi_sethead_w',5)>
+							<i class='mi_list_icon mi_i5'></i>
+							<p class='mi_list_txt'>
+								帮助说明
+							</p>
+							<b class='mi_list_next'></b>
+						</li>
+						<li onclick = openNext('mi_sethead_w',2)>
+							<i class='mi_list_icon mi_i6'></i>
+							<p class='mi_list_txt'>
+								联系我们
+							</p>
+							<b class='mi_list_next'></b>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../script/api.js"></script>
+	<script type="text/javascript" src="../script/comm.js"></script>
+	<script type="text/javascript" src="../script/font.js"></script>
+	<!--<script type="text/javascript" src="../script/debug.js"></script>-->
+	<script type="text/javascript" src="../script/zepto.js"></script>
+	<script type="text/javascript" src="../script/doT.min.js"></script>	
+	<script>
+	//监听事件的自增减
+	function add(){
+		get_num();		
+	}
+	function del(){
+		get_num();
+	}			
+	function add1(){
+		get_num();
+	}
+	function del1(){
+		get_num();
+	}		
+	function get_num(){	
+	var info=is_login();	
+	var param = {};
+	for(var p in info){
+		param[p]=info[p];
+	}
+		ajaxRequest('user/cart_coll', 'post',param,function(ret,err){			
+			if(err){
+			api.toast({
+	            msg:err.msg
+            });
+            return false;
+		}
+		if(ret.status){
+			var data = ret.info;	
+			$('#car_number').html(data.num);					
+			$('#my_love').html(data.num1);
+			$api.setStorage('c_c',data);						
+		}else{
+			if(ret.info=='no_login'){
+				to_login();
+				return false;
+			}
+			api.toast({msg:ret.info});
+		}
+	})	
+}
+		apiready = function() {
+			api.addEventListener({
+	            name:'my_photo'
+            },function(ret,err){           	
+            	//coding...
+            	var url=ret.value.img;           	
+            	photo(url);
+            });	
+			if(api.systemType == 'android'){
+				$('.panduanai').removeClass('none');
+				$('.mycheck').html('检查更新');
+			}
+			api.addEventListener({
+		        name:'num_change'
+	        },function(ret,err){
+	        	get_num();
+	        });
+			get_num();		
+			var net_type = isEmpty($api.getStorage('net_type')) ? '' : $api.getStorage('net_type');	
+			var num_data = isEmpty($api.getStorage('c_c')) ? '' : $api.getStorage('c_c');	
+			if(net_type==0 && num_data){
+				$('#car_number').html(num_data.num);					
+				$('#my_love').html(num_data.num1);
+			}					
+			//版本
+			var version=api.appVersion;
+			$('.mi_list_sm').html(version);
+			//昵称
+			var nickname = getstor('nickname') ? getstor('nickname') : '请填写昵称';
+			$('#name1').html(nickname);
+			//头像
+			var headimg = getstor('headimg') ? getstor('headimg') : '../image/touxiang.png';
+			$('#photo1').attr('src', headimg);
+		}
+		function openNext(xyc, id) {
+			api.openWin({
+				name : xyc,
+				url : xyc + '.html',
+				opaque : true,		
+				slidBackEnabled:false,	
+				vScrollBarEnabled : false,
+				pageParam : {
+					count : id
+				}
+			});
+		}
+
+		//头像更改的
+		function photo(url) {
+			$('#photo1').attr('src', url);
+		}
+		//昵称修改的
+		function my_name(name) {
+			$('#name1').text(name);
+			api.closeWin({
+				name:'mi_set_head_w'
+			});
+		}
+		//检查更新
+		function check_version() {
+			if (api.systemType == 'android'){		
+			var mam = api.require('mam');
+			mam.checkUpdate(function(ret, err) {
+				if (ret) {
+					var result = ret.result;
+					if (!ret.status) {
+						api.toast({
+							msg : '版本检测失败！'
+						});
+						return false;
+					}					
+					if (!result.update) {
+						api.toast({
+							msg : '已经是最新版本！'
+						});
+						return false;
+					} else {
+					var content = '发现新版本：' + result.version + ',发布时间：' + result.time,title=result.updateTip,src=result.source;
+//					var content = '大家好',title='标题',src=result.source;
+					open_alert(title,content,1,src);
+//						api.confirm({
+//							title : '发现新版本：' + result.version + ',发布时间：' + result.time,
+//							msg : result.updateTip,
+//							buttons : ['确定', '取消']
+//						}, function(ret, err) {
+//							if (ret.buttonIndex == 1) {
+//								api.openWin({
+//									name : 'update',
+//									url : result.source
+//								});
+//							} else {
+//								api.toast({
+//									msg : '已取消更新!'
+//								});
+//							}
+//						})
+					}
+				} else {
+					api.toast({
+						msg : err.msg
+					});
+				};
+			});
+		}
+	}
+//		function  to_up(src){
+////	
+//			api.openWin({
+//				name : 'update',
+//				url : src
+//			});
+//		}
+	</script>
+</html>

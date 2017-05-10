@@ -1,0 +1,405 @@
+<!doctype html>
+<html lang="en">
+<head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+     <link rel="stylesheet" href="../css/api.css">
+     <link rel="stylesheet" href="../css/common.css">
+    <title>用户中心</title>
+    <style>
+    html, body {
+          /*  background-color: #dfdede !important;*/
+        }
+    #wrap{
+        /* background: #F0F0F0;*/
+
+
+      }
+  
+      
+      #close img{
+        position: absolute;
+        top:10px;
+        right: 95px;
+        background: transparent;
+      }
+     
+      #uinfo{
+       
+        height:180px;
+        width: 100%;
+        
+        background: #FF7930;
+        color: white;
+
+      }
+
+      .center{
+        width:200px;
+        position:relative;
+        right:5%;
+
+        margin:0 auto;
+        padding-top: 15px;
+        text-align: center;
+
+      }
+
+      #uinfo img{
+
+          border-radius: 50%;
+      }
+      .row{
+       display: block;
+       text-align: center;
+       margin-left:0px;
+       margin-top:5px;
+       z-index: 100;
+
+      }
+      .row a{
+        margin-left:5px;
+        background: url(../image/default_ptr_rotate.png) no-repeat;
+        background-position: right center;
+        background-size: 16px 16px;
+        padding-right:  20px;
+
+      }
+      
+      span.row.creborder {
+        width: 80px;
+        margin: 0 auto;
+        border: 1px solid white;
+        background: transparent !important;
+        font-weight: bold;
+
+      }
+      /*.breboder{
+        width: 80px  !important;
+      }*/
+      .credit{
+        background: rgba(0,255,0,.7);
+       width: 60px  !important;
+       height: 19px;
+       /*margin: 0 auto;*/
+       /*border-radius: 1px solid white;*/
+       position: relative;
+       top:-19px;
+       left:-10px;
+       z-index: 1;
+       clear: right;
+
+      }
+      .plus{
+
+        margin-top:-15px;
+      }
+      #botm{
+        margin-top:20px; 
+
+      }
+      #botm ul li{
+       /* display: block;*/
+       /* float: left;*/
+       /* width: 33.3%;*/
+        height:55px;
+        text-align:center;
+        padding-top: 65px;
+       /* margin-bottom: -20px;*/
+     }
+     #botm ul li div{
+        margin:0px;
+        padding:0px;
+        margin-top:10px;
+     }
+      .wallet{
+         background: url(../image/icon_wallet.png) no-repeat left center  ;
+
+
+
+      }
+      .voucher{
+         background: url(../image/icon_discount.png) no-repeat left center  ;
+
+
+
+      }
+      .profile{
+         background: url(../image/icon_profile.png) no-repeat left center  ;
+
+
+      }
+      .reading{
+         background: url(../image/icon_reading.png) no-repeat left center  ;
+
+
+      }
+      .setting{
+         background: url(../image/icon_setting.png) no-repeat left center  ;
+
+
+
+      }
+
+      /*.about{
+         background: url(../image/icon_about.png) no-repeat left center  ;
+
+
+      }*/
+        .li-left{
+        display: block;
+        float: left;
+         margin-left: 30px;
+      }
+      .li-right{
+        display: block;
+        float: right;
+        margin-right: 30px;
+      }
+
+
+     /*new*/
+     .detail ul{
+       /* height: 55px;*/
+        line-height: 1.5;
+        background: white;
+        margin: 0 auto;
+       
+
+       }
+
+       .detail li{
+        height: 45px;
+        line-height: 30px;
+        /*font-weight: bold;*/
+        z-index: 0;
+        position: relative;
+        border-bottom: 1px solid rgba(0,0,0,.2);
+        padding-left: 55px;
+        padding-top:10px;
+       }
+
+       .detail li span.arrow{
+        width: 14px;
+        height: 14px;
+        /*background:url(../image/wallet_base_indicator_arrow.png) no-repeat center center !important;*/
+        z-index: 100 !important;
+        position: absolute;
+        top:6px;
+        right: 5px;
+        color: gray;
+
+        
+      }
+
+       .detail li span.arrow p{
+        position: relative;
+        width: 100px;
+        left:-175px;
+        top:10px;
+        text-align: right;
+
+
+       }
+
+
+      #share{
+            position: relative;
+            top:35px;
+            /*height: 32px;*/
+            width: 120px;
+            margin: 0 auto;
+            right: 5%;
+            /*padding:20px;*/
+           /* padding-top:10px;*/
+           padding: 5px 5px;
+
+            color: gray;
+            border:1px solid rgba(0,0,0,.3);
+
+
+      }
+      .wyyche{
+        width: 20px;
+       margin: 0 auto;
+       position: relative;
+      top:60px;
+       
+
+      }
+
+     
+     
+    </style>
+</head>
+<body>
+    <div id="wrap">
+       <!--  <div id="main"> -->
+            
+                 <div id="close" tapmode="" onclick="closeme()">
+                    <!--<img src="../image/btn_closed.png" width="28px" height="28px"/> -->
+
+                 </div>
+                 
+                   <div id="uinfo">
+                      <div class="center">
+                          <img src="../image/avatar_pic_example.png" alt="用户头像" width="80px" height="80px" tapmode="" onclick="myinfo()"/>
+                          <span class="row">邱先生</span>
+                          <span class="row creborder" tapmode="" onclick="changetodriver()">信用值9</span>
+                          <span class="credit"></span>
+                          <span class="row plus"  tapmode="" onclick="changetodriver()">我是乘客<a href="">切换为车主</a></span>
+                    </div>
+                      
+                 </div>
+                 
+                 
+                 
+            <!-- <div id="botm">
+                 <ul>
+
+                    <li class="wallet">
+
+                       <div class="li-left wallet">我的钱包</div>
+                         <span class="li-right">$32</span>
+                    </li>
+
+                    <li class="voucher">
+
+                       <div>我的代金券</div>
+                         <span class="li-right">0张</span>
+                    </li>
+
+                    <li class="profile">
+
+                       <div>我的资料</div>
+                         <span></span>
+                    </li>
+
+                    <li class="reading">
+
+                       <div>用车必读</div>
+                         <span></span>
+                    </li>
+
+                    <li class="setting">
+
+                       <div>设置</div>
+                         <span></span>
+                    </li>
+
+                    <li class="about">
+
+                       <div>关于</div>
+                         <span></span>
+                    </li>
+
+                 </ul>
+            </div> -->
+
+            <div class="detail">
+               <ul id="detail">
+                 <li class="wallet" tapmode="" onclick="Openitem(1)">我的钱包<span class="arrow"><p>￥32</p></span></li>
+                 <li class="voucher"  tapmode="" onclick="Openitem(2)">我的代金券<span class="arrow"><p>2张</p></span></li>
+                 <li class="profile"  tapmode="" onclick="Openitem(3)">我的资料<span class="arrow"></span></li>
+                 <li class="reading"  tapmode="" onclick="Openitem(4)">用车必读<span class="arrow"><p></p></span></li>
+                 <li class="setting"  tapmode="" onclick="Openitem(5)">设置<span class="arrow"><p class="dotinfo"></p></span></li>
+                 <!-- <li class="about">清空本地缓存<span class="arrow"><p class="dotinfo"></p></span></li> -->
+               </ul>
+             </div>
+            <div id="share" tapmode="" onclick="share()">分享APP给好友</div>
+            <!--<div class="wyyche">
+                <img src="../image/flag_v.png" alt="">
+            </div>-->
+
+       <!--  </div> -->
+    </div>
+<script type="text/javascript" src="../script/api.js"></script>
+
+<script type="text/javascript" src="../script/common.js"></script>  
+<script type="text/javascript">
+ function Openitem(index){
+    var url = '';
+    var name = '';
+	 switch(index){
+	   case 1:
+	   url ='mywallet.html';
+	   name = 'mywallet';
+	   break;
+	   case 2:
+	   url ='myvoucher.html';
+	   name = 'myvoucher';
+	   break;
+	   case 3:
+	  
+	   url ='myinfo.html';
+	    name = 'myinfo';
+	   break;
+	   case 4:
+	   url ='ycherule.html';
+	   name = 'ycherule';
+	   break;
+	   
+	   case 5:
+	   url ='setting.html';
+	   name = 'setting';
+	   break;
+	 }
+	 api.openWin({
+	     name: name,
+	     url: url
+     });
+}
+function closeme(){
+   api.closeWin();
+//api.closeSlidPane();
+//
+// api.closeToWin({
+//	   name: 'root'
+// });
+// api.execScript({
+//  name: 'root',
+//  script: 'closeslide();'
+//});
+
+}
+function changetodriver(){
+  if(1==$api.getStorage('role')){
+     api.openWin({
+	     name: 'driver',
+	     url: 'driver.html'
+     });
+  
+  }else if(2==$api.getStorage('role')){
+  
+  api.openWin({
+	     name: 'passenger',
+	     url: 'passenger.html'
+     });
+  }
+  
+}
+function myinfo(){
+api.openWin({
+	     name: 'myinfo',
+	     url: 'myinfo.html'
+     });
+
+}
+
+function share(){
+api.openWin({
+	     name: 'dialog-fb',
+	     url: 'dialog-fb.html'
+     });
+
+}
+
+apiready = function () {
+    api.setStatusBarStyle({
+        style: 'dark'
+    });
+    
+};
+ </script>
+</body>
+</html>

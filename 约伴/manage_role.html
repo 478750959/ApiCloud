@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+<head>
+    <title></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="css/ui-btn.css">
+    <link rel="stylesheet" href="css/ui-base.css">
+    <link rel="stylesheet" href="css/ui-box.css">
+    <link rel="stylesheet" href="css/ui-color.css">
+    <link rel="stylesheet" href="css/ui-res.css">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/y_control.js"></script>
+    <script src="js/y_click.js"></script>
+    <script src="js/dis_control.js"></script>
+    <script src="js/y_anim.js"></script>
+    <script>
+    </script>
+</head>
+<body class="um-vp c-gra5" ontouchstart>
+<div id="page_0" class="up ub ub-ver" tabindex="0">
+    <!--header开始-->
+    <div id="header" class="c-blu3 uh">
+        <div class="c-m2 t-wh" id="hhh">
+            <a class="btn btn-l btn-a ub ub-ac" ontouchstart="zy_touch('btn-act1')" onclick="closewin();">
+                <div class="ulim"><img src="images/back.png" class="sbtn"></div>
+            </a>
+            <h1 class="ut ulev0 ut-s tx-c" tabindex="0" id="ttl">应用-单身名片</h1>
+            <a class="ub btn btn-r btn-n ub-ac" id="go_app" ontouchstart="zy_touch('btn-act1')" onclick="go2module();">
+                <div class="ulim" id="btn_right">进入应用</div>
+            </a>
+        </div>
+    </div>
+
+    <!--header结束-->
+    <!--content开始-->
+    <div id="content" class="ub-f1 tx-l t-bla">
+
+    </div>
+    <!--content结束-->
+</div>
+</body>
+<script>
+    var params = getStorJson('params');
+    var rolemoduleid = params.rolemoduleid;
+    zy_init();
+    //访问非自己的名片，不显示进入应用 by tom 2015-5-4:
+    var view = params.view;
+    if(view != 'me') zy_hide('go_app');
+
+    
+//    function submit(){
+//        ueppscript('manage_role','content', 'card_submit();');
+//    }
+    var tts = '应用-'+params.title;
+    window.uexOnload = function(type){
+        if (!type) {
+            setHtml('ttl', tts);
+            zy_con("content", 'manage_role_content.html', 0, $$("header").offsetHeight);
+        }
+        window.onorientationchange=window.onresize=function()
+        {
+            zy_resize("content",0,$$("header").offsetHeight);
+        }
+    };
+    function go2module(){
+        var o_rolemodule = getStorJson('role_status');
+        var rolemodule = getRolemodule();
+        var rolestatus = o_rolemodule[rolemodule];
+
+        var menuindex, title;
+        switch(int(rolemoduleid)){
+            case 1:
+                title = '单身名片';
+                menuindex = 8;
+                break;
+            case 2:
+                title = '职业名片';
+                menuindex = 9;
+                break;
+            case 3:
+                title = '校友名片';
+                menuindex = 10;
+                break;
+        }
+        if(isUndefined(rolestatus) || !parseInt(rolestatus)){
+            uexWindow.toast('0', '5', '请先启用应用-' + title, "2000");
+            return;
+        }
+        var str = '{"pageid":"' + menuindex + '", "title":"' + title + '"}';
+        console.log(str);
+        setstorage('params',str);
+        openwin('friend', 'friend.html', '10');
+    }
+    function getRolemodule(){
+        var key = '';
+        if(rolemoduleid == 1) key = 'single';
+        if(rolemoduleid == 2) key = 'occupation';
+        if(rolemoduleid == 3) key = 'education';
+        return key;
+    }
+</script>
+</html>

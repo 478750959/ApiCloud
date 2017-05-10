@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+<head>
+    <title>
+    </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="css/ui-input.css">
+    <link rel="stylesheet" href="css/ui-on.css">
+    <link rel="stylesheet" href="css/ui-img.css">
+    <link rel="stylesheet" href="css/ui-res.css">
+    <link rel="stylesheet" href="css/ui-input.css">
+    <link rel="stylesheet" href="css/ui-list.css">
+    <link rel="stylesheet" href="css/ui-base.css">
+    <link rel="stylesheet" href="css/ui-box.css">
+    <link rel="stylesheet" href="css/ui-color.css">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/y_control.js"></script>
+    <link rel="stylesheet" href="css/ui-btn.css">
+    <script src="js/y_click.js"></script>
+    <script src="js/y_json.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/dis_control.js"></script>
+    <script src="js/y_anim.js"></script>
+    <script>
+    </script>
+</head>
+<body class="um-vp c-gra5" ontouchstart>
+<div id="page_0" class="up ub ub-ver" tabindex="0">
+    <!--header开始-->
+    <div id="header" class="c-blu3 uh">
+        <div class="t-wh ub ub-ac uinn">
+            <div class="umw3" ontouchstart="zy_touch('btn-act1')" onclick="closewin();">
+                <div class="btn btn-a ub ub-ac">
+                    <div class="ulim"><img src="images/back.png" class="sbtn"></div>
+                </div>
+            </div>
+
+            <div class="ub ub-f1 umar-r">
+                <div class="t-bla ub uba b-gra c-wh uinput ub-f1">
+                    <div class="ub ub-f1 ub-ac">
+                        <div class="im14 ub-img5 umw1 umh1 uinn14"></div>
+                        <input placeholder="" oninput="onInput(this);" type="text" id="keywords" class="ub-f1">
+                    </div>
+                    <div class="res5  umw1 ub-img4 uhide uinn14" ontouchstart="zy_touch('btn-act1')" onclick="delKeywords();" id="btnd"></div>
+                </div>
+            </div>
+            <a class="btn btn-n btn-a ub ub-ac ub-pc" id="btn_submit" ontouchstart="zy_touch('btn-act1')" onclick="setInputValue();">
+                <div class="ulim">确定</div>
+            </a>
+        </div>
+    </div>
+</div>
+</body>
+<script>
+zy_init();
+var params = getStorJson('params');
+var field = params.field;
+var from_wnd = params.from_wnd;
+var from_frame = params.from_frame;
+var value = '';
+var eleKey;
+//if(params.value) value = params.value;
+window.uexOnload = function () {
+    eleKey = $$('keywords');
+    switch(field){
+        case 'company':
+            eleKey.placeholder = '输入单位名称';
+            break;
+        case 'graduateschool':
+            eleKey.placeholder = '输入高校名称';
+            break;
+        case 'major':
+            eleKey.placeholder = '输入专业名称';
+            break;
+    }
+    if(value) {
+        eleKey.value = value;
+        zy_show('btnd');
+    }
+};
+
+function onInput(ts) {
+    var v = ts.value;
+    var l = v.length;
+    if (l == 0){
+        zy_hide('btnd');
+        return;
+    }
+    zy_show('btnd');
+    var value = trim(v);
+    //必须要在另外一个frame或者window中进行网络访问，才不会导致输入时键盘缩回
+    uescript('suggest', 'getSuggest(\'' + value + '\')');
+}
+function delKeywords() {
+    eleKey.value = '';
+    uescript('suggest', 'getSuggest(\'\')');
+    zy_hide('btnd');
+}
+function setInputValue(){
+    //将选中的值赋给表单
+    if(!eleKey.value){
+        uescript('suggest', "uexWindow.toast('0', '5', '请输入名称', '1500');");
+        return;
+    }
+    ueppscript(from_wnd, from_frame, 'set_suggest_field(\'' + field + '\', \'' + eleKey.value + '\')');
+    setTimeout(function(){closewin();}, 500);
+}
+</script>
+</html>

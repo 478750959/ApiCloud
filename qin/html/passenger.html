@@ -1,0 +1,408 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+     <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+     <link rel="stylesheet" href="../css/api.css">
+     <link rel="stylesheet" href="../css/common.css">
+     <script src="../script/swipe.js"></script>
+
+    <title>乘客首页</title>
+    <style>
+    #header span{
+      height: 44px;
+      /*padding-bottom: 15px;*/
+    }
+    .headerleft{
+     float: left;
+     padding-top: 5px;
+     padding-left:5px;
+
+    }
+    .headerright{
+     float: right;
+     line-height: 44px;
+     font-weight: bold;
+     margin-right: 5px;
+
+    }
+    .center{
+        line-height: 44px;
+     font-weight: bold;
+     margin-right: 5px;
+     text-align: center;
+
+
+    }
+    .center img{
+        display: inline-block;
+        position: relative;
+        right: 4px;
+        top: 2px;
+        margin-right: -10px;
+        padding-left: 10px;
+    }
+
+
+
+        /*轮播*/
+    .wrap{
+      overflow: hidden;
+      visibility: hidden;
+      position: relative;
+      width: 100%;
+      height: 150px;
+    }
+    .wrap .inline-float{
+      overflow: hidden;
+      position: relative;
+    }
+    .wrap .inline-float li {
+      float: left;
+      width: 100%;
+      height: 150px;
+      position: relative;
+      text-align: center;
+      background-repeat:no-repeat;
+      background-size: 100% 100%;
+      background-color:#f5f5f5;
+    }
+    .slide-bullet{
+      position: absolute;
+      z-index:99;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      text-align: center;
+    }
+    .slide-bullet .icon-bullet{
+      font-style:normal;
+      font-size:0;
+      background-color: #ddd;
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 5px;
+      margin: 2px;
+    }
+    .slide-bullet .icon-bullet.active{
+      background-color: #fff;
+    }
+
+    #summary{
+     width:100%;
+    }
+      
+    .summary ul{
+        height: 50px;
+        width:100%;
+        line-height: 1.5;
+        background: white;
+        padding-bottom: 30px;
+        border-bottom: 1px solid #c6c6c6;
+        
+
+       }
+     
+        .summary li{
+          display: inline-block;
+         float: left;
+         width: 33%;
+         margin-top:5px;
+         height: 45px;
+        /* margin-left: 3%;*/
+
+        }
+        .row{
+           display: block;
+          /* float: left;*/
+           text-align: center;
+           margin: 0px;
+           padding:0px;
+           position: relative;
+           top:50px;
+      
+          }
+      
+        .yche{
+            background: url(../image/icon_passener_orders.png) no-repeat center top ;
+           
+        }
+        .pingjia{background: url(../image/icon_evaluation_home.png) no-repeat center top ;
+         }
+        .notice{
+background: url(../image/icon_messages.png) no-repeat center top ;
+ 
+        }
+
+        #jiaoche{
+         width: 120px;
+         margin: 0 auto;
+         padding-top: 55px;
+         z-index: 10;
+
+        }
+        /*@keyframes my{
+         
+         
+        }
+        #jche{
+            width: 150px;
+         margin: 0 auto;
+         position: relative;
+         top:-150px;
+           z-index: 1;
+            -webkit-animation: my 1s infinite alternate;
+        }*/
+
+        #happy{
+         /*  width: auto;*/
+          margin: 0 auto;
+          position: relative;
+          margin-top:  70px;
+         /* position: absolute;
+          left: 40%;
+
+          bottom: 75px;*/
+         color: gray;
+         text-align: center;
+        }
+        
+       /* #footer{
+           display: -webkit-box;
+		    display: -webkit-flex;
+		    display: flex;
+		    font-size: 1.5em;
+		   
+        }
+        #footer span{
+		        -webkit-box-flex: 1; 
+		    -webkit-flex: 1;
+		    flex: 1;
+   
+        }*/
+        #footer span{
+		       text-align:center;
+		       width: 49%;
+		       font-size: 1.5em;
+   
+        }
+         #footer span:first-child{
+         border-right:1px solid #C6C6C6;
+         }
+          .none{
+          display: none;
+         }
+    </style>
+</head>
+<body>
+    <div id="wrap">
+        <div id="header">
+            <span class="headerleft"  tapmode="" onclick="sliding()" >
+                <img src="../image/icon_profile_nor.png" alt="头像" width="32px" height="32px"/>
+            </span>
+            <span class="center">
+            <!-- <img src="../image/wordlogo_welcome.png" alt="" width="80px" height="22px"/> -->
+               <span>乘客版</span>
+                <img src="../image/default_ptr_rotate.png" alt="" width="16px" height="16px" tapmode="" onclick="changetodriver()"/>
+            </span>
+            <span class="headerright"  tapmode="" onclick="Opentab(1)" >
+              <h1>北京 </h1>
+            </span>
+        </div>
+         <div id="main">
+        <div class="wrap" id="swipeSlide">
+          <ul class="inline-float">
+                <li style="background-image:url(../image/order_boot_ad1.png)"></li>
+                <li style="background-image:url(../image/order_boot_ad2.png)"></li>
+                 <li style="background-image:url(../image/order_boot_ad1.png)"></li>
+                <li style="background-image:url(../image/order_boot_ad2.png)"></li>
+                
+          </ul>
+                  <p class="slide-bullet">
+                  <i class="icon-bullet active"></i>
+                  <i class="icon-bullet"></i>
+                  <i class="icon-bullet"></i>
+                  <i class="icon-bullet"></i>
+                  </p>
+        </div>
+       
+        <div  id="summary" class="summary">
+                <ul>
+                  <li class="yche" tapmode="" onclick="Opentab(3)">
+                     
+                     <span class="row">用车记录</span>
+                    
+                  </li>
+                  <li class="pingjia"  tapmode="" onclick="Opentab(4)">
+                    <span class="row">车主评价</span>
+                     
+                  </li>
+
+                  <li class="notice"  tapmode="" onclick="Opentab(5)">
+                    <span class="row">我的消息</span>
+                    
+                  </li>
+                </ul>
+
+         </div>
+         <div id="jiaoche">
+             <img src="../image/btn_order_release_nor.png" alt="去拼车" width="120px" height="120px"  tapmode="" onclick="Openyc()" />
+           
+         </div>
+         
+        <div id="happy">
+            多些耐心和宽容，自己也会感到轻松
+        </div>
+        </div>
+        <div id="footer">
+            <span onclick="logreg(0)" tapmode>登录</span><span onclick="logreg(1)" tapmode>注册</span>
+        </div>
+        <!-- end main -->
+        
+    </div>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript">
+window.addEventListener('DOMContentLoaded', function(){ 
+  var $slide = document.getElementById('swipeSlide'),
+      aBullet = $slide.querySelectorAll('.icon-bullet');
+     // len = aBullet.length;
+  
+ var mySwipe = new Swipe($slide,{
+    auto: 3000,
+    callback: function(i){
+        len = aBullet.length;
+  
+      while(len--) {
+        
+        aBullet[len].classList.remove('active');
+        // }
+      }
+      aBullet[i].classList.add('active');
+    }
+  });
+});
+
+function Opentab(index){
+    var url = '';
+    var name = '';
+	 switch(index){
+//	   case 0:
+//	   url ='usercenter.html';
+//	   name = 'usercenter';	        
+//	   break;
+	   case 1:
+	   url ='citylist.html';
+	   name = 'citylist';
+	   break;
+//	   case 2:
+//	   url ='usercenter.html';
+//	   break;
+	   case 3:
+	   url ='ycrecord.html';
+	   name = 'ycrecord';
+	   break;
+	   case 4:
+	   url ='reviews.html';
+	   name = 'reviews';
+	   break;
+	   case 5:
+	   url ='message.html';
+	   name = 'message';
+	   break;
+	   case 6:
+	   url ='wyyche.html';
+	   name = 'wyyche';
+	   break;
+	 
+	 }
+	 api.openWin({
+	     name: name,
+	     url: url
+     });
+}
+function sliding() {
+        api.openSlidPane({type: 'left'});
+        document.getElementById("wrap").style.opacity = 0.1;
+    }
+function closeslide(){
+  api.closeSlidPane();
+}
+function Openyc(){
+api.openWin({
+	     name: 'wyyche',
+	     url: 'wyyche.html',
+	     vScrollBarEnabled:false,
+	     hScrollBarEnabled:false,
+	     bounces:false
+     });
+
+}
+function changetodriver(){  
+     api.openWin({
+	     name: 'driver',
+	     url: 'driver.html',
+	     animation:{
+	        type:"cube",
+	        subType:"from_left",
+	        duration:1000
+	     }
+     });  
+}
+ apiready = function () {
+   $api.setStorage('role','1');
+   api.addEventListener({
+            name: 'keyback'
+        }, function(ret, err){
+            api.closeWidget();
+        });
+        
+        api.addEventListener({
+		    name: 'slide'
+		}, function(ret){
+		    if(ret){
+		     document.getElementById("wrap").style.opacity = 0.1;   
+		    }
+		});
+        
+        api.addEventListener({
+		    name: 'close'
+		}, function(ret){
+		    if(ret){
+		     document.getElementById("wrap").style.opacity = 1;   
+		    }
+		});
+   if (!$api.getStorage('login')){
+       var footer = $api.byId('footer');
+       $api.removeCls(footer, 'none');       
+       
+   }else {
+       var footer = $api.byId('footer');
+       $api.addCls(footer, 'none'); 
+         
+   }
+		
+ }
+ function logreg(index){
+  switch(index){
+     case 0:
+      api.openWin({name: 'login',url: 'login.html'});
+      break;
+      case 1:
+        api.openWin({name: 'reg', url: 'reg.html'});
+      break;
+    }
+ }
+ function logined(){ 
+   var footer = $api.byId('footer');
+    if (!$api.getStorage('login')){     
+       $api.removeCls(footer, 'none');       
+       
+   }else {      
+       $api.addCls(footer, 'none'); 
+   }
+ 
+ }
+</script>
+</body>
+</html>

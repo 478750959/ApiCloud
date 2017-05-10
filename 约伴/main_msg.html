@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+<head>
+    <title>
+    </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="css/ui-img.css">
+    <link rel="stylesheet" href="css/ui-res.css">
+    <link rel="stylesheet" href="css/ui-list.css">
+    <link rel="stylesheet" href="css/ui-base.css">
+    <link rel="stylesheet" href="css/ui-box.css">
+    <link rel="stylesheet" href="css/ui-color.css">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/y_control.js"></script>
+    <script src="js/y_click.js"></script>
+    <script src="js/dis_control.js"></script>
+    <script src="js/y_json.js"></script>
+    <script src="js/y_tmpl.js"></script>
+    <script src="js/y_icache.js"></script>
+    <script src="js/y_anim.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/socketio/talkUtil.js"></script>
+    <script>
+    </script>
+</head>
+<body class="um-vp c-gra" ontouchstart>
+<!--
+<div id="allMsg" class="tx-c umar-t" ontouchstart="zy_touch('c-gra')" onclick="loadList()">下拉可查看历史消息</div>
+-->
+<div class="b-gra c-gra5 uc-n" id="reminderlist">
+    <div ontouchstart="zy_touch('c-gra')" onclick="go2reminders('rn');" class="uc-t ubb ub b-gra t-bla ub-ac lis">
+        <div class="ub-img5 im15 newpic"></div>
+        <div class="ub-f1 ut-s ulev0">提醒</div>
+        <div class="ufr ub-img5 rimg umar-t uhide" id="rn"></div>
+    </div>
+    <div></div>
+</div>
+<div class="uinn umar-l t-gra ulev-1">聊天</div>
+<!--列表开始-->
+<div class="b-gra c-gra5 uc-n" id="msglist">
+    <div>
+        
+    </div>
+</div>
+<!--列表结束-->
+</body>
+<script>
+zy_init();
+var uid = getstorage('UID');
+var canRefresh = true;//是否可以下拉刷新。默认不能，直到loadListMsg函数结束后才可以刷新。刷新时根据最新消息和时间如本地div内容比较，若有变化，则提示新图标。
+var cContent = $$('msglist');
+//var currentDataList = null;//初始化后互动列表，跟服务器端比较，增加了isnew字段，表示服务器有新消息。若是app重新打开后，全部为新消息，应该缓存起来。
+var fromCache = 0;
+var api_url = yh_talk_server+"msg/getRoomListByUserId.do";
+window.uexOnload = function () {
+    setPageBounce(downcb, upcb);
+
+    zy_initcache();//初始化图像缓存
+    rminders();//初始化提醒
+    loadList('1');//加载全部互动列表，并显示出来
+    if(fromCache) loadList('');
+}
+function downcb() {
+    if (canRefresh) {
+        loadList('');//加载全部互动列表，并显示出来。
+        uescript('root', 'menuNotice(\'reminder\', 0);');
+        //uescript('root', 'menuNotice(\'talk\', 0);');
+    } else {
+        resetBV('0');//刚进入则不能刷新
+    }
+}
+function upcb() {
+    resetBV('1');
+}
+
+/**
+ * 页面第一次进来时，加载全部互动内容(或页面刷新时调用或新推送事件捕获时调用)
+ */
+function loadList(flag) {
+    if(!canRefresh) return;
+    canRefresh = false;
+    fromCache = checkKey(api_url);
+    if(!fromCache) uexWindow.toast('1', '5', '加载中...', "");
+    var paramsArray = [];//参数数组
+    var param1 = {};//json参数值
+    param1.type = '0';//0:字符，1:文件
+    param1.key = 'key';
+    param1.value = "c4ca4238a0b923820dcc509a6f75849b";
+    paramsArray[0] = param1;
+
+    var param2 = {};//json参数值
+    param2.type = '0';//0:字符，1:文件
+    param2.key = 'userId';
+    param2.value = getstorage('UID');//
+    paramsArray[1] = param2;
+    //alert("执行刷新逻辑");
+    $.getJSON(api_url, function (obj) {
+        uexWindow.closeToast();
+        resetBV('0');//刚进入则不能刷新
+        var data = obj.data;//消息列表数组
+        showList(data);//在div上显示列表
+        uescript('root','show_talk_tips()');//执行显示tab小红点逻辑。
+        //alert(getstorage('pm'));
+        canRefresh = true;//可以继续刷新。
+        
+    }, "json", function (data) {
+        resetBV('0');//刚进入则不能刷新
+        uexWindow.closeToast();
+        //alert("获取信息出现错误，请稍后再试。");
+        canRefresh = true;//可以继续刷新。
+    }, "POST", paramsArray, flag);//false不缓存
+}
+
+
+/**
+ * 在div上显示列表
+ * @param {Object} vardataList
+ */
+function showList(dataList) {
+    /////
+    //json格式：
+    //msg_content: "蛮好的",msg_sender: "1996",msg_time: "2014-10-04 17:17:01",msg_title: "本周六15:00，喜欢游泳的小伙伴来游泳吧。地址:海富花 ...",room_id: "talk_1996",isnew:"1",isread:"0"
+    //msg_content: "胡勇 节日快乐",msg_sender: "49",msg_time: "2014-10-04 17:15:42",msg_title: "往事温柔",room_id: "talk_3-49",isnew:"1",isread:"0"
+    //后台有问题，若是群聊，msg_sender不应该是帖子id吧。
+    ////
+    
+    var currentDataList_new = dataList;//互动列表临时集合，表示从服务器端获取的最新list。
+    //alert("服务端返回结果"+currentDataList_new.length);
+    //从缓存中获取currentDataList。
+    var currentDataList = loadMsgListFromStorage();
+    
+    if (currentDataList == null) {
+        //缓存中无消息list，说明是第一次使用app或清空缓存导致的，需增加isnew和isread字段。
+        for (var i = 0; i < currentDataList_new.length; i++) {
+            currentDataList_new[i].isnew = 1;//全部为新消息,1:新消息。
+            //此处要判断这条消息是自己发的吗？
+            currentDataList_new[i].isread = 1;//1：已读。新消息是否点击过了。没点击，永远为新消息，点击过了，根据时间比较，有变化，也是新消息。优化：缓存为空时，默认算已读。
+            currentDataList_new[i].isdeleted = 0; //1：不显示，0：显示。
+        }  
+    } else {
+        //缓存中有消息list，此时需要和服务器端返回的最新list"currentDataList_new"比较，有新的则补充,同时更新isnew和isread字段状态。
+        for (var i = 0; i < currentDataList_new.length; i++) {
+            var room_id = currentDataList_new[i].room_id;
+            var msg_time = currentDataList_new[i].msg_time;//新消息时间
+            var msg_sender = currentDataList_new[i].msg_sender;//新消息发送人
+            //根据room_id与本地列表currentDataList中对比，找到但时间相同，说明是旧消息，其他为信息消息。若该消息未点击，也显示为新消息。
+            var isexsist = 0;//服务器roomid是新增的
+            for (var j = 0; j < currentDataList.length; j++) {
+                var room_id_old = currentDataList[j].room_id;
+                var msg_time_old = currentDataList[j].msg_time;//消息时间
+                if (room_id_old == room_id) {
+                    //找到了room_id,则判断是否为新消息
+                    var isread_old = currentDataList[j].isread;//是否点击过 1：点击过
+                    if (isread_old == 1) {
+                        if (msg_time_old != msg_time) {
+                            //点击过但时间不同，说明是新消息
+                            //优化：若此条消息是本人发送，则不算新消息
+                            if(msg_sender!=uid){
+                               currentDataList_new[i].isnew = 1;//新消息 
+                               currentDataList_new[i].isread = 0;//标记为未读
+                            }else{
+                               currentDataList_new[i].isnew = 0;//新消息，但是本人发送的，则不算新消息。
+                               currentDataList_new[i].isread = 1;//新消息，但是本人发送的，则算已读。
+                            }  
+							
+							currentDataList_new[i].isdeleted = 0; //1：不显示，0：显示。
+							
+                        } else {
+                            //点击过但时间相同，说明是老消息
+                            currentDataList_new[i].isnew = 0;//老消息
+                            currentDataList_new[i].isread = 1;//标记为已读
+                            currentDataList_new[i].isdeleted = currentDataList[j].isdeleted; //1：不显示，0：显示。
+                        }
+                    } else {
+                        //未点击，保持最新。
+                         //优化：若此条消息是本人发送，则不算新消息
+                            if(msg_sender!=uid){
+                               currentDataList_new[i].isnew = 1;//新消息 
+                               currentDataList_new[i].isread = 0;//标记为未读 
+                            }else{
+                               currentDataList_new[i].isnew = 0;//新消息，但是本人发送的，则不算新消息。
+                               currentDataList_new[i].isread = 0;//标记为未读 
+                            }
+							currentDataList_new[i].isdeleted = currentDataList[j].isdeleted; //1：不显示，0：显示。
+                    }
+                    isexsist = 1;//本地已存在。
+                    break;
+                }
+            }
+            if (isexsist == 0) {
+                //本地不存在，说明新加入了聊天室。
+               // currentDataList_new[i].isnew = 1;//全部为新消息
+                //优化：若此条消息是本人发送，则不算新消息。此处应该都不是本人消息，因为无缓存。
+                            if(msg_sender!=uid){
+                               currentDataList_new[i].isnew = 1;//新消息 
+                            }else{
+                               currentDataList_new[i].isnew = 0;//新消息，但是本人发送的，则不算新消息。
+                            }
+                
+                currentDataList_new[i].isread = 0; 
+				currentDataList_new[i].isdeleted = 0; //1：不显示，0：显示。
+            }  
+        }
+    }
+
+    currentDataList = currentDataList_new; //第一次进入页面时，currentDataList为null，需要初始化。以后，每次保存上次刷新结果。
+    //将currentDataList存入缓存中
+    saveDataListToStarage(currentDataList);
+    //更新小红点计数
+    updatePm(currentDataList);
+    
+    
+    //msg_content: "蛮好的",msg_sender: "1996",msg_time: "2014-10-04 17:17:01",msg_title: "本周六15:00，喜欢游泳的小伙伴来游泳吧。地址:海富花 ...",room_id: "talk_1996",isnew:"1",isread:"0"
+    //msg_content: "胡勇 节日快乐",msg_sender: "49",msg_time: "2014-10-04 17:15:42",msg_title: "往事温柔",room_id: "talk_3-49",isnew:"1",isread:"0"
+    
+    //过滤currentDataList_new中isdeleted=1的在列表中不显示。
+    var currentDataList_new_isdeleted=[];
+    for (var i = 0; i < currentDataList_new.length; i++) {
+      if(currentDataList_new[i].isdeleted == 0){
+         currentDataList_new_isdeleted.push(currentDataList_new[i]);//
+      }         
+    }
+    ////////////////////
+
+    var length = zy_tmpl_count(currentDataList_new_isdeleted);
+    var res = '';//输出div
+    if (length > 0) {
+        var tmpl = '<li ontouchstart="zy_touch(\'c-gra\')" onclick="go2new5(\'${room_id}\',\'${msg_title}\');" class="uc-n c-m2 ubb ub b-gra t-bla ub-ac lis" id="li_${room_id}" >' +
+                        '<div class="lis-th2 ub-img5 uc-a1">' +
+                            '<img src="images/mylogo.png" class="inforpic" ${cb:islogo} id="img_${room_id}"/>' +
+                        '</div> ' +
+                        '<div class="ub-f1 ub ub-ver">' +
+                            '<div class="t-bla">${msg_title}${cb:nopush}</div>' +
+                            '<div class="ub umar-t">' +
+                                '<div class="ub-f1 ut-s t-gra uof">${cb:msg_content}</div>' +
+                                '${cb:isnew}' +
+                            '</div>' +
+                            '<div class="ub ub-ac t-gra ulev-2 umar-t">' +
+                                '<div class="ub-f1"></div>' +
+                                '<div class="umh2 umw2 ub-img5 im5 lpic"></div>' +
+                                '${cb:showtime}' +
+                            '</div> ' +
+                        '</div> ' +
+                    '</li>  ' +
+                    '<li class="ubt1"></li>';
+        res = zy_tmpl(tmpl, currentDataList_new_isdeleted, length, j2vCb);
+    } else {
+        res = '<div class="uinn10 tx-c">暂无消息</div>';
+    }
+
+    while (cContent.childElementCount > 1) {
+        cContent.removeChild(cContent.firstElementChild);
+    }
+    var node = document.createElement("ul");
+    node.innerHTML = res;
+    cContent.insertBefore(node, cContent.lastElementChild);
+    imgCacheCall();
+    showListThumb(dataList);//显示海报
+}
+/**
+ * 用闭包来保证imgCacheCall 回调时的参数存在
+ */
+var pushimg = function(sel, key ,url){
+    var _sel = sel;
+    var _key = key;
+    var _url = url;
+    pushCacheCall(function(){
+        dis_imgcache(_sel, _key, _url, imgLoadSucSrc, imgLoadErrSrc, null, '', 1);
+    })
+}
+/**
+ * 显示活动海报图像
+ */
+function showListThumb(data){
+    var glue = '';
+    var tidstr = ''
+    var key, value, tid;
+    for(key in data){
+        value = data[key];
+        var room_id = value.room_id;
+        if (room_id.indexOf("-") == -1){//tid
+            tid = room_id.split("_");
+            tid = tid[1];
+            tidstr += glue + tid;
+            glue = '_';
+        }
+    }
+    if(!tidstr) return;
+    var url = forum_url + "&mod=ajax&action=getListThumb&tidstr=" + tidstr;
+    $.getJSON(url, function (json) {
+        canRefresh = true;//全部加载完毕，才可以继续刷新。
+        if(json){
+            for(key in json){
+                value = json[key];
+                tid = value.tid;
+                var imgsrc = value.img;
+                if(!tid || !imgsrc) continue;
+                var picdomid = 'img_talk_' + tid;//本页面中显示互动图像的dom id
+                pushimg(picdomid, imgsrc, imgsrc);
+            }
+            imgCacheCall();
+        }
+    })
+}
+/**
+ * 显示每一条记录时的回调函数（主要用于下载图像）
+ * @param {Object} d 当前记录对象json
+ * @param {Object} c
+ */
+function j2vCb(d, c) {
+    var str = '';
+    if (c.length > 1) {
+        switch (c[1]) {
+            case 'islogo':
+                //缓存图像
+                var picdomid = 'img_' + d.room_id;//本页面中显示互动图像的dom id
+                //根据room_id获取图像
+                var room_id = d.room_id;//talk_1-3 or talk_1111
+                if (room_id.indexOf("-")>0) {//初始都显示发送者的头像，活动海报的后续改变
+                    //点对点聊天
+                    var ucurl = getstorage('ucurl');
+                    if (!ucurl) {
+                        ucurl = guc;//config.js里对应的获取个人图像api的url地址。
+                    }
+                    //对于点对点聊天，尽管当前最新消息是自己发的，但始终显示对方的图像。
+                    //var imgsrc = ucurl + d.msg_sender;//获取个人图像api的url
+                    var userId=getToUserIdP2P(room_id,getstorage('UID'));
+                    var imgsrc = ucurl + userId;//获取个人图像api的url
+                    //var imgkey = "img" + d.msg_sender;//存储每个人的图像进缓存里。在聊天界面也调用的
+                    
+                    
+                    pushCacheCall(function(){
+                        dis_imgcache(picdomid, imgsrc, imgsrc, imgLoadSucSrc, imgLoadErrSrc, null, '', '1');
+                    })
+                    
+                    /*
+                    //改用apicloud提供的图像缓存组件来显示logo,没效果。
+                    api.imageCache({
+					    url: imgsrc
+					},function(ret,err){
+					    if (ret) {
+					        var status=ret.status;
+					        var path = ret.url;
+					        if(status){
+					           alert("status:"+status+"path:"+path);
+					           imgLoadSucSrc(picdomid,path);//若下载成功，则返回图片本地存储路径。
+					        }else{
+					           imgLoadErrSrc(picdomid);//默认yueha图标
+					        }  
+					    }else{
+					        imgLoadSucSrc(picdomid,imgsrc);//下载失败，若下载失败，则返回传入的url。
+					        //imgLoadErrSrc(picdomid);//默认yueha图标
+					    }
+					});
+					*/
+                    ////////////////////////////////////
+                    
+                } else {
+                    //显示活动图像，来自活动的海报图片url
+                    //var ucurl = guc_tid;//config.js里对应的获取活动和约伴图像api的url地址。
+                    //var tid=room_id.split("_")[1];//获取活动帖子id
+                    //var imgsrc = guc_tid + tid;//构造活动图像api的url
+                    //var imgkey = "img_hd" + tid;//存储每个活动的图像进缓存里。在聊天界面也调用的
+                   //dis_imgcache(picdomid, imgsrc, imgsrc, imgLoadSucSrc, imgLoadErrSrc, null, '', 1);
+                }
+
+                break;
+
+            case 'isnew':
+                //显示新消息的图标
+                if (d.isnew == 1 && d.isread == 0) {
+                    str = '<div class="ufr ub-img5 rimg" id="n' + d.room_id + '"></div>';
+                }
+                break;
+                
+            case 'showtime':
+                //显示最新消息时间
+                str = showTime(d.msg_time);//d.msg_time字符格式：2014-10-04 17:17:01
+                break;       
+               
+			case 'msg_content':
+			   /*
+                //处理消息内容(已废弃，在后台已处理了。)
+                if(isImgMsg(d.msg_content)){
+				  str = '发送了一张图片';
+				}else{
+				  str = decodeMsg(d.msg_content);//处理其他类型消息，过滤掉消息头，如“[01]123”返回“123”d.msg_content;
+				}
+				*/
+				str = d.msg_content;
+                break; 
+                	
+            case 'nopush':
+                //显示是否接收推送提醒
+                var room_id = d.room_id;//talk_1-3 or talk_1111
+                var key_push="status_push@"+room_id;
+                var status_push=getstorage(key_push);//记录该roomId是否接收推送消息。0表示不接收
+                if(status_push!=null&&status_push=="0"){
+                    str = '<div class="ufr ub-img5 rimg_nopush"></div>';
+                }else{
+                    str = '';
+                }
+                
+                break;              
+        }
+    }
+    return str;
+}
+
+/**
+ * 打开聊天页面
+ * @param {Object} room_id
+ */
+function go2new5(room_id, title) {
+    //该条互动置为已读。
+    currentDataList = loadMsgListFromStorage();
+    for (var i = 0; i < currentDataList.length; i++) {
+        if (currentDataList[i].room_id == room_id) {
+            currentDataList[i].isnew = 0;//已读消息
+            currentDataList[i].isread = 1;//已点击过了
+            currentDataList[i].isdeleted = 0;//1：不显示，0：显示。
+        }
+    }
+    saveDataListToStarage(currentDataList);
+
+    uescript('root','cancelNotification("talk")');//判断是否要取消小红点逻辑
+    
+    removeNode('n' + room_id);//删除新消息图标div
+    setstorage('currentRoomId', room_id);//加入某个聊天室。
+    setstorage('currentRoomId_title', title);//标题。
+    openwin('msg_detail_yb', 'msg_detail_yb.html', '10');
+}
+
+/**
+ * 清空消息列表(在index.html页面msgeditmenu函数中调用此函数)
+ */
+function clearChatList(){
+	//逻辑：将本地缓存中的列表isdeleted置为1，表示不显示。如果新消息时间大于本地时间则置为0，并显示。
+    var currentDataList = loadMsgListFromStorage();
+    for (var i = 0; i < currentDataList.length; i++) {
+         currentDataList[i].isdeleted = 1;//不显示
+         currentDataList[i].isnew = 0;//已读消息
+         currentDataList[i].isread = 1;//已点击过了
+    }
+    saveDataListToStarage(currentDataList);
+    setstorage('pm', '1');
+	uescript('root','cancelNotification("talk")');//判断是否要取消小红点逻辑
+	//清空界面dom
+	while (cContent.childElementCount > 1) {
+        cContent.removeChild(cContent.firstElementChild);
+    }
+    //清空localstorage
+    var lsg = window.localStorage;
+    if(lsg[api_url]) lsg.removeItem(api_url);
+}
+
+
+
+/**
+ * 打开聊天页面(推送时调用)
+ */
+function go2new5_new() {
+  //从缓存中获取room_id和title
+  var room_id=getstorage('currentRoomId');//"talk_1-557598";
+  var title=getstorage('currentRoomId_title');//"与TA聊天";
+  go2new5(room_id, title);
+}
+
+function go2reminders(type) {
+	
+	//loadList(false);
+	
+    var str = (type == 'rn' ? '{"view":"reminder"}' : '{"view":"friendreq"}');
+    var wnm = 'morelist';
+    var url = 'morelist.html';
+    uescript('root', 'cancelNotification(\'reminder\')');
+    zy_anim_push(type, 'uhide');
+    setstorage('params', str);
+    openwin(wnm, url, '10');
+	
+	
+}
+function rminders() {
+    var rn = getstorage('rn');
+
+    if (rn && rn != 0) {//todo 加上聊天数目
+        //setHtml('rn', rn);
+        //setHtml('rn', 'o');
+        zy_anim_pop('rn', 'uhide');
+    }
+    /*var fn = getstorage('fn');
+     if(fn){
+     setHtml('fn',fn);
+     zy_anim_push('fn', 'c-blu4');
+     }
+     */
+}
+
+
+/**
+ * 聊天列表时间格式化
+ */
+function showTime(time_str){
+    var time_str_ret="";
+    //time_str字符串格式：2014-10-04 17:17:01
+    var yyyy = Int(time_str.substr(0,4));//年
+    var mm = Int(time_str.substr(5,2));//月
+    var dd = Int(time_str.substr(8,2));//日
+    var hour = Int(time_str.substr(11,2));//时
+    var minitue = time_str.substr(14,2);//分
+    var second = time_str.substr(17,2);//秒
+    
+    var date_current = new Date();
+    var year_current    =   date_current.getFullYear();
+    var month_current   =   date_current.getMonth()+1;
+    var day_current    =   date_current.getDate();
+                 
+    
+    if(yyyy==year_current&&mm==month_current&&dd==day_current){
+        //当天消息,区分上午还是下午，不显示秒
+        if(Int(hour)<=12){
+            //上午
+            time_str_ret="上午"+hour+":"+minitue;
+        }else{
+            //下午
+            time_str_ret="下午"+(hour-12)+":"+minitue;
+        }
+    }else{
+        //历史消息，则只显示年月日
+        if(yyyy==year_current){
+            //当年消息
+            time_str_ret=mm+"月"+dd+"日"+hour+":"+minitue;
+        }else{
+            //上年消息
+            time_str_ret=yyyy+"年"+mm+"月"+dd+"日";
+        }  
+    }
+    return time_str_ret;
+}
+
+</script>
+</html>

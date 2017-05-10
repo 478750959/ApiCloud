@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="copyright" content="www.apicloud.com" />
+	<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+
+	<title>首页</title>
+	<link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/common.css" />
+
+	<style>
+
+	.navbar {display: -webkit-box; -webkit-box-orient: horizontal; position: relative; height: 50px; box-sizing: border-box; background: #fff; border-bottom: 1px solid #e0e0e0; }
+	.navbar-item {display: block; -webkit-box-flex: 1; width: 100%; line-height: 50px;  font-size: 18px; text-align: center;color: #000; }
+	.navbar-item-hov {background-color: rgba(254,242,228,0.7); }
+	.navbar-item-active {color: #D43C33; }
+	#navmark {position: absolute; left: 0px; bottom: 0px; -webkit-transition: 300ms; text-align: center; }
+
+	</style>
+</head>
+<body>
+	<nav class="navbar">
+        <a id="navbar-item-recommend" class="navbar-item navbar-item-active" tapmode="navbar-item-hov" onclick="setFrameGroupIndex(0);">推荐</a>
+        <a id="navbar-item-rank" class="navbar-item" tapmode="navbar-item-hov" onclick="setFrameGroupIndex(1);">歌单</a>
+        <a id="navbar-item-favorite" class="navbar-item" tapmode="navbar-item-hov" onclick="setFrameGroupIndex(2);">主播电台</a>
+        <a id="navbar-item-ranklist" class="navbar-item" tapmode="navbar-item-hov" onclick="setFrameGroupIndex(3);">排行榜</a>
+        <mark id="navmark"></mark>
+    </nav>
+    
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script>
+	function setFrameGroupIndex(frameIndex) {
+        api.setFrameGroupIndex({name:'framegroup01',index:frameIndex,scroll:true});
+    }
+    function setFrameGroupStatus(frameIndex) {
+
+        switch (frameIndex) {
+            case 0: {
+                $api.byId('navbar-item-recommend').className = "navbar-item navbar-item-active";
+                $api.byId('navbar-item-rank').className = "navbar-item";
+                $api.byId('navbar-item-favorite').className = "navbar-item";
+                $api.byId('navbar-item-ranklist').className = "navbar-item";
+                var num = (api.winWidth/4)*frameIndex;
+                $api.css($api.byId('navmark'), "-webkit-transform:translate(" + num + "px,0)");
+
+                break;
+            }
+            case 1: {
+                $api.byId('navbar-item-recommend').className = "navbar-item";
+                $api.byId('navbar-item-rank').className = "navbar-item navbar-item-active";
+                $api.byId('navbar-item-favorite').className = "navbar-item";
+                $api.byId('navbar-item-ranklist').className = "navbar-item";
+                var num = (api.winWidth/4)*frameIndex;
+                $api.css($api.byId('navmark'), "-webkit-transform:translate(" + num + "px,0)");
+                break;
+            }
+            case 2: {
+                $api.byId('navbar-item-recommend').className = "navbar-item";
+                $api.byId('navbar-item-rank').className = "navbar-item";
+                $api.byId('navbar-item-favorite').className = "navbar-item navbar-item-active";
+                $api.byId('navbar-item-ranklist').className = "navbar-item";
+                var num = (api.winWidth/4)*frameIndex;
+                $api.css($api.byId('navmark'), "-webkit-transform:translate(" + num + "px,0)");
+                break;
+            }
+            case 3: {
+                $api.byId('navbar-item-recommend').className = "navbar-item";
+                $api.byId('navbar-item-rank').className = "navbar-item";
+                $api.byId('navbar-item-favorite').className = "navbar-item";
+                $api.byId('navbar-item-ranklist').className = "navbar-item navbar-item-active";
+                var num = (api.winWidth/4)*frameIndex;
+                $api.css($api.byId('navmark'), "-webkit-transform:translate(" + num + "px,0)");
+                break;
+            }
+            default:
+            break;
+        }
+    }
+
+    apiready = function() {
+        var scrollHeight = $api.dom('.navbar').offsetHeight;
+        $api.byId('navmark').style.width = api.winWidth/4 + 'px';
+
+        var margintop = api.pageParam.name;
+        
+        api.openFrameGroup({
+            name: 'framegroup01',
+            background: '#FFF',
+            scrollEnabled:true,
+            rect: {x: 0, y: 100, w: "auto", h: margintop},
+            index: 0,
+            frames: [
+                {
+                    name: 'frame01_recommand',
+                    url: './frame01_recommand.html',
+                    bounces: false,
+                },
+                {
+                    name: 'frame01_list',
+                    url: './frame01_list.html',
+                    bounces: false,
+                },
+                {
+                    name: 'frame01_radio',
+                    url: './frame01_radio.html',
+                    bounces: false,
+                }
+                ,
+                {
+                    name: 'frame01_rank',
+                    url: './frame01_rank.html',
+                    bounces: false,
+                }
+            ]
+        }, function (ret) {
+            setFrameGroupStatus(ret.index);
+        });
+    };
+	
+</script>
+</html>

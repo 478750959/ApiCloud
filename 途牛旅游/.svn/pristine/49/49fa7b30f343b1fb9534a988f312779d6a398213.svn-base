@@ -1,0 +1,35 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/common.css"/>
+</head>
+<body>
+<header>
+    <div class="header">
+        <div class="btn close" tapmode="" onclick="api.closeWin()"></div>
+        <div class="title" id="title">选择城市</div>
+        <div class="btn"></div>
+    </div>
+</header>
+<script src="../script/zepto.min.js"></script>
+<script>
+    apiready = function () {
+        fixIos7Bar($("header"));
+        var cityList = api.require('cityList');
+        cityList.open({
+            x: 0,
+            y: $("header").height(),
+            width: $("body").width(),
+            height: $("body").height(),
+            currentCity: '北京',
+            resource: 'widget://res/cityList.json'
+        }, function (ret, err) {
+            var cityInfo = ret.cityInfo;
+        });
+    }
+</script>
+</body>
+</html>

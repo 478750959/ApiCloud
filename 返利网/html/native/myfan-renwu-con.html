@@ -1,0 +1,107 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,initial-scale=1.0,width=device-width"/>
+    <title>APP</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/common.css" />
+    <style>
+        #main{
+            background: #EEEEEE url(../../res/background.png) center center no-repeat;
+            padding: 0.625em;
+        }
+        .display-box{
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;
+        }
+        .box-orient-v{
+            -webkit-box-orient: vertical;
+            -webkit-flex-flow: column;
+                    flex-flow: column;
+        }
+        .box-orient-h{
+            -webkit-box-orient: horizontal;
+            -webkit-flex-flow: row;
+                    flex-flow: row;
+        }
+        .box-flex-1{
+            -webkit-box-flex: 1;
+            -webkit-flex: 1;
+            flex: 1;
+        }
+        
+        .ctrl-box{
+            height: 67px;
+            position: relative;
+        }
+        .ctrl-box span{
+            font-size: 0.87em;
+            color: #333333;
+            height: 67px;
+            line-height: 67px;
+        }
+        .ctrl-box .count{
+            color: #FF0202;
+        }
+        .ctrl-box .ctrl-btn{
+            font-size: 1em;
+            background: url(../../res/btn_bg_selected.9.png) center center repeat-x;
+            background-size: 14px 100%;
+            color: #FFF;
+            padding: 0 0.87em;
+            margin-left: 0.62em;
+            height: 48px;
+            line-height: 48px;
+            position: relative;
+            top: 9px;
+        }
+        .ctrl-box .ctrl-btn:active{
+            background: url(../../res/btn_bg_pressed.9.png) center center repeat-x;
+            background-size: 14px 100%;
+        }
+
+        .title{
+            font-size: 0.9em;
+            color: #333333;
+            height: 31px;
+            line-height: 31px;
+            padding-top: 5px;
+            border-top: 1px solid #CCCCCC;
+            border-bottom: 2px solid #CCCCCC;
+            display: block;
+        }
+        .history{
+            background-color: #FFF;
+        }
+    </style>
+</head>
+<body>
+    <div id="wrap">
+        <div id="main" class="display-box box-orient-v">
+            <div class="ctrl-box clearfix">
+                <span class="out pull-left"><span class="count">0.00</span>元</span>
+                <span class="ctrl-btn pull-right" tapmode="tap-active" onclick="">兑换现金</span>
+                <span class="ctrl-btn pull-right" tapmode="tap-active" onclick="">充话费</span>
+            </div>
+            <label class="title">返利收支记录</label>
+            <div class="history box-flex-1">
+                <ul>
+                    <li></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/common.js"></script>
+<script type="text/javascript">
+    var toThisWin = function(){
+
+    };
+    apiready = function(){
+        
+    };
+</script>
+</html>

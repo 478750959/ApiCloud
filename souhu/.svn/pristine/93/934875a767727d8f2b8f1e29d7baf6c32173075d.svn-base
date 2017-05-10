@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+  <title>HTML</title>
+  
+  <!-- Replace favicon.ico & apple-touch-icon.png in the root of your domain and delete these references -->
+  <link rel="shortcut icon" href="/favicon.ico">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="stylesheet" type="text/css" href="../css/api.css" />
+  <link rel="stylesheet" type="text/css" href="../css/slidepage.css" />
+
+	<style>
+		html {width: 100%;height: 100%;}
+		body {background: #E6E9EE;width: 100%;height: 100%;}
+		#topbar {background: #EBECF0; height:50px; border-bottom: 1px solid #DDDFE3;}
+		.right_btn{float: right;padding: 11px 15px 11px 15px;}
+		#logo {padding: 11px 0 0 10px;height: 28px;}
+		#topbar_profile {height: 28px;}
+		#topbar_search {height: 28px;}
+		.btn_click {background: #DADDE0;} 
+	</style>
+</head>
+
+<body>
+	
+	<!-- <div id="topbar">
+        <img src="../image/push_logo.png" alt="" class="back_btn" tapmode="topbar_click" onclick="goback('home_collect')" id="logo"><img src="../image/topbar_profile.png" alt="" class="right_btn" id="topbar_profile"   tapmode="btn_click" onclick="emptyopt()">
+        <img src="../image/topbar_search.png" alt="" class="right_btn" id="topbar_search"  tapmode="btn_click">
+        
+    </div> -->
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script>
+	function emptyopt () {
+	}
+
+	apiready = function(){
+	    // var header = $api.byId('topbar');
+	    // $api.fixIos7Bar(header); 
+	    // var headerPos = $api.offset(header);
+
+	    // api.openFrame ({
+	    //     name: 'recommand_body',
+	    //     url: './recommand/recommand_body.html',
+	    //     rect:{
+	    //         x:0,
+	    //         y:51,
+	    //         w:'auto',
+	    //         // h:'auto'
+	    //         h:api.frameHeight
+	    //     },
+	    //     pageParam: {name: 'test'},
+	    //     bounces: false,
+	    //     opaque: false,
+	    //     bgColor: 'rgba(70 , 70, 70,0)',
+	    //     vScrollBarEnabled:true,
+	    //     hScrollBarEnabled:true
+	    // });
+	}
+</script>
+</html>

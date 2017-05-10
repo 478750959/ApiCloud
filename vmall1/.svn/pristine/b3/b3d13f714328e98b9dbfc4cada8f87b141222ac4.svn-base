@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>frame2</title>
+    <style>
+    span{display:block; height:20px;width:20px;background-color:rgb(204,204,204);border-radius:100%;}
+    </style>
+</head>
+<body>
+	<span></span>
+frame2
+<script>
+  var it = [
+  {
+    "id": "559d1b86c459b1905ce38feb",
+    "shortName": "荣耀畅玩4X",
+    "longName": "华为 荣耀畅玩4X 双卡双待 移动标配版 4G智能手机 TD-LTE/TD-SCDMA /GSM（前黑后白）",
+    "description": "千元档“真”4G手机！",
+    "service": "此商品有华为终端发货、开具发票,并提供售后服务。",
+    "intro": "实用配件套餐,比单买更优惠",
+    "price": 1099,
+    "about": [],
+    "thumbnail": {
+      "url": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/8782859477c8b5591698db68c79c005d.jpg",
+      "name": "175_342_6plus.jpg",
+      "id": "559d1b8596be88b05f97c229"
+    },
+    "productImg": [
+      {
+        "0": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/e7fb10a8ed3a3983bca4ed8b70bfd607.jpg",
+        "1": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/d7c5f30f9f209cbbb0126424b2b1f6ab.jpg",
+        "2": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/211efffc68eeb55347c4010ddf516cd7.jpg",
+        "3": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/93cc757e28f62375f12dd20ee8abf274.jpg",
+        "4": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/33d853dff73b8cf4c89f9d3990b31cff.jpg",
+        "5": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/1faee5fda8869912a6263cc2f46a3710.jpg"
+      }
+    ],
+    "is_sale": 1,
+    "is_visible": 1,
+    "sort": 99,
+    "createdAt": "2015-07-08T12:45:58.058Z",
+    "updatedAt": "2015-07-09T09:00:24.709Z"
+  },
+  {
+    "id": "5597afb0df18035940dbd550",
+    "shortName": "华为 Mate7",
+    "longName": "华为 HUAWEI Mate7 指纹识别 八核 双卡双待双通 标配电信定制版（曜石黑）",
+    "description": "6英寸大屏，超窄边框，金属机身设计，Cat6极速4G，智能超八核，配备4100mAh超大电池，按压式指纹传感器，配熄屏解锁、访客模式、全新EMUI 3.0。（下单付款后7天内发货 ）",
+    "service": "此商品有华为终端发货、开具发票,并提供售后服务。",
+    "intro": "Live once. Live life",
+    "price": 2999,
+    "about": [],
+    "thumbnail": {
+      "url": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/4d5e833aee831b305c8c2d027037ccf0.jpg",
+      "name": "mate7_1.jpg",
+      "id": "5597f81e47a00e3c66f610c7"
+    },
+    "productImg": [
+      {
+        "0": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/dced9eb6afb3a0f3bd9e451388aa63fd.jpg",
+        "1": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/31db580d2b00c4d075618892dde411c6.jpg",
+        "2": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/f449d59977c0ef4f1a144c4022291e34.jpg",
+        "3": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/278c085573dffea3c4b901b98d295f77.jpg",
+        "4": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/03106c957aefcdefa05eb7d6f0bb3bb2.jpg",
+        "5": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/491216f5b5fd5b1cbc7b62bc14706c35.jpg",
+        "6": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/ae583676b87803e8b02af7d088d7cd8e.jpg"
+      }
+    ],
+    "is_sale": 1,
+    "is_visible": 1,
+    "sort": 100,
+    "createdAt": "2015-07-04T10:04:32.845Z",
+    "updatedAt": "2015-07-09T08:32:11.006Z"
+  },
+  {
+    "id": "559dbff996be88b05f97c29e",
+    "shortName": "荣耀7",
+    "longName": "华为 荣耀7 双卡双待双通 移动4G版 16GB存储（冰河银）",
+    "description": "荣耀818玩出不一样！8月11日-12日、17日-18日每天10:08/16:00/20:00，免预约疯狂购！8月5日-16日还有优购码任你抽哦！",
+    "service": "此商品有华为终端发货、开具发票,并提供售后服务。",
+    "intro": "卓越移动互联体验",
+    "price": 1999,
+    "about": [],
+    "thumbnail": {
+      "url": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/a73e0e93fda4d5970f4dd96919decd79.jpg",
+      "name": "360反馈意见截图16491222355171.jpg",
+      "id": "55c73c83491e5b493de92d96"
+    },
+    "productImg": [
+      {
+        "0": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/ef204c563dd2b311e88ae191b6dbd529.jpg",
+        "1": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/8a70330c0a52e1ba8eb838d4637957c7.jpg",
+        "2": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/16e8ff9bf9b9dea10d8ff9424464a8d3.jpg",
+        "3": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/7e3db99c732314f2f25dcda135416b0c.jpg",
+        "4": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/26c4f9ffa013a8d0425c6b30b939ccdc.jpg",
+        "5": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/07d476bc583588d362fce7239c535541.jpg",
+        "6": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/1d1060e3db9b88ed380e5537a4e1bc79.jpg",
+        "7": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/2a9b1beaba6843dcebd3d5bf9038b80e.jpg"
+      }
+    ],
+    "is_sale": 1,
+    "is_visible": 1,
+    "sort": 101,
+    "createdAt": "2015-07-09T00:27:37.800Z",
+    "updatedAt": "2015-08-09T12:13:10.298Z"
+  }
+]
+</script>
+
+
+<script>
+/*console.log('start...');
+console.log('now time: ' + Date(/\d{10,10}/.exec(Date.now())));
+function sleep(sleepTime) {
+       for(var start = Date.now(); Date.now() - start <= sleepTime; ) { } 
+}
+sleep(5000); // sleep 5 seconds
+console.log('end...');
+console.log('end time: ' + Date(/\d{10,10}/.exec(Date.now())));*/
+console.log(Date());
+console.log(Date.parse(new Date()));
+console.log((new Date()).valueOf());
+console.log(new Date().getTime());
+console.log(typeof it);
+</script>
+</body>
+<script type="text/javascript" src="../script/doT.min.js"></script>
+</html>

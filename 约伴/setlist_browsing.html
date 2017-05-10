@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+  <head>
+    <title>
+    </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="css/ui-on.css">
+    <link rel="stylesheet" href="css/ui-img.css">
+    <link rel="stylesheet" href="css/ui-res.css">
+    <link rel="stylesheet" href="css/ui-list.css">
+    <link rel="stylesheet" href="css/ui-base.css">
+    <link rel="stylesheet" href="css/ui-box.css">
+    <link rel="stylesheet" href="css/ui-color.css">
+	<link rel="stylesheet" href="css/style.css">
+    <script src="js/y_control.js"></script>
+    <script src="js/y_click.js"></script>
+	<script src="js/config.js"></script>
+	<script src="js/y_json.js"></script>
+	<script src="js/dis_control.js"></script>
+    <script>
+	</script>
+  </head>
+<body class="um-vp" ontouchstart>
+	<div class="uinn18">
+		<div class="uba b-gra c-wh uc-a"> 
+	  		<div ontouchstart="zy_touch('btn-act')" class="uc-t ub b-gra t-bla ub-ac lis">       
+	   			<div class="ub-f1 ut-s ulev0">无图浏览模式</div>    
+				<input class="uhide" type="checkbox" id="cb">	
+				<div class="swi uc-a1 uba b-gra"  ontouchstart="zy_touch('c-gra')" onclick="dis_for(event)">
+					<div class="uabs swi-btn us"></div>
+				</div>
+	 		</div>
+	  	</div>
+	</div>
+	<div class="ulev-3 t-gra lpicl">开启后浏览将更为快捷、节省流量</div>
+</body>
+<script>
+zy_init();
+var showimage = 1;
+var ssid = 'showimage'+getstorage('UID');
+var si = getstorage(ssid);
+if(si == '0'){
+	showimage = 0;
+	var ch = $$('cb');
+	ch.checked=true;
+}
+window.uexOnload = function ()
+{
+
+};
+function dis_for(e,cb)
+{
+	var ch = e.currentTarget.previousElementSibling;
+    var new_imagemode = 1 - showimage;//0,1反转，不能用!
+	uexWindow.toast(1, 5, '请稍候...', '');
+
+	var url = home_url+ "&mod=misc&ac=user_setting&setting_submit=1&imagemode=" + new_imagemode;
+	$.getJSON(url, function(json){
+		uexWindow.closeToast();
+		if(json==1){
+			showimage = 1 - showimage;
+			ch.checked=!ch.checked;
+			setstorage(ssid, showimage);
+            uexWindow.toast(0 , 5, '已成功保存', 1500);
+            setTimeout("uescript('setlist', 'closewin();');", 1500);
+		}
+	});
+}
+</script>
+</html>

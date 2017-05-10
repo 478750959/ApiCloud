@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+     <link rel="stylesheet" href="../css/api.css">
+     <link rel="stylesheet" href="../css/common.css">
+    <title>计价规则</title>
+    <style>
+        #wrap{
+           background: #F0F0F0;
+
+        }
+
+        #header span{
+
+          height: 44px;
+          line-height: 44px;
+
+
+
+         }
+
+        .head-left{
+        float: left;
+        margin-left:10px;
+       font-size: 11pt;
+       background: url(../image/wallet_base_action_bar_back_normal.png) no-repeat;
+       background-position: left center;
+       background-size: 20% 30%;
+       margin-left: -5px;
+       }
+
+       .head-left p{
+        margin-left: 25px;
+        margin-top:1px;
+       } 
+       table {
+       clear:left;
+    border-collapse:collapse;
+    border-spacing:0
+}
+
+       .problem-table {
+       clear:left;
+        width:90%;
+        margin: 0 auto;
+        font-size:1em;
+        /*margin-left:2em;*/
+        margin-top:20px;
+        border:1px solid gray;
+        /*border-bottom:0;*/
+        clear:both
+
+      }
+      .problem-table thead th,.problem-table tbody td {
+          height:40px;
+          line-height:40px;
+          border-bottom:1px solid gray;
+          font-size:16px
+      }
+      .problem-table thead th {
+         font-size:1em;
+          background:rgba(0,0,0,.1);
+      }
+      .problem-table tbody td {
+          height:40px;
+          color:black;
+      }  
+      .tda {
+        width:82px;
+        border-right:1px solid gray;
+        text-align:center
+    }
+    .tdb,.thb {
+        width:99px;
+        padding:0 5px;
+        border-right:1px solid gray;
+        text-align:left
+    }
+    .tha {
+    width:82px;
+    text-align:center
+}
+  #tb p{
+    color: gray;
+    font-size: 0.5em;
+    padding-left: 20px;
+    padding-top: 10px;
+  }
+    </style>
+ 
+</head>
+<body>
+    <div id="wrap">
+        <div id="header">
+            <span class="head-left" tapmode onclick="goback()"><p>计价规则</p></span>
+            
+        </div>
+          
+         <div id="tb">
+           <p>您当前所在城市:<span>北京</span></p>
+           <table class="problem-table">
+           <thead>
+           <tr><th class="thb">公里数</th><th class="tha">经济型</th><th class="tha">舒适型</th><th class="tha">豪华型</th></tr></thead>
+           <tbody>
+           <tr><td class="tdb">0～5km</td><td class="tda">15</td><td class="tda">18</td><td class="tda">22</td></tr>
+           <tr><td class="tdb">5km～10km</td><td class="tda">18</td><td class="tda">22</td><td class="tda">28</td></tr>
+           <tr><td class="tdb">10～15km</td><td class="tda">22</td><td class="tda">28</td><td class="tda">38</td></tr>
+           <tr><td class="tdb">15～20km</td><td class="tda">28</td><td class="tda">32</td><td class="tda">45</td></tr>
+           <tr><td class="tdb">20～25km</td><td class="tda">35</td><td class="tda">40</td><td class="tda">55</td></tr>
+           <tr><td class="tdb">25～30km</td><td class="tda">40</td><td class="tda">45</td><td class="tda">60</td></tr>
+           <tr><td class="tdb">30km以上</td><td class="tda">45</td><td class="tda">50</td><td class="tda">65</td></tr></tbody></table>
+           <p>以上费用包含过路费、高速费等其他费用，乘客无需额外支付</p>
+         </div>
+             
+                       
+            
+            
+
+
+        </div>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>     
+</body>
+</html>

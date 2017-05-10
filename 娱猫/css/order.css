@@ -1,0 +1,1 @@
+.fix{*zoom:1;}*:first-child+html .fix{zoom:1;}.fix:after{display:block;content:"clear";height:0;clear:both;overflow:hidden;visibility:hidden;}.order{width:100%;margin:0 auto;}.main_head{background:#f7f7f7;font-size:.28rem;color:black;}.main_head span{padding:.3rem .2rem;text-align:center;}

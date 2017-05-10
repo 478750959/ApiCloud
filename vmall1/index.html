@@ -1,0 +1,134 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="css/api.css"/>
+    <style>
+    .header-top{height:50px;width:100%;background:rgb(224,29,32);display:-webkit-box;-webkit-box-align:center;}
+    .header-top-img{display:-webkit-box;height:50px;}
+    .header-top-search{display:-webkit-box;-webkit-box-flex:1;border:1px solid rgb(224,100,100);height:30px;margin:0 0 0 10px;padding:0 10px;color:rgb(255,255,255);background-color:rgb(228,56,59);border-radius:10px;outline-style:none;}
+    #header-bottom .current{color:rgb(224,29,32);}
+    .header-bottom-ul{display:-webkit-box;height:40px;position:relative;border-bottom:1px solid rgb(200,200,200);}
+    #header-bottom-ul-dot{height:5px;width:5px;border-radius:100%; background-color:rgb(224,29,32);position:absolute;top:30px;left:12.3%;transition:all .5s;-webkit-transition:all .5s;}
+    .header-bottom-ul li{display:-webkit-box;-webkit-box-align:center;-webkit-box-pack:center;-webkit-box-flex:1;}
+    .header-bottom-ul span{display:-webkit-box;}
+    .main-banner{height:157px;background:rgb(222,222,222);position:relative;}
+    .footer{min-height:1000px;background:rgb(111,222,111);}
+    </style>
+</head>
+<body>
+    <header id="header">
+        <div class="header-top">
+            <img class="header-top-img" src="./image/logo.png" alt="LOGO">
+            <input class="header-top-search" type="text" value="搜索商品" tapmode onclick="openWin('./html/Win_search')">
+            <img class="header-top-img" src="./image/cart.png" alt="cart" tapmode onclick="openWin('./html/win_cart')">
+        </div>
+        <div class="header-bottom" id="header-bottom">
+            <ul class="header-bottom-ul">
+                <li tapmode="" onclick="setFGI('frame_index_home')"><span class="current" id="header-bottom-ul-li-span-0">首页</span></li>
+                <li tapmode="" onclick="setFGI('frame_index_honor')"><span class="" id="header-bottom-ul-li-span-1">荣耀</span></li>
+                <li tapmode="" onclick="setFGI('frame_index_cate')"><span class="" id="header-bottom-ul-li-span-2">分类</span></li>
+                <li tapmode="" onclick="setFGI('frame_index_me')"><span class="" id="header-bottom-ul-li-span-3">我的</span></li>
+                <span id="header-bottom-ul-dot"></span>
+            </ul>
+        </div>
+    </header>
+</body>
+<script type="text/javascript" src="./script/api.js"></script>
+<script src="./script/common.js"></script>
+<script>
+
+
+    var current_symbol = 0;
+    var previous_symbol = 0;
+    var frameJson = {
+        'frame_index_home':0,
+        'frame_index_honor':1,
+        'frame_index_cate':2,
+        'frame_index_me':3
+    };
+    var headerDotLeftJson = {
+        0:'12.3%',
+        1:'37.3%',
+        2:'62.3%',
+        3:'87.3%'
+    }
+    // console.log(frameJson['frame_index_home']);
+
+   var setFGI = function(name) {
+        api.setFrameGroupIndex({
+            name:'home_group',
+            index:frameJson[name],
+            scroll:true
+        });
+    }
+    var openFrameGroup = function(){
+        var header = $api.byId('header');
+        var offset = $api.offset(header);
+        api.openFrameGroup({
+            name:'home_group',
+            background:'rgb(255,255,255)',
+            scrollEnabled:true,
+            rect:{
+                x:0,
+                y:offset.h,
+                w:'auto',
+                h:'auto'
+            },
+            index:0,
+            preload:0,
+            frames:[{
+                name:'frame_index_home',
+                url:'./html/frame_index_home.html',
+                pageParam:{},
+                bgColor:'rgb(255,255,255)',
+                bounces:false
+            },{
+                name:'frame_index_honor',
+                url:'http://msale.vmall.com/honor.html',
+                pageParam:{},
+                bgColor:'rgb(255,255,255)',
+                bounces:false
+            },{
+                name:'frame_index_cate',
+                url:'./html/frame_index_cate.html',
+                pageParam:{},
+                bgColor:'rgb(255,255,255)',
+                 bounces:false
+           },{
+                name:'frame_index_me',
+                url:'./html/frame_index_me.html',
+                pageParam:{},
+                bgColor:'rgb(255,255,255)',
+                bounces:false
+            }]
+        },function(ret,err){
+            var header_bottom_ul_dot = document.getElementById('header-bottom-ul-dot');
+            header_bottom_ul_dot.style.left=headerDotLeftJson[ret.index];
+
+            var i = document.getElementById('header-bottom').getElementsByTagName('span').length;
+            var header_bottom_ul_li_span = document.getElementById('header-bottom').getElementsByTagName('span');
+            while(i--){
+                header_bottom_ul_li_span[i].className = '';
+            }
+
+            var el = document.getElementById('header-bottom-ul-li-span-'+ret.index);
+            $api.addCls(el,'current');
+        });
+
+    }
+
+
+    apiready = function() {
+        api.parseTapmode();
+        var model = api.require('model');
+        model.config({
+                appId: 'A6989146966299',
+                appKey:'EA1BE39B-6F58-34C0-6024-A23AA024A85F',
+                host: 'https://d.apicloud.com'
+        });
+        openFrameGroup();
+    }
+</script>
+</html>

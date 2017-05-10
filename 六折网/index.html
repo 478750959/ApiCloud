@@ -1,0 +1,217 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>华美卷皮APP客户端</title>
+    <link rel="stylesheet" type="text/css" href="css/api.css"/>
+
+    <style>
+        html, body {
+            height: 100%;
+            width: 100%;
+        }
+
+        #wrap {
+            height: 100%;
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-orient: vertical;
+            -webkit-flex-flow: column;
+            flex-flow: column;
+        }
+
+        #main {
+            -webkit-box-flex: 1;
+            -webkit-flex: 1;
+            flex: 1;
+        }
+
+        #footer {
+            width: 100%;
+            text-align: center;
+            height: 56px;
+            line-height: 55px;
+            background-color: #FFFFFF;
+        }
+
+        ul {
+
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;
+        }
+
+        .cloud {
+            background-image: url(image/bottombtn0101.png);
+        }
+
+        .client {
+            background-image: url(image/bottombtn0201.png);
+        }
+
+        .dev {
+            background-image: url(image/bottombtn0301.png);
+        }
+
+        .doc {
+            background-image: url(image/bottombtn0401.png);
+        }
+
+        #footer li {
+            -webkit-box-flex: 1;
+            -webkit-flex: 1;
+            flex: 1;
+            height: 55px;
+        }
+
+        .bottom_btn {
+            background-position-y: 4px;
+            padding-top: 16px;
+            font-size: 12px;
+            color: #323237;
+            width: 99%;
+            height: 39px;
+            background-repeat: no-repeat no-repeat;
+            background-position-x: center;
+            background-size: 30px;
+        }
+
+        .active .cloud {
+            background-image: url(image/bottombtn0102.png);
+        }
+
+        .active .client {
+            background-image: url(image/bottombtn0202.png);
+        }
+
+        .active .dev {
+            background-image: url(image/bottombtn0302.png);
+        }
+
+        .active .doc {
+            background-image: url(image/bottombtn0402.png);
+        }
+
+        .active .bottom_btn {
+            color: #ED95A1;
+            background-size: 30px;
+        }
+
+        .topbar {
+            background: #f93867;
+            height: 50px;
+            border-bottom: 1px solid #DDDFE3;
+            line-height: 50px;
+            text-align: center;
+            display: none;
+            color: #FFFFFF;
+        }
+
+        .activebar {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+<div id="wrap">
+    <header>
+        <div id="cloud" class="topbar  activebar">
+           首页
+        </div>
+        <div id="client" class="topbar  ">
+           品牌折扣
+        </div>
+        <div id="dev" class="topbar ">
+          九块九包邮
+        </div>
+        <div id="doc" class="topbar ">
+          会员中心
+        </div>
+    </header>
+    <div id="main">
+
+    </div>
+    <div id="footer">
+        <ul>
+            <li tapmode="active" class="active" onclick="randomSwitchBtn(this,'cloud',0)">
+                <a class="bottom_btn cloud">首页</a>
+            </li>
+
+            <li tapmode="active" onclick="randomSwitchBtn(this,'client',1)">
+                <a class="bottom_btn client ">品牌折扣</a>
+            </li>
+
+            <li tapmode="active" onclick="randomSwitchBtn(this,'dev',2)">
+                <a class="bottom_btn dev ">9.9包邮</a>
+            </li>
+
+            <li tapmode="active" onclick="randomSwitchBtn(this,'doc',3)">
+                <a class="bottom_btn doc ">会员中心</a>
+            </li>
+        </ul>
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="script/api.js"></script>
+<script type="text/javascript">
+    apiready = function () {
+        var $header = $api.dom('header');
+        $api.fixIos7Bar($header);
+        var $body = $api.dom('body');
+        var $footer = $api.byId('footer');
+        var header_h = $api.offset($header).h;
+        var body_h = $api.offset($body).h;
+        var footer_h = $api.offset($footer).h;
+        var rect_h = body_h - header_h - footer_h;
+        api.openFrameGroup({
+            name: 'group',
+            scrollEnabled: false,
+            rect: {x: 0, y: header_h, w: 'auto', h: rect_h},
+            index: 0,
+            frames: [
+                {
+                    name: 'frame1',
+                    url: 'http://m.zhe6.cn/'
+                },
+                {
+                    name: 'frame2',
+                    url: 'http://m.zhe6.cn/brand-index.html'
+                },
+                {
+                    name: 'frame3',
+                    url: 'http://m.zhe6.cn/jiu-index.html'
+                },
+                {
+                    name: 'frame4',
+                    url: 'http://m.zhe6.cn/user-index.html'
+                }
+            ]
+        }, function (ret, err) {
+        });
+
+    }
+    // 随意切换按钮
+    function randomSwitchBtn(obj, name, index) {
+        var $header = $api.dom('header');
+        var $titleBar = $api.domAll($header, '.topbar');
+        for (var i = 0; i < $titleBar.length; i++) {
+            $api.removeCls($titleBar[i], 'activebar');
+        }
+        $api.addCls($api.byId(name), 'activebar');
+        var $footer = $api.byId('footer');
+        var $footerBar = $api.domAll($footer, 'li');
+        for (var j = 0; j < $footerBar.length; j++) {
+            $api.removeCls($footerBar[j], 'active');
+        }
+        $api.addCls(obj, 'active');
+        api.setFrameGroupIndex({
+            name: 'group',
+            index: index
+        });
+
+    }
+    
+</script>
+</html>

@@ -1,0 +1,294 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>MI</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/xyc.css"/>
+	<style>
+		html,body{
+    		background:white;
+    	}
+    	.wushuju{
+    		position:relative;
+    	}
+    	.wushuju_img1{
+    		display:block;
+    		width:1.59rem;
+    		height:1.41rem;
+    		position:absolute;
+    		left:50%;
+    		margin-left:-0.8rem;
+    		top:1.5rem;
+    	}
+    	.wushuju_img2{
+    		top:3.25rem;
+    		left:50%;
+    		margin-left:-1.73rem;
+    		display:block;
+    		width:3.47rem;
+    		height:0.7rem;
+    		position:absolute;
+    	}
+	</style>
+	<script id="dot_tpl" type="text/x-dot-template">
+    		{{ for(var p in it) { }}
+			<div class="set_add_list"  id="myadd_{{=it[p].id}}">
+	    		<h3><span class="add_name">{{=it[p].BuyerName}}</span>&nbsp;&nbsp;<span class='add_tel'>{{=it[p].Phone}}</span></h3>
+	    		<h4 class="add_add">{{=it[p].Adr}}</h4>
+	    		<div class="set_add_list_xian"></div>
+	    		<div class='set_add_bj clearfix'>
+	    			<div class="set_add_check">
+	    				<input id="mycheck_{{=it[p].id}}"  type='radio' class='check'    Zip="{{=it[p].Zip}}"  Province="{{=it[p].Province}}"  City="{{=it[p].City}}"  Town="{{=it[p].Town}}"     onclick="check(this)"    BuyerName="{{=it[p].BuyerName}}"   Phone="{{=it[p].Phone}}"    Adr="{{=it[p].Adr}}"  add_id="{{=it[p].id}}"/>
+	    				<i class="set_add_check_icon  {{ if(it[p].is_default==1)  {   }} yuan {{ } }}   "></i>
+	    			</div>
+	    			<label for="set_add_check">设为默认</label>
+	    			<div class="set_add_nav">	    				
+	    				<a  id='my_click_{{=it[p].id}}'   Zip="{{=it[p].Zip}}"  Province="{{=it[p].Province}}"     City="{{=it[p].City}}"        class="my_click"  Town="{{=it[p].Town}}"  onclick="edit(this)"    is_default="{{=it[p].is_default}}"  add_id="{{=it[p].id}}"  BuyerName="{{=it[p].BuyerName}}"   Phone="{{=it[p].Phone}}"  Adr="{{=it[p].Adr}}" >编辑</a>
+	    				<a class='set_add_nav_del'   onclick="del(this)"   id="del_{{=it[p].id}}"  add_id="{{=it[p].id}}"  is_default="{{=it[p].is_default}}" >删除</a>
+	    			</div>
+	    		</div>
+	    	</div>
+	    	{{  } }}
+	</script>	   
+</head>
+<body>
+<div id="wrap">
+    <div id="main">
+    	<div class="wushuju none">
+			<img src='../image/dd_noneicon.png' class='wushuju_img1'/>
+			<img src='../image/add_nonetxt.png' class='wushuju_img2'/>
+    	</div>
+    	<div class='mi_set_add_con'  id='myaddr'> 
+    	<!-- TPL--> 	    	 	
+    	</div>
+    	<div class='set_add_tianjia'  onclick = "openthis('mi_set_add_head_w',3)">
+    		<i class='set_add_tianjia_i'></i>
+    		<span>添加</span>
+    	</div>
+    </div>
+</div>
+<input type='hidden' name='total'>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/font.js"></script>
+<script type="text/javascript" src="../script/zepto.js"></script>
+<script type="text/javascript" src="../script/comm.js"></script>
+<script type="text/javascript" src="../script/doT.min.js"></script>
+<script>
+	function del(obj){
+		openthis('mi_set_del_f', 2, $(obj).attr('add_id'), '', '', '', $(obj).attr('is_default'));
+	}
+	function edit(obj){
+		openthis('mi_set_add_head_w', 1, $(obj).attr('add_id'), $(obj).attr('BuyerName'), $(obj).attr('Phone'), $(obj).attr('Adr'), $(obj).attr('is_default'),$(obj).attr('Zip'), $(obj).attr('Province'), $(obj).attr('City'), $(obj).attr('Town'));
+	}
+	function add_del(id) {
+		$('#myadd_' + id).remove();
+	}
+
+	function add_up(id, BuyerName, Phone, Adr,Zip,Province,City,Town) {	
+		var obj = $('#myadd_' + id);
+		var obj1 = $('#my_click_' + id);
+		var obj2=$('#mycheck_'+id);
+		obj1.attr('add_id', id);
+		obj1.attr('BuyerName', BuyerName);
+		obj1.attr('Phone', Phone);
+		obj1.attr('Adr', Adr);
+		obj1.attr('Zip', Zip);
+		obj1.attr('Province', Province);
+		obj1.attr('City', City);
+		obj1.attr('Town', Town);
+		obj2.attr('add_id', id);
+		obj2.attr('BuyerName', BuyerName);
+		obj2.attr('Phone', Phone);
+		obj2.attr('Adr', Adr);
+		obj2.attr('Zip', Zip);
+		obj2.attr('Province', Province);
+		obj2.attr('City', City);
+		obj2.attr('Town', Town);
+		obj.children('h3').children('.add_name').html(BuyerName);
+		obj.children('h3').children('.add_tel').html(Phone);
+		obj.children('h4[class=add_add]').html(Adr);
+	}
+	function check(ob){
+		$('.set_add_check_icon').removeClass('yuan');
+		$(ob).next().addClass('yuan');
+		var obj = $(ob).parent().parent().parent().siblings().children('.set_add_bj').children('.set_add_nav').children('.set_add_nav_del');
+		var addr = $(ob).attr('Adr');
+		var id = $(ob).attr('add_id');
+		var info = is_login();
+		var param = {};
+		if (!info) {
+			to_login();
+			return false;
+		}
+		for (var p in info) {
+			param[p] = info[p];
+		}
+		param.id = id;
+		ajaxRequest('addr/set_default', 'post', param, function(ret, err) {
+			if (err) {
+				api.toast({
+					msg : err.msg
+				});
+				return false;
+			}
+			if (ret.status) {
+				obj.attr('is_default', 0);
+				$('#del_' + id).attr('is_default', 1);
+				$api.setStorage('addr', addr);
+				if(isEmpty(api.pageParam.shop)){
+					api.execScript({
+					name : 'mi_sethead_w',
+					frameName : 'mi_set_f',
+					script : 'add("' + addr + '");'
+					});
+					api.toast({
+						msg : '操作成功！'
+					});
+				}else{
+					var data={};
+					data['id']=id;
+					data['Phone']=$(ob).attr('Phone');
+					data['BuyerName']=$(ob).attr('BuyerName');
+					data['Province']=$(ob).attr('Province');
+					data['City']=$(ob).attr('City');
+					data['Town']=$(ob).attr('Town');
+					data['Zip']=$(ob).attr('Zip');
+					data['Adr']=$(ob).attr('Adr');								;
+					api.sendEvent({
+					    name: 'get_addr',
+					    extra:data
+					});
+				}				
+			} else {
+				if (ret.info == 'no_login') {
+					to_login();
+					return false;
+				}
+				api.toast({
+					msg : ret.info
+				});
+			}
+		});
+	}
+	function openthis(xyc, id, add_id, BuyerName, Phone, Adr, is_default,Zip,Province,City,Town) {
+		var width = api.winWidth;
+		if (id == 2) {
+			if (is_default == 1) {
+				api.toast({
+					msg : '默认地址无法删除!'
+				});
+				return false;
+			}
+			var height = api.winHeight;
+			api.openFrame({
+				name : xyc,
+				url : xyc + '.html',
+				bounces : false,
+				opaque : false,
+				vScrollBarEnabled : false,
+				pageParam : {
+					'name' : xyc,
+					'add_id' : add_id,
+					'is_default' : is_default,
+					'shop':api.pageParam.shop
+				},
+				rect : {
+					x : 0,
+					y : 0,
+					w : width,
+					h : height
+				}
+			});
+		}
+		if (id == 1 || id == 3) {
+			api.openWin({
+				name : xyc,
+				url : xyc + '.html',
+				opaque : true,
+				reload : true,
+				vScrollBarEnabled : false,
+				pageParam : {
+					'count' : id,
+					'add_id' : add_id,
+					'BuyerName' : BuyerName,
+					'Phone' : Phone,
+					'Adr' : Adr,
+					'Zip':Zip,
+					'is_default' : is_default,
+					'Province':Province,
+					'City':City,
+					'Town':Town
+				}
+			});
+		}
+	}
+
+	function get_list(param) {
+		var info = is_login();
+		if (!info) {
+			to_login();
+			return false;
+		}
+		for (var p in info) {
+			param[p] = info[p];
+		}
+			api.showProgress({
+				style: 'default',
+			    title: '加载中',
+			    modal: false
+			});	
+		ajaxRequest('addr/get_lst', 'post', param, function(ret, err) {
+		api.hideProgress();
+			if (err) {
+				api.toast({
+					msg : err.msg
+				});
+				return false;
+			}
+			if (ret.status&& !isEmpty(ret.info.data)) {
+				$('.wushuju').addClass('none');
+				var total = ret.info.total;
+				var data = ret.info.data;
+				$('input[name=total]').val(total);
+				var interText = doT.template($("#dot_tpl").text());
+				if (param.page == 0) {
+					$("#myaddr").html('');
+					$("#myaddr").html(interText(data));
+				} else {
+					$("#myaddr").append(interText(data));
+				}
+			} else {
+				$('.wushuju').removeClass('none');
+				if (ret.info == 'no_login') {
+					to_login();
+					return false;
+				}				
+			}
+		});
+	}
+
+	apiready = function() {
+		//初始化
+		var page = 0;
+		get_list({
+			page : 0
+		});
+		//滚动到底部
+		api.addEventListener({
+			name : 'scrolltobottom'
+		}, function(ret, err) {
+			var total = $('input[name=total]').val();
+			if (page < total - 1) {
+				page++;
+				get_list({
+					page : page
+				});
+			}
+		})
+	} 
+</script>
+</html>

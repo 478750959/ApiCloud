@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>title</title>
+		<link rel="stylesheet"type="text/css" href="../css/weui.css">
+		<link rel="stylesheet" type="text/css" href="../css/example.css" />
+		<style>
+			body {
+			}
+		</style>
+	</head>
+	<body ontouchstart="" gtools_scp_screen_capture_injected="true" style="zoom: 1;" id = 'body'>
+		<div class="container js_container">
+			<div class="page">
+				<div class="hd">
+					<h1 class="page_title">Progress</h1>
+				</div>
+				<div class="bd spacing">
+					<div class="weui_progress">
+						<div class="weui_progress_bar">
+							<div class="weui_progress_inner_bar js_progress" style="width: 0%;"></div>
+						</div>
+						<a href="javascript:;" class="weui_progress_opr"> <i class="weui_icon_cancel"></i> </a>
+					</div>
+					<br>
+					<div class="weui_progress">
+						<div class="weui_progress_bar">
+							<div class="weui_progress_inner_bar js_progress" style="width: 50%;"></div>
+						</div>
+						<a href="javascript:;" class="weui_progress_opr"> <i class="weui_icon_cancel"></i> </a>
+					</div>
+					<br>
+					<div class="weui_progress">
+						<div class="weui_progress_bar">
+							<div class="weui_progress_inner_bar js_progress" style="width: 80%;"></div>
+						</div>
+						<a href="javascript:;" class="weui_progress_opr"> <i class="weui_icon_cancel"></i> </a>
+					</div>
+					<div class="weui_btn_area">
+						<a href="javascript:;" class="weui_btn weui_btn_primary" id="btnStartProgress" onclick="btnStartProgress(this);">上传</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../script/api.js"></script>
+	<script type="text/javascript">
+		apiready = function() {
+		};
+		function btnStartProgress(btn) {
+			//		$api.hasCls(el, 'classname'); // => true
+			//			if ($(this).hasClass('weui_btn_disabled')) {
+			
+			var body = $api.byId('body');
+			
+			var bool = $api.hasCls(btn, 'weui_btn_disabled');
+		
+			if ($api.hasCls(btn, 'weui_btn_disabled')) {
+				return;
+			}
+			//		$(this).addClass('weui_btn_disabled');
+			$api.addCls(btn, 'weui_btn_disabled');
+			var progress = 0;
+			//		$api.domAll(el, '.class');
+			//		var $progress = $('.js_progress');
+			var js_progress = $api.domAll(body, '.js_progress');
+			function next() {
+				for(item in js_progress)
+				$api.css(js_progress[item], 'width:' + progress + '%');
+				progress = ++progress % 100;
+				setTimeout(next, 30);
+			}
+
+			next();
+		}
+	</script>
+</html>

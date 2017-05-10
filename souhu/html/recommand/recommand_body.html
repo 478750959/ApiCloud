@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+  <title>HTML</title>
+  
+  <!-- Replace favicon.ico & apple-touch-icon.png in the root of your domain and delete these references -->
+  <link rel="shortcut icon" href="/favicon.ico">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+  <link rel="stylesheet" type="text/css" href="../../css/slidepage.css" />
+  
+  <link rel="stylesheet" href="../../css/idangerous.swiper.css">
+ 
+
+	<style>
+		html {width: 100%;height: 100%;background: #E6E9EE;}
+		body {background: #E6E9EE;width: 100%;/*height: 100%;*/}
+		
+		.recommand_card {box-sizing:border-box;-webkit-box-sizing:border-box;float: left;width: 50%;padding-left: 5px;padding-right: 5px;text-align: center;font-size: 12px;margin-bottom: 10px;}
+		.recommand_card img {width: 100%;}
+		.subtitle {padding-left: 5px; padding-bottom: 10px;font-size: 14px; font-weight: bold;}
+		.divider {height: 10px;clear: both;}
+		.innerCard {background: #fff;}
+		.videotitle {padding-bottom: 4px;padding-left: 5px;}
+
+		.tvshow_row {height: 137px;}
+		.tvshow_row .innerCard{text-align: left;position: relative;}
+		.videosubtitle {font-size: 10px; color: #909090;padding-left: 5px;padding-bottom: 5px;}
+		.update {position: absolute; bottom: 45px; margin-left: 5px; color: #fff;}
+
+		.card_hover {background: #0f0;}
+
+		/* 图片轮播样式 */
+		.pagination {position: absolute; z-index: 20; right: 10px; bottom: 10px; }
+		.swiper-pagination-switch {display: inline-block; width: 8px; height: 8px; border-radius: 8px; background: #555; margin-right: 5px; opacity: 0.8; border: 1px solid #fff; cursor: pointer; }
+		.swiper-active-switch {background: #fff; }
+	</style>
+</head>
+
+<body>
+	<div class="swiper-container">
+		<div class="swiper-wrapper">
+			<!--First Slide-->
+			<div class="swiper-slide"> 
+				<img src="../../image/topslidepic01.jpg" alt="">
+			</div>
+
+			<!--Second Slide-->
+			<div class="swiper-slide">
+				<img src="../../image/topslidepic02.jpg" alt="">
+			</div>
+			
+			<div class="swiper-slide">
+				<img src="../../image/topslidepic03.jpg" alt="">
+			</div>
+		</div>
+		<div class="pagination"></div>
+	</div>
+
+	<div class="divider"></div>
+	<!-- 热点 -->
+	<div class="subtitle">热点</div>
+	<ul class="recommand_row">
+		<li class="recommand_card" tapmod="card_hover" onclick="openNewWindow()">
+			<div class="innerCard">
+				<img src="../../image/videocover01.jpg" alt="">
+				<div class="videotitle">林依晨订婚宴现场曝光</div>
+			</div>
+		</li>
+		<li class="recommand_card"  tapmod="card_hover" onclick="openNewWindow()">
+			<div class="innerCard">
+				<img src="../../image/videocover02.jpg" alt="">
+				<div class="videotitle">网传张歆艺杨树鹏离婚</div>
+			</div>
+		</li>
+	</ul>
+	<ul class="recommand_row">
+		<li class="recommand_card"  tapmod="card_hover" onclick="openNewWindow()">
+			<div class="innerCard">
+				<img src="../../image/tvcover_04.jpg" alt="">
+				<div class="videotitle">曝王菲全力备孕黏紧霆锋</div>
+			</div>
+		</li>
+		<li class="recommand_card" tapmod="card_hover" onclick="openNewWindow()">
+			<div class="innerCard">
+				<img src="../../image/tvcover_01.jpg" alt="">
+				<div class="videotitle">向太暗示蓝洁瑛变疯真相</div>
+			</div>
+		</li>
+	</ul>
+
+	<div class="divider"></div>
+	<!-- 电视剧 -->
+	<div class="subtitle">电视剧</div>
+	<ul class="tvshow_row">
+		<li class="recommand_card" tapmod="card_hover" onclick="openNewWindow()">
+			<div class="innerCard">
+				<img src="../../image/tvcover_bjwzs.jpg" alt="">
+				<div class="update">更新至31集</div>
+				<div class="videotitle">北平无战事</div>
+				<div class="videosubtitle">七影帝身份成迷</div>
+			</div>
+		</li>
+		<li class="recommand_card" tapmod="card_hover" onclick="openNewWindow()">
+			<div class="innerCard">
+				<img src="../../image/tvcover_fzqy.jpg" alt="">
+				<div class="update">更新至12集</div>
+				<div class="videotitle">风中奇缘</div>
+				<div class="videosubtitle">宫廷女子不可小觑</div>
+			</div>
+		</li>
+	</ul>
+	
+	<ul class="tvshow_row">
+		<li class="recommand_card" tapmod="card_hover" onclick="openNewWindow()">
+			<div class="innerCard">
+				<img src="../../image/tvcover_badhj.jpg" alt="">
+				<div class="update">更新至12集</div>
+				<div class="videotitle">半路父子</div>
+				<div class="videosubtitle">张国立换儿子啦？</div>
+			</div>
+		</li>
+		<li class="recommand_card" tapmod="card_hover" onclick="openNewWindow()">
+			<div class="innerCard">
+				<img src="../../image/tvcover_xdxd.jpg" alt="">
+				<div class="update">更新至24集</div>
+				<div class="videotitle">铁血武工队传奇</div>
+				<div class="videosubtitle">武工队传奇姊妹篇</div>
+			</div>
+		</li>
+	</ul>
+
+	<div class="subtitle"></div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/idangerous.swiper.js"></script>
+<script>
+	function emptyopt () {
+	}
+
+	function openNewWindow()
+	{
+		api.openWin({
+		    name: 'recommand_detail',
+		    url: './recommand_detail.html',
+		    pageParam: {},
+		    bounces: true,
+		    opaque: false,
+		    // bgColor:  'rgba(255,255,255,0)',
+		    vScrollBarEnabled:false,
+		    hScrollBarEnabled:true,
+		    // animation: {
+		    //         type: 'flip',
+		    //         subType: 'from_bottom',
+		    //         duration: 500
+		    //     }
+	    });
+	}
+
+	window.onload = function() {
+		var mySwiper = new Swiper('.swiper-container',{
+			//Your options here:
+			mode:'horizontal',
+			loop: true,
+			speed:750,
+			pagination: '.pagination'
+			//etc..
+		});
+
+		mySwiper.startAutoplay();
+	}
+
+	apiready = function (){
+		api.setRefreshHeaderInfo({
+			visible: true,
+			bgColor: 'rgba(0,0,0,0)',
+			textColor: '#666',
+			textDown: '下拉刷新',
+			textUp: '释放刷新'	
+		}, function(ret, err){
+		    api.refreshHeaderLoadDone();
+		});
+	};
+	
+</script>
+</html>

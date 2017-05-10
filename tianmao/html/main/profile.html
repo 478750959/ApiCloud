@@ -1,0 +1,119 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>APP</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/common.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/profile.css" />
+
+</head>
+<body>
+    <div id="wrap">
+        <div id="main">
+            <div class="profile_box">
+                <div class="profile_top">
+                    <i class="msg_icon" tapmode="tap-active" onclick="openCommon('msg','消息盒子')"></i>
+                    <span class="config" tapmode="tap-active" onclick="openCommon('config','设置')">设置</span>
+                    <span class="login_btn" tapmode="tap-active" onclick="openCommon('login','登录')">点击登录</span>
+                </div>
+                <div class="tabBar">
+                    <div class="tabBar_inner" tapmode="tap-active" onclick="openCommon('login','登录')">
+                        <span class="num_top">0</span>
+                        <span class="text">待付款</span>
+                    </div>
+                    <div class="tabBar_inner" tapmode="tap-active" onclick="openCommon('login','登录')">
+                        <span class="num_top">0</span>
+                        <span class="text">待发货</span>
+                    </div>
+                    <div class="tabBar_inner" tapmode="tap-active" onclick="openCommon('login','登录')">
+                        <span class="num_top">0</span>
+                        <span class="text">待收货</span>
+                    </div>
+                    <div class="tabBar_inner" tapmode="tap-active" onclick="openCommon('login','登录')">
+                        <span class="num_top">0</span>
+                        <span class="text">待评价</span>
+                    </div>
+                    <div class="tabBar_inner last" tapmode="tap-active" onclick="openCommon('login','登录')">
+                        <span class="num_top">0</span>
+                        <span class="text">退款/售后</span>
+                    </div>
+                </div>
+            </div>
+            <div class="profile_detail_container">
+                <div class="profile_detail_box clearfix">
+                    <div class="profile_detail_inner pull-left">
+                        <div class="profile_detail" tapmode="tap-active" onclick="openCommon('login','登录')">
+                            <img src="../../image/profile_item1.png" alt="">
+                            <span class="title">全部订单</span>
+                            <span class="brief">查看所有</span>
+                        </div>
+                    </div>
+                    <div class="profile_detail_inner pull-left">
+                        <div class="profile_detail" tapmode="tap-active" onclick="openCommon('login','登录')">
+                            <img src="../../image/profile_item2.png" alt="">
+                            <span class="title">天猫会员</span>
+                            <span class="brief">天猫会员</span>
+                        </div>
+                    </div>
+                    <div class="profile_detail_inner pull-left">
+                        <div class="profile_detail" tapmode="tap-active" onclick="openCommon('login','登录')">
+                            <img src="../../image/profile_item3.png" alt="">
+                            <span class="title">收藏商品</span>
+                            <span class="brief">收藏过的商品</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="profile_detail_box clearfix">
+                    <div class="profile_detail_inner pull-left">
+                        <div class="profile_detail" tapmode="tap-active" onclick="openCommon('login','登录')">
+                            <img src="../../image/profile_item4.png" alt="">
+                            <span class="title">天猫宝</span>
+                            <span class="brief">查看余额</span>
+                        </div>
+                    </div>
+                    <div class="profile_detail_inner pull-left">
+                        <div class="profile_detail" tapmode="tap-active" onclick="openCommon('login','登录')">
+                            <img src="../../image/profile_item5.png" alt="">
+                            <span class="title">优惠券</span>
+                            <span class="brief">我的优惠券</span>
+                        </div>
+                    </div>
+                    <div class="profile_detail_inner pull-left">
+                        <div class="profile_detail" tapmode="tap-active" onclick="openCommon('login','登录')">
+                            <img src="../../image/profile_item6.png" alt="">
+                            <span class="title">会员卡</span>
+                            <span class="brief">我的会员卡</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="profile_detail_box clearfix">
+                    <div class="profile_detail_inner pull-left">
+                        <div class="profile_detail" tapmode="tap-active" onclick="openCommon('login','登录')">
+                            <img src="../../image/profile_item7.png" alt="">
+                            <span class="title">收藏店铺</span>
+                            <span class="brief">收藏过的店铺</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/zepto.js"></script>
+<script type="text/javascript" src="../../script/common.js"></script>
+<script type="text/javascript">
+    apiready = function(){
+        Zepto(function($){
+            var em = parseInt(getComputedStyle(document.body,false).fontSize);
+            var emW = em*3/4;
+            var bodyW = $api.offset(document.body).w;
+            var sp1_3 = (bodyW - 4*emW)/3;
+            $('.profile_detail_inner').width(sp1_3);
+        });
+    }
+    // apiready();
+</script>
+</html>

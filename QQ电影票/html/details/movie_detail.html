@@ -1,0 +1,263 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>APP</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/common.css" />
+    <style>
+        #wrap{
+            background-color: #282828;
+        }
+        #main{
+            padding: 0;
+            position: relative;
+        }
+        #main_shadow{
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            -webkit-filter: blur(6px);
+            filter: blur(6px);
+            opacity: 0.3;
+        }
+        #movieDetailBackBtn{
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: auto;
+            height: 48px;
+            background: url(../../res/drawable-xhdpi/arrow_left_yellow.png) 8px center no-repeat;
+            background-size: 7px 14px;
+        }
+        #movieDetailBackBtn:active{
+            background-color: #191919;
+        }
+        #movieDetailBackBtn .chooseCityImg{
+            display: inline-block;
+            border: none;
+            outline: none;
+            width: 32px;
+            height: 32px;
+            float: left;
+            margin-left: 22px;
+            margin-top: 7px;
+            
+        }
+        #movieDetailBackBtn .chooseCityBackSpan{
+            color: #D4A82A;
+            line-height: 48px;
+            padding: 0 1em;
+        }
+        #chooseStyleBtn{
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            height: 48px;
+            width: 48px;
+            background: url(../../res/drawable-xhdpi/ico_share_white.png);
+            background-size: 100% 100%;
+        }
+        #chooseStyleBtn:active{
+            background: url(../../res/drawable-xhdpi/ico_share_orange.png);
+            background-size: 100% 100%;
+        }
+
+        /*box_top*/
+        #main .box_top{
+            position: absolute;
+            height: 33%;
+            width: 100%;
+            z-index: 2;
+        }
+        #main .box_top .box_top_box{
+            position: relative;
+            float: left;
+            width: 30%;
+            height: 100%;
+        }
+        #main .box_top .box_top_center{
+            width: 40%;
+        }
+        #main .box_top_box span{
+            color: #FFF;
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+            font-size: 1.3em;
+            height: 52px;
+            line-height: 52px;
+            text-shadow: #000 1px 1px 2px;
+        }
+        #main .box_top_box .span_left{
+            text-align: left;
+        }
+        #main .box_top_box .span_right{
+            text-align: right;
+        }
+        #main .box_top_box span.center{
+            font-size: 1.6em;
+            text-align: center;
+        }
+        #poster{
+            position: absolute;
+            width: 100%;
+            bottom: -40px;
+            box-shadow: #000 0px 0px 25px;
+            z-index: 2;
+        }
+        #box_top_shadow{
+            position: absolute;
+            width: 100%;
+            height: 64px;
+            background-color: #282828;
+            bottom: -64px;
+        }
+
+        /*box_middle*/
+        #main .box_middle{
+            position: absolute;
+            height: 66%;
+            top: 33%;
+            width: 100%;
+            background-color: #282828;
+            z-index: 1;
+            /*overflow: scroll;*/
+        }
+        #box_middle_shadow{
+            height: 64px;
+        }
+        
+        #main .box_middle span{
+            color: #B1B1B1;
+        }
+        #main .box_middle .middle_p{ 
+            overflow: hidden;
+            margin: 2px 1em;
+            color: #B1B1B1;
+            /**/
+            display: -webkit-box;
+            -webkit-box-orient: horizontal;
+            position: relative;
+        }
+        #main .box_middle .middle_span_detail{
+            color: #B1B1B1;
+        }
+        #main .box_middle .middle_p.detail{
+            text-indent: 2em; 
+        }
+        #main .box_middle .middle_p:after{
+            clear: both;
+        }
+        #main .box_middle .middle_span_left{
+            float: left;
+            width: 3em;
+            text-align: left;
+            position: relative;
+        }
+        #main .box_middle .middle_span_right{
+            float: left;
+            -webkit-box-flex: 1;
+            -webkit-flex: 1;
+            flex: 1;
+            position: relative;
+        }
+        #box_bottom_shadow{
+            height: 70px;
+        }
+
+        /*box_bottom*/
+        #main .box_bottom{
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 70px;
+            background-color: #222222;
+            z-index: 5;
+            display: -webkit-box;
+            -webkit-box-pack: center;
+            -webkit-box-align: center;
+            /*box-shadow: #222 0px -15px 30px;*/
+        }
+        #main .box_bottom .button{
+            display: block;
+            margin: 0 auto;
+            width: 90%;
+            height: 45px;
+            background-color: #FFC600;
+            color: #000;
+            font-size: 1.4em;
+            text-align: center;
+            line-height: 45px;
+        }
+        #main .box_bottom .button:active{
+            background-color: #C5A123;
+        }
+    </style>
+</head>
+<body ontouchstart="">
+    <div id="wrap">
+        <div id="header">
+            <a id="movieDetailBackBtn" tapmode onclick="api.closeWin();">
+                <img src="../../res/drawable-hdpi/ic_launcher.png" class="chooseCityImg">
+                <span class="chooseCityBackSpan">忍者神龟：变种时代</span>
+            </a>
+        </div>
+        <div id="main">
+            <div class="box_top">
+                <div class="box_top_left box_top_box">
+                    <span class="span_left left">资料</span>
+                </div>
+                <div class="box_top_center box_top_box">
+                    <span class="span_center center">简介</span>
+                    <img src="../../image/1.jpg" alt="" id="poster">
+                </div>
+                <div class="box_top_right box_top_box">
+                    <span class="span_right right">评论</span>
+                </div>
+                <div id="box_top_shadow"></div>
+            </div>
+            <div class="box_middle">
+                <div id="box_middle_shadow"></div>
+                <!-- <div id="box_bottom_shadow"></div> -->
+            </div>
+            <div class="box_bottom">
+                <!-- input在ios里面会没法写样式 -->
+                <!-- <input type="button" value="排期购票" tapmode> -->
+                <a class="button" tapmode>排期购票</a>
+            </div>
+            <img src="../../image/1.jpg" alt="" id="main_shadow">
+        </div>
+
+
+    </div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript">
+
+    apiready = function(){       
+        var header = $api.byId('header');
+        $api.fixIos7Bar(header);
+        var boxMiddle = $api.dom('.box_middle');
+        var boxBottom = $api.dom('.box_bottom');
+        var boxMiddleShadow = $api.dom('#box_middle_shadow');
+        var fH = $api.offset(boxMiddle).h - $api.offset(boxMiddleShadow).h - $api.offset(boxBottom).h;
+        var fT = $api.offset(header).h + $api.offset($api.dom('#main .box_top')).h + $api.offset($api.dom('#box_top_shadow')).h;
+        api.openFrame({
+            name: 'movie_detail_con',
+            url: './movie_detail_con.html',
+            bounces: false,
+            rect: {
+                w: 'auto',
+                h: fH,
+                x: 0,
+                y: fT
+            }
+        });
+
+    };
+</script>
+</html>

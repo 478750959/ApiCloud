@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>味觉大师</title>
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+        <link rel="shortcut icon" href="/favicon.ico">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<!-- QQ强制竖屏 -->
+		<meta name="x5-orientation" content="portrait">
+		<!-- QQ强制全屏 -->
+		<meta name="x5-fullscreen" content="true">
+		<!-- QQ应用模式 -->
+		<meta name="x5-page-mode" content="app">
+		
+        <link rel="stylesheet" href="css/sm.css">
+        <link rel="stylesheet" href="css/sm-extend.css">
+        <link rel="stylesheet" href="css/ui-box.css">
+        <link rel="stylesheet" href="css/my.css">
+		<style type="text/css">
+			.swiper-container{
+				padding-bottom:0;
+			}
+			.swiper-slide img{
+				width:100%;
+			}
+			.searchbar{
+				width:95%;
+				position:absolute;
+				top:0.4rem;
+				left:0.35rem;
+				z-index:10001;
+				background-color:transparent;
+			}
+			#search{
+				background-color:rgba(0,0,0,0.15);
+			}
+			.row-img-list img{
+				width:100%;
+			}
+			.title-icon{
+				margin-right:0.6rem;
+				background-color:red;
+			}
+			.more{
+				float:right;
+			}
+			.descp{
+				font-size:0.65rem;
+				color:gray;
+				text-align:center;
+				overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+			}
+			p{
+				line-height:1.8em;
+			}
+		</style>
+    </head>
+    <body>
+        <div class="page-group">
+            <div class="page" id="page-index">
+                
+                <nav class="bar bar-tab">
+                    <a class="tab-item active" href="./index.html" external> <span class="icon icon-home"></span> <span class="tab-label">首页</span> </a>
+                    <a class="tab-item" href="./restaurant.html" external> <span class="icon icon-gift"></span> <span class="tab-label">精选餐厅</span> </a>
+                    <a class="tab-item" href="./show.html" external> <span class="icon icon-star"></span> <span class="tab-label">秀场</span> </a>
+                    <a class="tab-item" href="./master.html" external> <span class="icon icon-app"></span> <span class="tab-label">大师菜谱</span> </a>
+                    <a class="tab-item" href="./my.html" external> <span class="icon icon-me"></span> <span class="tab-label">我的</span> </a>
+                </nav>
+                <div class="content" id="content">
+                	<div class="searchbar">
+					    <div class="search-input">
+					      <label class="icon icon-search" for="search"></label>
+					      <input type="search" id='search' placeholder='输入关键字...'/>
+					    </div>
+					</div>
+				  	<!-- 幻灯片的容器 -->
+					<div class="swiper-container">
+					    <!-- Additional required wrapper -->
+					    <div class="swiper-wrapper">
+					        <div class="swiper-slide"><img src="images/swiper_1.jpg" alt=""></div>
+					        <div class="swiper-slide"><img src="images/swiper_2.jpg" alt=""></div>
+					        <div class="swiper-slide"><img src="images/swiper_3.jpg" alt=""></div>
+					    </div>
+					    <!-- 分页 -->
+					    <div class="swiper-pagination"></div>
+					</div>
+					<div class="content-block-title"><a class="more descp" href="./show.html" external>更多</a><span class="title-icon">&nbsp;</span>秀场推荐</div>
+					<div class="content-block">
+						<div class="row row-img-list">
+							<div class="col-33" v-for="x in showList">
+						    	<a href="./show/detail.html?id={{x.id}}"><img alt="" :src="x.img_path"><div class="descp">{{x.title}}</div></a>
+						    </div>
+						</div>
+					</div>
+					<div class="content-block-title"><a class="more descp">更多</a><span class="title-icon">&nbsp;</span>每日资讯</div>
+					<div class="content-block">
+						<div class="row row-img-list">
+							<div class="col-33" v-for="x in newsList">
+						    	<a href="./news/detail.html?id={{x.id}}"><img alt="" :src="x.img_path"><div class="descp">{{x.title}}</div></a>
+						    </div>
+						</div>
+					</div>
+					
+					<div class="content-block content-padded">
+						<img alt="" src="images/index_ad.png" style="width:100%;">
+					</div>
+					
+					<div class="content-block-title"><a class="more descp" href="./master.html" external>更多</a><span class="title-icon">&nbsp;</span>大师菜谱</div>
+					<div class="content-block">
+						<div class="row row-img-list">
+							<div class="col-50" v-for="x in masterList">
+						    	<a href="./master/detail.html?id={{x.id}}"><img alt="" :src="x.img_path"><div class="descp">{{x.title}}</div></a>
+						    </div>
+						</div>
+					</div>
+					
+					<div class="content-block-title"><a class="more descp" href="./restaurant.html" external>更多</a><span class="title-icon">&nbsp;</span>精选餐厅</div>
+					<div class="content-block">
+						<div class="row row-img-list">
+							<div class="col-33" v-for="x in restaurantList">
+						    	<a href="./restaurant/detail.html?id={{x.id}}"><img alt="" :src="x.img_path"><div class="descp">{{x.title}}</div></a>
+						    </div>
+						</div>
+					</div>
+					
+					
+				</div>	
+            </div>
+
+        </div>
+
+        <script type='text/javascript' src='js/zepto.min.js' charset='utf-8'></script>
+        <script type='text/javascript' src='js/sm.js' charset='utf-8'></script>
+        <script type='text/javascript' src='js/sm-extend.min.js' charset='utf-8'></script>
+        <script type='text/javascript' src='js/vue.min.js' charset='utf-8'></script>
+        <script type='text/javascript' src='js/vue-resource.min.js' charset='utf-8'></script>
+        
+        <script type='text/javascript' src='js/pluto.js?t=11' charset='utf-8'></script>
+
+    </body>
+    <script type='text/javascript' src='js/api.js' charset='utf-8'></script>
+    <script type="text/javascript">
+        
+	
+    $(document).on("pageInit", "#page-index", function(e, pageId, $page) {
+    	var newsData=[];
+        var showData=[];
+        var restaurantData=[];
+        var masterData=[];
+    	for(var i=0;i<3;i++){
+    		var data={id:i,img_path:"images/empty_no_data.png",title:"暂无"}
+    		showData.push(data)
+    		newsData.push(data);
+    		restaurantData.push(data);
+    	}
+    	for(var i=0;i<2;i++){
+    		var data={id:i,img_path:"images/empty_no_data.png",title:"暂无"}
+    		masterData.push(data);
+    	}
+    	var vm=new Vue({
+    		el:"#content",
+    		data:{
+    			newsList:newsData,
+    			showList:showData,
+    			masterList:masterData,
+    			restaurantList:restaurantData,
+    		},
+    		ready:function(){
+    			var _this=this;
+    			GetLocal("./data/index.json",function(resp){
+    	    		// logs(resp,true);
+    	    		var newsList=resp.itemMaps.newsList;
+    	    		var showList=resp.itemMaps.showList;
+    	    		var masterList=resp.itemMaps.masterList;
+    	    		var restaurantList=resp.itemMaps.restaurantList;
+    	    		abs2full(newsList,"img_path","");
+    	    		abs2full(showList,"img_path","");
+    	    		abs2full(masterList,"img_path","");
+    	    		abs2full(restaurantList,"img_path","");
+    	    		_this.newsList=newsList;
+    	    		_this.showList=showList;
+    	    		_this.masterList=masterList;
+    	    		_this.restaurantList=restaurantList;
+    	    		
+    	    	});
+    		}
+    	});
+    	
+    });
+    $(document).on("pageInit", "#page-show", function(e, pageId, $page) {
+    	var vm = new Vue({
+			el : "#"+pageId,
+			ready : function() {
+				var _this = this;
+				var request = getRequest();
+				console.log(request)
+				GetLocal('../data/show.json', function(resp) {
+				    abs2full(resp.items,"img_path","");
+					_this.one = getOne(resp.items,request["id"]);
+					_this.$nextTick(function(){
+						$("#"+pageId).find(".content").removeClass("hidden");
+					});
+				});
+			},
+			data : {
+				one : {},
+			}
+		});
+    });
+    $(document).on("pageInit", "#page-news", function(e, pageId, $page) {
+        var vm = new Vue({
+            el : "#"+pageId,
+            ready : function() {
+                var _this = this;
+                var request = getRequest();
+                console.log(request)
+                GetLocal('../data/news.json', function(resp) {
+                    abs2full(resp.items,"img_path","");
+                    _this.one = getOne(resp.items,request["id"]);
+                    _this.$nextTick(function(){
+                        $("#"+pageId).find(".content").removeClass("hidden");
+                    });
+                });
+            },
+            data : {
+                one : {},
+            }
+        });
+    });
+    $(document).on("pageInit", "#page-master", function(e, pageId, $page) {
+        var vm = new Vue({
+            el : "#"+pageId,
+            ready : function() {
+                var _this = this;
+                var request = getRequest();
+                console.log(request)
+                GetLocal('../data/master.json', function(resp) {
+                    abs2full(resp.items,"img_path","");
+                    _this.one = getOne(resp.items,request["id"]);
+                    _this.meterials=resp.itemMaps.meterials;
+                    _this.methods=resp.itemMaps.methods;
+                    _this.tips=resp.itemMaps.tips;
+                    _this.$nextTick(function(){
+                        $("#"+pageId).find(".content").removeClass("hidden");
+                    });
+                });
+            },
+            data : {
+                one : {},
+                materials:[],
+                methods:[],
+                tips:[]
+            },
+            methods:{
+                
+            }
+        });
+    });
+    $(document).on("pageInit", "#page-restaurant", function(e, pageId, $page) {
+    	var vm = new Vue({
+			el : "#"+pageId,
+			ready : function() {
+				var _this = this;
+				var request = getRequest();
+				console.log(request)
+				GetLocal('../data/restaurant.json', function(resp) {
+				    abs2full(resp.items,"img_path","");
+					_this.one = getOne(resp.items,request["id"]);
+					_this.$nextTick(function(){
+						$("#"+pageId).find(".content").removeClass("hidden");
+					});
+				});
+			},
+			data : {
+				one : {},
+			}
+		});
+    });
+    
+    
+   
+    $.init();
+</script>
+</html>

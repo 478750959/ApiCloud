@@ -1,0 +1,82 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>APP</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/common.css" />
+    <link rel="stylesheet" href="../../css/light.css" class="light-style">
+    <link rel="stylesheet" href="../../css/dark.css" class="dark-style" disabled>
+    <style>
+        html,body,#wrap,#header{
+            background: transparent;
+        }
+        #header{
+            height: 48px;
+        }
+        .shadow{
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            left: 0;
+            top: 0;
+            z-index: 1;
+            background-color: rgba(0,0,0,0.6);
+        }
+        .share-list{
+            width: 16em;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            -webkit-transform: translate(-50%,-50%);
+                    transform: translate(-50%,-50%);
+        }
+        .share-list li span{
+            text-indent: 1em;
+        }
+    </style>
+</head>
+<body>
+    <div id="wrap">
+        <div class="shadow" tapmode onclick="api.closeFrame({name:'share-option'});"></div>
+        <div id="header"></div>
+        <div id="main">
+            <ul class="share-list">
+                <li tapmode="tap-active" onclick="api.closeFrame({name:'share-option'});">
+                    <span class="user-name pull-left">分享到微信</span>
+                </li>
+                <li tapmode="tap-active" onclick="api.closeFrame({name:'share-option'});">
+                    <span class="user-name pull-left">分享到QQ</span>
+                </li>
+                <li tapmode="tap-active" onclick="api.closeFrame({name:'share-option'});">
+                    <span class="user-name pull-left">分享到新浪微博</span>
+                </li>
+                <li tapmode="tap-active" onclick="api.closeFrame({name:'share-option'});">
+                    <span class="user-name pull-left">分享到腾讯微博</span>
+                </li>
+                <li tapmode="tap-active" onclick="api.closeFrame({name:'share-option'});">
+                    <span class="user-name pull-left">复制</span>
+                </li>
+                <li tapmode="tap-active" onclick="api.closeFrame({name:'share-option'});">
+                    <span class="user-name pull-left">收藏</span>
+                </li>
+                <li tapmode="tap-active" onclick="api.closeFrame({name:'share-option'});">
+                    <span class="user-name pull-left">举报</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/theme.js"></script>
+<script type="text/javascript" src="../../script/common.js"></script>
+<script type="text/javascript">
+
+    apiready = function(){
+        window.header = $api.byId('header');
+        $api.fixIos7Bar(header); 
+        addFrame('share-option');
+    }
+</script>
+</html>

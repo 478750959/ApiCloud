@@ -1,0 +1,499 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+<link rel="stylesheet" href="../css/api.css">
+<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+<style>
+
+/*
+日志:
+1.autofocus问题
+*/
+html{background-color:rgb(220,240,240);}
+body,ol,ul,h1,h2,h3,h4,h5,h6,p,th,td,dl,dd,form,fieldset,legend,input,textarea,select{margin:0;padding:0}
+body{font:12px Arial,"SimSun","宋体","Arial Narrow",HELVETICA;background:#fff;-webkit-text-size-adjust:100%;background-color:rgb(220,240,240);overflow:hidden;padding-top:1px}
+a{color:#2d374b;text-decoration:none}
+a:hover{color:#cd0200;text-decoration:underline}
+em{font-style:normal}
+li{list-style:none}
+img{border:0;vertical-align:middle}
+table{border-collapse:collapse;border-spacing:0}
+p{word-wrap:break-word}
+.reg_content{width:400px; margin:50px auto;}
+.pass-form-item{position:relative;clear:both; margin-bottom:20px; zoom:1;}
+.pass-form-item:after{visibility:hidden;display:block;font-size:0;content:"  ";clear:both;height:0;}
+.pass-form-item-account{z-index:19;}
+.pass-label{height:42px; width:65px; display:block; float:left; font-size:14px; text-align:right; font-family:arial; font-weight:bold; line-height:42px;margin:0 10px 0 0;}
+.pass-text-input{height:16px; width:230px; display:block; font-size:14px;margin:0 10px 0 0; padding:11px 10px;position:relative;float:left;background-color:rgb(255,255,255);}
+.pass-text-input-verifyCode{width:160px;}
+.pass-clearbtn{width:16px; height:16px; background:url(../image/reg_icons.png) -32px -24px no-repeat; position:absolute; left:396px; top:12px;cursor: pointer; zoom:1;visibility:hidden; }
+.pass-clearbtn:hover{background-position:-48px -24px}
+.pass-clearbtn-verifyCode{top:13px;left:228px;}
+.pass-item-error {font-size:15px; color:rgb(255,0,0);float:left;position:relative;height:16px;top:15px;padding:0 0 0 20px;}
+.pass-item-error-account{display:none;background:url(../image/reg_icons.png) -78px -23px no-repeat;}
+.pass-item-error-re-password{display:none;background:url(../image/reg_icons.png) -78px -23px no-repeat;}
+.pass-item-tip{display:block;}
+.pass-item-tip-account{display:none;padding:10px 0 0 0;color:grey;zoom:1;}
+.pass-item-tip-password{position:absolute;top:0;left:430px; zoom:1;z-index:20;}
+.pass-item-tip-password:after{visibility:hidden;display:block;font-size:0;content:"  ";clear:both;height:0;}
+.pass-item-tiptext{display:block;}
+.pwd-checklist{width:200px; background:#f9f9f9; border:1px solid #ddd; -moz-box-shadow: 1px 1px 1px #efefef; /* 老的 Firefox */
+box-shadow: 1px 1px 1px #efefef;margin: 0 0 0 10px;padding:5px 10px;}
+.pwd-checklist-wrapper{display:none;}
+.pwd-checklist-arrow{position:absolute; top:8px;}
+.arrowa{color:#ddd;font-size:20px;}
+.arrowb{color:#f9f9f9;font-size:20px;position:absolute;top:0px; left:1px;}
+.pwd-checklist-item{line-height:20px;padding: 0 0 0 18px;background:url(../image/reg_icons.png) -86px -112px no-repeat }
+.pass-verifyCode{height:40px;width:100px;margin:1px 10px 0 0;float:left;}
+.pass-change-verifyCode{display:block;float:left;position:relative;top:15px;margin:0 5px 0 0;}
+.pass-item-error-verifyCode{font-size:16px; display:none;float:left;position:relative;height:16px;top:15px;padding:0 0 0 20px;margin:0 0 0 17px; background:url(../image/reg_icons.png) -78px -23px no-repeat;}
+.pass-form-item-submit{text-align:left; margin:0 0 0 75px;}
+.pass-buttom-submit{height:50px;width:250px;font-size:16px;font-weight:bold;color:rgb(255,255,255); background-color:#3f89ec;border:none;border-radius:3px;}
+.pass-buttom-submit:hover{background-color:#4490f7;}
+h1{font-size:30px;margin: 0 0 20px 150px;}
+
+</style>
+
+</head>
+		<body>
+	<div class="reg_content" id="reg_content">
+		<div class="title"><h1>注册账户</h1></div>
+		<form id="TANGRAM__PSP_4__form" action="adminaddAct.php" method="POST">
+			<p class="pass-form-item pass-form-item-account">
+				<label for="reg_content_account" class="pass-label">邮箱</label>
+				<input type="text" id="reg_content_account" name="username" class="pass-text-input pass-text-input-account" autocomplete="off" placeholder="邮箱">
+				<span class="pass-clearbtn pass-clearbtn-account"></span>
+				<span id="accountError" class="pass-item-error pass-item-error-account"><span class="pass-item-error-text pass-item-error-account-text">请输入正确的邮箱</span></span>
+				<span class="pass-item-tip pass-item-tip-account">可用于登录和找回密码</span>
+			</p>
+			<p class="pass-form-item pass-form-item-password">
+				<label for="reg_content_password" class="pass-label">密码</label>
+				<input type="password" id="reg_content_password" name="password" class="pass-text-input pass-text-input-password" autocomplete="off" placeholder="密码">
+				<span class="pass-clearbtn pass-clearbtn-password"></span>
+				<span class="pass-item-error pass-item-error-password"><span class="pass-item-error-text"></span></span>
+				<span id="passwordTip" class="pass-item-tip pass-item-tip-password">
+					<span class="pass-item-tiptext pass-item-tiptext-password"></span>
+				</span>
+			</p>
+			<p class="pass-form-item pass-form-item-re-password">
+				<label for="reg_content_re_password" class="pass-label">确认密码</label>
+				<input type="password" id="reg_content_re_password" name="re_password" class="pass-text-input" autocomplete="off" placeholder="请重复输入您的密码">
+				<span class="pass-clearbtn pass-clearbtn-re-password"></span>
+				<span class="pass-item-error pass-item-error-re-password"><span class="pass-item-error-text pass-item-error-re-password-text">密码与确认密码不一致</span></span>
+				
+			</p>
+			<div class="pwd-checklist-wrapper">
+				<span class="pwd-checklist-arrow">
+					<em class="arrowa">◆</em>
+					<em class="arrowb">◆</em>
+				</span>
+				<ul class="pwd-checklist">
+					<li class="pwd-checklist-item">长度为6~14个字符</li>
+					<li class="pwd-checklist-item">支持数字,大小写字母和标点符号</li>
+					<li class="pwd-checklist-item">不允许有空格</li>
+				</ul>
+			</div>
+			<p class="pass-form-item pass-form-item-submit">
+				<input type="button" value="注册" class="pass-buttom pass-buttom-submit" id="pass-buttom-submit">
+				<span class="pass-clearbtn"></span>
+			</p>
+			<!-- <span class="pass-text-input"></span> -->
+		</form>
+	</div>
+	<script src="../script/api.js"></script>
+	<script src="../script/common.js"></script>
+	<script>
+		/* -Demo- 用闭包,循环添加事件
+		(function(){
+			for(var i=0;i<=2;i++) {
+				function t1(i) {
+					var form_input = document.getElementsByClassName('pass-text-input')[i];
+					form_input.onclick = function () {
+						//form_input.style.border="1px solid red";
+					}			
+				}
+				t1(i);
+			}
+		})();
+		*/
+
+		//闭包循环添加各种事件
+		(function(){
+			/* item 状态码,全部为1则通过表单 */
+			var account_symbol = null;
+			var passwordLength_symbol = null;
+			var passwordSpacing_symbol = null;
+			var re_password_symbol = null;
+			var verifyCode_symbol = null;
+			for(var i=0;i<=4;i++) {
+				function t1(i) {//点击图标清楚内容
+					var pass_text_input = document.getElementsByClassName('pass-text-input')[i];
+					var text_input_password = document.getElementsByClassName('pass-text-input-password')[0];
+					var clearbtn = document.getElementsByClassName('pass-clearbtn')[i];
+					var checklist_wrapper = document.getElementsByClassName('pwd-checklist-wrapper')[0];
+					var tip_account = document.getElementsByClassName('pass-item-tip-account')[0];
+					var error_account_text = document.getElementsByClassName('pass-item-error-account-text')[0];
+					//var error_re_password_text = document.getElementsByClassName('pass-item-error-re-password-text')[0];
+					var pass_verifyCode = document.getElementsByClassName('pass-verifyCode')[0];
+					var change_verifyCode = document.getElementsByClassName('pass-change-verifyCode')[0];
+					//var pass_buttom_submit = document.getElementsByClassName('pass-buttom-submit')[0];
+					var TANGRAM__PSP_4__form = document.getElementById('TANGRAM__PSP_4__form');
+					var pass_item_error_text = function (e) {
+						return document.getElementsByClassName('pass-item-error-text')[e];
+					}
+
+					//var error_account = document.getElementsByClassName('pass-item-error-account')[0];
+					/*= pass_item_error 函数选择器 =*/
+					var pass_item_error = function (e) {
+						return document.getElementsByClassName('pass-item-error')[e];
+					}
+
+					/*= pwd_checklist_item 函数选择器 =*/
+					var pwd_checklist_item = function (i) {
+						return document.getElementsByClassName('pwd-checklist-item')[i];
+					}
+					
+					/**
+					*function: .pwd-checklist-item对勾,变绿
+					*parameter:  t int 序号(0,1,2)
+					**/
+					function right_green(t) {
+						pwd_checklist_item(t).style.color = '';
+						pwd_checklist_item(t).style.backgroundPosition = "-86px -128px";
+					}
+					
+					/**
+					*function: .pwd-checklist-item交叉,变红
+					*parameter: t int checklist序号
+					**/
+					function error_red(t) {
+						pwd_checklist_item(t).style.color = 'rgb(255,0,0)';
+						pwd_checklist_item(t).style.backgroundPosition = "-86px -144px";
+					}
+
+					/**
+					*function: .pwd-checklist-item 圆点,黑色
+					*parameter: t int checklist序号
+					**/
+					function default_black(t) {
+						pwd_checklist_item(t).style.color = '';
+						pwd_checklist_item(t).style.backgroundPosition = "-86px -112px";
+					}
+
+					/*
+					function: .pass_item_error 交叉 红字
+					parameter: e int input序号
+					*/
+					function item_error(e) {
+						pass_item_error(e).style.display = "block";
+						pass_item_error(e).style.backgroundPosition = "-78px -23px";
+						pass_item_error_text(e).style.display="block";
+					}
+
+					/*
+					function: .pass_item_error 对勾 无字
+					parameter: e int input序号
+					*/
+					function item_right(e) {
+						pass_item_error(e).style.display = "block";
+						pass_item_error(e).style.backgroundPosition = "-80px 0";
+						pass_item_error_text(e).style.display="none";
+
+					}
+
+					/*clearbtn.onclick = function () {//点交叉加上点击事件
+						pass_text_input.value = '';
+						clearbtn.style.visibility = "hidden";
+						checklist_wrapper.style.display = "none";
+						this.nextSibling.nextSibling.style.display="none";
+						default_black(0);
+						default_black(1);
+						default_black(2);
+
+						//console.log(clearbtn.style);
+						//console.log(checklist_wrapper);
+						//console.log(form_input.style);
+						//console.log(this.previousSibling.previousSibling.style.border="2px solid red");
+						//this.parentNode.style.autofocus="autofocus";
+					}*/
+
+					/*隐藏/显示 clearbtn*/
+					/*pass_text_input.onkeyup = function () {
+						if(!this.value == '') {
+							clearbtn.style.visibility = "visible";
+						} else {
+							clearbtn.style.visibility = "hidden";
+						}
+					}*/
+					
+					switch (i) {
+						case 0: //给第一个input元素都加上各种事件
+							pass_text_input.onfocus = function () {
+								tip_account.style.display = "block";
+								pass_item_error(0).style.display = "none";
+							}
+
+							pass_text_input.onblur = function () {
+								//E-mail regular-expression
+								var patt =  /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/;
+								if(this.value.length===0) {
+									pass_item_error(0).style.display = "none";
+									account_symbol = 0;
+								}else if(!patt.test(this.value)) {
+									item_error(0);
+									error_account_text.style.display = "block";
+									account_symbol = 0;
+								} else {//内容符合规则
+									item_right(0);
+									error_account_text.style.display = "none";
+									account_symbol=1;
+								}
+
+								//给第一个Input添加失去焦点事件
+								tip_account.style.display = "none";
+							}
+
+							break;
+
+						case 1:
+							var tiptext_password = document.getElementsByClassName('pass-item-tiptext-password')[0];
+							
+							/*--- onclick event =start= */
+							pass_text_input.onfocus = function () {
+								tiptext_password.appendChild(checklist_wrapper); //添加子元素
+								checklist_wrapper.style.display = "block";
+							}
+
+							/* onclick event =end= ---*/
+
+							/*--- onblur event =start= */
+							pass_text_input.onblur = function () {
+								if(this.value == '') {
+									checklist_wrapper.style.display = "none";
+								}
+							}
+							/* onblur event =end= ---*/
+
+
+							/*--- onkeyup event =start= */
+							pass_text_input.onkeyup = function () {
+
+								if(!this.value == '') {
+									clearbtn.style.visibility = "visible";
+								} else {
+									clearbtn.style.visibility = "hidden";
+								}
+
+
+
+								/*判断密码长度*/
+								if(this.value.length<=0) {
+									default_black(0);
+									passwordLength_symbol=0;
+								} else if(this.value.length>0 && this.value.length<6) {
+									error_red(0);
+									passwordLength_symbol=0;
+								} else if(this.value.length>=6 && this.value.length<15) {
+									right_green(0);
+									passwordLength_symbol=1;
+								} else {
+									error_red(0);
+									passwordLength_symbol=0;
+								}
+
+								/*匹配数字,字母,标点符号*/
+								if(this.value=="") {
+									default_black(1);
+									
+								} else {
+									right_green(1);
+									
+								}
+
+								/*判断是否有空格*/
+								var patt =/\s/;
+								if(this.value == "") {
+									default_black(2);
+									passwordSpacing_symbol=0;
+								} else if (patt.test(this.value)) { 
+									error_red(2);
+									passwordSpacing_symbol=0;
+								} else {
+									right_green(2);
+									passwordSpacing_symbol=1;
+								}
+
+							}
+							/* onkeyup event =end= ---*/
+
+
+							break;
+
+						case 2:
+							/*--- onblur event =start=*/
+							/* error-item */
+							pass_text_input.onblur = function () {
+								if(text_input_password.value.length === 0) {
+									re_password_symbol=0;
+								}else if(text_input_password.value===pass_text_input.value){
+									item_right(2);
+									re_password_symbol=1;
+									//error_re_password_text.style.display="none";
+								} else {
+									item_error(2);
+									re_password_symbol=0;
+									//error_re_password_text.style.display="block";
+								}
+							}
+							/*onblur event =end= ---*/
+
+							pass_text_input.onfocus = function () {
+								pass_item_error(2).style.display = "none";
+							}
+
+							break;
+
+						case 3:
+							/*--- onclick event =start= 
+							change_verifyCode.onclick = function () {
+								var url = 'getverify.php?' + Math.random();
+								pass_verifyCode.src=url;
+							}
+							onclick event =end= ---*/
+
+							/*pass_text_input.onkeyup = function () {
+								if(pass_text_input.value.length===0) {
+									pass_item_error(3).style.display = "none";
+									verifyCode_symbol=0;
+								} else if(pass_text_input.value.length===5){
+									var xhr = new XMLHttpRequest();
+									xhr.open('POST','./verifyJudge.php',true);
+									xhr.onreadystatechange = function () {
+										if(xhr.readyState ===4){
+											var verifyCode = this.responseText;
+											if(pass_text_input.value === verifyCode) {
+												item_right(3);
+												verifyCode_symbol=1;
+											} else {
+												item_error(3);
+												verifyCode_symbol=0;
+											}
+										}
+									}
+									xhr.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+									xhr.send(null);
+
+									return false;
+								} else if(pass_text_input.value.length>5){
+									item_error(3);
+									verifyCode_symbol=0;
+								}
+							}*/
+
+							break;
+
+						case 4:
+							TANGRAM__PSP_4__form.onsubmit = function (){
+								/*提交时提示错误信息*/
+								if(account_symbol!==1) {
+									item_error(0);
+								}
+								
+								if(re_password_symbol!==1) {
+									item_error(2);
+								}
+								
+								if(verifyCode_symbol!==1) {
+									item_error(3);
+								}
+
+
+
+								/*判断各要素是否符合要求,不符直接return false*/
+								if(account_symbol!==1) {
+									console.log('account_symbol');
+									return false;
+								}
+
+								if(passwordLength_symbol!==1) {
+									console.log('passwordLength_symbol');
+									return false;
+								}
+
+								if(passwordSpacing_symbol!==1) {
+									console.log('passwordSpacing_symbol');
+									return false;
+								}
+								
+								if(re_password_symbol!==1) {
+									console.log('re_password_symbol');
+									return false;
+								}
+								
+								if(verifyCode_symbol!==1) {
+									console.log('verifyCode_symbol');
+									return false;
+								}
+								
+								console.log('congratulation');
+
+								
+							}
+
+							break;
+							
+
+						default :
+							//code;
+					}
+				}
+
+				t1(i);
+		document.getElementById('pass-buttom-submit').onclick=function(){
+			/*判断各要素是否符合要求,不符直接return false*/
+			if(account_symbol!==1) {
+				console.log('account_symbol');
+				return false;
+			}
+
+			if(passwordLength_symbol!==1) {
+				console.log('passwordLength_symbol');
+				return false;
+			}
+
+			if(passwordSpacing_symbol!==1) {
+				console.log('passwordSpacing_symbol');
+				return false;
+			}
+			
+			if(re_password_symbol!==1) {
+				console.log('re_password_symbol');
+				return false;
+			}
+			console.log('ok');
+			
+			var user = api.require('user');
+			user.register({
+				username: document.getElementById('reg_content_account').value,
+				password: document.getElementById('reg_content_password').value
+			}, function(ret, err) {
+				if (ret) {
+						alert('ok');
+				}
+				api.closeWin();
+				/*alert(err);
+				alert(ret);*/
+			});
+			
+
+		}
+			}
+		})();
+
+
+	</script>
+		</body>
+</html>

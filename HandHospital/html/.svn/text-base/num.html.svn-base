@@ -1,0 +1,34 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>APP</title>
+		<link rel="stylesheet" type="text/css" href="../css/api.css" />
+		<link rel="stylesheet" type="text/css" href="../css/common.css" />
+		<link rel="stylesheet" type="text/css" href="../css/num.css" />
+	</head>
+	<body>
+		<div id="wrap">
+			<script id="num-template" type="text/x-dot-template">
+				{{ for(var i=0; i<it.length; i++) { }}
+					<section class="content">
+						<div class="left">{{=it[i].depName}}</div><div class="right">{{=it[i].num}}</div>
+					</section>
+				{{ } }}
+			</script>
+			<div id="main">
+				<section class="header_bg">
+					<div class="left">科室名称</div><div class="right">当前号码</div>
+				</section>
+				<section id="content">
+					
+				</section>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../script/api.js"></script>
+	<script type="text/javascript" src="../script/zepto.min.js"></script>
+	<script type="text/javascript" src="../script/doT.min.js"></script>
+	<script type="text/javascript" src="../script/num.js"></script>
+</html>

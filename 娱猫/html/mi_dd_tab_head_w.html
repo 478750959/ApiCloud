@@ -1,0 +1,215 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>我的订单</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/ly.css"/>
+</head>
+<body style="background: #fff;">
+<div id="wrap">
+	<header id='header'>
+         <div class="miHeader">
+        	<a href='javascript:;' class='head_icon back' style='border:none' onclick='close_all()'></a>
+        	<span class='mi_head_txt'>我的订单</span>
+        </div>	
+    	<ul class="dd_nav">
+			<li class="current">全部</li>
+			<li>待付款</li>
+			<li>待发货</li>
+			<li>待收货</li>
+			<li>待评价</li>
+		</ul>
+	</header>
+</div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/font.js"></script>
+<script type="text/javascript" src="../script/comm.js"></script>
+<script type="text/javascript" src="../script/debug.js"></script>
+<script type="text/javascript" src="../script/zepto.js"></script>
+<script type="text/javascript" src="../script/ly.js"></script>
+<script>
+	//关闭所有字集
+	function close_all(){
+		api.closeWin({
+        	name:'mi_dd_suc_f'
+        });
+        api.closeWin({
+        	name:'mi_dd_head_w'
+        });
+        api.closeWin();
+	}
+	//当点击评价成功页面之后立即执行关闭当前的frame组
+	
+	function  open_mygroup(i){	
+	var header = $api.byId('header');
+    $api.fixIos7Bar(header);
+    var width = api.winWidth;
+    var headerPos = $api.offset(header);
+    var height = api.winHeight - headerPos.h;
+    var data = "";
+    var page = "";
+    var info=is_login();
+    var param = {}
+    if(isEmpty(info)){
+    	to_login();
+    	return false;
+    }
+    for (var p in info) {
+			param[p] = info[p];
+		}
+    api.setStatusBarStyle({
+	    style: 'dark'
+	});
+    api.openFrameGroup ({
+		    name: 'xyc_tab',
+		    background:'#fff',
+		    scrollEnabled:false,
+		    rect:{x:0, y:headerPos.h, w:width, h:height},
+		    index:i,
+		    preload:1,
+		    frames:
+		    [{
+		        name: 'mi_dd0_f', 
+		        url: 'mi_dd0_f.html', 
+		        bounces:true,
+		        bgColor: '#fff', 
+		        vScrollBarEnabled:true,
+		        hScrollBarEnabled:false
+		    },{
+		        name: 'mi_dd1_f', 
+		        url: 'mi_dd1_f.html', 				        
+		        bounces:true,
+		        bgColor: '#fff', 
+		        vScrollBarEnabled:true,
+		        hScrollBarEnabled:false
+		    },{
+		        name: 'mi_dd2_f', 
+		        url: 'mi_dd2_f.html', 				      
+		        bounces:true,
+		        bgColor: '#fff', 
+		        reload:true,
+		        vScrollBarEnabled:true,
+		        hScrollBarEnabled:false
+		    },{
+		        name: 'mi_dd3_f', 
+		        url: 'mi_dd3_f.html', 				        
+		        bounces:true,
+		        bgColor: '#fff', 
+		        vScrollBarEnabled:true,
+		        hScrollBarEnabled:false
+		    },{
+		        name: 'mi_dd4_f', 
+		        url: 'mi_dd4_f.html', 				       
+		        bounces:true,
+		        bgColor: '#fff', 
+		        vScrollBarEnabled:true,
+		        hScrollBarEnabled:false
+		    }]
+		}, function(ret, err){
+	});					
+	}
+	$('.dd_nav li').click( function() {
+		var  i = $(this).index();
+		$(this).addClass('current').siblings().removeClass('current');	
+		api.setFrameGroupIndex({
+		    name: 'xyc_tab',
+		    index:i
+		});
+	})	
+apiready = function(){	
+	//安卓手机点击返回按钮返回到的页面是
+	api.addEventListener({
+        name:'keyback'
+    },function(ret,err){
+    	close_all();
+    });   
+	if(api.pageParam.xci == '11') {  //待付款
+//		api.setFrameGroupIndex({
+//		    name: 'xyc_tab',
+//		    index:1
+//		});
+		api.closeFrameGroup({
+		    name: 'xyc_tab'
+		});
+		var	i=1;
+		$(".dd_nav").children().eq(1).addClass("current").siblings().removeClass("current");
+		open_mygroup(i);
+		return false;
+	}
+	if(api.pageParam.xci == '12') {  //待发货 
+//		api.setFrameGroupIndex({  
+//		    name: 'xyc_tab',
+//		    index:2
+//		});
+		api.closeFrameGroup({
+		    name: 'xyc_tab'
+		});
+//		api.sendEvent({
+//	  	  name: 'get_tab'			  
+//		});
+		var i=2;
+		$(".dd_nav").children().eq(2).addClass("current").siblings().removeClass("current");
+		open_mygroup(i);		
+		return false;
+	}
+	if(api.pageParam.xci=='dpj'){  //待评价
+//		api.setFrameGroupIndex({  
+//		    name: 'xyc_tab',
+//		    index:4
+//		});	
+//		if(api.pageParam.from=='dd0'){
+//				api.setFrameGroupIndex({  
+//				    name: 'xyc_tab',
+//				    index:4
+//				});	
+//				$(".dd_nav").children().eq(4).addClass("current").siblings().removeClass("current");
+//				return false;
+//		}
+		api.closeFrameGroup({
+		    name: 'xyc_tab'
+		});
+		var	i=4;		
+		$(".dd_nav").children().eq(4).addClass("current").siblings().removeClass("current");
+		open_mygroup(i);		
+		return false;
+	}
+	//当
+	if(api.pageParam.xci=='dd0'){	//全部
+//		api.setFrameGroupIndex({  
+//		    name: 'xyc_tab',
+//		    index:0
+//		});	
+		api.closeFrameGroup({
+		    name: 'xyc_tab'
+		});
+//		api.sendEvent({
+//	  	  name: 'get_tab'			  
+//		});
+		var i=0;
+		$(".dd_nav").children().eq(0).addClass("current").siblings().removeClass("current");
+		open_mygroup(i);		
+		return false;
+	}	
+	open_mygroup(0);	
+}
+</script>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

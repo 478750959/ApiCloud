@@ -1,0 +1,161 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>设置</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/xyc.css"/>
+    <style>
+    	
+    	.head_icon2{
+    		position:absolute;
+			right:0;
+			top:0;
+			width:0.95rem;
+			height:100%;
+			font-size:0.24rem;
+			color:#ff7f88;
+			text-align:center;
+			line-height:0.98rem;
+    	}
+    </style>
+</head>
+<body>
+<div id="wrap">
+	<header id='header'>
+		<div class="miHeader">
+        	<a class='head_icon back' onclick='xycback()'></a>
+        	<span class='mi_head_txt'>登录</span>
+        	<a class="head_icon2">注册</a>
+        </div>
+        <div class="miHeader loginHeader none">
+        	<a class='head_icon back loginHeader_icon'></a>
+        	<span class='mi_head_txt'>注册</span>
+        </div>
+	</header>
+</div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/font.js"></script>
+<script type="text/javascript" src="../script/zepto.js"></script>
+<script type="text/javascript" src="../script/comm.js"></script>
+<script>
+//点击返回按钮调用index
+//auth:yc, yx
+function xycback() {
+	//判断是用户退出登录后，直接点击返回按钮---应该直接跳转到home页
+	if($api.getStorage("yxoutlogin") == 1) {
+		api.execScript({
+	        name:'root',
+	        script: 'back(1);'
+        });
+	} else {
+		api.closeWin();
+	}
+}
+
+//判断android返回键点击次数 auth:yx
+var clickCount = 1;
+var timePicker ;//计时器--记录点击两次间隔时间 auth:yx
+	apiready = function () {
+		api.addEventListener({
+	        name:'keyback'
+        },function(ret,err){
+        	//coding... auth:yx
+        	clearTimeout(timePicker);
+	    	//coding...
+	    	if(clickCount != 2) {
+	    		api.toast({msg:'再按一次退出系统'}, 'middle');
+	    		clickCount++;
+	    		
+	    		timePicker = setTimeout(function() {
+		    		clickCount = 1;
+		    	}, 1000);
+	    	} else {
+	    		clickCount = 1;
+	    		api.toLauncher();
+	    	}
+        });		
+		var header = $api.byId('header');
+	    $api.fixIos7Bar(header);
+	    var width = api.winWidth;
+	    var headerPos = $api.offset(header);
+	    var height = api.winHeight - headerPos.h;
+	    api.setStatusBarStyle({
+		    style: 'dark'
+		});
+	    api.openFrame({
+		    name: 'login_f',
+		    url: 'login_f.html',
+		    softInputMode:'pan',
+		    bounces: false,
+		    opaque: true,
+		    vScrollBarEnabled: false,
+		    pageParam:{ headerHeight: headerPos.h,tid:"0"},
+		    rect: {
+		        x: 0,
+		        y: headerPos.h,
+		        w: width,
+		        h: height
+		    }
+		});	
+		//点击头部的注册按钮，显示注册页，让登陆页隐藏
+		$('.head_icon2').click(function(){
+			$('.miHeader').toggleClass('none');
+			api.setFrameAttr({
+		        name: 'login_f',
+		        hidden:true
+	        });
+			api.openFrame({
+			    name: 'register_f',
+			    url: 'register_f.html',
+			    softInputMode:'pan',
+			    bounces: false,
+			    opaque: true,
+			    vScrollBarEnabled: false,
+			    rect: {
+			        x: 0,
+			        y: headerPos.h,
+			        w: width,
+			        h: height
+			    }
+			});	
+		})
+		$('.loginHeader_icon').click(function(){
+			$('.miHeader').toggleClass('none');
+			api.setFrameAttr({
+		        name: 'register_f',
+		        hidden:true
+	        });
+	        api.setFrameAttr({
+	            name: 'login_f',
+		        hidden:false
+            });
+		})
+		
+		
+		/*
+		 * 解决：如果在没有登录情况下，来回点击home页面出现闪屏问题 
+		 * 
+		 * 条件判断：是判断是从退出登录过来的  还是直接从主页过来的
+		 * auth:yx
+		 */	
+		if($api.getStorage("yxoutlogin") != 2) {				
+			api.execScript({
+	            name:'root',
+	            script: 'back();'
+            });
+		} else {
+			$api.setStorage("yxoutlogin", 1);
+			//解决：不同用户登录出现问题情况
+	        //auth:yx   
+	        api.execScript({
+		        name:'root',
+		        script: 'xycinit();'
+	        });
+		}	
+	};
+	
+</script>
+</html>

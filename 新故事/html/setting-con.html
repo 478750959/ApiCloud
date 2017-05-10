@@ -1,0 +1,75 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=0, width=device-width"/>
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="format-detection" content="address=no" />
+    <title>api</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../css/common.css" />
+    <link rel="stylesheet" type="text/css" href="../css/setting.css" />
+    <style>
+         #loginTip{
+            text-align: center;
+            margin-top: 20px;
+         }
+         #loginTip a{
+            text-decoration: underline;
+            color: #bfbfbf;
+            font-size: 1em;
+            font-family: '微软雅黑';
+         }
+    </style>
+</head>
+<body>
+    <div id="wrap">
+        <div id="main">
+        
+        	<script id="template" type="text/x-dot-template">
+                <ul class="info shadow">
+	                <li class="nickname">
+	                	{{? it.nickname }}
+	                		<a tapmode="" onclick="modifyNick('{{=it.nickname}}');">
+		                    	昵称<em>{{=it.nickname}}</em>
+		                	</a>
+		                {{??}}
+		                	<a tapmode="" onclick="modifyNick('APICloud');">
+		                    	昵称<em>APICloud</em>
+		                	</a>
+	                	{{?}}
+	                	
+	                </li>
+	                <li class="gender">
+	                	{{? it.gender }}
+	                		<a>
+		                    	性别<em>{{=it.gender}}</em>
+		                	</a>
+	                	{{??}}
+	                		<a>
+		                    	性别<em>男</em>
+		                	</a>
+	                	{{?}}
+	                </li>
+	            </ul>
+            </script>
+            <div id="content"></div>
+            
+            <ul class="more shadow">
+                 <li class="modify"><a tapmode="" onclick="modifyPwd();">修改密码</a></li>
+                 <li class="clear" tapmode="" onclick="clearData();"><a>清理缓存<em>1M</em></a></li>
+                 <li class="update"><a>检测新版本<em>已经是最新版本</em></a></li>
+                 <li class="about" tapmode="" onclick="openAbout();"><a>关于我们</a></li>
+            </ul> 
+            <div id="loginOut">
+                <a class="btn" tapmode="active" onclick='loginOut();'>退出登录</a>
+            </div>
+              
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/doT.min.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript" src="../script/setting-con.js"></script>
+</html>

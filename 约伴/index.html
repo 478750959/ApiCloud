@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="css/ui-img.css">
+    <link rel="stylesheet" href="css/ui-list.css">
+    <link rel="stylesheet" href="css/ui-tab.css">
+    <link rel="stylesheet" href="css/ui-btn.css">
+    <link rel="stylesheet" href="css/ui-base.css">
+    <link rel="stylesheet" href="css/ui-box.css">
+    <link rel="stylesheet" href="css/ui-color.css">
+    <link rel="stylesheet" href="css/ui-res.css">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/y_control.js"></script>
+    <script src="js/y_click.js"></script>
+    <script src="js/y_json.js"></script>
+    <script src="js/y_anim.js"></script>
+    <script src="js/y_tmpl.js"></script>
+    <script src="js/dis_control.js"></script>
+    <script src="js/y_slide.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/socketio/talkUtil.js"></script>
+    <script src="js/module/JPush.js"></script>
+    <script src="js/module/location.js"></script>
+    <script src="js/module/notice.js"></script>
+    <script>
+    </script>
+    <style>
+        input[type="radio"] + div.ip-sta {
+            display: none !important;
+        }
+
+        input[type="radio"]:checked + div.ip-sta {
+            display: block !important;
+        }
+
+        .m-maxh {
+            height: 1.2em;
+        }
+    </style>
+</head>
+<body class="um-vp c-gra5" ontouchstart>
+<div id="page_0" class="up ub ub-ver" tabindex="0">
+    <!--header开始-->
+    <!--论坛-->
+    <input class="uhide" type="radio" name="headers" checked="true" id="iheader1">
+
+    <div id="header1" class="c-blu3 uh ip-sta">
+        <div class="c-m2 t-wh">
+            <!--<div tapmode="" onclick="navigationBarShow();" class=" btn-l b-gra t-bla ub-ac">
+                <div class="ub-img8 im31 morepic uinn3" id="module_icon"></div>
+            </div>-->
+            <h1 class="ut ulev0 ut-s tx-c" id="ttl1">
+                <div class="ub" id="stt">
+                    <div class="ub-f1"></div>
+                    <div ontouchstart="zy_touch('c-gra')" onclick="slderbar('content1',0)" id="checkSt" class="ub ub-pc ub-f1 tx-c t-wh" style="position: relative;">
+                        <div class="t-wh">活动</div>
+                        <div class="ub-img5 rimgs umar-t uhide" id="sharen_activity" style="position:absolute; right:1em;top:0.1em;"></div>
+                    </div>
+                    <div ontouchstart="zy_touch('c-gra')" onclick="slderbar('content1',1)" id="checkSt1" class="ub ub-pc ub-f1 tx-c t-gra4"  style="position: relative;">
+                        <div class="t-wh">攻略</div>
+                        <div class="ub-img5 rimgs umar-t uhide" id="sharen_trend" style="position:absolute; right:1em;top:0.1em;"></div>
+                    </div>
+                    <div class="ub-f1"></div>
+                </div>
+            </h1>
+            <div class="slider_status" id="slider_status">
+                <span id="home_bar"></span>
+            </div>
+            <a class="btn btn-r btn-n ub ub-ac" ontouchstart="zy_touch('btn-act1')" id="btn_right" onclick="btn_right();">
+                <div class="ulim" id="btnr">登录</div>
+            </a>
+        </div>
+        <div style="height:1px;"></div>
+    </div>
+
+    <!--找朋友-->
+    <input class="uhide" type="radio" name="headers" id="iheader2">
+
+    <div id="header2" class="c-blu3 uh ip-sta">
+        <div class="c-m2 t-wh">
+            <h1 class="ut ulev0 ut-s tx-c" tabindex="0">人脉</h1>
+            <a class="btn btn-r btn-img ub ub-ac" ontouchstart="zy_touch('btn-act1')" onclick="friendmenu();">
+                    <div class="ulim"><img src="images/more_icon.png" class="rbtn"></div> 
+            </a>
+        </div>
+    </div>
+
+    <!--消息-->
+    <input class="uhide" type="radio" name="headers" id="iheader3">
+
+    <div id="header3" class="c-blu3 uh ip-sta">
+        <div class="c-m2 t-wh">
+            <h1 class="ut ulev0 ut-s tx-c" tabindex="0">消息</h1>
+            <a class="btn btn-r btn-img ub ub-ac" ontouchstart="zy_touch('btn-act1')" onclick="msgeditmenu();">
+                    <div class="ulim"><img src="images/more_icon.png" class="rbtn"></div> 
+            </a>    
+        </div>
+        <div style="height:1px;"></div>
+    </div>
+
+    <!--更多-->
+    <input class="uhide" type="radio" name="headers" id="iheader4">
+
+    <div id="header4" class="c-blu3 uh ip-sta">
+        <div class="c-m2 t-wh">
+            <h1 class="ut ulev0 ut-s tx-c" tabindex="0">我</h1>
+            <a class="btn btn-r btn-n ub ub-ac" ontouchstart="zy_touch('btn-act1')" onclick="setting();">
+                <div class="ulim">设置</div>
+                <!--<div class="ulim"><img src="images/more_icon.png" class="rbtn"></div>-->
+            </a>
+        </div>
+        <div style="height:1px;"></div>
+    </div>
+    <!--header结束-->
+
+    <!--content开始-->
+    <input class="uhide" type="radio" name="contents" checked="true" id="icontent1">
+
+    <div id="content1" class="ub-f1 tx-l t-bla ip-sta"></div>
+
+    <input class="uhide" type="radio" name="contents" id="icontent2">
+
+    <div id="content2" class="ub-f1 tx-l t-bla ip-sta"></div>
+
+    <input class="uhide" type="radio" name="contents" id="icontent3">
+
+    <div id="content3" class="ub-f1 tx-l t-bla ip-sta"></div>
+
+    <input class="uhide" type="radio" name="contents" id="icontent4">
+
+    <div id="content4" class="ub-f1 tx-l t-bla ip-sta"></div>
+
+    <!--content结束-->
+
+    <!--footer开始-->
+    <div id="footer" class="uf c-m2 t-wh ubt b-gra">
+        <div class="ub c-wh c-m2 tab t-gra us" ontouchstart="zy_cc(this);">
+            <input class="uhide" type="radio" name="tabSwitch" id="ft1" checked="true">
+            <div ontouchstart="zy_touch('fos')" onclick="navSelected(1);" class="ub-f1 ub ub-ver tab-act">
+                <div class="ub-f1 ub-img5 umar-t tp-portal" style="position:relative;">
+                    <div class="ub-img5 rimg umar-t uhide" id="sharen" style="position:absolute; right:1em;top:0.1em;">
+                        <span id="sharetxt"></span>
+                    </div>
+                </div>
+                <div class="uinn3 ulev-4 tx-c">约伴</div>
+            </div>
+
+            <input class="uhide" type="radio" name="tabSwitch" id="ft2">
+            <div ontouchstart="zy_touch('fos')" onclick="navSelected(2);" class="ub-f1 ub ub-ver tab-act">
+                <div class="ub-f1 ub-img5 umar-t tp-fans"  style="position:relative;">
+                    <div class="ub-img5 rimg umar-t uhide" id="plugin_rn" style="position:absolute; right:1em;top:0.1em;">
+                    </div>
+                </div>
+                <div class="uinn3 ulev-4 tx-c">人脉</div>
+            </div>
+
+            <input class="uhide" type="radio" name="tabSwitch" id="ft3">
+            <div ontouchstart="zy_touch('fos')" onclick="navSelected(3);" class="ub-f1 ub ub-ver tab-act">
+                <div class="ub-f1 ub-img5 umar-t tp-forum" style="position:relative;">
+                    <div class="ub-img5 rimg umar-t uhide" id="msgn" style="position:absolute; right:1em;top:0.1em;">
+                    </div>
+                </div>
+                <div class="uinn3 ulev-4 tx-c">消息</div>
+            </div>
+
+            <input class="uhide" type="radio" name="tabSwitch" id="ft4">
+            <div ontouchstart="zy_touch('fos')" onclick="navSelected(4);" class="ub-f1 ub ub-ver tab-act">
+                <div class="ub-f1 ub-img5 umar-t tp-more"></div>
+                <div class="uinn3 ulev-4 tx-c">我</div>
+            </div>
+        </div>
+    </div>
+    <!--footer结束-->
+</div>
+</body>
+<script>
+zy_init();
+isSML = 0;
+if (window.navigator.platform == 'Win32') {
+    isSML = 1;
+    setstorage('simulate', '1');
+}
+else setstorage('simulate', '');
+var pages = {curid: 1, preid: 1};
+var uid = '';
+var uid1st = '';
+var loginObj = {};
+var username = '';
+pages[1] = {ld: 0, x: 0};
+pages[2] = {ld: 0, x: 0};
+window.uexOnload = function (type) {
+    indexOnload();
+    if (!type) {
+        var osH = $$("header1").offsetHeight;
+        var idc = "content1";//forum_listct
+        if (isSML) zy_con(idc, "main_forum.html", 0, osH);
+        else {
+            var frames = [
+                {
+                    name: 'content1',//main_forum
+                    url: './main_forum.html',
+                    pageParam: {index: 0},
+                },
+                {
+                    name: 'forum_listct',
+                    url: './forum_listct_content.html',
+                    pageParam: {index: 1}
+                }
+            ]
+            Y.conFrameGroup(idc, 0, osH, frames, 'slderbarCallback');
+
+            //初始化游标
+            var width_checkSt = parseInt(window.getComputedStyle($$("checkSt"),null).width);//菜单宽度
+            var width_bar = parseInt(window.getComputedStyle($$("home_bar"),null).width);//游标宽度
+            $$('slider_status').style.left = int(0.5 * (int(window.innerWidth) - width_checkSt - width_bar)) + "px";
+            var paddingTop = $$('header1').style.paddingTop;
+            $$('slider_status').style.top=(int(osH) - 10 - paddingTop)+"px";//fixIos7Bar导致的偏移
+        }
+
+        pages[1].ld = 1;
+    }
+    window.onorientationchange = window.onresize = function () {
+        var i = pages.curid;
+        var idh = 'header' + i;
+        var idc = 'content' + i;
+        var osH = $$(idh).offsetHeight;
+        zy_resize(idc, 0, osH);
+    };
+
+    if (!isSML) {
+        uexWindow.onKeyPressed = function (keyCode) {
+            if (keyCode == '0') {
+                finishConfirm();
+            }
+        };
+        uexWindow.setReportKey('0', '1');
+    }
+
+    if (uid) {
+        initPush(uid);
+        setTimeout(function () {//让app关闭状态下的推送先处理
+            menuNotice('all', 0);
+        }, 600);
+    }
+
+    var an = getstorage('appname');
+    //if(an) setHtml('ttl1', an);
+    setTimeout('clearTemp();', 1000);
+};
+/** 只显示两页时，如果多页，需要对index*width进行处理
+ * @param id    ：home_bar 横线标记的id
+ * @param num   ：0 or 100
+ * @param barId : 第一个bar的id，checkSt
+ */
+function slderbarCallback(index) {
+    var id = 'home_bar';
+    var barId = 'checkSt';
+    var width=parseInt(window.getComputedStyle($$(barId),null).width);
+    if(index == 0){
+        zy_anim_pop('checkSt', 't-wh');
+        zy_anim_push('checkSt', 't-gra4');
+        zy_anim_pop('checkSt1', 't-gra4');
+        zy_anim_push('checkSt1', 't-wh');
+        ueppscript('root', 'content1', 'uexOnload();');
+    }else{
+        zy_anim_pop('checkSt', 't-gra4');
+        zy_anim_push('checkSt', 't-wh');
+        zy_anim_pop('checkSt1', 't-wh');
+        zy_anim_push('checkSt1', 't-gra4');
+        ueppscript('root', 'forum_listct', 'uexOnload();');//增加了frameLoaded=0;只有滑动时才加载攻略
+    }
+    var css = "-webkit-transform:translate(" + index * width + "px,0)";
+    $$(id).style.cssText += ';' + css
+}
+/**
+ * 活动、攻略点击时切换
+ */
+function slderbar(groupName,index) {
+    Y.setFrameGroupIndex({
+        name:groupName,
+        index:index,
+        scroll:true
+    });
+}
+function finishConfirm() {
+    uexWindow.cbConfirm = function (opId, dataType, data) {
+        if (int(data) == 0) {
+            setTimeout(function(){uexWidget.finishWidget('');}, 500);
+        }
+    };
+    var mycars = ['确定', '取消'];
+    uexWindow.confirm('确认退出', '你确定要退出约伴？', mycars);
+    return 0;
+}
+
+function radioSelect(id) {
+    var ret = 0;
+    var e = $$(id);
+    if (e && !e.checked) {
+        e.checked = true;
+        ret = 1;
+    }
+    return ret;
+}
+
+/**
+ * 打开tab页，若果该tab未初始化则刷新，否则直接显示，在调用地方需要强制刷新该tab才会更新最新数据。
+ */
+function navSelected(i) {
+    logs('navSelected()-->i=' + i + ', preid=' + pages.preid + ', curid=' + pages.curid);
+    if (pages.curid == i)  return;
+    if (!pages[i]) pages[i] = {ld: 0, x: 0};
+    if (i != 1 && !checkLogin() || pages.curid == i) return;
+
+    pages.preid = pages.curid;
+    pages.curid = i;
+
+    var idih = 'iheader' + i;
+    var idic = 'icontent' + i;
+    var idft = 'ft' + i;
+    radioSelect(idih);
+    radioSelect(idic);
+    radioSelect(idft);
+
+    var idc = 'content' + i;
+    var idh = 'header' + i;
+    var osH = $$(idh).offsetHeight;
+
+    if (/*1||*/!pages[i].y) {//todo
+        var s = window.getComputedStyle($$(idc), null);
+        pages[i].y = osH;
+        pages[i].width = int(s.width);
+        pages[i].height = int(s.height);
+    }
+
+    if (/*1||*/!pages[i].ld) {//todo
+        pages[i].ld = 1;
+        var url = ['', 'main_forum.html', 'main_friend.html', 'main_msg.html', 'main_more.html'];
+        setstorage('params', '{"view":"me"}');
+        zy_con(idc, url[i], 0, osH);
+        //缓存页面已经打开的标记
+        var openedPages = getstorage('openedPages') || '';//取出原有的
+        openedPages += '_' + i;
+        setstorage('openedPages', openedPages)
+    }else {
+        if (i == 1 && !int(isSML)) api.setFrameGroupAttr({name: 'content1', hidden: false});
+        else uexWindow.setPopoverFrame(idc, 0, pages[i].y, pages[i].width, pages[i].height);
+        /*if(getstorage(ppn)) ueppscript('root', idc, 'updateLists();');*/
+    }
+    var pervc = 'content' + pages.preid;
+    logs('navSelected2-->idc=' + idc + ', y=' + pages[i].y + ', w=' + pages[i].width + ', h=' + pages[i].height + ', pervc=' + pervc);
+    if (pages.preid == 1 && !int(isSML)) api.setFrameGroupAttr({name: 'content1', hidden: true});
+    else uexWindow.setPopoverFrame(pervc, 0, 0, 0, 0);
+}
+function loginsuccess(oldUser) {
+    if (!oldUser){
+        openwin("tag_batch", "tag_batch.html", 10);
+        upload_contact_file('', 1);//不显示，check是否上传过
+    }
+    uid = getstorage('UID');
+    obj = getStorJson('loginObj');
+    username = obj[uid].uname;
+    if (!uid1st) uid1st = uid;
+    setHtml('btnr', '<img src="images/sbtn.png" class="sbtn" />');
+    zy_anim_pop('btn_right', 'btn-n');
+    zy_anim_push('btn_right', 'btn-img');
+    saveUserLocaton();//避免用户不移动，切换帐号时没有位置信息
+    //reminder_check();
+    menuNotice('all', 0);
+    ueppscript('root', 'content1', 'uid=\'' + uid + '\';updateLists();');//登录后更新首页活动
+    ueppscript('root', 'forum_listct', 'uid=\'' + uid + '\';loadList(\'\', \'0\', \'\');');//更新攻略
+    //todo,更新所有其他页面，这样可以在更改登录用户时刷新
+    //uexWidget.setPushInfo(uid, username);
+    initPush(uid);
+    update_role_module();
+
+    //保存新版本,下次打开时判断是否是新安装的。如果是新安装则清除缓存，避免图片打不开
+    var new_appVersion = Y.appVersion();
+    setstorage('appversion', new_appVersion);
+}
+function update_role_module() {
+    if(pages[2].ld == 1)   ueppscript('root', 'content2', 'updateRolemodule()');
+}
+function logoutSuccess() {
+    logs('logoutSuccess()---->');
+    setHtml('btnr', '登录');
+    zy_anim_pop('btn_right', 'btn-img');
+    zy_anim_push('btn_right', 'btn-n');
+    //var ret = radioSelect('menu1');
+    /*if(ret)*/
+    //刷新首页的列表及小红点
+    ueppscript('root', 'content1', 'updateLists();uid=\'\';');
+    ueppscript('root', 'forum_listct', 'loadList(\'\', \'0\', \'\');uid=\'\';');
+    //
+    setstorage('sn_activity', 0);
+    setstorage('sn_trend', 0);
+    setstorage('sn', 0);
+    setstorage('pm', 0);
+    setstorage('rn', 0);
+    setstorage('p_rn', 0);
+    zy_anim_push('sharen', 'uhide');
+    zy_anim_push('msgn', 'uhide');
+    zy_anim_push('plugin_rn', 'uhide');
+    setstorage('plugin_reminder', '');
+    navSelected(1);//回到首页
+    //解除推送组绑定
+    /*Y.pushLeaveGroup({
+        groupName: 'uid_' + uid
+    });*/
+
+    //////////////////
+    setstorage('pushBindGroup', '');//前面其实已经清楚缓存了
+    uid = '';
+    //if(timid) clearTimeout(timid);
+}
+
+/*清理缓存*/
+function clearTemp() {
+    var d = new Date();
+    var ms = d.getTime();
+    var myms = getstorage('myTime');
+    var clearTemp2 = function(){//清楚内容缓存
+        var lsg = window.localStorage;
+        var url1 = forum_url + "&mod=ajax";//清除多个帖子
+        var url2 = home_url + "&mod=space";//清楚多个用户空间
+        for (var k in lsg) {
+            if (k.indexOf(url1) == 0 || k.indexOf(url2) == 0) {
+                lsg.removeItem(k);
+            }
+        }
+    }
+    if (myms) {
+        myms = parseInt(myms);
+        var cz = (ms - myms) / (1000 * 60 * 60 * 24);
+        cz = parseInt(cz);
+        if (cz > 7) {
+            setstorage('myTime', ms);
+            var url = getstorage('ucurl');
+            var lsg = window.localStorage;
+            /*清理头像缓存*/
+            for (var k in lsg) {
+                if (k.indexOf(url) == 0) lsg.removeItem(k);
+            }
+            //清理内容缓存
+            clearTemp2();
+        }
+    }
+    else setstorage('myTime', ms);
+}
+
+var indexOnload = function () {
+    var get_usr_setting = function() {
+        var url = home_url + "&mod=misc&ac=user_setting";
+        $.getJSON(url, function (json) {
+            if (json) {
+                //logs("get_usr_setting-->json=" + JSON.stringify(json));
+                //var ostr = getstorage('usetting');
+                //var obj = getStorJson('usetting');
+                if (parseInt(json.status) < 0) return;
+
+                //var pt1 = getstorage('portal');
+                //var pt2 = json.portalstatus;
+                var data = JSON.stringify(json);
+                setstorage('usetting', data);
+                //setstorage('portal', pt2);
+                setstorage('ucurl', json.ucurl + "/avatar.php?&size=middle&uid=");
+                setstorage('signstatus', json.signstatus);
+
+                //if(!ostr) setTimeout(function(){ueppscript('root', 'content1', "addflip('', 'main_forum');");}, 500);
+                //if (pt1 != pt2 && pt2 == '0') uescript('root', "removeNode('pt')");
+            }
+        });
+    }
+
+    var getInfor = function() {
+        var an = getstorage('appname');
+        if (!an) {
+            setstorage('appname', appname);
+            setstorage('appid', appId);
+        }
+        //如果是新的app版本安装，就清楚原来的缓存
+        if(!isSML){
+            var new_appVersion = Y.appVersion();
+            var old_appVersion = getstorage('appversion');
+            //console.log(new_appVersion + ', ' + old_appVersion);
+            if(new_appVersion != old_appVersion){
+                cleanCache();//清除缓存
+                setstorage('appversion', new_appVersion);//保存新版本
+                return;
+            }
+        }
+        uid = getstorage('UID');
+        uid1st = uid;
+        if (uid) {
+            loginObj = getStorJson('loginObj');
+            username = loginObj[uid]['uname'];
+            setHtml('btnr', '<img src="images/sbtn.png" class="sbtn" />');
+            zy_anim_pop('btn_right', 'btn-n');
+            zy_anim_push('btn_right', 'btn-img');
+        }
+    }
+
+    var getAvatar = function() {
+        var url = home_url + "&mod=spacecp&ac=avatar";
+        $.getJSON(url, function (json) {
+            if (json && json.uc) setstorage('uc', json.uc);
+        }, 'json', null, 'POST', '', '1', '1');
+    }
+
+    getInfor();
+    get_usr_setting();
+    getAvatar();
+    setstorage('closead', '');
+    setstorage('fscreen', '');
+    setstorage('rn', 0);
+    setstorage('sn', 0);
+    setstorage('sn_activity', 0);
+    setstorage('sn_trend', 0);
+    setstorage('p_rn', 0);//插件提醒
+    setTimeout('clearTemp();', 1000);
+    setTimeout('getlocation();', 5000);//时间太短可能与引擎初始化时的加载相冲突
+    save_contact(false, '');
+};
+
+/**
+ * 根据是否登录确定是发布还是登录菜单
+ */
+function btn_right() {
+    var e = $$('btnr');
+    if (e.innerText == '登录') {
+        openwin('login', 'login.html', '12');
+    }
+    else {
+        //setstorage('params','{"type":"thread", "wname":"root"}');
+        editmenu();
+    }
+}
+/**
+ * 发布菜单
+ */
+function editmenu() {
+    //var array = ['发' + forums.interest.name, '发' + forums.trend.name];
+    var fid = forums.interest.fid, fname = forums.interest.long_name;
+    /*uexWindow.cbActionSheet = function (opId, dataType, data) {
+        if (data != "0" && data != "1") return;
+        if (data == "0") {
+            fid = forums.interest.fid;
+            fname = forums.interest.long_name;
+        }
+        if (data == "1") {
+            fid = forums.trend.fid;
+            fname = forums.trend.long_name;
+        }
+        if(!check_post_verify(fid)){
+            return;
+        }
+        setstorage('params', '{"wname":"root", "popname":"content1", "fid" : "' + fid + '", "title" : "' + fname + '"}');
+        openwin('editor', 'editor.html', '10');
+    }
+    uexWindow.actionSheet('', '取消', array);*/
+    if(!check_post_verify(fid)){
+        return;
+    }
+    setstorage('params', '{"wname":"root", "popname":"content1", "fid" : "' + fid + '", "title" : "' + fname + '"}');
+    openwin('editor', 'editor.html', '10');
+}
+//验证单位后再发布
+function check_post_verify(fid){
+    var usetting = getStorJson('usetting');
+    var module = get_module(fid);
+    var need_verify = force_int(usetting[module + '_post_verify']);//发布是否需要验证
+    var company_verified = force_int(usetting['company_verified']);
+    if(!company_verified){//如果没有验证，用户验证后，能再次点击时生效，否则要重启app才能读取usetting
+        var url = home_url + "&mod=misc&ac=company_verified";
+        $.getJSON(url, function (json) {
+            if (json && int(json.status)) company_verified = 1;
+        });
+    }
+    if(!need_verify || company_verified) return true;
+    uexWindow.toast('0', '5', '验证单位邮箱后，才能继续发布！', '2500');
+    setTimeout(function(){
+        openwin('company_verify', 'company_verify.html', '10');
+    }, 2500);
+    return false;
+}
+/**
+ * 消息菜单（可设置清空消息列表）
+*/
+function msgeditmenu() {
+    var array_op = ['清空消息列表'];
+    // var currentRoomId = getstorage('currentRoomId');//"talk_1-557598" or "talk_1111
+    // var uid=getstorage('UID');
+	uexWindow.actionSheet('', '取消', array_op);
+    uexWindow.cbActionSheet = function (opId, dataType, data) {
+        if (data != "0") return;
+        if (data == "0") {
+			//点击了“清空消息列表”菜单触发的动作。
+			ueppscript('root', 'content3', 'clearChatList()');//清空消息列表
+        }
+    }
+}
+/**
+ * 人脉菜单
+*/
+function friendmenu() {
+    var searchfriend = function() {
+        openwin('friend_search', 'friend_search.html', '10');
+    }
+
+    var array_op = ['查找用户','二维码加好友'];
+	uexWindow.actionSheet('', '取消', array_op);
+    uexWindow.cbActionSheet = function (opId, dataType, data) {
+        if (data == "0") {
+			//点击了“用户查询”菜单触发的动作。
+			searchfriend();
+        }
+        if (data == "1") {
+			//点击了“二维码加好友”菜单触发的动作。
+			readQR();
+        }
+    }
+}
+/**
+ * 扫码
+ */
+function readQR(){
+    //uexWindow.toast('0','5','支持扫码加好友哦！','1000');
+	var obj_qr = api.require('scanner');
+	obj_qr.open(function(ret,err) {
+        var msg=ret.msg;//扫码结果
+        //说明：扫码结果千奇百怪，对于我们自己的二维码编码规范：yueban@uid@1
+        if(msg.indexOf("yueban")==0){
+           var msg_arr=msg.split("@");
+           var biz=msg_arr[1];
+           var uid=msg_arr[2];
+            if(biz=="uid"){
+                //直接跳转至该用户详情页面。，未来可以打开具体的活动详情
+                var username="TA的信息";
+                setstorage('params','{"uid":"'+uid+'", "username":"'+username+'", "isfriend":""}');
+                openwin('friend_information','friend_information.html','10');
+            }else{
+                api.alert({
+                    title: '扫描结果',
+                    msg: msg
+                });
+            }
+        }else{
+            //其他情况直接打开页面.
+            if(msg.indexOf("http")==0){
+                api.openWin({
+                    name: 'qrpage',
+                    url: msg,
+                    pageParam: {name: ''}
+                });
+            }else{
+                api.alert({
+                    title: '扫描结果',
+                    msg: msg
+                });
+            }
+        }
+	});
+}
+/**
+ * 我-设置菜单
+ */
+function setting() {
+    openwin('setting','setting.html','10');
+}
+</script>
+</html>

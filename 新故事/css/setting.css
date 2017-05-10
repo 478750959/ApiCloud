@@ -1,0 +1,47 @@
+#main{
+    padding-top: 20px; font-size: 14px; color: #4c4c4c;
+}
+#main .info, #main .more{
+    margin-bottom: 20px; background-color: #fff;
+}
+#main ul li{
+    padding: 0 10px; background: url(../image/arr-r.png) no-repeat 97% center;
+    -webkit-background-size: 10px 14px;
+    background-size: 10px 14px;
+}
+#main ul li a{
+    display: block; padding: 10px 0; border-bottom: 1px solid #d9d9d9;
+    overflow: hidden; padding-left: 24px;
+    background-position: left center;
+    background-repeat: no-repeat;
+    -webkit-background-size: 18px;
+    background-size: 18px;
+}
+#main li.nickname a{
+    background-image: url(../image/user.png);
+}
+#main li.gender a{
+    background-image: url(../image/gender.png);
+}
+#main li.modify a{
+    background-image: url(../image/password.png);
+}
+#main li.clear a{
+    background-image: url(../image/clear.png);
+}
+#main li.update a{
+    background-image: url(../image/update.png);
+}
+#main li.about a{
+    background-image: url(../image/user.png);
+}
+
+#main ul li a em{
+    color: #55abce; float: right; margin-right: 20px;
+}
+#main li.update em{
+    color: #ccc;
+}
+#main .info li:last-child a, #main .more li:last-child a{
+    border-bottom: none;
+}

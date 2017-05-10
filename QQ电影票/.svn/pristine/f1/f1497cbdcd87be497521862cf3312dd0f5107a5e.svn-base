@@ -1,0 +1,248 @@
+html,body{height: 100%}
+#wrap{
+    height: 100%;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-flex-flow: column;
+           flex-flow: column;
+}
+#header{
+	/*background: url(../res/drawable-xhdpi/title_bar_bg.9.png) left top repeat-x;*/
+    text-align: center; background-color: #222222; color: #D4A82A;
+    background-size: 9px 48px;
+    width: 100%;
+    height: 48px;
+    position: relative;
+}
+#header h1{
+    font-size: 20px; height: 44px; line-height: 44px; margin: 0em; color: #fff;
+}
+
+#main{
+    -webkit-box-flex: 1; 
+    -webkit-flex: 1;
+    flex: 1;
+    padding: 1em;
+}
+#footer{
+    height: 44px; line-height: 44px;
+    background-color: #3C3C3C; 
+    width: 100%;
+    text-align: center;
+}
+#footer h5{
+    color: white;
+}
+.con{font-size: 28px; text-align: center;}
+
+
+/* main页面样式  */
+#headerBanner{
+	background: url(../res/drawable-xhdpi/bg_nav_sub_on.9.png) left top repeat-x;
+	text-align: center; background-color: #3C3C3C; 
+	background-size: 4px 48px;
+    width: 100%;
+    height: 48px;
+    position: relative;
+}
+#headerBanner .banner{
+	float: left;
+	position: relative;
+	z-index: 2;
+	width: 25%;
+	height: 48px;
+	line-height: 48px;
+	color: #FFF;
+}
+#headerBanner .banner.active{
+	color: #D4A82A;
+	background: url(../res/drawable-xhdpi/bg_nav_on.png) left top repeat-x;
+	background-size: 20px 48px;
+}
+#headerBanner .banner_split{
+	width: 1px;
+	height: 30px;
+	background: #636363;
+	position: absolute;
+	z-index: 3;
+	top: 10px;
+}
+#headerBanner .banner_split.bs1{
+	left: 25%;
+}
+#headerBanner .banner_split.bs2{
+	left: 50%;
+}
+#headerBanner .banner_split.bs3{
+	left: 75%;
+}
+	/*选择城市按钮*/
+#chooseCityBtn{
+	position:absolute;
+	left: 0;
+	top: bottom;
+	width: 143px;
+	height: 48px;
+	background:#222222 url(../res/drawable-xhdpi/citychoose_nor.9.png) center center no-repeat;
+	background-size: 100% 100%;
+}
+#chooseCityBtn:active{
+	background:#222222 url(../res/drawable-xhdpi/citychoose_press.9.png) center center no-repeat;
+	background-size: 100% 100%;
+}
+#chooseCityBtn .chooseCityImg{
+	display: inline-block;
+	border: none;
+	outline: none;
+	width: 32px;
+	height: 32px;
+	float: left;
+	margin-left: 22px;
+	margin-top: 7px;
+	
+}
+#chooseCityBtn .chooseCitySpan{
+	color: #D4A82A;
+	line-height: 48px;
+}
+
+    /*选择展示样式按钮*/
+#chooseStyleBtn{
+    position:absolute;
+    right: 0;
+    bottom: 0;
+    height: 48px;
+    width: 48px;
+}
+#chooseStyleBtn.list{
+    background:#222222 url(../res/drawable-xhdpi/ico_list.png);
+    background-size: 100% 100%;
+}
+#chooseStyleBtn.list:active{
+    background:#222222 url(../res/drawable-xhdpi/ico_list_orange.png);
+    background-size: 100% 100%;
+}
+#chooseStyleBtn.show{
+    background:#222222 url(../res/drawable-xhdpi/ico_show.png);
+    background-size: 100% 100%;
+}
+#chooseStyleBtn.show:active{
+    background:#222222 url(../res/drawable-xhdpi/ico_show_orange.png);
+    background-size: 100% 100%;ico_cinema_map
+}
+#chooseStyleBtn.cinema_map{
+    background:#222222 url(../res/drawable-xhdpi/ico_cinema_map.png);
+    background-size: 100% 100%;
+}
+#chooseStyleBtn.cinema_map:active{
+    background:#222222 url(../res/drawable-xhdpi/ico_cinema_map_orange.png);
+    background-size: 100% 100%;
+}
+#chooseStyleBtn.cinema_list{
+    background:#222222 url(../res/drawable-xhdpi/ico_cinema_list.png);
+    background-size: 100% 100%;
+}
+#chooseStyleBtn.cinema_list:active{
+    background:#222222 url(../res/drawable-xhdpi/ico_cinema_list_orange.png);
+    background-size: 100% 100%;
+}
+/*#chooseStyleBtn .chooseStyleImg{
+    display: block;
+    border: none;
+    outline: none;
+    height: 100%;   
+}*/
+/*#chooseStyleBtn:active .chooseStyleImg{
+    display: block;
+    border: none;
+    outline: none;
+    height: 100%;   
+}*/
+/* main页面end */
+/* 城市列表  */
+#chooseCityBackBtn{
+	position:absolute;
+	left: 0;
+	bottom: 0;
+	width: 143px;
+	height: 48px;
+	background:#222222 url(../res/drawable-xhdpi/arrow_left_yellow.png) 8px center no-repeat;
+	background-size: 7px 14px;
+}
+#chooseCityBackBtn .chooseCityImg{
+	display: inline-block;
+	border: none;
+	outline: none;
+	width: 32px;
+	height: 32px;
+	float: left;
+	margin-left: 22px;
+	margin-top: 7px;
+	
+}
+#chooseCityBackBtn .chooseCityBackSpan{
+	color: #D4A82A;
+	line-height: 48px;
+}
+
+	/* 城市快速入口列表  */
+#fastCityList{
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 4;
+	display: none;
+	width: 152px;
+	height: auto;
+}
+#fastCityList.active{
+	display: block;
+}
+#fastCityList .cityList_city{
+	width: 152px;
+	height:48px;
+	color: #FFF;
+	background:#222222 url(../res/drawable-xhdpi/title_bar_bg.9.png) center center repeat-x;
+	background-size: 19px 48px;
+	line-height: 48px;
+}
+#fastCityList .cityList_city:active{
+	background:#222222 url(../res/drawable-xhdpi/title_bar_bg_press.9.png) center center repeat-x;
+	background-size: 19px 48px;
+	color: #F4B800;
+}
+#fastCityList .cityList_city.GPS{
+	color: #F4B800;
+	line-height: normal;
+}
+#fastCityList .cityList_city.GPS .scr{
+	color: #6F6F6F;
+	display: block;
+	line-height: normal;
+    font-size: .8em;
+}
+#fastCityList .cityList_city.GPS #gpsCity{
+    color: #F4B800;
+    padding-top: 10px;
+}
+#fastCityList .cityList_city.toCity_list{
+
+}
+/* 城市列表end */
+
+
+/*common*/
+.pull-left{
+    float: left;
+}
+.pull-right{
+    float: right;
+}
+
+.cus_act_li:active{
+    background-color: #2D2D2D !important;
+}
+
+

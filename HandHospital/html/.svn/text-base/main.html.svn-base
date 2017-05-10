@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>APP</title>
+		<link rel="stylesheet" type="text/css" href="../css/api.css" />
+		<link rel="stylesheet" type="text/css" href="../css/common.css" />
+		<link rel="stylesheet" type="text/css" href="../css/main.css" />
+	</head>
+	<body>
+		<div id="wrap">
+			<div id="header">
+				<a tapmode="" class="left" onclick="closeMain()"></a>
+				<h1 id="headerText">掌上医院</h1>
+				<a tapmode="" class="right" onclick="openInfo()"></a>
+			</div>
+			<div id="main">
+
+			</div>
+			<div id="footer">
+	            <ul>
+	                <li class="active" id="healthy"><a class="healthy" tapmode="active" onclick="openTab('healthy')">健康档案</a></li>
+	                <li id="order"><a class="order" tapmode="active" onclick="openTab('order')">快速预约</a></li>
+	                <li id="callnum"><a class="callnum" tapmode="active" onclick="openTab('callnum')">排队叫号</a></li>
+	                <li id="report"><a class="report" tapmode="active" onclick="openTab('report')">取报告单</a></li>
+	                <li id="more">
+	                	<a class="more" tapmode="active" onclick="openTab('more')">更多</a>
+	                </li>
+	            </ul>
+        	</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../script/api.js"></script>
+	<script type="text/javascript" src="../script/doT.min.js"></script>
+	<script type="text/javascript" src="../script/swipe.js"></script>
+	<script type="text/javascript" src="../script/main.js"></script>
+</html>

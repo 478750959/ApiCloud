@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+  <head>
+    <title>
+    </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="css/ui-on.css">
+    <link rel="stylesheet" href="css/ui-img.css">
+    <link rel="stylesheet" href="css/ui-res.css">
+    <link rel="stylesheet" href="css/ui-list.css">
+    <link rel="stylesheet" href="css/ui-base.css">
+    <link rel="stylesheet" href="css/ui-box.css">
+    <link rel="stylesheet" href="css/ui-color.css">
+	<link rel="stylesheet" href="css/style.css">
+    <script src="js/y_control.js"></script>
+    <script src="js/y_click.js"></script>
+	<script src="js/dis_control.js"></script>
+	<script src="js/y_json.js"></script>
+	<script src="js/y_tmpl.js"></script>
+	<script src="js/config.js"></script>
+    <script>
+	</script>
+  </head>
+<body class="um-vp" ontouchstart>
+	<div class="" id="page1">
+		<div class="b-gra uc-n" id="all">
+			<div></div>
+	  	</div>
+	</div>
+	
+	<div class="uhide" id="page2">
+		<div class="b-gra uc-n" id="thread">
+			<div></div>
+		</div>
+	</div>
+	
+	<div class="uhide" id="page3">
+		<div class="b-gra uc-n" id="blog">
+			<div></div>
+		</div>
+	</div>
+	
+	<div class="uhide" id="page4">
+		<div class="b-gra uc-n" id="album">
+			<div></div>
+		</div>
+	</div>
+	<div class="uhide" id="page5">
+		<div class="b-gra uc-n" id="article">
+			<div></div>
+		</div>
+	</div>
+	
+</body>
+<script>
+zy_init();
+var pages =  {curid:'page1', updr:'0'};
+pages['page1'] = {curpage:1, totpage:1, ld:0, view:'all'};
+pages['page2'] = {curpage:1, totpage:1, ld:0, view:'thread'};
+pages['page3'] = {curpage:1, totpage:1, ld:0, view:'blog'};
+pages['page4'] = {curpage:1, totpage:1, ld:0, view:'album'};
+pages['page5'] = {curpage:1, totpage:1, ld:0, view:'article'};
+var uid = getstorage('UID');
+
+window.uexOnload = function ()
+{
+	setPageBounce(downcb, upcb);
+	loadList('', 'all', '1');
+}
+function downcb(){
+	var o = pages[pages.curid];
+	pages.updr = '0';
+	loadList('', o.view, '');
+}
+function upcb(){
+	var o = pages[pages.curid];
+	if (o.curpage < o.totpage) {
+		pages.updr = '1';
+		loadList(o.curpage + 1, o.view, '');
+	}
+	else resetBV('1');
+}
+
+function loadList(pn, tp, fg){
+	var uid = getstorage('UID');
+	var url =  home_url+"&mod=space&do=favorite&type="+tp+ "&page="+pn+'&uid='+uid;
+	logs('loadList()-->url='+url);
+	if(!checkKey(url)) uexWindow.toast('1','5','加载中...',"");
+	var f = pn?'':'1';
+	$.getJSON(url, loadListCb, 'json', getJsonErr, 'POST', '', fg, f);
+}
+function loadListCb(json){
+	uexWindow.closeToast();
+	resetBV(pages.updr);
+	
+	if(json){
+		if (Int(json.status)<1) {
+			uexWindow.toast('0','5',json.message,2000);
+			return;
+		}
+		
+		var list = json.list;
+		var length = zy_tmpl_count(list);		
+		var res = '';
+		var o = pages[pages.curid];
+		if (length > 0) {
+			var tmpl = '${cb:idtype}';
+			res = zy_tmpl(tmpl,list,zy_tmpl_count(list),j2vCb);
+			
+			o.curpage = Int(json.zywy_curpage);
+			o.totpage = Int(json.zywy_totalpage);
+			
+			if(res) o.ld = 1;
+		}
+		else{
+			res = '<div class="tx-c"><div class="umh1"></div><div>暂无收藏</div></div>';
+		}
+		
+		var cContent = $$(o.view);
+		if(o.curpage==1)
+       	{
+       		while(cContent.childElementCount>1)
+       		{
+       			cContent.removeChild(cContent.firstElementChild);
+       		}
+       	}
+		
+		var node = document.createElement("ul");
+		node.innerHTML = res;
+		cContent.insertBefore(node,cContent.lastElementChild);
+	}
+}
+function j2vCb(d,c)
+{
+	var str = '';
+	 if(c.length>1)
+	 {
+		switch(c[1])
+		{
+			case 'idtype':
+				if(d.idtype){
+					if(d.idtype=='albumid'){
+						str = '<li ontouchstart="zy_touch(\'c-gra\')" onclick="openalbum(\''+d.spaceuid+'\',\''+d.id+'\',\''+d.username+'\');" class="uc-n ubb ub b-gra t-bla ub-ac lis">'
+					  			+'<div class="ub-f1 ub ub-ver">'	     
+					 				+'<div class="ulev-3 t-gra">'+d.username+'</div>'
+					 	    		+'<div class="ulev-3 umh4 t-bla umar-t">'+d.title+'</div>'
+					 			+'</div>'
+								+'<div class="lis-th2 ub-img5 uc-a1">'
+					     			+'<img src="'+d.pic+'" class="inforpic" />'
+					     		+'</div>'
+								+'<div class="res8 lis-sw ub-img4"></div>'
+					 		+'</li><li class="ubt1"></li>'; //d.dateline
+					}
+					else{
+						var click = '';
+						if(d.idtype=='tid') click = 'opentid(\''+d.id+'\',\''+d.uid+'\');';
+						else if(d.idtype=='blogid') click = 'openblog(\''+d.id+'\',\''+d.uid+'\');';
+						else click = 'openportal(\''+d.id+'\');';
+						str = '<li ontouchstart="zy_touch(\'c-gra\')" onclick="'+click+'" class="uc-n ubb ub b-gra t-bla ub-ac lis">'
+					 			+'<div class="ub-f1 ub ub-ver">'
+					    			+'<div class="ulev-3 umh4 t-bla uof">'+d.title+'</div>'
+					 	    		+'<div class="ub ub-ac t-gra ulev-2">'
+						 		    	+'<div class="ub-f1"></div>'
+										+'<div class="umh2 umw2 ub-img5 im5 lpicl lpic"></div>'
+						 		    	+d.dateline
+						 		   +'</div>' 
+					 			+'</div>'
+								+'<div class="res8 lis-sw ub-img4"></div>'
+					 		+'</li><li class="ubt1"></li>';
+					}
+				}
+				break;
+		}
+	 }
+	 return str;
+}
+
+function selected(i){
+	var p2 = 'page'+i;
+	if(pages.curid == p2){
+		//update ???
+	}
+	else{
+		var p1 = pages.curid;	
+		var o = pages[p2];
+		pages.curid = p2;
+		my_page_switch(p1,p2);
+		if(!pages[p2].ld) loadList('', o.view, '1');
+	}
+}
+
+function openalbum(id, alid, alname){
+	var view = 'other';
+	if(uid==id) view = 'me';
+	setstorage('params','{"view":"'+view+'", "albumid":"'+alid+'", "albumname":"'+alname+'", "aluid":"'+id+'"}');
+	openwin('album_list','album_list.html','10');
+}
+
+function opentid(tid,aid){
+	setstorage('params','{"tid":"'+tid+'", "uid":"'+aid+'"}');
+	openwin('forum_detail','forum_detail.html','10');
+}
+
+function openblog(blogid,aid){
+	setstorage('params','{"uid":"'+aid+'", "blogid":"'+blogid+'"}');
+	openwin('blog_detail','blog_detail.html','10');
+}
+
+function openportal(aid){
+	setstorage('params','{"aid":"'+aid+'", "catname":"22"}');
+	openwin('portal_detail','portal_detail.html','10');
+}
+</script>
+</html>

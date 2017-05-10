@@ -1,0 +1,153 @@
+﻿<!doctype html>
+<html class="H-theme-background-color-white">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>借款有道</title>
+    <link href="../../../css/Hui.css" rel="stylesheet" type="text/css" />
+    <style type="text/css"></style>
+</head>
+<body class="H-theme-background-color-white">
+    <div class="H-font-weight-500 H-padding-10 H-flexbox-horizontal">
+        <span class="H-flex-item H-text-align-left H-font-size-16">借款金额</span>
+        <span id="money" class="H-flex-item H-text-align-right H-font-size-16">3000元</span>
+    </div>
+    <div class="area H-padding-horizontal-both-15">
+        <div class="H-process-area H-width-100-percent H-theme-background-color-f4f4f4 H-overflow-hidden" style="height: 30px;">
+            <div class="process H-theme-background-color1" style="height: 30px; width: 50%;"></div>
+        </div>
+        <div class="H-font-size-10 H-flexbox-horizontal">
+            <div class="H-flex-item H-text-align-left">1000</div>
+            <div class="H-flex-item H-text-align-center">1400</div>
+            <div class="H-flex-item H-text-align-center">1800</div>
+            <div class="H-flex-item H-text-align-center">2200</div>
+            <div class="H-flex-item H-text-align-center">2600</div>
+            <div class="H-flex-item H-text-align-center">3000</div>
+            <div class="H-flex-item H-text-align-center">3400</div>
+            <div class="H-flex-item H-text-align-center">3800</div>
+            <div class="H-flex-item H-text-align-center">4200</div>
+            <div class="H-flex-item H-text-align-center">4600</div>
+            <div class="H-flex-item H-text-align-right">5000</div>
+        </div>
+    </div>
+    <div class="H-font-weight-500 H-padding-10 H-flexbox-horizontal">
+        <span class="H-flex-item H-text-align-left H-font-size-16">借款期限</span>
+        <span id="day" class="H-flex-item H-text-align-right H-font-size-16">20 日</span>
+    </div>
+    <div class="area H-padding-horizontal-both-15">
+        <div class="H-dayprocess-area H-width-100-percent H-theme-background-color-f4f4f4 H-overflow-hidden" style="height: 30px;">
+            <div class="dayprocess H-theme-background-color1" style="height: 30px; width: 50%;"></div>
+        </div>
+        <div class="H-font-size-10 H-flexbox-horizontal">
+            <div class="H-flex-item H-text-align-left">5</div>
+            <div class="H-flex-item H-text-align-center">8</div>
+            <div class="H-flex-item H-text-align-center">11</div>
+            <div class="H-flex-item H-text-align-center">14</div>
+            <div class="H-flex-item H-text-align-center">17</div>
+            <div class="H-flex-item H-text-align-center">20</div>
+            <div class="H-flex-item H-text-align-center">23</div>
+            <div class="H-flex-item H-text-align-center">26</div>
+            <div class="H-flex-item H-text-align-center">29</div>
+            <div class="H-flex-item H-text-align-center">32</div>
+            <div class="H-flex-item H-text-align-right">35</div>
+        </div>
+    </div>
+    <div class="H-padding-10">
+        <div class="H-padding-vertical-both-10 H-border-vertical-both-after H-font-size-16">
+            借款费用：10元
+        </div>
+    </div>
+    <div class="H-channel-title H-flexbox-horizontal H-theme-background-color-white H-vertical-middle H-border-vertical-bottom-after">
+        <div class="H-channel-line H-theme-background-color1 H-padding-vertical-top-15 H-padding-horizontal-left-3  H-margin-horizontal-left-10"></div>
+        <div class="H-channel-text H-theme-font-color1 H-flex-item H-font-size-18 H-theme-font-color-black H-padding-10 H-margin-horizontal-right-10 H-text-show-row-1">信用借款信息</div>
+    </div>
+    <div class="H-padding-10">
+        <div class="H-border-vertical-top-after H-flexbox-horizontal H-padding-vertical-both-10">
+            <div class="H-flex-item H-font-size-14 H-text-align-center">还款金额（元）</div>
+            <div class="H-flex-item H-font-size-14 H-text-align-center">到期日期</div>
+            <div class="H-flex-item H-font-size-14 H-text-align-center">借款费用</div>
+        </div>
+        <div class="H-border-vertical-top-after H-flexbox-horizontal H-padding-vertical-both-10 H-border-vertical-both-after">
+            <div class="H-flex-item H-font-size-16 H-text-align-center H-font-weight-600">3000.26 元</div>
+            <div class="H-flex-item H-font-size-16 H-text-align-center">2016-06-13</div>
+            <div class="H-flex-item H-font-size-16 H-text-align-center">1%/天</div>
+        </div>
+    </div>
+    <div class="H-padding-10">
+        <button class="H-button H-width-100-percent  H-font-size-15 H-outline-none H-padding-vertical-both-12 H-padding-horizontal-both-20 H-theme-background-color6 H-theme-font-color-white H-theme-border-color6 H-theme-border-color6-click H-theme-background-color6-click H-theme-font-color6-click H-border-radius-3">我要借款</button>
+    </div>
+    <script src="../../../script/H.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        // 金钱
+        var startX = 0;
+        var startY = 0;
+        var processOffset = H.offset(".H-process-area");
+        H.on(H.D(".H-process-area"), "touchstart", function (event) {
+            if (event.targetTouches.length == 1) {
+                var touch = event.targetTouches[0];
+                startX = touch.clientX;
+                startY = touch.clientY;
+                var widthPercent = ((startX - processOffset.l) / processOffset.w);
+                H.D(".process").style.width = widthPercent * 100 + "%";
+
+                H.D("#money").innerText = Math.floor(widthPercent * 4000 + 1000) + " 元";
+            }
+        });
+
+        H.on(H.D(".H-process-area"), "touchmove", function (event) {
+            if (event.targetTouches.length == 1) {
+                var touch = event.targetTouches[0];
+                var currentX = touch.clientX;
+                var currentY = touch.clientY;
+                var widthPercent = ((currentX - processOffset.l) / processOffset.w);
+                H.D(".process").style.width = widthPercent * 100 + "%";
+
+                var currentValue = Math.floor(widthPercent * 4000 + 1000);
+                if (currentValue < 1000) {
+                    currentValue = 1000;
+                }
+                if (currentValue > 5000) {
+                    currentValue = 5000;
+                }
+                H.D("#money").innerText = currentValue + " 元";
+            }
+        });
+
+        // 日期
+        var startX2 = 0;
+        var startY2 = 0;
+        var processOffset = H.offset(".H-dayprocess-area");
+        H.on(H.D(".H-dayprocess-area"), "touchstart", function (event) {
+            if (event.targetTouches.length == 1) {
+                var touch = event.targetTouches[0];
+                startX = touch.clientX;
+                startY = touch.clientY;
+                var widthPercent = ((startX - processOffset.l) / processOffset.w);
+                H.D(".dayprocess").style.width = widthPercent * 100 + "%";
+
+                H.D("#day").innerText = Math.floor(widthPercent * 30 + 5) + " 日";
+            }
+        });
+
+        H.on(H.D(".H-dayprocess-area"), "touchmove", function (event) {
+            if (event.targetTouches.length == 1) {
+                var touch = event.targetTouches[0];
+                var currentX = touch.clientX;
+                var currentY = touch.clientY;
+                var widthPercent = ((currentX - processOffset.l) / processOffset.w);
+                H.D(".dayprocess").style.width = widthPercent * 100 + "%";
+
+                var currentValue = Math.floor(widthPercent * 30 + 5);
+                if (currentValue < 5) {
+                    currentValue = 5;
+                }
+                if (currentValue > 35) {
+                    currentValue = 35;
+                }
+                H.D("#day").innerText = currentValue + " 日";
+            }
+        });
+    </script>
+</body>
+</html>

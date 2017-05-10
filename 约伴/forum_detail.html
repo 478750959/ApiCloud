@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+<head>
+	<title></title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="css/ui-img.css">
+    <link rel="stylesheet" href="css/ui-list.css">
+	<link rel="stylesheet" href="css/ui-tab.css">
+	<link rel="stylesheet" href="css/ui-btn.css">
+	<link rel="stylesheet" href="css/ui-base.css">
+	<link rel="stylesheet" href="css/ui-box.css">
+	<link rel="stylesheet" href="css/ui-color.css">
+	<link rel="stylesheet" href="css/ui-res.css">
+	<link rel="stylesheet" href="css/style.css">
+    <script src="js/config.js"></script>
+    <script src="js/y_control.js"></script>
+	<script src="js/y_click.js"></script>
+	<script src="js/y_anim.js"></script>
+	<script src="js/dis_control.js"></script>
+	<script>
+	</script>
+</head>
+<body class="um-vp c-gra5" ontouchstart>
+    <div id="page_0" class="up ub ub-ver c-gra5" tabindex="0">
+        <!--header开始-->
+        <div id="header" class="c-blu3 uh">
+        	<div class="c-m2 t-wh" id="hd1">
+        		<!--按钮开始-->
+				<a class="btn btn-l btn-a ub ub-ac" ontouchstart="zy_touch('btn-act1')" onclick="closewin();">       
+					<div class="ulim"><img src="images/back.png" class="sbtn"></div>
+				</a>
+				<!--按钮结束-->
+                <h1 class="ut ulev0 ut-s tx-c" tabindex="0" id="title">正文</h1>
+				<div></div>
+			</div>
+			<div style="height:1px;"></div>
+        </div>
+        <!--header结束--><!--content开始-->
+        <div id="content" class="ub-f1 tx-l t-bla">
+			
+        </div>
+        <!--content结束-->
+    </div>
+</body>
+<script>
+zy_init();
+var params = getStorJson('params');
+var wname = params.wname;
+var popname = params.popname;
+var tid = params.tid;
+var fid = '', module;
+var current_win = 'forum_detail';
+if(params.fid) {
+    fid = params.fid;
+    module = get_module(fid);
+    if(module == 'trend') current_win = 'forum_detail_trend';//如果用户点了嵌入攻略，活动和攻略的窗口都显示，所以要区分
+}
+setTitle(fid);
+var trend_id = '';//攻略采纳
+var trend_subject = '';
+var nav_created = 0;
+var trend_from_interest = '';
+if(params.trend_from_interest) trend_from_interest = params.trend_from_interest;//判断是否是活动中的攻略，如果是就不添加发活动按钮
+window.uexOnload = function(type){
+    if (!type) {
+		//更新标题
+		var title=params.title;
+        if(title) $$("title").innerHTML=title;
+		
+		setTimeout(function(){
+			var hh = $$("header").offsetHeight;
+			setstorage('headerHeight', hh);
+			my_con("content", "forum_detail_content.html", 0, hh, 'false');
+		}, 50);
+    }
+	window.onorientationchange=window.onresize=function(){
+		zy_resize("content",0,$$("header").offsetHeight);				
+	}
+};
+
+function menus2(i){
+	zy_for(event);
+	var scr = '';
+	if(i==1) scr='readDefalt();';
+	else if(i==2) scr='readAuthorOnly();';
+	else scr='readComOnly();';
+	if(scr) ueppscript('forum_detail', 'content', scr);
+}
+
+function setNavDiv(json){
+    if(nav_created){//如果从缓存取数据时，创建frame，将导致数据刷新后，不能再创建frame，这样的frame的数据就不会更新，因此在刷新数据时才创建frame
+        var replies = json.cnum ? json.cnum : 0;
+        var shares = json.t_count ? json.t_count : 0;
+        ueppscript(current_win, 'nav', 'addNum(\''+ replies +'\', \'' + shares + '\', 0)');//
+        return;
+    }
+    var s=window.getComputedStyle($$('header'),null);
+	var em = Int(s.fontSize);
+    var w = /*15.4*em*/s.width;
+    var x = /*Int(s.width) - 15.4*em*/0;
+	var y = Int(window.innerHeight) - Int(2.4*em);
+    var h = Int(2.4*em);
+    var navParams, key;
+    if(json){
+        for(key in json){
+            params[key] = json[key];
+        }
+    }
+	params.view = 'forum';
+	var str = JSON.stringify(params);
+	setstorage('popnav', str);
+	//if(!isSML) y = y + 500;
+
+    uexWindow.openPopover('nav',"0",'pop_nav.html',"",Int(x),Int(y),Int(w),Int(h),em,"0");
+    nav_created = 1;
+}
+
+var att = 0;
+/**
+ * @param f 是参加1还是取消0
+ */
+function addJoinNode(f){
+    if($$('btnr')) removeNode('btnr');//因为使用了缓存，初始化窗口时，此函数会被调用两次
+	var str = '取消报名';
+	var cc = $$('hd1');
+	var node = createEle("div");
+	if(f) str = '我要报名';
+	att = f;
+	node.innerHTML = '<div class="ulim" id="btnr">'+str+'</div>';
+	node.className = 'btn btn-r btn-n ub ub-ac';
+	node.onclick = join;
+	cc.insertBefore(node,cc.lastElementChild);
+}
+function joinResult(f){
+    var str = '取消报名';
+    var showVerify = 1;//显示已经报名
+	if(f){
+		str = '我要报名';
+        showVerify = 0;
+	}
+	att = f;
+	setHtml('btnr', str);
+	//ueppscript('forum_detail', 'content', "showVerify("+ showVerify +");updateForum();");
+    ueppscript(current_win, 'content', "showVerify("+ showVerify +");updateForum();");//updateforum没用
+    //wname, popname有main_forum 和main_listct两个分支
+    ueppscript(wname, popname, 'refreshCount(\''+ (showVerify ? 1 : -1) +'\', '+ tid +', \'join\');');
+}
+
+function join(){
+	if (!checkLogin()) return;
+	if(att){//参加
+        setStorJson('params', {"tid": tid });
+        openwin('activity_join',"activity_join.html","12");
+	}
+	else{
+		uexWindow.cbConfirm = function(opId, dataType, data){
+	 		if(Int(data)==0) ueppscript(current_win, 'content', 'activityCancel();')
+		};
+		var mycars = ['确定','取消'];
+		uexWindow.confirm('提示', '取消报名', mycars);
+	}
+}
+/**
+ * 采用此攻略发活动
+ * @param tid
+ * @param subject
+ */
+function addAdoptNode(tid, subject){
+    if(!fid || trend_from_interest)  return;//如果是从提醒过来的，没有fid，无法识别是攻略还是活动，就不添加发活动按钮
+    trend_id = tid;
+    trend_subject = subject;
+    var str = '发活动';
+    var cc = $$('hd1');
+    var node = createEle("div");
+    node.innerHTML = '<div class="ulim" id="btnr">'+str+'</div>';
+    node.className = 'btn btn-r btn-n ub ub-ac';
+    node.onclick = editInterest;
+    cc.insertBefore(node,cc.lastElementChild);
+}
+function editInterest(){
+    if(!checkLogin()) return;
+    var editor_fid = forums.interest.fid;
+    var fname = forums.interest.name;
+    setstorage('params','{"wname":"root", "popname":"content1", "fid" : "'+ editor_fid +'", "title" : "'+ fname +'", "tid" : "'+ trend_id +'", "subject" : "'+ trend_subject +'"}');
+    openwin('editor','editor.html','10');
+}
+function setTitle(detail_fid){
+    if(detail_fid){
+        fid = detail_fid;
+        var module = get_module(fid);
+        setHtml('title', forums[module]['long_name']);
+    }
+}
+</script>
+</html>

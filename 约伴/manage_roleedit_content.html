@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+  <head>
+    <title>
+    </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="css/ui-input.css">
+    <link rel="stylesheet" href="css/ui-on.css">
+    <link rel="stylesheet" href="css/ui-img.css">
+    <link rel="stylesheet" href="css/ui-res.css">
+    <link rel="stylesheet" href="css/ui-list.css">
+    <link rel="stylesheet" href="css/ui-base.css">
+    <link rel="stylesheet" href="css/ui-box.css">
+    <link rel="stylesheet" href="css/ui-color.css">
+	<link rel="stylesheet" href="css/style.css">
+    <script src="js/y_control.js"></script>
+    <script src="js/y_click.js"></script>
+	<script src="js/y_json.js"></script>
+	<script src="js/config.js"></script>
+	<script src="js/dis_control.js"></script>
+    <script src="js/y_anim.js"></script>
+    <script src="js/project/profile.js"></script>
+    <script>
+	</script>
+    <style>
+      .ps{
+          margin: 0px;
+          border: 0px;
+          width: 100%;
+          height: 100%;
+          -webkit-appearance: none;
+          padding: .4em 0;
+          line-height: 1.2em;
+          background: none;
+          text-decoration: none;
+          font-size: 0.875em;
+          display: block;
+      }
+      .p_title{
+          min-width: 4em;
+      }
+    </style>
+  </head>
+<body class="um-vp c-gra" ontouchstart>
+    <div>
+        <div class="uba b-gra c-wh uinn6 uhide" id="wrap">
+            <form name="postform" id="postform">
+                <div class="" id="profilebox">
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+<script>
+zy_init();
+var htmls = '';
+var modifyFrom = getstorage('modifyfrom');
+var params = getStorJson('params');
+var rolemoduleid = params.rolemoduleid;
+var rolemodule = getRolemodule();
+var o_rolemodule = getStorJson('role_status');
+var isSelect=true;
+var fromCache = 0;
+window.uexOnload = function(){
+	setPageBounce('', '');
+    loadprofile('1');
+    if(fromCache) loadprofile('');
+};
+function loadprofile(fg){
+    var url = forum_url + "&mod=ajax&action=getprofile&fromapp=1&rolemodule=" + rolemodule;
+    fromCache = checkKey(url);
+    if(!fromCache) uexWindow.toast('1','5','加载中...',"");
+    $.getJSON(url, loadprofileCb, 'json', getJsonErr, 'POST', '', fg, '1');
+}
+function loadprofileCb(json){
+    uexWindow.closeToast();
+    if(json){
+        var content = '';
+        var title = '', tmpl = '';
+        htmls = json.htmls;
+        for(var key in htmls){
+            var value = htmls[key];
+            title = value['title'];
+            content = value['content'];
+            if(key == 'bio'){
+                tmpl += '<div class="ub ub-ver">' +
+                            '<div class="ub c-gra ut-s ubb b-gra ub-ac lis">' +
+                                '<div class="ub ub-ac">' +
+                                    title +
+                                '</div>' +
+                                '<div class="ub-f1"></div>' +
+                            '</div>' +
+                            '<div class="ub ut-s">' +
+                                '<div class="ub ub-ac ub-pc">' +
+                                    content +
+                                '</div>' +
+                            '</div>' +
+                        '</div>';
+
+            }else{
+                tmpl += '<div class="ub ubb b-gra ub-ac lis umh4">' +
+                            '<div class="ub tx-r t-gra ulev-3 ub-f1">' +
+                                '<div class="ub ut-s uinn4 umw4">' +
+                                    title +
+                                '</div>' +
+                                content +
+                            '</div>' +
+                        '</div>';
+            }
+        }
+        setHtml('profilebox', tmpl);
+        //setHtml('education','硕士' );
+        //selectedindex = e6.selectedIndex;
+        zy_anim_pop('wrap', 'uhide');
+        addEvent();
+        setTextAreaWidth();
+        setselectindex();
+    }
+}
+function addEvent(){
+    var key, value, obj;
+    var fields = ['company', 'graduateschool', 'major'];
+    for(key in fields){
+        value = fields[key];
+        obj = $$(value);
+        if(obj){
+            obj.onclick = function(){profile_suggest(this.id, this.value);};
+            $$(value).setAttribute("readonly", "readonly");
+        }
+    }
+}
+function setTextAreaWidth(){
+    var width = int(window.innerWidth * 0.9);
+    var ee = document.getElementsByTagName("textarea");
+    for(var key in ee){
+        var obj = ee[key];
+        setCss(obj, 'width: ' + width + 'px');
+    }
+}
+function profile_suggest(field, value){
+    $$(field).style.border = 'none !important;';
+    setStorJson('params', {field: field, value: value, from_wnd: "manage_roleedit", from_frame: "content"});
+    openwin('suggest', 'manage_roleedit_suggest.html', 10);
+}
+function set_suggest_field(field, value){
+    var obj = $$(field);
+    if(!obj || !value) return;
+    obj.value = value;
+}
+function checkinput() {
+    var formobj = document.getElementById('postform');
+    for(var i=0;i<formobj.elements.length;i++){
+        var obj=formobj.elements[i];
+        if(obj.type != 'hidden' && obj.type != 'button' && obj.tagName != 'BUTTON' && (obj.value == '' || obj.value == '0')){
+            obj.style.border = '1px solid';
+            obj.focus();
+            uexWindow.toast('0', '5', '请输入信息', 2000);
+            return false;
+        }else if(obj.tagName == 'SELECT'){
+            var sp = obj.parentElement;
+            if (!sp) return false;
+            var ch = sp.getElementsByTagName("div")[0];
+            if (ch && ch.innerHTML  == ''){
+                ch.style.border = '1px solid';
+                uexWindow.toast('0', '5', '请选择', 2000);
+                return false;
+            }
+        }
+    }
+    return true;
+}
+function showbirthday(){
+
+}
+function card_submit(){
+    if(!checkinput()) return;
+    if(going) return;
+
+    var value = '', url;
+    if(modifyFrom == 'friend'|| modifyFrom == 'switch')  url = forum_url + '&mod=ajax&action=set_profile&rolemodule=' + rolemodule + '&status=true&modifyfrom=' + modifyFrom;
+    else  url = forum_url + '&mod=ajax&action=set_profile&rolemodule=' + rolemodule + '&modifyfrom=' + modifyFrom;//入口是修改资料
+
+    for(var key in htmls){
+        value = $$('postform')[key].value;
+        if(value) value = encodeURIComponent(value);
+        url += '&' + key +'=' + value;
+    }
+    going = 1;
+    uexWindow.toast('1', '5', '正在保存，请稍候...', '');//500ms后关闭toast
+    $.getJSON(url, function(json) {
+        going = 0;
+        var str = '成功保存';
+        if(json==0){
+            str = '提交失败';
+        } else{
+            //var uid = getstorage('UID');
+            //james Y150123
+            if (modifyFrom == 'switch' || modifyFrom == 'friend'){ // 开关打开
+                o_rolemodule[rolemodule] = '1' ;
+                setStorJson('role_status',o_rolemodule);
+            }
+            ueppscript('manage_role', 'content', 'loadprofile(\'\');');
+            ueppscript('root', 'content2', 'updateRolemodule();');//修改人脉里的单身名片的状态
+            //ueppscript('root', 'content4', 'show_role_modules();');//修改个人空间单身名片的状态
+            //涉及资料的也要修改
+            ueppscript('root', 'content4', 'loadInfor(\'\');');
+        }
+        uexWindow.toast('0', '5', str, 1500);
+        setTimeout('closepop_card();', 1500);
+    }, 'json', getJsonErr, 'POST', '', '');
+}
+function closepop_card(){
+    uescript('manage_roleedit', 'closewin();');
+}
+function getRolemodule(){
+    var key = '';
+    if(rolemoduleid == 1) key = 'single';
+    if(rolemoduleid == 2) key = 'occupation';
+    if(rolemoduleid == 3) key = 'education';
+    return key;
+}
+
+</script>
+</html>

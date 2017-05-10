@@ -1,0 +1,95 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>APP</title>
+		<link rel="stylesheet" type="text/css" href="../css/api.css" />
+		<link rel="stylesheet" type="text/css" href="../css/common.css" />
+		<link rel="stylesheet" type="text/css" href="../css/detail.css" />
+	</head>
+	<body>
+		<div id="wrap">
+			<script id="record-template" type="text/x-dot-template">
+				<section class="content">
+					<div class="left text-overflow">
+						就诊人
+					</div>
+					<div class="middle text-overflow">
+						{{=it.patientName}}
+					</div>
+				</section>
+				<section class="content">
+					<div class="left text-overflow">
+						性别
+					</div>
+					<div class="middle text-overflow">
+						{{=it.patientSex}}
+					</div>
+				</section>
+				<section class="content">
+					<div class="left text-overflow">
+						就诊科室
+					</div>
+					<div class="middle text-overflow">
+						{{=it.outpatientDept}}
+					</div>
+				</section>
+				<section class="content">
+					<div class="left text-overflow">
+						就诊医生
+					</div>
+					<div class="middle text-overflow">
+						{{=it.doctor}}
+					</div>
+				</section>
+				
+				<section class="content">
+					<div class="left text-overflow">
+						就诊病因
+					</div>
+					<div class="middle text-overflow">
+						感冒
+					</div>
+				</section>
+				
+				<section class="content">
+					<div class="left text-overflow">
+						就诊结果
+					</div>
+					<div class="middle text-overflow">
+						小事,开药吃
+					</div>
+				</section>
+				
+				<section class="btns">
+					<div class="half">
+						<button class="button blue" id="showAllNum" tapmode="" onclick="openFee('{{=it.eventNo}}')">
+							费用明细
+						</button>
+					</div>
+					
+					<div class="half">
+						<button class="button blue" id="showAllNum" tapmode="" onclick="openMedicine('{{=it.eventNo}}')">
+							药品明细
+						</button>
+					</div>
+				</section>
+				
+			</script>
+			<div id="main">
+				<section class="content header_bg">
+					<div class="middle">门诊信息</div>
+				</section>
+				<section id="content">
+					
+				</section>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../script/api.js"></script>
+	<script type="text/javascript" src="../script/zepto.min.js"></script>
+	<script type="text/javascript" src="../script/doT.min.js"></script>
+	<script type="text/javascript" src="../script/constants.js"></script>
+	<script type="text/javascript" src="../script/outpatient_deail.js"></script>
+</html>

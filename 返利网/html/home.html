@@ -1,0 +1,297 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,initial-scale=1.0,width=device-width"/>
+    <title>APP</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../css/common.css" />
+    <style>
+        #main{
+            padding: 0.25em;
+            background-color: #000000;
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-orient: vertical;
+            -webkit-flex-flow: column;
+                    flex-flow: column;
+            /*-webkit-box-orient: horizontal;
+            -webkit-flex-flow: row;
+                    flex-flow: row;*/
+        }
+    /*磁力贴*/
+        .magnetic-post{
+            padding: 0.5em 0 0 0;
+        }
+        .display-box{
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;
+        }
+        .box-orient-v{
+            -webkit-box-orient: vertical;
+            -webkit-flex-flow: column;
+                    flex-flow: column;
+        }
+        .box-orient-h{
+            -webkit-box-orient: horizontal;
+            -webkit-flex-flow: row;
+                    flex-flow: row;
+        }
+        .box-flex-1{
+            -webkit-box-flex: 1;
+            -webkit-flex: 1;
+            flex: 1;
+        }
+        .box-flex-2{
+            -webkit-box-flex: 2;
+            -webkit-flex: 2;
+            flex: 2;
+        }
+        .mag-post-left{
+            padding-right: 0.25em;
+        }
+        .mag-post-right{
+            padding-left: 0.25em;
+        }
+        .magnetic-post .v{
+            padding-bottom: 0.5em;
+        }
+        .mag-post{
+            background-color: #FFF;
+        }
+        .mine-box{
+            padding-right: 0.25em;
+        }
+        .more-box{
+            padding-left: 0.25em;
+        }
+        /*个性化*/
+        .mag-post{
+            padding-left: 0.8em;
+            padding-top: 1.1em;
+        }
+        .mag-post .title,.mag-post .des{
+            color: #FFF;
+
+        }
+        .super{
+            background:#FF5151 url(../res/bg_icon_super.png) right bottom no-repeat;
+            background-size: 100%;
+
+        }
+        .super:active,.super.tap-active{
+            background:#AA3636 url(../res/bg_icon_super.png) right bottom no-repeat;
+            background-size: 100%;   
+        }
+        .taobao{
+            background:#FFB72B url(../res/bg_icon_taobao.png) right bottom no-repeat;
+            background-size: 100%;
+        }
+        .taobao:active,.taobao.tap-active{
+            background:#AA7A1C url(../res/bg_icon_taobao.png) right bottom no-repeat;
+            background-size: 100%;
+        }
+        .mission-fan{
+            background:#FF5B89 url(../res/bg_icon_renwu.png) right bottom no-repeat;
+            background-size: 100%;
+        }
+        .mission-fan:active,.mission-fan.tap-active{
+            background:#AA3C5B url(../res/bg_icon_renwu.png) right bottom no-repeat;
+            background-size: 100%;
+        }
+        .worth{
+            background:#C047C8 url(../res/bg_icon_zhide.png) right bottom no-repeat;
+            background-size: 100%;
+        }
+        .worth:active,.worth.tap-active{
+            background:#802F85 url(../res/bg_icon_zhide.png) right bottom no-repeat;
+            background-size: 100%;
+        }
+        .dazhong{
+            background:#FBE62C url(../res/bg_icon_dianping.png) right bottom no-repeat;
+            background-size: 100%;
+        }
+        .dazhong:active,.dazhong.tap-active{
+            background:#A7991D url(../res/bg_icon_dianping.png) right bottom no-repeat;
+            background-size: 100%;
+        }
+        .hotel-ticket{
+            background:#4E9AE0 url(../res/bg_icon_hotel.png) right bottom no-repeat;
+            background-size: 100%;
+        }
+        .hotel-ticket:active,.hotel-ticket.tap-active{
+            background:#346795 url(../res/bg_icon_hotel.png) right bottom no-repeat;
+            background-size: 100%;
+        }
+        .mine{
+            background:#88C700 url(../res/bg_icon_mine.png) right bottom no-repeat;
+            background-size: 100%;
+        }
+        .mine:active,.mine.tap-active{
+            background:#5B8500 url(../res/bg_icon_mine.png) right bottom no-repeat;
+            background-size: 100%;
+        }
+        .more{
+            background:#00C2B2 url(../res/bg_icon_more.png) right bottom no-repeat;
+            background-size: 100%;
+        }
+        .more:active,.more.tap-active{
+            background:#008177 url(../res/bg_icon_more.png) right bottom no-repeat;
+            background-size: 100%;
+        }
+        .super .title,.taobao .title,.dazhong .title{
+            font-size: 1.8em;
+            position: relative;
+        }
+        .super .title .msg{
+            position: absolute;
+            font-size: 0.5em;
+            right: -1em;
+            top: -1em;
+            width: 1.8em;
+            height: 1.8em;
+            line-height: 1.8em;
+            text-align: center;
+            background: url(../res/icon_new_msg.png) center center no-repeat;
+            background-size: 100%;
+            color: #FFF;
+        }
+        .super .des,.taobao .des,.dazhong .des{
+            font-size: 0.75em;
+            position: relative;
+        }
+        .mission-fan .title,.worth .title,.hotel-ticket .title,.mine .title,.more .title{
+            font-size: 1.1em;
+            position: relative;
+        }  
+    /*磁力贴 end*/
+    </style>
+</head>
+<body ontouchstart="">
+    <div id="wrap">
+        <div id="main">
+            <!-- 轮播图 -->
+            <div id="slider" class="swipe">
+                <div class="swipe-wrap">
+                    <div class="swipe-box" tapmode="tap-active" data-url="" data-title="超级返" data-frameName="super-con" onclick="toWeb(this);">
+                        <img src="../image/home_swipe1.png" alt="">
+                    </div>
+                    <div class="swipe-box" tapmode="tap-active" data-url="" data-title="超级返" data-frameName="super-con" onclick="toWeb(this);">
+                        <img src="../image/home_swipe2.png" alt="">
+                    </div>
+                    <div class="swipe-box" tapmode="tap-active" data-url="" data-title="超级返" data-frameName="super-con" onclick="toWeb(this);">
+                        <img src="../image/home_swipe3.png" alt="">
+                    </div>
+                    <div class="swipe-box" tapmode="tap-active" data-url="" data-title="超级返" data-frameName="super-con" onclick="toWeb(this);">
+                        <img src="../image/home_swipe4.png" alt="">
+                    </div>
+                    <div class="swipe-box" tapmode="tap-active" data-url="" data-title="超级返" data-frameName="super-con" onclick="toWeb(this);">
+                        <img src="../image/home_swipe5.png" alt="">
+                    </div>
+                </div>
+                <div id="title-box">
+                    <!-- <span id="title-box-text">
+                        一周电影推荐《移动迷宫》
+                    </span> -->
+                    <ul id="title-box-ul">
+                        <li class="active"></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                    </ul>
+                </div>
+            </div>
+            <!-- 轮播图 end -->
+            <!-- 磁力贴 -->
+            <div class="magnetic-post display-box box-orient-h box-flex-1">
+                <div class="mag-post-left display-box box-orient-v box-flex-1">
+                    <div class="v box-flex-2 display-box">
+                        <div class="mag-post super box-flex-1" tapmode="tap-active" data-url="" data-title="超级返" data-frameName="super-con" onclick="toWeb(this);">
+                            <span class="title">超级返<span class="msg active">18</span></span>
+                            <span class="des">知名品牌 新品特卖</span>
+                        </div>
+                    </div>
+                    <div class="v box-flex-2 display-box">
+                        <div class="mag-post taobao box-flex-1" tapmode="tap-active" data-url="" data-title="淘宝返利" data-frameName="taobao-con" onclick="toWeb(this);">
+                            <span class="title">淘宝</span>
+                            <span class="des">淘宝购物 轻松返利</span>
+                        </div>
+                    </div>
+                    <div class="v box-flex-1 display-box" tapmode="tap-active" data-url="" data-title="玩任务 拿返利" data-frameName="renwu-con" onclick="toWeb(this);">
+                        <div class="mag-post mission-fan box-flex-1" tapmode="tap-active">
+                            <span class="title">任务返利</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="mag-post-right display-box box-orient-v box-flex-1">
+                    <div class="v box-flex-1  display-box">
+                        <div class="mag-post worth box-flex-1" tapmode="tap-active" data-url="http://m.smzdm.com/" data-title="什么值得买" data-frameName="" onclick="toWeb(this);">
+                            <span class="title">什么值得买</span>
+                        </div>
+                    </div>
+                    <div class="v box-flex-2 display-box">
+                        <div class="mag-post dazhong box-flex-1" tapmode="tap-active" data-url="http://m.dianping.com/" data-title="大众点评" data-frameName="" onclick="toWeb(this);">
+                            <span class="title">大众点评</span>
+                            <span class="des">每日更新 全网抄底</span>
+                        </div>
+                    </div>
+                    <div class="v box-flex-1 display-box">
+                        <div class="mag-post hotel-ticket box-flex-1" tapmode="tap-active" data-url="" data-title="" data-frameName="ent-group" data-index="2" onclick="toNative(this);">
+                            <span class="title">酒店 机票</span>
+                        </div>
+                    </div>
+                    <div class="v box-flex-1 display-box">
+                        <div class="box-flex-1 display-box box-orient-h">
+                            <div class="box-flex-1 display-box mine-box">
+                                <div class="mag-post mine box-flex-1" tapmode="tap-active" data-url="" data-title="我的账户" data-frameName="mine-con" onclick="toWeb(this);">
+                                    <span class="title">我的</span>
+                                </div>                                
+                            </div>
+                            <div class="box-flex-1 display-box more-box">
+                                <div class="mag-post more box-flex-1" tapmode="tap-active" data-url="" data-title="更多" data-frameName="more-con" onclick="toNativeS(this);">
+                                    <span class="title">更多</span>
+                                </div>                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 磁力贴 end -->
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript" src="../script/zepto.js"></script>
+<script type="text/javascript" src="../script/swipe.js"></script>
+<script type="text/javascript">
+
+    apiready = function(){
+        Zepto(function($){
+            var aLi = $('#title-box-ul li');
+            // var act_title = $('#title-box-text');
+            window.mySwipe = Swipe($api.byId('slider'),{
+                auto: 3000,
+                continuous: true,
+                callback: function(index,elem) {
+
+                    var i = aLi.length;
+                    while (i--) {
+                        aLi[i].className = '';
+                    }
+                    aLi[index].className = 'active';
+                    // var text = $(elem).find('img').attr('alt');
+                    // act_title.text(text);
+                }
+            });
+            $('#slider .swipe-box').on('click', function(event) {
+                
+            });
+        })
+    };
+    // apiready();
+</script>
+</html>

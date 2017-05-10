@@ -1,0 +1,56 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>APP</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/common.css" />
+    
+</head>
+<body>
+    <div id="wrap">
+        <div id="header">
+            <a id="chooseCityBackBtn" onclick="api.closeWin();" tapmode>
+            	<img src="../../res/drawable-hdpi/ic_launcher.png" class="chooseCityImg">
+            	<span class="chooseCityBackSpan">选择城市</span>
+            </a>
+        </div>
+        
+    </div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript">
+
+    apiready = function(){
+	    
+    	var header = $api.byId('header');
+        $api.fixIos7Bar(header); 
+        var headerPos = $api.offset(header);
+		var wW = api.winWidth;
+		var wH = api.winHeight;
+		var cityList = api.require('cityList');
+		var chooseCityBackBtn = $api.byId('chooseCityBackBtn');
+		
+		function openCitylist(){
+			// 打开cytylist，json文件用的apidemo的
+
+			cityList.open({
+			    x: 0,
+			    y: headerPos.h,
+			    width: wW,
+		    	height: wH - headerPos.h,
+			    currentCity:'北京',
+			    resource:'widget://res/cityList.json'
+			},function(ret,err) {
+			    var cityInfo = ret.cityInfo;
+				api.closeWin();
+
+			});
+		};
+	
+		openCitylist();
+
+    };
+</script>
+</html>

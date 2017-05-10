@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+  <head>
+    <title>
+    </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+   	<link rel="stylesheet" href="css/ui-img.css">
+	<link rel="stylesheet" href="css/ui-input.css">
+    <link rel="stylesheet" href="css/ui-res.css">
+    <link rel="stylesheet" href="css/ui-btn.css">
+    <link rel="stylesheet" href="css/ui-base.css">
+    <link rel="stylesheet" href="css/ui-box.css">
+    <link rel="stylesheet" href="css/ui-color.css">
+	<link rel="stylesheet" href="css/ui-list.css">
+	<link rel="stylesheet" href="css/style.css">
+    <script src="js/y_control.js"></script>
+    <script src="js/y_click.js"></script>
+    <script src="js/config.js"></script>
+	<script src="js/dis_control.js"></script>
+	<script src="js/y_json.js"></script>
+	<script src="js/y_icache.js"></script>
+	<script src="js/y_tmpl.js"></script>
+	<script src="js/y_slide.js"></script>
+    <script src="js/y_anim.js"></script>
+    <script>
+	</script>
+    <style>
+        input[type="radio"]:checked+div.tp-fuid {
+            background-image: url(./images/icon-check.png) ;
+        }
+        input[type="radio"]+div.tp-fuid {
+            background-image: url(./images/icon-uncheck.png) ;
+        }
+        .umw15 {
+            min-width:1.5em;
+        }
+    </style>
+  </head>
+<body class="um-vp c-gra" ontouchstart>
+    <div class="uinn c-wh ubb b-gra umar-b1" id="select_tag">
+        <div class="uinn5" ontouchstart="zy_touch('btn-act1')" onclick="select_tag();">
+            <div class="ub">
+                <div class="im34 ub-img8 umh2 umw12"></div>
+                <div class="umar-l ub-f1" id="select_title">向已有圈子约伴</div>
+                <div class="res8 lis-sw ub-img4"></div>
+            </div>
+        </div>
+    </div>
+    <div class="c-wh umar-b2">
+        <div class="t-bla ub-ac lis">
+            <div class="ub t-bla ub-ac umar-b1">
+                <!--<div class="ub-img8 im_step_1 umh2 umw12"></div>-->
+                <div class="ut-s t-gra1 ub-f1" id="tag_name">为选中好友新建一个圈子</div>
+            </div>
+            <div class="ub">
+                <div class="uinput" id="tagname_box">
+                    <div class="uinn1 ufl">
+                        <input placeholder="请输入名称" type="text" class="uc-n ulev0" id="tagname" onblur="tagname_onblur();">
+                    </div>
+                    <div class="ufl ubl ubr ubb b-org" style="height: .3em; width: 100%;"></div>
+                </div>
+            </div>
+        </div>
+        <div class="uhide t-bla ub-ac lis ubb b-gra" id="user2">
+            <div class="ub ub-ac umar-b umar-t">
+                <div class="t-gra1 ub-f1">同圈子的二度好友</div>
+                <div class="t-gra1 umar-r" id="c_user2">0</div>
+            </div>
+        </div>
+        <div class="t-bla ub-ac lis ubb b-gra uhide" id="user1">
+            <div class="ub ub-ac umar-b umar-t ub-f1">
+                <!--<div class="ub-img7 im_step_2 umh2 umw12"></div>-->
+                <div class="t-gra1 ub-f1">已选中一度好友</div>
+                <div class="t-gra1 umar-r" id="c_user1">0</div>
+            </div>
+        </div>
+    </div>
+    <!--1度人脉-->
+    <div class="b-gra uc-n c-wh" id="list">
+        <div></div>
+    </div>
+</body>
+<script>
+zy_init();
+var params = getStorJson('params');
+var tag_friends = {};//如果不声明就是数组
+var uid = getstorage('UID');
+var selected_users = {};
+var ucurl = getstorage('ucurl');
+if(!ucurl) ucurl = guc;
+var curpage = 1;
+var totpage = 1;
+var upt = '';//0,顶部弹动，1，底部弹动
+var update = {};
+var going = 0;
+var tid='', fid='', op='', tagid='', tagname='';
+if(params.tid) tid = params.tid;
+if(params.fid) fid = params.fid;
+if(params.tagid) tagid = params.tagid;
+if(params.tagname) tagname = params.tagname;
+var tag_url = home_url + '&mod=spacecp&ac=friend&op=moderate_tag&do=edittag';
+var input_tagname = '';//用户不断输入，不断变化推荐内容
+var friendtag_wname = 'friendtag_member';
+if(params.openwin) friendtag_wname = params.openwin; //friendtag_member
+var fromCache = 0;
+var module = '';
+if(fid){
+    module = get_module(fid);
+    op = forums[module].op;
+    setHtml('select_title', '向已有圈子' + op);
+}else op = '操作';
+window.uexOnload = function(){
+	//setPageBounce(downcb, upcb);
+	zy_initcache();
+    load1dFriends('', '1');
+    if(fromCache) load1dFriends('', '');
+    checkJoin();
+};
+
+function downcb(){
+    upt = '0';
+    update['0'] = 1;
+    load1dFriends('', '');
+}
+function upcb(){
+	if (curpage < totpage) {
+        upt = '1';
+        update['1'] = 1;
+        load1dFriends(curpage+1, '');
+	}
+	else{
+        resetBV('1');
+    }
+}
+
+function load1dFriends(pn, flag){
+    if(going) return;
+    var url = home_url + '&mod=space&do=friend&bigpage=1&page='+ pn;
+    going = 1;
+    fromCache = checkKey(url);
+    if(!fromCache) uexWindow.toast('1','5','加载中...',"");
+    var f = pn?'':'1';
+    $.getJSON(url, loadListCb, 'json', getJsonErr, 'POST', '', flag, f);
+}
+
+function loadListCb(json){
+	uexWindow.closeToast();
+    going = 0;
+    if(update[upt]){
+        update[upt] = 0;
+        resetBV(upt);
+    }
+
+	if(json){
+		if (Int(json.status)<1) {
+			uexWindow.toast('0','5',json.message,2000);
+			return;
+		}
+		
+		var cContent = $$('list');
+		var res = '';
+		var list = json.list;
+		var length = zy_tmpl_count(list);
+		if(length>0){
+			var tmpl = '<li ontouchstart="zy_touch(\'c-gra\')" onclick="friend_click(${fuid}, \'${fusername}\')" class="uc-n ubb ub b-gra t-bla ub-ac lis" id="${fuid}">'
+                            +'<div class="lis-th4 ub-img uc-a1">'
+                                +'<img src="images/mylogo.png" class="inforpic2" ${cb:img} id="1d_${fuid}"/>'
+                            +'</div> '
+                            +'<div class="ub-f1 ulev0 uinn5">${fusername}</div>'
+                            +'<div class="ufr uinn5">'
+                                +'<div class="ub ulev0">'
+                                    +'<input class="uhide" type="radio" name="cbx_${fuid}" id="cbx_${fuid}">'
+                                    +'<div class="umh2 umw15 ub-img5 tp-fuid"></div>'
+                                +'</div>'
+                            +'</div>'
+                        +'</li>';
+
+			res = zy_tmpl(tmpl,list,length,j2vCb);
+			curpage = Int(json.zywy_curpage);
+			totpage = Int(json.zywy_totalpage);
+		}
+		else{
+			res = '<div class="uinn18 tx-c">暂无一度好友</div>';
+		}
+		
+		if(curpage==1){
+       		while(cContent.childElementCount>1)	{
+       			cContent.removeChild(cContent.firstElementChild);
+       		}
+       	}
+		
+		var node = document.createElement("ul");
+		node.innerHTML = res;
+		cContent.insertBefore(node,cContent.lastElementChild);
+        imgCacheCall();
+	}
+}
+function friend_click(fuid, fusername){
+    if(event.srcElement == $$('cbx_' + fuid) || $$('cbx_' + fuid).disabled){
+        return;
+    }
+    var checked = $$('cbx_' + fuid).checked;
+    $$('cbx_' + fuid).checked = !checked;
+    var count = int($$('c_user1').innerHTML) || 0;
+
+    if(!checked){//点击选中了
+        selected_users[fuid] = {"fuid" : fuid, "fusername" : fusername};
+        show_count(count+1);
+    }else if(selected_users[fuid]){
+        delete selected_users[fuid];
+        show_count(count-1);
+    }
+}
+
+function j2vCb(d,c)
+{
+	var str = '';
+	 if(c.length>1)
+	 {
+		switch(c[1])
+		{
+			case 'img':
+				var src = ucurl+d.uid;
+				var picid = '1d_'+d.uid;
+                pushCacheCall(function(){
+                    dis_imgcache(picid,src,src,imgLoadSucSrc,imgLoadErrSrc,null,'',1);
+                });
+    			break;
+            case 'tags':
+                for (var tagid in d.tags) {
+                    str += '<div class="ufr uba b-org uc-a ulev-2 uinn11">'+ tagid +'</div>';
+                }
+                break;
+		}
+	 }
+	 return str;
+}
+
+function updateLists(){
+	load1dFriends('', '');
+}
+
+function closeEditor(){
+    uescript(friendtag_wname, 'closewin(0, \'' + friendtag_wname + '\');');
+}
+function checkJoin(){
+    if(module == 'trend') return;
+    var url = forum_url + '&mod=ajax&action=activityapplies&tid='+tid;
+    $.getJSON(url, function (json){
+        if(json && int(json.status) == 1){//未报名或者为发布者本人
+            uexWindow.cbConfirm = function(opId, dataType, data){
+                if(int(data)==1) {
+                    openwin('activity_join',"activity_join.html","12");//报名
+                }
+            };
+            var mycars = ['暂不报名','报名'];
+            uexWindow.confirm('你还没有报名', '是否报名该活动,再约伴？', mycars);
+        }
+    });
+}
+function tagname_onblur(){
+    var input_value = trim($$('tagname').value);
+    if(int(tagid) || input_tagname == input_value || '' == input_value){
+        return;
+    }
+    recommend_friend();
+}
+function recommend_friend(){
+    var key, fuid;
+    //setHtml('c_user1', '');
+    //setHtml('c_user2', '');
+    /*for(key in selected_users){
+        fuid = selected_users[key].fuid;
+        if($$('cbx_' + fuid))
+            $$('cbx_' + fuid).checked = false;
+    }
+    selected_users = {};*/
+
+    var input_value = trim($$('tagname').value);
+    input_tagname = input_value;
+    input_value = encodeURIComponent(input_value);
+    var url = tag_url + '&tagname='+ input_value + '&recommend=yes';
+    uexWindow.toast('1','5','正在自动匹配中...',"");
+    $.getJSON(url, function (json){
+        uexWindow.closeToast();
+        if(json){
+            var count_1 = zy_tmpl_count(json[1]);
+            var count_2 = zy_tmpl_count(json[2]);
+            if(count_1){
+                select_friends(json[1], count_1);
+            }
+            if(count_2){
+                zy_anim_push('user2', 'uhide');
+                setHtml('c_user2', count_2);
+            }
+        }
+    });
+}
+function submitConfirm(){
+    var input_value = trim($$('tagname').value);
+    if(tagname == input_value){
+        input_value = '';
+    }else{
+        input_value = encodeURIComponent(input_value);
+    }
+    var fuids = '';
+    var glue = '';
+    for(var key in selected_users){
+        fuids += glue + selected_users[key].fuid;
+        glue = '_';
+    }
+    if(!fuids){
+        uexWindow.toast('0', '5', "请添加圈子一度好友", "1500");
+        return;
+    }
+    //如果有tid表明为推荐
+    var url = tag_url + '&tid='+ tid + '&tagid='+ tagid + '&tagname='+ input_value + '&fuids='+ fuids + '&tagsubmit=yes';
+    if(going) return;
+    //logs('submit()-->url='+url);
+    uexWindow.toast('1', '5', "正在提交...", "");
+    going = 1;
+    $.getJSON(url, submitCb, 'json', getJsonErr2, 'POST', '', '');
+}
+function submitCb(json){
+    uexWindow.closeToast();
+    going = 0;
+    var str = '提交失败';
+    var succ = true;
+    if(json){
+        logs("submitCb()---json: "+JSON.stringify(json));
+        if (json.tagid){
+            tagid = json.tagid;
+        }
+        if (json.status)  str = json.status;
+        if (json.share_result){
+            var credit = json.share_result.credit || 0;
+            str = credit + '人被首次' + op + '，点数+' + credit;
+        }
+        succ = true;
+    } else succ = false;
+    uexWindow.toast('0', '5', str, 2000);
+    if(succ){
+        if(tid){//推荐的同时编辑圈子,更新列表中的推荐数
+            var count = '';
+            if (json.share_result){
+                count = json.share_result.count || '';
+            }
+            parseInt(count) && ueppscript(params.wname, params.popname, 'refreshCount(\''+ count +'\', '+ tid +', "sharetag");');//推荐页面新增，推荐页面管理和人脉圈新增，修改4个入口
+            setTimeout("uescript('" + friendtag_wname + "', 'closewin();');", 2000);
+        }
+        refresh_main_friend();
+    }
+}
+function getJsonErr2(s){
+    going = 0;
+    resetBV('0');
+    resetBV('1');
+    var str = '返回数据有误！';
+    if(s.status=='-1') str = '无网络，连接失败^_^！';
+    uexWindow.toast('0','5',str,"1500");
+    logs('getJsonErr2-->msg='+s.message);
+}
+function submit(){
+    var input_value = trim($$('tagname').value);
+    if(!input_value){
+        //uexWindow.toast('0', '5', "圈子名称不能为空", "1500");
+        uexWindow.cbConfirm = function(opId, dataType, data){
+            if(int(data)==0) {
+                submitConfirm();
+            }
+        };
+        var mycars = ['继续提交','取消'];
+        uexWindow.confirm('圈子名称为空', '你确定本次' + op + '的好友不保存为圈子？', mycars);
+    }else submitConfirm();
+}
+function select_friends(list, count){
+    var key, obj;
+    for(key in list){//已存在于圈子的打勾
+        var fuid =  list[key].fuid;
+        var fusername =  list[key].fusername;
+        obj = $$('cbx_' + fuid);
+        if(!obj) continue;
+        if(!obj.checked){
+            obj.checked = true;
+            selected_users[fuid] = {"fuid" : fuid, "fusername" : fusername};
+        }else{
+            count --;
+        }
+    }
+    var click_count = $$('c_user1').innerHTML || 0;
+    count += int(click_count);
+    show_count(count);
+}
+function show_count(count){
+    if(!int(count)) zy_hide('user1');
+    else zy_show('user1');
+    setHtml('c_user1', count);
+}
+function select_tag(){
+    //打开新的窗口
+    if(!tid) return;
+    //ueppscript(params.wname, params.popname, 'select_tag('+ tid +');');
+    var str = '{"wname":"' + params.wname + '", "popname":"' + params.popname + '", "friendtag_wname":"' + friendtag_wname + '", "tid":"'+tid+'", "fid":"'+fid+'"}';
+    setstorage('params',str);
+    openwin('tag_select', 'tag_select.html', '10');
+    //console.log('params.wname:'+ params.wname + ';params.popname:' +params.popname+ ';tid:'+ tid);
+    //关闭当前的窗口
+    //uescript('friendtag_edit', 'open_tag_select();');
+    //setTimeout(function(){closeEditor();}, 3000);
+}
+function refresh_main_friend(){
+    var openedPages = getstorage('openedPages') || '';
+    if(openedPages.indexOf('2') >= 0) ueppscript('root', 'content2', 'loadFriendTags(\'\', \'\')');//如果已经打开人脉页面，刷新
+}
+</script>
+</html>

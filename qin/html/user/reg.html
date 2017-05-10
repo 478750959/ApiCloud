@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,initial-scale=1.0,width=device-width"/>
+    <title>APP</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/common.css" />
+<style>
+html,body{
+	  margin:0;
+	  padding:0;
+	   }
+body{	   
+ background:#AFE05B;
+ height: 100%;
+ }
+
+ #main{
+	  margin:0 auto;
+	  padding:0;
+	  width:90%;
+	  height: 100%;
+	
+	  
+ }
+ #main .in_put {
+	 width:100% !important;
+	 height:30px;
+	 border:none;
+	 border:2px #FFF solid;
+	 font-size:16px;
+	 line-height:18px;
+	 border-radius:1px;
+	 margin-bottom:10px;
+	
+	
+	}
+label{
+	 font-family:Verdana, Geneva, sans-serif;
+     font-weight:bold;
+     width:100% !important;
+	 
+	}
+#loginform{
+  position:relative;
+  top: 25px;
+}
+
+ #login{
+ width:100% !important;
+ background-color: #A5A5A5;
+ padding: 10px;
+ border-radius:5px;
+}
+#forget{
+ margin-top: 10px;
+ 
+}
+#line{
+margin-top: 130px;
+text-align:center;
+}
+#account{
+
+	  width:100%;
+
+     margin-top: 10px;
+
+}
+.third{
+ float: left;
+ margin-left: 10px;
+ width:60px;
+ height: 60px;
+ 
+}
+hr{
+/*color: #FFFFFF !important;*/
+border: 1px  #FFFFFF solid;
+  margin-top: 2px;
+}
+
+</style>
+</head>
+
+<body>
+	<div id="main">
+	     <div id="loginform">
+			<label for="uname">
+			 <input type="text" class="in_put" id="uname" name="uname"  value="" placeholder="请输入手机号码" autofocus="autofocus"/>
+			 </label><br />
+			 <span onclick=""><input type="checkbox" />同意注册协议</span>
+			 <!--<label for="umail">
+			 <input type="text" class="in_put" id="umail" name="umail"  value="" placeholder="邮箱" autofocus="autofocus"/>
+			 </label><br />
+			  <label for="pwd">
+			 <input type="password" class="in_put" id="pwd" name="pwd"  value="" placeholder="密码"/>
+			 </label> <br />-->
+			  <!--<label for="pwd">密码确认
+			 <input type="text" class="in_put" id="pwd" name="pwd"  value="123456" placeholder=""/>
+			 </label> <br/>-->
+			  <button id="login"  onclick="getvalidcode()">下一步</button>
+			  <!--<button id="forget">直接登录</button>	-->
+		 </div>
+		 
+	</div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/common.js"></script>
+<script type="text/javascript">
+function register() {
+    api.showProgress({
+        title: '注册中...',
+        modal: false
+    });
+    
+    var name = $api.val($api.byId('uname'));
+    var mail = $api.val($api.byId('umail'));
+    var pwd = $api.val($api.byId('pwd'));
+    
+    var registerUrl = '/user';
+    var bodyParam = {
+        username: name,
+        password: pwd,
+        email:mail
+    }
+    ajaxRequest(registerUrl, 'post', JSON.stringify(bodyParam),'',function (ret, err) {
+        if (ret) {
+            api.alert({
+                msg: '注册成功！'
+            }, function () {
+                api.closeWin();
+            });
+
+        } else {
+            api.alert({
+                msg: err.msg
+            });
+        }
+        api.hideProgress();
+    })
+}
+
+function getvalidcode(){
+	var uzShareSMSModule = api.require('moduleShareSMS');
+	
+	if (validtel()==false){
+	
+	    api.toast({
+	        msg:'手机号码输入有误'
+        });
+	    return;
+	}
+	var tel =$api.val( $api.byId('uname'));
+   
+	uzShareSMSModule.getVerificationCode({
+	    key:"7dcef6b2e40c",
+	    secret:"1e67b1c9acca7d8bd6a09354b4f32e40",
+	    phone: tel
+	}, function(ret, err){
+	    if(ret.status == 1){
+//	        alert("ok!");
+          $api.setStorage('phone',tel);
+          api.openWin({
+	          name: 'valid',
+	          url: 'validcode.html'
+          });
+	    } else {
+	        alert(ret.description)
+	    }
+	});
+
+}
+
+function validtel()
+{
+	var tel =$api.val( $api.byId('uname'));
+	var telReg = !!tel.match(/^(0|86|17951)?(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$/);
+	//如果手机号码不能通过验证
+	return telReg
+
+}
+</script>
+</html>

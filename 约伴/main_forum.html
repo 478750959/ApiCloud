@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>
+    </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="css/ui-fold.css">
+    <link rel="stylesheet" href="css/ui-img.css">
+    <link rel="stylesheet" href="css/ui-res.css">
+    <link rel="stylesheet" href="css/ui-btn.css">
+    <link rel="stylesheet" href="css/ui-list.css">
+    <link rel="stylesheet" href="css/ui-base.css">
+    <link rel="stylesheet" href="css/ui-box.css">
+    <link rel="stylesheet" href="css/ui-color.css">
+	<link rel="stylesheet" href="css/style.css">
+    <script src="js/y_control.js"></script>
+    <script src="js/y_click.js"></script>
+	<script src="js/dis_control.js"></script>
+	<script src="js/y_json.js"></script>
+	<script src="js/y_tmpl.js"></script>
+	<script src="js/y_anim.js"></script>
+	<script src="js/y_icache.js"></script>
+	<script src="js/config.js"></script>
+    <script>
+	</script>
+	<style>
+	input[type="radio"]+div.dis-sta{
+		display:none;
+	}
+	input[type="radio"]:checked+div.dis-sta{
+		display:block;
+	}
+	
+	input[type="radio"]:checked+span.ad-sta{
+		background-color: #FFF;
+	}
+	
+	input[type="radio"]:checked+span.ady{
+		background-color: #FFF;
+	}
+    .uinn-d {padding: 0em .1em}
+    .umaxh{max-height: 2.3em; text-overflow: ellipsis;}
+    /*.umw7 {min-width:7em;}*/
+
+    </style>
+  </head>
+<body class="um-vp c-gra5" id="mybody"  onclick="">
+	<div>
+        <input class="uhide" type="radio" name="pages" id="rd1" checked="true">
+        <div class="c-gra1 dis-sta" id="page1">
+            <!--<div class="uinn12 b-gra">
+                <div class="ub uc-a1 ub-ac ub-pc">
+                    <div class="ub-f1 ubrw0 tx-c ub-con pad2" tapmode="" onclick="go2ForumLists('activity');">
+                        <div class="ub-img5 im6 upic"></div>
+                        <div class="ulev-1" id="activity">主办</div>
+                    </div>
+                    <div class="ub-f1 ubrw0 tx-c ub-con uc-l pad2" tapmode="" onclick="go2ForumLists('interest');">
+                        <div class="ub-img5 im7 upic"></div>
+                        <div class="ulev-1" id="interest">自发</div>
+                    </div>
+                    <div class="ub-f1 tx-c ub-con uc-r pad2" tapmode="" onclick="go2ForumLists('trend');">
+                        <div class="ub-img5 im8 upic"></div>
+                        <div class="ulev-1" id="trend">攻略</div>
+                    </div>
+                </div>
+            </div>-->
+
+            <div class="c-gra1" id="listall">
+                <div></div>
+            </div>
+        </div>
+	</div>
+</body>
+<script>
+zy_init();
+//var obj = getStorJson('usetting');//appcan插件在dz安装时的设置，现在已经没有可以设置的地方了，如果需要可以直接在home_misc.php中写死。
+//if(obj.index_pic_status=='1' && (obj.index_pic1||obj.index_pic2||obj.index_pic3)) zy_show('adimg');
+var ucurl = getstorage('ucurl');
+if(!ucurl) ucurl = guc;
+var fromCache = 0;//url是否已经加载过，如果加载过则已经缓存
+var updr = '';//0顶部弹动，1底部弹动
+var curpage = 1;
+var totpage = 1;
+var removed_new = {};
+var uid = getstorage('UID');
+var frameLoaded = 0;//framegroup中的frame可以响应滑动事件来执行uexOnload
+window.uexOnload = function ()
+{
+    if(frameLoaded) return;
+    frameLoaded = 1;
+
+	setPageBounce(downcb, upcb);
+	zy_initcache();
+
+    //保证：缓存的数据先显示，同时要从服务器更新数据
+	loadListAll('', '1');//使用缓存
+	if(fromCache) loadListAll('', '');//如果真的是缓存，再从server更新一次，如果直接从server更新，速度慢，体验不好
+
+};
+function downcb(){
+    updr = '0';
+    //resetBV('0');
+    loadListAll('', '');
+    uid && uescript('root', 'menuNotice(\'share_tag\', 0);')
+}
+function upcb(){
+    updr = '1';
+    if (curpage < totpage) {
+        loadListAll(curpage + 1, '');
+    }else resetBV('1');
+}
+
+/* 所有主题 */
+function loadListAll(pn, update){
+    var location = getStorJson('location');
+    var province = location.province ? location.province : '';
+    var city = location.city ? location.city : '';
+    if(going) return;
+	var url = newest_url+'&mod=hot&page=' + pn + '&province=' + province + '&city=' + city;
+	fromCache = checkKey(url);
+	if(!fromCache) uexWindow.toast('1','5','加载中...',"");
+	if(isSML) update='';
+    going = 1;
+	$.getJSON(url, loadListAllCb, 'json', getJsonErr, 'POST', '', update);
+}
+function loadListAllCb(json){
+	uexWindow.closeToast();
+    going = 0;
+	resetBV(updr);
+	logs("loadListAllCb(): json="+json);
+	if(json){
+		if(parseInt(json.status) < 0)
+		{
+			uexWindow.toast('0','5',json.message,2000);
+			return;
+		}
+		var cContent = $$('listall');
+		var list = json.hotThread;
+		
+		if(list && list[0]){
+			var id0 = 0;
+			var id1 = list[0].tid;
+			if(cContent && cContent.children[0] && cContent.children[0].children[0]) id0=cContent.children[0].children[0].id;
+			if (id0 == id1) {//返回数据对比界面没有变化
+				//return;
+			}
+		}
+		
+		var tmpl =
+            '<li class="ub umh6 uinn18 c-wh ubb b-gra1" id="${tid}">'
+                +'<div class="lis-th2 ub-img" ontouchstart="zy_touch(\'c-gra\')" onclick="go2user5(${from_uid}, \'${from_username}\', \'\');">'
+                    +'<img src="images/mylogo.png" class="inforpic2" ${cb:avatar} id="suid_${tid}_${from_uid}"/>'
+                    +'<div class="ulev-2 t-gra tx-c">${share_time}</div>'
+                +'</div> '
+                +'<div class="ub-f1 ub ub-ver">'
+                    +'<div class="ub ub-ver ub-f1">'
+                        +'<div class="ub t-bla ulev0 ut-s">'
+                            +'<div class="ub ub-f1">'
+                                +'<div class="t-bla" ontouchstart="zy_touch(\'c-gra\')" onclick="go2user5(${from_uid}, \'${from_username}\', \'\');">${from_username}</div>'
+                                +'${cb:user_group}'
+                            + '</div>'
+                            +'<div class="ub t-gra uinn3 ulev-1 umar-l">${cb:degree}</div>'
+                        +'</div>'
+                        +'<div class="ub ub-ac umar-t">'
+                            +'<div class="ub ub-ac">'
+                                +'<div class="ub ub-ac ulev-1">${cb:tagname}</div>'
+                                +'<div class="t-gra ulev-1">${cb:share}</div>'
+                            + '</div>'
+                            /*+'<div class="t-gra6 uinn3 ulev-1 showbar" onclick="selectBar(${fid});">${cb:fname}</div>'*/
+                        +' </div>'
+                    +' </div>'
+                    +'<div class="ub ub-ver">'
+                        +'<div class="lis-sw2 ub-img im-arrowup"></div>'
+                        +'<div class="ub ub-ver c-wh1 uba b-gra2" ontouchstart="zy_touch(\'c-gra\')" onclick="go2new5(${tid}, ${authorid}, ${tagid}, \'${tagname}\',\'${new}\');">'
+                            +'<div class="ub">'
+                                +'<div class="ub ub-ac ub-f1 umar-t uinn3 umar-b ulh umh3 uof">'
+                                    +'${cb:img}'
+                                    +'<div class="ub-f1 umar-l t-gra5">${subject}</div>'
+                                +'</div>'
+                                +'<div class="ub ub-ac umar-t umar-b">${cb:new}</div>'
+                            +'</div>'
+                            +'<div class="t-gra ulev-1">${cb:info}</div>'
+                        +'</div>'
+                    +'</div>'
+                    +'<div class="ub ub-ac umar-t1">'
+                        +'<div class="ub ub-f1 ub-pe ulev-1"> '
+                            +'<div class="ub ub-ac uinn" ontouchstart="zy_touch(\'c-gra\')" onclick="go2members(\'${tid}\', \'${fid}\', \'${start_status}\', \'${subject}\');">'
+                                +'<div class="umh2 umw1 ub-img8 im-member"></div>'
+                                +'<div class="umar-l1">已报名</div>'
+                                +'<div id="m_count_${tid}" class="umar-l t-gra">${m_count}</div><div class="t-gra">人</div>'
+                            +' </div>'
+                            +'${cb:btn_share}'
+                        +' </div>'
+                        /*+'${cb:btn_share_tag}'*/
+                    +'</div>'
+                +'</div>'
+            +'</li><li class="ubt1"></li>';
+		
+		var res = zy_tmpl(tmpl,list,zy_tmpl_count(list),j2vCb);		
+
+        curpage = Int(json.zywy_curpage);
+        totpage = Int(json.zywy_totalpage);
+		if(curpage==1){
+       		while(cContent.childElementCount>1){
+       			cContent.removeChild(cContent.firstElementChild);
+       		}
+       	}
+		var node = document.createElement("ul");
+		node.className = "";
+		node.innerHTML = res;
+		cContent.insertBefore(node,cContent.lastElementChild);
+        imgCacheCall();
+        removed_new = {};//重新初始化提示
+	}
+}
+function j2vCb(d,c)
+{
+	var str = '';
+    var other  = (uid != d.from_uid);
+	 if(c.length>1)
+	 {
+		switch(c[1])
+		{
+			case 'todayposts':
+				var tp = Int(d.todayposts);
+				str = (tp>99)? '99+':tp;
+			    break;
+            case 'avatar':
+                var src = ucurl+d.from_uid;
+                var avatarid = 'suid_'+ d.tid + '_' + d.from_uid;
+                pushCacheCall(function(){
+                    dis_imgcache(avatarid,src,src,imgLoadSucSrc,imgLoadErrSrc,null,'','1');
+                });
+                break;
+			case 'img':
+				if(d.img){
+					var picid = 'i'+d.tid;
+					str = '<div class="lis-th2 ub-img">'
+                                +'<img src="images/mylogo.png" class="inforpic" id="'+picid+'"/>'
+							+'</div>';
+
+                    pushCacheCall(function(){
+                        dis_imgcache(picid, d.img, d.img, imgLoadSucSrc, imgLoadErrSrc, null, '', '1');
+                    });
+				}
+                break;
+            case 'tagname':
+                /*
+                str = d.is_share ? '<div class="t-gra">向圈子</div>' : '';
+                替换为以下内容by tom 20150311*/
+                //如果未约圈子，只约了好友，则显示“向你约伴”
+                if(d.tagname)
+                    str = d.is_share ? '<div class="t-gra">向圈子</div>' : '';
+                else
+                    str = d.is_share ? '<div class="t-gra">向你</div>' : '';
+                if(d.tagname){
+                    str += '<div class="umar-r umar-l" id="tagid_' + d.tagid + '" ontouchstart="zy_touch(\'c-gra\')" onclick="go2tag5(' + d.from_uid + ', \'' + d.from_username + '\',' + d.tagid + ', \'' + d.tagname + '\')">'
+                                +'<div class="ut-s uba b-org uc-a2 ub-ac uinn-c">' + d.tagname + '</div>'
+                            +'</div>'
+                }
+			    break;
+            case 'share':
+                var fname = '';
+                fname = get_forumname(d.fid);
+                str = d.is_share ? '约伴' : '发布了';
+                //str += fname;
+                break;
+            case 'fname':
+                str = get_forumname(d.fid);
+                break;
+            case 'user_group':
+                if(d.host_gid) str = '<div class="umh2 umw1 ub-img8 im-host"></div>';
+                break;
+            case 'degree':
+                //console.log('fromuuid:'+d.from_uid+';degree'+ d.degree);
+                if(parseInt(d.degree) == 1) str = '一度好友';
+                else if(parseInt(d.degree) == 2) str = '二度好友';
+                else str = '';
+                break;
+            case 'new':
+                //console.log(';d.new:'+d.new+';Int(d.new):'+Int(d.new)+';uid:'+uid+';other:'+other+'；d.new && Int(d.new) && uid && other：'+(d.new && Int(d.new) && uid && other));
+                if(d.new && Int(d.new) && uid && other)
+                    str = '<div class="ufr ub-img5 rimg umar-r" id="new_'+ d.tid +'">' + /*d.scount +*/ '</div>'
+                break;
+            case 'btn_share_tag'://暂时无用
+                d.tagname = d.tagname || '';
+                if(int(d.start_status) > 1){//过期
+                    str = '<div class="ub ulev0 uinn11 c-gra6" ontouchstart="zy_touch(\'btn-act1\')" onclick="uexWindow.toast(\'0\',\'5\',\'该活动已结束\',2000)">'
+                                +'<div class="umh2 umw12 ub-img8 sharetag"></div>'
+                                +'<div class="ub t-wh">约伴</div>'
+                            +'</div>';
+                }else{
+                    str = '<div class="ub ulev0 uinn11 c-org" ontouchstart="zy_touch(\'btn-act1\')" onclick="share_tag(' + d.tid + ','+ d.fid + ','+ d.tagid+',\''+ d.tagname + '\')">'
+                                +'<div class="umh2 umw12 ub-img8 sharetag"></div>'
+                                +'<div class="ub t-wh">约伴</div>'
+                            +'</div>';
+                }
+                break;
+            case 'btn_share':
+                var t_count = int(d.t_count) ? int(d.t_count) : '';
+                var unit = '<div id="t_count_unit_' + d.tid + '" class="t-gra '+ (t_count ? '' : 'uhide') +'">人被约</div>';
+                if(int(d.start_status) > 1){//过期
+                    str = '<div class="ub uinn ub-ac" ontouchstart="zy_touch(\'c-gra\')" onclick="uexWindow.toast(\'0\',\'5\',\'该活动已结束\',2000)">' +
+                                '<div class="umh2 umw1 ub-img8 im-credit umar-l"></div>' +
+                                '<div class="umar-l1">约伴</div>' +
+                                '<div id="t_count_'+ d.tid +'" class="umar-l t-gra">' + t_count +'</div>' + unit +
+                            '</div>';
+                }else{
+                    str = '<div class="ub uinn ub-ac" ontouchstart="zy_touch(\'c-gra\')" onclick="share_tag(' + d.tid + ','+ d.fid + ','+ d.tagid+',\''+ d.tagname + '\')">' +
+                                '<div class="umh2 umw1 ub-img8 im-credit umar-l"></div>' +
+                                '<div class="umar-l1">约伴</div>' +
+                                '<div id="t_count_'+ d.tid +'" class="umar-l t-gra">' + t_count +'</div>' + unit +
+                            '</div>';
+                }
+                break;
+            case 'info':
+                str = (d.starttimefrom ? '<div class="ub ub-ac uinn"><div class="umh2 umw1 ub-img8 im-dtime-gra umar-r"></div><div class="t-gra ub-f1">' + d.starttimefrom +'</div></div>' : '')
+                        +(d.place ? '<div class="ub ub-ac uinn"><div class="umh2 umw1 ub-img8 im-dplace-gra umar-r"></div><div class="t-gra ub-f1 uof umaxh">' + d.place + '</div></div>' : '')
+                if(d.discounts){
+                    var discounts = get_discount(d.discounts);
+                    str += '<div class="ub ub-ac uinn"><div class="umh2 umw1 ub-img8 im-ddiscount-gra umar-r"></div><div class="t-gra ub-f1">' + discounts + '</div></div>';
+                }
+                break;
+		}
+	 }
+	 return str;
+}
+
+function go2new5(tid, aid, tagid, tagname, snew){
+    if(snew == 1) {
+        if(removed_new[tid]) snew = 0;
+        else{
+            remove_new(tid);
+        }
+    }
+	setstorage('params','{"wname":"root", "popname":"content1", "tid":"'+tid+'", "uid":"'+aid+'", "tagid":"'+tagid+'", "tagname":"'+tagname+'", "snew":"'+snew+'"}');
+	//var o = getStorJson('params');
+	openwin('forum_detail','forum_detail.html','10');
+}
+function remove_new(tid){
+    if($$('new_' + tid))removeNode('new_' + tid);
+    removed_new[tid] = 1;//下次点击不要设snew参数,没有办法更新icache通过变量来控制
+    uescript('root', 'cancelNotification(\'share_tag\')');
+}
+function share_tag(tid, fid, tagid, tagname){
+    if(!checkLogin()) return;
+    var str = '{"type":"thread", "wname":"root", "popname":"content1", "openwin":"friendtag_member", "tid":"' + tid + '","fid":"' + fid + '", "tagid":"' + tagid + '", "tagname":"' + tagname + '"}';
+    setstorage('params',str);
+    //openwin('friendtag_edit', 'friendtag_edit.html', '12');
+    openwin('friendtag_member', 'friendtag_edit.html', '10');
+}
+
+function go2user5(uid, username, isf){
+    if(!checkLogin()) return;
+    setstorage('params','{"uid":"'+uid+'", "username":"'+username+'", "isfriend":"'+isf+'"}');
+    openwin('friend_information','friend_information.html','10');
+    //openwin('forum_list','forum_list.html','10');
+}
+function go2tag5(uid, username, tagid, tagname){
+    setstorage('params','{"wname":"root", "popname":"content1", "tagid":"'+tagid+'", "tagname":"'+tagname+'", "uid":"'+uid+'", "username":"'+username+'"}');
+    openwin('friendtag_edit','friendtag_edit.html','10');
+}
+function refreshCount(count, tid, type){
+    var obj;
+
+    if(!type || type == 'sharetag'){//推荐点数
+        obj = $$('t_count_' + tid);
+    }else if(type == 'join'){//参加人数
+        obj = $$('m_count_' + tid);
+    }
+
+    count = parseInt(count);
+    if(!count){
+        return;
+    }
+    var old_count = 0;
+    if(obj.innerHTML){
+        old_count = parseInt(obj.innerHTML);
+    }
+    obj.innerHTML = old_count + count;
+    if(type == 'sharetag') zy_anim_pop('t_count_unit_' + tid, 'uhide');
+}
+//暂时无用
+function select_tag(tid){
+    var str = '{"wname":"root", "popname":"content1", "tid":"'+tid+'"}';
+    setstorage('params',str);
+    openwin('tag_select', 'tag_select.html', '10');
+}
+function updateLists(){
+    loadListAll('', '');
+}
+
+function go2members(tid, fid, start_status, subject){
+    if(!checkLogin()) return;
+    var startstamp = int(start_status) == 0 ? 9333222111 : 0;
+    var json_params = {"tid": tid ,"fid": fid , "startstamp": startstamp, "subject": subject};
+    setStorJson('params', json_params);
+    openwin('activity_member','activity_member.html','10');
+}
+</script>
+</html>

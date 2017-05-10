@@ -1,0 +1,183 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>APP</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/common.css" />
+    <style>
+        #wrap{
+            display: block;
+        }
+        #main{
+            padding: 0.75em;
+            background-color: #EEEEF0;
+            display: block;
+        }
+        .btn-group{
+            background-color: #FFF;
+            border: 1px solid #BFC6CE;
+            border-radius: 6px;
+        }
+        .btn-inner{
+            border-bottom: 1px solid #BFC6CE;
+            height: 44px;
+        }
+        .btn-inner.last{
+            border-bottom: none;
+        }
+        .btn-inner:active,.btn-inner.tap-active{
+            background-color: #CBCBCB;
+        }
+
+        .btn-icon-left{
+            width: 34px;
+            height: 44px;
+            float: left;
+        }
+        .btn-icon-left.about{
+            background: url(../../res/img/tmall_icon_more_about_us.png) right center no-repeat;
+            background-size: 16px 16px;
+        }
+        .btn-icon-left.feedback{
+            background: url(../../res/img/tmall_icon_more_feedback.png) right center no-repeat;
+            background-size: 16px 16px;
+        }
+        .btn-icon-left.tel{
+            background: url(../../res/img/tmall_icon_more_hot_line.png) right center no-repeat;
+            background-size: 16px 16px;
+        }
+        .btn-inner-text{
+            text-indent: 0.75em;
+            line-height: 44px;
+            color: #363636;
+        }
+        .btn-icon{
+            float: right;
+            height: 44px;
+            width: 44px;
+        }
+        .btn-icon.select{
+        }
+        .btn-icon.select.active{
+            background: url(../../res/img/mini_checkbox_normal.png) center center no-repeat;
+            background-size: 16px 16px;
+        }
+        .btn-icon.more{
+            background: url(../../res/img/tm_icon_right_arrow.png) center center no-repeat;
+            background-size: 8px 12px;
+        }
+
+        .group-title-box{
+            height: 42px;
+        }
+        .group-title{
+            height: 42px;
+            line-height: 42px;
+            display: block;
+            color: #7F7F7F;
+        }
+        .clear-cache-btn{
+            height: 39px;
+            border: 1px solid #C9C9C9;
+            border-radius: 6px;
+            line-height: 39px;
+            text-align: center;
+            display: block;
+            color: #808081;
+            margin: 1em auto;
+            background-color: #EDEDF2;
+        }
+        .clear-cache-btn:active,.clear-cache-btn.tap-active{
+            background-color: #CBCBCB;
+        }
+    </style>
+</head>
+<body>
+    <div id="wrap">
+        <div id="main">
+            <div class="btn-group">
+                <div class="btn-inner last" tapmode="tap-active">
+                    <!-- <i class="btn-icon-left "></i> -->
+                    <span class="btn-inner-text">收货地址管理</span>
+                    <i class="btn-icon more"></i>
+                    <!-- <i class="btn-icon select"></i> -->
+                </div>
+            </div>
+            <div class="group-title-box">
+                <span class="group-title">图片显示质量</span>
+            </div>
+            <div class="btn-group pic-qua">
+                <div class="btn-inner" tapmode="tap-active">
+                    <!-- <i class="btn-icon-left "></i> -->
+                    <span class="btn-inner-text">智能模式</span>
+                    <!-- <i class="btn-icon more"></i> -->
+                    <i class="btn-icon select active"></i>
+                </div>
+                <div class="btn-inner" tapmode="tap-active">
+                    <!-- <i class="btn-icon-left "></i> -->
+                    <span class="btn-inner-text">高质量（适合wifi环境）</span>
+                    <!-- <i class="btn-icon more"></i> -->
+                    <i class="btn-icon select"></i>
+                </div>
+                <div class="btn-inner last" tapmode="tap-active">
+                    <!-- <i class="btn-icon-left "></i> -->
+                    <span class="btn-inner-text">普通（适合3G或2G环境）</span>
+                    <!-- <i class="btn-icon more"></i> -->
+                    <i class="btn-icon select"></i>
+                </div>
+            </div>
+            <div class="group-title-box">
+                <span class="group-title">通知设置</span>
+            </div>
+            <div class="btn-group notice">
+                <div class="btn-inner" tapmode="tap-active">
+                    <!-- <i class="btn-icon-left "></i> -->
+                    <span class="btn-inner-text">接收通知</span>
+                    <!-- <i class="btn-icon more"></i> -->
+                    <i class="btn-icon select active"></i>
+                </div>
+                <div class="btn-inner last" tapmode="tap-active">
+                    <!-- <i class="btn-icon-left "></i> -->
+                    <span class="btn-inner-text">声音提醒</span>
+                    <!-- <i class="btn-icon more"></i> -->
+                    <i class="btn-icon select active"></i>
+                </div>
+            </div>
+            <div class="group-title-box">
+                <span class="group-title">天猫</span>
+            </div>
+            <div class="btn-group tmall">
+                <div class="btn-inner" tapmode="tap-active">
+                    <i class="btn-icon-left about"></i>
+                    <span class="btn-inner-text">关于我们</span>
+                    <i class="btn-icon more"></i>
+                    <!-- <i class="btn-icon select active"></i> -->
+                </div>
+                <div class="btn-inner" tapmode="tap-active">
+                    <i class="btn-icon-left feedback"></i>
+                    <span class="btn-inner-text">意见反馈</span>
+                    <i class="btn-icon more"></i>
+                    <!-- <i class="btn-icon select"></i> -->
+                </div>
+                <div class="btn-inner last" tapmode="tap-active" onclick="api.call({type: 'tel_prompt',number: '4008-608-608'});">
+                    <i class="btn-icon-left tel"></i>
+                    <span class="btn-inner-text">客服热线：4008-608-608</span>
+                    <i class="btn-icon more"></i>
+                    <!-- <i class="btn-icon select"></i> -->
+                </div>
+            </div>
+            <span class="clear-cache-btn">
+                清空缓存
+            </span>
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript">
+    apiready = function(){
+
+    }
+</script>
+</html>

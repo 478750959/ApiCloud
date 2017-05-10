@@ -1,0 +1,147 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>Hello APP</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/common.css" />
+    <link rel="stylesheet" href="../../css/light.css" class="light-style">
+    <link rel="stylesheet" href="../../css/dark.css" class="dark-style" disabled>
+    <style>
+        .qiushi-tabBar .tabBar-btn{
+            width: 33.33%;
+        }
+        .qiushi-tabBar .tabBar-bar{
+            width: 33.33%;
+        }
+    </style>
+</head>
+<body id="index">
+    <div id="wrap">
+        <div id="header">
+            <div class="header-content clearfix">
+                <div class="header-btn-back pull-left" tapmode="tap-active" onclick="api.closeWin();">
+                    <i class="icon-back"></i>
+                    <span class="btn-back-title">管理我的糗事</span>
+                </div>
+            </div>
+            <div class="qiushi-tabBar clearfix">
+                <div class="tabBar-btn pull-left all-type active" tapmode="tap-active" onclick="changeGroupIndex(0);">我的糗事</div>
+                <div class="tabBar-btn pull-left text-type" tapmode="tap-active" onclick="changeGroupIndex(1);">我的收藏</div>
+                <div class="tabBar-btn pull-left pic-type" tapmode="tap-active" onclick="changeGroupIndex(2);">我的参与</div>
+                <div class="tabBar-bar"></div>
+            </div>
+        </div>
+        <div id="main">
+                
+        </div>
+        
+    </div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/theme.js"></script>
+<script type="text/javascript" src="../../script/common.js"></script>
+<script type="text/javascript"> 
+// 糗事 tabBar切换效果
+    var aTabBarBtn = $api.domAll('.qiushi-tabBar .tabBar-btn');
+    var tabBar = $api.dom('.qiushi-tabBar .tabBar-bar');
+    var changeBar = function(index){
+        tabBar.style.webkitTransform = 'translateX('+(100*index)+'%)';
+        tabBar.style.transform = 'translateX('+100*index+'%)';
+        for (var i = 0,len = aTabBarBtn.length; i < len; i++) {
+            if (index == i) {
+                $api.addCls(aTabBarBtn[i],'active');
+            } else{
+                $api.removeCls(aTabBarBtn[i],'active');
+            }
+            
+        };
+    };
+// 糗事窗口组切换
+    var changeGroupIndex = function(index){
+        api.setFrameGroupIndex({
+            name: 'my-qiushi-group',
+            index: index,
+            scroll: true
+        });
+    };
+// 糗事的选项菜单
+    var toShareOption = function(id){
+        api.openFrame({
+            name: 'share-option',
+            url: '../float/share-option.html',
+            bounces: false,
+            pageParam: {
+                id: id
+            },
+            rect: {
+                x: 0,
+                y: 0,
+                w: 'auto',
+                h: 'auto'
+            }
+        });
+    };
+
+    apiready = function(){
+
+        window.header = $api.byId('header');
+        window.headerTabBar = $api.dom('.qiushi-tabBar');
+        $api.fixIos7Bar(header); 
+        var headerPos = $api.offset(header);
+        window.main = $api.byId('main');
+        var mainPos = $api.offset(main);
+
+        var groupColor = $api.getStorage('theme');
+        if (groupColor && groupColor == 1) {
+            groupColor = '#1E1E23';
+        } else{
+            groupColor = '#FFFFFF';
+        }
+
+        api.openFrameGroup({
+            name: 'my-qiushi-group',
+            background: groupColor,
+            scrollEnabled: true,
+            rect: {
+                x: 0,
+                y: headerPos.h,
+                w: 'auto',
+                h: mainPos.h
+            },
+            index: 0,
+            frames:[
+                {
+                    name: 'my-qiushi-con1', 
+                    url: './my-qiushi-con1.html', 
+                    pageParam:{}, 
+                    bounces:true, 
+                    opaque:true,
+                    bgColor: groupColor
+                },{
+                    name: 'my-qiushi-con2', 
+                    url: './my-qiushi-con2.html', 
+                    pageParam:{}, 
+                    bounces:true, 
+                    opaque:true,
+                    bgColor: groupColor
+                },{
+                    name: 'my-qiushi-con3', 
+                    url: './my-qiushi-con3.html', 
+                    pageParam:{}, 
+                    bounces:true, 
+                    opaque:true,
+                    bgColor: groupColor
+                }
+            ]
+        }, function(ret, err){
+            var name = ret.name;
+            var index = ret.index;
+            changeBar(index);
+        });
+        
+        
+    };
+</script>
+</html>

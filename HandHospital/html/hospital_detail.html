@@ -1,0 +1,134 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>APP</title>
+		<link rel="stylesheet" type="text/css" href="../css/api.css" />
+		<link rel="stylesheet" type="text/css" href="../css/common.css" />
+		<link rel="stylesheet" type="text/css" href="../css/detail.css" />
+	</head>
+	<body>
+		<div id="wrap">
+			<script id="record-template" type="text/x-dot-template">
+				<section class="content">
+					<div class="left text-overflow">
+						病人姓名
+					</div>
+					<div class="middle text-overflow">
+						{{=it.PatientName}}
+					</div>
+				</section>
+				<section class="content">
+					<div class="left text-overflow">
+						性别
+					</div>
+					<div class="middle text-overflow">
+						{{=it.PatientSex}}
+					</div>
+				</section>
+				<section class="content">
+					<div class="left text-overflow">
+						出生日期
+					</div>
+					<div class="middle text-overflow">
+						{{=it.PatientBirthday}}
+					</div>
+				</section>
+				<section class="content">
+					<div class="left text-overflow">
+						住院病区
+					</div>
+					<div class="middle text-overflow">
+						{{=it.HospitalizedSN}}
+					</div>
+				</section>
+				<section class="content">
+					<div class="left text-overflow">
+						住院房间
+					</div>
+					<div class="middle text-overflow">
+						{{=it.illRoom}}
+					</div>
+				</section>
+				
+				<section class="content">
+					<div class="left text-overflow">
+						住院床号
+					</div>
+					<div class="middle text-overflow">
+						{{=it.illBedNum}}
+					</div>
+				</section>
+				<section class="content">
+					<div class="left text-overflow">
+						住院时间
+					</div>
+					<div class="middle text-overflow">
+						{{=it.illDate}}
+					</div>
+				</section>
+				<section class="content">
+					<div class="left text-overflow">
+						出院时间
+					</div>
+					<div class="middle text-overflow">
+						{{=it.goDate}}
+					</div>
+				</section>
+				<section class="content">
+					<div class="left text-overflow">
+						住院医生
+					</div>
+					<div class="middle text-overflow">
+						{{=it.doctor}}
+					</div>
+				</section>
+				<section class="content">
+					<div class="left text-overflow">
+						身份证号
+					</div>
+					<div class="middle text-overflow">
+						{{=it.IDNo}}
+					</div>
+				</section>
+				<section class="content">
+					<div class="left text-overflow">
+						门诊卡号
+					</div>
+					<div class="middle text-overflow">
+						{{=it.SSN}}
+					</div>
+				</section>
+				
+				<section class="btns">
+					<div class="half">
+						<button class="button blue" id="showAllNum" tapmode="" onclick="openFee('{{=it.eventNo}}')">
+							费用明细
+						</button>
+					</div>
+					
+					<div class="half">
+						<button class="button blue" id="showAllNum" tapmode="" onclick="openMedicine('{{=it.eventNo}}')">
+							药品明细
+						</button>
+					</div>
+				</section>
+				
+			</script>
+			<div id="main">
+				<section class="content header_bg">
+					<div class="middle">门诊信息</div>
+				</section>
+				<section id="content">
+					
+				</section>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../script/api.js"></script>
+	<script type="text/javascript" src="../script/zepto.min.js"></script>
+	<script type="text/javascript" src="../script/doT.min.js"></script>
+	<script type="text/javascript" src="../script/constants.js"></script>
+	<script type="text/javascript" src="../script/hospital_deail.js"></script>
+</html>

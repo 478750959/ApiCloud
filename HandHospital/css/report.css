@@ -1,0 +1,67 @@
+#wrap {
+	height: 100%;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-orient: vertical;
+	-webkit-flex-flow: column;
+	flex-flow: column;
+}
+
+#main {
+	-webkit-box-flex: 1;
+	-webkit-flex: 1;
+	flex: 1;
+	padding: 10px;
+}
+
+.one, .two {
+	margin-top: 20px;
+	width: 100%;
+	position: relative;
+	text-align: center;
+}
+
+input {
+	border: none;
+	height: 50px;
+	font-size: 16px;
+	line-height: 50px;
+	margin: 0em;
+	-webkit-box-flex: 1;
+	-webkit-flex: 1;
+	flex: 1;
+	width: 65%;
+}
+
+.title {
+	display: inline-block;
+	width: 20%;
+	height: 50px;
+	line-height: 50px;
+	-webkit-background-size: 24px;
+	background-size: 24px;
+	position: absolute;
+	left: 2px;
+	font-size: 14px;
+	color: #b6b6b6;
+}
+
+.scan {
+	display: inline-block;
+	position: absolute;
+	bottom: 2px;
+	right: 10px;
+	height: 40px;
+	width: 40px;
+	background: url(../image/scan_icon.png) no-repeat center center;
+	-webkit-background-size: 40px;
+	background-size: 40px;
+}
+
+#comfirm {
+	height: 40px;
+	font-weight: bold;
+	width: 100%;
+	margin-top: 30px;
+}

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>关于我们</title>
+<meta charset="utf-8">
+<meta name="viewport" content="initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=0, width=device-width"/>
+<link rel="stylesheet" type="text/css" href="../css/api.css" />
+<link rel="stylesheet" type="text/css" href="../css/common.css" />
+</head>
+<body>
+    <div id="wrap">
+        <div id="header">
+            <a class="back-icon" tapmode="" onclick="api.closeWin()"></a>
+            <h1>关于我们</h1>
+        </div>
+        <div id="main">
+                
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script>
+apiready = function() {
+    var header = $api.byId('header');
+    $api.fixIos7Bar(header);
+    
+    var headerPos = $api.offset(header);
+    
+    api.openFrame({
+        name: 'about-con',
+        url: './about-con.html',
+        rect:{
+            x:0,
+            y:headerPos.h,
+            w:'auto',
+            h:'auto'
+        }
+    });
+
+}
+
+</script>
+</html>

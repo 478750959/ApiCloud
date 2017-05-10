@@ -1,0 +1,96 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>MI</title>
+    <style>
+    	*{
+    		margin:0;
+    		padding:0;
+    	}
+    	.xinshui_main{
+    	}
+    	.xinshui_con{
+    		background:white;
+    		padding:0.2rem;
+    		min-height:5rem;
+    		font-size:0.26rem;
+    	}
+    	img{
+    		display:block;
+    		max-width:100%;
+    		height:auto;
+    	}
+    	
+    </style>
+</head>
+<body>
+
+<div id="wrap">
+    <div id="main">
+    	<div class="xinshui_main">
+    		<div class='xinshui_con'>
+    			<!--<h2 class="title">内容啊</h2>
+    			<div class="img"><img src='../image/det_img6.jpg'></div>
+    			<p class="content">很早就发现我的文字太过自我，总在记叙自己周遭的际遇和生活，看不到整个世界的轮廓，看不懂人世的许多奥妙和曲折。
+    			认识太浅，文字太轻，承载不了这个社会的深刻。我既关心不了国家大事，也了解不了黎民苦热。
+				有一天却终于明白，我也不必去学什么深沉，装什么大气，自由和轻松才是属于当下这个年岁最好的样子。
+				人世间，每一件事物都有一个属于自己的季节时令。
+				赏最当季的风景，吃最当季的水果，做最当季的人，才是遵循自然界的规律，才是最合时宜的安排。
+				不必急，不必乱，顺着的光阴的脚步慢慢游走，该轻松和自由的年岁本应享受轻松和自由。
+				深沉和大气，当然可以有，但不是现在。年岁到了，阅历够了，我自然会有重新的样子，时间会给人最好的雕琢。
+				现在，我依旧可以文艺，胡闹，疯狂……这是这个年岁的自由和骄傲。
+				请让我在能够文艺的年岁里再文艺几年。其实，文艺远没有那么不食人间烟火，它只是一种对文字和生活最朴素的情怀。
+				请让我在能够胡闹的年岁里再胡闹几年。其实，胡闹远非仅仅是胡闹，也不是永远那么不可饶恕，它也只是一个灵性和随意一点的态度。
+				请让我在能够疯狂的年岁里再疯狂几年。其实，很多时候，人往往被各种有形和无形的规矩束缚太多，在适当的时空能够疯狂何尝不是一种理性。
+				这些所有的文艺、胡闹、疯狂……都可以成为一个人用力活过的痕迹，它们必定是一段青涩岁月最好的纪念品，它们必定也是一方记忆时空最好的装饰品。
+				其实，文艺、胡闹和疯狂反而不是最让人担心的事。 最让人担心的是一个人在能够疯狂、胡闹、文艺的年岁里，不敢去疯狂、胡闹和文艺。				
+				这是一种缺失。这种缺失必定让一个人错失很多人生的美好。这是一种空白。这种空白很难用其他东西来填补。</p>-->
+    		</div>
+    	</div>
+
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/font.js"></script>
+<script type="text/javascript" src="../script/comm.js"></script>
+<script type="text/javascript" src="../script/zepto.js"></script>
+<script>
+apiready=function(){
+	var id=api.pageParam.id;
+	api.showProgress({
+			style: 'default',
+		    title: '加载中',
+		    modal: false
+        });
+	ajaxRequest('xinshui/get_info','post',{'id':id},function(ret,err){	
+		api.hideProgress();
+		if(err){
+			api.toast({
+	            msg:err.msg
+            });
+            return false;
+		}
+		if(ret.status){
+			if(isEmpty(ret.info.content)){
+				api.toast({
+					msg:'暂无内容'
+				});
+				return false;
+			}else{
+				$('.xinshui_con').html(ret.info.content);			
+			}
+		}else{
+			api.toast({
+				msg:ret.info
+			});
+		}
+	});
+	
+}
+
+</script>
+</html>

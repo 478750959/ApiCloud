@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+  <head>
+    <title>
+    </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="../../css/ui-tab.css">
+    <link rel="stylesheet" href="../../css/ui-input.css">
+    <link rel="stylesheet" href="../../css/ui-img.css">
+    <link rel="stylesheet" href="../../css/ui-res.css">
+    <link rel="stylesheet" href="../../css/ui-list.css">
+    <link rel="stylesheet" href="../../css/ui-base.css">
+    <link rel="stylesheet" href="../../css/ui-box.css">
+    <link rel="stylesheet" href="../../css/ui-color.css">
+	<link rel="stylesheet" href="../../css/style.css">
+	<link rel="stylesheet" href="css/style.css">
+    <script src="../../js/y_control.js"></script>
+	<script src="../../js/y_click.js"></script>
+	<script src="../../js/dis_control.js"></script>
+	<script src="../../js/config.js"></script>
+	<script src="../../js/y_json.js"></script>
+	<script src="../../js/y_tmpl.js"></script>
+    <script src="../../js/y_anim.js"></script>
+	<script src="../../js/dis_upload.js"></script>
+    <script src="script/common.js"></script>
+    <script>
+	</script>
+	<style>
+	.tab1{
+		height : 2em;
+        padding : .5em 0.8em
+	}
+    </style>
+
+</head>
+<body class="um-vp c-gra" ontouchstart="zy_cc(this);">
+    <div class="ub ub-ac c-wh uc-n b-gra2 ubb uinput umar-t20" id="c_itime">
+        <div class="ub ub-f1 uinn16">
+            <input placeholder="请输入时间" type="text" class="uc-n ulev0"  name="itime" id="itime">
+        </div>
+        <div class="ub ub-ac c-org ulev0 uinn11 umar-r" ontouchstart="zy_touch('btn-act1')" onclick="opendatetime();">
+            <div class="t-wh">选择时间</div>
+        </div>
+    </div>
+    <div class="c-wh uc-n b-gra2 ubb uinput" id="c_iplace">
+        <div class="uinn16">
+            <input placeholder="请输入地点" type="text" class="uc-n ulev0"  name="ipace" id="iplace">
+        </div>
+    </div>
+    <div class="c-wh uc-n uinput">
+        <div class="uinn16">
+            <textarea placeholder="添加内容" class="uc-n ulev0 umh11" id="txt2" onfocus="" onblur=""></textarea>
+        </div>
+        <div class="uinn3" id="imgs">
+            <div class=""></div>
+        </div>
+    </div>
+    <div class="c-wh">
+        <div class="ub umar-t1" id="menus">
+            <div ontouchstart="zy_touch('btn-act1')" onclick="getpic(1);" class="ub-f1 ub ub-ac tab1 t-wh ubt ubb b-gra ">
+                <div class="ub-img5 tp-tp morepic"></div>
+                <div class="t-gra">图片</div>
+            </div>
+            <div ontouchstart="zy_touch('btn-act1')" onclick="getpic(0);" class="ub-f1 ub ub-ac tab1 t-wh ubt ubb b-gra">
+                <div class="ub-img5 tp-zx morepic"></div>
+                <div class="t-gra">拍照</div>
+            </div>
+        </div>
+	</div>
+    <div class="c-wh">
+        <div class="ub umar-t1" id="note">
+            <div class="t-bla ub-ac lis">
+                <div class="umar-t1 umar-b1">
+                    <div class="ulev0">说明：</div>
+                </div>
+                <div class="uinn-r">
+                    <div class="t-gra1 umar-b2">1.&nbsp;发布后，其他人看不到你的资料。</div>
+                    <div class="t-gra1 umar-b2">2.&nbsp;如果有人点击要约，则你能看到他的详细资料。</div>
+                    <div class="t-gra1">3.&nbsp;你接受要约的人之后，TA能看到你的详细资料。</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script>
+zy_init();
+var params = getStorJson('params');
+var tid = '';
+var pid = '';
+var touid = '';
+var picid = '';
+var mfr = '';
+var eimg = $$('imgs');
+var eee = $$("txt2");
+var uploadHttp = '';
+var attachnew = [];
+var attachvalue = '';
+var log = '';
+var lat = '';
+var isok = true;
+var myUpload = null;
+ImgObj = {};
+uploadHttp = forum_url + "&mod=ajax&action=uploadimage";
+window.uexOnload=function(t)
+{
+    setPageBounce('', '');
+
+	var pf = getstorage('platform');
+	if(pf==0) mfr='iPhone';
+	else if(pf==1) mfr='Android';
+    getLogLat();//获取地址，并将坐标上传到服务器与pid关联
+    reportBarOpen();
+};
+function opendatetime(){
+    uescript('dating_editor', 'opendatetime();');
+}
+function getLogLat(){
+    var location = getStorJson('location');
+    var address = location.address ? location.address : '';
+    log = location.log;
+    lat = location.lat;
+    if(!address || !log || !lat){
+        uexWindow.toast('0', '5', '无法获取位置信息，将无法推荐给附近的人', '3000');
+        return;
+    }
+
+    setValue('iplace', address);
+    /*Y.baiduGetLocation({
+        callback: function(ret, err){
+            if(!ret.lon || !ret.lat) return;
+            log = ret.lon;
+            lat = ret.lat;
+            var params = {
+                lon: ret.lon,
+                lat: ret.let,
+                callback: function(ret, err){
+                    if(ret.add){
+                        setValue('iplace', ret.add);
+                    }
+                }
+            };
+            Y.baiduGetNameFromLoation(params);
+        }
+    });*/
+}
+
+function getpic(i){
+	if(!myUpload) myUpload = new disUpload(uploadHttp, 'thread', actCb, susCb);
+	myUpload.upMethod(i);
+}
+
+function actCb(val){
+	isok = val;
+}
+function susCb(val, f){
+    attachnew.push(val);
+    addimgpreview(val);
+    if(f!=1) setAtt(val);
+
+    if(myUpload) ImgObj[val] = myUpload.src;
+}
+
+function addimgpreview(val){
+	var src = '';
+	var ii = '';
+    if(myUpload) src = myUpload.src;
+    else src = ImgObj[val];
+    ii = val;
+	logs('addimgpreview()-->ii='+val+', src='+src);
+	var node = document.createElement("span");
+	node.innerHTML = '<img src="'+src+'" class="edpic" ontouchstart="zy_touch(\'c-gra\')" onclick="imgoperate(\'i'+ii+'\');" id="i'+ii+'"/>';
+	eimg.insertBefore(node,eimg.lastElementChild);
+}
+
+var eleimg = null;
+function imgoperate(id){
+	logs('imgoperate-->id='+id);
+	eleimg = $$(id);
+	uexWindow.cbActionSheet = function(opId, dataType, data)
+	{
+		if (data == "0") {
+			src = '';
+			var id2 = eleimg.id;
+			removeNode(id2);
+			
+			var id3 = id2.replace('i', '');
+			logs('imgoperate-->id3='+id3);
+			id3 = Int(id3);
+			for(var k in attachnew){
+				var itm = attachnew[k];
+				if (itm == id3) {
+					attachnew.splice(k, 1);
+					delete ImgObj[itm];
+					removeAtt(id3);
+					break;
+				}
+			}
+		} else if (data == "1") {
+			var array = [];
+			array[0] = eleimg.src;
+			uexImageBrowser.open(array, 0, 1);
+		}
+	}
+	
+	var value = ["删除","预览"];
+	uexWindow.actionSheet('', '取消', value);
+}
+
+function submit(){
+	var url = '';
+	var str = '';
+	var msg = getValue("txt2");
+	var msg2 = '';
+    var sortstr = '';
+
+	if(going) return;
+	
+    var itime = '';
+    var iplace = '';
+    var sort = '&sortid=1';
+    itime = getValue('itime');
+    if (itime == '') {
+        uexWindow.toast('0', '5', "请输入时间", 2000);
+        return;
+    }
+    itime = encodeURIComponent(itime);
+    iplace = getValue('iplace');
+    if (iplace == '') {
+        uexWindow.toast('0', '5', "请输入地点", 2000);
+        return;
+    }
+    iplace = encodeURIComponent(iplace);
+    sortstr = '&typeoption[iplace]=' + iplace + '&typeoption[itime]=' + itime + sort;
+
+	msg = trim(msg);
+	if (msg == '') {
+		uexWindow.toast('0', '5', "内容不能为空", 2000);
+		return;
+	}
+	if (fucCheckLength(msg) > 1000) {
+		uexWindow.toast('0', '5', "内容请小于500个字", 2000);
+		return;
+	}
+    msg = msg + attachvalue;//图片放在最后
+	msg2 = encodeURIComponent(msg);
+	
+	if (attachnew.length>0){
+		str = '&attachnew=' + attachnew.join(',');
+	}
+    if(!check_single_card()) return;
+    url = 'http://'+ip+'/forum.php?mod=post&action=newthread&fid=' + fid
+            + '&extra=&topicsubmit=yes&allownoticeauthor=1&jsoncallback=?&subject=&message=' + msg2 + str + '&longitude='
+            + log + '&latitude=' + lat + '&device='  + '&address=' + iplace + mfr + sortstr;
+
+	uexWindow.toast('1', '5', "正在发布...", "");
+	going = 1;
+	$.getJSON(url, submitCb, 'json', getJsonErr2, 'POST', '', '');
+}
+function submitCb(json){
+	going = 0;
+	var str = '发布失败';
+	var succ = true;
+	if(json){
+		logs("submitCb()---json: "+JSON.stringify(json));
+        if (json.tid){
+            if(json.status == '1') str = '此帖需要通过审核才能发表';
+            else str = '发布成功';
+        }
+        else if (json.pid) {
+            str = '回帖成功';
+            if(pid) str = '回复成功';
+        }
+        else if(json.cid) str = '回复成功';
+        else if(json.newdoid) str = '发布成功';
+        else {
+            if (json.message)  str = json.message;
+            else str = '发布失败';
+            succ = false;
+        }
+	}
+	else succ = false;
+	uexWindow.toast('0', '5', str, 1500);
+	if(succ){
+        setstorage('params','{"tid":"' + json.tid + '", "uid":"'+ uid +'"}');
+        //var o = getStorJson('params');
+        ueppscript('dating_list', 'content', 'loadList(\'\', \'0\', \'\')');
+        openwin('dating_detail','detail.html','10');
+        setTimeout(function(){uescript("dating_editor", "closewin(0, 'dating_editor');");}, 1000);
+	}
+}
+
+function getJsonErr2(s){
+	isok = true;
+	resetBV('0');
+	resetBV('1');
+	var str = '返回数据有误！';
+	if(s.status=='-1') str = '无网络，连接失败^_^！';
+	uexWindow.toast('0','5',str,"1500");
+}
+function setAtt(val){
+    attachvalue += '[attach]'+val+'[/attach]';
+}
+function removeAtt(val){
+    var str = '[attach]'+val+'[/attach]';
+    attachvalue = attachvalue.replace(str, '');
+}
+function check_single_card(){
+    var o_rolemodule = getStorJson('role_status');
+    if(!int(o_rolemodule['single'])){//单身名片没有打开
+        uexWindow.toast('0', '5', '请启用单身名片后，再次发布', '2500');
+        setTimeout(function(){
+            var str = '{"view":"me", "uid":"' + uid  + '", "rolemoduleid":"' + 1 + '", "title":"单身名片"}';
+            setstorage('params', str);
+            openwin('manage_role', '../../manage_role.html', '10');
+        }, 2500);
+        return false;
+    }
+    return true;
+}
+function set_value_time(value){
+    setValue('itime', value);
+    setTimeout(function(){$$('itime').focus();}, 500);
+}
+</script>
+</html>

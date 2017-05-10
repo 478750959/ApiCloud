@@ -1,0 +1,91 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>MI</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <style>
+    	html,body{
+    		background:white;
+    	}
+    	.contact_img{
+    		display:block;
+    		width:2.19rem;
+    		height:2.46rem;
+    		margin:1.1rem auto 0.2rem;
+    	}
+    	.contact_txt{
+    		padding-left:0.4rem;
+    		margin-bottom:0.2rem;
+    	}
+    	.contact_txt h3{
+    		font-size:0.26rem;
+    		color:#b4b4b4;
+    		float:left;
+    		width:1.3rem;
+    		font-weight:normal;
+    		line-height:0.5rem;
+    	}
+    	.contact_txt p{
+    		font-size:0.26rem;
+    		float:left;
+    		width:4rem;
+    		line-height:0.5rem;
+    		margin-bottom:0.4rem;
+    	}
+    	.contact_ban{
+    		font-size:0.24rem;
+    		color:#878787;
+    		margin:0 auto 1rem;
+    		text-align:center;
+    		font-style:normal;
+    		font-weight: normal;
+    	}
+    	.banben{
+    		font-size:0.24rem;
+    		color:#878787;
+    	}
+    	.contact_txt h2{
+    		font-size:0.32rem;
+    		font-style:normal;
+    		font-weight:normal;
+    		line-height:0.5rem;
+    	}
+    </style>
+</head>
+<body>
+<div id="wrap">
+    <div id="main">
+    	<div class="main">
+	    	<img src='../image/contact_img.png' class="contact_img"/>
+	    	<h4 class="contact_ban"><span class="banben">1.1.1</span>版</h4>
+	    	<div class="contact_txt clearfix">
+	    		<p style="width:5.5rem;">娱猫是一款娱乐电商购物平台，致力于为消费者提供热门电影、电视剧，当红综艺节目中的时尚单品，全部正品在线销售，支持在线音脉扫货，随时随地轻松下单。</p>
+	    	</div>
+	    	<div class="contact_txt clearfix">
+	    		<h2>您可以通过以下方式联系我们：</h2>
+	    		<h2>微信：娱猫entmall</h2>
+	    		<h2>微博：@娱猫</h2>
+	    		<!--<h3>公司电话:</h3>
+	    		<p class="xyc_click">010-65206045</p>-->
+	    	</div>
+    	</div>
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/font.js"></script>
+<script type="text/javascript" src="../script/zepto.js"></script>
+<script>
+	apiready=function(){
+		$('.banben').html(api.appVersion);
+	}
+	$('.xyc_click').click(function(){
+		api.call({
+		    type: 'tel_prompt',
+		    number: '010-65206045'
+		});
+	})
+</script>
+</html>

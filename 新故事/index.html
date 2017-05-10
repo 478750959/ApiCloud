@@ -1,0 +1,388 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=0, width=device-width"/>
+    <title>api</title>
+    <link rel="stylesheet" type="text/css" href="./css/api.css" /> 
+	<style>
+	
+		html,body{height: 100%}
+		body{
+			background-color: #f2f2f2; font-size: 14px;
+		}
+		
+		#wrap{
+		height: 100%;
+		display: -webkit-box;
+		display: -webkit-flex;
+		display: flex;
+		-webkit-box-orient: vertical;
+		-webkit-flex-flow: column;
+			   flex-flow: column;
+		}
+		
+		#header{
+			background-color: #55abce;
+			text-align: center; color: #fff;
+			width: 100%; position: relative;
+		}
+		#header h1{
+			font-size: 20px;
+			height: 44px; line-height: 44px; margin: 0em; color: #fff;
+		}
+		#main{
+				
+			-webkit-box-flex: 1; 
+			-webkit-flex: 1;
+			flex: 1;
+		}
+		
+		#main{
+		display: -webkit-box;
+		display: -webkit-flex;
+		display: flex;
+		-webkit-box-orient: vertical;
+		-webkit-flex-flow: column;
+			   flex-flow: column;
+	
+		}
+		
+		#nav ul{
+			display: -webkit-box;
+			display: -webkit-flex;
+			display: flex;
+			-webkit-box-orient: horizontal;
+			-webkit-flex-direction: row;
+			flex-direction: row;
+		}
+		#nav ul li{
+			-webkit-box-flex: 1; 
+			-webkit-flex: 1;
+			flex: 1;
+		}
+	
+		#header .active{
+			display: block;
+		}
+		#header .do{
+		   display:block;
+		   float:right;
+		   width: 40px; height:40px;
+		   margin-top:-35px;
+		   margin-right:5px;
+		   background:url(image/icon_drawer_burger.png) no-repeat center center ;
+		}
+		
+		
+		#header .back-icon-plus{
+		display: inline-block; width: 40px; height: 40px;
+		background: url(image/icon_drawer_burger.png) no-repeat center center; 
+		
+		
+		-webkit-background-size: 40px 28px;
+		background-size: 40px 28px;
+		position: absolute; right: 1px; bottom: 0;
+       }
+	   
+		
+		#nav{
+			background-color: #404040; border-top:2px solid #7a7a7a; 
+			width: 100%;
+			text-align: center;
+		}
+		#nav h5{
+			color: white;
+		}
+		#nav li a{
+			-webkit-background-size: 24px 24px !important;
+			background-size: 24px 24px !important;
+		}
+		#nav li.active a, #nav a.active{
+			color: #55abce;
+		} 
+	   
+	    #nav a{
+			color: #707070; display: block; padding-top: 30px; padding-bottom: 4px;
+		}
+		
+		#nav .main{
+   		 background: url(./image/m_about_icon_proposal.png) no-repeat center top;
+		}
+		
+		#nav .main.active, #nav li.active .main{
+   		 background: url(./image/m_about_icon_proposal.png) no-repeat center top;
+		}
+		
+		#nav .top{
+		    background: url(./image/home.png) no-repeat center 4px;
+		}
+		#nav .top.active, #nav li.active .top{
+		    background: url(./image/home-l.png) no-repeat center 4px;
+		}
+				
+		#nav .user{
+   		 background: url(./image/user-icon.png) no-repeat center top;
+		}
+		
+		
+		#nav .user.active, #nav li.active .user{
+   		 background: url(./image/user-l.png) no-repeat center top;
+		}
+		
+	</style>
+</head>
+<body>
+    <div id="wrap">
+        <div id="header">
+		   <!--<a class="back-icon-plus" tapmode="" onclick=""></a>-->
+			<h1>精彩故事</h1>
+			
+			<a class="back-icon-plus" tapmode="" onclick="opensetting()"></a>
+        </div>
+        
+        <div id="main">
+			
+                
+        </div>
+        
+        <div id="nav">
+            <ul>
+                <li class="active"><a class="top acitve" tapmode="active" onclick="openTab('top')">故事</a></li>
+                <li><a class="main" tapmode="active" onclick="newstory('main')">发布</a></li>               
+                <li><a class="user" tapmode="active" onclick="openTab('user')">我</a></li>
+            </ul>
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="./script/api.js"></script>
+<script type="text/javascript" src="./script/common.js"></script>
+<script>
+apiready = function(){
+		
+    var header = $api.byId('header');
+    $api.fixIos7Bar(header); 
+    var headerPos = $api.offset(header);
+    var main = $api.byId('main');
+    var mainPos = $api.offset(main);
+    addEventListener();
+    api.openFrame({
+        name: 'top',
+        url: './html/top.html',
+        bounces: false,
+        hScrollBarEnabled:false,
+        
+        rect: {
+            x: 0,
+            y: headerPos.h,
+            w: headerPos.w,
+            h: mainPos.h
+        }
+    });
+};
+  
+ function addEventListener(){
+	
+		api.setStatusBarStyle({style:'dark'});
+        
+        //监听没联网的状态
+        api.addEventListener({name: 'offline'}, function(ret, err){
+			api.toast({msg: '没联网哦，请检查网络状态！', duration: 3000, location: 'middle'});
+		});
+        
+        //监听keyback键
+		api.addEventListener({name: 'keyback'}, function(ret, err){
+			api.closeWidget();
+		});
+	}    
+    
+function newstory(){
+// 
+//   api.closeFrame({
+//			    name: 'top'
+//			});
+			
+	if(!$api.getStorage('logined')){	
+		api.openWin({
+			name:'login',
+			url:'./html/login.html'
+		});
+	return; 
+	}
+  api.openWin({
+         name: 'newstory',
+   		 url: './html/newstory.html',
+         bounces: false
+        });
+}
+
+function openTab(type){
+    if(type === 'user'){
+	    //var uid = $api.getStorage('uid');
+	    var usr = $api.getStorage('usr');
+		if(!usr){
+			api.openWin({
+		        name: 'userLogin',
+		        url: './html/login.html',
+		        bounces: false,
+		        opaque: true,
+		        vScrollBarEnabled:false
+		    });
+		    return;
+		}
+		
+		
+    }
+    
+   // showHeader(type);
+    var width = api.winWidth;
+    var nav = $api.byId('nav');
+    var navPos = $api.offset(nav);
+    var header = $api.byId('header');
+    var headerPos = $api.offset(header);
+    var height = api.winHeight - navPos.h - headerPos.h;
+    
+    type = type || 'top';
+
+    var actTab = $api.dom('#nav .active');
+    $api.removeCls(actTab,'active');
+    var thisTab = $api.dom('#nav .'+ type);
+    thisTab = thisTab.parentNode;
+    $api.addCls(thisTab,'active');
+    
+//  if (type!=='top'){
+//     
+//       api.closeFrame({
+//			    name: 'top'
+//			});
+//     }
+    
+    api.openFrame({
+                name: type,
+                url: 'html/'+ type +'.html',
+                bounces: false,
+                opaque: false,
+                vScrollBarEnabled: false,
+                pageParam:{ headerHeight: headerPos.h},
+                rect: {
+                    x: 0,
+                    y: headerPos.h,
+                    w: width,
+                    h: height
+                },
+                reload:true
+            });
+            
+       
+
+    //record page id
+//  prevPid = curPid;
+//  curPid = type;
+//  if(prevPid !== curPid){
+//  
+//      if(isOpened(type)){
+//          api.setFrameAttr({
+//              name: type,
+//              hidden: false
+//          });
+//      }else{
+//          api.openFrame({
+//              name: type,
+//              url: 'html/'+ type +'.html',
+//              bounces: false,
+//              opaque: false,
+//              vScrollBarEnabled: false,
+//              pageParam:{ headerHeight: headerPos.h},
+//              rect: {
+//                  x: 0,
+//                  y: headerPos.h,
+//                  w: width,
+//                  h: height
+//              }
+//          });
+//      }
+//
+//      if(prevPid){
+//          api.setFrameAttr({
+//              name: prevPid,
+//              hidden: true
+//          });
+//          
+//      }
+//
+//      if(!isOpened(type)){
+//          //save frame name
+//          frameArr.push(type);
+//      }
+//      
+//  }
+    
+}
+
+function updateHeader(){//更新头部信息
+		var logined = $api.getStorage('logined');
+		var usr = $api.getStorage('usr');
+		if(usr && logined){
+//			var icon = usr.icon;
+//			var city = usr.caddress;
+//			var head = $api.byId('head')
+//			
+//			$api.html($api.byId('username'), usr.name);
+//			if(city){
+//				$api.html($api.byId('city'), city);
+//			}else{
+//				$api.html($api.byId('city'), '');
+//			}
+//			hasNoClsAddIt($api.byId('navno'), 'hidden');
+//			hasClsRemoveIt($api.byId('nav'), 'hidden');
+//		}else{
+//			hasClsRemoveIt($api.byId('navno'), 'hidden');
+//			hasNoClsAddIt($api.byId('nav'), 'hidden');
+		}
+}
+
+var prevPid = '', curPid = '';
+//save opened frame name
+var frameArr = [];
+
+//frame whether open
+function isOpened(frmName){
+    var i = 0, len = frameArr.length;
+    var mark = false;
+    for(i; i<len; i++){
+        if(frameArr[i] === frmName){
+            mark = true;
+            return mark;
+        }
+    }
+    return mark;
+}
+
+function opensetting(){
+
+if(!$api.getStorage('logined')){	
+		api.openWin({
+			name:'login',
+			url:'./html/login.html'
+		});
+	return; 
+	}
+	api.openWin({
+         name: 'setting',
+   		 url: './html/setting.html',
+         bounces: false,
+         animation:{
+          type:"push",
+          subType:"from_left",
+          duration:300
+         }
+        });
+}
+
+function test(){
+api.openWin({
+		        name: 'test',
+		        url: './html/test.html'});
+}
+</script>
+</html>

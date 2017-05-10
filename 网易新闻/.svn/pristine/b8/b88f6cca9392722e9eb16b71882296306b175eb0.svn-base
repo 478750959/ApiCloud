@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/common.css"/>
+    <style>
+        body {
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+        }
+        .content{
+            -webkit-box-flex:1;
+        }
+        .detail-header{
+            border-bottom: 1px solid #CDCDCD;
+            background-color: #DD3237;
+        }
+        .back{
+            background-size: 40px!important;
+            background-image: url("../image/weather_back@2x.png");
+            background-position: right!important;
+        }
+
+        .detail-header .btn{
+            padding:25px;
+        }
+        .title{
+            color: #FFFFFF;
+            text-align: center;
+            line-height:50px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <div class="header detail-header">
+        <div class="back btn" tapmode="" onclick="closeWin()"></div>
+        <div class="title" id="title">登录</div>
+        <div class="btn"></div>
+    </div>
+</header>
+<script src="../script/zepto.min.js"></script>
+<script>
+    apiready = function () {
+        fixIos7Bar($(".header"));
+        api.openFrame({
+            name:"frm_login",
+            url:'frm_login.html',
+            rect:{
+                x:0,
+                y:$(".header").height(),
+                w:"auto",
+                h:'auto'
+            }
+        })
+    };
+    function closeWin() {
+        api.closeWin()
+    }
+</script>
+</body>
+</html>

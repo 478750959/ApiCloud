@@ -1,0 +1,123 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>APP</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/common.css" />
+    <style>
+        body,html{
+            background-color: #2B2B2B;
+        }
+        #main {
+            background-color: #2B2B2B;
+            padding: 1em;
+        }
+        /*活动详情按钮*/
+        #act_detail_box{
+            width: 100%;
+            margin-top: 10px;
+        }
+        #act_detail_box .act_detail_btn{
+            width: 100%;
+            /*height: 140px;*/
+            position: relative;
+            margin-bottom: 10px;
+        }
+        #act_detail_box img{
+            display: block;
+            width: 100%;
+            /*height: 100%;*/
+        }
+        #act_detail_box .statu{
+            position: absolute;
+            color: #FFF;
+            left: 0;
+            top: 0;
+            width: 85px;
+            height: 21px;
+            text-align: center;
+            line-height: 21px;
+        }
+        #act_detail_box .ing{
+            background-color: #0084FF;
+            
+        }
+        #act_detail_box .end{
+            background-color: #617488;
+        }
+        .act_detail_btn .title{
+            width: 100%;
+            color: #FFF;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 32px;
+            line-height: 32px;
+            text-indent: 1em;
+            background-color: rgba(0,0,0,0.3);
+        }
+        /*活动详情按钮end*/
+    </style>
+</head>
+<body>
+    <div id="wrap">
+        <div id="main">
+            <!-- 活动详情按钮 -->
+            <div id="act_detail_box">
+                <div class="act_detail_btn">
+                    <span class="statu ing">进行中</span>
+                    <img src="../../res/drawable-xhdpi/act_3.png" alt="111">
+                    <span class="title">一周电影推荐《移动迷宫》</span>
+                </div>
+                <div class="act_detail_btn">
+                    <span class="statu end">已结束</span>
+                    <img src="../../res/drawable-xhdpi/act_3.png" alt="111">
+                    <span class="title">一周电影推荐《移动迷宫》</span>
+                </div>
+                <div class="act_detail_btn">
+                    <span class="statu ing">进行中</span>
+                    <img src="../../res/drawable-xhdpi/act_4.png" alt="111">
+                    <span class="title">一周电影推荐《冰川时代2》</span>
+                </div>
+                <div class="act_detail_btn">
+                    <span class="statu end">已结束</span>
+                    <img src="../../res/drawable-xhdpi/act_4.png" alt="111">
+                    <span class="title">一周电影推荐《冰川时代2》</span>
+                </div>
+                <div class="act_detail_btn">
+                    <span class="statu ing">进行中</span>
+                    <img src="../../res/drawable-xhdpi/act_2.png" alt="111">
+                    <span class="title">《全城通缉》</span>
+                </div>
+                <div class="act_detail_btn">
+                    <span class="statu end">已结束</span>
+                    <img src="../../res/drawable-xhdpi/act_2.png" alt="111">
+                    <span class="title">《全城通缉》</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/common.js"></script>
+<script type="text/javascript" src="../../script/zepto.js"></script>
+<script type="text/javascript" src="../../script/swipe.js"></script>
+<script>
+    apiready = function(){
+        Zepto(function($){
+            var aLi = $('#title-box-ul li');
+            var act_title = $('#title-box-text');
+
+            $('.act_detail_btn').on('click', function(event) {
+                goActDetail();
+                event.preventDefault();
+            });
+        });
+        
+
+    };
+
+</script>
+</html>

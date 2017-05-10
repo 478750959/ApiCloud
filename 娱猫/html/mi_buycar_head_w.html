@@ -1,0 +1,264 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>设置</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/xyc.css"/>
+     <style>
+    	html,body{
+    		background:white;
+    	}
+    	.collect_fenlei{
+    		float:left;
+    		width:42%;
+    		border-right:1px solid #e6e6e6;
+    		height:0.86rem;
+    	}
+    	.collect_fenlei_con{
+    		font-size:0.28rem;
+    		width:1.7rem;
+    		color:#f27978;
+    		line-height:0.86rem;
+    		height:0.86rem;
+    		margin:0 auto;
+    		background:url(../image/collect_fenlei2.png) no-repeat right 0.35rem;
+    		background-size:0.32rem 0.2rem;
+    	}
+    	.collect_shixiao{
+    		height:0.86rem;
+    		line-height:0.86rem;
+    		border-right:1px solid #e6e6e6;
+    		float:left;
+    		width:26%;
+    		font-size:0.28rem;
+    		color:#656564;
+    		text-align:center;
+    	}
+    	.mi_buycar_money em{
+    		color:#ff7f87;
+    	}
+    </style>
+</head>
+<body>
+<div id="wrap">
+	<header id='header'>
+		<div class="miHeader" id="miHeader">
+        	<a href='javascript:;' class='head_icon back' onclick='api.closeWin();'></a>
+        	<span class='mi_head_txt'></span>
+        </div>
+        <div class="mi_header_buy">
+        	<div class="collect_fenlei">
+        		<div class="collect_fenlei_con none">全部分类</div>
+        	</div>
+        	<div class="collect_shixiao none">失效</div>
+        	<div class='mi_header_bj mi_header_gwc'>编辑</div>
+        	<div class="mi_header_wc mi_header_gwc none">完成</div>
+        </div>
+	</header>
+	<div id='main'></div>
+	<footer id='footer' class="">
+		<div class="mi_buycar_foot clearfix">
+    		<div class='mi_buycar_quanxuan'>
+    			<input type='checkbox' class='mi_buycar_qx' id='mi_buycar_checkQ'/>
+    			<div class="mi_buycar_checkdiv2"></div>
+    		</div>
+    		<label for ='mi_buycar_checkQ' class="mi_buycar_h5">全选</label>
+    		<a class='mi_buycar_buy' onclick="xyccc()">结&nbsp;算</a>
+    		<div class="mi_buycar_money">
+    			<h6>合计：<span>￥<em id='xyc_zongjia'>0</em></span></h6>
+    			<p>不含运费</p>
+    		</div>
+    	</div>
+	</footer>
+</div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/font.js"></script>
+<script type="text/javascript" src="../script/zepto.js"></script>
+<script>
+	//点击结算按钮 触发购物车页面的abc函数
+	function xyccc(){
+		api.execScript({
+			frameName:'mi_buycar_f',
+	        script: 'abc();'
+        });              
+	}
+	//购物车页面传输过来
+	function all(size,chk,con){
+		$(".mi_buycar_qx").prop("checked",size==chk);
+		var zhi = con/100;
+		$('#xyc_zongjia').text(zhi);
+		if(size==chk){
+	  		$(".mi_buycar_checkdiv2").addClass('yuan');
+	    }else {
+	  		$(".mi_buycar_checkdiv2").removeClass('yuan');
+	    }
+	}
+	//全选按钮点击，同时触发购物车页面的select函数
+	$(".mi_buycar_qx").click(function(){
+	
+  		var flag = $(this).prop("checked");	
+		if(flag==true){
+        	$(this).next().addClass('yuan');
+		}else{
+		  	$(this).next().removeClass('yuan');
+		}
+		api.execScript({
+			frameName:'mi_buycar_f',
+	        script: 'select('+flag+');'
+        });
+	})
+	apiready = function(){
+		//从删除页面监听过来的事件
+		api.addEventListener({
+	        name:'xyc_price'
+        },function(ret,err){
+        	$('#xyc_zongjia').text(0);
+        	$(".mi_buycar_checkdiv2").removeClass('yuan');
+        });
+        api.addEventListener({
+        	name:'not_all'
+        },function(ret,err){
+    		$(".mi_buycar_qx").prop("checked",false);
+    		$('.mi_buycar_qx').next().removeClass('yuan');
+        });
+		var name = "";
+		var height;
+		var header = $api.byId('header');
+		var footer = $api.byId('footer');
+	    $api.fixIos7Bar(header);
+	    var width = api.winWidth;
+	    var headerPos = $api.offset(header);
+	    var footerPos = $api.offset(footer);
+	    api.setStatusBarStyle({
+		    style: 'dark'
+		});
+		switch(api.pageParam.count) {
+			case 1:
+				name = "mi_buycar_f";
+				$('.mi_head_txt').text('购物车');
+				$('.collect_fenlei').addClass('none');
+				$('.collect_shixiao').addClass('none');
+				$('#footer').removeClass('none');
+				height = api.winHeight - headerPos.h - footerPos.h;
+				break;
+			case 2:
+				name = "mi_collect_f";
+				$('.mi_head_txt').text('我的收藏');
+				$('.collect_fenlei').addClass('none');
+				$('.collect_shixiao').addClass('none');
+				height = api.winHeight - headerPos.h;
+				$('#footer').addClass('none');
+				break;
+		}
+	    api.openFrame({
+		    name: name,
+		    url: name+'.html',
+		    bounces: false,
+		    opaque: true,
+		    reload:true,
+		    vScrollBarEnabled: true,
+		    pageParam:{ headerHeight: headerPos.h,tid:"0"},
+		    rect: {
+		        x: 0,
+		        y: headerPos.h,
+		        w: width,
+		        h: height
+		    }
+		});	
+		//编辑按钮的点击
+		$('.mi_header_bj').click(function(){
+			var i = api.pageParam.count;
+			$(this).addClass('none');
+			$('.mi_header_wc').removeClass('none');		
+			$('#footer').addClass('none');
+			if(i==1){
+				$('.collect_fenlei').addClass('none');
+				$('.collect_shixiao').addClass('none');
+				api.setFrameAttr({
+			        name: 'mi_buycar_f',
+			        hidden:true
+		        });
+		        api.openFrame({
+				    name: 'mi_buycar_edit_f',
+				    url: 'mi_buycar_edit_f.html',
+				    bounces: false,
+				    opaque: true,
+				    vScrollBarEnabled: true,
+				    rect: {
+				        x: 0,
+				        y: headerPos.h,
+				        w: width,
+				        h: api.winHeight - headerPos.h
+				    }
+				});	
+			}
+			if(i==2){
+				$('.collect_fenlei').addClass('none');
+				$('.collect_shixiao').addClass('none');
+				api.setFrameAttr({
+			        name: 'mi_collect_f',
+			        hidden:true
+		        });
+		   
+		        api.openFrame({
+				    name: 'mi_collect_edit_f',
+				    url: 'mi_collect_edit_f.html',
+				    bounces: false,
+				    opaque: true,
+				    vScrollBarEnabled: true,
+				    
+				    rect: {
+				        x: 0,
+				        y: headerPos.h,
+				        w: width,
+				        h: api.winHeight - headerPos.h
+				    }
+				});	
+			}
+		})
+		//点击完成按钮执行的
+		$('.mi_header_wc').click(function(){
+			var i = api.pageParam.count;
+			$(this).addClass('none');
+			$('.mi_header_bj').removeClass('none');
+			if(i==1){
+				$('#footer').removeClass('none');
+				api.setFrameAttr({
+			        name: 'mi_buycar_f',
+			        hidden:false
+		        });
+		        api.setFrameAttr({
+			        name: 'mi_buycar_edit_f',
+			        hidden:true
+		        });
+	        }
+	        if(i==2){
+//	        	$('.collect_fenlei').Class('none');
+//				$('.collect_shixiao').addClass('none');
+	        	api.setFrameAttr({
+			        name: 'mi_collect_f',
+			        hidden:false
+		        });
+		        api.setFrameAttr({
+			        name: 'mi_collect_edit_f',
+			        hidden:true
+		        });
+	        }
+		})	
+//		
+//		
+//		//全部分类按钮点击
+//	$('.collect_fenlei_con').click( function(){
+//	   	ajaxRequest('user/user_coll','post',{'id':5},function(ret,err){
+//  		var data=ret.info.data;
+//  		var num = ret.info.num;
+//  		api.alert({msg:data});
+//  	}	
+	}
+	
+	
+</script>
+</html>

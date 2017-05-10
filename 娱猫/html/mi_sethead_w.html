@@ -1,0 +1,105 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>设置</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/xyc.css"/>
+</head>
+<body>
+<div id="wrap">
+	<header id='header'>
+		<div class="miHeader">
+        	<a href='javascript:;' class='head_icon back'></a>
+        	<span class='mi_head_txt'>设置</span>
+        </div>
+	</header>
+</div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/font.js"></script>
+<script type="text/javascript" src="../script/zepto.js"></script>
+<script>
+	apiready = function(){				
+		var header = $api.byId('header');
+	    $api.fixIos7Bar(header);
+	    var width = api.winWidth;
+	    var headerPos = $api.offset(header);
+	    var height = api.winHeight - headerPos.h;	   
+    	$('.head_icon').click(function(){     							
+    			 if(api.pageParam.count==1){   			 	
+			        api.closeWin({
+			        	name:'mi_set_head_w'
+			        });
+			       api.sendEvent({
+						name:'to_ucenter',
+						extra:{name:'login_head_w'}
+					});
+					setTimeout(function(){
+						 api.closeWin();	
+					},700);			       			       	        
+    			 }else{
+    			   api.closeWin();
+    			 }					
+			})    
+			
+				api.addEventListener({
+				    name:'keyback'
+			    },function(ret,err){			    	
+			    	if(api.pageParam.count==1){			    	
+				        api.closeWin({
+				        	name:'mi_set_head_w'
+				        });
+						api.sendEvent({
+							name:'to_ucenter',
+							extra:{name:'login_head_w'}
+						});
+					      setTimeout(function(){
+							 api.closeWin();	
+						},700);						       		    		
+			    	}else{
+			    		api.closeWin();
+			    	}			    	
+			    });	
+			
+	    switch(api.pageParam.count) {
+			case 1:
+				name='mi_set_f';
+				$('.mi_head_txt').text('设置');								
+				break;
+			case 2://更换手机号
+				name = "mi_contact";
+				$('.mi_head_txt').text('联系我们');
+				break;
+			case 3:
+				name = 'mi_userProtocol_f';
+				$('.mi_head_txt').text('娱猫会员注册协议');
+				break;
+			case 5:
+				name = 'mi_help_f';
+				$('.mi_head_txt').text('帮助说明');
+				break;
+			
+		}
+	    api.setStatusBarStyle({
+		    style: 'dark'
+		});
+	    api.openFrame({
+		    name: name,
+		    url: name+'.html',
+		    bounces: false,
+		    opaque: true,
+		    reload: true,
+		    vScrollBarEnabled: false,
+		    pageParam:{ headerHeight: headerPos.h,tid:"0"},
+		    rect: {
+		        x: 0,
+		        y: headerPos.h,
+		        w: width,
+		        h: height
+		    }
+		});	
+	}
+</script>
+</html>

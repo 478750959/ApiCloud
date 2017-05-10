@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+		<meta name="format-detection" content="telephone=no" />
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>服务</title>
+		<link rel="stylesheet" type="text/css" href="../css/api.css" />
+		<link rel="stylesheet" type="text/css" href="../css/xyc.css"/>
+		<style>
+			html, body {
+				background: white;
+			}
+			.mi_set_out{
+				position:fixed;
+				bottom:0;
+				left:0;
+			}
+			.mi_set_list{
+				padding-bottom:1.2rem;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="wrap">
+			<div id="main">
+				<div class='mi_set_list'>
+					<ul>
+						<li class='mi_set_liPhoto' onclick = "openthis('mi_set_photo_f')">
+							<p class="mi_set_title">
+								头像
+							</p>
+							<b class='mi_list_next'></b>
+							<div class='mi_set_photo mi_set_listR'>
+								<img  alt=''  class='headimg' id='photo'/>
+							</div>
+						</li>
+						<li onclick = "openNext('mi_set_head_w',3)">
+							<p class="mi_set_title">
+								昵称
+							</p>
+							<b class='mi_list_next'></b>
+							<span class="mi_set_listR nickname" id='name'></span>
+						</li>
+						<li onclick = "openthis('mi_set_sex_f')">
+							<p class="mi_set_title" >
+								性别
+							</p>
+							<b class='mi_list_next'></b>
+							<span class="mi_set_listR sex" id='sex'></span>
+						</li>
+						<!--<li onclick = "openNext('mi_set_head_w',4)">-->
+						<li>
+							<p class="mi_set_title">
+								手机号
+							</p>
+							<!--<b class='mi_list_next' style='opacity:0;'></b>-->
+							<span class="mi_set_listR phone" id="iphone" ></span>
+						</li>
+						<li onclick = "openNext('mi_set_head_w',5)">
+							<p class="mi_set_title">
+								收货地址
+							</p>
+							<b class='mi_list_next'></b>
+							<span class="mi_set_listR  addr" id='add'></span>
+						</li>
+					</ul>
+					<ul>
+						<!--<li>
+							<p class="mi_set_title">
+								WIFI自动缓冲图片
+							</p>
+							<div class='mi_set_check'>
+								<input type="checkbox" id="checkbox-11-1"        name='wifi'/>
+								<label for="checkbox-11-1"></label>
+							</div>
+						</li>
+						<li>
+							<p class="mi_set_title">
+								2G/3G/4G下自动缓冲图片
+							</p>
+							<div class='mi_set_check'>
+								<input type="checkbox" id="checkbox-11-2"     name='other' />
+								<label for="checkbox-11-2"></label>
+							</div>
+						</li>-->
+						<li>
+							<p class="mi_set_title">
+								消息提醒
+							</p>
+							<div class='mi_set_check'>
+								<input type="checkbox" id="checkbox-11-3"   name='getpush'/>
+								<label for="checkbox-11-3"></label>
+							</div>
+						</li>
+					</ul>
+					<ul>
+						<li   class="login_sina"  onclick="bind_sina()">
+							<p class="mi_set_title">
+								新浪微博
+							</p>
+							<b class='mi_list_next'></b>
+							<span class="mi_set_listR sina">未绑定</span>
+						</li>
+						<li   class="login_weixin" onclick="bind_wx()">
+							<p class="mi_set_title">
+								微信
+							</p>
+							<b class='mi_list_next'></b>
+							<span class="mi_set_listR wx" >未绑定</span>
+						</li>
+					</ul>
+					<ul>
+						<li onclick = "openNext('mi_set_head_w',6)">
+							<p class="mi_set_title">
+								密码修改
+							</p>
+							<b class='mi_list_next'></b>
+						</li>
+						<li onclick="clearcache()">
+							<p class="mi_set_title">
+								清理缓存
+							</p>
+							<b class='mi_list_next'></b>
+							<span class="mi_set_listR  cache">已使用0.0M</span>
+						</li>
+					</ul>
+					
+				</div>
+				<div class="mi_set_out" onclick ='out()'>
+						退出登录
+					</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../script/api.js"></script>
+	<script type="text/javascript" src="../script/comm.js"></script>
+	<!--<script type="text/javascript" src="../script/auth.js"></script>-->
+	<script type="text/javascript" src="../script/font.js"></script>
+	<script type="text/javascript" src="../script/zepto.js"></script>
+	<script>	
+	var is_ok=true;
+	function  send_set(param){
+		var obj = param;
+		var info=is_login();
+		for(var p in info){
+			param[p]=info[p];
+		}
+		param.device_id=api.deviceId;
+		if(is_ok){
+			is_ok=false;
+			ajaxRequest('user/user_set','post',param,function(ret,err){
+				if(err){
+					api.toast({
+			            msg:err.msg
+		            });
+		            return false;
+				}
+					if(ret.status){	
+						is_ok=true;		
+						$api.setStorage('userset',ret.info);				
+					}
+			});
+		}
+		
+	}	
+	function get_set(){
+//		 var wifi=get_loc_val('userset','wifi')==1 ? true : false;
+//	     var other=get_loc_val('userset','other')==1 ? true :false;		
+	     var getpush=get_loc_val('userset','getpush')==1 ? true : false;
+//		 $('input[name=wifi]').prop('checked',wifi);
+//	     $('input[name=other]').prop('checked',other);
+	     $('input[name=getpush]').prop('checked',getpush);
+	}
+		apiready = function() {	
+			api.addEventListener({
+	            name:'set_photo'
+            },function(ret,err){
+            	//coding...
+            	var url=ret.value.img;
+            	photo(url);
+            });	
+			if (api.systemType == 'ios'){
+			    appBundle = 'wechat://';
+			    app_installed(appBundle,function(ret){
+			    	if(!ret){			    		
+			    		$('.login_weixin').addClass('none');
+			    	}
+			    });
+			    appBundle = "sinaweibo://";
+			    app_installed(appBundle,function(ret){
+			    	if(!ret){			    		
+			    		$('.login_sina').addClass('none');
+			    	}
+			    });
+			} 											
+			//初始化数据
+			   get_set();//获取设置
+			//缓存大小
+//			   var cacheDir = api.cacheDir; 
+			   var cacheDir = "cache://"; 
+			   var fs = api.require('fs');
+				fs.getAttribute({
+				    path: cacheDir
+				},function(ret,err){
+				    if (ret.status) {
+				       var size=ret.attribute.size;
+				       var m=(size/1000);
+				       var M=m/1000;
+				       var mysize=M.toFixed(2);				       
+				       $('.cache').html("已使用"+mysize+'M');
+				    }else{
+				        api.toast({msg:err.msg});
+				    }
+				});		
+			//头像
+			var headimg = getstor('headimg') ? getstor('headimg') : '../image/touxiang.png';
+			$('#photo').attr('src', headimg);
+			//昵称
+			var nickname = !isEmpty(getstor('nickname')) ? getstor('nickname') : '请填写昵称';
+			$('.nickname').html(nickname);
+			//手机号
+			var phone = getstor('phone');
+			xycPhone = phone.substring(0,3)+'****'+phone.substring(7,11);
+			$('.phone').html(xycPhone);
+			//性别
+			var sex = getstor('sex');
+			if (sex) {
+				var mysex = sex == 1 ? '男' : '女';
+			} else {
+				var mysex = "请选择性别";
+			}
+			$('.sex').html(mysex);
+			//TODO 新浪
+			var sina_nick = get_loc_val('sina', 'sina_nick');
+			if (sina_nick) {
+				$('.sina').html(sina_nick);
+			} else {
+				$('.sina').html('未绑定');
+			}
+			//TODO 微信
+			var wx_nick = get_loc_val('wx', 'nickname');
+			if (wx_nick) {
+				$('.wx').html(wx_nick);
+			} else {
+				$('.wx').html('未绑定');
+			}
+//			//地址
+//			var addr = $api.getStorage('addr');
+//			if (isEmpty(addr)) {
+//				var info = is_login();
+//				var param = {};
+//				for (var p in info) {
+//					param[p] = info[p];
+//				}
+//				ajaxRequest('addr/get_default', 'post', param, function(ret, err) {
+//					if (ret.status) {
+//						var my_addr = ret.info;
+//						$api.setStorage('addr', my_addr);
+//						$('.addr').html(my_addr);
+//					}
+//				});
+//			} else {
+//				$('.addr').html(addr);
+//			}
+			//改变设置
+//			$('input[name=wifi]').change(function(){				
+//				if($(this).prop('checked')==true){
+//					send_set({wifi:1});
+//				}else{
+//					send_set({wifi:0});
+//				}
+//			});
+//			$('input[name=other]').change(function(){
+//				if($(this).prop('checked')==true){
+//					send_set({other:1});
+//				}else{
+//					send_set({other:0});
+//				}
+//			});
+			$('input[name=getpush]').change(function(){				
+				if($(this).prop('checked')==true){					
+					api.sendEvent({name:'push_on'});					
+					send_set({'getpush':1});
+				}else{
+					var push = api.require('push');	
+					push.setPreference({
+					    notify:false,
+					    updateCurrent:false
+					});				
+					push.removeListener(function(ret,err){
+					});
+					send_set({'getpush':0});					
+				}
+			});
+		}
+		//清除缓存
+		function clearcache() {
+			api.clearCache();
+			$('.cache').html("已使用0.00M");
+			api.toast({
+				msg : '清除完毕'
+			});
+		}
+		function bind_sina() {
+			var sina_uid = getstor('sina_uid');
+			var last_api=isEmpty(getstor('last_api'))  ? '' : getstor('last_api');
+			var phone=isEmpty(getstor('phone'))  ? '' : getstor('phone');
+			if (sina_uid) {			
+				open_alert('温馨提示','确认解绑新浪微博!',3,'');				
+			} else {
+				api.showProgress({
+					title : '授权中',
+					modal : false
+				});
+				setTimeout(function(){
+					api.hideProgress();
+				},1500);
+				var sinaWeiBo = api.require('sinaWeiBo');
+				sinaWeiBo.auth(function(ret, err) {
+					if (ret.status) {
+						var token = ret.accessToken;
+						sinaWeiBo.getUserInfo(function(ret, err) {
+							if (ret.status) {
+								ret.userInfo.sina_token = token;
+								var info=is_login();															
+								if (info!= '') {
+									for (p in info) {
+										ret.userInfo[p] = info[p];
+									}
+								}else{									
+									to_login();
+									return false;							
+								}
+								var sina_info = ret.userInfo;	
+								sina_info.last_api=getstor('last_api');																														
+								ajaxRequest('auth/getsinaif', 'post', sina_info, function(ret, err) {
+								api.hideProgress();
+//								api.alert({msg:ret});return;									
+									if (!ret.status) {
+										if(ret.info=='no_login'){
+											to_login();
+											return false;
+										}
+										api.toast({
+											msg : ret.info,
+											location : 'middle'
+										});
+									} else {
+										api.toast({
+	                                        msg:'新浪微博绑定成功！'
+                                        });
+                                        $('.sina').html(sina_info.screen_name);
+										var sina_btime=ret.info.sina_btime;
+										var sina_token=ret.info.sina_token;
+										var sina_uid=ret.info.sina_uid;
+										var user=$api.getStorage('mine');
+										user['sina_btime']=sina_btime;										
+										user['sina_uid']=sina_uid;
+										var sina={};
+										sina['sina_btime']=sina_btime;
+										sina['sina_uid']=sina_uid;
+										sina['sina_nick']=sina_info.screen_name;
+										$api.setStorage('mine',user);																												
+										$api.setStorage('sina',sina);										
+//										update('user',{sina_uid:sina_uid,sina_btime:sina_btime},{id:getstor('id')},function(ret){
+//										
+//										});										
+									}
+								});
+							} else {
+//								api.hideProgress();
+//								api.toast({
+//									msg : err.msg,
+//									location : 'middle'
+//								});
+							}
+						})
+					} else {
+//						api.hideProgress();
+//						api.toast({
+//							msg : err.msg,
+//							location : 'middle'
+//						});
+					}
+				});
+			}
+		}
+
+		function bind_wx() {
+			var wx_openid = getstor('wx_openid');
+			if (wx_openid) {
+				open_alert('温馨提示','确认解绑微信!',2,'');		
+			} else {
+				api.showProgress({
+				 	title: '授权中',
+					modal: false
+				}); 
+				setTimeout(function(){
+						api.hideProgress();
+					},1500);
+				var weiXin = api.require('weiXin');		
+				weiXin.registerApp(
+			    	function(ret,err){
+			        if (ret.status) {
+					weiXin.auth(function(data,err){ 
+					if(data.status){
+					  	var token=data.token;
+					  	weiXin.getUserInfo(function(msg,err){ 			  	
+						if(msg.status){
+							msg.token=token;
+							var info=is_login();
+							if(info!=''){
+								for(p in info){
+									msg[p]=info[p];
+								}
+							}else{
+								to_login();
+								return false;
+							}		
+							msg.last_api=getstor('last_api');			
+							   ajaxRequest('auth/getwxif','post',msg,function(info,err){							   
+							    	api.hideProgress();							    	
+					  				if (!info.status) {
+										if(info.info=='no_login'){
+											to_login();
+											return false;
+										}
+										api.toast({
+											msg : info.info,
+											location : 'middle'
+										});
+									} else {
+										api.toast({
+	                                        msg:'微信绑定成功！'
+                                        });
+                                        $('.wx').html(msg.nickname);
+										var wx_btime=info.info.wx_btime;										
+										var wx_openid=info.info.openid;
+										var wx_token=info.info.token;
+										var wx_nickname=msg.nickname;
+										var user=$api.getStorage('mine');
+										user['wx_btime']=wx_btime;										
+										user['wx_openid']=wx_openid;
+										$api.setStorage('mine',user);			
+										var wx={};									
+										wx['openid']=wx_openid;																	
+										wx['token']=wx_token;																	
+										wx['nickname']=wx_nickname;																	
+																																			
+										$api.setStorage('wx',wx);										
+//										update('user',{wx_openid:wx_openid,wx_btime:wx_btime},{id:getstor('id')},function(ret){
+//										
+//										});										
+									}
+							   });				   
+						 }else{
+						  api.hideProgress();
+//						    api.toast({msg:err.msg, location: 'middle'});
+						 }
+						});
+					 }else{
+					 	 api.hideProgress();
+//					   api.toast({msg:err.msg, location: 'middle'});
+					 }
+					});
+			        } else{
+			         	api.hideProgress();
+//			            api.toast({msg:err.msg, location: 'middle'});	
+			        }
+			    }
+				);			
+			}
+		}
+		function openNext(xyc, count) {
+			api.openWin({
+				name : xyc,
+				url : xyc + '.html',
+				opaque : false,
+				reload : true,
+				vScrollBarEnabled : false,
+				pageParam : {
+					count : count
+				}
+			});
+		}
+
+		function openthis(xyc) {
+			var width = api.winWidth;
+			var height = api.winHeight;
+			api.openFrame({
+				name : xyc,
+				url : xyc + '.html',
+				bounces : false,
+				opaque : false,
+				vScrollBarEnabled : false,
+				pageParam : {
+					name : xyc
+				},
+				rect : {
+					x : 0,
+					y : 0,
+					w : width,
+					h : height
+				}
+			});
+		}
+
+		function out() {
+//		$api.clearStorage();
+			
+			//解决：
+			//auth:yx
+			ajaxRequest('user/out','post',{},function(ret,err){
+				
+			});
+			
+				$api.rmStorage('mine');
+				$api.rmStorage('sina');
+				$api.rmStorage('wx');
+				$api.rmStorage('addr');
+				$api.rmStorage('c_c');
+				$api.setStorage("yxoutlogin", 2);
+				if (!getstor('id')){										
+					api.openWin({
+						name : 'login_head_w',
+						url : 'login_head_w.html',
+						showProgress : true, //是否显示等待框
+						opaque : true, //页面是否不透明
+						reload : true, //页面已经打开时，是否重新加载页面
+						vScrollBarEnabled : false, //是否显示垂直滚动条
+						slidBackEnabled : true,  //IOS 7以上支持
+					});					
+				}
+		}
+
+		function nickname(name) {		
+			$('#name').text(name);
+		}
+
+		function phone(phone) {
+			api.closeWin({
+				name : "mi_set_head_w"
+			})
+		}
+
+		function sex(sex) {
+			api.closeFrame({
+				name : "mi_set_sex_f"
+			});
+			$('#sex').text(sex);
+		}
+
+		function photo(url) {
+			api.closeFrame({
+				name : "mi_set_photo_f"
+			});
+			$('#photo').attr('src', url);
+		}
+
+		function change_pwd() {
+			api.closeWin({
+				name : "mi_set_head_w"
+			});
+		}
+
+		function add(add) {
+//			api.closeWin({
+//				name : 'mi_set_add_head_w'
+//			})
+//			$('#add').text(add)
+		}
+		function rm_sina(){
+			$('.sina').html('未绑定');
+		}
+		function rm_wx(){
+			$('.wx').html('未绑定');
+		} 
+	</script>
+</html>

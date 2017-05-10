@@ -1,0 +1,130 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>商品详情</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/xyc.css"/>
+    <style>
+    	.ly_share {
+			position: absolute;
+			right: 0;
+			top: 0;
+			width: 0.95rem;
+			height: 100%;
+			/*border-left: 0.02rem solid #fde2dc;*/
+			font-size: 0.24rem;
+			color: #ff7f88;
+			text-align: center;
+			line-height: 0.98rem;
+		}
+    </style>
+</head>
+<body class="ly_max">
+<div id="wrap" class="ly_contain">
+	<header id='header'>
+        <div class="miHeader">
+        	<a href='javascript:;' class='head_icon back' onclick='my_close()'></a>
+        	<span class='mi_head_txt'>商品详情</span>
+        	<a class="head_icon2 ly_share" onclick="openFm('bill_share_f')"></a>
+        </div>
+	</header>
+</div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/font.js"></script>
+<script type="text/javascript" src="../script/comm.js"></script>
+<script type="text/javascript" src="../script/zepto.js"></script>
+<script>
+//	function my_close(){
+//		api.closeWin();	
+//	}
+//	function openFm(xyc,count){
+//	    var width = api.winWidth;
+//	    var height = api.winHeight;
+//	    api.openFrame({
+//		    name: 'bill_share_f',
+//		    url: 'bill_share_f.html',
+//		    bounces: false,
+//		    opaque: false,
+//		    reload: false,
+//		    vScrollBarEnabled: false,
+//		    pageParam:{	goods_name:api.pageParam.goods_name,
+//				goods_pic:api.pageParam.goods_pic,m:'goods'},
+//		    rect: {
+//		        x: 0,
+//		        y: 0,
+//		        w: width,
+//		        h: height
+//		    }
+//		});	
+//	}
+//	apiready = function () {
+//			api.closeFrame({
+//		        name: 'bill_spxp_f'
+//	        });	
+//			$('.ly_share').addClass('none');
+//			var appBundle;
+//			if (api.systemType == 'ios'){
+//			    appBundle = 'wechat://';
+//			    app_installed(appBundle,function(ret){
+//			    	if(ret){			    					    					    	
+//			    		$('.ly_share').removeClass('none');
+//	    			}
+//			    });
+//			    appBundle = "sinaweibo://";
+//			    app_installed(appBundle,function(ret){
+//			    	if(ret){			    					    					    	
+//			    		$('.ly_share').removeClass('none');
+//			    	}	
+//			    });
+//			} else{
+//					$('.ly_share').removeClass('none');
+//			}							
+//		var status = api.pageParam.status;
+//		var param = api.pageParam.param;
+//		var id = api.pageParam.id;
+//		var name = "bill_spxq_f";
+//		var header = $api.byId('header');
+//		$api.fixIos7Bar(header);
+//		var headerPos = $api.offset(header);	    
+//	    var width = api.winWidth;	    
+//	    var height = api.winHeight - headerPos.h;
+//	    api.setStatusBarStyle({
+//		    style: 'dark'
+//		});
+//	    api.openFrame({
+//		    name: name,
+//		    url: name+'.html',
+//		    bounces: false,
+//		    opaque: true,
+////		    reload: true,
+//		    vScrollBarEnabled: false,
+//		    pageParam:{ headerHeight: headerPos.h,tid:"0",param:param,status:status,id:id},
+//		    rect: {
+//		        x: 0,
+//		        y: headerPos.h,
+//		        w: width,
+//		        h: height
+//		    }
+//		});			
+//	};
+//	
+</script>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

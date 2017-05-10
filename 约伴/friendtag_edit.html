@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+<head>
+	<title></title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+	<link rel="stylesheet" href="css/ui-btn.css">
+	<link rel="stylesheet" href="css/ui-base.css">
+	<link rel="stylesheet" href="css/ui-box.css">
+	<link rel="stylesheet" href="css/ui-color.css">
+	<link rel="stylesheet" href="css/ui-res.css">
+	<link rel="stylesheet" href="css/style.css">
+    <script src="js/y_control.js"></script>
+	<script src="js/y_click.js"></script>
+	<script src="js/config.js"></script>
+    <script src="js/dis_control.js"></script>
+    <script src="js/y_anim.js"></script>
+	<script>
+	</script>
+</head>
+<body class="um-vp c-gra5" ontouchstart>
+    <div id="page_0" class="up ub ub-ver" tabindex="0">
+        <div id="header" class="c-blu3 uh">
+        	<div class="c-m2 t-wh">
+				<a class="btn btn-l btn-a ub ub-ac" ontouchstart="zy_touch('btn-act1')" onclick="closeEditor();">       
+					<div class="ulim"><img src="images/back.png" class="sbtn"></div>
+				</a>
+                <h1 class="ut ulev0 ut-s tx-c" id="ttl">&nbsp;</h1>
+				<a class="btn btn-r btn-n ub ub-ac" id="btn_right" ontouchstart="zy_touch('btn-act1')" onclick="submit();">
+					<div class="ulim" id="btn_name">保存</div>
+				</a>
+			</div>
+        </div>
+        <div id="content" class="ub-f1 tx-l t-bla"></div>
+        <!--<div id="content1" class="ub-f1 tx-l t-bla uhide"></div>-->
+    </div>
+</body>
+<script>
+zy_init();
+var tts = '';
+var params = getStorJson('params');
+if(params.tid){
+    if(params.fid){
+        var module = get_module(params.fid);
+        tts = '选择' + forums[module].op + '对象';
+    }else tts = '选择成员';
+    $$('btn_name').innerHTML = '确定';
+} else if( params.uid){
+    tts = params.username + '的' + params.tagname + '圈子';
+    removeNode('btn_right');
+}else{
+    tts = '编辑圈子';
+    $$('btn_name').innerHTML = '保存';
+}
+setHtml('ttl', tts);
+//分享时的圈子编辑窗口和管理时圈子编辑窗口要区分开
+var friendtag_wname = 'friendtag_edit';
+if(params.openwin) friendtag_wname = params.openwin; //friendtag_member
+//分享时如果没有tagid和tagname就打开新增圈子的窗口
+var content_url = 'friendtag_edit_content.html';
+if(params.tid && !int(params.tagid) && !params.tagname){
+    content_url = 'friendtag_new_content.html';
+}
+window.uexOnload = function(type){
+    if (!type) {
+        zy_con("content", content_url, 0, $$("header").offsetHeight);
+    }
+	window.onorientationchange=window.onresize=function()
+	{
+		zy_resize("content",0,$$("header").offsetHeight);				
+	}
+};
+
+function submit(){
+	ueppscript(friendtag_wname, 'content', 'submit();');
+}
+
+function closeEditor(){
+	ueppscript(friendtag_wname, 'content', 'closeEditor();');
+}
+//窗口机制修复后没用了
+function open_tag_select(){
+    params.friendtag_edit = 1;
+    setStorJson('params', params);
+    //zy_anim_push('content', 'uhide');
+    //zy_anim_pop('content1', 'uhide');
+    zy_con("content", "tag_select_content.html", 0, $$("header").offsetHeight);
+}
+</script>
+</html>

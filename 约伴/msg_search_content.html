@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+  <head>
+    <title>
+    </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="css/ui-img.css">
+	<link rel="stylesheet" href="css/ui-input.css">
+    <link rel="stylesheet" href="css/ui-res.css">
+    <link rel="stylesheet" href="css/ui-btn.css">
+    <link rel="stylesheet" href="css/ui-base.css">
+    <link rel="stylesheet" href="css/ui-box.css">
+    <link rel="stylesheet" href="css/ui-color.css">
+	<link rel="stylesheet" href="css/ui-list.css">
+	<link rel="stylesheet" href="css/style.css">
+    <script src="js/y_control.js"></script>
+    <script src="js/y_click.js"></script>
+	<script src="js/y_json.js"></script>
+	<script src="js/y_tmpl.js"></script>
+	<script src="js/y_icache.js"></script>
+	<script src="js/dis_control.js"></script>
+	<script src="js/config.js"></script>
+    <script>
+	</script>
+  </head>
+<body class="um-vp" ontouchstart>
+	<div class="msg_sbg uhide">
+		<form onsubmit="alert('submit')">   
+			<div class="t-bla ub uba uc-a2 b-gra c-wh us-i uinput ub-rev uinn4" >	
+			   <div class="res5  umw1 ub-img5 "></div>	
+			   <div class="ub-f1 uinn1">
+					<input placeholder="在好友中搜索" type="text" class="" style="background:none;">
+				</div> 
+			 </div>
+		</form>
+	</div>
+	<div class="b-gra c-gra uc-n " id="list">    	 
+		<div></div>
+  	</div>
+</body>
+<script>
+zy_init();
+var uid = getstorage('UID');
+var params = getStorJson('params');
+var view = params.view;
+var curpage = 1;
+var totpage = 1;
+var upt = '';
+var update = {};
+var cContent = $$('list');
+var ucurl = getstorage('ucurl');
+if(!ucurl) ucurl = guc;
+
+window.uexOnload = function ()
+{
+	setPageBounce(downcb, upcb);
+	zy_initcache();
+	loadList('', 1);
+}
+function downcb(){
+	upt = '0';
+	update['0'] = 1;
+	loadList('', '');
+}
+function upcb(){
+	if (curpage < totpage) {
+		upt = '1';
+		update['1'] = 1;
+		loadList(curpage + 1, '');
+	}
+	else resetBV('1');
+}
+
+function loadList(pn, flag){
+	var url = home_url + '&mod=space&do=friend&page='+ pn +"&z="+Math.random();
+	uexWindow.toast('1','5','加载中...',"");
+	$.getJSON(url, loadListCb, 'json', getJsonErr, 'POST', '', flag);
+}
+function loadListCb(json){
+	uexWindow.closeToast();
+	if(update[upt]){
+		update[upt] = 0;
+		resetBV(upt);
+	}
+		
+	if(json){
+		if (Int(json.status)<1) {
+			uexWindow.toast('0','5',json.message,2000);
+			return;
+		}
+		
+		var list = json.list;
+		var length = zy_tmpl_count(list);
+		if(list && list[0]){
+			var id0 = 0;
+			var id1 = list[0].ldateline;
+			if(cContent && cContent.children[0] && cContent.children[0].children[0]) id0=cContent.children[0].children[0].id;
+			logs('id0='+id0+', id1='+id1);
+			if(id0==id1) return;
+		}
+		
+		var res = '';
+		if (length > 0) {
+			var tmpl = '<div ontouchstart="zy_touch(\'c-gra\')" onclick="go2new5(\'${uid}\', \'${username}\');" class="uc-n ubb ub b-gra t-bla ub-ac lis" id="${ldateline}">'
+			 			+'<div class="lis-th2 ub-img uc-a1">'
+			     			+'<img src="images/mylogo.png" ${cb:pic} class="inforpic" id="pic${uid}"/>'
+			     		+'</div>'
+						+'<div class="ub-f1 ub ub-ver">'
+			 	    		+'<div class="ulev0">${username}</div>'
+							+'<div class="ulev-1 umh4 t-gra ut-s">${recentnote}</div>'
+			 	    		+'<div class="ub ub-ac t-gra ulev-2 umar-t">'
+								+'<div class="ub-f1"></div>'
+							 	+'<div class="umh2 umw2 ub-img5 im5 lpic"></div>'
+								+'${lastvisit}'
+							+'</div>	' 
+			 			+'</div>'
+						+'<div class="res8 lis-sw ub-img4"></div> '      
+			 		+'</div> '
+					+'<div class="ubt1"></div>';
+			res = zy_tmpl(tmpl,list,zy_tmpl_count(list),j2vCb);
+			
+			curpage = Int(json.zywy_curpage);
+			totpage = Int(json.zywy_totalpage);
+		}
+		else{
+			res = '<div class="uinn8 tx-c">暂无好友列表</div>';
+		}
+		
+		if(curpage==1)
+       	{
+       		while(cContent.childElementCount>1)
+       		{
+       			cContent.removeChild(cContent.firstElementChild);
+       		}
+       	}
+		
+		var node = document.createElement("div");
+		node.innerHTML = res;;
+		cContent.insertBefore(node,cContent.lastElementChild);
+        imgCacheCall();
+	}
+}
+function j2vCb(d,c)
+{
+	var str = '';
+	 if(c.length>1)
+	 {
+		switch(c[1])
+		{
+			case 'pic':
+				var src = ucurl+d.uid;
+				var picid = 'pic'+d.uid;
+                pushCacheCall(function(){
+                    dis_imgcache(picid,src,src,imgLoadSucSrc,imgLoadErrSrc,null,'',1);
+                });
+				break;
+		}
+	 }
+	 return str;
+}
+
+function go2new5(touid, tousername){
+	setstorage('params','{"touid":"'+touid+'", "tousername":"'+tousername+'"}');
+	
+	var o = getStorJson('params');
+	openwin('msg_detail','msg_detail.html','10');
+}
+</script>
+</html>

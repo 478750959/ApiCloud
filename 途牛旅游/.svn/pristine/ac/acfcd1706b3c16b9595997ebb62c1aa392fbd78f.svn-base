@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <style>
+        body {
+            background-color: #E5E5E5;
+            padding: 10px 5px;
+        }
+
+        .content li {
+            background-color: #FFFFFF;
+            margin: 10px 5px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .tab-content li {
+            margin: 10px 5px;
+            padding: 10px;
+            font-size: 14px;
+            border-bottom: 1px solid #DBDBDB;
+        }
+
+        .item, .text {
+            display: -webkit-box;
+        }
+
+        img {
+            width: 80px;
+            height: 80px;
+            border-radius: 5px;
+        }
+
+        .text {
+            -webkit-box-flex: 1;
+            -webkit-box-orient: vertical;
+            margin: 0 5px;
+
+        }
+
+        .title {
+            line-height: 20px;
+        }
+
+        .large {
+            color: #1654A7;
+            font-size: 14px;
+        }
+
+        .price {
+            margin-top: 10px;
+            color: #A7A7A7;
+        }
+
+        .price span {
+            color: #FC6B32;
+            font-size: 25px;
+        }
+
+        del {
+            color: #969696;
+            margin-left: 20px;
+        }
+
+        .small {
+            font-size: 13px;
+        }
+    </style>
+</head>
+<body>
+<ul class="content">
+    <li onclick="toDetail()" tapmode="">
+        <div class="item">
+            <div class="text">
+                <div class="title">
+                    <div class="large">< 北京汽车5日游 ></div>
+                    <span class="small">含皇城十大景点，赠奥运表演，无购物</span>
+                </div>
+                <div class="price">
+                    <span class="">￥153</span>起
+                    <del>￥159</del>
+                </div>
+            </div>
+            <img src="../image/t0-1.jpg">
+        </div>
+    </li>
+    <li onclick="toDetail()" tapmode="">
+        <div class="item">
+            <div class="text">
+                <div class="title">
+                    <div class="large">< 北京5日游 ></div>
+                    <span class="small">北京参团，含皇城十大景点，赠奥运表演</span>
+                </div>
+                <div class="price">
+                    <span class="">￥153</span>起
+                    <del>￥159</del>
+                </div>
+            </div>
+            <img src="../image/t0-2.jpg">
+        </div>
+    </li>
+    <li onclick="toDetail()" tapmode="">
+        <div class="item">
+            <div class="text">
+                <div class="title">
+                    <div class="large">< 北京5日游 ></div>
+                    <span class="small">16大赠送，吃全聚德，无购物无自费</span>
+                </div>
+                <div class="price">
+                    <span class="">￥153</span>起
+                    <del>￥159</del>
+                </div>
+            </div>
+            <div class="img">
+                <img src="../image/t0-3.jpg">
+            </div>
+        </div>
+    </li>
+    <li onclick="toDetail()" tapmode="">
+        <div class="item">
+            <div class="text">
+                <div class="title">
+                    <div class="large">< 北京故宫-天坛圆明园1日游 ></div>
+                    <span class="small">含天坛通票，全网最低价</span>
+                </div>
+                <div class="price">
+                    <span class="">￥153</span>起
+                    <del>￥159</del>
+                </div>
+            </div>
+            <img src="../image/t0-4.jpg">
+        </div>
+    </li>
+    <li onclick="toDetail()" tapmode="">
+        <div class="item">
+            <div class="text">
+                <div class="title">
+                    <div class="large">< 香港5日自助游 ></div>
+                    <span class="small">订机票，超值出游</span>
+                </div>
+                <div class="price">
+                    <span class="">￥153</span>起
+                    <del>￥159</del>
+                </div>
+            </div>
+            <img src="../image/t0-5.jpg">
+        </div>
+    </li>
+    <li onclick="toDetail()" tapmode="">
+        <div class="item">
+            <div class="text">
+                <div class="title">
+                    <div class="large">< 香港4日自助游 ></div>
+                    <span class="small">精选酒店 超值服务</span>
+                </div>
+                <div class="price">
+                    <span class="">￥153</span>起
+                    <del>￥159</del>
+                </div>
+            </div>
+            <img src="../image/t0-6.jpg">
+        </div>
+    </li>
+</ul>
+<script src="../script/zepto.min.js"></script>
+<script>
+    apiready = function () {
+        api.setRefreshHeaderInfo({
+            visible: true,
+            bgColor: '#E5E5E5',
+            textColor: '#fff',
+            textDown: '下拉刷新...',
+            textUp: '松开刷新...',
+            showTime: true
+        }, function (ret, err) {
+            api.refreshHeaderLoadDone();
+        });
+    };
+    function test() {
+        api.execScript({frameName: 'toursList_tab', script: 'test2()'});
+    }
+    function toDetail() {
+        api.openWin({
+            name: "win_toursDetail",
+            url: 'win_toursDetail.html'
+        })
+    }
+</script>
+</body>
+</html>

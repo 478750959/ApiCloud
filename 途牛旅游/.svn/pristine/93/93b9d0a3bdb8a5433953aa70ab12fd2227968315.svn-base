@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <script type="text/javascript" src="../script/zepto.min.js"></script>
+    <title></title>
+    <style>
+        /*list列表*/
+        .content li {
+            padding-bottom: 10px;
+            margin: 10px;
+            border-bottom: 1px solid #D8D8D8;
+        }
+
+        .tab-content li {
+            margin: 10px 5px;
+            padding: 10px;
+            font-size: 14px;
+            border-bottom: 1px solid #DBDBDB;
+        }
+
+        .item, .text {
+            display: -webkit-box;
+        }
+
+        .img {
+            width: 80px;
+            height: 80px;
+        }
+
+        img {
+            width: 100%;
+            display: block;
+        }
+
+        .text {
+            -webkit-box-flex: 1;
+            -webkit-box-orient: vertical;
+            margin: 0 5px;
+
+        }
+
+        .price span {
+            color: #FC6B32;
+            font-size: 25px;
+        }
+
+        .icon {
+            background-size: 12px;
+            background-position: center center;;
+            background-repeat: no-repeat no-repeat;
+            display: inline-block;
+            height: 12px;
+            width: 12px;
+        }
+
+        .icon-people {
+            background-image: url("../image/dock_icon_my_tuniu@2x.png");
+        }
+
+        .icon-heart {
+            background-image: url("../image/heart@2x.png");
+        }
+
+        .text-title {
+            font-size: 13px;
+            line-height: 17px;
+        }
+
+        .text-price {
+            padding: 2px 0;
+        }
+
+        .new-price {
+            font-size: 20px;
+            color: #ff7c70;
+            font-family: Impact, Arail, sans-serif;
+            font-weight: bold;
+        }
+
+        .text-price del, .icon-heart {
+            margin-left: 15px;
+        }
+
+        .text-price del, .icon-people + span, .icon-heart + span {
+            color: #8c8c8c;
+            font-size: 10px;
+        }
+
+        nav {
+            border-bottom: 1px solid #bebebe;
+            box-sizing: border-box;
+        }
+
+        .nav {
+            display: -webkit-box;
+
+        }
+
+        nav li {
+            width: 50%;
+            -webkit-box-sizing: border-box;
+            text-align: center;
+            margin: 10px 0;
+        }
+
+        nav li span {
+            width: 80%;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            font-size: 14px;
+        }
+
+        nav li:not(:last-child) {
+            border-right: 1px solid #bebebe;
+        }
+
+        nav li a {
+            background-image: url("../image/filter_arrow_down@2x.png");
+            background-repeat: no-repeat no-repeat;
+            background-position: right;
+            background-size: 10px;
+            width: 10px;
+            height: 10px;
+        }
+    </style>
+</head>
+<body>
+<nav>
+    <ul class="nav">
+        <li tapmode="" onclick=""><span>30天销量</span></li>
+        <li tapmode="" onclick=""><span>筛选</span></li>
+    </ul>
+</nav>
+<ul class="content">
+    <li onclick="toDetail()" tapmode="">
+        <div class="item">
+            <div class="img">
+                <img src="../image/a1.jpg">
+            </div>
+            <div class="text">
+                <div class="text-title">< 八达岭长城-十三陵-鸟巢-水立方1日游 >冠军线路，累计出游过千人</div>
+                <div class="text-price">
+                    <span class="new-price">￥158</span>
+                </div>
+                <div class="text-label">
+                    <i class="icon icon-people"></i>
+                    <span>17512人出游</span>
+                    <i class="icon icon-heart"></i>
+                    <span>96%满意</span>
+                </div>
+            </div>
+        </div>
+    </li>
+    <li onclick="toDetail()" tapmode="">
+        <div class="item">
+            <div class="img">
+                <img src="../image/a2.jpg">
+            </div>
+            <div class="text">
+                <div class="text-title">< 五台山汽车2日游 >祈福纳祥，览八大精华寺庙，含精品素斋</div>
+                <div class="text-price">
+                    <span class="new-price">￥398</span>
+                    <del>原价￥418</del>
+                </div>
+                <div class="text-label">
+                    <i class="icon icon-people"></i>
+                    <span>17512人出游</span>
+                    <i class="icon icon-heart"></i>
+                    <span>96%满意</span>
+                </div>
+            </div>
+        </div>
+    </li>
+    <li onclick="toDetail()" tapmode="">
+        <div class="item">
+            <div class="img">
+                <img src="../image/a3.jpg">
+            </div>
+            <div class="text">
+                <div class="text-title">< 八达岭长城-定陵-南锣鼓巷1日游 >登长城，探地宫，特卖</div>
+                <div class="text-price">
+                    <span class="new-price">￥166</span>
+                    <del>原价￥178</del>
+                </div>
+                <div class="text-label">
+                    <i class="icon icon-people"></i>
+                    <span>1012人出游</span>
+                    <i class="icon icon-heart"></i>
+                    <span>91%满意</span>
+                </div>
+            </div>
+        </div>
+    </li>
+    <li onclick="toDetail()" tapmode="">
+        <div class="item">
+            <div class="img">
+                <img src="../image/a4.jpg">
+            </div>
+            <div class="text">
+                <div class="text-title">< 天津市区-塘沽-天津之眼观光1日游 >汽车往返</div>
+                <div class="text-price">
+                    <span class="new-price">￥3179</span>
+                    <del>原价￥3219</del>
+                </div>
+                <div class="text-label">
+                    <i class="icon icon-people"></i>
+                    <span>17512人出游</span>
+                    <i class="icon icon-heart"></i>
+                    <span>96%满意</span>
+                </div>
+            </div>
+        </div>
+    </li>
+    <li onclick="toDetail()" tapmode="">
+        <div class="item">
+            <div class="img">
+                <img src="../image/a5.jpg">
+            </div>
+            <div class="text">
+                <div class="text-title">< 壶口瀑布-绵山-平遥双高3日游 >1晚悬崖宾馆</div>
+                <div class="text-price">
+                    <span class="new-price">￥3179</span>
+                    <del>原价￥3219</del>
+                </div>
+                <div class="text-label">
+                    <i class="icon icon-people"></i>
+                    <span>17512人出游</span>
+                    <i class="icon icon-heart"></i>
+                    <span>96%满意</span>
+                </div>
+            </div>
+        </div>
+    </li>
+    <li onclick="toDetail()" tapmode="">
+        <div class="item">
+            <div class="img">
+                <img src="../image/a6.jpg">
+            </div>
+            <div class="text">
+                <div class="text-title">< 承德普宁寺-避暑山庄双座2日游 >赏金秋山庄红叶，销量第一</div>
+                <div class="text-price">
+                    <span class="new-price">￥3179</span>
+                    <del>原价￥3219</del>
+                </div>
+                <div class="text-label">
+                    <i class="icon icon-people"></i>
+                    <span>17512人出游</span>
+                    <i class="icon icon-heart"></i>
+                    <span>96%满意</span>
+                </div>
+            </div>
+        </div>
+    </li>
+    <li onclick="toDetail()" tapmode="">
+        <div class="item">
+            <div class="img">
+                <img src="../image/a7.jpg">
+            </div>
+            <div class="text">
+                <div class="text-title">< 蓟县盘山汽车1日游 >全景直通车</div>
+                <div class="text-price">
+                    <span class="new-price">￥3179</span>
+                    <del>原价￥3219</del>
+                </div>
+                <div class="text-label">
+                    <i class="icon icon-people"></i>
+                    <span>17512人出游</span>
+                    <i class="icon icon-heart"></i>
+                    <span>96%满意</span>
+                </div>
+            </div>
+        </div>
+    </li>
+    <li onclick="toDetail()" tapmode="">
+        <div class="item">
+            <div class="img">
+                <img src="../image/a8.jpg">
+            </div>
+            <div class="text">
+                <div class="text-title">< 晋祠-平遥古城-乔家大院高铁2日游 >感受晋商文化</div>
+                <div class="text-price">
+                    <span class="new-price">￥3179</span>
+                    <del>原价￥3219</del>
+                </div>
+                <div class="text-label">
+                    <i class="icon icon-people"></i>
+                    <span>17512人出游</span>
+                    <i class="icon icon-heart"></i>
+                    <span>96%满意</span>
+                </div>
+            </div>
+        </div>
+    </li>
+    <li onclick="toDetail()" tapmode="">
+        <div class="item">
+            <div class="img">
+                <img src="../image/a9.jpg">
+            </div>
+            <div class="text">
+                <div class="text-title">< 五台山2日游 >五爷庙许心愿，殊像寺求智慧</div>
+                <div class="text-price">
+                    <span class="new-price">￥3179</span>
+                    <del>原价￥3219</del>
+                </div>
+                <div class="text-label">
+                    <i class="icon icon-people"></i>
+                    <span>17512人出游</span>
+                    <i class="icon icon-heart"></i>
+                    <span>96%满意</span>
+                </div>
+            </div>
+        </div>
+    </li>
+    <li onclick="toDetail()" tapmode="">
+        <div class="item">
+            <div class="img">
+                <img src="../image/a10.jpg">
+            </div>
+            <div class="text">
+                <div class="text-title">< 承德全景双座3日游 >门票全含，闲逛热河古城</div>
+                <div class="text-price">
+                    <span class="new-price">￥3179</span>
+                    <del>原价￥3219</del>
+                </div>
+                <div class="text-label">
+                    <i class="icon icon-people"></i>
+                    <span>17512人出游</span>
+                    <i class="icon icon-heart"></i>
+                    <span>96%满意</span>
+                </div>
+            </div>
+        </div>
+    </li>
+</ul>
+<script>
+    function toDetail() {
+        api.openWin({
+            name: "win_toursDetail",
+            url: 'win_toursDetail.html'
+        })
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+<head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+     <link rel="stylesheet" href="../css/api.css">
+     <link rel="stylesheet" href="../css/common.css">
+    <title>车主对我的评价</title>
+    <style>
+        #wrap{
+           background: #F0F0F0;
+
+        }
+
+        #header span{
+
+          height: 44px;
+          line-height: 44px;
+
+
+
+         }
+
+        .head-left{
+        float: left;
+        margin-left:10px;
+       font-size: 11pt;
+       background: url(../image/wallet_base_action_bar_back_normal.png) no-repeat;
+       background-position: left center;
+       background-size: 20% 30%;
+       margin-left: -5px;
+       }
+
+       .head-left p{
+        margin-left: 25px;
+        margin-top:1px;
+       }  
+
+       #tomysum{
+        clear:both;
+        height: 75px;
+        background: white;
+        border-top: 1px solid rgb(0,0,0,.02);
+        border-bottom: 1px solid rgb(0,0,0,.02);
+        margin-top: 5px;
+        text-align: center;
+        line-height: 25px;
+        padding-bottom: 15px;
+        padding-top: 15px;
+        width:100%;
+        
+
+       }
+       #tomysum p{
+        width:80%;
+        margin: 0 auto;
+       }
+       .eva{
+        color: red;
+        font-size: 18px;
+        font-weight: bold;
+       }
+       #evanum{
+        padding-top: 15px;
+
+        padding-left: 10px;
+
+       }
+
+       #tomydetail ul{
+        height: auto;
+        
+        
+        margin-top: 10px;
+
+       }
+
+       #tomydetail li{
+        padding-left: 10px;
+        height: auto;
+                background: white;
+        border-top: 1px solid rgb(0,0,0,.02);
+        border-bottom: 1px solid rgb(0,0,0,.02);
+        margin-top:10px;
+
+       }
+      .star{
+        float: right;
+        /*width: 30%;*/
+        margin-right: 10px;
+
+      }
+
+       .star img{
+        display: inline-block;
+        margin-left: -10px;
+        
+       
+       } 
+       .sty{
+        padding-top: 10px;
+        padding-bottom: 10px;
+       }
+       .evacon{
+         line-height: 20px;
+ 
+       }
+       .time{
+        color: gray;
+       }
+    </style>
+</head>
+<body>
+    <div id="wrap">
+    <div id="header">
+            <span class="head-left" tapmode onclick="goback()"><p>车主对我的评价</p></span>
+            
+        </div>
+         <div id="main">
+           <div id="tomysum">
+                    <p>
+                     <img src="../image/rate_star_on_large.png"  width="28px" height="24px" alt="">
+                      <img src="../image/rate_star_on_large.png"  width="28px" height="24px" alt="">
+                     <img src="../image/rate_star_on_large.png"  width="28px" height="24px" alt="">
+                      <img src="../image/rate_star_on_large.png"  width="28px" height="24px" alt="">
+                       <img src="../image/rate_star_on_large.png"  width="28px" height="24px" alt="">
+                   </p> 
+                   <p class="eva">4.5星</p>
+                   <p>
+                      2位车主的总体评价
+
+                   </p>
+
+
+           </div>
+          <div id="evanum">
+            车主评价（2）
+          </div>
+           <div id="tomydetail">
+              <ul>
+                 <li>
+                   <p class="sty"><span class="driver">车主刘先生</span><span class="star">
+                     <img src="../image/rate_star_on_small.png"  width="16px" height="14px" alt="">
+                     <img src="../image/rate_star_on_small.png"  width="16px" height="14px" alt="">
+                     <img src="../image/rate_star_on_small.png"  width="16px" height="14px" alt="">
+                     <img src="../image/rate_star_on_small.png"  width="16px" height="14px" alt="">
+                     <img src="../image/rate_star_on_small.png"  width="16px" height="14px" alt="">
+                   </span></p> 
+                   <p class="evacon">很好的两位乘客，路上聊得很愉快，有机会再次合乘</p>
+                   <p class="sty time">
+                      2015年04月05日 17:31
+
+                   </p>
+
+                 </li>
+                 <li>
+                   <p class="sty"><span class="driver">车主刘先生</span><span class="star">
+                     <img src="../image/rate_star_on_small.png"  width="16px" height="14px" alt="">
+                     <img src="../image/rate_star_on_small.png"  width="16px" height="14px" alt="">
+                     <img src="../image/rate_star_on_small.png"  width="16px" height="14px" alt="">
+                     <img src="../image/rate_star_on_small.png"  width="16px" height="14px" alt="">
+                     <img src="../image/rate_star_off_small.png"  width="16px" height="14px" alt="">
+                   </span></p> 
+                   <p class="evacon">很好的两位乘客，路上聊得很愉快，有机会再次合乘</p>
+                   <p class="sty time">
+                      2015年04月05日 17:31
+
+                   </p>
+
+                 </li>
+
+              </ul>
+
+           </div>
+
+         </div>
+        </div>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>      
+</body>
+</html>

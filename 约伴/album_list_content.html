@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+  <head>
+    <title>
+    </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="css/ui-base.css">
+    <link rel="stylesheet" href="css/ui-box.css">
+    <link rel="stylesheet" href="css/ui-color.css">
+	<link rel="stylesheet" href="css/ui-anim.css">
+	<link rel="stylesheet" href="css/style.css">
+    <script src="js/y_control.js"></script>
+    <script src="js/y_click.js"></script>
+	<script src="js/y_json.js"></script>
+	<script src="js/y_tmpl.js"></script>
+	<script src="js/y_icache.js"></script>
+	<script src="js/dis_control.js"></script>
+	<script src="js/config.js"></script>
+    <script>
+	</script>
+	<style>
+	.uih{
+		min-height:6.5em;
+	}
+	.dis-fscreen{
+		width:96%;
+		height:96%;
+	}
+	.turn-0{
+		-webkit-transform: scale(0);
+	}
+	.turn-180{
+		/*
+-webkit-transform: rotate(360deg);
+*/
+		
+-webkit-transform: scale(1.2);
+
+		/*
+-webkit-transform: translate(0,3em);
+*/
+	}
+	.pat05{
+		padding-top:0.5em;
+	}
+	</style>
+  </head>
+<body class="um-vp" ontouchstart>
+	<div id="page0" class="pat05">
+		<div class="tx-c" id="msg"></div>
+		<div></div>
+	</div>
+</body>
+<script>
+zy_init();
+var params = getStorJson('params');
+var sheet = null;
+var isnewest = 0;
+var curpage = 1;
+var totpage = 1;
+var cContent = $$('page0');
+var update = {};
+var upt = '';
+var mylist = 0;
+var albumid = params.albumid;
+var pic_list = [];
+var uid = getstorage('UID');
+var favorite_id = '';
+if(params.view=='newest') isnewest = 1;
+else if(params.view=='other') uid = params.aluid;
+var fromCache = 0;
+var needUpd = 0;
+
+var pfVersion = '';
+
+window.uexOnload = function (type)
+{
+	pfVersion = parseFloat(uexWidgetOne.platformVersion);
+	logs('uexOnload-->platformVersion='+pfVersion);
+	logs('uexOnload-->platformName='+uexWidgetOne.platformName);
+	if(!type){
+		setPageBounce(downcb, upcb);
+		zy_initcache();
+		
+		createCSS();
+		loadList('', '1');
+		if(fromCache) loadList('', '');
+	}
+	
+	window.onorientationchange=window.onresize=function()
+	{
+		if(sheet) sheet.removeRule(0);
+		createCSS();		
+	}
+}
+function downcb(){
+	upt = '0';
+	update['0'] = 1;
+	loadList('');
+}
+function upcb(){
+	if(isnewest && totpage>3) totpage=3;
+	if (curpage < totpage) {
+		upt = '1';
+		update['1'] = 1;
+		loadList(curpage + 1);
+	}
+	else resetBV('1');
+}
+function createCSS()
+{
+	if(!sheet) {
+		var style = document.createElement("style");
+		document.body.appendChild(style);
+		sheet = style.sheet;
+	}
+	var w=int(int(window.innerWidth)/3);
+	var c="min-height:"+w+"px";
+	sheet.addRule(".uih",c);
+}
+function loadList(pn, fg){
+	var url = '';
+	if(!pn) indexIMG = 0;
+	
+	if(isnewest) url = newest_url+"&mod=img&page=" + pn;
+	else url = home_url+"&mod=space&do=album&uid="+uid+"&id="+albumid + '&page=' + pn;
+	//logs('loadList()-->url='+url);
+	fromCache = checkKey(url);
+	if(!fromCache) uexWindow.toast('1','5','加载中...',"");
+	var f = pn?'':'1';
+    $.getJSON(url, getJsonCallback, 'json', getJsonErr, 'POST', '', fg,  f);
+}
+function getJsonCallback(json){
+	uexWindow.closeToast();
+	if(update[upt]){
+		update[upt] = 0;
+		resetBV(upt);
+	}
+	
+	if(json){
+		var tmpl = '';
+       	var res = [];
+		var list = null;
+		var length = 0;
+		if(isnewest) list = json.imgs;
+		else list = json.list;
+		length = zy_tmpl_count(list);
+		
+		if (parseInt(json.nologin)==1 || parseInt(json.status)<1) {
+       		if(json.message=="enter_password")
+       		{
+       			var keycap = '确定,取消'.split(",");
+       			uexWindow.cbPrompt = cbWindowPrompt;
+       			
+            	uexWindow.prompt('温馨提示','请输入密码：', '请输入密码：', keycap);
+            	return;
+       		}
+			
+			if(mylist){
+				uexWindow.toast('0', '5', json.message, 2000);
+				return;
+			}
+			else{
+				alertMsg(cContent, json.message);
+       			return;
+			}
+        }
+       	
+		if(list && list.length==0)
+       	{
+			clearData(cContent, 1);
+			alertMsg(cContent, '暂无相册列表');
+       		return;
+       	}
+		
+		if(!needUpd && list && list[0]){
+			var id0 = 0;
+			var id1 = list[0].picid || list[0].aid;
+			if(cContent && cContent.children[0] && cContent.children[0].children[0] && cContent.children[0].children[0].children[0])
+                id0=cContent.children[0].children[0].children[0].id;
+			if(id0==id1) return;
+		}
+		needUpd = 0;
+		
+		if(json.is_favorite) 
+   		{
+		   	favorite_id = json.favorite_id;
+		   	if (params.view == "other"){
+				uescript('album_list','cpic();');
+			}
+   		}
+		
+		tmpl = '<div class="ub-f1 uba b-gra c-wh umar-a uc-a3 ub us" id="${cb:id}" ontouchstart="zy_touch(\'albuma\')" onclick="bigImgsView(${cb:id2},\'${cb:picid}\',\'${uid}\');">'
+                +'<div class="ub-con" id="${cb:picid}">'
+                    +'<div class="ub ub-fv ub-ac ub-pc">'
+                        +'<div style="background-image: url();-webkit-background-size: auto; background-size: auto;" class="${cb:ub-img} dis-fscreen uc-a1 utra" id="pic${cb:picid}"></div>'
+                    +'</div>'
+                +'</div></div>';
+		res[0] = my_tmpl(tmpl,list,0,2,length,j2vCb);
+		if(length>3) res[1] = my_tmpl(tmpl,list,3,5,length,j2vCb);
+		if(length>6) res[2] = my_tmpl(tmpl,list,6,8,length,j2vCb);
+		if(length>9) res[3] = my_tmpl(tmpl,list,9,11,length,j2vCb);
+		
+		if(json.zywy_curpage) curpage = int(json.zywy_curpage);
+		if(json.zywy_totalpage) totpage = int(json.zywy_totalpage);
+		if(curpage==1) clearData(cContent, 1);
+		
+		createDIV(res[0]);
+		if(res[1]) createDIV(res[1]);
+		if(res[2]) createDIV(res[2]);
+		if(res[3]) createDIV(res[3]);
+		mylist = 1;
+		for(var key in list){
+			var d = list[key];
+			var picid = d.picid || d.aid;
+            var src = d.pics || d.pic;
+            //console.log('picid:'+picid+ ';;src:'+src);
+            /*pic_list[picid] = src;
+			picid = 'pic'+picid;
+			zy_imgcache(picid,src,src,imgLoadSuc,imgLoadErr,null,'');*/
+		}
+	}
+}
+
+var indexIMG = 0;
+function j2vCb(d,c)
+{
+	var str = '';
+	 if(c.length>1)
+	 {
+		switch(c[1])
+		{
+			case 'id':
+				//str = d.picid || d.aid;
+				str = indexIMG;
+				
+				var src = d.pics || d.pic;
+				var src2 = '';
+				if(src){
+					if(isnewest){
+						src2 = src.split("src=");
+						if(src2) src2 = src2[1];
+						else src2 = src;
+					}
+					else{
+						src2 = src.split(".thumb");
+						if(src2) src2 = src2[0];
+						else src2 = src;
+					}
+				}
+				else{
+					src = 'images/mylogo.png';
+					src2 = src;
+				}
+
+				pic_list[indexIMG] = src2;
+				
+				var picid = d.picid || d.aid;
+				picid = 'pic'+picid;
+                pushCacheCall(function(){
+                    dis_imgcache(picid, src, src, imgLoadSuc, imgLoadErr, null, '', '1');
+                });
+				indexIMG++;
+			break;
+			case 'id2':
+				str = indexIMG-1;
+			break;
+			case 'picid':
+				str = d.picid || d.aid;
+			break;
+			case "ub-img":
+			str =  "ub-img1";
+			if(uexWidgetOne.platformName=="android")
+			{
+				if(pfVersion<2.2)
+				{
+					str =  "ub-img5";
+				}
+			}
+			//logs('case "ub-img": '+str);
+			break;
+		}
+	 }
+	 return str;
+}
+var my_tmpl = function(t,dd,a,b,l,cb){
+    var r = "";
+    {
+        var index=0;
+        for(var i in dd)
+        {
+        	if(a>index){
+        		index++;
+        		continue;
+        	}
+            r+=t_f(t,dd[i],index,l,cb);
+            index++;
+            if(index>b) break;
+        }
+    }
+    var s = '';
+    for(var i=0; i<(b-l+1); i++){
+    	s += '<div class="ub-f1 umar-a uc-a1"></div>';
+    }
+    return r+s;   
+}
+function createDIV(res, id){
+	var node = document.createElement("div");
+	node.className="ub uih";
+	node.innerHTML=res;
+	cContent.insertBefore(node,cContent.lastElementChild);
+    imgCacheCall();
+}
+
+function alertMsg(cc, msg){
+	var ele = $$('msg2');
+	if(ele) setHtml(ele, msg);
+	else{
+		var node = document.createElement("div");
+		node.className = "tx-c uinn8";
+		node.id = 'msg2';
+		node.innerHTML = msg;
+		if(cc) cc.insertBefore(node,cc.lastElementChild);
+	}
+}
+
+function cbWindowPrompt(opId, dataType, data){
+	var obj = eval('('+data+')');
+	if(obj.num==0){
+		var password = obj.value;
+		$.getJSON(home_url+'&mod=misc&ac=inputpwd&pwdsubmit=true&albumid='+ albumid +'&viewpwd='+password,function(json) {
+        	if (json.status == '1') {
+        		loadList('', '1');
+            } else
+            {
+            	var keycap = '确定,取消'.split(",");
+            	uexWindow.prompt('温馨提示','密码有误！请重新输入:', '密码有误！请重新输入:', keycap);
+            }
+        });
+	}
+	else
+	{
+		uescript('album_list', 'closewin();');
+	}
+}
+
+function bigImgsView(id, _picid, _uid)
+{
+	focusID = id;
+	logs('bigImgsView()-->id='+id+', uid='+_uid+', picid='+_picid);
+	if(1 || isnewest){
+		if(isSML){
+			var array = new Array();
+			array[0] = pic_list[id];
+			logs('bigImgsView()-->id='+id+', src1='+array[0]);
+			uexImageBrowser.open(array);
+		}
+		else uexImageBrowser.open(pic_list, id, '1');
+	}
+	else{
+		setstorage('params','{"uid":"'+_uid+'", "picid":"'+_picid+'"}');
+		openwin('album_detail','album_detail.html','10');
+	}	
+}
+
+function favorite()
+{
+	var url = '';
+	if(favorite_id)
+	{
+		//取消收藏
+		url = home_url+"&mod=spacecp&ac=favorite&op=delete&deletesubmit=true&favid="+favorite_id;
+	}
+	else
+	{
+		//添加收藏
+		url = home_url + "&mod=spacecp&ac=favorite&type=album&id=" +albumid+"&spaceuid="+ uid+"&favoritesubmit=ture";
+	}
+	uexWindow.toast('0','5','请稍候...', 2000);
+	$.getJSON(url, function (json)
+	{
+		var str = '操作失败';
+		if(json.status==1) {
+			
+			if(favorite_id){
+				str = '已经取消收藏';
+				favorite_id = '';
+ 			}
+			else {
+				str = '收藏成功';
+				favorite_id = json.favorite_id;
+			}
+			uescript('album_list','cpic();');
+		}
+		else if(json.message) str = json.message;
+		uexWindow.toast('0','5', str, 2000);
+	});
+}
+
+function imgLoadSuc22(id, src){
+	var e = $$(id);
+	
+	var css = e.className;
+	//e.className = css +' turn-180';
+	if(e && e.style) e.style.cssText = "background-image: url("+src+")";
+}
+
+var focusID = 0;
+function delPicCb(){
+	logs('delPicCb()-->focusID='+focusID);
+	needUpd = 1;
+	loadList('', '');
+}
+
+</script>
+</html>

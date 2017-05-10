@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+  <head>
+    <title>
+    </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="css/ui-btn.css">
+    <link rel="stylesheet" href="css/ui-input.css">
+    <link rel="stylesheet" href="css/ui-img.css">
+    <link rel="stylesheet" href="css/ui-res.css">
+    <link rel="stylesheet" href="css/ui-list.css">
+    <link rel="stylesheet" href="css/ui-base.css">
+    <link rel="stylesheet" href="css/ui-box.css">
+    <link rel="stylesheet" href="css/ui-color.css">
+	<link rel="stylesheet" href="css/style.css">
+    <script src="js/y_control.js"></script>
+    <script src="js/y_click.js"></script>
+	<script src="js/config.js"></script>
+	<script src="js/dis_control.js"></script>
+	<script src="js/y_json.js"></script>
+	<script src="js/y_anim.js"></script>
+    <script src="js/socketio/talkUtil.js"></script>
+    <script src="js/project/login.js"></script>
+    <style>
+    </style>
+  </head>
+<body class="um-vp" ontouchstart>
+    <div id="page_0" class="up ub ub-ver" tabindex="0">
+        <!--header开始-->
+        <div id="header" class="uh c-blu3">
+            <div class="c-blu3 t-wh">
+                <a class="btn btn-l btn-a ub ub-ac" ontouchstart="zy_touch('btn-act1')" onclick="closewin();">
+                    <div class="ulim"><img src="images/back.png" class="sbtn"></div>
+                </a>
+                <h1 class="umh5 ulev0 ut-s tx-c" id="ttl">&nbsp;</h1>
+            </div>
+        </div>
+
+        <div id="header1" class="c-blu3 uh ub-f1 ub ub-ac ub-pc ub-ver">
+            <div class="ub ub-f1 ub-ver ub-pc ub-ac">
+                <div class="ulev3 t-wh umar-b">基于现实角色</div>
+                <div class="ulev3 t-wh umar-b">精准交友</div>
+                <div class="ulev3 t-wh">线下活动约不停</div>
+            </div>
+        </div>
+        <!--header结束-->
+        <!--content开始-->
+        <div id="content" class="t-bla ub-ac tx-l c-gra umh10">
+            <div id="page1" class="uinn18 ub ub-ver ub-pc ub-ac">
+                <div class="ub t-bla ub-ac umh3 lis">
+                    <div class="ut-s tx-r">你的手机号：</div>
+                    <div class="ub-f1 umar-l tx-l">
+                        <div class="ulev1 uinn4" id="mobile"></div>
+                    </div>
+                </div>
+                <div class="uc-b c-m2 ub t-bla ub-ac umh3 lis">
+                    <div class="ut-s umw4">验证码</div>
+                    <div class="ub ub-f1 tx-r t-gra ulev-3 umar-l">
+                        <div class="uinput">
+                            <div class="uinn1 ufl">
+                                <input placeholder="请输入验证码" type="tel" class="uc-n ulev0" id="sms_code" value="">
+                            </div>
+                            <div class="ufl ubl ubr ubb b-org" style="height: .3em; width: 100%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--content结束-->
+        <div id="footer" class="ub ub-ver ub-pc ub-ac uf t-wh">
+            <div ontouchstart="zy_touch('btn-act')" onclick="register();" class="ub umh5 ub-ac c-wh uh ub-pc ubt b-gra">
+                确  定
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+zy_init();
+var params = {};
+var username = '';
+var password = '';
+var mobile = '';
+initParams();
+window.uexOnload = function(){
+
+};
+//提交注册
+function register(){
+	var verifycode = getValue("sms_code");
+	if ('' == verifycode) {
+		uexWindow.toast('0', '5', "请输入验证码", 1500);
+		return;
+	}
+	if (fucCheckLength(verifycode) != 6) {
+		uexWindow.toast('0', '5', "验证码为6位", 1500);
+		return;
+	}
+    var r_name = encodeURIComponent(username);
+    var r_psw = encodeURIComponent(password);
+	var r_url = login_url + "&mod=register&action=register&appplatform=1&mobile=" + mobile + "&verifycode=" + verifycode + "&username=" + r_name+ "&password=" + r_psw;
+	logs('register()-->r_url='+r_url);
+	//return;
+    uexWindow.toast('1', '5', "注册中...", '');
+    $.getJSON(r_url, function(json) {
+        uexWindow.closeToast();
+        if (parseInt(json.status) != 1) {//注册不能通过
+            uexWindow.toast('0', '5', json.message, 2000);
+            return;
+        }
+
+        if (json.uid && parseInt(json.uid) > 1) {
+           registerSuccess();
+        }else{
+            uexWindow.toast('0', '5', '注册失败！', 2000);
+        }
+    }, 'json', getJsonErr, 'POST', '', '');
+}
+function registerSuccess(){
+    closewin(0, 'register');
+    uexWindow.toast('0', '5', "注册成功！正在登录...", 2500);
+    login(0, username, password);//后台登录
+    setTimeout(function(){closewin(0, 'register_2');}, 2500);
+}
+function initParams(){
+    params = getStorJson('params');
+    username = params.username;
+    password = params.password;
+    mobile = params.mobile;
+    setHtml('mobile', mobile);
+}
+</script>
+</html>

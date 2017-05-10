@@ -1,0 +1,31 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>order</title>
+		<link rel="stylesheet" type="text/css" href="../css/api.css" />
+		<link rel="stylesheet" type="text/css" href="../css/common.css" />
+		<link rel="stylesheet" type="text/css" href="../css/order.css" />
+	</head>
+	<body>
+		<div id="wrap">
+			<div id="main">
+				<script id="li-template" type="text/x-dot-template">
+					{{ for(var i=0; i<it.length; i++) { }}
+						<li tapmode><a tapmode="" onclick="openDep('{{=it[i].depId}}','{{=it[i].depName}}')" 
+						style="background-image: url({{=it[i].depImg}});">{{=it[i].depName}}</a></li>
+					{{ } }}
+				</script>
+				<ul id="dep">
+					
+				</ul>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../script/api.js"></script>
+	<script type="text/javascript" src="../script/zepto.min.js"></script>
+	<script type="text/javascript" src="../script/doT.min.js"></script>
+	<script type="text/javascript" src="../script/constants.js"></script>
+	<script type="text/javascript" src="../script/order.js"></script>
+</html>

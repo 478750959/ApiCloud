@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+<head>
+	<title>攻略主页</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="css/ui-img.css">
+    <link rel="stylesheet" href="css/ui-list.css">
+	<link rel="stylesheet" href="css/ui-btn.css">
+	<link rel="stylesheet" href="css/ui-base.css">
+	<link rel="stylesheet" href="css/ui-box.css">
+	<link rel="stylesheet" href="css/ui-color.css">
+	<link rel="stylesheet" href="css/ui-res.css">
+	<link rel="stylesheet" href="css/ui-tab.css">
+	<link rel="stylesheet" href="css/style.css">
+    <script src="js/y_control.js"></script>
+	<script src="js/y_click.js"></script>
+	<script src="js/dis_control.js"></script>
+	<script src="js/y_slide.js"></script>
+	<script src="js/y_tmpl.js"></script>
+	<script src="js/y_anim.js"></script>
+	<style>
+    .mswi{
+		-webkit-transition:-webkit-transform 0.1s ease-in;
+	}
+	input+h1>img.mswi{
+		-webkit-transform:rotate(0deg);
+	}
+	input:checked+h1>img.mswi{
+		-webkit-transform:rotate(180deg);
+	}
+	</style>
+</head>
+    <body class="um-vp">
+        <div id="page_0" class="up ub ub-ver c-gra5" tabindex="0">
+            <!--header开始-->
+           <div id="header" class="c-blu3 uh">
+            	<div class="c-m2 t-wh ub" id="hd1">
+            		<div class="umw4" ontouchstart="zy_touch('btn-act1')" onclick="closewin();">
+            			<div class="btn btn-l btn-a ub ub-ac">       
+							<div class="ulim"><img src="images/back.png" class="sbtn"></div>
+						</div>
+            		</div>
+					<input class="uhide" type="checkbox" id="cbx">
+	                <h1 class="ut ulev0 ut-s tx-c ub-f1" style="padding:.6em 0 .8em;" tabindex="0" id="title" ontouchstart="" onclick="">&nbsp;</h1>
+					<div class="umw4" ontouchstart="zy_touch('btn-act1')" onclick="addThread();">
+						<div class="btn btn-r btn-img ub ub-ac">
+				        	<div class="ulim">
+				        		<img src="images/sbtn.png" class="sbtn">
+							</div>             
+				        </div>
+					</div>
+				</div>
+            </div>
+           <!--header结束--><!--content开始-->
+            <div id="content" class="ub-f1 tx-l t-bla">
+                
+            </div>
+            <!--content结束-->
+        </div>
+    </body>
+<script>
+
+zy_init();
+var params = getStorJson('params');
+var typeid='';
+var fid='';
+if(params.fid) fid = params.fid;
+if(params.title) setHtml('title', params.title);
+window.uexOnload = function(type){
+    if (!type) {
+		setstorage('params', '{"fid":"'+fid+'", "view":"com", "update":""}');
+        zy_con("content", "forum_listct_content.html", 0, $$("header").offsetHeight);
+    }
+	window.onorientationchange=window.onresize=function()
+	{
+		zy_resize("content",0,$$("header").offsetHeight);				
+	}
+}
+function addThread(){
+	if(!checkLogin()) return;
+	setstorage('params','{"type":"thread", "wname":"forum_listct", "fid":"'+fid+'", "title":"'+params.title+'"}');
+	openwin('editor','editor.html','12');
+}
+
+</script>
+</html>

@@ -1,0 +1,183 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>APP</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/common.css" />
+    <link rel="stylesheet" href="../../css/light.css" class="light-style">
+    <link rel="stylesheet" href="../../css/dark.css" class="dark-style" disabled>
+    <style>
+        html,body,#wrap,#header{
+            background: transparent;
+        }
+        #header{
+            height: 48px;
+        }
+        .shadow{
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            left: 0;
+            top: 0;
+            z-index: 1;
+        }
+    </style>
+</head>
+<body>
+    <div id="wrap">
+        <div class="shadow" tapmode onclick="api.closeFrame({name:'menu'});"></div>
+        <div id="header"></div>
+        <div id="main">
+            <ul class="menu-list">
+                <li class="top" tapmode="tap-active" onclick="menuToProfile(this);" data-id="120333" data-type="me">
+                    <div class="icon-box my-profile pull-left">
+                        <img src="../../res/ic_default_avatar.png" alt="">
+                    </div>
+                    <span class="user-name pull-left">登录</span>
+                </li>
+                <li class="" tapmode="tap-active" onclick="menuToMyQiushi();">
+                    <div class="icon-box my-qiushi pull-left"></div>
+                    <span class="pull-left">管理我的糗事</span>
+                </li>
+                <li class="" tapmode="tap-active" onclick="menuToChangeTheme();">
+                    <div class="icon-box my-theme pull-left"></div>
+                    <span class="theme pull-left">夜间模式</span>
+                </li>
+                <li class="" tapmode="tap-active" onclick="menuToConfig(this);">
+                    <div class="icon-box my-setting pull-left"></div>
+                    <span class="pull-left">设置</span>
+                </li>
+                <li class="bottom" tapmode="tap-active" onclick="">
+                    <div class="icon-box my-feedback pull-left"></div>
+                    <span class="pull-left">反馈</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/theme.js"></script>
+<script type="text/javascript" src="../../script/common.js"></script>
+<script type="text/javascript">
+// 是否显示 管理我的糗事
+    var login = $api.setStorage('login');
+
+    // if (login) {
+    //     $api.dom('.my-qiushi').style.display = 'block';
+    // } else{
+    //     $api.dom('.my-qiushi').style.display = 'none';
+    // }
+// 更换头像
+    var myIcon = $api.dom('.top img');
+    var changeMyIcon = function(url){
+        var str = url;
+        if (str) {
+
+        } else{
+            if (theme == 2) {
+                str = '../../res/ic_default_avatar.png';
+            } else{
+                str = '../../res/ic_default_avatar_dark.png';
+            }
+        }
+        $api.attr(myIcon,'src',str);
+    };
+    
+// 用户名
+    var userName = $api.dom('user-name');
+    var changeUserName = function(name){
+        var str = name;
+        if (str) {
+            userName.innerHTML = str;
+        } else{
+            userName.innerHTML = '登录';
+        }
+    };
+// 日间夜间文字切换
+    var themeType = $api.dom('.theme');
+    if (theme == 2) {
+        themeType.innerHTML = '夜间模式';
+    } else{
+        themeType.innerHTML = '日间模式';
+    }
+// 调用切换主题
+    var menuToChangeTheme = function(){
+        if (theme == 2) {
+            // changeTheme(1);
+            allChangeTheme(1);
+        } else{
+            // changeTheme(2);
+            allChangeTheme(2);
+        }
+
+        api.closeFrame({name: 'menu'});
+    };
+// 调用主页打开个人中心
+    var menuToProfile = function(obj){
+        api.setFrameAttr({
+            name: 'menu',
+            hidden: true
+        });
+        var id = $api.attr(obj,'data-id');
+        var type = $api.attr(obj,'data-type') || 'ta';
+        var str = "toProfile("+id+",'"+type+"','me')";
+        api.execScript({
+            name: 'root',
+            script: str
+        });
+    };
+// 打开设置页
+    var menuToConfig = function(){
+        api.setFrameAttr({
+            name: 'menu',
+            hidden: true
+        });
+        api.openWin({
+            name: 'config',
+            url: '../detail/config.html',
+            rect: {
+                x: 0,
+                y: 0,
+                w: 'auto',
+                h: 'auto'
+            },
+            bounces: false,
+            reload: true
+        });
+    };
+// 管理我的糗事
+    var menuToMyQiushi = function(){
+        api.setFrameAttr({
+            name: 'menu',
+            hidden: true
+        });
+        api.openWin({
+            name: 'my-qiushi',
+            url: '../detail/my-qiushi.html',
+            rect: {
+                x: 0,
+                y: 0,
+                w: 'auto',
+                h: 'auto'
+            },
+            bounces: false,
+            reload: true
+        });
+    };
+
+    apiready = function(){
+        window.header = $api.byId('header');
+        $api.fixIos7Bar(header); 
+        if (login) {
+            changeMyIcon();
+        } else{
+            changeMyIcon();
+        }
+        
+
+
+    }
+</script>
+</html>

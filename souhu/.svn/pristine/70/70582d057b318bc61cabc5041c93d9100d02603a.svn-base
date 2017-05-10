@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+  <title>HTML</title>
+  
+  <!-- Replace favicon.ico & apple-touch-icon.png in the root of your domain and delete these references -->
+  <link rel="shortcut icon" href="/favicon.ico">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="stylesheet" type="text/css" href="../css/api.css" />
+  
+	<style>
+		html {width: 100%;height: 100%;}
+		body {width: 100%;min-height: 100%;background: #DFE2E6;}
+
+		.home_item img {vertical-align: middle;width: 30px;margin-left: 15px; margin-right: 10px;}
+		#selfhome img {width: 50px;margin: 5px 15px 5px 5px;}
+		#selfhome {line-height: 15px; height: 60px;}
+		.home_item {margin-left: 10px; margin-right: 10px;height: 50px;line-height: 50px;background: #E8EBEE;font-size: 12px;}
+		.mt5 {margin-top: 5px;}
+		.allborder {border: 1px solid #DDDFE3;}
+		.partborder {border-bottom:  1px solid #DDDFE3;border-left:  1px solid #DDDFE3;border-right:  1px solid #DDDFE3;}
+
+		.version {text-align: center;font-size: 10px;color: #999;}
+		.h5 {height: 5px;}
+		.logintitle {display: inline-block;position: absolute; top: 10px;margin-left: 5px;}
+		.logintitle span {display: block;margin-top: 5px;}
+		#bigtitle {padding-bottom: 5px; font-size: 14px;font-weight: bold;}
+
+		.item_hover {background-color: #D1D4D7; }
+	</style>
+</head>
+
+<body>
+  
+	<div class="h5"></div>
+	<!-- 个人页面 -->
+	<div id="selfhome" class="home_item allborder"  tapmode="item_hover" onclick="emptyopt()">
+		<img src="../image/pic_user.png" alt="">
+		<div class="logintitle">
+			<span id="bigtitle">点击登录</span>
+			<span>登录后您可享受云同步及更多特权</span>
+		</div>
+		
+	</div>
+
+
+	<!-- 播放历史 -->
+	<div id="gallery" class="home_item mt5 allborder" tapmode="item_hover" onclick="emptyopt()">
+		<img src="../image/personal_icon_history.png" alt="">
+		<span>播放历史</span>
+	</div>
+	<div class="smalldivider"></div>
+	<!-- 我的关注 -->
+	<div id="collect" class="home_item normal_item partborder" tapmode="item_hover" onclick="">
+		<img src="../image/personal_icon_rss.png" alt="">
+		<span>我的关注</span>
+	</div>
+
+	<div class="bigdivider"></div>
+	<!-- 搜狐影院 -->
+	<div id="wallet" class="home_item mt5 allborder" tapmode="item_hover" onclick="">
+		<img src="../image/personal_icon_cinema.png" alt="">
+		<span>搜狐影院</span>
+	</div>
+
+	<div class="bigdivider"></div>
+	<div class="home_item normal_item partborder" tapmode="item_hover" onclick="">
+		<img src="../image/personal_icon_noadvert.png" alt="">
+		<span>去广告特权</span>
+	</div>
+
+	<!-- <div class="home_item mt5 allborder" tapmode="item_hover" onclick="">
+		<img src="../image/warehouse_movie.png" alt="">
+		<span>猜你喜欢</span>
+	</div>
+	<div class="home_item partborder" tapmode="item_hover" onclick="">
+		<img src="../image/warehouse_movie.png" alt="">
+		<span>下载联通包月版本安装包</span>
+	</div>
+	<div class="home_item partborder" tapmode="item_hover" onclick="">
+		<img src="../image/warehouse_movie.png" alt="">
+		<span>中国电信4G免流量活动规则</span>
+	</div>
+	<div class="home_item partborder" tapmode="item_hover" onclick="">
+		<img src="../image/warehouse_movie.png" alt="">
+		<span>中国电信4G免流量活动规则</span>
+	</div>
+	<div class="home_item partborder" tapmode="item_hover" onclick="">
+		<img src="../image/warehouse_movie.png" alt="">
+		<span>应用推荐</span>
+	</div>
+	<div class="home_item partborder" tapmode="item_hover" onclick="">
+		<img src="../image/warehouse_movie.png" alt="">
+		<span>用户反馈</span>
+	</div> -->
+
+	<br>
+	<div class="version">
+		搜狐视频 V4.5.0
+	</div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script>
+	function emptyopt (){}
+</script>
+</html>

@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+  <head>
+    <title>
+    </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="css/ui-img.css">
+    <link rel="stylesheet" href="css/ui-res.css">
+    <link rel="stylesheet" href="css/ui-list.css">
+    <link rel="stylesheet" href="css/ui-base.css">
+    <link rel="stylesheet" href="css/ui-box.css">
+    <link rel="stylesheet" href="css/ui-color.css">
+	<link rel="stylesheet" href="css/ui-tab.css">
+	<link rel="stylesheet" href="css/style.css">
+    <script src="js/y_control.js"></script>
+    <script src="js/y_click.js"></script>
+	<script src="js/dis_control.js"></script>
+    <script>
+	</script>
+	<style>
+	.tipArrow {
+	  	border-color: transparent transparent #000 transparent;
+	    border-style: solid;
+	    border-width: 0 .4em .4em .4em;
+	    width: 0;
+	    height: 0;
+		opacity:.8;
+	}
+	</style>
+  </head>
+<body class="um-vp uof" ontouchstart="zy_touch('')" onclick="closePop();" style="">
+	<div class="ub ub-ac ub-pc">
+		<div class="tipArrow"></div>
+	</div>
+	<div class="ub ub-ac ub-pc">
+		<div class="tipbg">
+			<div class="uc-n" id="reminer">
+				<input type="radio" class="uhide" name="rpop" id="r1">
+			  	<div ontouchstart="zy_touch('c-blue7')" onclick="selected(1);" class="ub ub-ac lis uc-a1 uinn15 c-color">   
+			   		<div class="ub-f1 t-gra4 ut-s tx-c" id="txt1">未读提醒</div>   
+			 	</div>
+				<div style="height:8px; position:relative;">
+					<img src="images/line3.png" class="pline" />
+				</div>
+				<input type="radio" class="uhide" name="rpop" id="r2">
+			 	<div ontouchstart="zy_touch('c-blue7')" onclick="selected(2);" class=" ub ub-ac lis uc-a1 uinn15 c-color">     
+			 		<div class="ub-f1 t-gra4 ut-s tx-c" id="txt2">已读提醒</div>  
+			 	</div>
+			</div>
+			
+			<div class="uc-n" id="search"> 
+				<input type="radio" class="uhide" name="rpop" id="r1">
+			  	<div ontouchstart="zy_touch('c-blue7')" onclick="selected(1);" class="ub ub-ac lis uc-a1 uinn15 c-color">   
+			   		<div class="ub-f1 t-gra4 ut-s tx-c" id="txt1">搜主题</div>   
+			 	</div>
+				<div style="height:8px; position:relative;">
+					<img src="images/line3.png" class="pline pline1" />
+				</div>
+				<input type="radio" class="uhide" name="rpop" id="r2">
+			 	<div ontouchstart="zy_touch('c-blue7')" onclick="selected(2);" class=" ub ub-ac lis uc-a1 uinn15 c-color">     
+			 		<div class="ub-f1 t-gra4 ut-s tx-c" id="txt2">搜相册</div>  
+			 	</div>
+				<div style="height:8px; position:relative;">
+					<img src="images/line3.png" class="pline pline1" />
+				</div>
+				<input type="radio" class="uhide" name="rpop" id="r3">
+				<div ontouchstart="zy_touch('c-blue7')" onclick="selected(3);" class="ub ub-ac lis uc-a1 uinn15 c-color">     
+					<div class="ub-f1 t-gra4 ut-s tx-c" id="txt3">搜用户</div>
+			    </div>
+				<div style="height:8px; position:relative;">
+					<img src="images/line3.png" class="pline pline1" />
+				</div>
+				<input type="radio" class="uhide" name="rpop" id="r4">
+				<div ontouchstart="zy_touch('c-blue7')" onclick="selected(4);" class="ub ub-ac lis uc-a1 uinn15 c-color">     
+					<div class="ub-f1 t-gra4 ut-s tx-c" id="txt4">搜文章</div>
+			    </div> 
+				<div style="height:8px; position:relative;">
+					<img src="images/line3.png" class="pline pline1" />
+				</div>
+				<input type="radio" class="uhide" name="rpop" id="r5">
+				<div ontouchstart="zy_touch('c-blue7')" onclick="selected(5);" class="ub ub-ac lis uc-a1 uinn15 c-color">     
+					<div class="ub-f1 t-gra4 ut-s tx-c" id="txt5">搜日志</div>
+			    </div> 
+			</div>
+			
+			<div class="uc-n" id="favorite">
+				<input type="radio" class="uhide" name="rpop" id="r1">
+			  	<div ontouchstart="zy_touch('c-blue7')" onclick="selected(1);" class="ub ub-ac lis uc-a1 uinn15 c-color">   
+			   		<div class="ub-f1 t-gra4 ut-s tx-c" id="txt1">所有收藏</div>   
+			 	</div>
+				<div style="height:8px; position:relative;">
+					<img src="images/line3.png" class="pline" />
+				</div>
+				<input type="radio" class="uhide" name="rpop" id="r2">
+			 	<div ontouchstart="zy_touch('c-blue7')" onclick="selected(2);" class=" ub ub-ac lis uc-a1 uinn15 c-color">     
+			 		<div class="ub-f1 t-gra4 ut-s tx-c" id="txt2">主题</div>  
+			 	</div>
+				<div style="height:8px; position:relative;">
+					<img src="images/line3.png" class="pline" />
+				</div>
+				<input type="radio" class="uhide" name="rpop" id="r3">
+				<div ontouchstart="zy_touch('c-blue7')" onclick="selected(3);" class="ub ub-ac lis uc-a1 uinn15 c-color">     
+					<div class="ub-f1 t-gra4 ut-s tx-c" id="txt3">日志</div>
+			    </div>
+				<div style="height:8px; position:relative;">
+					<img src="images/line3.png" class="pline" />
+				</div>
+				<input type="radio" class="uhide" name="rpop" id="r4">
+				<div ontouchstart="zy_touch('c-blue7')" onclick="selected(4);" class="ub ub-ac lis uc-a1 uinn15 c-color">     
+					<div class="ub-f1 t-gra4 ut-s tx-c" id="txt4">相册</div>
+			    </div> 
+				<div style="height:8px; position:relative;">
+					<img src="images/line3.png" class="pline" />
+				</div>
+				<input type="radio" class="uhide" name="rpop" id="r5">
+				<div ontouchstart="zy_touch('c-blue7')" onclick="selected(5);" class="ub ub-ac lis uc-a1 uinn15 c-color">     
+					<div class="ub-f1 t-gra4 ut-s tx-c" id="txt5">文章</div>
+			    </div> 
+			</div>
+			
+			<div class="uc-n" id="forum">
+				<input type="radio" class="uhide" name="rpop" id="r1">
+			  	<div ontouchstart="zy_touch('c-blue7')" onclick="selected(1);" class="ub ub-ac lis uc-a1 uinn15 c-color">   
+			   		<div class="ub-f1 t-gra4 ut-s tx-c" id="txt1">普通主题</div>
+			 	</div>
+				<div style="height:8px; position:relative;">
+					<img src="images/line3.png" class="pline" />
+				</div>
+				<input type="radio" class="uhide" name="rpop" id="r2">
+			 	<div ontouchstart="zy_touch('c-blue7')" onclick="selected(2);" class=" ub ub-ac lis uc-a1 uinn15 c-color">     
+			 		<div class="ub-f1 t-gra4 ut-s tx-c" id="txt2">精华主题</div>  
+			 	</div>
+				<div style="height:8px; position:relative;">
+					<img src="images/line3.png" class="pline" />
+				</div>				
+			</div>
+		</div>
+	</div>
+</body>
+<script>
+zy_init();
+var view = getstorage('popview');
+var wnm = 'morelist';
+if(view=='forum') wnm = 'forum_listct';
+if(view!='reminder') removeNode('reminer');
+if(view!='search') removeNode('search');
+if(view!='favorite') removeNode('favorite');
+if(view!='forum') removeNode('forum');
+
+window.uexOnload = function ()
+{
+	logs('pop_menu()-->view='+view);
+	var i = getstorage('indexFc');
+	var id = 'r1';
+	if(i>1) id = 'r'+i;
+	var e = $$(id);
+	if(e) e.checked = true;
+	
+	movepop();
+}
+
+function closePop(){
+	movepop();
+	uescript(wnm, 'checkbx();');
+}
+
+var upp = 1;
+var moving = 0;
+function movepop(){
+	if(moving) return;
+		
+	var dy = '-1500';
+	if(upp) dy = '1500';
+	//uexWindow.closePopover('pop');
+	//logs('movepop-->dy='+dy);
+	disShowAnim('0', dy, animCb);
+	upp = !upp;
+	moving = 1;
+}
+function animCb(){
+	moving = 0;
+}
+
+function selected(i){
+	var id = 'txt'+i;
+	var str = $$(id).innerText;
+	var scr = 'selected("'+i+'", "'+str+'");';
+	uescript(wnm, scr);
+	
+	var id2 = 'r'+i;
+	var e = $$(id2);
+	if(e) e.checked = true;
+}
+</script>
+</html>

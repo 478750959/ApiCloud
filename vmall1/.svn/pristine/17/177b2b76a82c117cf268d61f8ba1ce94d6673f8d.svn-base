@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+	<title>frame1</title>
+	<link rel="stylesheet" href="../css/api.css">
+	<style>
+	body{background-color:rgb(0,0,222);}
+	.icon-search{font-size:16px;padding-right: 4px;position:relative;top:2px;box-sizing:border-box;color:rgb(255,255,255);}
+	.icon-search:before{content:"\e661";box-sizing:border-box;}
+	[class^="icon-"], [class*=" icon-"]{font-family:'aliyun-console-font';speak:none;font-style:normal;font-weight:normal;text-transform:none;line-height:1;-webkit-font-smoothing:antialiased;}
+	</style>
+</head>
+<body>
+	<span class="icon-search">
+		
+	</span>
+	<script>
+	var ret = [
+	{
+		"id": "5597afb0df18035940dbd550",
+		"shortName": "华为 Mate7",
+		"longName": "华为 HUAWEI Mate7 指纹识别 八核 双卡双待双通 标配电信定制版（曜石黑）",
+		"description": "6英寸大屏，超窄边框，金属机身设计，Cat6极速4G，智能超八核，配备4100mAh超大电池，按压式指纹传感器，配熄屏解锁、访客模式、全新EMUI 3.0。（下单付款后7天内发货 ）",
+		"service": "此商品有华为终端发货、开具发票,并提供售后服务。",
+		"intro": "尊享爵士人生",
+		"price": 2999,
+		"about": [],
+		"thumbnail": {
+			"url": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/4d5e833aee831b305c8c2d027037ccf0.jpg",
+			"name": "mate7_1.jpg",
+			"id": "5597f81e47a00e3c66f610c7"
+		},
+		"productImg": [
+			{
+				"0": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/dced9eb6afb3a0f3bd9e451388aa63fd.jpg",
+				"1": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/31db580d2b00c4d075618892dde411c6.jpg",
+				"2": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/f449d59977c0ef4f1a144c4022291e34.jpg",
+				"3": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/278c085573dffea3c4b901b98d295f77.jpg",
+				"4": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/03106c957aefcdefa05eb7d6f0bb3bb2.jpg",
+				"5": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/491216f5b5fd5b1cbc7b62bc14706c35.jpg",
+				"6": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/ae583676b87803e8b02af7d088d7cd8e.jpg"
+			}
+		],
+		"is_sale": 1,
+		"is_visible": 1,
+		"sort": 100,
+		"favorableSort": 95,
+		"createdAt": "2015-07-04T10:04:32.845Z",
+		"updatedAt": "2015-08-10T08:43:17.523Z"
+	},
+	{
+		"id": "559d1b86c459b1905ce38feb",
+		"shortName": "荣耀畅玩4X",
+		"longName": "华为 荣耀畅玩4X 双卡双待 移动标配版 4G智能手机 TD-LTE/TD-SCDMA /GSM（前黑后白）",
+		"description": "千元档“真”4G手机！",
+		"service": "此商品有华为终端发货、开具发票,并提供售后服务。",
+		"intro": "实用配件套餐,比单买更优惠",
+		"price": 1099,
+		"about": [],
+		"thumbnail": {
+			"url": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/8782859477c8b5591698db68c79c005d.jpg",
+			"name": "175_342_6plus.jpg",
+			"id": "559d1b8596be88b05f97c229"
+		},
+		"productImg": [
+			{
+				"0": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/e7fb10a8ed3a3983bca4ed8b70bfd607.jpg",
+				"1": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/d7c5f30f9f209cbbb0126424b2b1f6ab.jpg",
+				"2": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/211efffc68eeb55347c4010ddf516cd7.jpg",
+				"3": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/93cc757e28f62375f12dd20ee8abf274.jpg",
+				"4": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/33d853dff73b8cf4c89f9d3990b31cff.jpg",
+				"5": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/1faee5fda8869912a6263cc2f46a3710.jpg"
+			}
+		],
+		"is_sale": 1,
+		"is_visible": 1,
+		"sort": 101,
+		"favorableSort": 50,
+		"createdAt": "2015-07-08T12:45:58.058Z",
+		"updatedAt": "2015-08-10T08:43:33.503Z"
+	},
+	{
+		"id": "559dbff996be88b05f97c29e",
+		"shortName": "荣耀7",
+		"longName": "华为 荣耀7 双卡双待双通 移动4G版 16GB存储（冰河银）",
+		"description": "荣耀818玩出不一样！8月11日-12日、17日-18日每天10:08/16:00/20:00，免预约疯狂购！8月5日-16日还有优购码任你抽哦！",
+		"service": "此商品有华为终端发货、开具发票,并提供售后服务。",
+		"intro": "卓越移动互联体验",
+		"price": 1999,
+		"about": [],
+		"thumbnail": {
+			"url": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/a73e0e93fda4d5970f4dd96919decd79.jpg",
+			"name": "360反馈意见截图16491222355171.jpg",
+			"id": "55c73c83491e5b493de92d96"
+		},
+		"productImg": [
+			{
+				"0": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/ef204c563dd2b311e88ae191b6dbd529.jpg",
+				"1": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/8a70330c0a52e1ba8eb838d4637957c7.jpg",
+				"2": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/16e8ff9bf9b9dea10d8ff9424464a8d3.jpg",
+				"3": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/7e3db99c732314f2f25dcda135416b0c.jpg",
+				"4": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/26c4f9ffa013a8d0425c6b30b939ccdc.jpg",
+				"5": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/07d476bc583588d362fce7239c535541.jpg",
+				"6": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/1d1060e3db9b88ed380e5537a4e1bc79.jpg",
+				"7": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/2a9b1beaba6843dcebd3d5bf9038b80e.jpg"
+			}
+		],
+		"is_sale": 1,
+		"is_visible": 1,
+		"sort": 102,
+		"favorableSort": 100,
+		"createdAt": "2015-07-09T00:27:37.800Z",
+		"updatedAt": "2015-08-10T08:27:08.501Z"
+	},
+	{
+		"id": "55c80ead17199f2c7046eee7",
+		"shortName": "华为 P8max ",
+		"longName": "华为 HUAWEI P8max 双卡双待 移动/联通双4G版 64GB存储（日晖金）",
+		"description": "轻薄6.8英寸全高清大屏手机，强大64位八核处理器，极速畅享，7层热传导机构，高效散热，4360mAh超大电池，智电3.1省电技术，持久续航，并支持给其它设备充电，当充电宝功能。原装贴膜（已贴好）（包装盒内赠磁力点阵皮套）",
+		"service": "此商品有华为终端发货、开具发票,并提供售后服务。",
+		"intro": "精湛工艺 精心摩挲",
+		"price": 3788,
+		"about": [],
+		"thumbnail": {
+			"url": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/46ef5256bb346057ed09b243e0206cb1.jpg",
+			"name": "360反馈意见截图17220317377760.jpg",
+			"id": "55c80fac098ab3b83c8d68cb"
+		},
+		"productImg": [
+			{
+				"0": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/f891d6c76e87af69ff8f50785159f7a3.jpg",
+				"1": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/75a0b150aadcd682e97098c7c7268ab4.jpg",
+				"2": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/40e6605e2a0a7bc737726001a79d304a.jpg",
+				"3": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/4e4c606ad36a6c53aefd28fb49984ca9.jpg",
+				"4": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/a436d5254d0587e6ca5cf78f8ee5c102.jpg",
+				"5": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/d174c9f50a2aad7e85a87f34907db74a.jpg"
+			}
+		],
+		"is_sale": 1,
+		"is_visible": 1,
+		"sort": 103,
+		"favorableSort": 99,
+		"createdAt": "2015-08-10T02:38:37.111Z",
+		"updatedAt": "2015-08-10T08:27:21.069Z"
+	},
+	{
+		"id": "55c8124cbec5d7dc64918179",
+		"shortName": "荣耀6 Plus",
+		"longName": "华为 荣耀6 Plus 标准版 双卡双待双通 移动4G 16GB存储（白色）套餐版",
+		"description": "荣耀818玩出不一样！8月5日-16日,200元现金券任你抽，11日-12日、17日-18日购买还能抽荣耀7、荣耀6 Plus哦！（北京移动老用户专享合约机，选购请点击）",
+		"service": "此商品有华为终端发货、开具发票,并提供售后服务。",
+		"intro": "独创后置平行双镜头设计",
+		"price": 1999,
+		"about": [],
+		"thumbnail": {
+			"url": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/d6e0d8ca92e241d4767adb2a2573192c.jpg",
+			"name": "360反馈意见截图1745052783112117.jpg",
+			"id": "55c81458421dc4c8228904a0"
+		},
+		"productImg": [
+			{
+				"0": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/3c7da21184654ce17d1ce5246f25b9dd.jpg",
+				"1": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/c80102b9dfe35b97c605051022eca2a7.jpg",
+				"2": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/f30093686c9e73183a8fec7a83b09e81.jpg",
+				"3": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/892faf3470cf67edb49fc79cf305a4ab.jpg",
+				"4": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/d0f85f614abe2fad53607c123bf0c11d.jpg",
+				"5": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/b1f9628c29d7ebf4ee1ef259f4e25f24.jpg"
+			}
+		],
+		"is_sale": 1,
+		"is_visible": 1,
+		"sort": 104,
+		"favorableSort": 98,
+		"createdAt": "2015-08-10T02:54:04.320Z",
+		"updatedAt": "2015-08-10T08:27:27.070Z"
+	},
+	{
+		"id": "55c8162abec5d7dc64918186",
+		"shortName": "华为 麦芒4",
+		"longName": "华为 HUAWEI 麦芒4 双卡双待 全网通4G智能手机（晨曦金）",
+		"description": "麦芒——无畏生长，磨砺见真我！一体化金属机身，匠韵流金；2.5D弧面全高清屏，温润手感；光学防抖暗光拍照，逐光印象；精准指纹解锁，“瞬”心应变；3000mAh电池，智能节耗。",
+		"service": "此商品有华为终端发货、开具发票,并提供售后服务。",
+		"intro": "一体化金属机身，匠韵流金；2.5D弧面全高清屏，温润手感",
+		"price": 2499,
+		"about": [],
+		"thumbnail": {
+			"url": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/3fa5486edcc6ad65de2b1a55f0cdadd9.jpg",
+			"name": "360反馈意见截图17190718487680.jpg",
+			"id": "55c82b892b49f1da37e57554"
+		},
+		"productImg": [
+			{
+				"0": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/9b7936b2614142cabbaa70f4d38681cf.jpg",
+				"1": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/cbf248ef4e99eb99d72c1646695a05fa.jpg",
+				"2": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/3a3db7c379652366896818a7d9729d14.jpg",
+				"3": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/07c716a395a35dab0492308c879e3801.jpg",
+				"4": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/87ca9c36efde720159e896d3679ce723.jpg",
+				"5": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/c6a26c4fe18aac6fb9a2b66920dd7c7e.jpg"
+			}
+		],
+		"is_sale": 1,
+		"is_visible": 1,
+		"sort": 105,
+		"favorableSort": 96,
+		"createdAt": "2015-08-10T03:10:34.966Z",
+		"updatedAt": "2015-08-10T08:43:10.573Z"
+	},
+	{
+		"id": "55c82eb8bec5d7dc649181c6",
+		"shortName": "荣耀6",
+		"longName": "华为 荣耀6 八核 移动4G TD-LTE/TD-SCDMA/GSM（16GB存储）（白色）",
+		"description": "荣耀818玩出不一样！8月11日-12日、17日-18日每天10:08/16:00/20:00，免预约疯狂购！还有大奖荣耀7、荣耀6 Plus等你抽哦！",
+		"service": "此商品有华为终端发货、开具发票,并提供售后服务。",
+		"intro": "全球首款八核4GCat6手机\n",
+		"price": 1499,
+		"about": [],
+		"thumbnail": {
+			"url": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/9500b9b1c17c4614a3da07f26b7d5ef2.jpg",
+			"name": "360反馈意见截图16400229504871.jpg",
+			"id": "55c82f9a17199f2c7046ef42"
+		},
+		"productImg": [
+			{
+				"0": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/b5a732f0a0413b9e3ab6c88ce54352e9.jpg",
+				"1": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/c9e9ef7335e655e4d77a9d3bf083c419.jpg",
+				"2": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/a28e216a1966da04ef680207e9d3da29.jpg",
+				"3": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/eb0035281e5139bad2c4baaef69b23e9.jpg",
+				"4": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/9689ca98b65749a78d3abce6f8742f44.jpg",
+				"5": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/46a99bf41507f8fe2aeec05b652de881.jpg"
+			}
+		],
+		"is_sale": 1,
+		"is_visible": 1,
+		"sort": 106,
+		"favorableSort": 94,
+		"createdAt": "2015-08-10T04:55:20.299Z",
+		"updatedAt": "2015-08-10T08:43:22.774Z"
+	},
+	{
+		"id": "55c83191098ab3b83c8d694d",
+		"shortName": "荣耀畅玩4C 套餐版",
+		"longName": "华为 荣耀畅玩4C 双卡双待 移动4G版智能手机（白色）",
+		"description": "荣耀818玩出不一样！8月5日-16日,200元现金券任你抽，11日-12日、17日-18日购买还能抽荣耀7、荣耀6 Plus哦！",
+		"service": "此商品有华为终端发货、开具发票,并提供售后服务。",
+		"intro": "64位8核千元机实用套件套餐",
+		"price": 999,
+		"about": [],
+		"thumbnail": {
+			"url": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/e83636c5657ef46437feafb4c5c930b8.jpg",
+			"name": "360反馈意见截图16330111628743.jpg",
+			"id": "55c83526491e5b493de9322a"
+		},
+		"productImg": [
+			{
+				"0": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/a8942ec49585c3b4ae63dafa9cfd34a8.jpg",
+				"1": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/e8adff6046f9e51d9c1eed115649c221.jpg",
+				"2": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/b5bf1436c30df9f029d898d1d1a16b85.jpg",
+				"3": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/612d9fb4d7188fd474461400497de90a.jpg",
+				"4": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/d7751ae8b0ed18ca4106118d82d87281.jpg",
+				"5": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/73776b702caaba83cd4b45970fdf6e71.jpg"
+			}
+		],
+		"is_sale": 1,
+		"is_visible": 1,
+		"sort": 107,
+		"favorableSort": 50,
+		"createdAt": "2015-08-10T05:07:29.709Z",
+		"updatedAt": "2015-08-10T08:43:29.612Z"
+	},
+	{
+		"id": "55c8483f2b49f1da37e575b0",
+		"shortName": "荣耀7套餐版",
+		"longName": "华为 荣耀7 双卡双待双通 移动4G版 16GB存储（典雅灰）套餐版",
+		"description": "",
+		"service": "此商品有华为终端发货、开具发票,并提供售后服务。",
+		"intro": "增超值配件套餐",
+		"price": 2399,
+		"about": [],
+		"thumbnail": {
+			"url": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/946c7f33d59ee5ce6b8480722ee57784.jpg",
+			"name": "360反馈意见截图173409126174107.jpg",
+			"id": "55c848fb17199f2c7046ef76"
+		},
+		"productImg": [
+			{
+				"0": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/f4e942d6ee80b834c1e307f02b680d70.jpg",
+				"1": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/f0181359b8d5045a23583ba983e93177.jpg",
+				"2": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/13b3c68ca47853177f4a239d8b393b83.jpg",
+				"3": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/6629ffbff5ea1ae17245e8d5a16ad61b.jpg",
+				"4": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/14ad7ead94d01c8b26c00621c15fb92b.jpg",
+				"5": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/c89c84ca79c7f4bdaf65029f62e09fcd.jpg"
+			}
+		],
+		"is_sale": 1,
+		"is_visible": 1,
+		"sort": 108,
+		"favorableSort": 50,
+		"createdAt": "2015-08-10T06:44:15.877Z",
+		"updatedAt": "2015-08-10T08:43:27.541Z"
+	},
+	{
+		"id": "55c84bc80b79107939f1f536",
+		"shortName": "华为P8青春版",
+		"longName": "华为 HUAWEI P8 青春版 双卡双待 移动4G版（白色）",
+		"description": "",
+		"service": "此商品有华为终端发货、开具发票,并提供售后服务。",
+		"intro": "开房销售诚邀品鉴",
+		"price": 1588,
+		"about": [],
+		"thumbnail": {
+			"url": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/9c35e106751b909925f522d37f201b61.jpg",
+			"name": "360反馈意见截图18270624517842.jpg",
+			"id": "55c84ca617199f2c7046ef92"
+		},
+		"productImg": [
+			{
+				"0": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/490f9ebb104aa70def18491a98206ead.jpg",
+				"1": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/dcf6958b8c377ea57092b86c6dc339f4.jpg",
+				"2": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/5a2eb4bbd305c12c5cfc27418258ce72.jpg",
+				"3": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/9e3155335c7b86a797db414c001bb624.jpg",
+				"4": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/bd81b0de88022db3912c000a6758b28d.jpg",
+				"5": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/a7e4d7f9fdc924f44311cb5d5457e896.jpg"
+			}
+		],
+		"is_sale": 1,
+		"is_visible": 1,
+		"sort": 109,
+		"favorableSort": 50,
+		"createdAt": "2015-08-10T06:59:20.811Z",
+		"updatedAt": "2015-08-10T08:43:26.417Z"
+	},
+	{
+		"id": "55c861db9119c4152a60aa64",
+		"shortName": "荣耀4A",
+		"longName": "华为 荣耀4A 双卡双待 移动4G版（白色）",
+		"description": "荣耀818玩出不一样！8月11日、18日每天10:08/16:00/20:00疯狂购（仅限预约用户购买），还有荣耀7、荣耀6 Plus等你抽哦！",
+		"service": "此商品有华为终端发货、开具发票,并提供售后服务。",
+		"intro": "2GB大内存+4核高速GPU",
+		"price": 599,
+		"about": [],
+		"thumbnail": {
+			"url": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/fe64b502ba071420e1c27442a2920c7c.jpg",
+			"name": "360反馈意见截图174506027162117.jpg",
+			"id": "55c862bc2b49f1da37e575fa"
+		},
+		"productImg": [
+			{
+				"0": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/c3b65f3b036cc4b6799dc3c18321741f.jpg",
+				"1": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/c5c49f26b612e98fba5d2b35971f27df.jpg",
+				"2": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/3a9e6b6351db42e692d35b37808e1eab.jpg",
+				"3": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/5a03b5b824a0235df51635f70af46b92.jpg",
+				"4": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/ad75ce2fa548d37228c72df91e3c17cb.jpg",
+				"5": "http://a7c3ad85f522a60adff1.b0.upaiyun.com/apicloud/26669201e57f3dfeb758d8aaa91760e7.jpg"
+			}
+		],
+		"is_sale": 1,
+		"is_visible": 1,
+		"sort": 110,
+		"favorableSort": 97,
+		"createdAt": "2015-08-10T08:33:31.575Z",
+		"updatedAt": "2015-08-10T08:43:03.914Z"
+	}
+];
+	var testText = '华为 荣耀畅玩4X 双卡双待 移动标配版 4G智能手机 TD-LTE/TD-SCDMA /GSM（前黑后白）';
+	var patt = '';
+	/*for(var i=0;i<param.length;i++){
+		patt+=param.charAt(i)+'+';
+	}*/
+	var retValue = [];
+	var param = '华为P8';
+	for(var key in ret) {
+		var okNum = 0;
+		for(var i=0;i<param.length;i++){
+			patt="/"+param.charAt(i)+'+'+"/";
+			patt=eval("("+patt+")");
+			if(patt.test(ret[key]['longName'])){
+				okNum +=1;
+			} else {
+				console.log('defeat');
+				break;
+			}
+		}
+		if(param.length==okNum){
+			retValue.push(ret[key]);
+		}
+	} 
+
+		// patt = /华+/;
+	console.log(retValue);
+	console.log(param);
+	// console.log(JSON.stringify(retValue));
+	// console.log(param.charAt(5));
+	</script>
+</body>
+</html>

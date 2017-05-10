@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+	    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+	    <title>首页</title>
+	    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+	    <link rel="stylesheet" type="text/css" href="../css/common.css"/>
+		<style>
+		#header{
+            height: 46px;
+            font-size: 14px;
+            color: #fff;
+            background-color: #3ac0b5;
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;
+
+            -webkit-flex-direction: row;
+            flex-direction: row;
+
+            -webkit-flex-wrap: wrap;
+            flex-wrap: wrap;
+
+            -webkit-box-align: center; 
+            -webkit-align-items: center;
+            align-items: center;
+            border-bottom: 1px solid #2ba399;
+        }
+        .back{
+            font-size: 0px;
+            padding: 0 5px;
+        }
+        .back .title{
+            font-size: 20px;
+              vertical-align: middle;
+
+        }
+
+        .map{
+            display: inline-block;
+            line-height: 46px;
+        }
+        .search{
+            display: inline-block;
+            line-height: 46px;
+        }
+        .flex-full{
+            -webkit-box-flex: 1; 
+            -webkit-flex: 1;
+            flex: 1;
+        }
+
+        /*icon*/
+        .i-logo{
+            display: inline-block;
+            padding: 23px;
+            background: url(../image/ic_action_home.png) no-repeat center center;
+            -webkit-background-size: 34px;
+            background-size: 34px;
+            vertical-align: middle;
+        }
+        .i-back{
+        	display: inline-block;
+            padding: 23px 10px;
+            background: url(../image/ic_global_title_bar_48_back.png) no-repeat center center;
+            -webkit-background-size: 24px;
+            background-size: 24px;
+            vertical-align: top;
+        }
+        .i-search{
+            display: inline-block;
+            padding: 20px;
+            background: url(../image/ic_action_search.png) no-repeat center center;
+            -webkit-background-size: 24px;
+            background-size: 24px;
+            vertical-align: top;
+        }
+        .i-map{
+            display: inline-block;
+            padding: 20px;
+            background: url(../image/ic_action_map.png) no-repeat center center;
+            -webkit-background-size: 24px;
+            background-size: 24px;
+            vertical-align: top;
+        }
+	</style>
+	</head>
+	<body>
+	<div id="wrap">
+		<div id="header">
+	        <div class="btn back" tapmode="topbar-active" onclick="closeWin();">
+                <i class="i-back"></i>
+                <i class="i-logo"></i>
+                <span class="title">美食</span>
+            </div>
+            <div class="flex-full"></div>
+	        <div class="btn map" tapmode="topbar-active">
+	            <i class="i-map"></i>
+	        </div>
+            <div class="btn search" tapmode="topbar-active">
+                <i class="i-search"></i>
+            </div>
+	    </div>
+	    <div id="main"></div>
+	    <div id="footer"></div>
+	</div>
+	
+	
+	<script type="text/javascript" src="../script/api.js"></script>
+	<script type="text/javascript">
+        var header = $api.byId('header');
+        var headerPos = $api.offset(header);
+        var main = $api.byId('main');
+        var mainPos = $api.offset(main);
+
+        function changeTitle(name){
+            var $back = $api.dom('.back .title');
+            $back.innerHTML = '';
+            $back.innerHTML = name;
+        }
+        function closeWin(){
+            api.closeWin();
+        }
+        function openDetailNavCon(){
+
+            api.openFrame({
+                name: 'frm_detailNavCon',
+                url: 'frm_detailNavCon.html',
+                rect: {
+                    x : 0, 
+                    y : headerPos.h + 40,
+                    w : 'auto',
+                    h : 'auto'
+                },
+                bounces: false,
+                bgColor: 'rgba(51,51,51,0.6)'
+            })
+        }
+		apiready = function(){
+			$api.fixIos7Bar(header);
+
+            changeTitle(api.pageParam.name);
+
+            api.openFrame({
+                name : 'frm_detailNav',
+                url : 'frm_detailNav.html',
+                bounces : false,
+                rect : {
+                    x : 0,
+                    y : headerPos.h,
+                    w : 'auto',
+                    h : 'auto'
+                },
+                pageParam:{"name": api.pageParam.name}
+            });
+
+			api.openFrame({
+				name : 'frm_detailList',
+				url : 'frm_detailList.html',
+				bounces : false,
+				rect : {
+					x : 0,
+					y : headerPos.h + 40,
+					w : 'auto',
+					h : 'auto'
+				}
+			});
+		}
+	</script> 
+	</body>
+
+</html>

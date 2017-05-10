@@ -1,0 +1,173 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no" />
+    <title>APP</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/common.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/profile.css" />
+    <style>
+        table{
+            border-collapse: collapse;
+            display: none;
+        }
+        .tabs-table.active{
+            display: block;
+        }
+        table tr{
+            width: 100%;
+        }
+        table td{
+            border: 2px solid #EEEEF0;
+            width: 33%;
+            background-color: #FFF;
+        }
+        table img{
+            width: 100%;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div id="wrap">
+        <div id="main">
+            <div class="profile_box ta">
+                <div class="profile_top ta">
+                    <i class="qrcode-icon" tapmode="tap-active" onclick=""></i>
+                    <img src="../../image/fun_follow_icon.png" alt="" class="user-icon">
+                    <span class="user-box">
+                        <i class="user-gender female"></i>
+                        <span class="user-name">喬喬_台灣模特</span>
+                    </span>
+                </div>
+                <div class="tabBar-ta">
+                    <div class="tabBar_inner" tapmode="tap-active">
+                        <span class="follow">10 关注</span>
+                    </div>
+                    <div class="tabBar_inner" tapmode="tap-active">
+                        <span class="funs">3.5万 粉丝</span>
+                    </div>
+                    <div class="tabBar_inner last" tapmode="tap-active">
+                        <span class="follow-icon followed"></span>
+                    </div>
+                </div>
+            </div>
+            <p class="my-intro">
+                平面攝影：Tiffany婚紗模特、TOPHOOD、TIFA、NEWLOVER、Ms。
+            </p>
+            <div class="photos-header clearfix">
+                <div class="tabs-inner active" tapmode="tap-active" onclick="changeTable(0);" data-index="0">
+                    <i class="tabs-icon mypost"></i>
+                    <span class="tabs-text">135</span>
+                </div>
+                <div class="tabs-inner" tapmode="tap-active" onclick="changeTable(1);" data-index="1">
+                    <i class="tabs-icon like"></i> 
+                    <span class="tabs-text">248</span>
+                </div>
+                <div class="tabs-inner last" tapmode="tap-active" onclick="changeTable(2);" data-index="2">
+                    <i class="tabs-icon pics"></i>
+                    <span class="tabs-text">335</span> 
+                </div>
+            </div>
+            <div class="photos">
+                <table class="tabs-table active">
+                    <tr>
+                        <td>
+                            <img src="../../image/profile_ta_pic1.png" alt="">
+                        </td>
+                        <td>
+                            <img src="../../image/profile_ta_pic2.png" alt="">
+                        </td>
+                        <td>
+                            <img src="../../image/profile_ta_pic3.png" alt="">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <img src="../../image/profile_ta_pic4.png" alt="">
+                        </td>
+                        <td>
+                        </td>
+                        <td>
+                            
+                        </td>
+                    </tr>
+                </table>
+                <table class="tabs-table">
+                    <tr>
+                        <td>
+                            <img src="../../image/profile_ta_pic4.png" alt="">
+                        </td>
+                        <td>
+                            <img src="../../image/profile_ta_pic2.png" alt="">
+                        </td>
+                        <td>
+                            <img src="../../image/profile_ta_pic3.png" alt="">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <img src="../../image/profile_ta_pic1.png" alt="">
+                        </td>
+                        <td>
+                        </td>
+                        <td>
+                            
+                        </td>
+                    </tr>
+                </table>
+                <table class="tabs-table">
+                    <tr>
+                        <td>
+                            <img src="../../image/profile_ta_pic1.png" alt="">
+                        </td>
+                        <td>
+                            <img src="../../image/profile_ta_pic3.png" alt="">
+                        </td>
+                        <td>
+                            <img src="../../image/profile_ta_pic2.png" alt="">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <img src="../../image/profile_ta_pic4.png" alt="">
+                        </td>
+                        <td>
+                        </td>
+                        <td>
+                            
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/zepto.js"></script>
+<script type="text/javascript" src="../../script/common.js"></script>
+<script type="text/javascript">
+    var changeTable = function(index){
+        var tabs = $api.domAll('.tabs-inner');
+        $api.removeCls(tabs[0],'active');
+        $api.removeCls(tabs[1],'active');
+        $api.removeCls(tabs[2],'active');
+        $api.addCls(tabs[index],'active');
+        var tabsTable = $api.domAll('.tabs-table');
+        $api.removeCls(tabsTable[0],'active');
+        $api.removeCls(tabsTable[1],'active');
+        $api.removeCls(tabsTable[2],'active');
+        $api.addCls(tabsTable[index],'active');
+    };
+    apiready = function(){
+        Zepto(function($){
+            var em = parseInt(getComputedStyle(document.body,false).fontSize);
+            var emW = em*3/4;
+            var bodyW = $api.offset(document.body).w;
+
+        });
+    }
+</script>
+</html>

@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+  <head>
+    <title>
+    </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="css/ui-btn.css">
+    <link rel="stylesheet" href="css/ui-input.css">
+    <link rel="stylesheet" href="css/ui-img.css">
+    <link rel="stylesheet" href="css/ui-res.css">
+    <link rel="stylesheet" href="css/ui-list.css">
+    <link rel="stylesheet" href="css/ui-base.css">
+    <link rel="stylesheet" href="css/ui-box.css">
+    <link rel="stylesheet" href="css/ui-color.css">
+	<link rel="stylesheet" href="css/style.css">
+    <script src="js/y_control.js"></script>
+    <script src="js/y_click.js"></script>
+	<script src="js/config.js"></script>
+	<script src="js/dis_control.js"></script>
+	<script src="js/y_json.js"></script>
+	<script src="js/y_anim.js"></script>
+    <script src="js/socketio/talkUtil.js"></script>
+    <script src="js/project/login.js"></script>
+    <style>
+    </style>
+  </head>
+<body class="um-vp" ontouchstart>
+    <div id="page_0" class="up ub ub-ver" tabindex="0">
+        <!--header开始-->
+        <div id="header" class="uh c-blu3">
+            <div class="c-blu3 t-wh">
+                <a class="btn btn-l btn-a ub ub-ac" ontouchstart="zy_touch('btn-act1')" onclick="closewin();">
+                    <div class="ulim"><img src="images/back.png" class="sbtn"></div>
+                </a>
+                <h1 class="umh3 ulev0 ut-s tx-c" id="ttl">&nbsp;</h1>
+            </div>
+        </div>
+
+        <div id="header1" class="c-blu3 uh ub-f1 ub ub-ac ub-pc ub-ver">
+            <div class="ub ub-f1 ub-ver ub-pc ub-ac">
+                <div class="ulev3 t-wh umar-b">最纯净的社交人群</div>
+                <div class="ulev2 t-wh umar-b2">朋友的朋友</div>
+                <div class="ulev2 t-wh">单位和高校验证</div>
+            </div>
+        </div>
+        <!--header结束-->
+        <!--content开始-->
+        <div id="content" class="ub t-bla ub-ac tx-l c-gra umh10 " style="padding: 0em .5em .5em .5em;">
+            <div id="page1" class="ub ub-ver">
+                <div class="ub c-m2 t-bla ub-ac umh4 lis">
+                    <div class="ut-s umw4">用户名</div>
+                    <div class="ub ub-f1 tx-r t-gra ulev-3 umar-l">
+                        <div class="uinput">
+                            <div class="uinn1 ufl">
+                                <input placeholder="请输入用户名称" type="text" class="uc-n ulev0" id="j_name" value=""  onchange="check_name(1);">
+                            </div>
+                            <div class="ufl ubl ubr ubb b-org" style="height: .2em; width: 100%;"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ub c-m2 t-bla ub-ac umh4 lis">
+                    <div class="ut-s umw4">手机号</div>
+                    <div class="ub ub-f1 tx-r t-gra ulev-3 umar-l">
+                        <div class="uinput">
+                            <div class="uinn1 ufl">
+                                <input placeholder="请输入手机号码" type="tel" class="uc-n ulev0" id="j_mobile" value="">
+                            </div>
+                            <div class="ufl ubl ubr ubb b-org" style="height: .3em; width: 100%;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--输入验证码-->
+                <div class="ub c-m2 t-bla ub-ac umh4 lis">
+                    <div class="ut-s umw4">验证码</div>
+                    <div class="ub ub-f1 tx-r t-gra ulev-3 umar-l">
+                        <div class="uinput">
+                            <div class="ub">
+                                <div class="ub ub-ac uinn1 ub-f1 ufl">
+                                    <input placeholder="请输入验证码" type="text" class="uc-n ulev0" id="sms_code" value="">
+                                </div>
+                                <div class="ub-ac c-org ulev-1 uinn5" ontouchstart="zy_touch('btn-act1')" onclick="submitMobile();">
+                                    <div class="t-wh">获取</div>
+                                </div>
+                            </div>
+                           <div class="ufl ubl ubr ubb b-org" style="height: .2em; width: 100%;"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ub c-m2 t-bla ub-ac umh4 lis">
+                    <div class="ut-s umw4">密码</div>
+                    <div class="ub ub-f1 tx-r t-gra ulev-3 umar-l">
+                        <div class="uinput">
+                            <div class="ub">
+                                <div class="ub ub-ac uinn1 ub-f1 ufl">
+                                    <input placeholder="请输入密码" type="text" class="uc-n ulev0" id="j_psw1" value="">
+                                </div>
+                                <div class="ub ub-ac c-org ulev-1 uinn5" ontouchstart="zy_touch('btn-act1')" onclick="psTypeChange();">
+                                    <div class="t-wh" id="psw_btn">隐藏</div>
+                                </div>
+                            </div>
+                            <div class="ufl ubl ubr ubb b-org" style="height: .2em; width: 100%;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ub c-m2 t-bla ub-ac umh1 lis">
+                    <div class="ut-s tx-r umw4">
+                        <input type="checkbox"  style="height: 0.4em; width: 0.4em;" class="ulev3"  id="lic_check" checked disabled>
+                    </div>
+                    <div class="ub ub-f1 tx-l t-gra ulev-0 umar-l">
+                                <div class="ub ub-ac ulev-1 uinn5" onclick="openLic();">
+                                    <div class="t-gra">我同意《约伴服务协议》</div>
+                                </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!--content结束-->
+        <div id="footer" class="ub ub-ver ub-pc ub-ac uf t-wh">
+            <div ontouchstart="zy_touch('btn-act')" onclick="register();" class="ub umh5 ub-ac c-wh uh ub-pc ubt b-gra">
+                确定
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+zy_init();
+var params = getStorJson('params');
+var r_name = '';
+var r_mobile = '';
+var r_psw1 = '';
+var name_ok=0;
+var name_msg='';
+window.uexOnload = function ()
+{
+
+};
+//获取表单信息
+function register(){
+    var params = {};
+    setStorJson('params', params);
+	r_name = getValue("j_name");
+    r_mobile = getValue("j_mobile");
+	r_psw1 = getValue("j_psw1");
+
+    /*
+    if (!$$('lic_check').checked){
+        uexWindow.toast('0', '5', "请选择同意《约伴服务协议》", 2500);
+        return;
+    }*/
+
+    if(!check_name('')) return;
+
+    if(!checkMobile(r_mobile)) return;
+
+    var verifycode = getValue("sms_code");
+    if ('' == verifycode) {
+        uexWindow.toast('0', '5', "请输入验证码", 1500);
+        return;
+    }
+    if (fucCheckLength(verifycode) != 6) {
+        uexWindow.toast('0', '5', "验证码为6位", 1500);
+        return;
+    }
+
+	r_psw1 = trim(r_psw1);
+	if (r_psw1 == '') {
+		uexWindow.toast('0', '5', "密码不能为空或空格", 1500);
+		return;
+	}
+	if (fucCheckLength(r_psw1) > 15) {
+		uexWindow.toast('0', '5', "密码必须少于15个字符", 1500);
+		return;
+	}
+
+    //setStorJson('params', {"username" : r_name, "password" : r_psw1, "mobile" : r_mobile});
+    //test
+/*    go2regist_2();
+    return;*/
+    //var r_name = encodeURIComponent(username);
+    var r_psw = encodeURIComponent(r_psw1);
+    var r_url = login_url + "&mod=register&action=register&appplatform=1&mobile=" + r_mobile + "&verifycode=" + verifycode + "&username=" + encodeURIComponent(r_name) + "&password=" + r_psw;
+    //return;
+    uexWindow.toast('1', '5', "注册中...", '');
+    $.getJSON(r_url, function(json) {
+        uexWindow.closeToast();
+        if (parseInt(json.status) != 1) {//注册不能通过
+            if(parseInt(json.status) == 3)  confirmUseCode(json.status) ;
+            else uexWindow.toast('0', '5', json.message, 2000);
+            return;
+        }
+
+        if (json.uid && parseInt(json.uid) > 1) {
+            registerSuccess();
+        }else{
+            uexWindow.toast('0', '5', '注册失败！', 2000);
+        }
+    }, 'json', getJsonErr, 'POST', '', '');
+}
+//检查手机是否可以获取验证码
+function submitMobile(){
+    r_name = getValue("j_name");
+    r_mobile = getValue("j_mobile");
+    r_psw1 = getValue("j_psw1");
+    //检查用户名：
+    if(!check_name('')) return;
+    //检查手机号：
+    if(!checkMobile(r_mobile)) return;
+    if(going) return;
+    if(isUndefined(r_name)) return;//用户名没通过
+    var r_url = login_url + "&mod=register&action=register&appplatform=1&checkinfo=1&username=" + encodeURIComponent(r_name) + "&mobile=" + r_mobile + "&password=" + r_psw1;
+    //uexWindow.toast('1', '5', "检查信息...", '');
+    going = 1;
+    $.getJSON(r_url, function(json) {
+        uexWindow.closeToast();
+        going = 0;
+        if (parseInt(json.status) == 1) {
+            sendVerifyCode();
+        }else if(parseInt(json.status) <= 0) {//提示用户名和密码为空
+            uexWindow.toast('0', '5', json.message, 2000);
+            return;
+        }else confirmUseCode(json.status);//提示手机号和用户已被注册
+    }, 'json', getJsonErr, 'POST', '', '');
+}
+function confirmUseCode(status){
+    var str ;
+    var name ;
+    if(status == 2){
+        str = '你的手机号已注册，可直接用手机号登录';
+        name = r_mobile;
+    }else if(status == 3){
+        str = '该用户名已注册，可直接登录';
+        name = r_name;
+    }
+    uexWindow.cbConfirm = function(opId, dataType, data){
+        if(int(data)==1) {
+            setTimeout(function(){
+                setStorJson('params',{"view":"register", "uname":name});
+                uescript('login', 'getLogininfor();');
+                uexWindow.close(0, "register");
+            }, 500);
+        }
+    };
+    var mycars = ['取消','去登录'];
+    uexWindow.confirm('提示',str, mycars);
+    return 0;
+}
+/*function confirmSend(){
+    uexWindow.cbConfirm = function(opId, dataType, data){
+        if(int(data)==0) {
+            sendVerifyCode();
+        }
+    };
+    var mycars = ['确定','取消'];
+    uexWindow.confirm('需要手机验证', '我们将发送短信验证码到你的手机：' + r_mobile, mycars);
+    return 0;
+}*/
+function sendVerifyCode(){
+    var r_url  = plugin_url + "&id=smstong:verifycode&appplatform=1&action=getregverifycode&mobile=" + r_mobile;
+    //return;
+    uexWindow.toast('1', '5', "正在发送验证码", '');
+    $.getJSON(r_url, function(json) {
+        uexWindow.closeToast();
+        if (parseInt(json.status) != 1) {//验证码发送失败
+            uexWindow.toast('0', '5', json.message, 2000);
+        }else{
+            uexWindow.toast('0', '5', '验证码已经发送到你手机，请注意查收！', 2000);
+        }
+    }, 'json', getJsonErr, 'POST', '', '');
+}
+function psTypeChange(){
+    var obj = $$('j_psw1');
+    if (obj.type == "password"){
+        obj.type="text";
+        setHtml('psw_btn', "隐藏");
+    }else{
+        obj.type="password";
+        setHtml('psw_btn', "显示");
+    }
+}
+/*function go2regist_2(){
+    openwin('register_2', 'register_2.html', '10');
+}*/
+function registerSuccess(){
+    //closewin(0, 'register');
+    uexWindow.toast('0', '5', "注册成功！正在登录...", 2500);
+    login(0, r_name, r_psw1);//后台登录
+    setTimeout(function(){closewin(0, 'register');}, 2500);
+}
+function checkMobile(mobile){
+    if(!mobile){
+        uexWindow.toast('0', '5', "请输入手机号码", 1500);
+        return false;
+    }
+    var re = /1(?:[38]\d|4[57]|5[01256789])\d{8}/;
+    if(!re.test(mobile)){
+        uexWindow.toast('0', '5', "手机号码不正确", 1500);
+        return false;
+    }
+    return true;
+}
+/**
+ *
+ * @param onchange  判断name是否发生改变；
+ * @return {Boolean}
+ */
+function check_name(onchange){
+    var name = getValue('j_name');
+    if ('' == name) {
+        uexWindow.toast('0', '5', "请输入用户名", 1500);
+        return false;
+    }
+    if (fucCheckLength(name) < 3 || fucCheckLength(name) > 15) {
+
+        uexWindow.toast('0', '5', "用户名必须为3~15个字符", 1500);
+        return false;
+    }
+    //如果用户名未发生改变，说明已校验，直接返回true；
+    if(!onchange&&name_ok) return true;
+    if(going) return true;
+    //后台校验用户名是否已注册：
+    var r_url = login_url + "&mod=register&action=register&appplatform=1&checkinfo=1&checkname=1&username=" + encodeURIComponent(name);
+    going = 1;
+    $.getJSON(r_url, function(json) {
+        going = 0;
+        if (parseInt(json.status) == 1) {
+            name_ok=1;  //用户名校验成功
+            return true;
+        }else{//0为空，3重复
+            name_msg=json.message;
+            uexWindow.toast('0', '5', json.message, 2000);
+            return false;
+        }
+    }, 'json', getJsonErr, 'POST', '', '');
+}
+/**
+ * 打开服务协议页面
+ */
+function openLic(){
+
+    openwin('license', 'license.html', '10');
+
+}
+</script>
+</html>

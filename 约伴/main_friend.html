@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+  <head>
+    <title>
+    </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+   	<link rel="stylesheet" href="css/ui-img.css">
+	<link rel="stylesheet" href="css/ui-input.css">
+    <link rel="stylesheet" href="css/ui-res.css">
+    <link rel="stylesheet" href="css/ui-btn.css">
+    <link rel="stylesheet" href="css/ui-base.css">
+    <link rel="stylesheet" href="css/ui-box.css">
+    <link rel="stylesheet" href="css/ui-color.css">
+	<link rel="stylesheet" href="css/ui-list.css">
+	<link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/ui-card.css">
+    <link rel="stylesheet" href="plugin/port.css"><!--所有的插件一个公共的css-->
+    <script src="js/y_control.js"></script>
+    <script src="js/y_click.js"></script>
+	<script src="js/dis_control.js"></script>
+	<script src="js/y_json.js"></script>
+	<script src="js/y_icache.js"></script>
+	<script src="js/y_tmpl.js"></script>
+	<script src="js/y_slide.js"></script>
+	<script src="js/config.js"></script>
+    <script src="js/y_anim.js"></script>
+    <script>
+	</script>
+      <style>
+          .img-1d{height:0.8125em; width: 0.8125em;}
+      </style>
+  </head>
+<body class="um-vp c-gra" ontouchstart="">
+    <div class="ub-ac c-wh">
+        <div id="dating" class="ub-con ub-f1">
+            <div class="ub uinn10 ubb b-gra ub-ac" ontouchstart="zy_touch('c-gra')" onclick="go2dating();">
+                <div class="im-dating ub-img5 umh4 umw14"></div>
+                <div class="ub ub-ac umar-l ub-f1">神秘约会</div>
+                <div class="ub ub-ac t-gra ulev-1" id="dating_note"></div>
+                <div class="ufr ub-img5 rimg umar-l uhide" id="rn"></div>
+            </div>
+        </div>
+    </div>
+    <div class="ub-ac c-wh umar-t">
+        <div id="role_single" class="ub-con ub-f1">
+            <input class="uhide" type="radio" name="friend" id="menu8">
+            <div class="ub uinn10 ubb b-gra ub-ac" ontouchstart="zy_touch('c-gra')" onclick="menuSelected(8);">
+                <div class="im-single ub-img5 umh4 umw14"></div>
+                <div class="ub ub-ac umar-l ub-f1" id="menuSelected8">推荐单身名片</div>
+                <div class="ufr ulev-1 uinn11 uhide" id="singleStatus">已关闭</div>
+            </div>
+        </div>
+        <div id="role_occupation" class="ub-con ub-f1">
+            <input class="uhide" type="radio" name="friend" id="menu9">
+            <div class="ub uinn10 ubb b-gra ub-ac" ontouchstart="zy_touch('c-gra')" onclick="menuSelected(9);">
+                <div class="im-occupation ub-img5 umh4 umw14"></div>
+                <div class="ub ub-ac umar-l ub-f1" id="menuSelected9">推荐职业名片</div>
+                <div class="ufr ulev-1 uinn11 uhide" id="occupationStatus">已关闭</div>
+            </div>
+        </div>
+        <div id="role_education" class="ub-con ub-f1">
+            <input class="uhide" type="radio" name="friend" id="menu10">
+            <div class="ub uinn10 ubb b-gra ub-ac" ontouchstart="zy_touch('c-gra')" onclick="menuSelected(10);">
+                <div class="im-education ub-img5 umh4 umw14"></div>
+                <div class="ub ub-ac umar-l ub-f1" id="menuSelected10">推荐校友名片</div>
+                <div class="ufr ulev-1 uinn11 uhide" id="educationStatus">已关闭</div>
+                <!--<div class="res8 lis-sw ub-img4"></div>-->
+            </div>
+        </div>
+    </div>
+
+    <div class="ub-ac c-wh umar-t umar-b">
+        <input class="uhide" type="radio" name="friend" id="menu6">
+        <div class="ub uinn10 ubb b-gra" ontouchstart="zy_touch('c-gra')" onclick="menuSelected(6);">
+            <div class="im-friend1d ub-img5 umh4 umw14"></div>
+            <div class="ub ub-ac umar-l" id="menuSelected6">一度好友</div>
+            <div class="ub ub-ac t-gra" id="count6"></div>
+        </div>
+        <input class="uhide" type="radio" name="friend" id="menu7">
+        <div class="ub uinn10 ubb b-gra" ontouchstart="zy_touch('c-gra')" onclick="menuSelected(7);">
+            <div class="im-friend2d ub-img5 umh4 umw14"></div>
+            <div class="ub ub-ac umar-l" id="menuSelected7">二度好友</div>
+            <div class="ub ub-ac  t-gra" id="count7"></div>
+        </div>
+    </div>
+    <div class="c-wh umar-t" id="page5">
+        <!--圈子-->
+        <div class="ub ub-ac uinn10">
+            <div class="im30 ub-img5 newpic"></div>
+            <div class="ub ub-ac ub-f1">圈子</div>
+            <div class="ub ulim ulev-1" ontouchstart="zy_touch('btn-act1')" onclick="tagAdd();">
+                <img src="images/add_tag.png" class="rbtn">
+            </div>
+        </div>
+        <div class="uinn2" id="list">
+            <div></div>
+        </div>
+    </div>
+</body>
+<script>
+zy_init();
+//tested();
+var curpage = 1;
+var totpage = 1;
+var updr = '0';
+var uid = getstorage('UID');
+var ucurl = getstorage('ucurl');
+var menuindex;
+var menutitle;
+var rolemoduleid;
+var rolemodule;
+var rolemodulesel;
+var fromCache = 0;
+var o_rolemodule = {};
+var count_mobile = '';
+
+if(!ucurl) ucurl = guc;
+window.uexOnload = function ()
+{
+	setPageBounce(downcb, upcb);
+	zy_initcache();
+    updateRolemodule();
+    show_plugin_reminder();
+    loadFriendTags('', '1');
+    if(fromCache) loadFriendTags('', '');
+};
+
+function downcb(){
+	updr = '0';
+    loadFriendTags('', '');
+    uescript('root', 'plugin_reminder_check();');//插件提醒小红点
+}
+function upcb(){
+	if (curpage < totpage) {
+		updr = '1';
+		var pn = curpage+1;
+		loadFriendTags(pn, '');
+	}
+	else
+		resetBV('1');
+}
+
+function loadFriendTags(pn, flag){
+    if(going) return;
+    var url = home_url + '&mod=spacecp&ac=friend&op=moderate_tag&do=viewtags';
+    going = 1;
+    fromCache = checkKey(url);
+    if(!fromCache) uexWindow.toast('1','5','加载中...',"");
+	$.getJSON(url, loadList, 'json', getJsonErr, 'POST', '', flag);
+}
+
+function loadList(json){
+	loadListCb(json);
+}
+
+function loadListCb(json){
+	uexWindow.closeToast();
+    going = 0;
+	resetBV(updr);
+	
+	if(json){
+		if (Int(json.status)<1) {
+			uexWindow.toast('0','5',json.message,2000);
+			return;
+		}
+		
+		var cContent = $$('list');
+		var res = '';
+		var list = json.list;
+        if(force_int(json['count1d'])) setHtml('count6', '(' + json['count1d'] + ')');
+        if(force_int(json['count1d'])) setHtml('count7', '(' + json['count2d'] + ')');
+        if(force_int(json['count_mobile'])) count_mobile = json['count_mobile'];//setHtml('count11', '(' + json['count_mobile'] + ')');
+		var length = zy_tmpl_count(list);
+		if(length>0){
+			var tmpl = '';
+            tmpl = '<li ontouchstart="zy_touch(\'c-gra\')" onclick="go2tag5(${tagid}, \'${tagname}\');" class="uc-n ubb ub b-gra t-bla ub-ac lis" id="tag_${tagid}">'
+                        +'<div class="ub-f1 ub umh4 line-hei2">	'
+                            +'<div class="ub ub-f3 ulev0" style="width: 0%;">'
+                                +'<div class="uinn4 ub-f1">${tagname}</div>'
+                            +'</div>'
+                            +'<div class="ub ub-pc ub-ac ub-f2" style="width: 0%;">'
+                                +'<div class="uinn4 t-gra ulev-1">一度${count1d}人</div>'
+                            +'</div> '
+                            +'<div class="ub ub-pc ub-ac ub-f2" style="width: 0%;">'
+                                +'<div class="uinn4 t-gra ulev-1">二度${count2d}人</div>'
+                            +'</div> '
+                        +'</div> '
+                    +'</li>  '
+                    +'<li class=""></li>';
+			res = zy_tmpl(tmpl,list,length,j2vCb);
+
+			curpage = Int(json.zywy_curpage);
+			totpage = Int(json.zywy_totalpage);
+		}
+		else{
+			res = '';//'<div class="uinn8 tx-c">暂无列表内容</div>';
+		}
+		
+		if(curpage==1)
+       	{
+       		while(cContent.childElementCount>1)
+       		{
+       			cContent.removeChild(cContent.firstElementChild);
+       		}
+       	}
+		
+		var node = document.createElement("ul");
+		node.innerHTML = res;
+		cContent.insertBefore(node,cContent.lastElementChild);
+		
+	}
+}
+
+function j2vCb(d,c)
+{
+	var str = '';
+	 if(c.length>1)
+	 {
+		switch(c[1])
+		{
+            case 'tags':
+                var count = 0;
+                for (var tagid in d.tags) {
+                    if(++count >8){
+                        break;
+                    }
+                    var tagname = d.tags[tagid];
+                    str += '<div class="ufl uba b-org uc-a2 ulev-1 uinn11 umar-r umar-b">'+ tagname +'</div>';
+                }
+                break;
+		}
+	 }
+	 return str;
+}
+function go2tag5(tagid, tagname){
+    setstorage('params','{"wname":"root", "popname":"content2", "tagid":"'+tagid+'", "tagname":"'+tagname+'"}');
+    openwin('friendtag_edit','friendtag_edit.html','10');
+}
+function tagAdd(){
+    setstorage('params','{"wname":"root", "popname":"content2"}');
+    openwin('friendtag_edit','friendtag_edit.html','10');
+}
+function menuSelected(i){
+    if (!checkLogin()) return;
+    if(going) return;
+    var s = '';
+    menuindex = i;
+    rolemoduleid = menuindex - 7 ;
+    menutitle = $$('menuSelected' + menuindex).innerHTML;
+
+    if((menuindex == 8 || menuindex == 9 || menuindex == 10 )){
+        menutitle = menutitle.substr(2);
+        rolemodule = getRolemodule();
+        rolemodulesel = getSelector(rolemodule + 'Status');
+        if (rolemodulesel) {
+            if (rolemodulesel.className.indexOf('uhide') < 0){//james Y150203,名片菜单显示已关闭
+                confirmCard() ;
+                return;
+            }
+        }
+    }
+    openmenuSelected();
+}
+
+function confirmCard() {
+    var str = '';
+    uexWindow.cbConfirm = function (opId, dataType, data) {
+        if (int(data) == 1) { //启用
+            isCardempty();
+        }
+    };
+
+    var confirmtitle = '确认启用'+menutitle;
+    switch (rolemodule){
+        case 'single':
+            str = '单身用户才能启用'+ menutitle +'，确定启用?';
+            break;
+        case 'occupation':
+            str = '启用' + menutitle + '后，其他用户在' + menutitle + '的推荐列表里将看到你。';
+            break;
+        case 'education':
+            str = '启用' + menutitle + '后，其他用户在' + menutitle + '的推荐列表里将看到你。';
+            break;
+    }
+    var mycars =['取消', '启用'];
+    uexWindow.confirm(confirmtitle, str, mycars);
+}
+function isCardempty() {
+    going = 1;
+    var url = home_url + '&mod=space&do=recommend&ac=isempty&rolemodule='+ rolemodule + '&uid='+ uid;
+    $.getJSON(url, doEmpty, 'json', getJsonErr, 'POST', '', '');
+}
+
+function doEmpty(json) {
+    going = 0;
+    var iscardempty = json.iscardempty ;
+    if(parseInt(iscardempty)){        //如果资料为空，confirm 是否edit
+        uexWindow.cbConfirm = function (opId, dataType, data) {
+            if (int(data) == 1) {
+                setstorage('modifyfrom', 'friend');
+                setStorJson('params', {"rolemoduleid": rolemoduleid, "title": menutitle});
+                openwin('manage_roleedit', 'manage_roleedit.html', '10');
+            }
+        };
+        var confirmtitle = '请编辑' + menutitle;
+        var str = '需要先补充相关个人资料';
+        var mycars =['取消', '去编辑'];
+        uexWindow.confirm(confirmtitle, str, mycars);
+    }else{ //如果资料不为空，打开推荐列表
+        var new_status = 'true';
+        if (going) return;
+        going = 1;
+        var url = forum_url + '&mod=ajax&action=set_profile&rolemodule=' + rolemodule + '&status=' + new_status;
+        $.getJSON(url, function (json) {
+            going = 0;
+            var str = '现在进入推荐列表';
+            if (json == 0) {
+                str = '启用失败';
+                uexWindow.toast('0', '5', str, 1000);
+            }else {
+                zy_anim_push(rolemodulesel, 'uhide');//隐藏已关闭 //
+                var new_rolestatus = new_status ? 1 : 0;
+                o_rolemodule[rolemodule] = '' + new_rolestatus;
+                setStorJson('role_status', o_rolemodule);
+                ueppscript('root', 'content4', 'show_role_modules();');//修改个人空间单身名片的状态
+                uexWindow.toast('0', '5', str, 1500);
+                setTimeout(function(){openmenuSelected();}, 1500);
+            }
+        }, 'json', getJsonErr, 'POST', '', '');
+    }
+}
+
+function openmenuSelected(){
+    var json = {
+        pageid: menuindex,
+        title: menutitle
+    };
+    if(int(menuindex) == 6) json.count_mobile = count_mobile;//手机好友的个数
+    //var str = '{"pageid":"' + menuindex + '", "title":"' + menutitle + '"}';
+    setStorJson('params', json);
+    openwin('friend', 'friend.html', '10');
+}
+
+//james Y150127,更新名片应用开启状态
+function updateRolemodule(){
+    var selector = '';
+    o_rolemodule = getStorJson('role_status');
+    for(var key in o_rolemodule){
+        selector = key + 'Status';
+        if(!parseInt(o_rolemodule[key]))  zy_anim_pop( selector, 'uhide');//显示已关闭
+        if(parseInt(o_rolemodule[key]))  zy_anim_push( selector, 'uhide');//隐藏已关闭
+    }
+}
+
+function getRolemodule(){
+    var key = '';
+    if(rolemoduleid == 1) key = 'single';
+    if(rolemoduleid == 2) key = 'occupation';
+    if(rolemoduleid == 3) key = 'education';
+    return key;
+}
+/**
+ * 显示所有的插件提醒，以后在此函数中添加多个的note类型
+ */
+function show_plugin_reminder(){
+    var r_obj = getStorJson('plugin_reminder');
+    if( r_obj.dating_note )show_dating_note(r_obj.dating_note);
+
+    //todo 此处可以增加plugin
+}
+function show_dating_note(dating_note){
+    if(!dating_note) return;
+    var note_type = '';
+    if(int(dating_note.count_f)) note_type = '好友';
+    else if(int(dating_note.count_c)) note_type = '同事';
+    else if(int(dating_note.count_g)) note_type = '校友';
+    else if(int(dating_note.count_n)) note_type = '附近';
+    change_dating_reminder(true, note_type);
+}
+function go2dating(){
+    change_dating_reminder(false, '');
+    openwin('dating_list', './plugin/p1/list.html', 10);
+}
+function change_dating_reminder(show, value){
+    if(show){
+        setHtml('dating_note', value);
+        zy_show('rn');
+    }else{
+        setHtml('dating_note', '');
+        zy_hide('rn');
+        cancel_reminder();
+    }
+}
+function cancel_reminder(){
+    uescript('root', "cancelNotification('plugin_reminder')");
+}
+</script>
+</html>

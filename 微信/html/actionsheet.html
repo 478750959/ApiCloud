@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>title</title>
+		<link rel="stylesheet"type="text/css" href="../css/weui.css">
+		<link rel="stylesheet" type="text/css" href="../css/example.css" />
+		<style>
+			body {
+			}
+		</style>
+	</head>
+	<body ontouchstart="" gtools_scp_screen_capture_injected="true" style="zoom: 1;">
+		<div class="container js_container">
+			<div class="page" style="overflow: hidden">
+				<div class="hd">
+					<h1 class="page_title">ActionSheet</h1>
+				</div>
+				<div class="bd spacing">
+					<a href="javascript:;" class="weui_btn weui_btn_primary" id="showActionSheet" onclick="showActionSheet()">点击上拉ActionSheet</a>
+				</div>
+				<!--BEGIN actionSheet-->
+				<div id="actionSheet_wrap">
+					<div class="weui_mask_transition" id="mask"></div>
+					<div class="weui_actionsheet" id="weui_actionsheet">
+						<div class="weui_actionsheet_menu">
+							<div class="weui_actionsheet_cell">
+								示例菜单
+							</div>
+							<div class="weui_actionsheet_cell">
+								示例菜单
+							</div>
+							<div class="weui_actionsheet_cell">
+								示例菜单
+							</div>
+							<div class="weui_actionsheet_cell">
+								示例菜单
+							</div>
+						</div>
+						<div class="weui_actionsheet_action">
+							<div class="weui_actionsheet_cell" id="actionsheet_cancel">
+								取消
+							</div>
+						</div>
+					</div>
+				</div>
+				<!--END actionSheet-->
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../script/api.js"></script>
+	<script type="text/javascript">
+		apiready = function() {
+		};
+		function showActionSheet() {
+			var mask = $api.byId('mask');
+			var weuiActionsheet = $api.byId('weui_actionsheet');
+			//			weuiActionsheet.addClass('weui_actionsheet_toggle');
+			$api.addCls(weuiActionsheet, 'weui_actionsheet_toggle');
+			//			$api.addCls(el, 'newclass');
+			$api.addCls(mask, 'weui_fade_toggle');
+			mask.onclick = function() {
+				hideActionSheet(weuiActionsheet, mask);
+			};
+//			$api.byId('actionsheet_cancel').click(function() {
+//				hideActionSheet(weuiActionsheet, mask);
+//			});
+			$api.byId('actionsheet_cancel').onclick  = function() {
+				hideActionSheet(weuiActionsheet, mask);
+			};
+			//			weuiActionsheet.unbind('transitionend').unbind('webkitTransitionEnd');
+			//
+			function hideActionSheet(weuiActionsheet, mask) {
+				
+				//				$api.removeCls(el, 'newclass');
+				//				weuiActionsheet.removeClass('weui_actionsheet_toggle');
+				$api.removeCls(weuiActionsheet, 'weui_actionsheet_toggle');
+				//				mask.removeClass('weui_fade_toggle');
+				$api.removeCls(mask, 'weui_fade_toggle');
+				//
+//				weuiActionsheet.on('transitionend', function() {
+//					mask.hide();
+//				}).on('webkitTransitionEnd', function() {
+//					mask.hide();
+//				})
+			}
+
+		}
+	</script>
+</html>

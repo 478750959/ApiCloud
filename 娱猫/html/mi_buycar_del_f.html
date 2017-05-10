@@ -1,0 +1,82 @@
+<!doctype html>
+<html style="background:transparent;">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>MI</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/xyc.css"/>
+</head>
+<body style="background:rgba(0,0,0,0.4)">
+<div id="wrap">
+    <div id="main">
+    	<div class='mi_set_add_tc'>
+			<h3>确定删除?</h3>
+			<h6>删除之后将无法恢复</h6>
+			<ul>
+				<li class='tanchuang_quxiao' onclick='api.closeFrame();'>取消</li>
+				<li onclick="del_add()">确定</li>
+			</ul>
+		</div>
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/comm.js"></script>
+<script type="text/javascript" src="../script/font.js"></script>
+<script type="text/javascript" src="../script/zepto.js"></script>
+<script>
+	function del_add(){
+		var info = is_login();
+		var param = {};
+		for (var p in info) {
+			param[p] = info[p];
+		}
+	 	param.id=api.pageParam.id;
+	 	var num=api.pageParam.num;
+	 	var price = api.pageParam.price;
+	 	ajaxRequest('cart/cartdel', 'post',param,function(ret,err){			
+			if(err){
+				api.toast({
+					msg:err.msg
+				});
+				return false;
+			}
+			if(ret.status){
+				//运行购物车，和编辑购物车两个页面的add_del,为了删除对应的产品
+//				api.execScript({
+//			        name:'mi_buycar_head_w',
+//			        frameName:'mi_buycar_edit_f',
+//			        script: 'add_del("'+param.id+'")'
+//		        });	
+//		        api.execScript({
+//			        name:'mi_buycar_head_w',
+//			        frameName:'mi_buycar_f',
+//			        script: 'add_del("'+param.id+'")'
+//		        });	
+		       //发送到mi_f的监听事件
+		        api.sendEvent({
+                	name:'del_car'
+                });
+		       api.sendEvent({
+                	name:'num_change'
+                });
+		       //发送到购物车编辑的监听事件
+		       api.sendEvent({
+			       name: 'to_buy'			  
+			   });		      
+		        api.closeFrame({name:'mi_buycar_del_f'});
+			}else{
+				if(ret.info=='no_login'){
+					to_login();
+					return false;
+				}
+				api.toast({
+					msg:ret.info
+				});
+			}
+		})
+	}
+	
+</script>
+</html>

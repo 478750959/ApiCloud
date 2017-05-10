@@ -1,0 +1,128 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="copyright" content="www.apicloud.com" />
+<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+<title>正在播放</title>
+<link rel="stylesheet" type="text/css" href="../css/api.css" />
+<link rel="stylesheet" type="text/css" href="../css/egret.css" />
+<style>
+
+@-webkit-keyframes playing {
+	/*0%   { transform: rotate(0deg);}*/
+	100% { -webkit-transform: rotate(360deg);}
+}
+
+@keyframes playing {
+	100% { transform: rotate(360deg);}
+}
+body {height: 100%;}
+.br {border-right: 1px solid #0A0A0A;}
+.bl {border-right: 1px solid #232323;}
+
+/* 上部效果 */
+.play-up {position: relative;}
+.play-up-bg {width: 100%;height: 100%;position: absolute;}
+.play_needle {position: absolute; vertical-align: top; top: -20px; width: 200px; left: 50%; margin-left: -100px;
+	transform: rotate(-30deg);
+	transform-origin: 50% 10%;
+	transition: all 0.8s ease;
+
+	-webkit-transform: rotate(-30deg); 
+	-webkit-transform-origin: 50% 10%;
+	-webkit-transition: all 0.8s ease;}
+
+.playdisc {position:absolute; width: 200px; left: 50%;margin-left: -100px; top: 70px; 
+	animation:playing 5s infinite linear;
+	animation-play-state: paused;
+
+	-webkit-animation:playing 5s infinite linear; 
+	-webkit-animation-play-state: paused;
+}
+
+.play-up-toolbar {position: absolute; bottom: 0; display: -webkit-box;}
+.play-up-toolbar .play-up-tool {-webkit-box-flex:1;text-align: center;}
+.play-up-toolbar .play-up-tool img {width: 70%;}
+
+/* 底部控制 */
+.play-control {position: absolute;width: 100%;bottom: 0;height: 60px;}
+.play-control .loopmode {position: absolute;left: 0;width: 30px;padding: 15px;vertical-align: top}
+.play-control .controllist {position: absolute;right: 0;width: 30px;padding: 15px;vertical-align: top}
+.play-control .play-control-bar {position: absolute;left:60px; right: 60px;height: 60px;}
+.play-control .play-control-bar img {width: 50px;padding-top: 5px;position: absolute;}
+.play-control .play-control-bar .play-control-bar-bg {height: 40px;margin-top: 10px;background-color: #D6D6D6;border-radius: 20px;width: 100%;}
+
+</style>
+</head>
+<body>
+
+<div class="play-up">
+	<img src="../image/musicplay/playbg.png" alt="" class="play-up-bg">
+	<img src="../image/musicplay/play_disc.png" alt="" class="playdisc">
+	<img src="../image/musicplay/play_needle01.png" alt="" class="play_needle">
+	<div class="play-up-toolbar">
+		<div class="play-up-tool br"><img src="../image/musicplay/play_up_tool01.png" alt=""></div>
+		<div class="play-up-tool br bl"><img src="../image/musicplay/play_up_tool02.png" alt=""></div>
+		<div class="play-up-tool br bl"><img src="../image/musicplay/play_up_tool03.png" alt=""></div>
+		<div class="play-up-tool br bl"><img src="../image/musicplay/play_up_tool04.png" alt=""></div>
+		<div class="play-up-tool bl"><img src="../image/musicplay/play_up_tool05.png" alt=""></div>
+	</div>
+</div>
+
+<div class="play-control">
+	<img src="../image/musicplay/loopmode01.png" alt="" class="loopmode">
+	<img src="../image/musicplay/controllist.png" alt="" class="controllist">
+	<div class="play-control-bar">
+		<img src="../image/musicplay/play_btn_play.png" alt="" data-click="0" class="play-control-btn" onclick="switchmusic(this)">
+		<div class="play-control-bar-bg"></div>
+	</div>
+</div>
+
+
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript">
+
+function playmusic () {
+	var musicdisc = document.getElementsByClassName('playdisc')[0];
+	var musicneedle = document.getElementsByClassName('play_needle')[0];
+
+	musicdisc.style.webkitAnimationPlayState = 'running';
+	musicneedle.style.transform = 'rotate(0deg)';
+	musicneedle.style.webkitTransform = 'rotate(0deg)';
+}
+
+function stopmusic () {
+	var musicdisc = document.getElementsByClassName('playdisc')[0];
+	var musicneedle = document.getElementsByClassName('play_needle')[0];
+
+	musicdisc.style.webkitAnimationPlayState = 'paused';
+	musicneedle.style.transform = 'rotate(-30deg)';
+	musicneedle.style.webkitTransform = 'rotate(-30deg)';
+}
+
+function switchmusic (button) {
+
+	var click = button.getAttribute("data-click");
+		
+	if (click == 0) {
+		// 点开
+		button.setAttribute("data-click", 1);
+		button.src = "../image/musicplay/play_btn_pause.png";
+		playmusic ();
+	}else {
+		// 关闭
+		button.setAttribute("data-click", 0);
+		button.src = "../image/musicplay/play_btn_play.png";
+		stopmusic ();
+	}
+}
+
+window.onload = function  () {
+	var playbg = document.getElementsByClassName('play-up')[0];
+	playbg.style.height = document.documentElement.clientHeight - 60 + 'px';
+}
+apiready = function  () {}
+</script>
+</html>

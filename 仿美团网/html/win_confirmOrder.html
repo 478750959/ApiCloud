@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+	    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+	    <title>首页</title>
+	    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+	    <link rel="stylesheet" type="text/css" href="../css/common.css"/>
+		<style>
+		#header{
+            height: 46px;
+            font-size: 14px;
+            color: #fff;
+            background-color: #3ac0b5;
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;
+
+            -webkit-flex-direction: row;
+            flex-direction: row;
+
+            -webkit-flex-wrap: wrap;
+            flex-wrap: wrap;
+
+            -webkit-box-align: center; 
+            -webkit-align-items: center;
+            align-items: center;
+            border-bottom: 1px solid #2ba399;
+        }
+        .back{
+            font-size: 0px;
+            padding: 0 5px;
+        }
+        .back .title{
+            font-size: 20px;
+              vertical-align: middle;
+
+        }
+
+        /*icon*/
+        .i-logo{
+            display: inline-block;
+            padding: 23px;
+            background: url(../image/ic_action_home.png) no-repeat center center;
+            -webkit-background-size: 34px;
+            background-size: 34px;
+            vertical-align: middle;
+        }
+        .i-back{
+        	display: inline-block;
+            padding: 23px 10px;
+            background: url(../image/ic_global_title_bar_48_back.png) no-repeat center center;
+            -webkit-background-size: 24px;
+            background-size: 24px;
+            vertical-align: top;
+        }
+	</style>
+	</head>
+	<body>
+	<div id="wrap">
+		<div id="header">
+	        <div class="btn back" tapmode="topbar-active" onclick="closeWin();">
+                <i class="i-back"></i>
+                <i class="i-logo"></i>
+                <span class="title">提交订单</span>
+            </div>
+	    </div>
+	    <div id="main"></div>
+	    <div id="footer"></div>
+	</div>
+	
+	
+	<script type="text/javascript" src="../script/api.js"></script>
+	<script type="text/javascript">
+        var header = $api.byId('header');
+        var headerPos = $api.offset(header);
+        var main = $api.byId('main');
+        var mainPos = $api.offset(main);
+
+        function closeWin(){
+            api.closeWin();
+        }
+
+		apiready = function(){
+			$api.fixIos7Bar(header);
+
+            api.openFrame({
+                name : 'frm_confirmOrderCon',
+                url : 'frm_confirmOrderCon.html',
+                bounces : false,
+                rect : {
+                    x : 0,
+                    y : headerPos.h,
+                    w : 'auto',
+                    h : 'auto'
+                }
+            });
+		}
+	</script> 
+	</body>
+
+</html>

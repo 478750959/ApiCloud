@@ -1,0 +1,131 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,initial-scale=1.0,width=device-width"/>
+    <title>APP</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/common.css" />
+    <style>
+        #main{
+            background-color: #34459D;
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-orient: vertical;
+            -webkit-flex-flow: column;
+                    flex-flow: column;
+        }
+        .renwu-top{
+            display: block;
+            width: 100%;
+        }
+        .renwu-bottom{
+            -webkit-box-flex: 1;
+            -webkit-flex: 1;
+            flex: 1;
+            padding: 0.6em 0.9em;
+        }
+        .renwu-list-header{
+
+        }
+        .renwu-list-header span{
+            font-size: 0.75em;
+            color: #FFF;
+        }
+        .mission-list{
+            padding: 0.9em 0.87em;
+            background-color: #222F73;
+            margin: 0.87em 0;
+            border: 1px solid #3B4DAA;
+            box-shadow: inset 0 0 6px #182151;
+            border-radius: 6px;
+        }
+        .mission-list li{
+            background-color: #F5F4E9;
+            height: 40px;
+            font-size: 0.9em;
+            line-height: 40px;
+            border-radius: 6px;
+            position: relative;
+        }
+        li.middle{
+            margin: 0.9em 0;
+        }
+        .mission-list .server{
+            text-indent: 0.9em;
+        }
+        .color-red{
+            color: #FF0000;
+            font-size: 0.8em;
+        }
+        .mission-list .icon-more{
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            right: 0.9em;
+            top: 50%;
+            -webkit-transform: translateY(-50%);
+                    transform: translateY(-50%);
+            background: #CCD1E3 url(../../res/btn_bottom_forward_press.png) center center no-repeat;
+            background-size: 100% 100%;
+            border-radius: 12px;
+            display: block;
+        }
+
+        .renwu-inner p{
+            color: #FFF;
+            font-size: 0.75em;
+            line-height: 1.5em;
+        }
+        .renwu-inner .color-yellow{
+            color: #FFF001;
+            text-decoration: underline; 
+        }
+    </style>
+</head>
+<body>
+    <div id="wrap">
+        <div id="main">
+            <img src="../../res/renwu_bg.png" alt="" class="renwu-top">
+            <div class="renwu-bottom">
+                <div class="renwu-inner">
+                    <div class="renwu-list-header clearfix">
+                        <span class="header-left pull-left">我的本周返利：￥0</span>
+                        <span class="header-right pull-right" tapmode="tap-active" data-url="" data-title="我的返利" data-frameName="myfan-renwu-con" onclick="toNativeS(this);">立即提现&gt;</span>
+                    </div>
+                    <ul class="mission-list">
+                        <li tapmode="tap-active" onclick="toMission(0);">
+                            <span class="server">进入任务一区</span>
+                            <span class="color-red">（推荐）</span>
+                            <i class="icon-more"></i>
+                        </li>
+                         <li class="middle" tapmode="tap-active" onclick="toMission(0);">
+                            <span class="server">进入任务一区</span>
+                            <span class="color-red"></span>
+                            <i class="icon-more"></i>
+                        </li>
+                         <li tapmode="tap-active" onclick="toMission(0);">
+                            <span class="server">进入任务一区</span>
+                            <span class="color-red"></span>
+                            <i class="icon-more"></i>
+                        </li>
+                    </ul>
+                    <p>禁止任何形式、工具的作弊行为，一经发现扣除所有所得！详情见<span class="color-yellow" tapmode="tap-active" onclick="">返利网用户使用协议</span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/common.js"></script>
+<script type="text/javascript" src="../../script/zepto.js"></script>
+<script type="text/javascript">
+
+    apiready = function(){
+        api.setFrameAttr({
+            bounces: false
+        });
+    };
+</script>
+</html>

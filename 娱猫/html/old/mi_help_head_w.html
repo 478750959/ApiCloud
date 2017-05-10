@@ -1,0 +1,107 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>设置</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <style>
+    </style>
+</head>
+<body>
+<div id="wrap">
+	<header id='header'>
+		<div class="miHeader">
+        	<a href='javascript:;' class='head_icon back' onclick='api.closeWin();'></a>
+        	<span class='mi_head_txt'></span>
+        </div>
+	</header>
+	<div id='main'></div>
+</div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/font.js"></script>
+<script type="text/javascript" src="../script/zepto.js"></script>
+<script>
+	apiready = function(){
+		var name = "";
+		var header = $api.byId('header');
+	    $api.fixIos7Bar(header);
+	    var width = api.winWidth;
+	    var headerPos = $api.offset(header);
+	    var height = api.winHeight - headerPos.h;
+	    api.setStatusBarStyle({
+		    style: 'dark'
+		});
+	    switch(api.pageParam.count) {
+			case 11:
+				name='mi_help_my_next_f';
+				$('.mi_head_txt').text('自助服务');
+				break;
+			case 12://更换手机号
+				name='mi_help_my_next_f';
+				$('.mi_head_txt').text('自助服务');
+				break;
+			case 13:
+				name='mi_help_my_next_f';
+				$('.mi_head_txt').text('自助服务');
+				break;
+			case 14://确认修改
+				name='mi_help_my_next_f';
+				$('.mi_head_txt').text('自助服务');
+				break;
+			case 21:
+				name='mi_help_dd_xiugai_f';
+				$('.mi_head_txt').text('订单修改');
+				break;
+			case 22:
+				name='mi_help_dd_bgyc_f';
+				$('.mi_head_txt').text('包裹异常');
+				break;
+			case 23:
+				name='mi_help_dd_shfw_f';
+				$('.mi_head_txt').text('售后服务');
+				break;
+			case 24:
+				name='mi_help_dd_wlps_f';
+				$('.mi_head_txt').text('物流配送');
+				break;
+			case 31:
+				name='mi_help_buy_jszf_f';
+				$('.mi_head_txt').text('结算支付');
+				break;
+			case 32:
+				name='mi_help_buy_xgsp_f';
+				$('.mi_head_txt').text('选购商品');
+				break;
+			case 33:
+				name='mi_help_buy_zcdl_f';
+				$('.mi_head_txt').text('注册登录');
+				break;
+			case 41:
+				name='mi_help_other_tsyjy_f';
+				$('.mi_head_txt').text('投诉与建议');
+				break;
+			case 42:
+				name='mi_help_other_wjmm_f';
+				$('.mi_head_txt').text('忘记密码');
+				break;
+		}
+	    api.openFrame({
+		    name: name,
+		    url: name+'.html',
+		    softInputMode:'pan',
+		    bounces: false,
+		    opaque: true,
+		    vScrollBarEnabled: false,
+		    pageParam:{name:name,shop:api.pageParam.shop},
+		    rect: {
+		        x: 0,
+		        y: headerPos.h,
+		        w: width,
+		        h: height
+		    }
+		});	
+	}
+</script>
+</html>

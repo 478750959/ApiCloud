@@ -1,0 +1,243 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,initial-scale=1.0,width=device-width"/>
+    <title>APP</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/common.css" />
+    <style>
+        #main{
+            background: #EEEEEE url(../../res/background.png) center center no-repeat;
+            padding-top: 0.9em;
+        }
+        .display-box{
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;
+        }
+        .box-orient-v{
+            -webkit-box-orient: vertical;
+            -webkit-flex-flow: column;
+                    flex-flow: column;
+        }
+        .box-orient-h{
+            -webkit-box-orient: horizontal;
+            -webkit-flex-flow: row;
+                    flex-flow: row;
+        }
+        .box-flex-1{
+            -webkit-box-flex: 1;
+            -webkit-flex: 1;
+            flex: 1;
+        }
+
+        .my-account{
+            border-top: 1px solid #DDDDDD;
+            border-bottom: 1px solid #DDDDDD;
+            margin-bottom: 5px;
+        }
+        .my-account .item{
+            height: 52px;
+            background-color: #FFFFFF;
+            position: relative;
+            overflow: hidden;
+            border-bottom: 1px solid #DCDCDC;
+        }
+        .my-account .item.last{
+            border-bottom: none;
+        }
+        .item .icon{
+            width: 29px;
+            height: 52px;
+            margin: 0 16px;
+        }
+        .icon.icon-name{
+            background: url(../../res/mine_icon1.png) center center no-repeat;
+            background-size: 100%;
+        }
+        .icon.icon-fan{
+            background: url(../../res/mine_icon2.png) center center no-repeat;
+            background-size: 100%;
+        }
+        .icon.icon-msg{
+            background: url(../../res/mine_icon3.png) center center no-repeat;
+            background-size: 100%;
+        }
+        .icon.icon-more{
+            background: url(../../res/mine_icon4.png) center center no-repeat;
+            background-size: 100%;
+        }
+        .icon.icon-qt{
+            width: 10px;
+            background: url(../../res/towards.png) center center no-repeat;
+            background-size: 100%;
+            margin-right: 1em;
+            margin-left: 0;
+        }
+        .item .title{
+            height: 52px;
+            line-height: 52px;
+            font-size: 0.8em;
+            color: #333333;
+        }
+        .item .count{
+            height: 52px;
+            line-height: 52px;
+            color: #000;
+            margin-right: 13px;
+        }
+        .item .count.color-red{
+            color: #CF0606;
+        }
+
+        .title-label{
+            height: 36px;
+            line-height: 36px;
+            font-size: 0.87em;
+            text-indent: 0.8em;
+            color: #000;
+        }
+
+        .order-ad{
+            padding: 0 0.3em;
+        }
+        .order-ad-inner{
+            border:1px solid #DDDDDD;
+            background-color: #FFF;
+            position: relative;
+            padding: 0.6em;
+        }
+        .order-ad-top{
+            border-bottom: 1px solid #DDDDDD;
+            width: 100%;
+        }
+        .order-ad-top .ad-top-left{
+            width: 55px;
+            position: relative;
+        }
+        .ad-top-left img{
+            display: block;
+            width: 100%;
+            position: absolute;
+            top: 40%;
+            -webkit-transform: translateY(-50%);
+                    transform: translateY(-50%);
+        }
+        .add-top-right{
+            
+        }
+        .add-top-right .text{
+            color: #020202;
+            font-size: 0.7em;
+            display: block;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+            margin-bottom: 1em;
+            text-indent: 1em;
+            position: relative;
+        }
+        .add-top-right .text.color-orange{
+            color: #FF6600;
+        }
+        .order-ad-bottom{
+            padding-top: 0.7em;
+        }
+        .order-ad-bottom .ad-btn{
+            font-size: 0.75em;
+            border:1px solid #F96644;
+            color: #F96644;
+            border-radius: 4px;
+            margin: 0 auto;
+            display: block;
+            width: 6em;
+            text-align: center;
+            height: 2em;
+            line-height: 2em;
+        }
+        .icon-ad-close{
+            position: absolute;
+            right: -0.3em;
+            top: -0.6em;
+            width: 1.37em;
+            height: 1.37em;
+            border: 1px solid #CFCFCF;
+            border-radius: 0.7em;
+            background:#F8F8F8 url(../../res/mine_order_close.png) center center no-repeat;
+            background-size: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div id="wrap">
+        <div id="main">
+            <div class="my-account">
+                <div class="item" tapmode="tap-active" data-url="" data-title="更多" data-frameName="more-con" onclick="toNativeS(this);">
+                    <i class="icon icon-name pull-left"></i>
+                    <span class="title pull-left">lalalalalala</span>
+                    <i class="icon icon-qt pull-right"></i>
+                    <span class="count pull-right"></span>
+                    <!-- <span class="border"></span> -->
+                </div>
+                <div class="item" tapmode="tap-active" data-url="" data-title="我的返利" data-frameName="myfan-con" onclick="toWebS(this);">
+                    <i class="icon icon-fan pull-left"></i>
+                    <span class="title pull-left">我的返利</span>
+                    <i class="icon icon-qt pull-right"></i>
+                    <span class="count pull-right">0.00</span>
+                    <!-- <span class="border"></span> -->
+                </div>
+                <div class="item" tapmode="tap-active" data-url="" data-title="更多" data-frameName="more-con" onclick="toNativeS(this);">
+                    <i class="icon icon-msg pull-left"></i>
+                    <span class="title pull-left">站内信</span>
+                    <i class="icon icon-qt pull-right"></i>
+                    <span class="count pull-right color-red">0</span>
+                    <!-- <span class="border"></span> -->
+                </div>
+                <div class="item" tapmode="tap-active" data-url="" data-title="更多" data-frameName="more-con" onclick="toNativeS(this);">
+                    <i class="icon icon-more pull-left"></i>
+                    <span class="title pull-left">更多</span>
+                    <i class="icon icon-qt pull-right"></i>
+                    <span class="count pull-right"></span>
+                    <!-- <span class="border last"></span> -->
+                </div>
+            </div>
+            <label class="title-label">我的订单</label>
+            <div class="order-ad display-box">
+                <div class="order-ad-inner box-flex-1 display-box box-orient-v">
+                    <div class="order-ad-top display-box">
+                        <div class="ad-top-left pull-left">
+                            <img src="../../res/mine_ad_pingan.png" alt="">
+                        </div>
+                        <div class="add-top-right pull-left box-flex-1">
+                            <span class="text">天猫超级返的订单，将在确认收货后显示</span>
+                            <span class="text color-orange">没看到返利？可申请平安返利险100%赔付！</span>
+                        </div>
+                    </div>
+                    <div class="order-ad-bottom">
+                        <span class="ad-btn" tapmode="tap-active" onclick="">
+                            立即申请
+                        </span>
+                    </div>
+                    <span class="icon-ad-close" tapmode="tap-active" onclick="hideAd('.order-ad');"></span>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/common.js"></script>
+<script type="text/javascript" src="../../script/zepto.js"></script>
+<script type="text/javascript">
+    var hideAd = function(str){
+        $api.dom(str).style.display = 'none';
+    };
+    var toThisWin = function(){
+
+    };
+    apiready = function(){
+        
+    };
+</script>
+</html>

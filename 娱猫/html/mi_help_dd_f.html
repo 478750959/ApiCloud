@@ -1,0 +1,292 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>MI</title>
+		<link rel="stylesheet" type="text/css" href="../css/api.css"/>
+		<style>
+			html,body{
+				background:white;
+			}
+			.help_lists{
+				padding:0 0.3rem;
+			}
+			/*.help_list{
+				padding:0 0.1rem;
+				border-bottom:1px solid #dddddd;
+				height:0.8rem;
+				line-height:0.8rem;
+				font-size:0.26rem;
+				color:#565656;
+			}
+			.help_txt{
+				width:5.56rem;
+				height:1.4rem;
+				margin:0.75rem auto 0;
+			}*/
+			.help_list{
+				padding:0.1rem 0.1rem 0.26rem;
+				border-bottom:1px solid #dddddd;
+				font-size:0.26rem;
+			}
+			.help_list_q span{
+				float:left;
+				width:0.48rem;
+				font-size:0.26rem;
+				color:#f27978;
+				font-weight:normal;
+				line-height:0.9rem;
+			}
+			.help_list_q em{
+				float:left;
+				width:5rem;
+				font-size:0.26rem;
+				color:#f27978;
+				font-weight:normal;
+				line-height:0.9rem;
+			}
+			.help_list_a span{
+				float:left;
+				width:0.48rem;
+				font-size:0.26rem;
+				color:#565656;
+				font-weight:normal;
+				line-height:0.5rem;
+			}
+			.help_list_a p{
+				float:left;
+				width:5rem;
+				font-size:0.26rem;
+				color:#565656;
+				font-weight:normal;
+				line-height:0.5rem;
+			}
+			.help_list_a p em{
+				color:#f27978;
+				font-weight:600;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="wrap">
+			<div id="main">
+				<div class="help_lists">
+					<!--<div class="help_list" onclick = "openNext('mi_help_head_w',31)">结算支付</div>
+					<div class="help_list" onclick = "openNext('mi_help_head_w',32)">选购商品</div>
+					<div class="help_list" onclick = "openNext('mi_help_head_w',33)">注册登录</div>-->
+					<div class="help_list">
+						<div class="help_list_q clearfix"><span>Q：</span><em>修改商品尺码/数量?</em></div>
+						<div class="help_list_a clearfix">
+							<span>A：</span>
+							<p>订单付款后不能再修改商品尺码数量，如需改变，建议取消订单，重新购买。</p>
+						</div>
+					</div>
+					<div class="help_list">
+						<div class="help_list_q clearfix">
+							<span>Q：</span>
+							<em>取消订单?</em>
+						</div>
+						<div class="help_list_a clearfix">
+							<span>A：</span>
+							<p>在订单处于“待发货”状态时，您可以进入“<em>Mi</em>”取消订单。</p>
+						</div>
+					</div>
+					<div class="help_list">
+						<div class="help_list_q clearfix"><span>Q：</span><em>修改订单地址/电话?</em></div>
+						<div class="help_list_a clearfix">
+							<span>A：</span>
+							<p>在订单处于“待付款”状态时，您可修改<em>订单收货地址</em>信息。</p>
+						</div>
+					</div>
+					<div class="help_list">
+						<div class="help_list_q clearfix"><span>Q：</span><em>提交订单后没有订单显示?</em></div>
+						<div class="help_list_a clearfix">
+							<span>A：</span>
+							<p>因为网络问题，信息更新有所延迟，导致无法显示，您可以稍后登录刷新页面，或联系客服咨询支付是否成功。</p>
+						</div>
+					</div>
+					<div class="help_list">
+						<div class="help_list_q clearfix"><span>Q：</span><em>为什么提交订单后是待审核状态?</em></div>
+						<div class="help_list_a clearfix">
+							<span>A：</span>
+							<p>订单提交成功后为待审核状态是正常的，我们会在您成功下单后1小时内审核您的订单。</p>
+						</div>
+					</div>
+					<div class="help_list">
+						<div class="help_list_q clearfix"><span>Q：</span><em>包裹错发/漏发?</em></div>
+						<div class="help_list_a clearfix">
+							<span>A：</span>
+							<p>如发现包裹错发/漏发，请您及时联系客服提供信息为您核实，我们会尽快为您处理！</p>
+						</div>
+					</div>
+					<div class="help_list">
+						<div class="help_list_q clearfix"><span>Q：</span><em>开具发票?</em></div>
+						<div class="help_list_a clearfix">
+							<span>A：</span>
+							<p>如需开具发票，请联系客服操作。</p>
+						</div>
+					</div>
+					<div class="help_list">
+						<div class="help_list_q clearfix"><span>Q：</span><em>买到的商品可以退换吗?</em></div>
+						<div class="help_list_a clearfix">
+							<span>A：</span>
+							<p>娱猫承诺您在所购商品（除食品，护肤化妆品等不能退换的商品以外，具体类目联系人工客服咨询）签收后7天内在不影响二次销售的情况下可以无理由退换货。</p>
+						</div>
+					</div>
+					<div class="help_list">
+						<div class="help_list_q clearfix"><span>Q：</span><em>如何办理退货?</em></div>
+						<div class="help_list_a clearfix">
+							<span>A：</span>
+							<p>请联系在线人工客服处理。</p>
+						</div>
+					</div>
+					<div class="help_list">
+						<div class="help_list_q clearfix"><span>Q：</span><em>退货后什么时候退款?</em></div>
+						<div class="help_list_a clearfix">
+							<span>A：</span>
+							<p>娱猫会在签收收到您的退货包裹3天内为您办理退款。</p>
+						</div>
+					</div>
+					<div class="help_list">
+						<div class="help_list_q clearfix"><span>Q：</span><em>没有单据能退货吗?</em></div>
+						<div class="help_list_a clearfix">
+							<span>A：</span>
+							<p>如果没有订单送货单据，您需要用纸条把订单号，商品名称，编号，金额和退货原因说明写清楚放在商品里一起寄回即可。</p>
+						</div>
+					</div>
+					<div class="help_list">
+						<div class="help_list_q clearfix"><span>Q：</span><em>退货能上门取件吗?</em></div>
+						<div class="help_list_a clearfix">
+							<span>A：</span>
+							<p>如需退货，请自行联系快递公司办理商品寄回工作。</p>
+						</div>
+					</div>
+					<div class="help_list">
+						<div class="help_list_q clearfix"><span>Q：</span><em>不同订单退货能一起回寄吗?</em></div>
+						<div class="help_list_a clearfix">
+							<span>A：</span>
+							<p>若出现多张订单退货，退货商品一起回寄。为更好为您服务，请以一张订单为一个包裹以快递的形式寄回娱猫。</p>
+						</div>
+					</div>
+					<div class="help_list">
+						<div class="help_list_q clearfix"><span>Q：</span><em>退货很久还没到账?</em></div>
+						<div class="help_list_a clearfix">
+							<span>A：</span>
+							<p>请根据您的回寄运单号核实包裹是否退回仓库，退错仓库退款将延迟一周。</p>
+						</div>
+					</div>
+					<div class="help_list">
+						<div class="help_list_q clearfix"><span>Q：</span><em>拒收包裹后什么时候退款?</em></div>
+						<div class="help_list_a clearfix">
+							<span>A：</span>
+							<p>拒收的包裹由快递公司返件退回给娱猫，待包裹退回至娱猫仓库后在3天内办理退款。</p>
+						</div>
+					</div>
+					<div class="help_list">
+						<div class="help_list_q clearfix"><span>Q：</span><em>退款金额如何计算?</em></div>
+						<div class="help_list_a clearfix">
+							<span>A：</span>
+							<p>如产生退货，退款是退回商品金额（如使用了礼券不满该消费限额，则是返还该礼券和抵销礼券后的商品金额）加上报销最高回寄运费10元。</p>
+						</div>
+					</div>
+					<div class="help_list">
+						<div class="help_list_q clearfix"><span>Q：</span><em>退货的运费有补贴吗?</em></div>
+						<div class="help_list_a clearfix">
+							<span>A：</span>
+							<p>如因质量问题产生退货，请您先垫付运费，并以快递方式将退货包裹寄回，娱猫将在退款时将运费退至您的账户，多张订单同一包裹寄回，仅补贴一次运费。</p>
+						</div>
+					</div>
+					<div class="help_list">
+						<div class="help_list_q clearfix"><span>Q：</span><em>退款方式和时效?</em></div>
+						<div class="help_list_a clearfix">
+							<span>A：</span>
+							<p>娱猫将在收到回寄商品的三天内办理退款。</p>
+						</div>
+					</div>
+					<div class="help_list">
+						<div class="help_list_q clearfix"><span>Q：</span><em>退款到哪里?</em></div>
+						<div class="help_list_a clearfix">
+							<span>A：</span>
+							<p>娱猫将在收到回寄商品的三天内办理退款，退回到原支付使用的支付宝账号或者微信钱包。</p>
+						</div>
+					</div>
+					<div class="help_list">
+						<div class="help_list_q clearfix"><span>Q：</span><em>发货时间?</em></div>
+						<div class="help_list_a clearfix">
+							<span>A：</span>
+							<p>您可以进入“<em>Mi</em>”查询订单状态，娱猫会在订单确认审核合格后<em>1-2</em>天为您发出包裹。</p>
+						</div>
+					</div>
+					<div class="help_list">
+						<div class="help_list_q clearfix"><span>Q：</span><em>包裹到哪了?</em></div>
+						<div class="help_list_a clearfix">
+							<span>A：</span>
+							<p>您可进入“<em>Mi</em>”—“<em>我的订单</em>”—“<em>查看物流</em>”，点击“<em>物流详情</em>”即可查询。</p>
+						</div>
+					</div>
+					<div class="help_list">
+						<div class="help_list_q clearfix"><span>Q：</span><em>没收到商品但是订单显示签收了</em></div>
+						<div class="help_list_a clearfix">
+							<span>A：</span>
+							<p>建议您可以先与门卫或家人核实是否已代签收，如有疑问请联系在线<em>客服查询</em>。</p>
+						</div>
+					</div>
+					<div class="help_list">
+						<div class="help_list_q clearfix"><span>Q：</span><em>拒收会收取运费吗</em></div>
+						<div class="help_list_a clearfix">
+							<span>A：</span>
+							<!--<p>您好，拒收包裹会收取发出单向快递费用，当包裹返回仓库后4天内自动退款。（娱猫建议您可以先签收包裹，挑选合适的商品再办理退货 ）。</p>-->
+							<p>您好，拒收包裹会收取快递费用，当包裹返回仓库后3天内自动退款。（娱猫建议您可以先签收包裹，挑选合适的商品再办理退货 ）。</p>
+						</div>
+					</div>
+					<div class="help_list">
+						<div class="help_list_q clearfix"><span>Q：</span><em>能否自己选择物流？</em></div>
+						<div class="help_list_a clearfix">
+							<span>A：</span>
+							<!--<p>订单下单成功后，系统会根据您订单中的商品类型和您的联系地址为您自动分配最快的物流公司发出，暂不提供自选物流服务。</p>-->
+							<p>订单下单成功后，系统会根据您订单中的商品类型和您的联系地址为您自动分配最快的物流公司发出，若有特殊要求可联系在线人工客服。</p>
+						</div>
+					</div>
+					<div class="help_list">
+						<div class="help_list_q clearfix"><span>Q：</span><em>可以货到付款吗？</em></div>
+						<div class="help_list_a clearfix">
+							<span>A：</span>
+							<p>抱歉，娱猫暂时不能提供货到付款服务。</p>
+						</div>
+					</div>
+					<div class="help_list">
+						<div class="help_list_q clearfix"><span>Q：</span><em>偏远地区能否送到？</em></div>
+						<div class="help_list_a clearfix">
+							<span>A：</span>
+							<p>如您的地区超出我们的配送范围，我们将尽力为您安排转快递配送。<br/>部分情况可能需要自提，您也可在“<em>Mi</em>”—“<em>我的订单</em>”—“<em>物流详情</em>”查看 。</p>
+						</div>
+					</div>
+					<div class="help_list">
+						<div class="help_list_q clearfix"><span>Q：</span><em>提供送货上门服务吗？</em></div>
+						<div class="help_list_a clearfix">
+							<span>A：</span>
+							<p>娱猫所售商品均由合作快递方送货上门。</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../script/api.js"></script>
+	<script type="text/javascript" src="../script/font.js"></script>
+	<script>
+//		function openNext(xyc, count) {
+//			api.openWin({
+//				name : xyc,
+//				url : xyc + '.html',
+//				opaque : false,
+//				reload : true,
+//				vScrollBarEnabled : false,
+//				pageParam : {
+//					count : count
+//				}
+//			});
+//		}
+	</script>
+</html>

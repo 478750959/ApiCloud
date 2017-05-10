@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+  <title>HTML</title>
+  
+  <!-- Replace favicon.ico & apple-touch-icon.png in the root of your domain and delete these references -->
+  <link rel="shortcut icon" href="/favicon.ico">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+  <link rel="stylesheet" type="text/css" href="../../css/slidepage.css" />
+
+	<style>
+		html {width: 100%;/*height: 100%;*/min-height: 100%;background: #D5D8DB;}
+		body {width: 100%;/*height: 100%;*/min-height: 100%;background: #D5D8DB;}
+
+		.hot_card {position: relative;margin-bottom: 10px;background: #E8E9ED;}
+		.hot_cover {width: 100%;}
+		.videotitle {font-size: 14px; padding-left: 10px; padding-bottom: 2px; padding-top: 7px;}
+		.videoLen {font-size: 9px; color: #A7A7AB; padding-left: 10px; padding-bottom: 7px; padding-top: 5px;}
+		.cardr {position: absolute; width: 40px; right: 10px; bottom: 5px;}
+		.rightarrow {height: 9px; padding-right: 5px;}
+
+		.vd {color: #D9D9DD;}
+		/* 分享按钮点击 */
+		.cardr {background-image: url(../../image/share_icon_normal.png); height: 40px; background-size: 40px; bottom: 10px;}
+		/*.sharehover {background-image: url(../../image/share_icon_pressed.png); height: 40px; background-size: 40px; bottom: 10px;}*/
+		.sharehover {background-image: url(../../image/share_icon_pressed.png) !important;}
+	</style>
+</head>
+
+<body>
+	
+
+	<div class="hot_card">
+		<img src="../../image/newhotcover01.jpg" alt="" class="hot_cover">
+		<div class="cardl"   tapmode="btn_click" onclick="openNewWindow('hot_detail')">
+			<div class="videotitle">全透明飞机你敢坐吗？让你“飘”在空中</div>
+			<div class="videoLen"><img src="../../image/hot_pic_more.png" alt="" class="rightarrow">科技精选  <span class="vd">|</span>01:09</div>
+		</div>
+		<div class="cardr" tapmode="sharehover" onclick="openShareFrame()">
+			<!-- <img src="../../image/share_icon_normal.png" alt="" class="hot_cover"> -->
+		</div>
+	</div>
+
+	<div class="hot_card">
+		<img src="../../image/newhotcover02.jpg" alt="" class="hot_cover">
+		<div class="cardl"   tapmode="btn_click" onclick="openNewWindow('hot_detail')">
+			<div class="videotitle">女孩应聘中突然从17层跳下坠亡 毫无征兆</div>
+			<div class="videoLen"><img src="../../image/hot_pic_more.png" alt=""  class="rightarrow">第一现场  <span class="vd">|</span>01:09</div>
+		</div>
+		<div class="cardr" tapmode="sharehover" onclick="openShareFrame()">
+			<!-- <img src="../../image/share_icon_normal.png" alt="" class="hot_cover"> -->
+		</div>
+	</div>
+
+	<div class="hot_card">
+		<img src="../../image/newhotcover03.jpg" alt="" class="hot_cover">
+		<div class="cardl"   tapmode="btn_click" onclick="openNewWindow('hot_detail')">
+			<div class="videotitle">足协公布国足集训名单:徐云龙邵佳一入选</div>
+			<div class="videoLen"><img src="../../image/hot_pic_more.png" alt=""  class="rightarrow">聚焦国足  <span class="vd">|</span>01:09</div>
+		</div>
+		<div class="cardr" tapmode="sharehover" onclick="openShareFrame()">
+			<!-- <img src="../../image/share_icon_normal.png" alt="" class="hot_cover"> -->
+		</div>
+	</div>
+
+	<div class="hot_card">
+		<img src="../../image/newhotcover04.jpg" alt="" class="hot_cover">
+		<div class="cardl"   tapmode="btn_click" onclick="openNewWindow('hot_detail')">
+			<div class="videotitle">2014纽约动漫展开幕 cos美女集体亮相</div>
+			<div class="videoLen"><img src="../../image/hot_pic_more.png" alt=""  class="rightarrow">cos秀  <span class="vd">|</span>01:09</div>
+		</div>
+		<div class="cardr" tapmode="sharehover" onclick="openShareFrame()">
+			<!-- <img src="../../image/share_icon_normal.png" alt="" class="hot_cover"> -->
+		</div>
+	</div>
+	
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script>
+	function emptyopt () {
+	}
+
+	function openShareFrame()
+	{
+		api.openFrame({
+		    name: 'shareframe',
+		    url: './hot_share.html',
+		    bounces:false,
+		    rect:{
+				x:0,
+				y:0,
+				w:'auto',
+				h:'auto'
+			},
+	    });
+	}
+
+	function openNewWindow(type)
+	{
+		api.openWin({
+		    name: type,
+		    url: './'+type+'.html',
+		    pageParam: {title:'曝柯震东恋上台版Baby 球场打闹生情愫'},
+		    // bounces: true,
+		    // opaque: false,
+		    // bgColor:  'rgba(255,255,255,0)',
+		    // vScrollBarEnabled:false,
+		    // hScrollBarEnabled:true
+	    });
+	}
+
+	apiready = function (){
+		api.setRefreshHeaderInfo({
+			visible: true,
+			bgColor: 'rgba(0,0,0,0)',
+			textColor: '#666',
+			textDown: '下拉刷新',
+			textUp: '释放刷新'	
+		}, function(ret, err){
+		    api.refreshHeaderLoadDone();
+		});
+	};
+</script>
+</html>

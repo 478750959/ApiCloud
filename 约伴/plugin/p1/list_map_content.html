@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="../../css/ui-img.css">
+    <link rel="stylesheet" href="../../css/ui-res.css">
+    <link rel="stylesheet" href="../../css/ui-list.css">
+    <link rel="stylesheet" href="../../css/ui-btn.css">
+    <link rel="stylesheet" href="../../css/ui-base.css">
+    <link rel="stylesheet" href="../../css/ui-box.css">
+    <link rel="stylesheet" href="../../css/ui-color.css">
+	<link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/ui-card.css">
+    <link rel="stylesheet" href="css/common.css">
+    <script src="../../js/y_control.js"></script>
+    <script src="../../js/y_click.js"></script>
+	<script src="../../js/y_json.js"></script>
+	<script src="../../js/y_tmpl.js"></script>
+	<script src="../../js/y_anim.js"></script>
+	<script src="../../js/dis_control.js"></script>
+	<script src="../../js/config.js"></script>
+    <script src="../../js/y_icache.js"></script>
+    <script src="script/common.js"></script>
+    <script>
+	</script>
+  <style>
+      .umw15 {
+          min-width:1.5em;
+      }
+      .t-wh span {color: white;}
+  </style>
+  </head>
+<body class="um-vp c-gra5">
+    <div id="page_0" class="up ub ub-ver c-gra" tabindex="0">
+        <div id="header" class="c-blu3 uh">
+            <div class="c-m2 t-wh">
+                <a class="btn btn-l btn-a ub ub-ac" ontouchstart="zy_touch('btn-act1')" onclick="closewin();">
+                    <div class="ulim"><img src="../../images/back.png" class="sbtn"></div>
+                </a>
+                <h1 class="ut ulev0 ut-s tx-c umar-l2" id="ttl">地图模式</h1>
+            </div>
+        </div>
+      <div id="content" class="ub-f1 tx-l t-bla"></div>
+    </div>
+</body>
+<script>
+zy_init();
+var params = getStorJson('params');
+var cContent = $$('content');
+var ucurl = getstorage('ucurl');
+if(!ucurl) ucurl = guc;
+var mylocation = getStorJson('location');//当前用户的地理位置
+window.uexOnload = function(type)
+{
+    zy_initcache();
+	if(!type){
+        loadList('', '');
+	}
+};
+
+function loadList(pn, flag){
+    var province = location.province ? location.province : '';
+    var city = location.city ? location.city : '';
+    //用经纬度后没法缓存
+	var url =  forum_url + "&mod=forumdisplay&dating_map=1&fid="+ fid + "&page=" + pn + '&province=' + province + '&city=' + city;
+    uexWindow.toast('1','5','加载中...',"");
+    $.getJSON(url, getJsonCallback, 'json', getJsonErr, 'POST', '', flag);
+}
+function getJsonCallback(json){
+	if (json) {
+		if (json.status && Int(json.status)<1) {
+			uexWindow.toast('0','5',json.message,2000);
+			return;
+		}
+			
+		var list = json[1] || json.list;
+		var length = zy_tmpl_count(list);
+		if(length<1){
+			uexWindow.toast('0', '5', '附近没有神秘约会');
+		}
+        showMap(list);
+	}
+}
+
+function go2new5(tid, pid, authorid){//详细页面保持相同的颜色风格
+    var params = {
+        "wname": "dating_list",
+        "popname" : "content",
+        "tid": tid,
+        "pid": pid,
+        "authorid": authorid
+    };
+    setStorJson('params', params);
+    openwin('dating_detail','detail.html','10');
+}
+
+function go2user5(uid){
+    setstorage('params','{"uid":"'+uid+'"}');
+    openwin('friend_information','../../friend_information.html','10');
+}
+var bMap, annoIds = [];
+function showMap(list){
+    //在地图中显示
+    var annos = [], i = 0;
+    for(var key in list){
+        var value = list[key];
+        var lon = value.longitude || value.lon;
+        var lat = value.latitude || value.lat;
+        if(!lon || !lat) continue;
+        annos[i] = {
+            id: i,
+            lon: lon,
+            lat: lat,
+            title: value.subject,
+            subTitle: '',
+            tid: value.tid,
+            pid: value.pid,
+            authorid: value.authorid
+        };
+        i++;
+    }
+    var paddingTop = force_int($$('header').style.paddingTop);//ios下header的修复
+    var y = int(window.getComputedStyle($$('header'),null).height) + paddingTop;
+    var mapParam = {
+        x: 0,
+        y: y,
+        w: int(window.innerWidth),
+        h: int(window.getComputedStyle($$('content'),null).height),
+        lat: mylocation['lat'],
+        lon: mylocation['log'],
+        fixed: true,
+        //fixedOn: 'dating_map',//api.frameName，如果是window不能使用fixedon，frame必须使用
+        zoomLevel: 14,
+        /*mapOpenCb: function(){
+            if(cContent.style) cContent.style.marginTop = int(window.innerHeight) + 'px';
+        },*/
+        annotationCb: openDetail
+    };
+    mapOpen(mapParam, annos);
+}
+
+/**点击标记，跳转到详细
+ * @param item
+ */
+function openDetail(item){
+    go2new5(item.tid, item.pid, item.authorid);
+}
+/**　在地图上添加多个标记
+ * @param list　标记数组，除了标准的[{id:xx, lat: xxx, lon: xxx, title: xxx, subTitle: xxx}]，还包括回调需要的参数， tid,pid,subject等
+ * @param annotationCb 点击的单个标记时的回调函数
+ */
+function showAnnotation(list, annotationCb){
+    //组织数据
+    var annoArr = [], lon, lat;
+    var item;
+    for(var key in list){
+        item = list[key];
+        lon = item.longitude || item.lon;
+        lat = item.latitude || item.lat;
+        if(!lon || !lat) continue;
+        annoArr[item.id] = item;
+        annoIds.push(item.id);//便于更新标记
+        //i++;
+    }
+    //添加到地图
+    bMap.addAnnotations({
+        annoArray: annoArr
+        //pinImg: 'widget://image/toilet1.png'
+    },function(ret,err){
+        if(ret){
+            var bubbleId = ret.pinId;
+            //setBubbleStyle(bubbleId);
+            annotationCb && annotationCb(annoArr[bubbleId]);
+        }
+    });
+}
+/**　在百度地图上展示指定数据的入口，只有先open，才能执行startlocation，所以mapparam中要传入index.html获取的location
+ * @param mapParam ： open的参数加上mapopen的回调，点击标记的回调，zoomlevel
+ * @param getList ：可以是list数据，或者是获取list的函数，函数的参数p为对象{lat: xxx, lon: xxx, getlistCb: xxx, annotationCb: xxx}
+ *         根据lat，lon去服务器获取list数据，然后再调用getlistCb,将标记显示出来。当前使用的为list数据
+ */
+function mapOpen(mapParam, getList){
+    //如果map已经存在，那么已经显示过，只需要刷新标记即可，如果重新open的话，会闪烁
+    /*if(bMap){
+        if(typeof getList == 'function'){
+            getList({
+                getListCb: updateAnnotation,
+                annotationCb: mapParam.annotationCb
+            });
+        }else{ //mapOpen(locationCb, mapParam);//locationCb已经为列表，直接显示
+            updateAnnotation(getList, mapParam.annotationCb);
+        }
+        return;
+    }*/
+    //var y = api.pageParam.headerH;
+    //var h = int(api.frameHeight * 1 / 2)
+    bMap = api.require('baiduMap');
+    bMap.open({//打开地图
+        x: mapParam.x,
+        y: mapParam.y,
+        w: mapParam.w,
+        h: mapParam.h,
+        lon: mapParam.lon,
+        lat: mapParam.lat,
+        fixed: mapParam.fixed,
+        fixedOn: mapParam.fixedOn
+    },function(ret,err){
+        if(!ret) return;
+        bMap.showUserLocation({//设置显示用户的位置
+            isShow:true,
+            trackingMode:'none'
+        });
+        setTimeout(function(){//设置地图的放大级别
+            bMap.setZoomLevel({
+                level: mapParam.zoomLevel
+            });
+        },300);
+        mapParam.mapOpenCb && mapParam.mapOpenCb();
+        startLocation(mapParam, getList);
+    });
+}
+/**精确定位，然后显示标记
+ * 直接将第一页的带地理位置的约会在地图上显示，getList可以为函数，也可以为list
+ */
+function startLocation(mapParam, getList){
+    //mapopen中不是精确定位，此处重新定位
+    bMap.startLocation({
+        accuracy: '100m',
+        filter:1,
+        autoStop: true
+    },function(ret, err){
+        if(!ret) return;
+        var sta = ret.status;
+        var lat = ret.lat;
+        var lon = ret.lon;
+        //var t = ret.timestamp;
+        if(sta){
+            //如果是回调函数的形式，根据经纬度获取列表，然后在地图中显示，调用方式为mapopen(list, mapParam)
+            if(typeof getList == 'function'){
+                getList({
+                    lat: lat,
+                    lon: lon,
+                    getListCb: showAnnotation,
+                    annotationCb: mapParam.annotationCb
+                });
+            }else{ //mapOpen(locationCb, mapParam);//locationCb已经为列表，直接显示
+                showAnnotation(getList, mapParam.annotationCb);
+            }
+        }else{
+            //苹果手机关闭定位后无法获取位置信息，需要提示下。
+            if(isAndroid){
+               api.alert({title:'抱歉，无法获取你的位置', msg:'请打开定位服务'});//android貌似不需要。
+            }else{
+               api.alert({title:'抱歉，无法获取你的位置', msg:'请在手机"设置"里开启定位服务，允许约伴APP获取位置信息。'});
+            }
+            
+        }
+    });
+
+}
+//更新标注
+function updateAnnotation(list, annotationCb){
+    bMap.removeAnnotations({
+        idArray: annoIds
+    });
+    showAnnotation(list, annotationCb);
+}
+</script>
+</html>

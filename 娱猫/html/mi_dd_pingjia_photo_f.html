@@ -1,0 +1,72 @@
+<!doctype html>
+<html style="background:rgba(0,0,0,0.4)">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>MI</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/xyc.css"/>
+    <style>
+    </style>
+</head>
+<body style="background:rgba(0,0,0,0.4)">
+<div id="wrap">
+    <div id="main">
+    	<div class="set_sex">
+    		<div class="set_sex1" id='zyx_paizhao'>拍照</div>
+    		<div class="set_sex1" id="zyx_choice_pic">从手机相册选择</div>
+    		<div class="set_sex3" onclick='api.closeFrame();'>取消</div>
+    	</div>
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/comm.js"></script>
+<script type="text/javascript" src="../script/font.js"></script>
+<script type="text/javascript" src="../script/zepto.js"></script>
+<script>
+	apiready = function() {
+		$("#zyx_paizhao").click(function() {
+			zyx_getPic("camera");
+		});
+		$("#zyx_choice_pic").click(function() {
+			zyx_getPic("library");
+		});
+	}
+//拍照方法      camera
+//获取本地照片方法      library
+	var url='';
+	var info=is_login();
+	if(!info){
+		to_login();
+	}
+	function zyx_getPic(type) {
+		api.getPicture({
+		    sourceType: type,
+		    encodingType: 'png',
+		    mediaValue: 'pic',
+		    destinationType: 'url',
+		    allowEdit: true,
+		    targetWidth: 1280,
+		    targetHeight: 800,
+		    quality: 100,
+		    saveToPhotoAlbum: true
+		}, function(ret, err){ 
+			if(ret.data!=''){
+				api.showProgress({
+				 title: '上传中',
+					modal: false
+				}); 
+				url = ret.data; 
+				api.sendEvent({
+					name:'get_pic',
+					extra:{url:url}
+				});				
+			}else{
+			    api.toast({msg: "未选择图片", location: 'middle'});
+			}
+		});
+	}
+
+</script>
+</html>

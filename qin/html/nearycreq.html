@@ -1,0 +1,370 @@
+<!doctype html>
+<html lang="en">
+<head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+     <link rel="stylesheet" href="../css/api.css">
+     <link rel="stylesheet" href="../css/common.css">
+    <title>附近</title>
+    <style>
+        #wrap{
+           background: #F0F0F0;
+
+        }
+
+        #header span{
+
+          height: 44px;
+          line-height: 44px;
+
+
+
+         }
+
+        .head-left{
+        float: left;
+        margin-left:10px;
+       font-size: 11pt;
+       background: url(../image/wallet_base_action_bar_back_normal.png) no-repeat;
+       background-position: left center;
+       background-size: 30% 30%;
+       /*margin-left: -5px;*/
+       }
+
+       .head-left p{
+        margin-left: 25px;
+        margin-top:1px;
+       }   
+      #condition{
+      clear:both;
+           height: 32px;
+        /*display: -webkit-box;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-box-orient:horizontal;
+        -webkit-flex-flow: row;
+               flex-flow: row;*/
+        position:relative;
+        border-bottom: 1px solid rgba(0,0,0,.1);
+        border-top: 1px solid rgba(0,0,0,.1);
+        background:white;
+        text-align: right;
+
+      }
+       /*#c-left{
+            -webkit-box-flex: 3; 
+        -webkit-flex: 3;
+        flex: 3;
+        background: url(../image/wallet_base_arrow.png) no-repeat center right;
+        background-size: 18px 12px;
+       
+        padding-right: 20px;
+
+        padding-top: 5px;
+       }
+
+
+        #c-center{
+            -webkit-box-flex:4; 
+        -webkit-flex: 4;
+        flex: 4;
+       
+        padding-top: 5px;
+        color: gray;
+        
+       }
+        #c-right{
+            -webkit-box-flex:1; 
+        -webkit-flex: 1;
+        flex: 1;
+        background: url(../image/wallet_base_arrow.png) no-repeat center right;
+        background-size: 18px 12px;
+         padding-right: 25px;
+         margin-right: 10px;
+         padding-top: 5px;
+        
+       }*/
+       
+       #c-left{
+            
+        background: url(../image/wallet_base_arrow.png) no-repeat center right;
+        background-size: 18px 12px;
+       
+        padding-right: 20px;
+
+        padding-top: 5px;
+        position: absolute;
+        left:10px;
+       }
+
+
+        #c-center{
+           
+       position: absolute;
+       right:20%;
+        padding-top: 5px;
+        color: gray;
+        
+       }
+        #c-right{
+           
+         background: url(../image/wallet_base_arrow.png) no-repeat center right;
+         background-size: 18px 12px;
+         padding-right: 25px;
+         right: 10px;
+         padding-top: 5px;
+         position: absolute;
+        
+       }
+       #newreq{
+        clear:left;
+        text-align: left;
+        height: auto;
+        padding-top:35px;
+        margin-top:-85px;
+
+       }
+       
+        #newreq ul{
+        clear:left;
+        /*padding-top:35px;*/
+        }
+
+       #newreq li{
+        height: 140px;
+        background: white;
+        line-height: 35px;
+        padding-top: 15px;
+        margin-top:10px;
+         padding-bottom:  5px;
+        }
+
+       span.right-con{
+            display: block;
+           
+           float: left;
+            
+          }
+        /*#newreq li .right-con p{
+          position: relative;
+          margin-left: -65%;
+        } */ 
+      .newreq-left{
+        clear:left;
+        float: left;
+        margin-left: 10px;
+        font-weight: normal;
+        width: 10%;
+
+      }
+
+      .newreq-left img{
+        border-radius: 50%;
+      }
+
+       .hornor{
+         color: red;
+         border:1px solid red;
+         position: absolute;
+         right: 60px;
+         height: 24px;
+         width: auto;
+         /*text-align: center;*/
+         line-height: 24px;
+         padding-top: 5px;
+         padding-left: 5px;
+         padding-right:  5px;
+
+       }
+      .newreq-right{
+        float: left;
+       /* margin-left: 5px;*/
+        width: 80%;
+        padding-left: 5px;
+
+      }
+      .newreq-right-r{
+
+        /*float: right;*/
+        position: absolute;
+        right: 10px;
+        color: red;
+      }
+
+      .newreq-right img{
+         display: inline-block;
+         float: left;
+         height: 40%;
+         /*margin-left: */
+
+        }
+      .sett{
+        background: url(../image/ic_push_setting.png) no-repeat left;
+        padding-left:40px;
+        background-size: 40px 40px;
+        font-weight: normal;
+        line-height: 40px;
+      }
+      .gr{
+        font-weight: normal;
+        color: gray;
+        margin-left: 10px;
+      }
+
+      .proorder{
+        float: left;
+        width: 100%;
+        height: auto;
+       /* padding-top: 5px;*/
+       
+        border-top: 1px solid rgba(0,0,0,0.1);
+        text-align: center;
+
+      }
+
+     .pleft{
+        float: left;
+        margin-left:15%;
+        color: red;
+
+      }
+       
+      .pright{
+        float: right;
+         margin-right:15%;
+          color: white;
+      }
+
+      
+       .tel{
+         width: 100px;    
+         height: 32px;
+        
+         background-color: #E33801;
+         color: white;
+         
+
+       }
+    </style>
+</head>
+<body>
+    <div id="wrap">
+    <div id="header">
+            <span class="head-left" tapmode onclick="goback()"><p>附近</p></span>
+            
+        </div>
+      
+        
+        <div id="condition">
+        
+          <span id="c-left">全部时间</span>
+          <span id="c-center">|</span>
+          <span id="c-right">性别</span>
+         
+       </div>
+
+
+       <div id="newreq">
+           <ul>
+             <li>
+               <div class="newreq-left">
+                  <img src="../image/co-19.jpg" alt="头像" width="32px" height="32px"/>
+               </div>
+               <div class="newreq-right">
+                 <p>明天（周三)08:00
+                 <span class="hornor">奖励12元</span>
+                 <span class="newreq-right-r">￥28</span></p>
+                  <img src="../image/icon_order_se.png" alt="头像" />
+                 <span class="right-con">
+                   
+                   <p>
+                     双榆树北里9号楼<span class="gr">3.0km</span>
+                   </p>  
+                   <p>
+                     软件园南站公交车站<span class="gr">上地</span>
+                   </p>
+                   
+                 </span>                
+               </div>
+               <div class="proorder">
+                 <span class="pleft">剩余2分钟</span>
+                 <span class="pright"><input type="button" class="tel"  value="立即接单"/></span>
+               </div>
+             </li>
+
+              <li>
+               <div class="newreq-left">
+                  <img src="../image/co-19.jpg" alt="头像" width="32px" height="32px"/>
+               </div>
+               <div class="newreq-right">
+                 <p>明天（周三)08:00<span class="newreq-right-r">￥28</span></p>
+                  <img src="../image/icon_order_se.png" alt="头像" />
+                 <span class="right-con">
+                   
+                   <p>
+                     双榆树北里9号楼<span class="gr">1.7km</span>
+                   </p>  
+                   <p>
+                     软件园南站公交车站<span class="gr">上地</span>
+                   </p>
+                   
+                 </span>                
+               </div>
+               <div class="proorder">
+                 <span class="pleft">剩余2分钟</span>
+                 <span class="pright"><input type="button" class="tel"  value="立即接单"/></span>
+               </div>
+             </li>
+             <li>
+               <div class="newreq-left">
+                  <img src="../image/co-19.jpg" alt="头像" width="32px" height="32px"/>
+               </div>
+               <div class="newreq-right">
+                 <p>明天（周三)08:00<span class="newreq-right-r">￥28</span></p>
+                  <img src="../image/icon_order_se.png" alt="头像" />
+                 <span class="right-con">
+                   
+                   <p>
+                     双榆树北里9号楼<span class="gr">2.3km</span>
+                   </p>  
+                   <p>
+                     软件园南站公交车站<span class="gr">上地</span>
+                   </p>
+                   
+                 </span>                
+               </div>
+               <div class="proorder">
+                 <span>请求已过期</span>
+                 
+               </div>
+             </li>
+             <li>
+               <div class="newreq-left">
+                  <img src="../image/co-19.jpg" alt="头像" width="32px" height="32px"/>
+               </div>
+               <div class="newreq-right">
+                 <p>明天（周三)08:00<span class="newreq-right-r">￥28</span></p>
+                  <img src="../image/icon_order_se.png" alt="" height="50px" width="18px" />
+                 <span class="right-con">
+                   
+                   <p>
+                     双榆树北里9号楼<span class="gr">1.0km</span>
+                   </p>  
+                   <p>
+                     软件园南站公交车站<span class="gr">上地</span>
+                   </p>
+                   
+                 </span>                
+               </div>
+               <div class="proorder">
+                 <span>哎呀，被抢单了</span>
+                 
+               </div>
+             </li>
+           </ul>
+         </div>
+        </div>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>      
+</body>
+</html>

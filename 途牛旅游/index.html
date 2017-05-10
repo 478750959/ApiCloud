@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>途牛</title>
+    <style>
+        html {
+            height: 100%;
+            background-color: #FFFFFF;
+        }
+
+        body {
+            background-color: #FFFFFF;
+            padding: 0;
+            margin: 0;
+            display: -webkit-box;
+            height: 100%;
+            -webkit-box-orient: vertical;
+        }
+    </style>
+</head>
+<body>
+<script>
+    apiready = function () {
+        try {
+            api.openSlidLayout({
+                type: 'left',
+                leftEdge: api.winWidth / 6.67,
+                fixedPane: {
+                    name: 'win_homeFixed',
+                    url: 'html/win_homeFixed.html',
+                    bounces:false
+                },
+                slidPane: {
+                    name: 'win_homeSlider',
+                    url: 'html/win_homeSlider.html'
+                }
+            }, function (ret) {
+
+            });
+        } catch (e) {
+            alert(e)
+        }
+
+    }
+</script>
+</body>
+</html>

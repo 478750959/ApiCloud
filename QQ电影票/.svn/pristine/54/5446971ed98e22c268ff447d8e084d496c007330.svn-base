@@ -1,0 +1,189 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>APP</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/common.css" />
+    <style>
+        body,html{
+            background-color: #2B2B2B;
+        }
+    	#main {
+    		padding: 1em;
+    	}
+        /*用户头像，用户名*/
+        #user_name{
+            width: 100%;
+            height: 53px;
+        }
+        #user_name.logout{
+            background-color: #FFC600;
+            line-height: 53px;
+            text-align: center;
+            font-size: 1.4em;
+        }
+        #user_name.logout:active{
+            background-color: #D5A706;
+        }
+        #user_name .user_icon{
+            width: 53px;
+            height: 53px;
+            display: block;
+            float: left;
+        }
+        #user_name .nickname{
+            color: #FFF;
+            height: 53px;
+            line-height: 53px;
+            text-indent: 1em;
+        }
+        /*用户头像，用户名end*/
+        /*我的订单等*/
+        #my_list{
+            width: 100%;
+            height: 90px;
+            margin-top: 11px;
+        }
+        #my_list .my_list_inner{
+            width: 48%;
+            height: 100%;
+            position: relative; 
+        }
+        #my_list .my_list_inner a{
+            color: #FFF;
+            text-align: center;
+            width: 100%;
+            position: absolute;
+            bottom: 10px;
+        }
+        #my_list .my_list_inner .count{
+            color: #EFB501;
+        }
+
+        #my_list .list{
+            float: left;
+            background: #373737 url(../../res/drawable-xhdpi/unpay_order_logout.png) center 4px no-repeat;
+            background-size: 49px 49px;
+        }
+        #my_list .ticket{
+            float: right;
+            background: #373737 url(../../res/drawable-xhdpi/my_movie_ticket_logout.png) center 4px no-repeat;
+            background-size: 49px 49px;
+        }
+        /*我的订单等end*/
+        /*其它*/
+        .etc{
+            width: 100%;
+            height: 134px;
+            margin-top: 12px;
+        }
+        .etc .title{
+            height: 38px;
+            line-height: 38px;
+            color: #616161;
+            display: block;
+        }
+        .etc .coupon,.etc .options{
+            display: block;
+            height: 45px;
+            line-height: 45px;
+            color: #FFF;
+            background-color: #373737;
+            margin-bottom: 5px;
+            text-indent: 15px;
+        }
+        .etc .count{
+            color: #EFB501;
+            text-indent: 0;
+        }
+        /*其它end*/
+    </style>
+</head>
+<body>
+    <div id="wrap">
+        <div id="main"> 
+            <!-- 用户信息按钮 -->
+            <div id="user_name" class="logout" onclick="openLogin();" tapmode>
+                <!-- <img src="../../res/drawable-xhdpi/icon233.png" alt="" class="user_icon">
+                <span class="nickname">
+                    QQ电影票
+                </span> -->
+                登录
+            </div>
+            <!-- 用户信息按钮end -->
+            <!-- 我的订单 -->
+            <div id="my_list">
+                <div class="my_list_inner list" onclick="openLogin();">
+                    <a>
+                        待付款订单
+                        <!-- <span class="count">(0)</span> -->
+                    </a>
+                </div>
+                <div class="my_list_inner ticket" onclick="openLogin();">
+                    <a>
+                        我的电影票
+                        <!-- <span class="count">(0)</span> -->
+                    </a>
+                </div>
+            </div>
+            <!-- 我的订单end -->
+            <!-- 其它 -->
+            <div class="etc">
+                <label class="title">其它</label>
+                <a class="coupon cus_act_li " onclick="openLogin();" tapmode>
+                    我的优惠券
+                    <!-- <span class="count">(0)</span> -->
+                </a>
+                <a class="coupon cus_act_li " onclick="openLogin();" tapmode>
+                    我关注的电影
+                    <!-- <span class="count">(0)</span> -->
+                </a>
+                <a class="options cus_act_li " tapmode onclick="openOptions();">
+                    设置
+                </a>
+            </div>
+            <!-- 其它end -->
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/common.js"></script>
+<script type="text/javascript" src="../../script/zepto.js"></script>
+<script type="text/javascript">
+var openOptions = function(){
+    api.openWin({
+        name: 'config_detail',
+        url: '../details/config_detail.html',
+        bounces: false,
+        rect: {
+            x: 0,
+            y: 0,
+            w: 'auto',
+            h: 'auto'
+        }
+    });
+};
+var openLogin = function(){
+    api.openWin({
+        name: 'login',
+        url: '../details/login.html',
+        bounces: false,
+        rect: {
+            x: 0,
+            y: 0,
+            w: 'auto',
+            h: 'auto'
+        }
+    });
+};
+apiready = function(){
+    Zepto(function($){
+
+
+        
+    });
+};
+</script>
+</html>

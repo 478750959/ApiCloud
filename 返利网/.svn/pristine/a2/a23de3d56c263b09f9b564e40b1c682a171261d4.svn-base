@@ -1,0 +1,152 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>Hello APP</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/common.css" />
+    <style>
+        .display-box{
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;
+        }
+        .box-orient-h{
+            -webkit-box-orient: horizontal;
+            -webkit-flex-flow: row;
+                    flex-flow: row;
+        }
+        .box-flex-1{
+            -webkit-box-flex: 1;
+            -webkit-flex: 1;
+            flex: 1;
+        }
+        #header{
+            background-color: #FCFCFC;
+        }
+        .btn-box{
+            width: 56px;
+            height: 48px;
+            padding-top: 4px;
+        }
+        .btn-home{
+            width: 40px;
+            margin-left: 1em;
+            background: url(../../res/home_icon.png) center center no-repeat;
+            background-size: 100%;
+            padding-top: 0;
+        }
+        .btn-box img{
+            margin: 0 auto;
+            width: 40px;
+            display: block;
+        }
+        .btn-box:active,.btn-box.tap-active{
+            background-color: #82D0ED;
+        }
+        .btn-home:active,.btn-home.tap-active{
+            background:#82D0ED url(../../res/home_press_icon.png) center center no-repeat;
+            background-size: 100%;
+        }
+        #header .title{
+            font-size: 1.1em;
+            line-height: 48px;
+            color: #585858;
+            text-align: left;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+        #header .header-content{
+            border-bottom: 1px solid #BABABA;
+            box-shadow: 0 0 6px #BABABA;
+        }
+        .search-box{
+            position: relative;
+            -webkit-box-flex: 1;
+            -webkit-flex: 1;
+            flex: 1;
+            padding-right: 3px;
+            padding-top: 4px;
+            padding-left: 8px;
+        }
+        .search-box-inner{
+            height: 39px;
+            border: 1px solid #DFDFDF;
+            box-shadow: inset 0 0 3px #DFDFDF;
+            position: relative;
+        }
+        .search-box .icon-search{
+            height: 40px;
+            width: 40px;
+            background: url(../../res/search_icon.png) center center no-repeat;
+            background-size: 20px 20px;
+            display: inline-block;
+            margin-left: 5px;
+        }
+        .search-box-inner .search-input{
+            position: absolute;
+            width: 90%;
+            left: 50%;
+            top: 50%;
+            -webkit-transform: translate(-50%,-50%);
+                    transform: translate(-50%,-50%);
+            color: #0E0E0E;
+            font-size: 14px;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div id="wrap">
+        <div id="header">
+            <div class="header-content clearfix">
+                <div class="btn-box btn-home" tapmode="tap-active" onclick="api.closeToWin({name:'root'});">
+                    
+                </div>
+                <div class="search-box display-box box-orient-h">
+                    <div class="search-box-inner box-flex-1">
+                        
+                        <input type="text" class="search-input" placeholder="输入商家关键字">
+                    </div>
+                    <i class="icon-search"></i>
+                </div>
+            </div>
+        </div>
+        <div id="main">
+                
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/common.js"></script>
+<script type="text/javascript">
+    apiready = function(){
+        var title = api.pageParam.title;
+        var header = $api.byId('header');
+        var searchInput = $api.dom('.search-input');
+        $api.attr(searchInput,'placeholder',title);
+        $api.fixIos7Bar(header); 
+        window.headerPos = $api.offset(header);
+        var main = $api.byId('main');
+        window.mainPos = $api.offset(main);        
+        
+        api.openFrame({
+            name: 'native-search-frame',
+            url: '../native/native-search-frame.html',
+            bounces: false,
+            rect: {
+                x: 0,
+                y: headerPos.h,
+                w: 'auto',
+                h: mainPos.h
+            }
+        });  
+        
+    };
+</script>
+</html>

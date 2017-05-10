@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+     <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+     <link rel="stylesheet" href="../css/api.css">
+     <link rel="stylesheet" href="../css/common.css">
+    <title>注册</title>
+    <style>
+       #header span{
+
+        height: 44px;
+        line-height: 44px;
+
+       }
+
+      /*.head-left{
+        float: left;
+        margin-left:10px;
+       font-size: 11pt;
+       background: url(../image/wallet_base_action_bar_back_normal.png) no-repeat;
+       background-position: left center;
+       background-size: 30% 75%;
+       margin-left: -5px;
+       }
+
+       .head-left p{
+        margin-left: 15px;
+       }*/
+       .head-left{
+        float: left;
+        margin-left:10px;
+       font-size: 11pt;
+       background: url(../image/wallet_base_action_bar_back_normal.png) no-repeat;
+       background-position: left center;
+       background-size: 30% 30%;
+       margin-left: -5px;
+       }
+
+       .head-left p{
+        margin-left: 30px;
+        margin-top:1px;
+       }
+       .head-right{
+
+         float: right;
+        margin-right: 5px;
+        font-size: 15pt;
+
+       }
+       #main{
+            background: #E6E6E6;
+            margin: 0;
+            padding: 0;
+
+       }
+       #intro{
+        clear:left;
+        padding: 15px;
+        text-align: center;
+        line-height: 1.5;
+        background: rgba(255,255,255,1);
+        border-bottom: 1px solid #ccc;
+
+       }
+       #info{
+        
+        width: 80%;
+        margin:10px auto;
+
+
+
+       } 
+       #tel{
+
+         width: 100%;
+       }
+
+       #telcode{
+
+         width: 70%;
+         margin: 0;
+
+       }
+       #btncode{
+         
+         width: 30%;    
+         height: 32px;
+         margin-left: -8px;
+         background: #E33801;
+         color: white;
+
+       }
+       .tel{
+          margin-bottom: 10px;
+          /*border: 1px solid #c8c8c8;*/
+          background:white;
+          height: 32px;
+         
+
+       }
+       #priv{
+        /*margin-left: 10%;
+        line-height: 1.5;
+        padding-left:0;*/
+        margin: 0 auto;
+        text-align: center;
+       }
+       #priv span{
+       /* margin-left:0;*/
+
+
+       }
+
+
+    </style>
+</head>
+<body>
+    <div id="wrap">
+        <div id="header">
+            <span class="head-left" tapmode onclick="goback()"><p>验证手机号</p></span>
+            <span class="head-right" onclick="validcodelogin()" tapmode>下一步</span>
+        </div>
+        <div id="main">
+            <div id="intro">
+                <!-- <h3>验证手机号，注册51用车帐号</h3> -->
+                <p>已经有账号了?<a href="" onclick="tologin()" tapmode>直接登录</a></p>
+            </div>
+             <div id="info">
+                <input type="tel" class="tel" id="tel" placeholder="手机号"/>
+                <input type="text" class="tel" id="telcode" placeholder="验证码"/>
+                <input type="button" class="tel" id="btncode" value="获取验证码" onclick="getvalidcode()" tapmode />
+             </div>
+
+             <div id="priv">
+                 <span>
+                     点击"下一步"表示我已阅读并同意<a href="">《51用车使用协议和隐私政策》</a>
+                 </span>
+             </div>
+        </div>
+
+    </div>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/common.js"></script> 
+<script type="text/javascript">
+function getvalidcode(){	
+	if (validtel()==false){	
+	    api.toast({
+	        msg:'手机号码输入有误'
+        });
+	    return;
+	}	
+	var tel =$api.val( $api.byId('tel'));		     
+    var uzShareSMSModule = api.require('moduleShareSMS');
+	uzShareSMSModule.getVerificationCode({
+	    key:"7dcef6b2e40c",
+	    secret:"1e67b1c9acca7d8bd6a09354b4f32e40",
+	    phone: tel
+	}, function(ret, err){
+	    if(ret.status == 1){
+          $api.setStorage('phone',tel);
+          api.toast({
+		    msg: '验证码已发送至您的手机',
+		    duration:2000,
+		    location: 'top'
+	    	});
+	    } else {
+	        alert(ret.description)
+	    }
+	});	
+}
+
+function validtel()
+{
+	var tel =$api.val( $api.byId('tel'));
+	var telReg = !!tel.match(/^(0|86|17951)?(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$/);
+	//如果手机号码不能通过验证
+	return telReg
+
+}
+
+function validcodelogin(){
+
+	var uzShareSMSModule = api.require('moduleShareSMS');
+	var tel =$api.val( $api.byId('tel'));
+	var telcode = $api.val($api.byId('telcode'));
+	uzShareSMSModule.submitVerificationCode({
+	    key:"7dcef6b2e40c",
+	    secret:"1e67b1c9acca7d8bd6a09354b4f32e40",
+	    phone: tel,
+	    code: telcode
+	}, function(ret, err){
+	    if(ret.status == 1){
+	        //alert("验证成功");
+            api.openWin({
+	          name: 'setpwd',
+	          url: 'setpwd.html'
+          });
+	    } else {
+	        alert(ret.description);
+	    }
+	});
+
+}
+function tologin(){
+api.openWin({name: 'login', url: 'login.html'});
+}
+</script>  
+</body>
+</html>

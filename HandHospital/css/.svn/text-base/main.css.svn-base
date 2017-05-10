@@ -1,0 +1,118 @@
+.left {
+	display: inline-block;
+	width: 40px;
+	height: 40px;
+	background: url(../image/home/home.png) no-repeat center center;
+	-webkit-background-size: 24px;
+	background-size: 24px;
+	position: absolute;
+	left: 18px;
+	bottom: 2px;
+}
+
+.right {
+	display: inline-block;
+	position: absolute;
+	bottom: 2px;
+	right: 20px;
+	width: 40px;
+	height: 40px;
+	text-indent: -9999px;
+	background: url(../image/default_header.png) no-repeat center center;
+	background-size: 24px;
+	-webkit-background-size: 24px;
+}
+
+#wrap {
+	height: 100%;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-orient: vertical;
+	-webkit-flex-flow: column;
+	flex-flow: column;
+}
+
+#header {
+	background-color: #F2F2F2;
+	border-bottom: 1px solid #BDBDBD;
+	text-align: center;
+	width: 100%;
+	position: relative;
+}
+#header h1 {
+	font-size: 20px;
+	height: 44px;
+	line-height: 44px;
+	margin: 0em;
+	color: #3795f2;
+}
+
+#main {
+	-webkit-box-flex: 1;
+	-webkit-flex: 1;
+	flex: 1;
+}
+
+#footer {
+	height: 55px;
+	background: url(../image/bottombg.png) repeat center center;
+	width: 100%;
+	text-align: center;
+}
+
+#footer ul {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-orient: horizontal;
+	-webkit-flex-direction: row;
+	flex-direction: row;
+}
+#footer ul li {
+	-webkit-box-flex: 1;
+	-webkit-flex: 1;
+	flex: 1;
+}
+
+#footer ul li a {
+	font-size: 12px;
+	color: #FFFFFF;
+	-webkit-background-size: 34px 34px !important;
+	background-size: 34px 34px !important;
+	display: block;
+	padding-top: 40px;
+}
+
+#footer ul li.active {
+	background: url(../image/bottombg1.png) repeat center center;
+}
+
+#footer .healthy {
+	background: url(../image/main/tab_icon6.png) center 4px no-repeat;
+}
+
+#footer .callnum {
+	background: url(../image/main/tab_icon3.png) center 4px no-repeat;
+}
+
+#footer .order {
+	background: url(../image/main/tab_icon1.png) center 4px no-repeat;
+}
+
+#footer .report {
+	background: url(../image/main/tab_icon4.png) center 4px no-repeat;
+}
+
+#footer .more {
+	background: url(../image/main/tab_icon5.png) center 4px no-repeat;
+}
+
+#footer h5 {
+	color: white;
+}
+
+.con {
+	font-size: 28px;
+	text-align: center;
+}

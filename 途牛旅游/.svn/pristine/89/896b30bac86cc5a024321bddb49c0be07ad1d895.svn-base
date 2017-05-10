@@ -1,0 +1,709 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/common.css"/>
+    <script type="text/javascript" src="../script/zepto.min.js"></script>
+    <script type="text/javascript" src="../script/swipe.js"></script>
+    <style>
+        body {
+            min-width: 320px;
+        }
+
+        .category {
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .category li {
+            display: inline-block;
+            width: 24%;
+            text-align: center;
+            padding: 30px 0 10px;
+            background-size: 40px;
+            background-repeat: no-repeat;
+            background-position: top;
+        }
+
+        .category li span {
+            margin: 15px 10px 0 10px;
+        }
+
+        .group {
+            background-image: url("../image/icon_home_group@2x.png");
+        }
+
+        .self {
+            background-image: url("../image/icon_home_self_service@2x.png");
+        }
+
+        .ship {
+            background-image: url("../image/icon_home_ship@2x.png");
+        }
+
+        .ticket {
+            background-image: url("../image/icon_home_ticket@2x.png");
+        }
+
+        .drive {
+            background-image: url("../image/icon_home_drive@2x.png");
+        }
+
+        .visa {
+            background-image: url("../image/icon_home_visa@2x.png");
+        }
+
+        .hotel {
+            background-image: url("../image/icon_home_hotel@2x.png");
+        }
+
+        .hotspot {
+            background-image: url("../image/icon_home_hotspot@2x.png");
+        }
+
+        img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .imgs {
+            padding: 10px 0;
+            display: -webkit-box;
+            width: 100%;
+            background-color: #F0F0F0;
+        }
+
+        .imgs li {
+            -webkit-box-flex: 1;
+            height: 55px;
+        }
+
+        .imgs li:not(:last-child) {
+            -webkit-box-flex: 1;
+            border-right: 1px solid #EDEDEB;
+            height: 55px;
+        }
+
+        .img:first-of-type {
+            padding-top: 0;
+        }
+
+        .img {
+            height: 124px;
+            padding-top: 10px;
+            background-color: #F4F4F4;
+            position: relative;
+        }
+
+        dt {
+            height: 35px;
+            line-height: 35px;
+        }
+
+        dt :first-child {
+            width: 80%;
+            padding-left: 10px;
+        }
+
+        dt :last-child {
+            color: #3ABA63;
+        }
+
+        .detail {
+            padding: 5px 10px;
+            color: #A4A4A4;
+            font-size: 10px;
+            line-height: 18px;
+            border-bottom: 1px solid #EDEDED;
+        }
+
+        .detail:first-line {
+            color: #000000;
+            font-size: 15px;
+        }
+
+        .price {
+            font-size: 16px;
+            padding-left: 10px;
+            border-bottom: 1px solid #EDEDED;
+            -webkit-box-flex: 1;
+            line-height: 25px;
+        }
+
+        .newPrice {
+            color: #F67570;
+        }
+
+        .oldPrice {
+            color: #999999;
+            font-size: 10px;
+            margin-left: 15px;
+        }
+
+        .zero-buy {
+            border-bottom: 1px solid #EDEDED;
+            display: -webkit-box;
+
+        }
+
+        .zero-buy .price {
+            border-bottom: none;
+        }
+
+        .buy {
+            display: block;
+            width: 20%;
+            margin: 2px 5% 2px 0;
+            background-color: #FC7924;
+            color: #FFFFFF;
+            text-align: center;
+            padding: 5px 0;
+            border-radius: 2px;
+            height: 12px;
+            font-size: 12px;
+        }
+
+        .together :first-child:not(p) {
+            line-height: 30px;
+
+        }
+
+        .together li {
+            margin-left: 10px;
+        }
+
+        .together li:not(:last-child) {
+            border-bottom: 1px solid #EDEDED;
+        }
+
+        .together :not( :first-child):not(p) {
+            height: 50px;
+            background-size: 50px;
+            background-repeat: no-repeat;
+            background-position: left;
+            background-image: url("../image/home_icon_hot@2x.png");
+        }
+
+        .together p {
+            margin-left: 70px;
+            line-height: 25px;
+        }
+
+        /*
+        #757575
+        */
+        /*slide*/
+        .swipe {
+            overflow: hidden;
+            /*visibility: hidden;*/
+            position: relative;
+        }
+
+        .swipe-wrap {
+            overflow: hidden;
+            position: relative;
+            height: 157px
+        }
+
+        .swipe-wrap > div {
+            float: left;
+            width: 100%;
+            position: relative;
+        }
+
+        .swipe-wrap > div {
+            overflow: hidden;
+            position: relative;
+        }
+
+        .swipe-wrap img {
+            width: 100%;
+            height: auto;
+            max-height: 240px;
+            min-height: 132px;
+            min-width: 320px;
+            max-width: 640px;
+        }
+
+        #slide {
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .lable {
+            background-image: -webkit-linear-gradient(top, rgba(59, 59, 59, .6), rgba(27, 27, 27, .6), rgba(50, 50, 50, .4), rgba(31, 31, 31, .4));
+            background-image: linear-gradient(top, rgba(59, 59, 59, .6), rgba(27, 27, 27, .6), rgba(50, 50, 50, .4), rgba(31, 31, 31, .4));
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 30px;
+            line-height: 30px;
+            padding-left: 20px;
+            display: block;
+            color: #fff;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+
+        #pointer {
+            position: absolute;
+            bottom: 12px;
+            overflow: hidden;
+            width: 100%;
+            text-align: center;
+        }
+
+        #pointer div {
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            border-radius: 6px;
+            margin-right: 4px;
+            background-color: #FFFFFF;
+        }
+
+        #pointer div.active {
+            background-color: #999999;
+        }
+
+        .guarantee {
+            overflow: hidden;
+            padding-top: 15px;
+        }
+
+        .guarantee ul {
+            display: -webkit-box;
+        }
+
+        .guarantee li {
+            -webkit-box-flex: 1;
+            padding: 5px 5px;
+        }
+
+        .guarantee li span {
+            padding-left: 40%;
+        }
+
+        .guarantee li:not(:last-child) {
+            border-right: 1px solid #EDEDEB;
+        }
+
+        .icon {
+            background-position: 10% center;
+            background-repeat: no-repeat no-repeat;
+            background-size: 40px;
+        }
+
+        .guarantee-1 {
+            background-image: url("../image/guarantee-1.png");
+        }
+
+        .guarantee-2 {
+            background-image: url("../image/guarantee-2.png");
+        }
+
+        .guarantee-3 {
+            background-image: url("../image/guarantee-3.png");
+        }
+
+        .footer {
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        .footer .line {
+            width: 100%;
+            height: 2px;
+            background: -webkit-gradient(linear, left center, right center, color-stop(0, #fff), color-stop(0.5, #bfbfbf), color-stop(1, #fff));
+        }
+
+        .t {
+            color: #aaa;
+            position: relative;
+            top: -10px;
+            text-align: center;
+        }
+
+        .o {
+            position: relative;
+            background: #fff;
+            padding: 0 20px;
+        }
+
+        .dott {
+            position: absolute;
+            top: 6px;
+            width: 5px;
+            height: 5px;
+            border-radius: 5px;
+            background: rgba(191, 191, 191, 0.8);
+        }
+
+        .left-dott {
+            left: 0;
+        }
+
+        .right-dott {
+            right: 0;
+        }
+    </style>
+</head>
+
+<body>
+<div id='slide' class='swipe'>
+    <div class='swipe-wrap' id="banner-content">
+        <!--<div onclick="openSlider('三峡好风景')" tapmode="">
+            <img src="../image/1.jpg"/>
+        </div>
+        <div onclick="openSlider('三峡好风景')" tapmode="">
+            <img src="../image/2.jpg"/>
+
+        </div>
+        <div onclick="openSlider('三峡好风景')" tapmode="">
+            <img src="../image/3.jpg"/>
+        </div>
+        <div onclick="openSlider('三峡好风景')" tapmode="">
+            <img src="../image/4.jpg"/>
+
+        </div>
+        <div onclick="openSlider('三峡好风景')" tapmode="">
+            <img src="../image/5.jpg"/>
+
+        </div>
+        <div onclick="openSlider('三峡好风景')" tapmode="">
+            <img src="../image/6.jpg"/>
+
+        </div>
+        <div onclick="openSlider('三峡好风景')" tapmode="">
+            <img src="../image/7.jpg"/>
+
+        </div>-->
+    </div>
+    <!--<div id="pointer">
+        <div class="active"></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>-->
+</div>
+<ul class="category">
+    <li class="group" onclick="openGroup('跟团游')" tapmode=""><span>
+        跟团游
+    </span></li>
+    <li class="self" onclick="openGroup('自助游')" tapmode=""><span>
+        自助游
+    </span></li>
+    <li class="ship" onclick="openGroup('游轮')" tapmode=""><span>
+        游轮
+    </span></li>
+    <li class="ticket" onclick="openGroup('景点门票')" tapmode=""><span>
+        景点门票
+    </span></li>
+    <li class="drive" onclick="openGroup('自驾游')" tapmode=""><span>
+        自驾游
+    </span></li>
+    <li class="visa" onclick="openGroup('签证')" tapmode=""><span>
+        签证
+    </span></li>
+    <li class="hotel" onclick="openGroup('酒店')" tapmode=""><span>
+        酒店
+    </span></li>
+    <li class="hotspot" onclick="openGroup('牛无线')" tapmode=""><span>
+        牛无线
+    </span></li>
+</ul>
+<ul class="imgs">
+    <li onclick="openAround()" tapmode=""><img src="../image/ad_1.png"></li>
+    <li onclick="openAround()" tapmode=""><img src="../image/ad_2.png"></li>
+    <li onclick="openAround()" tapmode=""><img src="../image/ad_3.png"></li>
+</ul>
+<dl>
+    <dt><span>尾货专区</span><span>更多 ></span></dt>
+    <dd class="img" onclick="toDetail()" tapmode="">
+        <img src="../image/t1.jpg">
+
+        <div class="lable">10月21日 | 北京出发</div>
+    </dd>
+    <dd class="detail">
+        北京-西欧7晚9天极致自由行<br>
+        北京往返布鲁塞尔+1晚酒店，极致西欧自由的行走
+    </dd>
+    <dd class="price">
+        <span class="newPrice">￥3399</span>
+        <del class="oldPrice">￥6599</del>
+    </dd>
+    <dd class="img" onclick="toDetail()" tapmode="">
+        <img src="../image/t2.jpg">
+
+        <div class="lable">10月22日 | 北京出发</div>
+    </dd>
+    <dd class="detail">
+        北京-韩国首尔7日游<br>
+        超值游轮，汗蒸幕，乐天通票，奥特莱斯
+    </dd>
+    <dd class="price">
+        <span class="newPrice">￥1671</span>
+        <del class="oldPrice">￥3380</del>
+    </dd>
+    <dd class="img" onclick="toDetail()" tapmode="">
+        <img src="../image/t3.jpg">
+
+        <div class="lable">10月23日 | 北京出发</div>
+    </dd>
+    <dd class="detail">
+        北京-济州岛4日单机票<br>
+        单机票，北京往返，特价机票含税，限量供应
+    </dd>
+    <dd class="price">
+        <span class="newPrice">￥2099</span>
+        <del class="oldPrice">￥3260</del>
+    </dd>
+    <dd class="img" onclick="toDetail()" tapmode="">
+        <img src="../image/t4.jpg">
+
+        <div class="lable">10月24日 | 北京出发</div>
+    </dd>
+    <dd class="detail">
+        北京-苏梅随心5晚6日自助旅游<br>
+        赠送境外旅游意外险，2人即可成团
+    </dd>
+    <dd class="price">
+        <span class="newPrice">￥4199</span>
+        <del class="oldPrice">￥5699</del>
+    </dd>
+    <dd class="img" onclick="toDetail()" tapmode="">
+        <img src="../image/t5.jpg">
+
+        <div class="lable">10月25日 | 北京出发</div>
+    </dd>
+    <dd class="detail">
+        俄罗斯-贝加尔湖休闲4日游<br>
+        世界最深湖，休闲胜地，只要3999
+    </dd>
+    <dd class="price">
+        <span class="newPrice">￥3999</span>
+        <del class="oldPrice">￥6599</del>
+    </dd>
+    <dd class="img" onclick="toDetail()" tapmode="">
+        <img src="../image/t6.jpg">
+
+        <div class="lable">10月26日 | 北京出发</div>
+    </dd>
+    <dd class="detail">
+        莫斯科-圣彼得堡8日游<br>
+        海航往返，克里姆林宫，卡洛明斯克庄园
+    </dd>
+    <dd class="price">
+        <span class="newPrice">￥4399</span>
+        <del class="oldPrice">￥7599</del>
+    </dd>
+</dl>
+<dl>
+    <dt><span>爆款专区</span><span>更多 ></span></dt>
+    <dd class="img" onclick="toDetail()" tapmode="">
+        <img src="../image/t7.jpg">
+
+        <div class="lable">10月27日 | 北京出发</div>
+    </dd>
+    <dd class="detail">
+        北京-台湾高雄-台东花莲双飞7晚8日游<br>
+        报名送韩国 101登顶 北京起飞
+    </dd>
+    <dd class="price">
+        <span class="newPrice">￥3399</span>
+    </dd>
+</dl>
+<dl>
+    <dt><span>0元购专区</span><span>更多 ></span></dt>
+    <dd class="img" onclick="toDetail()" tapmode="">
+        <img src="../image/t8.jpg">
+
+        <div class="lable">10月28日 | 北京出发</div>
+    </dd>
+    <dd class="detail">
+        东京-横滨-京都-富士山6日游<br>
+        途牛独家包团，EY全网最低价
+    </dd>
+    <dd class="zero-buy">
+        <div class="price">
+            <span class="newPrice">￥0</span>
+            <del class="oldPrice">￥6599</del>
+        </div>
+
+        <div class="buy">立即抢购</div>
+    </dd>
+    <dd class="img" onclick="toDetail()" tapmode="">
+        <img src="../image/t9.jpg">
+
+        <div class="lable">10月28日 | 北京出发</div>
+    </dd>
+    <dd class="detail">
+        东京银座5日自助游<br>
+        东京血拼，购物游玩的不二选择
+    </dd>
+    <dd class="zero-buy">
+        <div class="price">
+            <span class="newPrice">￥0</span>
+            <del class="oldPrice">￥4599</del>
+        </div>
+        <div class="buy">立即抢购</div>
+    </dd>
+</dl>
+<dl>
+    <dt><span>每日精选</span><span></span></dt>
+    <dd class="img" onclick="toDetail()" tapmode="">
+        <img src="../image/t10.jpg">
+
+        <div class="lable">10月29日 | 北京出发</div>
+    </dd>
+
+</dl>
+<ul class="together">
+    <li>一块去旅游</li>
+    <li class="monday">
+        <p>一块飞出境 天降馅饼</p>
+
+        <p>周一拼手速 一块钱出国嗨翻天</p>
+    </li>
+    <li class="tuesday">
+        <p>一块游国内 暴走天下</p>
+
+        <p>周二抢心跳 狠放价抢到就出发</p>
+    </li>
+    <li class="wednesday">
+        <p>一块转周边 懒人首选</p>
+
+        <p>周三手一抖 包住包玩更包开心</p>
+    </li>
+    <li class="thursday">
+        <p>一块玩自驾 自由自在</p>
+
+        <p>周四加满油 闺蜜基友说走就走</p>
+    </li>
+    <li class="friday">
+        <p>一块上游轮 享你所想</p>
+
+        <p>周五屏住气 面朝大海吃饱玩high</p>
+    </li>
+    <li class="saturday">
+        <p>一块度蜜月 非诚勿扰</p>
+
+        <p>每周六晚上 11:20幸福开抢</p>
+    </li>
+    <li class="sunday">
+        <p>一块度蜜月 非诚勿扰</p>
+
+        <p>每周日晚上 11:20幸福开抢</p>
+    </li>
+</ul>
+<div class="guarantee">
+    <ul>
+        <li class="guarantee-1 icon"><span>阳光行程</span></li>
+        <li class="guarantee-2 icon"><span>阳光价格</span></li>
+        <li class="guarantee-3 icon"><span>阳光服务</span></li>
+    </ul>
+</div>
+<div class="footer">
+    <div class="line"></div>
+    <div class="t">
+        <span class="o">
+            <span class="left-dott dott"></span>
+            <span>三大阳光保证</span>
+            <span class="right-dott dott"></span>
+        </span>
+    </div>
+</div>
+<script>
+    /*initSlide()
+    function initSlide() {
+        var $slide = $('#slide');
+        var $pointer = $('#pointer').find("div");
+        window.mySlide = Swipe(slide, {
+            // startSlide: 4,
+            auto: 3000,
+            continuous: true,
+            disableScroll: true,
+            stopPropagation: true,
+            callback: function (index, element) {
+                var $actPoint = $('#pointer').find('div.active');
+                $actPoint.removeClass('active');
+                $pointer.eq(index).addClass('active');
+            },
+            transitionEnd: function (index, element) {
+
+            }
+        });
+    }*/
+    apiready = function () {
+        var scrollPicture = api.require('scrollPicture')
+                ,imgsArr=['widget://image/1.jpg','widget://image/2.jpg','widget://image/3.jpg'
+                    ,'widget://image/4.jpg','widget://image/5.jpg','widget://image/6.jpg'
+                    ,'widget://image/7.jpg'];
+        scrollPicture.open({
+            x:0,
+            y:0,
+            w:api.winWidth,
+            h:157,
+            intervalTime:10,
+            placeholderImg: 'widget://image/default.png',
+            paths: imgsArr,
+            control: {
+                activeColor:'#000000',
+                inactiveColor:'#9B9B9B'
+            },
+            fixed:false,
+            fixedOn:'frm_main'
+        }, function (ret, err) {
+            if (ret.status) {
+                openSlider('三峡好风景');
+            } else {
+
+            }
+        });
+
+        api.setRefreshHeaderInfo({
+            visible: true,
+            bgColor: '#ccc',
+            textColor: '#fff',
+            textDown: '下拉刷新...',
+            textUp: '松开刷新...',
+            showTime: true
+        }, function (ret, err) {
+            api.refreshHeaderLoadDone();
+        });
+    }
+    function openGroup(param) {
+        api.openWin({
+            name: 'win_group',
+            url: 'win_group.html',
+            pageParam: {"name": param}
+        })
+    }
+    function openSlider(param) {
+        api.openWin({
+            name: 'win_sliderDetail',
+            url: 'win_sliderDetail.html',
+            pageParam: {"name": param}
+        })
+    }
+    function openAround() {
+        api.openWin({
+            name: 'win_around',
+            url: 'win_around.html'
+        })
+    }
+    function toDetail() {
+        api.openWin({
+            name: "win_toursDetail",
+            url: 'win_toursDetail.html'
+        })
+    }
+</script>
+</body>
+</html>

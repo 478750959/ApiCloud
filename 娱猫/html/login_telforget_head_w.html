@@ -1,0 +1,79 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>设置</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <style>
+    	
+    </style>
+</head>
+<body>
+<div id="wrap">
+	<header id='header'>
+		<div class="miHeader">
+        	<a class='head_icon back' onclick='api.closeWin();'></a>
+        	<span class='mi_head_txt' id='login_telforget_head_txt'></span>
+        </div>
+	</header>
+	<div id='main'></div>
+	<footer id='footer' class='xyc_footer' onclick="find_pwd()">确认修改</footer>
+</div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/font.js"></script>
+<script type="text/javascript" src="../script/zepto.js"></script>
+<script>
+	function find_pwd(){
+		api.execScript({
+			name:'login_telforget_head_w',
+			frameName:'login_forgetpass_f',
+            script: 'do_find()'
+        });
+	}
+	apiready = function () {
+		var name = "";	
+		var height;
+		var txt = $api.byId('login_telforget_head_txt');
+		var header = $api.byId('header');
+		var footer = $api.byId('footer');
+	    $api.fixIos7Bar(header);
+	    var width = api.winWidth;
+	    var headerPos = $api.offset(header);
+	    var footerPos = $api.offset(footer);
+	    api.setStatusBarStyle({
+		    style: 'dark'
+		});
+	    switch(api.pageParam.count) {
+			case 1:
+				name='login_tel_f';
+				$('.xyc_footer').addClass('none');
+				height = api.winHeight - headerPos.h;
+				$api.text(txt, '登录'); 
+				break;
+			case 2:
+				name = "login_forgetpass_f";
+				$('.xyc_footer').removeClass('none');
+				height = api.winHeight - headerPos.h - footerPos.h;
+				$api.text(txt, '找回密码'); 
+				break;
+		}
+	    api.openFrame({
+		    name: name,
+		    url: name+'.html',
+		    softInputMode:'pan',
+		    bounces: false,
+		    opaque: true, 
+		    vScrollBarEnabled: false,
+		    pageParam:{name:name},
+		    rect: {
+		        x: 0,
+		        y: headerPos.h,
+		        w: width,
+		        h: height
+		    }
+		});	
+	}
+</script>
+</html>

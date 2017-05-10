@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+<head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+     <link rel="stylesheet" href="../css/api.css">
+     <link rel="stylesheet" href="../css/common.css">
+    <title>关于我们</title>
+    <style>
+        #wrap{
+           background: #F0F0F0;
+
+        }
+
+        #header span{
+
+          height: 44px;
+          line-height: 44px;
+
+
+
+         }
+
+        /*.head-left{
+        float: left;
+        margin-left:10px;
+       font-size: 11pt;
+       background: url(../image/wallet_base_action_bar_back_normal.png) no-repeat;
+       background-position: left center;
+       background-size: 30% 75%;
+       margin-left: -5px;
+       }
+
+       .head-left p{
+        margin-left: 15px;
+       }*/
+       .head-left{
+        float: left;
+        margin-left:10px;
+       font-size: 11pt;
+       background: url(../image/wallet_base_action_bar_back_normal.png) no-repeat;
+       background-position: left center;
+       background-size: 30% 30%;
+       margin-left: -5px;
+       }
+
+       .head-left p{
+        margin-left: 30px;
+        margin-top:1px;
+       }
+
+    
+     #ipic{
+       clear: both;
+       background-color: white;
+       width: 100%;
+       height: 100px;
+       border-top: 1px solid gray;
+       padding-bottom: 25px;
+
+      }
+      #ipic img{
+        display: block;
+        width: 80px;
+         margin: 0 auto;
+        /*border-radius: 50%;*/
+        margin-top: 10px;
+ padding-bottom: 5px;
+
+      }
+      .detail ul{
+        clear: both;
+       /* height: 55px;*/
+        line-height: 1.5;
+        background: white;
+        margin: 10px auto;
+        padding-left:10px;
+        padding-top:10px;
+       
+
+       }
+
+       .detail li{
+        height: auto;
+        line-height: 30px;
+        /*font-weight: bold;*/
+        z-index: 0;
+        position: relative;
+        border-bottom: 1px solid #F0F0F0;
+        color: gray;
+        padding-top:5px;
+        padding-bottom:5px;
+
+       }
+
+
+
+       .detail li span.arrow{
+        width: 14px;
+        height: 14px;
+       /* background:url(../image/wallet_base_indicator_arrow.png) no-repeat center center !important;*/
+        z-index: 100 !important;
+        position: absolute;
+        top:6px;
+        right: 5px;
+
+        
+      }
+
+       .detail li span.arrow p{
+        position: relative;
+        width: 140px;
+        left:-135px;
+        top:-5px;
+        text-align: right;
+        color:rgba(0,0,0,1) !important;
+
+       }
+       .ext{
+        font-size: 12px !important;
+        color: gray !important;
+        font-weight: normal;
+
+
+       }
+       .ver{
+        display: block;
+        color: #E33801;
+        font-weight: bold;
+        text-align: center;
+       /* padding-top: 10px;*/
+
+
+       }
+
+
+        .detail li:last-child{
+
+         /* background: blue;*/
+          height: 60px !important;
+
+        }
+      
+    </style>
+</head>
+<body>
+    <div id="wrap">
+    <div id="header">
+            <span class="head-left" tapmode onclick="goback()"><p>关于我们</p></span>
+            
+        </div>
+      
+        
+              <div id="ipic" class="detail">
+                 <img src="../image/welcome_logo.png" alt="用户头像" width="80px" height="80px"/>
+                 <span class="ver">51用车V1.5</span>
+             
+               <ul id="detail">
+                 <li>官方网站<span class="arrow"><p>www.51yche.com</p></span></li>
+                 <li>微信公众号<span class="arrow"><p>woyaoyc</p></span></li>
+                 <li>客服电话<span class="arrow"><p>400-818-6878</p><p class="ext">每周一到周五 8:00-21:00</p></span></li>
+                 
+                 
+               </ul>
+             </div>
+
+                        
+            
+            
+
+
+        </div>
+ <script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>  
+</body>
+</html>

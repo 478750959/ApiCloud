@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+<head>
+	<title></title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="css/project/ui-btn-v3.css">
+    <link rel="stylesheet" href="css/project/ui-res-v3.css">
+    <link rel="stylesheet" href="css/project/ui-input-v3.css">
+    <link rel="stylesheet" href="css/project/ui-color-v3.css">
+	<link rel="stylesheet" href="css/ui-input.css">
+	<link rel="stylesheet" href="css/ui-btn.css">
+	<link rel="stylesheet" href="css/ui-base.css">
+	<link rel="stylesheet" href="css/ui-box.css">
+	<link rel="stylesheet" href="css/ui-color.css">
+	<link rel="stylesheet" href="css/ui-res.css">
+	<link rel="stylesheet" href="css/style.css">
+    <script src="js/y_control.js"></script>
+	<script src="js/y_click.js"></script>
+	<script src="js/dis_control.js"></script>
+	<script src="js/config.js"></script>
+	<script src="js/y_json.js"></script>
+    <script src="js/y_tmpl.js"></script>
+	<script src="js/socketio/talkUtil.js"></script>
+	<script src="script/api.js"></script>
+	
+
+</head>
+<body class="um-vp c-gra5" ontouchstart>
+    <div id="page_0" class="up ub ub-ver" tabindex="0">
+        <!--header开始-->
+        <div id="header" class="c-blu3 uh">
+            <div class="c-m2 t-wh">
+                 <a class="btn btn-l btn-a ub ub-ac" ontouchstart="zy_touch('btn-act1')" onclick="goBack();">       
+                      <div class="ulim"><img src="images/back.png" class="sbtn"></div>
+                 </a>
+                <h1 class="ut ulev0 ut-s tx-c umar-l2 umar-r2" id="ttl">&nbsp;</h1>
+                <a class="btn btn-r btn-img ub ub-ac" ontouchstart="zy_touch('btn-act1')" onclick="editmenu();">
+                    <div class="ulim"><img src="images/more_icon.png" class="rbtn"></div> 
+                </a>    
+            </div>	
+        </div>
+        <!--header结束--><!--content开始-->
+        <div id="content" class="ub-f1 tx-l t-bla">
+            
+        </div>
+        <!--content结束-->
+		<div id="footer" class="ub ub-fh umh4" style="">
+		</div>
+    </div>
+</body>
+<script>
+zy_init();
+setHtml('ttl', getstorage('currentRoomId_title'));
+window.uexOnload = function(type){
+    if (!type) {
+		var off1 = $$("header").offsetHeight;
+		
+		
+		
+		//打开聊天消息列表页面。
+		//传参数：currentRoomId，若是约伴、活动和分享，则为对应的tid（帖子id），若是点对点聊天，则为userId-toUserId
+        zy_con("content", "msg_detail_yb_content.html", 0, off1);
+       
+        
+        /*
+        //设置浮动窗口在chatbox打开时缩放
+        api.setFrameAttr({
+		    name: 'content',
+		    scaleEnabled: true
+		});*/
+		
+    }
+	window.onorientationchange=window.onresize=function()
+	{
+		zy_resize("content",0,$$("header").offsetHeight);				
+	}
+	
+	/////////////////////////////////////////
+	/*
+	//apicloud插件实现文字输入框(太丑陋，先注释掉)
+	var obj = api.require('inputField');
+	obj.open({
+	    bgColor:'',
+	    lineColor:'#C71585',
+	    fileBgColor:'',
+	    borderColor:'',
+	    sendImg:'widget://res/send.png',
+	    sendImgHighlight:'widget://res/send.png'
+	},function(ret,err) {
+	    //obj.close();
+	    //调用浮动窗口的发送消息函数sendMsg();
+		//传递消息内容
+		var msg=ret.msg;
+		if(msg==""){
+		    api.alert({title: '提示',msg: '不能输入空字符'});
+			return;
+		}
+		if(msg.indexOf("@")>=0){
+		    api.alert({title: '提示',msg: '不能输入特殊字符@'});
+			return;
+		}
+		if(msg.indexOf("#")>=0){
+		    api.alert({title: '提示',msg: '不能输入特殊字符#'});
+			return;
+		}
+		setstorage('msg',msg);
+		uexWindow.evaluatePopoverScript("msg_detail_yb","content","sendMsg()");//调用真实的发送逻辑
+		
+	});
+	*/
+	/////////////////////////
+	
+	//默认为接收推送消息
+	var currentRoomId = getstorage('currentRoomId');//"talk_1-557598" or "talk_1111
+    var key_push="status_push@"+currentRoomId;
+    var status_push=getstorage(key_push);//记录该roomId是否接收推送消息。0表示不接收
+    if(status_push==null||status_push==""){
+      setstorage(key_push,"1");//默认为接收推送消息
+    }
+	////////////////////////
+}
+
+
+/**
+ * 发送聊天内容（已废弃，具体逻辑在chatBox_yueban.js里函数diyChat中实现）
+ */
+function sendMsg(){
+	
+	//调用浮动窗口的发送消息函数sendMsg();
+	//传递消息内容（文字和表情类消息）
+	if($$("msg").value==""){
+		return;
+	}
+	setstorage('msg',"[00]"+$$("msg").value);//[00]表示文字和表情类消息
+	uexWindow.evaluatePopoverScript("msg_detail_yb","content","sendMsg()");//调用真实的发送逻辑
+	$$("msg").value="";
+}
+
+function goBack(){
+    
+	try{
+		//执行“消息”浮动窗口里的更新列表函数，以便获取最新的消息数。
+		uexWindow.evaluatePopoverScript("root","content3","loadList()");
+		//socket退出。
+	    uexWindow.evaluatePopoverScript("msg_detail_yb","content","quitSocket()");
+	}catch(e){
+	   alert(e.name + ":" + e.message);
+	}
+	setTimeout(function(){closewin();}, 300);//关闭此浮动窗口,延迟0.3秒
+	//在android下频繁的打开和关闭此页面就会死机。
+}
+
+/**
+ * 此函数用于关闭老的聊天页面，然后打开新的聊天页面
+ */
+function goBack_direct(){
+    try{
+		//执行“消息”浮动窗口里的更新列表函数，以便获取最新的消息数。
+		//uexWindow.evaluatePopoverScript("root","content3","loadList()");
+		//socket退出。
+	    uexWindow.evaluatePopoverScript("msg_detail_yb","content","quitSocket()");
+	}catch(e){
+	   alert(e.name + ":" + e.message);
+	}
+	
+}
+
+/**
+ * 聊天菜单（可进入主页或接收推送消息设置）
+*/
+function editmenu() {
+    var array_p2p_0 = ['个人信息', '关闭消息提醒', '举报'];
+    var array_group_0 = ['主题详情', '关闭消息提醒', '举报'];
+    var array_p2p_1 = ['个人信息', '开启消息提醒', '举报'];
+    var array_group_1 = ['主题详情', '开启消息提醒', '举报'];
+    var currentRoomId = getstorage('currentRoomId');//"talk_1-557598" or "talk_1111
+    var key_push="status_push@"+currentRoomId;
+	var status_push=getstorage(key_push);//记录该roomId是否接收推送消息。0表示不接收
+    var uid=getstorage('UID');
+    uexWindow.cbActionSheet = function (opId, dataType, data) {
+        if (data != "0" && data != "1" && data != "2") return;
+        if (data == "0") {
+            gotoIndex();
+        }
+        if (data == "1") {
+            if(status_push!=null&&status_push=="1"){
+               setPushStatus(uid,currentRoomId,"0");//不接受推送消息
+            }else{
+               setPushStatus(uid,currentRoomId,"1");//接受推送消息
+            }
+        }
+        if (data == "2") {
+            var rid = '';//举报的内容id，主要为回复的pid，相册的aid，图片的picid
+            var rtype = '';//举报的内容类型，'user' ,'post' ,'thread','album','pic'
+            var ruid = '';//举报的对象uid
+            var rtid = '';//举报的主题tid
+            if(currentRoomId.indexOf("-")>0){//点对点
+                rtype = 'user';
+                ruid = getToUserIdP2P(currentRoomId, uid);
+                rid = ruid;
+            }else{
+                rtype = 'thread';
+                rtid = currentRoomId.split("_")[1];
+                rid = rtid;
+            }
+            var report_data = {
+                rtype : rtype,
+                rid : rid,
+                tid : rtid,
+                uid : ruid
+                //message : data.message || ''
+            };
+            report_action(report_data);//有多个actionsheet的回调，因此要单独用Y.actionsheet来处理，在其中拼出message
+        }
+    };
+ 
+    
+    if(currentRoomId.indexOf("-")>0){//点对点
+       if(status_push!=null&&status_push=="1"){
+         //现在状态为接收消息，需修改为不接收消息状态
+         uexWindow.actionSheet('', '取消', array_p2p_0);
+       }else{
+         //现在状态为不接收消息，需修改为接收消息状态
+         uexWindow.actionSheet('', '取消', array_p2p_1);
+       }
+    }else{
+       if(status_push!=null&&status_push=="1"){
+         //现在状态为接收消息，需修改为不接收消息状态
+         uexWindow.actionSheet('', '取消', array_group_0);
+       }else{
+         //现在状态为不接收消息，需修改为接收消息状态
+         uexWindow.actionSheet('', '取消', array_group_1);
+       }
+    }
+     
+}
+
+/**
+ * 设置是否接受推送消息
+ * status_push：0-不接收; 1-接受
+ */
+function setPushStatus(uid_push,roomId_push,status_push){
+  	var api_url = yh_talk_server+"msg/setPushStatus.do";
+	var paramsArray = [];//参数数组
+	var param1 = {};//json参数值
+	param1.type = '0';//0:字符，1:文件
+	param1.key = 'key';
+	param1.value = "c4ca4238a0b923820dcc509a6f75849b";
+	paramsArray[0] = param1;
+	
+	var param2 = {};//json参数值
+	param2.type = '0';//0:字符，1:文件
+	param2.key = 'room_id';
+	param2.value = roomId_push;//
+	paramsArray[1] = param2;
+	
+	var param3 = {};//json参数值
+	param3.type = '0';//0:字符，1:文件
+	param3.key = 'uid';
+	param3.value = uid_push;//
+	paramsArray[2] = param3;
+	
+	var param4 = {};//json参数值
+    param4.type = '0';//0:字符，1:文件
+    param4.key = 'status_push';
+    param4.value = status_push;//
+    paramsArray[3] = param4;
+	
+	$.getJSON(api_url, function(data){
+	     var pushStatus=data.status;//是否设置成功。1：成功
+		 if(pushStatus=="1"){
+		    var key_push="status_push@"+roomId_push;
+		    setstorage(key_push,status_push);//记录该roomId是否接收推送消息。
+		 }
+	}, "json", function(data){
+		alert("设置是否接受推送消息失败，请稍后再试。");
+	}, "POST", paramsArray, false);//false不缓存																
+}
+
+
+/**
+ * 进入活动主页或个人主页
+ */
+function gotoIndex(){
+    
+    //如果是点对点，则进入他的主页，如果是活动列表，则进入活动列表。
+    var currentRoomId = getstorage('currentRoomId');//"talk_1-557598" or "talk_1111
+    var uid=getstorage('UID');
+    if(currentRoomId.indexOf("-")>0){
+       //点对点
+       var touid=getToUserIdP2P(currentRoomId,uid);
+       setstorage('params','{"uid":"'+touid+'", "username":"TA的空间", "isfriend":""}');
+       openwin('friend_information','friend_information.html','10'); 
+    }else{
+       //活动
+       var tid=currentRoomId.split("_")[1];
+       var tagid="";
+       var snew="";
+       setstorage('params','{"tid":"'+tid+'", "uid":"'+uid+'", "tagid":"'+tagid+'", "snew":"'+snew+'"}');
+       openwin('forum_detail','forum_detail.html','10');
+    }
+    
+}
+
+/*
+* 聊天表情函数库
+*/
+
+function setImg(imgId){
+	 var imgText=getImgText(imgId);
+     document.getElementById("msg").value+="["+imgText+"]";
+}
+ 
+function showImgbox(){
+	 document.getElementById("chatImgDiv").style.display="";
+}
+ 
+function hideImgbox(){
+	 document.getElementById("chatImgDiv").style.display="none";
+}
+ 
+function delImg(){
+	document.getElementById("msg").value="";
+}
+ 
+function getImgText(imgId){
+	//emo_03
+	var id = imgId.substr(4);
+	if (id == "01") {
+		return "哈哈";
+	}
+	else 
+		if (id == "02") {
+			return "嘻嘻";
+		}
+		else {
+			return "死吧";
+		}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+</html>

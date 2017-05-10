@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <title></title>
+    <style>
+
+
+        /*slide*/
+        .swipe {
+            overflow: hidden;
+            /*visibility: hidden;*/
+            position: relative;
+        }
+
+        .swipe-wrap {
+            overflow: hidden;
+            position: relative;
+        }
+
+        .swipe-wrap > div {
+            float: left;
+            width: 100%;
+            position: relative;
+        }
+
+        .swipe-wrap > div {
+            height: 154px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .swipe-wrap img {
+            height: 154px;
+        }
+
+        #slide {
+            height: 154px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        #pointer {
+            position: absolute;
+            bottom: 0;
+            overflow: hidden;
+            width: 100%;
+            text-align: center;
+        }
+
+        .title {
+            margin: 0 10px;
+            display: -webkit-box;
+            line-height: 50px;
+            height: 50px;
+            border-bottom: 1px solid #EDEDED;
+        }
+
+        .title div:last-child {
+            color: #3BBB65;
+            width: 50px;
+            margin-right: 10px;
+        }
+
+        .time {
+            background-image: url("../image/departureTimeLogo@2x.png");
+            background-position-x: left;
+            background-position-y: center;;
+            background-repeat: no-repeat no-repeat;
+            background-size: 20px;
+            padding-left: 23px;
+            -webkit-box-flex: 1;
+        }
+
+        .tour-type {
+            margin-left: 5px !important;
+            margin-top: 15px;
+            height: 20px;
+            line-height: 20px;
+            border-left: 5px solid #3BBB65;
+            -webkit-box-flex: 1;
+            padding-left: 5px;
+        }
+
+        .right-lable {
+            text-align: end;
+            padding-left: 0;
+            padding-right: 5px;
+        }
+
+        .desc {
+            overflow: hidden;
+            color: #333;
+            padding: 10px 0;
+            line-height: 20px;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            white-space: normal;
+            text-align: left;
+            border-bottom: 1px solid #EDEDED;
+        }
+
+        .price-desc {
+            color: #333;
+        }
+
+        .newPrice {
+            color: #ff7c70;
+            font-size: 25px
+        }
+
+        .bottom {
+            display: -webkit-box;
+        }
+
+        .left {
+            margin-top: 20px;
+            line-height: 30px;
+            width: 30%;
+            text-align: center;
+            border-right: 1px solid #EDEDED;
+        }
+
+        .right {
+            padding: 5px;
+            -webkit-box-flex: 1;
+            line-height: 20px;
+        }
+
+        .right del {
+            font-size: 14px;
+            color: #333;
+            margin-right: 10px;
+        }
+
+        .right > span {
+            font-size: 14px;
+        }
+
+        .right > span > span {
+            color: #ff7c70;
+        }
+
+        .right-desc {
+            color: #8C8C8C;
+            font-size: 14px;
+            text-overflow: ellipsis;
+            line-height: 20px;
+        }
+
+        #slide {
+            margin: 10px;
+        }
+
+        #slide, .swipe-wrap > div {
+            height: 325px;
+        }
+
+        #pointer div {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 10px;
+            margin-right: 6px;
+            background-color: #999999;
+        }
+
+        #pointer div.active {
+            background-color: #ff7c70;
+        }
+
+        .slide-img {
+            position: relative;
+        }
+
+        .cut {
+            background-color: #DAD9DA;
+            height: 10px;
+            border-top: 1px solid #EDEDED;
+            border-bottom: 1px solid #EDEDED;
+        }
+
+        .boxWrap {
+            padding: 10px;
+        }
+
+        .img-box {
+            width: 100%;
+            display: -webkit-box;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #ededed;
+        }
+
+        .img-box-2, .img-box-3, .img-box-4 {
+            overflow: hidden;
+            position: relative;
+            -webkit-box-flex: 1;
+        }
+
+        .img-box-1, .img-box-34 .img-box-3 {
+            margin-right: 1%;
+        }
+
+        .img-box-2 {
+            margin-bottom: 1%;
+        }
+
+        .img-box-234 .img-box-2 .gray-lable {
+            bottom: 2px;
+        }
+
+        .img-box-1 {
+            overflow: hidden;
+            position: relative;
+            display: -webkit-box;
+        }
+
+        .img-box-23, .img-box-234, .img-box-34 {
+            -webkit-box-flex: 1;
+            display: -webkit-box;
+        }
+
+        .img-box-23, .img-box-234 {
+            -webkit-box-orient: vertical;
+        }
+
+        .for3 .img-box-1 {
+            width: 49%;
+        }
+
+        .for4 .img-box-1 {
+            width: 30%;
+        }
+
+        /*list列表*/
+        .content li {
+            padding-bottom: 10px;
+            margin: 10px;
+            border-bottom: 1px solid #D8D8D8;
+        }
+
+        .tab-content li {
+            margin: 10px 5px;
+            padding: 10px;
+            font-size: 14px;
+            border-bottom: 1px solid #DBDBDB;
+        }
+
+        .item, .text {
+            display: -webkit-box;
+        }
+
+        .img {
+            width: 80px;
+            height: 80px;
+        }
+
+        img {
+            width: 100%;
+            display: block;
+        }
+
+        .text {
+            -webkit-box-flex: 1;
+            -webkit-box-orient: vertical;
+            margin: 0 5px;
+
+        }
+
+        .price span {
+            color: #FC6B32;
+            font-size: 25px;
+        }
+
+        .icon {
+            background-size: 12px;
+            background-position: center center;;
+            background-repeat: no-repeat no-repeat;
+            display: inline-block;
+            height: 12px;
+            width: 12px;
+        }
+
+        .icon-people {
+            background-image: url("../image/dock_icon_my_tuniu@2x.png");
+        }
+
+        .icon-heart {
+            background-image: url("../image/heart@2x.png");
+        }
+
+        .text-title {
+            font-size: 14px;
+            line-height: 17px;
+        }
+
+        .text-price {
+            padding: 2px 0;
+        }
+
+        .new-price {
+            font-size: 20px;
+            color: #ff7c70;
+            font-family: Impact, Arail, sans-serif;
+            font-weight: bold;
+        }
+
+        .text-price del, .icon-heart {
+            margin-left: 15px;
+        }
+
+        .text-price del, .icon-people + span, .icon-heart + span {
+            color: #8c8c8c;
+            font-size: 10px;
+        }
+
+        .red-lable {
+            width: 70px;
+            background-color: #FD7D73;
+            position: absolute;
+            left: 5px;
+            height: 40px;
+            line-height: 40px;
+            color: #fff;
+            -webkit-box-sizing: border-box;
+            text-align: center;
+        }
+
+        .red-lable-top {
+            top: 0;
+        }
+
+        .red-lable-bottom {
+            bottom: 0;
+        }
+
+        .gray-lable {
+            background-image: -webkit-linear-gradient(top, rgba(59, 59, 59, .6), rgba(27, 27, 27, .6), rgba(50, 50, 50, .4), rgba(31, 31, 31, .4));
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 30px;
+            line-height: 30px;
+            padding-left: 20px;
+            display: block;
+            color: #fff;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+
+        .right-lable {
+            text-align: end;
+            padding-left: 0;
+            padding-right: 5px;
+        }
+
+        .place-lable {
+            height: 25px;
+            line-height: 25px;
+            font-size: 14px;
+        }
+
+    </style>
+</head>
+<body>
+<div class="title" onclick="toDetail()" tapmode="">
+    <div class="time">限时抢购</div>
+    <div>更多 ></div>
+</div>
+<div id='slide' class='swipe'>
+    <div class='swipe-wrap' id="banner-content">
+        <div onclick="toDetail()" tapmode="">
+            <div class="slide-img">
+                <div class="red-lable red-lable-top">5折</div>
+                <img src="../image/t1.jpg">
+
+                <div class="gray-lable right-lable">10月21日 出发</div>
+            </div>
+            <div class="desc">
+                北京-西欧7晚9天极致自由行,北京往返布鲁塞尔+1晚酒店，极致西欧自由的行走
+            </div>
+            <div class="bottom">
+                <div class="left">
+                    <div class="price-desc">疯抢价</div>
+                    <span class="newPrice">￥3399</span>
+                </div>
+                <div class="right">
+                    <del>原价￥17799</del>
+                    <span>剩余<span class="">4</span>个名额</span>
+
+                    <div class="right-desc">特卖产品因名额有限，仅付款成功为抢购成功，如带来不便，敬请谅解！</div>
+                </div>
+            </div>
+        </div>
+        <div onclick="toDetail()" tapmode="">
+            <div class="slide-img">
+                <div class="red-lable red-lable-top">5折</div>
+                <img src="../image/t1-1.jpg">
+
+                <div class="gray-lable right-lable">10月21日 出发</div>
+            </div>
+            <div class="desc">
+                [4.4折]< 首尔4日当地游 >不含机票签证，五星酒店，3天自由活动
+            </div>
+            <div class="bottom">
+                <div class="left">
+                    <div class="price-desc">疯抢价</div>
+                    <span class="newPrice">￥3399</span>
+                </div>
+                <div class="right">
+                    <del>原价￥17799</del>
+                    <span>剩余<span class="">4</span>个名额</span>
+
+                    <div class="right-desc">特卖产品因名额有限，仅付款成功为抢购成功，如带来不便，敬请谅解！</div>
+                </div>
+            </div>
+        </div>
+        <div onclick="toDetail()" tapmode="">
+            <div class="slide-img">
+                <div class="red-lable red-lable-top">5折</div>
+                <img src="../image/t1-2.jpg">
+
+                <div class="gray-lable right-lable">10月21日 出发</div>
+            </div>
+            <div class="desc">
+                [5.5折]< 北京-岘港 /会安4晚6日半自助游 >机票加精选舒适酒店 赠接送机
+            </div>
+            <div class="bottom">
+                <div class="left">
+                    <div class="price-desc">疯抢价</div>
+                    <span class="newPrice">￥5599</span>
+                </div>
+                <div class="right">
+                    <del>原价￥17799</del>
+                    <span>剩余<span class="">4</span>个名额</span>
+
+                    <div class="right-desc">特卖产品因名额有限，仅付款成功为抢购成功，如带来不便，敬请谅解！</div>
+                </div>
+            </div>
+        </div>
+        <div onclick="toDetail()" tapmode="">
+            <div class="slide-img">
+                <div class="red-lable red-lable-top">5折</div>
+                <img src="../image/t1-3.jpg">
+
+                <div class="gray-lable right-lable">10月21日 出发</div>
+            </div>
+            <div class="desc">
+                [5.6折]< 北京-法瑞意10日游 >五渔村游览，塞纳河全景餐厅，圣吉米尼亚诺
+            </div>
+            <div class="bottom">
+                <div class="left">
+                    <div class="price-desc">疯抢价</div>
+                    <span class="newPrice">￥3399</span>
+                </div>
+                <div class="right">
+                    <del>原价￥17799</del>
+                    <span>剩余<span class="">4</span>个名额</span>
+
+                    <div class="right-desc">特卖产品因名额有限，仅付款成功为抢购成功，如带来不便，敬请谅解！</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="pointer">
+        <div class="active"></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+</div>
+<hr class="cut">
+<div class="title" onclick="toDetail()" tapmode="">
+    <div class="tour-type">欧洲</div>
+    <div>更多 ></div>
+</div>
+<div class="boxWrap">
+    <div class="img-box for3">
+        <div class="img-box-1" onclick="toDetail()" tapmode="">
+            <img src="../image/o-box-1.jpg">
+
+            <div class="red-lable red-lable-top place-lable">法国</div>
+        </div>
+        <div class="img-box-23">
+            <div class="img-box-2" onclick="toDetail()" tapmode="">
+                <img src="../image/o-box-2.jpg">
+
+                <div class="gray-lable right-lable place-lable">意大利</div>
+            </div>
+            <div class="img-box-3" onclick="toDetail()" tapmode="">
+                <img src="../image/o-box-3.jpg">
+
+                <div class="gray-lable right-lable place-lable">瑞士</div>
+            </div>
+        </div>
+    </div>
+</div>
+<ul class="content">
+    <li onclick="toDetail()" tapmode="">
+        <div class="item">
+            <div class="img">
+                <img src="../image/tour-1.jpg">
+            </div>
+            <div class="text">
+                <div class="text-title">[春节]< 法瑞意10-11日游 >瑞士深度，销量冠军，2人立减1000元</div>
+                <div class="text-price">
+                    <span class="new-price">￥3179</span>
+                    <del>原价￥3219</del>
+                </div>
+                <div class="text-label">
+                    <i class="icon icon-people"></i>
+                    <span>17512人出游</span>
+                    <i class="icon icon-heart"></i>
+                    <span>96%满意</span>
+                </div>
+            </div>
+        </div>
+    </li>
+    <li onclick="toDetail()" tapmode="">
+        <div class="item">
+            <div class="img">
+                <img src="../image/tour-2.jpg">
+            </div>
+            <div class="text">
+                <div class="text-title">[春节]< 法瑞意10或11日游 >销量过千，米兰，卢塞恩，罗马假日</div>
+                <div class="text-price">
+                    <span class="new-price">￥3179</span>
+                    <del>原价￥3219</del>
+                </div>
+                <div class="text-label">
+                    <i class="icon icon-people"></i>
+                    <span>17512人出游</span>
+                    <i class="icon icon-heart"></i>
+                    <span>96%满意</span>
+                </div>
+            </div>
+        </div>
+    </li>
+    <li onclick="toDetail()" tapmode="">
+        <div class="item">
+            <div class="img">
+                <img src="../image/tour-3.jpg">
+            </div>
+            <div class="text">
+                <div class="text-title">< 海南5日游 >销量第一，1整天蜈支洲，4晚180°海景</div>
+                <div class="text-price">
+                    <span class="new-price">￥3179</span>
+                    <del>原价￥3219</del>
+                </div>
+                <div class="text-label">
+                    <i class="icon icon-people"></i>
+                    <span>17512人出游</span>
+                    <i class="icon icon-heart"></i>
+                    <span>96%满意</span>
+                </div>
+            </div>
+        </div>
+    </li>
+    <li onclick="toDetail()" tapmode="">
+        <div class="item">
+            <div class="img">
+                <img src="../image/tour-4.jpg">
+            </div>
+            <div class="text">
+                <div class="text-title">< 法瑞意12-13日游 >THE MALL五渔村，少女峰，凡尔赛</div>
+                <div class="text-price">
+                    <span class="new-price">￥3179</span>
+                    <del>原价￥3219</del>
+                </div>
+                <div class="text-label">
+                    <i class="icon icon-people"></i>
+                    <span>17512人出游</span>
+                    <i class="icon icon-heart"></i>
+                    <span>96%满意</span>
+                </div>
+            </div>
+        </div>
+    </li>
+</ul>
+<hr class="cut">
+<div class="title" onclick="toDetail()" tapmode="">
+    <div class="tour-type">出境跟团游</div>
+    <div>更多 ></div>
+</div>
+<div class="boxWrap">
+    <div class="img-box for4">
+        <div class="img-box-1" onclick="toDetail()" tapmode="">
+            <img src="../image/o-box-4.jpg">
+
+            <div class="red-lable red-lable-bottom place-lable" style="">迪拜</div>
+        </div>
+        <div class="img-box-234">
+            <div class="img-box-2" onclick="toDetail()" tapmode="">
+                <img src="../image/o-box-5.jpg">
+
+                <div class="gray-lable right-lable place-lable">日本</div>
+            </div>
+            <div class="img-box-34">
+                <div class="img-box-3" onclick="toDetail()" tapmode="">
+                    <img src="../image/o-box-6.jpg">
+
+                    <div class="gray-lable right-lable place-lable">美国</div>
+                </div>
+                <div class="img-box-4" onclick="toDetail()" tapmode="">
+                    <img src="../image/o-box-7.jpg">
+
+                    <div class="gray-lable right-lable place-lable">瑞士</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<ul class="content">
+    <li onclick="toDetail()" tapmode="">
+        <div class="item">
+            <div class="img">
+                <img src="../image/tour-5.jpg">
+            </div>
+            <div class="text">
+                <div class="text-title">< 迪拜-阿布扎比-沙迦6日游 >每周三特价，升级酒店，国航</div>
+                <div class="text-price">
+                    <span class="new-price">￥3179</span>
+                    <del>原价￥3219</del>
+                </div>
+                <div class="text-label">
+                    <i class="icon icon-people"></i>
+                    <span>17512人出游</span>
+                    <i class="icon icon-heart"></i>
+                    <span>96%满意</span>
+                </div>
+            </div>
+        </div>
+    </li>
+    <li onclick="toDetail()" tapmode="">
+        <div class="item">
+            <div class="img">
+                <img src="../image/tour-6.jpg">
+            </div>
+            <div class="text">
+                <div class="text-title">< 日本本州6日游 >1天自由活动，销售冠军，途牛独家包团</div>
+                <div class="text-price">
+                    <span class="new-price">￥3179</span>
+                    <del>原价￥3219</del>
+                </div>
+                <div class="text-label">
+                    <i class="icon icon-people"></i>
+                    <span>17512人出游</span>
+                    <i class="icon icon-heart"></i>
+                    <span>96%满意</span>
+                </div>
+            </div>
+        </div>
+    </li>
+    <li onclick="toDetail()" tapmode="">
+        <div class="item">
+            <div class="img">
+                <img src="../image/tour-7.jpg">
+            </div>
+            <div class="text">
+                <div class="text-title">< 夏威夷双岛8日游 >双岛恋，赠2500元火山岛游，小环岛游，直飞</div>
+                <div class="text-price">
+                    <span class="new-price">￥3179</span>
+                    <del>原价￥3219</del>
+                </div>
+                <div class="text-label">
+                    <i class="icon icon-people"></i>
+                    <span>17512人出游</span>
+                    <i class="icon icon-heart"></i>
+                    <span>96%满意</span>
+                </div>
+            </div>
+        </div>
+    </li>
+    <li onclick="toDetail()" tapmode="">
+        <div class="item">
+            <div class="img">
+                <img src="../image/tour-8.jpg">
+            </div>
+            <div class="text">
+                <div class="text-title">< 海南5日游 >销量第一，1整天蜈支洲，4晚180°海景</div>
+                <div class="text-price">
+                    <span class="new-price">￥3179</span>
+                    <del>原价￥3219</del>
+                </div>
+                <div class="text-label">
+                    <i class="icon icon-people"></i>
+                    <span>17512人出游</span>
+                    <i class="icon icon-heart"></i>
+                    <span>96%满意</span>
+                </div>
+            </div>
+        </div>
+    </li>
+</ul>
+<script type="text/javascript" src="../script/zepto.min.js"></script>
+<script type="text/javascript" src="../script/swipe.js"></script>
+<script>
+    apiready = function () {
+        initSlide();
+    };
+    function initSlide() {
+        var $slide = $('#slide');
+        var $pointer = $('#pointer').find("div");
+        window.mySlide = Swipe(slide, {
+            startSlide: 1,
+            auto: 3000,
+            continuous: true,
+            disableScroll: true,
+            stopPropagation: true,
+            callback: function (index, element) {
+                var $actPoint = $('#pointer').find('div.active');
+                $actPoint.removeClass('active');
+                $pointer.eq(index).addClass('active');
+            },
+            transitionEnd: function (index, element) {
+
+            }
+        });
+    }
+    function toDetail() {
+        api.openWin({
+            name: "win_toursDetail",
+            url: 'win_toursDetail.html'
+        })
+    }
+</script>
+</body>
+</html>

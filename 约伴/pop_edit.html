@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+  <head>
+    <title>
+    </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="css/ui-img.css">
+    <link rel="stylesheet" href="css/ui-res.css">
+    <link rel="stylesheet" href="css/ui-list.css">
+    <link rel="stylesheet" href="css/ui-base.css">
+    <link rel="stylesheet" href="css/ui-box.css">
+    <link rel="stylesheet" href="css/ui-color.css">
+	<link rel="stylesheet" href="css/ui-tab.css">
+	<link rel="stylesheet" href="css/ui-input.css">
+	<link rel="stylesheet" href="css/style.css">
+    <script src="js/y_control.js"></script>
+    <script src="js/y_click.js"></script>
+	<script src="js/dis_control.js"></script>
+    <script>
+	</script>
+  </head>
+<body class="um-vp" ontouchstart="zy_touch('')" onclick="closepop();">
+	<div id="footer" class="ub c-m2 c-bla uinn">
+		<div class="t-bla ub uba uc-a2 b-gra c-wh us-i uinput ub-rev uinn4 ub-f1">	
+			<div class="ub-f1 uinn1">
+		   		<input placeholder="search" type="text" class="" style="background:none;">
+			</div> 
+		</div>
+		<img src="images/facebtn.png" class="facebtn" />
+    </div>
+</body>
+<script>
+zy_init();
+var index = getstorage('indexp');
+window.uexOnload = function ()
+{
+	var id = 'r'+index;
+	logs('uexOnload()-->id='+id);
+	var e = $$(id);
+	if(e) e.checked = true;
+}
+function closepop(){
+	uescript('morelist', 'checkbx();');
+	uexWindow.closePopover('pop');
+}
+function selected(i){
+	var id = 'txt'+i;
+	var str = $$(id).innerText;
+	var scr = 'selected("'+i+'", "'+str+'");';
+	uescript('morelist', scr);
+}
+</script>
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+<head>
+    <title></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="css/ui-btn.css">
+    <link rel="stylesheet" href="css/ui-img.css">
+    <link rel="stylesheet" href="css/ui-res.css">
+    <link rel="stylesheet" href="css/ui-list.css">
+    <link rel="stylesheet" href="css/ui-base.css">
+    <link rel="stylesheet" href="css/ui-box.css">
+    <link rel="stylesheet" href="css/ui-input.css">
+    <link rel="stylesheet" href="css/ui-color.css">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/y_control.js"></script>
+	<script src="js/y_click.js"></script>
+	<script src="js/dis_control.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/y_json.js"></script>
+    <script src="js/socketio/talkUtil.js"></script>
+    <script>
+    </script>
+
+    <style>
+        .uinn-r{
+            padding:0 0 0 0.5em;
+        }
+    </style>
+</head>
+<body class="um-vp c-gra5" ontouchstart>
+    <div id="page_0" class="up ub ub-ver" tabindex="0">
+        <!--header开始-->
+        <div id="header" class="c-blu3 uh">
+        	<div class="c-m2 t-wh">
+				<a class="btn btn-l btn-a ub ub-ac" ontouchstart="zy_touch('btn-act1')" onclick="closewin();">       
+					<div class="ulim"><img src="images/back.png" class="sbtn"></div>
+				</a>
+                <h1 class="ut ulev0 ut-s tx-c" tabindex="0" id="ttl">验证单位或高校邮箱</h1>
+                <a class="btn btn-r btn-n ub ub-ac" ontouchstart="zy_touch('btn-act1')" onclick="submit();">
+                    <div class="ulim">保存</div>
+                </a>
+			</div>
+			<div style="height:1px;"></div>
+        </div>
+        <!--header结束-->
+        <div class="t-bla ub-ac umh6"  id="content">
+
+        </div>
+        <div class="t-bla ub-ac lis">
+            <div class="uinn" id="company"></div>
+            <div class="umar-t1 umar-b1" id="cmnum">
+                <div class="uinn tx-c ulev0 c-gra">说明</div>
+            </div>
+            <div class="uinn-r">
+                <div class="t-gra1 umar-b2">1.&nbsp;我们将往你所输入邮箱发送验证邮件，请点击邮件里的验证链接以完成验证。</div>
+                <div class="t-gra1 umar-b2">2.&nbsp;我们确保你只会收到验证邮件。</div>
+                <div class="t-gra1">3.&nbsp;如果没收到验证邮件，请检查垃圾邮件箱中是否存在。</div>
+                <div class="uc-n ub ub-pc ub-ac uinn8" ontouchstart="zy_touch('c-gra')" onclick="sendMsg();">
+                    <div class="lis-th3 ub-img5 uc-a1" id = "avat"></div>
+                    <div class="t-gra ulev-1">有疑问请点我</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+zy_init();
+window.uexOnload = function(type){
+    if (!type) {
+        zy_con("content", "company_verify_content.html", 0, $$("header").offsetHeight, 'false');//不弹动
+    }
+	window.onorientationchange=window.onresize=function()
+	{
+		zy_resize("content",0,$$("header").offsetHeight);				
+	};
+    setHtml('avat', '<img src="' + guc + serviceuid + '" class="inforpic" id="system_uid">');
+};
+function submit(){
+    ueppscript('company_verify', 'content', 'submit();');
+}
+function email_oninput(email, rolemoduleid){
+    email = encodeURIComponent(email);
+    //获取单位名称，并显示
+    var url = forum_url + '&mod=ajax&action=checkemail&prompt=1&email=' + email + '&rolemoduleid=' + rolemoduleid;
+    /*    var x = new Ajax('HTML');//测试是否用原生的ajax能保留键盘的显示
+     x.get(url, cbSuggest);*/
+    var params = {
+        url     : url,
+        dataType: 'text',
+        callback: cbSuggest
+    };
+    Y.ajax(params);
+}
+function cbSuggest(s, err){
+    if(!s) return;
+    s = trim(s);
+    var str = '';
+    var json = result_json(s);
+    if(force_int(json.status) && json.company) {
+        str = json.company;
+    }else if(json.message) {
+        str = json.message;
+    }
+    setHtml('company', str);
+    //ueppscript('company_verify', 'content', "setHtml('" + str + "')");
+}
+function sendMsg(){
+    //调用websocket聊天界面开始聊天
+    var room_id=getRoomIdP2P(getstorage('UID'), serviceuid);
+    setstorage('currentRoomId',room_id);//加入某个聊天室。
+    setstorage('currentRoomId_title','约伴小秘');//标题。
+    openwin('msg_detail_yb','msg_detail_yb.html','10');
+}
+</script>
+</html>

@@ -1,0 +1,94 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no" />
+    <title>Hello APP</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/common.css" />
+    <link rel="stylesheet" href="../../css/light.css" class="light-style">
+    <link rel="stylesheet" href="../../css/dark.css" class="dark-style" disabled>
+    <style>
+
+    </style>
+</head>
+<body id="index">
+    <div id="wrap">
+        <div id="header">
+            <div class="header-content clearfix">
+                <div class="header-btn-back pull-left" tapmode="tap-active" onclick="api.closeWin();">
+                    <i class="icon-back"></i>
+                    <span class="btn-back-title">糗事 90000099</span>
+                </div>
+            </div>
+        </div>
+        <div id="main">
+                
+        </div>
+        <div id="footer" class="qiushi-detail">
+            <div class="btn-send pull-right" tapmode="tap-active" onclick=""></div>
+            <div class="qiushi-detail-send">
+                <textarea rows="1" id="qiushi-detail-textarea" placeholder="说点什么吧…"></textarea>
+                <!-- <textarea name="" id="" cols="30" rows="10"></textarea> -->
+            </div>
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/theme.js"></script>
+<script type="text/javascript" src="../../script/common.js"></script>
+<script type="text/javascript">
+// 糗事的选项菜单
+    var toShareOption = function(id){
+        api.openFrame({
+            name: 'share-option',
+            url: '../float/share-option.html',
+            bounces: false,
+            pageParam: {
+                id: id
+            },
+            rect: {
+                x: 0,
+                y: 0,
+                w: 'auto',
+                h: 'auto'
+            }
+        });
+    };
+    apiready = function(){
+
+        window.header = $api.byId('header');
+        window.headerTabBar = $api.dom('.qiushi-tabBar');
+        $api.fixIos7Bar(header); 
+        var headerPos = $api.offset(header);
+        window.main = $api.byId('main');
+        var mainPos = $api.offset(main);
+        var btnBackTitle = $api.dom('.btn-back-title');
+        var qiushiId = api.pageParam.id;
+        btnBackTitle.innerHTML = '糗事 '+qiushiId;
+
+        api.openFrame({
+            name: 'qiushi-detail-con',
+            url: './qiushi-detail-con.html',
+            bounces: false,
+            rect: {
+                x: 0,
+                y: headerPos.h,
+                w: 'auto',
+                h: mainPos.h
+            }
+        });
+        // var obj = api.require('inputField');
+        // obj.open({
+        //     bgColor:'#708090',
+        //     lineColor:'#C71585',
+        //     fileBgColor:'#90EE90',
+        //     borderColor:'#FFB6C1',
+        //     sendImg:'widget://res/sendImg.png'
+        // },function(ret,err) {
+        //     api.alert({title: '输入的内容', msg: ret.msg});
+        // });
+    };
+</script>
+</html>

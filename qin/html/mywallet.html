@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+     <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+     <link rel="stylesheet" href="../css/api.css">
+     <link rel="stylesheet" href="../css/common.css">
+    <title>我的钱包</title>
+    <style>
+       #header span{
+       
+        height: 44px;
+        line-height: 44px;
+
+       }
+
+       /*.head-left{
+        float: left;
+        margin-left:10px;
+       font-size: 11pt;
+       background: url(../image/wallet_base_action_bar_back_normal.png) no-repeat;
+       background-position: left center;
+       background-size: 30% 75%;
+       margin-left: -5px;
+       }
+
+       .head-left p{
+        margin-left: 15px;
+       }*/
+       .head-left{
+        float: left;
+        margin-left:10px;
+       font-size: 11pt;
+       background: url(../image/wallet_base_action_bar_back_normal.png) no-repeat;
+       background-position: left center;
+       background-size: 30% 30%;
+       margin-left: -5px;
+       }
+
+       .head-left p{
+        margin-left: 30px;
+        margin-top:1px;
+       }
+       
+       #main{
+            background: #E6E6E6;
+            margin: 0;
+            padding: 0;
+
+       }
+       #summary0{
+        height:150px;
+        width: 100%;
+        background: #FF7930;
+        color: white;
+
+       }
+       .center{
+          width: 150px;
+          margin:0 auto;
+       }
+        .center span{
+          padding-top: 20px;
+
+        }
+
+        .center span label{
+          padding-left: 5px;
+
+        }
+        em{
+
+          font-size: 18pt;
+        }
+       .summary ul{
+        height: 55px;
+        line-height: 1.5;
+        background: white;
+
+       }
+        .summary li{
+          display: block;
+         float: left;
+         width: 33.3%;
+         margin-top:5px;
+         height: 45px;
+         
+        /*  padding-left:10px;*/
+
+        }
+
+        .summary li:after{
+           content: "|";
+           display:block;
+           color: gray;
+           width:1px;
+           font-size:30px;
+          
+           position: relative;
+           left:-8px;
+           top: -50px;
+
+        }
+      .row{
+       display: block;
+       text-align: center;
+       margin: 0px;
+       padding:0px;
+  
+      }
+      
+
+      .detail ul{
+        height: auto;
+        /*line-height: 1.5;*/
+        background: white;
+        margin: 10px auto;
+        padding-left: 20px;
+       
+
+       }
+
+       .detail li{
+        height: 35px;
+        /*font-weight: bold;*/
+        line-height: 30px;
+        z-index: 0;
+        position: relative;
+        padding-top: 5px;
+         padding-bottom: 5px;
+        
+
+       }
+
+
+       
+      
+     .detail li span.arrow{
+        width: 14px;
+        height: 14px;
+        background:url(../image/wallet_base_indicator_arrow.png) no-repeat center center !important;
+        z-index: 100 !important;
+        position: absolute;
+        top:10px;
+        right: 5px;
+
+        
+      }
+      #btn{
+         position: relative;
+         margin-top:  15px;
+          background: #E6E6E6;
+      }
+      #btncash{
+       
+         margin-left: 5%;
+         width: 90%;    
+
+         height: 32px;
+        
+         background: #FF7930;
+         color: white;
+         
+
+
+       }
+       .cash{
+          margin-bottom: 10px;
+          margin-top: 15px;        
+          background:white;
+          height: 32px;         
+
+       }
+      
+    </style>
+</head>
+<body>
+    <div id="wrap">
+        <div id="header">
+            
+            <span class="head-left" tapmode onclick="goback()"><p>我的钱包</p></span>
+            
+        </div>
+        <div id="main">
+            <div id="summary0">
+               <div class="center">
+                  <span class="row">累计收入</span>
+                  <span class="row">￥<em>0</em></span>
+                  <span class="row">可提现金额<label>￥32</label></span>
+               </div>
+              
+            </div>
+             <div class="summary">
+                <ul id="summary">
+                  <li>
+                    
+                     <span class="row"><h3>￥30</h3></span>
+                      <span class="row">账户余额</span>
+                  </li>
+                  <li>
+                   
+                     <span class="row"><h3>￥40</h3></span>
+                      <span class="row">累计消费</span>
+                  </li>
+
+                  <li>
+                    
+                     <span class="row"><h3>￥0</h3></span>
+                     <span class="row">已经提现</span>
+                  </li>
+                </ul>
+
+             </div>
+              
+             <div class="detail">
+               <ul id="detail">
+                 <li tapmode="" onclick="openopex()">收支明细<span class="arrow"></span></li>
+                 <li tapmode="" onclick="openwithdraw()">提现记录<span class="arrow"></span></li>
+               </ul>
+             </div>
+             <div id="btn">
+            <input type="button" class="cash arrow" id="btncash" value="提现" />
+            </div>
+    </div>
+        </div>
+          
+ <script type="text/javascript" src="script/api.js"></script>
+ 
+<script type="text/javascript" src="../script/common.js"></script>  
+<script type="text/javascript">
+ function openopex(){
+  api.openWin({
+	  name: 'opex',
+	  url: 'opex.html'
+  });
+ }
+ function openwithdraw(){
+  api.openWin({
+	  name: 'withdraw',
+	  url: 'withdraw-list.html'
+  });
+ }
+ </script>
+</body>
+</html>

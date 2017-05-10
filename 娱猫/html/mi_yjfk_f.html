@@ -1,0 +1,85 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>意见反馈</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/common.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/ly.css"/>
+</head>
+<body>
+<div id="wrap">
+    <div id="main">
+    	<div class="ly_fk">
+    		<p class='current'>商品</p>
+    		<ul class="fk_list none">
+				<li>商品</li>
+				<li>物流</li>
+				<li>客服</li>
+				<li>APP</li>
+			</ul>
+    	</div>
+    	<textarea class="fk_cont"></textarea>
+    </div>
+</div>	
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/font.js"></script>
+<script type="text/javascript" src="../script/zepto.js"></script>
+<script type="text/javascript" src="../script/ly.js"></script>
+<script type="text/javascript" src="../script/comm.js"></script>
+<script>
+	function save(){
+		var param={};
+	 	var ty_name=$('.current').text();
+		var ty_content=$.trim($('.fk_cont').val());
+		if(ty_content==''){
+			api.toast({
+	            msg:'请输入反馈内容'
+            });
+            return false;
+		}
+//	alert(ty_content);
+	var info=is_login();
+	if(!info){
+		to_login();
+		return false;
+	}
+	
+	for(var p in info){
+		param[p]=info[p];
+	}
+	 ajaxRequest('user/user_fk', 'post',{param:param,ty_name:ty_name,ty_content:ty_content},function(ret,err){//
+	    if (err) {
+			api.toast({
+				msg : err.msg
+			});
+			return false;
+		}
+		if (ret.status) {			
+			api.toast({
+					msg : '提交成功'
+				});
+				setTimeout(function(){
+	        	api.closeWin();
+	        		},800)				
+		} else {		
+			api.toast({
+				msg : '提交失败'
+			});
+		}
+	});
+		
+//		api.toast({
+//	        msg:'提交成功'
+//      });
+        
+        
+	}
+</script>
+</html>
+
+
+
+

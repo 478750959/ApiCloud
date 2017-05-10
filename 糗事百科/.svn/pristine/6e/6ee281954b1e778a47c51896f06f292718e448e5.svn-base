@@ -1,0 +1,348 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>APP</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/common.css" />
+    <link rel="stylesheet" href="../../css/light.css" class="light-style">
+    <link rel="stylesheet" href="../../css/dark.css" class="dark-style" disabled>
+    <style>
+        .profile .profile-shadow{
+            height: 59px;
+        }
+        .profile-top-container{
+            padding-left: 0.75em;
+        }
+        .icon-profile-box{
+            width: 50px;
+            height: 50px;
+            border-radius: 50px;
+        }
+        .icon-profile-box img{
+            width: 50px;
+            height: 50px;
+            border-radius: 50px;
+            display: block;
+        }
+        .profile-right{
+            margin-left: 74px;
+            padding-top: 0.3em;
+        }
+        .profile-right .user-name{
+            font-size: 0.75em;
+            display: block;
+            margin-bottom: 0.2em;
+            text-shadow: 1px 1px 0 #000;
+        }
+        .profile-right .brief{
+            font-size: 0.625em;
+            text-shadow: 1px 1px 0 #000;
+        }
+        .profile-right .icon-edit-brief{
+            width: 1em;
+            height: 1em;
+            vertical-align: middle;
+            display: none;
+        }
+        .profile-tabBar{
+            display: block;
+            height: 36px;
+            position: relative;
+        }
+        .profile-tabBar .bottom-btn{
+            display: block;
+            width: 50%;
+            height: 36px;
+            text-align: center;
+            line-height: 36px;
+
+        }
+        .bottom-spliter{
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 1px;
+            height: 24px;
+            -webkit-transform: translate(-50%,-50%);
+                    transform: translate(-50%,-50%);
+        }
+        .profile-slidBar{
+            position: absolute;
+            width: 50%;
+            height: 4px;
+            left: 0;
+            bottom: 0;
+            -webkit-transition: all .25s;
+                    transition: all .25s;
+        }
+        .profile-box{
+            display: none;
+            padding: 0.6em 0;
+        }
+        .profile-list{
+
+        }
+        .profile-list li{
+            height: 48px;
+        }
+        .profile-list-title{
+            width: 100px;
+            height: 48px;
+            line-height: 48px;
+            text-align: center;
+            font-size: 0.9em;
+        }
+        .profile-list-right{
+            margin-left: 100px;
+            font-size: 0.9em;
+            height: 48px;
+            line-height: 48px;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+            display: block;
+        }
+        .profile-qiushi-box{
+            display: none;
+            padding: 0.6em;
+        }
+    </style>
+</head>
+<body class="profile">
+    <div id="wrap">
+        <div id="main" class="">
+            <div class="profile-top-container">
+                <div class="profile-shadow"></div>
+                <div class="icon-profile-box pull-left">
+                    <img src="../../image/09-014416_603.jpg" alt="" class="profile-icon">
+                </div>
+                <div class="profile-right">
+                    <span class="user-name">糗百糗百</span>
+                    <span class="brief">
+                        <i class="icon-edit-brief" tapmode="tap-active" onclick=""></i>
+                        这个家伙很懒，啥也没写
+                    </span>
+                </div>
+            </div>
+            <div class="profile-tabBar">
+                <div class="pull-left bottom-btn active" tapmode="tap-active" onclick="changeProfileContent(0)">
+                    简介
+                </div>
+                <div class="pull-left bottom-btn" tapmode="tap-active" onclick="changeProfileContent(1)">
+                    糗事
+                </div>
+                <div class="bottom-spliter"></div>
+                <div class="profile-slidBar">
+                    
+                </div> 
+            </div>
+            <div class="profile-box">
+                <ul class="profile-list">
+                    <li>
+                        <span class="profile-list-title pull-left">
+                            年龄性别
+                        </span>
+                        <span class="profile-list-right">
+                            <span class="profile-age male">
+                                <i class="icon-gender"></i>
+                                18
+                            </span>
+                            处女座
+                        </span>
+                    </li>
+                    <li>
+                        <span class="profile-list-title pull-left">
+                            兴趣爱好
+                        </span>
+                        <span class="profile-list-right">
+                            挺多的
+                        </span>
+                    </li>
+                    <li>
+                        <span class="profile-list-title pull-left">
+                            常出没地
+                        </span>
+                        <span class="profile-list-right">
+                            公司
+                        </span>
+                    </li>
+                    <li>
+                        <span class="profile-list-title pull-left">
+                            个人说明
+                        </span>
+                        <span class="profile-list-right">
+                            没有了
+                        </span>
+                    </li>
+                    <li>
+                        <span class="profile-list-title pull-left">
+                            注册时间
+                        </span>
+                        <span class="profile-list-right">
+                            2011-11-11
+                        </span>
+                    </li>
+                    <li>
+                        <span class="profile-list-title pull-left">
+                            爪机品牌
+                        </span>
+                        <span class="profile-list-right">
+                            NOKIA
+                        </span>
+                    </li>
+                </ul>
+            </div>
+            <div class="profile-qiushi-box">
+                <div class="qiushi-box">
+                    <div class="qiushi-content-text" tapmode="tap-active" onclick="indexToQiushiDetail(this);" data-id="90000099">
+                        <p class="text">觉得挺好笑！。。。。究竟要多少字？</p>
+                    </div>
+                    <div class="qiushi-content-img" tapmode="tap-active" onclick="indexToQiushiDetail(this);" data-id="90000099">
+                        <img src="../../image/app95680733.jpg" alt="">
+                    </div>
+                    <div class="status-box">
+                        <span class="agree">
+                            <span class="agree-count">1000</span>
+                            好笑&nbsp;·
+                        </span>
+                        <span class=" comment">
+                            <span class=" comment-count">1000</span>
+                            评论
+                        </span>
+                    </div>
+                    <div class="btns-group clearfix">
+                        <div class="icon icon-agree pull-left" tapmode="tap-active" onclick=""></div>
+                        <div class="icon icon-disagree pull-left" tapmode="tap-active" onclick=""></div>
+                        <div class="icon icon-comment pull-left" tapmode="tap-active" onclick="indexToQiushiDetail(this);" data-id="90000099"></div>
+                        <div class="icon icon-share" tapmode="tap-active" onclick="indexToShareOption(this)" data-id="100100004"></div>
+                    </div>
+                </div>
+                <div class="qiushi-box">
+                    <div class="qiushi-content-text" tapmode="tap-active" onclick="indexToQiushiDetail(this);" data-id="90000099">
+                        <p class="text">觉得挺好笑！。。。。究竟要多少字？</p>
+                    </div>
+                    <div class="qiushi-content-img" tapmode="tap-active" onclick="indexToQiushiDetail(this);" data-id="90000099">
+                        <!-- <img src="../../image/app95680733.jpg" alt=""> -->
+                    </div>
+                    <div class="status-box">
+                        <span class="agree">
+                            <span class="agree-count">1000</span>
+                            好笑&nbsp;·
+                        </span>
+                        <span class=" comment">
+                            <span class=" comment-count">1000</span>
+                            评论
+                        </span>
+                    </div>
+                    <div class="btns-group clearfix">
+                        <div class="icon icon-agree pull-left" tapmode="tap-active" onclick=""></div>
+                        <div class="icon icon-disagree pull-left" tapmode="tap-active" onclick=""></div>
+                        <div class="icon icon-comment pull-left" tapmode="tap-active" onclick="indexToQiushiDetail(this);" data-id="90000099"></div>
+                        <div class="icon icon-share" tapmode="tap-active" onclick="indexToShareOption(this)" data-id="100100004"></div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/theme.js"></script>
+<script type="text/javascript" src="../../script/bindSwipe.js"></script>
+<script type="text/javascript" src="../../script/common.js"></script>
+<script type="text/javascript">
+// 计算 profile-top-container的高度
+    var profileTopContainer = $api.dom('.profile-top-container');
+    var setContainerHeight = function(){
+        var width = $api.offset(profileTopContainer).w;
+        var height = parseInt(width/2.16);
+        $api.css(profileTopContainer,'height:'+height+'px');
+    };
+    
+// 绑定轻划调出隐藏底部按钮组
+    var showBottomTabBar = function(){
+        if ($api.getStorage('profileTabBarLock') == 'hidden') {
+            $api.setStorage('profileTabBarLock','shown');
+            api.setFrameAttr({
+                name: 'profile-bottom',
+                hidden: false
+            });
+        } else{
+
+        }
+    };
+// 解绑定轻划调出隐藏底部按钮组  
+    var hideBottomTabBar = function(){
+        if ($api.getStorage('profileTabBarLock') == 'shown') {
+            $api.setStorage('profileTabBarLock','hidden');
+            api.setFrameAttr({
+                name: 'profile-bottom',
+                hidden: true
+            });
+        } else{
+   
+        } 
+    };
+    var bind = function(){
+        showBottomTabBar();
+        window.bindSwipe = new BindSwipe(document,{
+            // dir: 'y',
+            swipeUpFn: function(){
+                hideBottomTabBar()
+            },
+            swipeDownFn: function(){
+                showBottomTabBar()
+            }
+        });
+    };
+// 切换tabBar按钮状态
+    var aProfileTabBarBtn = $api.domAll('.profile-tabBar .bottom-btn');
+    var profileSlidBar = $api.dom('.profile-slidBar');
+    var changeProfileBar = function(index){
+        if (index == 0) {
+            $api.addCls(aProfileTabBarBtn[0],'active');
+            $api.removeCls(aProfileTabBarBtn[1],'active');
+            profileSlidBar.style.left = '0';
+        } else{
+            $api.addCls(aProfileTabBarBtn[1],'active');
+            $api.removeCls(aProfileTabBarBtn[0],'active');
+            profileSlidBar.style.left = '50%';
+        }
+    };
+    var profileBox = $api.dom('.profile-box');
+    var profileQiushiBox = $api.dom('.profile-qiushi-box');
+    var changeProfileContent = function(index){
+        changeProfileBar(index);
+        if (index == 0) {
+            profileBox.style.display = 'block';
+            profileQiushiBox.style.display = 'none';
+        } else{
+            profileBox.style.display = 'none';
+            profileQiushiBox.style.display = 'block';
+        }
+    };
+
+    apiready = function(){
+        setContainerHeight();
+        var frameName = api.frameName;
+        addFrame(frameName);
+        var type = api.pageParam.type;
+        var index = api.pageParam.index;
+        var iconEditBrief = $api.dom('.icon-edit-brief');
+        if (type == 'ta') {
+            bind();  
+        } else{
+            iconEditBrief.style.display = 'inline-block';
+            hideBottomTabBar();
+        }
+        if (index == 'ta') {
+            changeProfileContent(1);
+        } else{
+            changeProfileContent(0);
+        }
+
+    }
+</script>
+</html>

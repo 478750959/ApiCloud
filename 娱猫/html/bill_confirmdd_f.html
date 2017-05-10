@@ -1,0 +1,1066 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>我的订单</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/jq.css"/>
+    <style>
+    	.shop_price{
+    		color:#ff7f87;
+    	}
+    	.numu p{
+    		float:right;
+    		margin-right:0.2rem;
+    		margin-left:0.5rem;
+    		margin-top:0;
+    	}
+    	.numu span{
+    		float:right;
+    		margin:0;
+    	}
+    	.xyc_jjj{
+    		color:#ff7f87;
+    	}
+    	.my_type2{
+    		height: 1rem;
+			margin-top: 0.5rem;
+    	}
+    	.icon{
+    		background:url(../image/bill_qrdd_icon.png) no-repeat right top;
+    		background-size:0.44rem 0.44rem;
+    	}
+    	.buynum{
+    		margin-bottom:0.2rem;
+    	}
+    </style>
+</head>
+<body>
+	<script id="confirmed" type="text/x-dot-template">
+		 {{ for(var i in it) { }}
+		<ul class="ly_list">
+			<li>
+				<dl class="clearfix">
+					<dt><img src="{{=it[i].goods_logo}}"></dt>
+					<dd>
+						<div class="cont">
+							<h2>{{=it[i].goods_name}}</h2>
+							<p>{{=it[i].goods_attribute}}</p>
+						</div>
+						<div class="price">
+							<p>￥<em class="xyc_jjj">{{=it[i].shop_price}}</em></p>
+						</div>
+					</dd>
+				</dl>
+			</li>
+			<li class="buynum fix">
+				<p>购买数量</p>
+				<span class="jian">-</span>
+				<input type="number" value="{{=it[i].goods_number}}" class="mid" />
+				<span class="add">+</span>
+			</li>
+			<!--<li class="buynum bri fix">
+				<p>配送方式</p>
+				<span class="jian money">快递10.00元</span>
+			</li>-->
+		</ul>
+		{{ } }}
+	</script>
+	<div id="main">
+		<div class="ly_address" onclick="openNext('mi_set_head_w',5)">
+			<p>
+				<span class="name"></span>
+				<span class="tel"></span>
+				<input type="hidden" value="" class="addr_id">
+			</p>
+			<p class="isaddr addr"></p>
+		</div>
+		<div id = "shopping"></div>
+		<ul class="ly_list pay">
+			<li class="buynum bri fix">
+				<p>选择支付方式</p>
+				<span id='my_type'  class="jian money"></span>
+			</li>		
+			<li  class="my_type1">
+					<dl class="fix">
+						<dt><img src="../image/conf_img3.jpg"></dt>
+						<dd>
+							<div class="cont">
+								<h2>微信支付</h2>
+								<p>推荐已安装微信客户端的用户使用</p>
+							</div>
+						</dd>
+					</dl> 
+			</li>	
+				<li class="my_type2">
+					<dl class="fix">
+						<dt><img src="../image/conf_img2.jpg"></dt>
+						<dd>
+							<div class="cont">
+								<h2>支付宝支付</h2>
+								<p>推荐已安装支付宝户端的用户使用</p>
+							</div>
+						</dd>
+					</dl>
+			</li>	
+		</ul>	
+		<div class="S_liuyan">
+			<textarea placeholder="给卖家留言"  class="remark"></textarea>
+	    </div>
+	    <div class="numu clearfix">
+		    
+		    <p>合计<a herf="#" >￥<em class="shop_price"></em></a></p>
+		    <span>共<a href="#" class="xyc_jianshu"></a>件商品</span>
+	    </div>
+	</div>	
+	<!--<footer class="xyc_footer" id="footer"  dj=1  onclick="buy(1)">
+	   	立即购买
+    </footer>-->
+    <input type="hidden"   name="pay_type" value="0">
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/font.js"></script>
+<!--<script type="text/javascript" src="../script/debug.js"></script>-->
+<script type="text/javascript" src="../script/zepto.js"></script>
+<script type="text/javascript" src="../script/doT.min.js"></script>	
+<script type="text/javascript" src="../script/comm.js"></script>
+<script type="text/javascript" src="../script/ly.js"></script>
+<script>
+	function up_data(){
+		 //发送到mi_f的监听事件
+		       api.sendEvent({
+                	name:'num_change'
+                });
+		       //发送到购物车编辑的监听事件		      
+			     api.sendEvent({
+			       name: 'del_dd1'			  
+			   });
+			   
+			   api.sendEvent({
+			       name: 'get_tab'			  
+			   });	
+			   api.sendEvent({
+		        	name:'to_buy'
+		        });		  			   
+		       //发送到购物车的头部的监听事件。
+		       api.sendEvent({
+		           name:'xyc_price',
+		       })
+	}
+	function  set_addr(name,tel,addr,addr_id,Zip){
+		api.closeWin({
+        	name:'mi_set_head_w'
+        });
+		$('.name').html(name);
+		$('.tel').html(tel);
+		$('.isaddr').html(addr);
+		$('.addr_id').val(addr_id);		
+	}
+	function openNext(xyc,count) {
+		if($api.getStorage('ORDER') || api.pageParam.status=='3'){
+			api.toast({
+                msg:'订单已生成，无法修改收货地址！'
+            });
+			return false;
+		}
+        api.openWin({
+            name: xyc,
+            url: xyc+'.html',
+            opaque: true,
+            reload:true,
+            pageParam:{ count: count,shop:1},
+            vScrollBarEnabled: false
+        });
+    }
+    var info;
+	var param  = {};
+	var status;
+	var data;
+	var id;
+	var address;
+	var OrderNo;
+	apiready = function () {	
+		//检测是否安装了微信客户端
+		if (api.systemType == 'ios'){
+			 	var  appBundle = 'wechat://';
+			    app_installed(appBundle,function(ret){
+			    	if(!ret){			    		
+			    		$('.buynum').addClass('none');
+			    		$('.my_type1').addClass('none');
+			    		$('.my_type1').siblings().addClass('icon');				    		
+			    		$('input[name=pay_type]').val(2);		    		
+			    	}
+			    });			    
+			} 					
+//		alert(api.pageParam.OrderNo);
+		$('.my_type1').click(function(){
+			$(this).addClass('icon').siblings().removeClass('icon');
+			$('input[name=pay_type]').val(1);
+		});
+		$('.my_type2').click(function(){
+			$(this).addClass('icon').siblings().removeClass('icon');
+			$('input[name=pay_type]').val(2);
+		});
+		if(!isEmpty(api.pageParam.OrderNo)){
+			OrderNo=api.pageParam.OrderNo;
+		}
+		$api.rmStorage('ORDER');
+		api.showProgress({
+				title : '处理中',
+				modal : false
+			});
+			
+		info = is_login();
+	    id = api.pageParam.id;
+		status = api.pageParam.status;  //进入状态      1   立刻购买   2 购物车结算    3订单结算
+		address;
+		api.addEventListener({
+	    	name:'get_addr'
+	    },function(ret,err){	   
+	    	var res=ret.value;	    	
+	    	var addr=res.Province+res.City+res.Town+res.Adr;
+	    	setTimeout(function(){
+	    		set_addr(res.BuyerName,res.Phone,addr,res.id);
+	    	},200);   	
+	    });	
+	    //从商品购买页面过来的
+		if(status == '1'){
+			for (var p in info) {
+				param[p] = info[p];
+			}
+			 param.status = api.pageParam.status;
+			
+			 ajaxRequest('order/confirmed', 'post',param,function(ret,err){	
+				if(err){
+					api.toast({
+						msg:err.msg
+					});
+					return false;
+				}
+				if(ret.status){
+//									alert($api.jsonToStr(ret))
+					api.hideProgress();
+					 data = api.pageParam.param;
+					var mycars= {};
+					
+					mycars[0] = data;
+	//				var arr={'0':data};
+	//				api.alert({msg:mycars});
+					var addr= ret.info.addr;
+					
+					if(!isEmpty(addr)){
+						 address = addr.Province+addr.City+addr.Town+addr.Adr;
+						//收获地址名字
+						$('.name').html(addr.BuyerName);
+						//电话
+						$('.tel').html(addr.Phone);
+						//地址
+						$('.isaddr').html(address);
+						//id
+						$('.addr_id').val(addr.id);
+					}else{
+						$('.isaddr').html('请设置收货地址');
+					}
+					
+				  	var content = $api.dom('#shopping');
+				  	var tpl = $api.byId('confirmed').text;
+				 	var tempFn = doT.template(tpl);
+				 	$api.html(content, tempFn(mycars));
+				 	
+				 	var nnn = 0;	//数量显示
+					var jjj = 0;	//总价格
+					var j = $('#shopping').find('.xyc_jjj');
+					$.each($('#shopping').find('.mid'),function(k,v){
+						nnn+= Number($(v).val());
+						jjj+= (Number($(v).val())*Number(j.eq(k).text()))
+					})
+					$('.xyc_jianshu').text(nnn);
+					$('.shop_price').text(jjj);
+					//购物数量--
+					$('.jian').click(function() {
+						if(api.pageParam.status=='2'){
+							return false;
+						}
+						if($api.getStorage('ORDER')  || api.pageParam.status=='3'){
+							api.toast({
+	                            msg:'订单已生成，无法修改'
+                            });
+							return false;
+						}
+						var text = parseInt($(this).next().val());
+						if(text<=1) {
+							text =1;
+							nnn-=0;
+							$(this).next('.mid').val('1');
+							return false;
+						}else{
+							text--;
+							nnn--;
+							$(this).next('.mid').val(text);
+						}
+						jjj-=(Number($(this).parents('.ly_list').find('.xyc_jjj').text()));
+						$('.xyc_jianshu').text(nnn);
+						$('.shop_price').text(jjj);
+					})
+					////购物数量++
+					$('.add').click( function() {
+						if(api.pageParam.status=='2'){
+							return false;
+						}
+						if($api.getStorage('ORDER')  || api.pageParam.status=='3'){
+							api.toast({
+	                            msg:'订单已生成，无法修改'
+                            });
+							return false;
+						}
+						var text = parseInt($(this).prev().val());
+						text++;
+						nnn++;
+						jjj+=(Number($(this).parents('.ly_list').find('.xyc_jjj').text()))
+						$(this).prev('.mid').val(text);
+						
+						$('.xyc_jianshu').text(nnn);
+						$('.shop_price').text(jjj);
+					})
+					$('.mid').focus(function() {
+						if(api.pageParam.status=='2'){
+							return false;
+						}						
+						if($api.getStorage('ORDER')  || api.pageParam.status=='3'){
+							api.toast({
+	                            msg:'订单已生成，无法修改'
+                            });
+							return false;
+						}
+						xyc=1;
+						function a(id) {
+							var aaa = $(id).val();	 //输入框里边的值
+							b = function() {
+								var s = 0;			//修改后的值
+								var jss =0;			//修改后的价格
+								$(id).bind('blur', function() {
+									s = parseInt($(id).val());	
+									if(!check($('.mid').val())){
+										api.toast({
+								            msg:'数量请填整数'
+								        });
+								        $(id).val(1);
+								        s =1;
+									}
+//									if(s>0){
+										s -= aaa;
+//									}
+									jss = s * Number($(id).parents('.ly_list').find('.xyc_jjj').text());
+									xxxx(s,jss);
+									$(id).unbind("blur");	
+								});
+							}
+							return b;
+						}
+						var ss = a(this);
+						ss();
+						function xxxx(s,jss) {
+							nnn += s;
+							$('.xyc_jianshu').text(nnn);
+							jjj += jss; 
+							$('.shop_price').text(jjj);
+						}
+					})
+				}
+			})
+	
+		}else if(status == '2'){			  //从购物车页面过来的
+				
+			for (var p in info) {
+				param[p] = info[p];
+			}
+			param.status = status;
+			param.id = id;
+			
+			ajaxRequest('order/confirmed', 'post',param,function(ret,err){	
+				if(err){
+					api.toast({
+						msg:err.msg
+					});
+					return false;
+				}
+				if(ret.status){		
+					api.hideProgress();	
+						api.sendEvent({
+				        	name:'to_buy'
+				        });			
+					data = ret.info.data;
+					var addr= ret.info.addr;
+					
+					if(!isEmpty(addr)){
+						 address = addr.Province+addr.City+addr.Town+addr.Adr;
+						//收获地址名字
+						$('.name').html(addr.BuyerName);
+						//电话
+						$('.tel').html(addr.Phone);
+						//地址
+						$('.isaddr').html(address);
+						//id
+						$('.addr_id').val(addr.id);
+					}else{
+						$('.isaddr').html('请设置收货地址');
+					}					
+				  	var content = $api.dom('#shopping');
+				  	var tpl = $api.byId('confirmed').text;
+				 	var tempFn = doT.template(tpl);
+				 	$api.html(content, tempFn(data));				 	
+					var nnn = 0;
+					var jjj = 0;
+					var j = $('#shopping').find('.xyc_jjj');
+					$.each($('#shopping').find('.mid'),function(k,v){
+						nnn+= Number($(v).val());
+						jjj+= (Number($(v).val())*Number(j.eq(k).text()))
+					})
+					$('.xyc_jianshu').text(nnn);
+					$('.shop_price').text(jjj);
+					$('.jian').addClass('none');
+					$('.add').addClass('none');
+					$('.mid').attr('readonly',true);
+					$('.mid').css('border','1px solid #e0e0e0')
+				}
+			})
+		}else if(status == '3'){         //从订单页面过来的
+			for (var p in info) {
+				param[p] = info[p];
+			}
+			param.id = id;	
+			param.OrderNo=OrderNo;		
+			ajaxRequest('order/orderpay', 'post',param,function(ret,err){	
+				if(err){
+					api.toast({
+						msg:err.msg
+					});
+					return false;
+				}
+				if(ret.status){	
+				    var data =ret.info.data;
+					var addr= ret.info.addr;
+					$('.remark').val(ret.info.mark);
+					if(!isEmpty(addr)){
+						//收获地址名字
+						$('.name').html(addr.BuyerName);
+						//电话
+						$('.tel').html(addr.Phone);
+						//地址
+						 address = addr.Province+addr.City+addr.Town+addr.Adr;
+	
+						$('.isaddr').html(address);
+						//id
+						$('.addr_id').val(addr.id);
+					}else{
+						$('.isaddr').html('请设置收货地址');
+					}
+					/** 取消onclick 事件**/
+					
+					var content = $api.dom('#shopping');
+				  	var tpl = $api.byId('confirmed').text;
+				 	var tempFn = doT.template(tpl);
+				 	$api.html(content,tempFn(data));
+				 	
+				 	var nnn = 0;
+					var jjj = 0;
+					var j = $('#shopping').find('.xyc_jjj');
+					$.each($('#shopping').find('.mid'),function(k,v){
+						nnn+= Number($(v).val());
+						jjj+= (Number($(v).val())*Number(j.eq(k).text()))
+					})
+					$('.xyc_jianshu').text(nnn);
+					$('.shop_price').text(jjj);	
+					$('.remark').attr('readonly',true);	
+//					$('.jian').addClass('none');
+//					$('.add').addClass('none');
+					$('.mid').attr('readonly',true);
+//					$('.mid').css('border','1px solid #e0e0e0');
+				}else{
+					api.toast({
+						msg:ret.info
+					});
+				}
+				
+			});
+		
+		}
+		
+	}	
+		//判断是否为整数
+	function check(c)
+	{
+	    var re = /^[0-9]*[1-9][0-9]*$/ ;  
+    	return re.test(c)  
+	}
+	var xyc = 0;   //0: 表示没有焦距   直接点击提交；  1：表示有焦距  时点击的提交
+	function buy(){
+		if(xyc == 1) {
+			xyc = 0;
+			return ;
+		}
+		var cond=true;
+		var m=$('input[name=pay_type]').val();
+//		alert(d+'-----'+m);
+		//收获地址名字
+		var name = $('.name').html();
+		
+		//电话
+		var tel = $('.tel').html();
+		//地址
+		 var isaddr = $('.isaddr').html();
+		if(name == '' || tel == ''  || isaddr == ''){
+			api.toast({
+	                msg:'请填写发货地址'
+                });
+            return false;
+		}
+		if($('.mid').val() > 999){
+				api.toast({
+			            msg:'购买数量不能大于999'
+		            });
+		         return false;
+			}
+
+		if(m==0){		
+			api.toast({
+                msg:'请选择支付方式！'
+            });            
+            return false;
+		}
+		if(cond){				
+			switch(m){											
+				case '1':
+					cond=false;
+					api.showProgress({
+						title : '处理中',
+						modal : false
+					});
+					 pay_weixin(); 
+				break;
+				case '2':
+					cond=false;
+					api.showProgress({
+						title : '处理中',
+						modal : false
+					});
+					pay_alipay();
+				break;
+				default:
+				api.toast({
+	                msg:'支付方式不合法！'
+                });
+                return false;
+				break;
+			}
+		}else{
+			api.toast({
+	            msg:'请去我的订单支付'
+            });
+            setTimeout(function(){
+            	api.openWin({
+					name : 'mi_dd_tab_head_w',
+					url : 'mi_dd_tab_head_w.html',
+					opaque : false,
+					reload : true,
+					vScrollBarEnabled : false,
+					pageParam : {
+						xci:11
+					}
+				});           	
+            },300);
+            
+		}
+	}
+	function query_order(myobj){
+					$api.rmStorage('ORDER');
+					api.toast({
+                        msg:'支付成功'
+                	});
+					/*记得加注释*/	
+					setTimeout(function(){
+						api.openWin({
+				        name: 'mi_dd_tab_head_w',
+				        url: 'mi_dd_tab_head_w.html',
+				        opaque: true,
+				        reload:true,
+				        vScrollBarEnabled: false,
+				        pageParam:{xci:12}
+				    });		
+					},300);	
+//			ajaxRequest('getpay/query_order','post',myobj,function(info,err){
+//							if(err){
+//						   		api.toast({
+//						            msg:err.msg
+//					            });
+//					           return false;
+//						   	}
+//							if(info.status){																							
+//							}else{
+//								api.toast({
+//				                    msg:info.info
+//			                    });
+//							}
+//			})
+	}
+//微信支付购买
+function pay_weixin(){
+		var order=$api.getStorage('ORDER');
+		var m=$('input[name=pay_type]').val();
+		if(!isEmpty(order) && m==1){
+			$('.remark').attr('readonly',true);
+//			$('.jian').addClass('none');
+//			$('.add').addClass('none');
+//			$('.mid').attr('readonly',true);
+//			$('.mid').css('border','1px solid #e0e0e0');
+//			status=3;
+			var weiXin = api.require('weiXin');				
+			var info=is_login();
+			for(var p in info){
+				order[p]=info[p];
+			}		
+			order.CustomerRemark = $('.remark').val();		
+			order.alias=api.deviceId;																	
+			ajaxRequest('getpay','post',order,function(ret,err){				
+				var res = ret.info;				
+				if(err){
+			   		api.toast({
+			            msg:err.msg
+		            });
+		           return false;
+			   	}					
+				if(ret.status){		
+					up_data();			
+					weiXin.payOrder(ret.info.info,function(msg,err) {
+					api.hideProgress();
+				     if (msg.status) {
+							query_order({'out_trade_no':ret.info.out_trade_no});
+				     }else{
+//				        api.toast({
+//	                    	msg:err.msg
+//                  	});
+				     }
+					});	
+				}else{
+					api.toast({
+	                    msg:ret.info
+                    });
+				}		
+								
+			});
+			return false;
+		}
+		var goods={};
+		for (var p in info) {
+				goods[p] = info[p];
+			}
+		var addr_addrid = $('.addr_id').attr("value");
+		goods.status = status;
+		if(goods.status == '1'){
+			data.number = $('.mid').val();
+//			api.alert({msg:data.number});
+			goods.data = data;
+			goods.number = $('.mid').val();
+			
+			
+			goods.shop_price  = $('.shop_price').html();
+			goods.addr_id = $('.addr_id').attr("value");
+			goods.PayAccount = 1;
+			goods.CustomerRemark = $('.remark').val();	
+			goods.is_pri=api.pageParam.is_pri;		
+			goods.alias=api.deviceId;
+			var weiXin = api.require('weiXin');
+			ajaxRequest('getpay','post',goods,function(ret,err){				
+				if(err){
+			   		api.toast({
+			            msg:err.msg
+		            });
+		           return false;
+			   	}	
+				if(ret.status){	
+					up_data();
+					$api.setStorage('ORDER',{OrderNo:ret.info.out_trade_no,status:'3'});														
+//					api.sendEvent({name:'num_change'});
+					weiXin.payOrder(ret.info.info,function(msg,err) {
+					api.hideProgress();
+				     if (msg.status) {
+						query_order({'out_trade_no':ret.info.out_trade_no});
+				     }else{
+//				        api.toast({
+//		                    msg:err.msg
+//	                    });
+				     }
+				});	
+				}else{
+					api.toast({
+	                    msg:ret.info
+                    });
+				}		
+								
+			});	
+			
+		}else if(goods.status == '2'){
+		
+			goods.id = id;
+			goods.number = $('.xyc_jianshu').html();
+			goods.shop_price  = $('.shop_price').html();
+			goods.addr_id = $('.addr_id').attr("value");
+			goods.CustomerRemark = $('.remark').val();
+			goods.PayAccount = 1;
+			goods.is_pri=api.pageParam.is_pri;	
+			goods.alias=api.deviceId;	
+			var weiXin = api.require('weiXin');																		
+			ajaxRequest('getpay','post',goods,function(ret,err){				
+				var res = ret.info;				
+				if(err){
+			   		api.toast({
+			            msg:err.msg
+		            });
+		           return false;
+			   	}					
+
+				if(ret.status){	
+					up_data();
+					$api.setStorage('ORDER',{OrderNo:ret.info.out_trade_no,status:'3'});					
+
+//					api.sendEvent({name:'num_change'});
+					weiXin.payOrder(ret.info.info,function(msg,err) {
+					api.hideProgress();
+				     if (msg.status) {
+							query_order({'out_trade_no':ret.info.out_trade_no});
+				     }else{
+//				        api.toast({
+//	                    	msg:err.msg
+//                  	});
+				     }
+					});	
+				}else{
+					api.toast({
+	                    msg:ret.info
+                    });
+				}		
+								
+			});					
+		}else if(goods.status == '3'){
+			$('.remark').attr('readonly',true);
+//			$('.jian').addClass('none');
+//			$('.add').addClass('none');
+//			$('.mid').attr('readonly',true);
+//			$('.mid').css('border','1px solid #e0e0e0');
+//			status=3;
+			goods.id = id;
+			goods.OrderNo=api.pageParam.OrderNo;
+			goods.alias=api.deviceId
+			var weiXin = api.require('weiXin');																		
+			ajaxRequest('getpay','post',goods,function(ret,err){				
+				var res = ret.info;				
+				if(err){
+			   		api.toast({
+			            msg:err.msg
+		            });
+		           return false;
+			   	}					
+
+				if(ret.status){	
+					up_data();
+					$api.setStorage('ORDER',{OrderNo:ret.info.out_trade_no,status:'3'});					
+
+					weiXin.payOrder(ret.info.info,function(msg,err) {
+					api.hideProgress();
+				     if (msg.status) {
+							query_order({'out_trade_no':ret.info.out_trade_no});
+				     }else{
+//				        api.toast({
+//	                    	msg:err.msg
+//                  	});
+				     }
+					});	
+				}else{
+					api.toast({
+	                    msg:ret.info
+                    });
+				}		
+								
+			});	
+		
+		
+		}													
+	}
+	function pay_alipay(){
+		var order=$api.getStorage('ORDER');
+		var m=$('input[name=pay_type]').val();
+		if(!isEmpty(order) && m==2){
+			$('.remark').attr('readonly',true);
+//			$('.jian').addClass('none');
+//			$('.add').addClass('none');
+//			$('.mid').attr('readonly',true);
+//			$('.mid').css('border','1px solid #e0e0e0');
+//			status=3;			
+			for(var p in info){
+				order[p]=info[p];
+			}	
+			order.CustomerRemark = $('.remark').val();	
+			order.alias=api.deviceId;																	
+			ajaxRequest('getpay/alipay','post',order,function(ret,err){				
+				var res = ret.info;				
+				if(err){
+			   		api.toast({
+			            msg:err.msg
+		            });
+		           return false;
+			   	}					
+				if(ret.status){	
+					up_data();				
+					to_pay(ret.info);				
+				}else{
+					api.toast({
+	                    msg:ret.info
+                    });
+				}		
+								
+			});	
+			return false;
+		}
+			var goods={};
+		for (var p in info) {
+				goods[p] = info[p];
+			}
+		var addr_addrid = $('.addr_id').attr("value");
+		goods.status = status;
+		if(goods.status == '1'){
+			data.number = $('.mid').val();
+//			api.alert({msg:data.number});
+			goods.data = data;
+			goods.number = $('.mid').val();
+			
+			
+			goods.shop_price  = $('.shop_price').html();
+			goods.addr_id = $('.addr_id').attr("value");
+			goods.PayAccount = 2;
+			goods.CustomerRemark = $('.remark').val();
+			goods.is_pri=api.pageParam.is_pri;	
+			goods.alias=api.deviceId;
+			var weiXin = api.require('weiXin');
+			ajaxRequest('getpay/alipay','post',goods,function(ret,err){				
+				if(err){
+			   		api.toast({
+			            msg:err.msg
+		            });
+		           return false;
+			   	}	
+				if(ret.status){
+					up_data();
+					$api.setStorage('ORDER',{OrderNo:ret.info.tradeNO,status:'3'});
+//					api.sendEvent({name:'num_change'});
+					to_pay(ret.info);
+				}else{
+					api.toast({
+	                    msg:ret.info
+                    });
+				}		
+								
+			});	
+			
+		}else if(goods.status == '2'){
+		
+			goods.id = id;
+			goods.number = $('.xyc_jianshu').html();
+			goods.shop_price  = $('.shop_price').html();
+			goods.addr_id = $('.addr_id').attr("value");
+			goods.CustomerRemark = $('.remark').val();
+			goods.PayAccount = 2;	
+			goods.is_pri=api.pageParam.is_pri;		
+			goods.alias=api.deviceId;																	
+			ajaxRequest('getpay/alipay','post',goods,function(ret,err){				
+				var res = ret.info;				
+				if(err){
+			   		api.toast({
+			            msg:err.msg
+		            });
+		           return false;
+			   	}					
+				if(ret.status){
+					up_data();
+					$api.setStorage('ORDER',{OrderNo:ret.info.tradeNO,status:'3'});
+//					api.sendEvent({name:'num_change'});	
+					to_pay(ret.info);
+				}else{
+					api.toast({
+	                    msg:ret.info
+                    });
+				}		
+								
+			});					
+		}else if(goods.status == '3'){
+			$('.remark').attr('readonly',true);
+//			$('.jian').addClass('none');
+//			$('.add').addClass('none');
+//			$('.mid').attr('readonly',true);
+//			$('.mid').css('border','1px solid #e0e0e0');
+//			status=3;
+			goods.id = id;	
+			goods.OrderNo=api.pageParam.OrderNo;
+			goods.CustomerRemark = $('.remark').val();		
+			goods.alias=api.deviceId;														
+			ajaxRequest('getpay/alipay','post',goods,function(ret,err){				
+				var res = ret.info;				
+				if(err){
+			   		api.toast({
+			            msg:err.msg
+		            });
+		           return false;
+			   	}					
+				if(ret.status){
+					up_data();
+					$api.setStorage('ORDER',{OrderNo:ret.info.tradeNO,status:'3'});
+					to_pay(ret.info);				
+				}else{
+					api.toast({
+	                    msg:ret.info
+                    });
+				}		
+								
+			});	
+		
+		}
+	}
+	function to_pay(param){
+		//从后台获取订单号，提交购买商品信息				  
+			var obj = api.require('aliPay');						
+			obj.pay(param,function(ret,err) {
+				api.hideProgress();			
+					if(err){
+							api.toast({msg:err.msg});
+							return false;
+						}	
+						switch(ret.statusCode){
+							case '9000':
+							var info=is_login();
+							for(var p in info){
+								param[p]=info[p];
+							}
+							ajaxRequest('getpay/query_ali','post',param,function(ret,err){
+								if(err){
+									api.toast({
+		                                msg:err.msg
+	                                });
+	                                return false;
+								}
+								if(ret.status){
+									api.toast({
+		                                msg:'支付成功'
+	                                });
+	                                setTimeout(function(){
+	                                	api.openWin({
+									        name: 'mi_dd_tab_head_w',
+									        url: 'mi_dd_tab_head_w.html',
+									        opaque: true,
+									        reload:true,
+									        vScrollBarEnabled: false,
+									        pageParam:{xci:12}
+									    });	                                
+	                                },500);		                                							
+								}else{
+									api.toast({
+	                                    msg:ret.info
+                                    });
+								}
+							});							
+							break;
+							case '4000':
+							api.toast({
+	                            msg:'系统异常'
+                            });
+							break;
+							case '4001':
+							api.toast({
+	                            msg:'数据格式不正确'
+                            });
+							break;
+							case '4003':
+							api.toast({
+	                            msg:'该用户绑定的支付宝账户被冻结或不允许支付'
+                            });
+							break;
+							case '4004':
+							api.toast({
+	                            msg:'该用户已解除绑定'
+                            });
+							break;
+							case '4005':
+							api.toast({
+	                            msg:'绑定失败或没有绑定'
+                            });
+							break;
+							case '4006':
+							api.toast({
+	                            msg:'订单支付失败' 	
+                            });
+							break;
+							case '4010':
+							api.toast({
+	                            msg:'重新绑定账户'
+                            });
+							break;
+							case '6000':
+							api.toast({
+	                            msg:'支付服务正在进行升级操作'
+                            });
+							break;
+							case '6001':
+							api.toast({
+	                            msg:'用户中途取消支付操作'
+                            });
+							break;
+							case '0001':
+							api.toast({
+	                            msg:'缺少商户配置信息（商户id，支付公钥，支付密钥）'
+                            });
+							break;
+							case '0002':
+							api.toast({
+	                            msg:'用户当前设备没有安装支付宝客户端（ios）或安全支付插件（Android）'
+                            });
+							break;
+							case '0003':
+							api.toast({
+	                            msg:'签名错误（公钥私钥错误）'
+                            });
+							break;
+							default:
+							api.toast({
+	                            msg:'未知错误代码'
+                            });
+							break;
+						}					
+			});							
+	}
+</script>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

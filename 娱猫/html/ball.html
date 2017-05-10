@@ -1,0 +1,76 @@
+<!doctype html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,height=device-height,initial-scale=1.0"/>
+    <title>球</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/common.css"/>
+</head>
+<style>
+html {
+	background: transparent;
+}
+body {
+	background: transparent;
+}
+.ball {
+	position:fixed;
+	top:0;
+	left:0;
+	width: 100%;
+	height: 100%;
+	/*-webkit-transform: translate(-50%,-50%);*/
+	background: url(../image/yinmai_icon1.png) no-repeat center top;
+	background-size: 100% 100%;
+}
+#main {
+	background: transparent;
+	background-image: none;
+	width:100%;
+	height:100%;
+	position:absolute;
+} 
+</style>
+<body>
+	<div id="wrap">
+        <div id="main">
+            <div class="ball" onclick="openYinyin()"></div>
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/font.js"></script>
+<script type="text/javascript" src="../script/zepto.js"></script>
+<script>
+
+	apiready = function() {
+		//解决touch 上  传过来后，弹性布局不太起作用问题---弹性布局给的值是整个屏幕的------这个推测应该APICloud在touch上解析本身问题
+		if($("#wrap").width() != api.pageParam.w) {
+			$("#wrap").css({
+				'width':api.pageParam.w+"px",
+				'height':api.pageParam.w+"px",
+				"overflow":"hidden"
+			});
+		}
+	}
+	//打开音麦页面
+	function openYinyin() {	
+		api.openFrame({
+	        name: 'yinyin',
+		    url: 'yinyin.html',
+		    opaque: true,
+		    vScrollBarEnabled: false,
+		    bounces: false,
+	        rect: {
+		        x:0,
+		        y:0,
+		        w:api.winWidth,
+		        h:api.winHeight
+	        }
+        });
+	}
+
+</script>
+</html>

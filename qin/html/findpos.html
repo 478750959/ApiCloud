@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+     <link rel="stylesheet" href="../css/api.css">
+     <link rel="stylesheet" href="../css/common.css">
+    <title>查找</title>
+    <style>
+        #wrap{
+           background: #F0F0F0;
+
+        }
+
+        #header{
+          height: 44px;
+        }
+
+        #back{
+          width: 24px;
+          height: 14px;
+          position: absolute;
+          left:-3px;
+          top:15px;
+
+
+        } 
+
+        #del{
+          width: 16px;
+          height: 16px;
+          position: absolute;
+          right:5%;
+          top:15px;
+         /* display: none;*/
+
+
+        } 
+      
+        input{
+         height: 34px;
+         margin-top: 5px;
+         margin-bottom: 5px;
+         width: 90%;
+         margin-left: 20px;
+         border: 1px solid red;
+         border-radius: 3px;
+
+
+        }
+
+
+        #posme{
+          position: absolute;
+          border-bottom: 1px solid rgba(0,0,0,.1);
+          width: 100%;
+          /*display: none;*/
+        }
+        .pos{
+          width: 16px;
+          height: 32px;
+          background:url(../image/icon_location.png) no-repeat left center;
+          background-size: 10px 14px;
+          position: relative;
+         /* top:4px;*/
+          left:20px;
+   
+        }
+
+        .newpos{
+            position: relative;
+           left: 10px;
+           top:-10px;
+            
+
+        }
+
+        a{
+          color: blue;
+        }
+        #result{
+          display: none;
+        }
+        #result li{
+          width: 100%;
+          border-bottom: 1px solid rgba(0,0,0,.1);
+          padding-top :10px;
+          padding-bottom: 10px;
+          padding-left: 10px;
+        }
+        #result span{
+          color: gray;
+          font-size: 12px;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="wrap">
+    <div id="header">
+             <img src="../image/wallet_base_action_bar_back_normal.png" id="back" alt="" tapmode onclick="goback()">
+            <input type="text" name="" id="" placeholder="选择起点">
+            <img src="../image/../image/wallet_base_delete_normal.png"  id="del"  alt=""> </input>
+            
+        </div>
+        <div id="main">
+           <div id="posme">
+               <span class="pos">
+                 
+               </span>
+               <span class="newpos">北京<a href="">[切换]</a></span>
+           </div>
+
+           <div id="result">
+             <ul>
+               <li>
+                 <p>商鼎国际</p>
+                <span>成都 武侯区</span>
+               </li>
+               <li>
+                 <p>商鼎国际</p>
+                <span>成都 武侯区</span>
+               </li>
+               <li>
+                 <p>商鼎国际</p>
+                <span>成都 武侯区</span>
+               </li>
+             </ul>
+          
+
+           </div>
+            
+
+        </div>
+
+     </div>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>      
+</body>
+</html>

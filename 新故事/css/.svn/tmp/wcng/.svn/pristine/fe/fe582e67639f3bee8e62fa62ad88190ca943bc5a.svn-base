@@ -1,0 +1,70 @@
+/*
+@font-face {
+    font-family:Jkaton;
+    src: url('../res/minicartoon.ttf') format("truetype");
+    font-weight:normal;
+}
+*/
+html,body,header,section,footer,nav,div,ul,ol,li,img,a,span,em,del,center,strong,var,fieldset,form,label,dt,dd,cite,input,hr,time,mark,code,figcaption,figure,textarea{
+	margin:0;
+	border:0;
+	padding:0;
+	font-family: Jkaton;
+	font-style:normal;
+	color:rgb(50,50,50);
+}
+html,body {
+	-webkit-touch-callout:none;
+	-webkit-text-size-adjust:none;
+	-webkit-tap-highlight-color:rgba(0, 0, 0, 0);
+	-webkit-user-select:none;
+}
+header,footer,section,nav,img,a,button,em,del,strong,var,fieldset,label,cite,small,time,mark,code,figcaption,figure,textarea{
+	display:block;
+}
+header/*,section,*/footer,nav {
+	position:relative;
+	overflow:hidden;
+}
+ol,ul{
+	list-style:none;
+}
+input,button,textarea {
+	border:0;
+	margin:0;
+	padding:0;
+	font-size:1em;
+	line-height:1em;
+	-webkit-appearance:none;
+	background-color:rgba(0, 0, 0, 0);
+}
+span{
+	display:inline-block;
+}
+a,a:visited{
+	text-decoration:none;
+}
+/*#more{
+	position:relative;
+	height:2.375em;
+	line-height:2.375em;
+	margin:0 0.5em 1em;
+	border:0 solid rgb(71,161,24);
+    border-radius:12px;
+	background-color:rgb(187,236,153);
+}
+#more em{
+	display:inline-block;
+	width:2.375em;
+	height:2.375em;
+	text-indent: -9999em;
+	background:url(res/loading.gif) no-repeat center;
+	-webkit-background-size:100% 100%;
+}
+#more span{
+	font-size:0.875em;
+	font-weight:bold;
+	color:#9b9b9b;
+	-webkit-text-shadow:#c7c7c7 -0.0625em -0.0625em 0,#fff 0 0.0625em 0;
+	text-shadow:#c7c7c7 -0.0625em -0.0625em 0,#fff 0 0.0625em 0;
+}*/

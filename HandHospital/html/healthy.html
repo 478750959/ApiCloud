@@ -1,0 +1,121 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>report</title>
+		<link rel="stylesheet" type="text/css" href="../css/api.css" />
+		<link rel="stylesheet" type="text/css" href="../css/common.css" />
+		<style>
+			#wrap {
+				width: 100%;
+				display: -webkit-box;
+				display: -webkit-flex;
+				display: flex;
+				-webkit-box-orient: vertical;
+				-webkit-flex-flow: column;
+				flex-flow: column;
+			}
+
+			#main {
+				-webkit-box-flex: 1;
+				-webkit-flex: 1;
+				flex: 1;
+			}
+			
+			section {
+				border-bottom: 1px solid #BDBDBD;
+				padding: 10px;
+				display: -webkit-box;
+			}
+			
+			.left {
+				width: 25px;
+				height: 25px;
+				display: -webkit-box;
+				-webkit-box-align: center;
+				-webkit-background-size: 25px 25px !important;
+				background-size: 25px 25px !important;
+			}
+			.middle {
+				-webkit-box-flex: 1;
+				-webkit-box-align: center;
+				display: -webkit-box;
+				font-size: 14px;
+				color: #5E5E5E;
+				margin-left: 5px;
+			}
+			.right {
+				width: 25px;
+				display: -webkit-box;
+				background: url(../image/myinfo.png) no-repeat center;
+				-webkit-background-size: 10px 17px;
+			}
+
+			#main .healthy1 {
+				background: url(../image/healthy3.png) no-repeat center center;
+			}
+			#main .healthy2 {
+				background: url(../image/healthy4.png) no-repeat center center;
+			}
+			#main .healthy3 {
+				background: url(../image/healthy1.png) no-repeat center center;
+			}
+			#main .healthy4 {
+				background: url(../image/healthy2.png) no-repeat center center;
+			}
+
+		</style>
+	</head>
+	<body>
+		<div id="main">
+			<section class="sec1" tapmode="grayActive" onclick="openRecord(0,'我的门诊记录');">
+				<a class="left healthy1"></a>
+				<div class="middle">
+					我的门诊记录
+				</div>
+			</section>
+			<section class="sec1" tapmode="grayActive" onclick="openRecord(1,'我的住院记录');">
+				<div class="left healthy2"></div>
+				<div class="middle" >
+					我的住院记录
+				</div>
+			</section>
+			
+			<section class="sec1" tapmode="grayActive" onclick="openRecord(2,'我的化验记录');">
+				<div class="left healthy3"></div>
+				<div class="middle" >
+					我的化验记录
+				</div>
+			</section>
+			
+			<section class="sec1" tapmode="grayActive" onclick="openRecord(3,'我的检查记录');">
+				<div class="left healthy4"></div>
+				<div class="middle" >
+					我的检查记录
+				</div>
+			</section>
+		</div>
+	</body>
+	<script type="text/javascript" src="../script/api.js"></script>
+	<script type="text/javascript" src="../script/constants.js"></script>
+	<script>
+		apiready = function() {
+
+		};
+
+		function openRecord(index,title) {
+			if(CHECK_LOGIN()){
+				api.openWin({
+					name : 'record_common_' + index,
+					url : 'framework.html',
+					pageParam : {
+						'index' : index,
+						'depName' : title,
+						'type' : 'record_common'
+					},
+				});
+			}
+		}
+	</script>
+</html>

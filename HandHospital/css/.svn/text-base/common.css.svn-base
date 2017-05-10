@@ -1,0 +1,110 @@
+html, body, header, section, footer, nav, div, ul, ol, li, img, a, span, em, del, center, strong, var, fieldset, form, label, dt, dd, cite, input, hr, time, mark, code, figcaption, figure, textarea {
+	margin: 0;
+	border: 0;
+	padding: 0;
+	font-family: Jkaton;
+	font-style: normal;
+	color: rgb(50,50,50);
+}
+html, body {
+	height: 100%;
+	width: 100%;
+	-webkit-touch-callout: none;
+	-webkit-text-size-adjust: none;
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+	-webkit-user-select: none;
+}
+
+span {
+	display: inline-block;
+}
+
+
+/* button
+ ---------------------------------------------- */
+.button {
+	display: inline-block;
+	zoom: 1; /* zoom and *display = ie7 hack for display:inline-block */
+	*display: inline;
+	vertical-align: baseline;
+	margin: 0 2px;
+	outline: none;
+	cursor: pointer;
+	text-align: center;
+	text-decoration: none;
+	font: 16px Arial, Helvetica, sans-serif;
+	padding: 8px;
+	text-shadow: 0 1px 1px rgba(0,0,0,.3);
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	-webkit-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+	-moz-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+	box-shadow: 0 1px 2px rgba(0,0,0,.2);
+}
+.button:hover {
+	text-decoration: none;
+}
+.button:active {
+	position: relative;
+	top: 1px;
+}
+
+.bigrounded {
+	-webkit-border-radius: 2em;
+	-moz-border-radius: 2em;
+	border-radius: 2em;
+}
+.medium {
+	font-size: 12px;
+	padding: .4em 1.5em .42em;
+}
+.small {
+	font-size: 11px;
+	padding: .2em 1em .275em;
+}
+
+/* blue */
+.blue {
+	font-size: 14px;
+	color: #FFF;
+	background: #3795f2;
+}
+.blue:active {
+	background: #007ead;
+}
+
+/* red */
+.red {
+	font-size: 14px;
+	color: #FFF;
+	background: #EF5E7D;
+}
+
+.red:active {
+	background: #cd5c5c;
+}
+
+/* input */
+.hp_input {
+	display: inline-block;
+	zoom: 1; /* zoom and *display = ie7 hack for display:inline-block */
+	*display: inline;
+	vertical-align: baseline;
+	outline: none;
+	cursor: pointer;
+	text-decoration: none;
+	font: 16px Arial, Helvetica, sans-serif;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	border: solid 1px #CCC;
+}
+
+.grayActive {
+	background-color: #CCCCCC !important;
+}
+
+.btn_wrap {
+	padding: 10px;
+}

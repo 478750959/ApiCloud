@@ -1,0 +1,76 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>report</title>
+		<link rel="stylesheet" type="text/css" href="../css/api.css" />
+		<link rel="stylesheet" type="text/css" href="../css/common.css" />
+		<style>
+			#wrap {
+				width: 100%;
+				display: -webkit-box;
+				display: -webkit-flex;
+				display: flex;
+				-webkit-box-orient: vertical;
+				-webkit-flex-flow: column;
+				flex-flow: column;
+			}
+
+			#main {
+				-webkit-box-flex: 1;
+				-webkit-flex: 1;
+				flex: 1;
+			}
+
+			section {
+				border-bottom: 1px solid #BDBDBD;
+				padding: 10px;
+				display: -moz-box;
+				display: -webkit-box;
+				display: box;
+			}
+
+			.left {
+				font-size: 14px;
+				width: 50px;
+				height: 30px;
+				line-height: 30px;
+				-webkit-box-align: center;
+				color: #5e5e5e;
+				-moz-box-flex: 1;
+				-webkit-box-flex: 1;
+				box-flex: 1;
+			}
+
+			.right {
+				width: 30px;
+				height: 30px;
+				display: -webkit-box;
+				background: url(../image/right1.png) no-repeat center;
+				-webkit-background-size: 25px 25px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="wrap">
+			<script id="floor-template" type="text/x-dot-template">
+				{{ for(var i=0; i<it.length; i++) { }}
+				<section  tapmode="grayActive" onclick="floorDetail({{=it[i].buildingId}})">
+					<div class="left">
+						<h1>{{=it[i].buildingName}}</h1>
+					</div>
+					<a class="right"></a>
+				</section>
+				{{ } }}
+			</script>
+			<div id="main">
+
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../script/api.js"></script>
+	<script type="text/javascript" src="../script/doT.min.js"></script>
+	<script type="text/javascript" src="../script/constants.js"></script>
+	<script type="text/javascript" src="../script/hpfloor.js"></script>
+</html>

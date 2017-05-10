@@ -1,0 +1,346 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>MI</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/xyc.css"/>
+    <style>
+    	.set_Newadd_a1{
+			float:right;
+			width:1.44rem;
+			height:0.48rem;
+			margin-top:0.2rem;
+			background:url(../image/set_Newadd_a1.png);
+			background-size:100% 100%;
+		}
+		.set_newadd_input{
+			display:block;
+			width:100%;
+			font-size:0.3rem;
+			height:0.5rem;
+			color:#565656;
+			line-height:0.6rem;
+			margin:0.19rem 0;
+		}
+		.set_Newadd_input2{
+    		float:left;
+			width:3rem;
+		}
+		.set_Newadd_input3_icon{
+			position: absolute;
+			right:0.15rem;
+			top:0.4rem;
+			display: inline-block;
+			font-size: 0;
+			border-top: 2px solid #666666;
+			border-left: 2px solid #666666;
+			width: 0.1rem;
+			height: 0.1rem;
+			background-color: transparent;
+			-webkit-transform: rotate(225deg);
+		}
+		.set_add_ssq{
+			width:100%;
+			position:relative;
+			line-height:0.88rem;
+			font-size:0.3rem;
+			color:#222;
+		}
+		.mi_set_Newadd_con ul .xyc_lili{
+			overflow:visible;
+		}
+		.liststyle{
+			padding-bottom:0.2rem;
+			width:100%;
+			/*height:0.88rem;*/
+			/*float:right;*/
+			display:-webkit-box;
+			-webkit-box-pack:justify;
+		}
+		.liststyle span i{
+			display:inline-block;
+			font-style:normal;
+			position:relative;
+			width:100%;
+			text-align:center;
+			font-size:0.22rem;
+			/*padding-left:0.1rem;*/
+			/*width:0.8rem;*/
+		}
+		.liststyle span{
+			text-align:center;
+			width:1.8rem;
+			font-size:0.22rem;
+			position: relative;
+			height: 0.5rem;
+			line-height: 0.5rem;
+			display: inline-block;
+			border: 1px solid #E8E8E8;
+			border-radius: 5px;
+			/*padding: 0 0 0 8px;*/
+			background: white;
+			float: left;
+			/*margin-right: 9px;*/
+			/*margin-bottom: 10px;*/
+			background:#ff7f88 url(../image/jt_nor.png) no-repeat 90% center;
+			background-size:0.16rem 0.1rem;
+		}
+		.liststyle span ul{width:100%;
+			padding:0 0;
+			border-radius:0 0 5px 5px;
+			height:200px;
+			overflow:auto;
+			position:absolute;
+			border:1px solid #E8E8E8;
+			background:white;
+			left:-1px;top:37px;
+			border-top:0;margin-bottom:10px;
+			display:none;z-index:9999;
+		}
+		.liststyle span ul li{width:100%;float:left;overflow:hidden;border-top:1px solid #E8E8E8;padding:0 0;}
+		.liststyle span ul li:first-child{border-top:0;}
+		.liststyle span ul li a{display:block;height:0.5rem;line-height:0.5rem;color:#494949;text-align:center;}
+    </style>
+</head>
+<body>
+<div id="wrap">
+    <div id="main">
+    	<div class="mi_set_Newadd_con">
+    		<ul>
+    			<li>
+    				<input type='text' name='BuyerName' placeholder='收货人姓名' id='set_add_new_name' class='set_newadd_input set_Newadd_input2'>
+    				<a class='set_Newadd_a1'    href="javascript:void(0)"  onclick="addnew()"></a>
+    			</li>
+    			<li>
+    				<input type='tel'  name='Phone'  placeholder='手机号码' id='set_add_new_tel' class='set_newadd_input'>
+    			</li>
+    			<li class="xyc_lili">
+    				<div class="set_add_ssq">
+    					<span class='set_Newadd_txt'>省、市、区：</span>
+    					<!--<span class="set_add_ssq_con"></span>
+    					<i class='set_Newadd_input3_icon'></i>-->
+    					<div class="liststyle">
+                            <span id="Province">
+                                <i  class='Province'>请选择省份</i>
+                                <ul>
+                                    <li><a href="javascript:void(0)" alt="请选择省份">请选择省份</a></li>
+                                </ul>
+                                <input type="hidden" name="cho_Province" value="请选择省份">
+                            </span>
+                            <span id="City">
+                                <i class="City">请选择城市</i>
+                                <ul>
+                                    <li><a href="javascript:void(0)" alt="请选择城市">请选择城市</a></li>
+                                </ul>
+                                <input type="hidden" name="cho_City" value="请选择城市">
+                            </span>
+                            <span id="Area">
+                                <i  class="Town">请选择地区</i>
+                                <ul>
+                                    <li><a href="javascript:void(0)" alt="请选择地区">请选择地区</a></li>
+                                </ul>
+                                <input type="hidden" name="cho_Area" value="请选择地区">
+                            </span>
+                        </div>
+    				</div>
+    			</li>
+    			<!--<input type="hidden" name='Province'>
+    			<input type="hidden" name='City'>
+    			<input type="hidden" name='Town'>-->
+    			<!--<li>
+    				<input type='text'  name='Street' placeholder='街道' class='set_newadd_input' id='set_add_new_jiedao'>
+    			</li>-->
+    			<li>
+    				<input type='text'   name="Adr" placeholder='详细地址' class='set_newadd_input' id='set_add_new_xx'>
+    			</li>
+    			<li>
+    				<input type='tel'   name="Zip" placeholder='邮政编码' class='set_newadd_input' id='set_add_new_yzbm'>
+    			</li>
+    		</ul>
+    	</div>	
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/font.js"></script>
+<script type="text/javascript" src="../script/jquery.min.js"></script>
+<script type="text/javascript" src="../script/city.min.js"></script>
+<script type="text/javascript" src="../script/comm.js"></script>
+<script>
+	apiready = function() {
+//		var strDM = api.systemType;
+//	    if (strDM == 'ios') {
+//	  		$('.set_add_ssq').click(function() {
+//				var obj = api.require('citySelector');
+//				obj.show();
+//				obj.open({
+//				}, function(ret, err) {
+//					if(ret){
+//						$('input[name=Province]').val(ret.province);
+//						$('input[name=City]').val(ret.city);
+//						$('input[name=Town]').val(ret.county);
+//						$('.set_add_ssq_con').text(ret.province + ret.city + ret.county);
+//					}
+//				});
+//			})		
+//	    }else{
+//	    	$('.set_add_ssq').click(function() {
+//				var obj = api.require('citySelector');
+//				obj.open({
+//				}, function(ret, err) {
+//					if(ret){
+//						$('input[name=Province]').val(ret.province);
+//						$('input[name=City]').val(ret.city);
+//						$('input[name=Town]').val(ret.county);
+//						$('.set_add_ssq_con').text(ret.province + ret.city + ret.county);
+//					}
+//				});
+//			})		
+//	    }
+	}
+	function  addnew(){
+		api.openContacts(function(ret, err) {
+				if (ret.status) {
+					$('#set_add_new_name').val(ret.name);
+					var phone = ret.phone;
+					$('#set_add_new_tel').val(phone.replace(/-/g,''));
+				}
+			});
+	}
+	function save() {
+		var BuyerName = $.trim($('input[name=BuyerName]').val());
+		var Phone = $.trim($('input[name=Phone]').val());
+		//		var Country=$.trim($('input[name=Country]').val());
+//		var Province = $.trim($('input[name=Province]').val());
+//		var City = $.trim($('input[name=City]').val());
+//		var Town = $.trim($('input[name=Town]').val());
+		var Province = $.trim($('.Province').html());
+		var City = $.trim($('.City').html());
+		var Town = $.trim($('.Town').html());
+//		var Street = $.trim($('input[name=Street]').val());
+		var Adr = $.trim($('input[name=Adr]').val());
+		var Zip = $.trim($('input[name=Zip]').val());
+		if (BuyerName == '') {
+			api.toast({
+				msg : '姓名不能为空!',
+				location : 'middle'
+			});
+			return false;
+		}
+		if (Phone == '') {
+			api.toast({
+				msg : '手机号不能为空!',
+				location : 'middle'
+			});
+			return false;
+		}
+		var regex = /^0?(13|15|18|17|14)[0-9]{9}$/;
+		if (!regex.test(Phone)) {
+			api.toast({
+				msg : '手机号格式不正确!',
+				location : 'middle'
+			});
+			return false;
+		}
+		if (Province == '请选择省份') {
+			api.toast({
+				msg : '请选择省份!',
+				location : 'middle'
+			});
+			return false;
+		}
+		if (City == '请选择城市') {
+			api.toast({
+				msg : '请选择城市!',
+				location : 'middle'
+			});
+			return false;
+		}
+		if (Town == '请选择地区') {
+			Town='';
+		}
+//		if (Street == '') {
+//			api.toast({
+//				msg : '街道不能为空!',
+//				location : 'middle'
+//			});
+//			return false;
+//		}
+		if (Adr == '') {
+			api.toast({
+				msg : '详细地址不能为空!',
+				location : 'middle'
+			});
+			return false;
+		}
+//		if (Zip == '') {
+//			api.toast({
+//				msg : '邮政编码不能为空!',
+//				location : 'middle'
+//			});
+//			return false;
+//		}
+		var preg = /^\d{6}$/;
+		if (Zip!='' &&  !preg.test(Zip)) {
+			api.toast({
+				msg : '邮政编码格式不正确!',
+				location : 'middle'
+			});
+			return false;
+		}
+		var param = {
+			BuyerName : BuyerName,
+			Phone : Phone,
+			Province : Province,
+			City : City,
+			Town : Town,
+//			Street : Street,
+			Adr : Adr,
+			Zip : Zip
+		};
+		var info = is_login();
+		if (!info) {
+			to_login();
+			return false;
+		}
+		for (var p in info) {
+			param[p] = info[p];
+		}
+		api.showProgress({
+			title : '处理中',
+			modal : false
+		});
+		ajaxRequest('addr/new_addr', 'post', param, function(ret, err) {
+			api.hideProgress();
+			if (err) {
+				api.toast({
+					msg : err.msg
+				});
+				return false;
+			}
+			if (ret.status) {
+				api.execScript({
+					name : 'mi_set_head_w',
+					frameName : 'mi_set_add_f',
+					script : 'get_list({page:0});'
+				});
+				api.closeWin({
+					name : 'mi_set_add_head_w'
+				});
+			} else {
+				if (ret.info == 'no_login') {
+					to_login();
+					return false;
+				}
+				api.toast({
+					msg : ret.info,
+					location : 'middle'
+				});
+			}
+		});
+	}
+	</script>
+</html>

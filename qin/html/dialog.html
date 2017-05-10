@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+     <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+     <link rel="stylesheet" href="../css/api.css">
+     <link rel="stylesheet" href="../css/common.css">
+    <title>弹出窗口</title>
+    <style>
+       #main{
+        background: rgba(0,0,0,.1);
+        width: 100%;
+        height: 100% !important;
+        background: transparent;
+       }
+       .dialog{
+            background: #E6E6E6;         
+            width: 55%;
+             margin: 0 auto;
+          /*   margin-top:50%;*/
+            height: auto  !important;
+             border: 1px solid rgba(0,0,0,.3);
+             position: relative;
+
+             
+             top: 40%;
+
+       }
+       .mess{
+        position: relative;
+        width: 100%;
+        height: auto;
+        border-bottom: 1px solid rgba(0,0,0,.3);
+        padding-left: 10px;
+        padding-top: 5px;
+        padding-bottom:  10px;
+        box-sizing: border-box;
+        text-align: center;
+        font-weight: bold;
+       }
+
+       .mess p{
+        text-align: left;
+        padding-top: 5px;
+        padding-bottom:  5px;
+        font-weight: normal !important;
+        color: gray;
+       }
+      /* 支持flex布局可用*/
+       /*.action{
+            height: 35px;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-box-orient: horizontal;
+        -webkit-flex-flow: row;
+               flex-flow: row;
+       }
+
+       .action span{
+            -webkit-box-flex: 1; 
+        -webkit-flex: 1;
+        flex: 1;
+        text-align: center;
+        padding-top: 10px;
+        padding-bottom:  10px;
+        border-right: 1px solid rgba(0,0,0,.3);
+
+       }
+
+       .action span:last-child{
+        color: red;
+       }*/
+       
+       /* 不支持flex布局下可用*/
+       .action {
+         height: 35px;
+         line-height: 35px;
+       }
+       
+       .action span{
+          position:relative;
+          float:left;
+          width:49.7%;
+          text-align:center;
+         
+       }
+       .action span:last-child{
+        color: red;
+         border-left: 1px solid rgba(0,0,0,.3);
+       }
+
+       #dialog3{
+        display: none;
+       }
+
+       #dialog2{
+        display: none;
+       }
+       
+       #dialog2,#dialog3{
+        width: 65% ;
+       }
+
+    </style>
+</head>
+<body>
+    <div id="wrap">
+    <div id="main">
+    <div id="dialog1" class="dialog">
+        <div class="mess">
+            确定退出吗？
+        </div>
+        <div class="action">
+            <span>取消</span>
+            <span>确定</span>
+        </div>
+    </div>
+   
+    <div id="dialog2" class="dialog">
+        <div class="mess">
+            确认订单
+            <p>今天(周五)15:00</p>
+            <p>起点：北京演艺专修学院</p>
+            <p>终点：北京语言大学</p>
+        </div>
+        <div class="action">
+            <span>取消</span>
+            <span>确认接单</span>
+        </div>
+         
+    </div>
+    
+    <div id="dialog3" class="dialog">
+        <div class="mess">
+            <p>此操作需要您的位置信息，请开启51用车的定位权限</p>
+        </div>
+        <div class="action">
+            <span>稍后再说</span>
+            <span>去设置</span>
+        </div>
+    </div>
+    </div> 
+  </div>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>  
+</body>
+</html>

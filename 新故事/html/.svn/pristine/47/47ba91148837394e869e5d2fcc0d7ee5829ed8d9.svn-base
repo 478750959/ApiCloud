@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>首页</title>
+<meta charset="utf-8">
+<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+<link rel="stylesheet" href="../css/base.css">
+
+<style>
+	html, body {
+		width: 100%;
+		height: 100%;
+	}
+	body{
+		background-color: #FAFAFA;
+	}
+	#main{
+		overflow: hidden;
+	}
+	#recom{
+		display: -webkit-box;
+		-webkit-box-flex:1;
+		-webkit-box-orient:horizontal;
+		-webkit-box-align:center;
+		width:100%;
+		background: url(../image/home/default_blur.png) no-repeat;
+		-webkit-background-size: 100% 100%;
+	}
+	.container{
+		display: -webkit-box;
+		-webkit-box-align:center;
+		-webkit-box-pack:center;
+		-webkit-box-orient:vertical;
+		width: 100%;
+		height: 100%;
+	}
+	.container div{
+		display: -webkit-box;
+		-webkit-box-align:center;
+		-webkit-box-pack:center;
+		width: 100%;
+	}
+	.container div:nth-child(1){
+		height: 85%;
+	}
+	.container div:nth-child(2){
+		height: 15%;
+	}
+	.container div:nth-child(2) span{
+		border-width: 4px;
+		border-radius: 4px;
+		border-style: solid;
+		border-color: #FFFFFF;
+		margin: 0 1px;
+	}
+	.currentbtn{
+		border-color: rgb(225, 66, 116) !important;
+	}
+	#courselist{
+		display: -webkit-box;
+		-webkit-box-orient: vertical;
+		margin-top:15px;
+	}
+	#courselist div{
+	  height: 80px;
+	}
+	
+	#courselist .user{
+	
+	  height:45px;
+	}
+	
+
+	
+	#courselist .user img{
+	  position:relative;
+	  margin-top: 10px;
+       top :-10px;
+	  left:10px;
+	  border-radius:30px;
+	 
+	
+	}
+	
+   
+	
+	#courselist section{
+		display: -webkit-box;
+		border-bottom: 1px solid #CCCCCC;
+		padding-top: 0px;
+		padding-bottom: 12px;
+		padding-left: 8px;
+		padding-right: 8px;
+		/*background-color: #FFFFFF;*/
+		background-color: #fafafa;
+		margin-bottom: 15px;
+
+	}
+	#courselist section div:nth-child(1) img{
+		margin-right: 20px;
+		margin-top:-15px;
+		border: 1px solid #B3B3B3;
+		border-radius: 4px;
+	}
+	#courselist section div:nth-child(2){
+		width: 100%;
+		padding-top: 7px;
+		padding-bottom: 7px;
+		-webkit-box-flex: 1;
+	}
+	.title{
+		font-weight: bold;
+		/*color: #00b8ff;*/
+		color: rgb(50,50,50);
+		text-overflow:ellipsis;
+		overflow:hidden;
+		white-space:nowrap;
+		-webkit-box-flex: 1;
+		margin-bottom: 10px;
+	}
+	.content{
+		font-size: 0.9em;
+		/*color: rgb(50, 50, 50);*/
+		color: #808080;
+		line-height: 18px;
+		word-wrap: break-word;
+		word-break: break-all;
+	}
+	.courselistActive{
+		background-color: #fff !important;
+	}
+	.nodata{
+		display: -webkit-box;
+		-webkit-box-align: center;
+		-webkit-box-pack: center;
+		background-color: #FAFAFA;
+		-webkit-box-flex: 1;
+		font-size: 14px;
+		padding-top: 40px;
+	}
+	.loadmore {height: 40px; line-height: 40px; text-align: center; font-size: 14px;border-top: 1px solid #e0e0e0;display: none;}
+    .suser{
+      position: relative;
+       top :-40px;
+      left:60px;
+      font-size: 14px;
+    }
+    .st{
+      position: relative;
+       top :-38px;
+      left:60px;
+      font-size: 12px;
+    }
+    
+    .tt{
+      position: relative;
+      top:-55px;
+    
+      left:25px;
+     
+    }
+    
+    .dd{
+      position: relative;
+      top:-25px;
+      
+      left:-40px;
+     
+    }
+    
+    .tt img{
+      
+    } 
+</style>
+</head>
+<body>
+		<div id="main">
+		<section id="recom">
+		</section>
+		<div id="courselist">
+			<!-- <section tapmode="courselistActive" onclick="beforeActivityDetail(1)">
+			<div><img src="" width="75px" height="75px"/></div>
+			<div>
+			<label class="title">asdf</label>
+			<label class="content">zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz</label>
+			</div></section> -->
+		</div>
+		<div class="loadmore">
+			加载更多
+		</div>
+	</div>
+</body>
+<script src="../script/api.js"></script>
+<script src="../script/common.js"></script>
+<script>
+var pageIndex = 0;
+var inLoading = false;
+var needLoadMore = false;
+var jsonList = [];
+var totalcount = 0;
+var alreadyshow = 0;
+var limitItemNum = 10;
+var model;
+var query;
+
+apiready = function() {
+	api.showProgress({
+		modal: false
+	});
+
+	model = api.require('model');
+	query = api.require('query');
+	model.config({
+		appId : 'A6974887568667',
+	    appKey : '09652FAC-1E1B-D3C4-90BB-2BC09472893F',
+	     host: 'https://d.apicloud.com/'
+	});
+
+	//下拉到页面底部，加载更多
+	api.addEventListener({
+		name: 'scrolltobottom'
+	}, function() {
+		var loadmore = $api.dom('.loadmore');
+
+		if (alreadyshow <= totalcount) {
+			loadmore.style.display = 'block';
+			api.showProgress({
+				modal: true
+			});
+			loadData(false);
+		} else {
+			loadmore.style.display = 'none';
+		}
+
+//		 if (needLoadMore) {
+//		     loadData(false);
+//		 }
+	});
+	//下拉刷新
+	api.setRefreshHeaderInfo({
+		visible: true,
+		bgColor: '#F2F2F2',
+		textColor: '#000000',
+		textDown: '下拉刷新',
+		textUp: '释放刷新',
+	}, function(ret, err) {
+		loadData(true);
+	});
+	
+	// 获取全部表中全部条目
+	
+	getTotalNum();
+	
+	loadData(true);
+	
+
+};
+
+function setAllcount(ret, err) {
+	if (ret) {
+		totalcount = ret.count;
+			// alert(JSON.stringify(ret));
+	} else {
+		// alert(JSON.stringify(err));
+	}
+}
+
+// 获取全部表中全部条目
+function getTotalNum() {
+	query.createQuery(function(ret, err) {
+		if (ret && ret.qid) {
+			var queryId = ret.qid;
+			model.count({
+				class: "story",
+				qid: queryId
+			}, setAllcount);
+		}
+	});
+}
+
+function ajaxBack(ret, err) {
+
+	inLoading = false;
+	if (ret) {
+		if (ret.length > 0) {
+			// jsonList = ret;
+			// var html = createContent();	    									
+			// pageIndex++;
+
+			// $api.html($api.byId('courselist'), html);
+
+			jsonList = jsonList.concat(ret);
+			var html = createContent();
+			pageIndex++;
+			alreadyshow += limitItemNum;
+			$api.append($api.byId('courselist'), html);
+
+			api.refreshHeaderLoadDone();
+			setTimeout(function() {
+				api.hideProgress();
+			}, 300);
+
+			api.parseTapmode();
+		} else if (ret.length == 0) {
+			api.refreshHeaderLoadDone();
+			api.hideProgress();
+			if (isReload_) { //如果是刷新
+				var html = '<div class="nodata">暂无活动</div>';
+				$api.html($api.byId('courselist'), html);
+			}
+		}
+
+		if (pageIndex < ret.pages) {
+			needLoadMore = true;
+		} else {
+			needLoadMore = true;
+		}
+	} else {
+		api.refreshHeaderLoadDone();
+		api.hideProgress();
+		if (ret) {
+			api.toast({
+				msg: ret.msg,
+				location: 'middle'
+			});
+		} else if (err) {
+			api.toast({
+				msg: err.msg,
+				location: 'middle'
+			});
+		} else {
+			api.toast({
+				msg: '数据错误',
+				location: 'middle'
+			});
+		}
+		var html = '<div class="nodata">数据错误，请下拉刷新重试！</div>';
+		$api.html($api.byId('courselist'), html);
+	}
+}
+
+function loadData(isReload_) {
+	if (inLoading) { //如果还在加载中，不执行操作
+		return;
+	}
+	inLoading = true;
+	if (isReload_) { //下拉刷新，即重新载入,pageIndex为0
+		pageIndex = 0;
+	}
+//	alert('totalcount---'+totalcount);
+//	alert('alreadyshow---'+alreadyshow);
+	query.createQuery(function(ret, err) {
+		if (ret && ret.qid) {
+			var queryId = ret.qid;
+
+			// 设置limit
+			query.skip({
+				qid: queryId,
+				value: parseInt(alreadyshow) + ''
+			});
+			query.limit({
+				qid: queryId,
+				value: limitItemNum + ''
+			});
+			query.desc({
+				qid: queryId,
+				column: 'createdAt'
+			});
+			model.findAll({
+				class: "story",
+				qid: queryId
+			}, ajaxBack);
+		}
+
+	});
+}
+
+function createContent() {
+	var html = '';
+	for (var i = alreadyshow; i < jsonList.length; i++) {
+//		var subM = subStr(jsonList[i].aintroduction);
+//		var src = '../image/default.png';
+//		if (jsonList[i].aicon) {
+//			src = jsonList[i].aicon;
+//		}
+		html += '<div class="user"><img src="' + jsonList[i].storypic + '" width="44px" height="44px"/>';
+		html += '<label class="suser">创业者</label><label class="st">'+dateToStr(new Date(jsonList[i].createdAt))+'</label></div>';
+//		html += '<img src="../image/heart.png" width="30px" height="30px"/>';
+		html += '<section tapmode="courselistActive" onclick="beforeActivityDetail(' + i + ')">';
+		html += '<div><img src="' + jsonList[i].storypic + '" width="100px" height="100px"/></div>';
+		html += '<div>';
+		html += '<label class="title">' + jsonList[i].storyname + '</label>';
+		html += '<label class="content">' + subStr(jsonList[i].storytitle) + '</label>';
+		html += '</div><div class="tt"><img src="../image/heart.png" width="30px" height="30px"/><div>';
+		html += '<div class="dd"><img src="../image/m_about_icon_share.png" width="30px" height="30px"/></div></section>';
+		
+	}
+	return html;
+}
+function refreshdata(){
+   loadData(false);
+}
+function beforeActivityDetail(index) {
+    //alert(jsonList[index].id);
+	activityDetail(jsonList[index].id);
+}
+
+function activityDetail(id) {
+	api.openWin({
+		name: 'storycard',
+        url: '../html/storycard.html',
+		pageParam: {
+			id: id
+		},
+		showProgress: true
+	});
+}
+</script>
+</html>

@@ -1,0 +1,106 @@
+﻿<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=0, width=device-width"/>
+    <title>api</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../css/common.css" />
+    <link rel="stylesheet" type="text/css" href="../css/user.css" />
+</head>
+<body>
+    <div id="wrap">
+        <div id="main">
+        
+                  
+            <div id="cover">
+                <img class="cover" />
+                <div id="avatar">
+                    <img src="../image/one.png"/>
+                    <i class="edit"></i>
+                </div>
+                <label>故事大王</label>
+            </div>
+            <ul id="tab">
+                <li><a class="active light">
+                    <span>1</span>
+                    <div>我的故事</div>
+                </a></li>
+                <!--<li><a>
+                    <span>2</span>
+                    <div>故事收藏</div>
+                </a></li>-->
+                <li><a>
+                    <span>2</span>
+                    <div>故事分享</div>
+                </a></li>
+            </ul>
+            
+            
+            <script id="template" type="text/x-dot-template">
+	              <div class="item">
+	              
+	              	{{? it.favType == 'act' }}
+                      {{ for(var i=0, len=it.ret.length; i < len; i++) {}}
+	              		<a tapmode="" onclick="openActDetail('{{=it.ret[i].id}}');">
+		                	<div class="pic" style="background-image:url({{=it.ret[i].img.url}})">
+							</div>
+		                    <h2>{{=it.ret[i].title}}</h2>
+		                    <p>
+		                    	{{=it.ret[i].summary}}
+		                    </p>
+		                </a>
+                      {{ } }}
+	              	{{?}}
+	              	{{? it.favType == 'mer' }}
+                      {{ for(var i=0, len=it.ret.length; i < len; i++) {}}
+	              		<a tapmode="" onclick="openMer('{{=it.id}}');">
+		                	<div class="pic" style="background-image:url({{=it.poster.url}})">
+							</div>
+		                    <h2>{{=it.name}}</h2>
+		                    <p>
+		                    	{{=it.address}}
+		                    </p>
+		                </a>
+                      {{ } }}
+	              	{{?}}
+	              	{{? it.favType == 'news' }}
+                      {{ for(var i=0, len=it.ret.length; i < len; i++) {}}
+		                <a tapmode="" onclick="openNewDetail('{{=it.ret[i].type}}','{{=it.ret[i].id}}');">
+							<div class="pic" style="background-image:url({{=it.ret[i].img.url}})">
+							</div>
+		                    <h2>{{=it.ret[i].title}}</h2>
+		                    <p>
+		                    	{{=it.ret[i].summary}}
+		                    </p>
+		                </a>
+                      {{ } }}
+	                {{?}}
+	                
+	              </div>
+            </script>
+            
+            <div id="activity">
+            </div>
+            
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/doT.min.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript" src="../script/user.js"></script>
+<script>
+apiready = function() {
+		var usr = $api.getStorage('usr');
+		if(usr){
+			$api.text($api.dom($api.byId('cover'), 'label'),usr.name);
+			
+		}
+	};
+function updateInfo()
+{
+
+}
+</script>
+</html>

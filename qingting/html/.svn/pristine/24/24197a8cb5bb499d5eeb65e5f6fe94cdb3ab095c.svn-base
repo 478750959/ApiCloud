@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title></title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../css/api.css" />
+<link rel="stylesheet" type="text/css" href="../css/common.css" />
+<link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css" />
+</head>
+<body>
+    <div id="wrap">
+        <header id='header'>
+            <nav id="nav">
+                <a id="left" tapmode="leftBtnActive" onclick="api.closeWin();">
+                    <span class="glyphicon glyphicon-chevron-left"></span>
+                </a>
+                <div id="middle">
+                    <strong id="title">菜谱列表</strong>
+                </div>
+                <a id="right">
+                </a>
+            </nav>
+        </header>
+        <div id="main">
+        </div>
+    </div>
+</body>
+
+<script src="../script/api.js"></script>
+<script src="../script/common.js"></script>
+<script>
+apiready = function() {
+
+	openFrame("searchlist-con","./searchlist-con.html",api.pageParam);
+
+}
+
+</script>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <style>
+        body, html {
+            height: 100%;
+        }
+        body{
+            padding-left:40%;
+
+            background-color: #1D1D1D;
+        }
+        .category{
+            padding-top:50px;
+        }
+        .category li {
+             position: relative;
+             padding: 20px;
+             background-size:30px;
+             background-repeat: no-repeat;
+             background-position:21.875%;
+         }
+        .category span{
+            color: #777676;
+            padding-left:34.375%;
+            font-size:18px;
+        }
+        .news{
+            background-image:url('../image/top_navigation_menuicon_highlighted@2x.png');
+        }
+        .subscribe{
+            background-image:url('../image/top_navigation_menuicon_highlighted@2x.png');
+        }
+        .photo{
+            background-image:url('../image/cell_tag_photo@2x.png');
+        }
+        .video{
+            background-image:url('../image/cell_tag_video@2x.png');
+        }
+        .edit{
+            background-image:url('../image/shotscreenshare_edit_btn@2x.png');
+        }
+        .audio{
+            background-image: url('../image/cell_tag_audio@2x.png');
+        }
+    </style>
+</head>
+<body>
+<ul class="category">
+    <li class="news"><span>新闻</span></li>
+    <li class="subscribe"><span>订阅</span></li>
+    <li class="photo"><span>图片</span></li>
+    <li class="video"><span>视频</span></li>
+    <li class="edit"><span>跟帖</span></li>
+    <li class="audio"><span>电台</span></li>
+</ul>
+<script src="../script/zepto.min.js"></script>
+<script>
+    apiready = function () {
+        fixIos7Bar($("header"));
+    };
+    function closeWin() {
+        api.closeWin({
+
+        });
+    }
+
+</script>
+</body>
+</html>

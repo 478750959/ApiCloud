@@ -1,0 +1,77 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>APP</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/common.css" />
+    <style>
+    	html,body{
+    		background: transparent;
+            width: 100%;
+            height: 8px;
+    	}
+    	ul,li,ol{
+    		list-style: none;
+    		background-color: transparent;
+    	}
+    	#wrap{
+    		background: transparent;
+            width: 100%;
+    	}
+    	#wrap ul{
+    		display: block;
+            width: 100%;
+    	}
+    	#wrap li{
+    		float: left;
+    		width: 25%;
+    		height: 8px; 
+    		background:	url(../../res/drawable-xhdpi/slider_dot.png) transparent center center no-repeat;
+    		background-size: 8px 8px;
+    	}
+    	#wrap li.active{
+    		background:	url(../../res/drawable-xhdpi/slider_dot_current.png) transparent center center no-repeat;
+    		background-size: 8px 8px;
+    	}
+    </style>
+</head>
+<body>
+    <div id="wrap">
+        <ul>
+        	<li class=" active" onclick="changeWelcome(0);"> </li>
+        	<li class="" onclick="changeWelcome(1);"> </li>
+        	<li class="" onclick="changeWelcome(2);"> </li>
+        	<li class="" onclick="changeWelcome(3);"> </li>
+        </ul>
+    </div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script>
+	var aLi = $api.domAll('li');
+    function changeDot(num){
+    	
+    	for(i = 0,len = aLi.length; i<len; i++){
+    		$api.removeCls(aLi[i],'active');
+    	}
+    	$api.addCls(aLi[num],'active');
+    };
+    function changeWelcome(num){
+    	api.setFrameGroupIndex ({
+		    name: 'welcome',
+		    index: num,
+		    scroll: true
+		});
+    };
+    
+	apiready = function(){
+        var w = api.pageParam.w;
+        api.alert({msg:w});
+        $api.css(document.body,{'width', w+'px'});
+		$api.setStorage('firstStart',true);
+		
+        
+	};
+</script>
+</html>

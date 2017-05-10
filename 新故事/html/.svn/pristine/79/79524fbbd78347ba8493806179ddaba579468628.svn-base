@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>登录</title>
+<meta charset="utf-8">
+<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+<link rel="stylesheet" href="../css/base.css">
+<script src="../script/api.js"></script>
+<script src="../script/common.js"></script>
+<style>
+    body{
+     background-color: #00B8FF;
+    }
+	#main {
+	    position:absolute;
+		top:0;
+		left:0;
+		width:100%;
+		height:100%;
+	    display:-webkit-box;
+	    -webkit-box-orient: vertical;
+		-webkit-box-pack: center;
+		-webkit-box-align: center;
+		
+		-webkit-background-size: cover;
+	}
+	#logo img{
+		width: 100%;
+	}
+	#loginform{
+		border:1px solid #D9D9D9;
+		border-radius: 4px;
+		background-color: #FFFFFF;
+		margin-bottom: 10px;
+	}
+	#loginform, #addtional, #footer{
+		width: 80%;
+	}
+	.name, .password{
+		padding: 5px;
+		display: -webkit-box;
+	}
+	.name{
+		border-bottom:1px solid #BFBFBF;
+	}
+	.name input, .password input{
+		-webkit-box-flex: 1;
+		width: 100%;
+		display: -webkit-box;
+		-webkit-box-align: center;
+		margin-right: 5px;
+		padding: 5px 0 5px 18px;
+		background: url(../image/loginid.png) no-repeat left;
+		-webkit-background-size: 16px 18px;
+		padding-left: 20px;
+		outline: none;
+	}
+	.name input{
+		background: url(../image/loginid.png) no-repeat left;
+		-webkit-background-size: 16px 18px;
+	}
+	.password input{
+		background:url(../image/loginpw.png) no-repeat left;
+		-webkit-background-size: 16px 18px;	
+	}
+	.addtion, .addtion a, .addtion div{
+		display: -webkit-box;
+	}
+	#left{
+		width: 20px;
+		background:url(../image/checked.png) no-repeat left;
+		-webkit-background-size: 16px 18px;	
+	}
+	.unrember{
+		background:url(../image/check.png) no-repeat left !important;
+		-webkit-background-size: 16px 18px !important;	
+	}
+	#left input{
+		display: none!important;
+		-webkit-appearance: none;
+	}
+	#middle{
+		width: 100%;
+		-webkit-box-flex: 1;
+		-webkit-box-pack: start;
+		-webkit-box-align: center;
+		color: #ffffff;
+		padding-left: 10px;
+	}
+	#right{
+		width: 50px;
+		color: #ffffff;
+		display: -webkit-box;
+		-webkit-box-pack: end;
+		-webkit-box-align: center;
+	}
+	.addtion{
+		margin-bottom: 20px;
+	}
+	#submit{
+		display: -webkit-box;
+		-webkit-box-pack: center;
+		-webkit-box-align: center;
+		-webkit-box-flex: 1;
+	}
+	#submit button{
+		background-color: rgb(1, 140, 194);
+		border:1px solid rgb(1, 140, 194);
+		border-radius: 4px;
+		color: #FFFFFF;
+		font-weight: bold;
+		width: 100%;
+		padding: 10px 0;
+	}
+	.loginActive{
+		background-color: #00b8ff !important;
+	}
+	#footer{
+		display: -webkit-box;
+		-webkit-box-pack: center;
+		-webkit-box-align: center;
+		margin-top: 40px;
+	}
+	#footer a{
+		width: 50px;
+		height: 50px;
+		display: -webkit-box;
+		background:url(../image/loginback.png) no-repeat center;
+		-webkit-background-size: 50px 50px;	
+	}
+	.loginbackActive{
+		background:url(../image/loginback_hov.png) no-repeat center !important;
+		-webkit-background-size: 50px 50px !important;
+	}
+	.validateActive{
+		color: #018CC2 !important;
+	}
+</style>
+</head>
+
+<body>
+	<div id="main">
+		<section id="logo">
+			<img src="../image/loginlogo.png"/>
+		</section>
+		<section id="loginform">
+			<div class="name">
+				<input type="text" id="account" value="" placeholder="用户名"/>
+			</div>
+			<div class="password">
+				<input type="password" id="usrpw" value="" placeholder="密码"/>
+			</div>
+		</section>
+		<section id="addtional">
+			<div class="addtion">
+				<a id="left" tapmode="" onclick="remberPW(this)"><input type="checkbox" id="rember" checked /></a><div id="middle">记住密码</div><a id="right" tapmode="validateActive" onclick="api.openWin({name:'register',url:'register.html'});">注册</a>
+			</div>
+			<div id="submit">
+				<button tapmode="loginActive" onclick="login()">登录</button>
+			</div>
+		</section>
+		<section id="footer">
+			<a tampode="loginbackActive" onclick="api.closeWin();"></a>
+		</section>
+	</div>
+</body>
+<script>	
+	window.onload = function(){
+		//$api.byId('main').style.background = 'url(../image/loginbg.png) no-repeat center';
+		$api.byId('main').style.backgroundSize = '100%';
+	};
+	
+	apiready = function() {
+		var usr = $api.getStorage('usr');
+		if(usr){
+			$api.val($api.byId('account'), usr.name);
+			if($api.getStorage('remberpw')){			
+				$api.val($api.byId('usrpw'), usr.password);
+			}
+		}
+	};
+	
+	function remberPW(el){
+		if($api.hasCls(el, 'unrember')){
+			$api.removeCls(el, 'unrember');
+			$api.byId('rember').checked = true;
+		}else{
+			$api.addCls(el, 'unrember');
+			$api.byId('rember').checked = false;
+		}
+	}
+	
+	function validateID(validateID){
+		var reg = /^[A-Za-z0-9]{1,24}$/;
+		//return reg.test(validateID);
+		return true;
+	}
+	
+	function validatePW(pw){
+		var reg = /^[A-Za-z0-9]{6,24}$/;
+		return reg.test(pw);
+		return true;
+	
+	}
+	
+	function login(){
+		var account = $api.val($api.byId('account'));
+		var password = $api.val($api.byId('usrpw'));
+		if(account == '' || password == ''){
+			api.toast({msg: '请输入ID和密码', location: 'middle'});
+			return;
+		}else if(!validateID(account)){
+			api.toast({msg: '请输入正确的ID', location: 'middle'});
+			return;
+		}else if(!validatePW(password)){
+			api.toast({msg: '请输入正确的密码', location: 'middle'});
+			return;
+		}else{
+			doNetRequest(account, password);
+		}
+	}
+	
+	function doNetRequest(account, password){
+		api.showProgress({title: '登录中', modal: false});
+		var model = api.require('model');
+    model.config({appId:'A6974887568667',appKey:'09652FAC-1E1B-D3C4-90BB-2BC09472893F'});
+		//告诉server登录，更新数据
+
+		 var user = api.require('user');
+       user.login({
+          username: account,
+          password: password
+       }, ajaxBack);
+	}
+
+	function ajaxBack(ret,err){
+		if(ret && ret.id){
+    		$api.setStorage('logined', 'done');
+		    		
+			var usr = $api.getStorage('usr');
+			
+			//alert(ret.id+ret.userId);
+			
+			if(usr){
+				$api.rmStorage('usr');
+			}
+			usr = {};
+
+			usr.name = $api.val($api.byId('account'));
+			usr.password = $api.val($api.byId('usrpw'));
+			if($api.byId('rember').checked){
+				$api.setStorage('remberpw', 'rember');
+			}else{
+				if($api.getStorage('remberpw')){
+					$api.rmStorage('remberpw');
+				}
+			}
+			
+			usr.token = ret.id;
+			usr.uid = ret.userId;
+			
+			
+			setUsrMsg('1', usr);
+			api.execScript({name:'root', script:'updateHeader();'});
+			
+			bindInfo(usr.account, usr.uid, function(ret, err){
+    			api.hideProgress();
+				setTimeout(api.closeToWin({name: 'root'}), 2000);
+    		});
+    	}else{
+    		api.hideProgress();
+    		if(ret){
+    			api.toast({msg: ret.msg, location: 'middle'});
+    		}else if(err){
+    			api.toast({msg: err.msg, location: 'middle'});
+    		}else{
+    			api.toast({msg: '数据错误', location: 'middle'});
+    		}
+    	}		
+	}
+	
+	function setUsrMsg(body, usr){
+		/**usr.uid = body.uid;
+		usr.fid = body.fid;
+		usr.icon = body.icon;
+		usr.gender = body.gender;
+		usr.age = body.age;
+		usr.marriageStatus = body.marriageStatus;
+		usr.education = body.education;
+		usr.fertilityStatus = body.fertilityStatus;
+		usr.accommodation = body.accommodation;
+		usr.insurance = body.insurance;
+		usr.caddress = body.caddress;
+		usr.phone = body.phone;		*/
+		$api.setStorage('usr', usr);
+	}
+
+	function bindInfo(account, uid, afterBindInfo){
+		var push = api.require('push');
+		push.bind({
+			userName: account,
+			userId: uid
+		}, function(ret, err){
+			if(ret && ret.status){
+				afterBindInfo(ret, err);
+			}
+		});
+	}
+</script>
+</html>

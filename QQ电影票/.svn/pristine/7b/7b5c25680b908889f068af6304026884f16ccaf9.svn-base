@@ -1,0 +1,71 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>APP</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/common.css" />
+    <style>
+    	html,body,#header,#headerBanner{
+    		background: transparent;
+    	}
+    	#headerBanner{
+    	}
+    	#fast_city_list_wrap{
+    		position: absolute;
+    		z-index: 3;
+    		width: 100%;
+    		height: 100%; 
+    		left: 0;
+    		top: 0;
+    	}
+    </style>
+</head>
+<body ontouchstart="">
+    <div id="wrap">
+    	<div id="header">
+    		
+    	</div>
+    	<div id="headerBanner">
+    		<ul id="fastCityList" class="active">
+        		<li class="cityList_city GPS" tapmode>
+        			<span id="gpsCity">北京</span>
+        			<span class="scr">
+        			(GPS定位城市)
+        			</span>
+        		</li>
+        		<li class="cityList_city" tapmode>北京</li>
+        		<li class="cityList_city" tapmode>上海</li>
+        		<li class="cityList_city" tapmode>广州</li>
+        		<li class="cityList_city" tapmode>深圳</li>
+        		<li class="cityList_city toCity_list" onclick="openCityListWin();" tapmode>
+        			更多城市&rsaquo;&rsaquo;
+        		</li>
+        	</ul>
+    	</div>
+    	<div id="fast_city_list_wrap" tapmode onclick="api.closeFrame({name:'fast_city'});">
+    	
+    	</div>
+    </div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/common.js"></script>
+<script>
+	
+	var str =   '<li class="cityList_city GPS" tapmode>'+
+					'<span>'+
+					'(GPS定位城市)'+
+					'</span>'+
+				'</li>';
+	apiready = function(){
+        var header = $api.byId('header');
+        $api.fixIos7Bar(header); 
+        var headerPos = $api.offset(header);
+		api.bringFrameToFront({
+			from: 'fast_city'
+		});	
+	}
+
+</script>
+</html>

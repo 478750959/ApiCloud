@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<title>微信打飞机</title>
+		<link rel="stylesheet" type="text/css" href="./css/api.css" />
+		<link rel="stylesheet" type="text/css" href="./css/my.css" />
+		<style type="text/css">
+		</style>
+	</head>
+	<body>
+		<div id="main">
+			<div id="modal" class="hide">
+				<div class="header">
+					飞机大战分数
+				</div>
+				<div class="content" id="content">
+					0
+				</div>
+				<div class="footer">
+					<button>
+						继 续
+					</button>
+				</div>
+			</div>
+			<canvas id="game-box"></canvas>
+		</div>
+	</body>
+	<script type="text/javascript" src="./script/api.js"></script>
+	<script type="text/javascript" src="./script/jquery-1.11.3.min.js"></script>
+	<script type="text/javascript" src="./script/my.js"></script>
+	<script type="text/javascript">
+		apiready = function() {
+		};
+	</script>
+</html>

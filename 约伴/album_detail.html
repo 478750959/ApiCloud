@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+<head>
+	<title></title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+	<link rel="stylesheet" href="css/ui-tab.css">
+	<link rel="stylesheet" href="css/ui-btn.css">
+	<link rel="stylesheet" href="css/ui-base.css">
+	<link rel="stylesheet" href="css/ui-box.css">
+	<link rel="stylesheet" href="css/ui-color.css">
+	<link rel="stylesheet" href="css/ui-res.css">
+	<link rel="stylesheet" href="css/style.css">
+    <script src="js/y_control.js"></script>
+	<script src="js/y_click.js"></script>
+	<script src="js/y_anim.js"></script>
+	<script src="js/dis_control.js"></script>
+	<script>
+	</script>
+</head>
+<body class="um-vp c-gra5" ontouchstart>
+    <div id="page_0" class="up ub ub-ver c-gra" tabindex="0">
+        <!--header开始-->
+        <div id="header" class="c-blu3 uh">
+        	<div class="c-m2 t-wh">
+				<a class="btn btn-l btn-a ub ub-ac" ontouchstart="zy_touch('btn-act1')" onclick="closewin();">       
+					<div class="ulim"><img src="images/back.png" class="sbtn"></div>
+				</a>
+                <h1 class="ut ulev0 ut-s tx-c" tabindex="0">照片详情</h1>
+			</div>
+			<div style="height:1px;"></div>
+			<div class="ub ub-ac ub-pc navbg us uc-a uinn6 uinn5 ulev-3">
+				<input class="uhide" type="radio" name="menus" checked="true">
+				<div class="ub-con ub-f1 tx-c t-gra3 navbtn uinn14 ulev-3" style="padding:.4em 0;" ontouchstart="zy_touch('navbtn-act')" onclick="menus2(1);">默认</div>
+				<input class="uhide" type="radio" name="menus">
+				<div class="ub-con ub-f1 tx-c t-gra3 navbtn uinn14 ulev-3" style="padding:.4em 0;" ontouchstart="zy_touch('navbtn-act')" onclick="menus2(2);">只看照片</div>
+				<input class="uhide" type="radio" name="menus">
+				<div class="ub-con ub-f1 tx-c t-gra3 navbtn uinn14 ulev-3" style="padding:.4em 0;" ontouchstart="zy_touch('navbtn-act')" onclick="menus2(3);">只看评论</div>
+			</div>
+        </div>
+        <!--header结束--><!--content开始-->
+        <div id="content" class="ub-f1 tx-l t-bla">
+            
+        </div>
+        <!--content结束-->
+    </div>
+</body>
+<script>
+zy_init();
+var params = getStorJson('params');
+var wnm = 'album_detail';
+window.uexOnload = function(type){
+    if (!type) {
+		setTimeout(function(){
+			var hh = $$("header").offsetHeight;
+			setstorage('headerHeight', hh);
+			my_con("content", "album_detail_content.html", 0, hh);
+		}, 500);
+		//setTimeout('setNavDiv();', 200);
+    }
+	window.onorientationchange=window.onresize=function()
+	{
+		zy_resize("content",0,$$("header").offsetHeight);				
+	}
+	setstorage('fscreen', '');
+}
+
+function menus2(i){
+	var act = getstorage('active');
+	if(!act) return;
+	
+	zy_for(event);
+	var scr = '';
+	if(i==1) scr='readDefalt();'
+	else if(i==2) scr='readArtOnly();'
+	else scr='readComOnly();'
+	if(scr) ueppscript('album_detail', 'content', scr);
+}
+
+function setNavDiv(fav){
+	var s=window.getComputedStyle($$('header'),null);
+	var em = int(s.fontSize);
+	var x = 0;
+	var y = int(window.innerHeight) - int(2.6*em);
+	var w = int(s.width);
+	var h = int(2.5*em);
+
+	params.view = 'album';
+	params.fav = fav;
+	var str = JSON.stringify(params);
+	logs('setNavDiv-->str='+str);
+	setstorage('popnav', str);
+	//if(!isSML) y = y + 500;
+	uexWindow.openPopover('nav',"0",'pop_nav.html',"",x,y,w,h,em,"0");
+}
+function openFscr(){
+	var fsc = getstorage('fscreen');
+	logs('openFscr()-->fsc='+fsc);
+	if(!fsc){
+		var e = $$('header');
+		var s = window.getComputedStyle(e,null);
+		var f = int(s.fontSize);
+		var h = 2.5*f;
+		var w = h;
+		var x = int(window.innerWidth)-w-0.2*f;
+		var y = int(window.innerHeight)-w-0.2*f;
+		
+		setstorage('pop_sf', wnm);
+		uexWindow.openPopover('pop_sf',"0","pop_sf.html","",int(x),int(y),int(w),int(h),f,"0");
+		
+		outFscr('1');
+	}
+}
+
+function outFscr(c){
+	setstorage('fscreen', c);
+	ueppscript(wnm, 'nav', 'moveOutsc();');
+	ueppscript(wnm, 'content', 'moveOutsc();');
+}
+</script>
+</html>

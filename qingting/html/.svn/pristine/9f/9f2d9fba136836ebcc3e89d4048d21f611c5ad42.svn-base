@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title></title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../css/api.css" />
+<link rel="stylesheet" type="text/css" href="../css/common.css" />
+<link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css" href="../css/docs.min.css" />
+<style>
+	.row{
+		padding:10px;
+	}
+	hr{
+    	border:0;
+    	background-color:#F0F0E1;
+    	height:1px;
+    	margin-bottom:20px;
+    }
+</style>
+</head>
+
+<body>
+<div id="detailCont" class="container-fluid"></div>
+</body>
+
+<script id="pageTpl" type="text/html">
+<div class="row">
+	<h3 class="text-success">{{ d.title }}</h3>
+	<hr />
+	<p>
+		<span class="label label-default">Tags</span> {{ d.tags }}
+	</p>
+	<p>
+		<span class="label label-danger">原料</span> {{ d.ingredients }}
+	</p>
+	<p>
+		<span class="label label-warning">配料</span> {{ d.burden }}
+	</p>
+	<p>
+		<img src="{{ d.albums }}" class="img-responsive">
+	</p>
+	{{# for(var i = 0, len = d.steps.length; i < len; i++){ }}
+	<div class="bs-callout bs-callout-warning">
+    	<h4>{{ d.steps[i].step }}</h4>
+    </div>
+    <p>
+		<img src="{{ d.steps[i].img }}" class="img-responsive">
+	</p>
+	{{# } }}
+	
+</div>
+</script>
+
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript" src="../script/laytpl.js"></script>
+<script type="text/javascript" src="../script/DBapi.js"></script>
+<script type="text/javascript" src="../script/zepto.min.js"></script>
+<script>
+
+apiready = function() {
+
+	var id = api.pageParam.id;
+	
+	loadDetail(id);
+}
+
+</script>
+</html>

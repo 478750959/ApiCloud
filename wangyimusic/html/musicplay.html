@@ -1,0 +1,59 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="copyright" content="www.apicloud.com" />
+<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+<title>正在播放</title>
+<link rel="stylesheet" type="text/css" href="../css/api.css" />
+<link rel="stylesheet" type="text/css" href="../css/egret.css" />
+<style>
+.egret-header-title {position: absolute; width: 100%; text-align: center; line-height: 20px; color: #fff; font-size: 20px; padding-top: 5px;}
+.egret-header-title .musicname {color: #fff;font-size: 18px;}
+.egret-header-title .musicsinger {color: #fff;font-size: 12px;}
+
+</style>
+</head>
+<body>
+	<!-- 第二头部 -->
+    <div id="secHeader" class="titlebar">
+        <div class="egret-header topbar">
+            <div class="egret-header-title">
+            	<div class="musicname">Yes I Do</div>
+            	<div class="musicsinger">苏永康</div>
+            </div>
+            <div  class="egret-img"><img src="../image/cm2_icn_back.png" alt="" onclick="goback()" ></div>
+            <div  class="egret-img toRight"><img src="../image/cm2_top_icn_share.png" alt="" onclick="goback()" ></div>
+        </div>
+    </div>
+
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript">
+function goback() {
+	api.closeWin({name:'musicplay'});
+}
+
+apiready = function (){
+	var header = $api.byId('secHeader');
+    $api.fixIos7Bar(header); 
+
+    var headerPos = $api.offset(header);
+
+	api.openFrame({
+		name: 'musicplay_body',
+		url: './musicplay_body.html',
+		bounces: false,
+		opaque: false,
+		rect: {
+			x: 0,
+			y: headerPos.h,
+			w: 'auto',
+			h: 'auto'
+		}
+	
+	});
+
+}
+</script>
+</html>

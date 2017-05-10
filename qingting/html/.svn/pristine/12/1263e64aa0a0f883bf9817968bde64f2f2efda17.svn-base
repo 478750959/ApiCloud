@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title></title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<script src="../script/api.js"></script>
+<style>
+    html,body,header,section,footer,nav,div,ul,ol,li,img,a,span,em,del,center,strong,var,fieldset,form,label,dt,dd,cite,input,hr,time,mark,code,figcaption,figure,textarea{
+        margin:0;
+        border:0;
+        padding:0;
+        font-family: Tahoma, Geneva, sans-serif;
+        font-style:normal;
+    }
+html,body {
+    -webkit-touch-callout:none;
+    -webkit-text-size-adjust:none;
+    -webkit-tap-highlight-color:rgba(0, 0, 0, 0);
+    -webkit-user-select:none;
+}
+header,footer,section,nav,img,a,button,em,del,strong,var,fieldset,label,cite,small,time,mark,code,figcaption,figure,textarea{
+    display:block;
+}
+header,section,footer,nav {
+    position:relative;
+    overflow:hidden;
+}
+ol,ul{
+    list-style:none;
+}
+input,button,textarea {
+    border:0;
+    margin:0;
+    padding:0;
+    font-size:1em;
+    line-height:1em;
+    -webkit-appearance:none;
+    background-color:rgba(0, 0, 0, 0);
+}
+span{
+    display:inline-block;
+}
+a,a:visited{
+    text-decoration:none;
+}
+    
+    
+    body{
+        background-color: #fff;
+    }
+    #logo{
+        width: 150px; height: 150px; margin: 32px auto 32px;
+    }
+    #web{
+        text-align: center; color:#87b1d1; 
+    }
+    #intro{
+        color: #898989; letter-spacing: 2px; line-height: 1.5;
+        padding: 40px 25px;
+    }
+    #read{
+        text-align: center;
+    }
+    #read .btn{
+        display: inline-block; width: 256px; height:50px;
+        background: #7dc2ef url(../image/audio.png) no-repeat center; 
+        background-size: 35px 28px;
+        border: 1px solid #7dc2ef;
+        border-radius: 6px;
+    }
+    .hover{
+        background-color: #64a7d3 !important;
+    }
+    dl{
+        text-align: center; margin: 0;
+    }
+    dl dt{
+        color:#808080; margin-bottom: 56px; margin-top: 30px;
+    }
+    dl dd span{
+        margin-bottom: 50px; margin-top: 10px; color:#5f97c2;
+    }
+    dl dd img{
+        display: block; width: 160px; height: 160px; margin: 0 auto;
+    }
+</style>
+</head>
+<body>
+    <div id="intro">
+          <p>为了实现部分功能，本应用会获取您设备的以下信息：</p>
+          <p>设备IMEI码</p>
+          <p>设备系统类型</p>
+          <p>当前网络类型</p>
+          <p style="color:red; font-weight:bold;">本应用郑重承诺，不会收集您的任何信息！</p>
+    </div>
+    <br />
+    <br />
+</body>
+<script>
+
+apiready = function() {
+
+}
+
+</script>
+</html>

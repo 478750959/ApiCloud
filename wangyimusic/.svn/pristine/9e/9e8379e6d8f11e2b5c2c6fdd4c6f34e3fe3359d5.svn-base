@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>发现</title>
+	<link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/common.css" />
+
+	<style>
+		html, body {width: 100%;min-height: 100%;background: #f0f0f0;}
+		.h80 {height: 80px;}
+		.h40 {height: 40px;line-height: 40px;}
+		.h20 {height: 20px;}
+    	.h10 {height: 10px;background: #f0f0f0;}
+		.h1 {height: 1px;margin-left: 15px;background: #f0f0f0;}
+		.fr {float: right;}
+		.fl {float: left;}
+		.hightitem {background-color: #fff;}
+		
+	</style>
+</head>
+<body>
+	第三块
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script>
+	function openNewWindow(type)
+	{
+		api.openWin({
+			name: type,
+			url: './'+type+'_header.html',
+			bounces: false,
+			delay:200
+		});
+	}
+
+</script>
+</html>

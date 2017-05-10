@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+     <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+     <link rel="stylesheet" href="../css/api.css">
+     <link rel="stylesheet" href="../css/common.css">
+    <title>底部弹出窗</title>
+    <style>
+       #main{
+        background: rgba(0,0,0,.1);
+        width: 100%;
+        height: 100% !important;
+        background: transparent;
+        
+       }
+       #dialog{
+            background: #E6E6E6;         
+            width: 100%;
+             margin: 0 auto;
+           /*  margin-top:50%;*/
+             height: 150px !important;
+             border: 1px solid rgba(0,0,0,.3);
+             position: absolute;
+
+             
+             bottom: 0px;
+
+
+       }
+       #mess{
+        position: relative;
+        width: 100%;
+        height: auto;
+        border-bottom: 1px solid rgba(0,0,0,.3);
+        padding-left: 10px;
+        padding-top: 5px;
+        padding-bottom:  10px;
+        box-sizing: border-box;
+        text-align: center;
+       }
+       #action{
+            height: 35px;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-box-orient: horizontal;
+        -webkit-flex-flow: row;
+               flex-flow: row;
+       }
+
+       #action span{
+            -webkit-box-flex: 1; 
+        -webkit-flex: 1;
+        flex: 1;
+        text-align: center;
+        padding-top: 10px;
+        padding-bottom:  10px;
+
+       }
+
+    </style>
+</head>
+<body>
+    <div id="wrap">
+    <div id="main">
+    <div id="dialog">
+        <!-- <div id="mess">
+            确定退出吗？
+        </div>
+        <div id="action">
+            <span>取消</span><span>确定</span>
+        </div>
+        </div> -->
+    </div>
+  </div>
+</body>
+</html>

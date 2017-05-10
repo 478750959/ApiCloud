@@ -1,0 +1,123 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>APP</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/common.css" />
+    <style>
+        #wrap{
+            background-color: #FFF;
+        }
+        #main{
+            padding: 0;
+            position: relative;
+        }
+        #movieDetailBackBtn{
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: auto;
+            height: 48px;
+            background: url(../../res/drawable-xhdpi/arrow_left_yellow.png) 8px center no-repeat;
+            background-size: 7px 14px;
+        }
+        #movieDetailBackBtn:active{
+            background-color: #191919;
+        }
+        #movieDetailBackBtn .chooseCityImg{
+            display: inline-block;
+            border: none;
+            outline: none;
+            width: 32px;
+            height: 32px;
+            float: left;
+            margin-left: 22px;
+            margin-top: 7px;
+            
+        }
+        #movieDetailBackBtn .chooseCityBackSpan{
+            color: #D4A82A;
+            line-height: 48px;
+            padding: 0 1em;
+        }
+        #chooseStyleBtn{
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            height: 48px;
+            width: 48px;
+            background: url(../../res/drawable-xhdpi/ico_share_white.png);
+            background-size: 100% 100%;
+        }
+        #chooseStyleBtn:active{
+            background: url(../../res/drawable-xhdpi/ico_share_orange.png);
+            background-size: 100% 100%;
+        }
+
+        #main .detail{
+            text-indent: 2em;
+            line-height: 1.5em;
+            padding: 1em;
+        }
+        #main .detail_img_1{
+            width: 90%;
+            display: block;
+            margin: 1em auto;
+        }
+        #main .detail_to_movie_detail{
+            display: block;
+            width: 90%;
+            margin: 0 auto;
+            background-color: #FFC600;
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            color: #FFF;
+        }
+        #main .detail_to_movie_detail:active{
+            background-color: #C5A123;
+        }
+        #main .shadow{
+            height: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div id="wrap">
+        <div id="header">
+            <a id="movieDetailBackBtn" onclick="api.closeWin();" tapmode>
+                <img src="../../res/drawable-hdpi/ic_launcher.png" class="chooseCityImg">
+                <span class="chooseCityBackSpan">一周电影推荐《移动迷宫》</span>
+            </a>
+        </div>
+
+    </div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/common.js"></script>
+<script type="text/javascript">
+
+    apiready = function(){
+        
+        var header = $api.byId('header');
+        $api.fixIos7Bar(header); 
+        var headerPos = $api.offset(header);
+        var wW = api.winWidth;
+        var wH = api.winHeight;
+        var movieDetailBackBtn = $api.byId('movieDetailBackBtn');
+        api.openFrame({
+            name: 'act_detail_con',
+            url: './act_detail_con.html',
+            rect: {
+                x: 0,
+                y: headerPos.h,
+                w: 'auto',
+                h: wH-headerPos.h
+            }
+        });
+
+    };
+</script>
+</html>

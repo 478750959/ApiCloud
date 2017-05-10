@@ -1,0 +1,118 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>APP</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/common.css" />
+    <link rel="stylesheet" href="../../css/light.css" class="light-style">
+    <link rel="stylesheet" href="../../css/dark.css" class="dark-style" disabled>
+    <style>
+        
+    </style>
+</head>
+<body>
+    <div id="wrap" class="nearby-wrap">
+        <div id="main">
+            <div class="nearby-box clearfix" tapmode="tap-active" onclick="indexToProfile(this,'left');" data-id="120333" data-type="">
+                <div class="user-icon pull-left">
+                    <div class="img">
+                        <img src="../../image/2012100413195471481.jpg" alt="">
+                    </div>
+                    
+                </div>
+                <div class="user-profile-box">
+                    <div class="user-profile-top clearfix">
+                        <span class="user-name pull-left">还差一厘米就达标</span>
+                        <span class="user-dis pull-right">|1天前</span>
+                        <span class="user-time pull-right">2km</span>
+                    </div>
+                    <span class="gender male"><i class="icon-gender"></i>26</span>
+                    <span class="des">我们都在追求幸福，所以难免触摸痛苦。</span>
+                </div>
+            </div>
+            <div class="nearby-box clearfix" tapmode="tap-active" onclick="indexToProfile(this,'left');" data-id="120333" data-type="">
+                <div class="user-icon pull-left">
+                    <div class="img">
+                        <img src="../../image/09-014416_603.jpg" alt="">
+                    </div>
+                </div>
+                <div class="user-profile-box">
+                    <div class="user-profile-top clearfix">
+                        <span class="user-name pull-left">还差一厘米就达标</span>
+                        <span class="user-dis pull-right">|1天前</span>
+                        <span class="user-time pull-right">2km</span>
+                    </div>
+                    <span class="gender female"><i class="icon-gender"></i>26</span>
+                    <span class="des">我们都在追求幸福，所以难免触摸痛苦。</span>
+                </div>
+            </div>
+            <div class="nearby-box clearfix" tapmode="tap-active" onclick="indexToProfile(this,'left');" data-id="120333" data-type="">
+                <div class="user-icon pull-left">
+                    <div class="img">
+                        <img src="" alt="">
+                    </div>
+                    
+                </div>
+                <div class="user-profile-box">
+                    <div class="user-profile-top clearfix">
+                        <span class="user-name pull-left">还差一厘米就达标</span>
+                        <span class="user-dis pull-right">|1天前</span>
+                        <span class="user-time pull-right">2km</span>
+                    </div>
+                    <span class="gender female"><i class="icon-gender"></i>26</span>
+                    <span class="des">我们都在追求幸福，所以难免触摸痛苦。</span>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/theme.js"></script>
+<script type="text/javascript" src="../../script/bindSwipe.js"></script>
+<script type="text/javascript" src="../../script/common.js"></script>
+<script type="text/javascript">
+// 绑定轻划调出隐藏底部按钮组
+    var showBottomTabBar = function(){
+        if ($api.getStorage('nearbyTabBarLock') == 'hidden') {
+            $api.setStorage('nearbyTabBarLock','shown');
+            api.setFrameAttr({
+                name: 'nearby-bottom',
+                hidden: false
+            });
+        } else{
+
+        }
+    };
+// 解绑定轻划调出隐藏底部按钮组  
+    var hideBottomTabBar = function(){
+        if ($api.getStorage('nearbyTabBarLock') == 'shown') {
+            $api.setStorage('nearbyTabBarLock','hidden');
+            api.setFrameAttr({
+                name: 'nearby-bottom',
+                hidden: true
+            });
+        } else{
+   
+        } 
+    };
+    apiready = function(){
+        addFrame('nearby');
+        showBottomTabBar();
+        api.bringFrameToFront({
+            from:'nearby-bottom'
+        });
+        window.bindSwipe = new BindSwipe(document,{
+        // dir: 'y',
+        swipeUpFn: function(){
+            hideBottomTabBar()
+        },
+        swipeDownFn: function(){
+            showBottomTabBar()
+        }
+    });
+    }
+</script>
+</html>

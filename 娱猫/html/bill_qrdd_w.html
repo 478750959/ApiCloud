@@ -1,0 +1,116 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>商品详情</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/xyc.css"/>
+    <style>
+    	.ly_share {
+			position: absolute;
+			right: 0;
+			top: 0;
+			width: 0.95rem;
+			height: 100%;
+			/*border-left: 0.02rem solid #fde2dc;*/
+			font-size: 0.24rem;
+			color: #ff7f88;
+			text-align: center;
+			line-height: 0.98rem;
+		}
+    </style>
+</head>
+<body>
+<div id="wrap" class="ly_contain">
+	<header id='header'>
+        <div class="miHeader">
+        	<a href='javascript:;' class='head_icon back' onclick='api.closeWin();'></a>
+        	<span class='mi_head_txt'>确认订单</span>
+        </div>
+	</header>
+	<div id='main'></div>
+	<div id='footer' class="xyc_footer">立即购买</div>
+</div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/font.js"></script>
+<script type="text/javascript" src="../script/zepto.js"></script>
+<script>
+	apiready = function () {
+		 api.closeWin({
+	        name: 'mi_buycar_head_w'
+        });		
+		var status = api.pageParam.status;
+		var param = api.pageParam.param;
+		var id = api.pageParam.id;
+		var OrderNo=api.pageParam.OrderNo;
+		var name = "bill_confirmdd_f";
+		var header = $api.byId('header');
+		$api.fixIos7Bar(header);
+		var headerPos = $api.offset(header);	    
+	    var width = api.winWidth;	    
+	    var footer = $api.byId('footer');
+	    var footerPos = $api.offset(footer);
+	    var height = api.winHeight - headerPos.h - footerPos.h;
+	    api.setStatusBarStyle({
+		    style: 'dark'
+		});		
+	    api.openFrame({
+		    name: name,
+		    url: name+'.html',
+		    bounces: false,
+		    opaque: true,
+		    reload: true,
+		    vScrollBarEnabled: false,
+		    softInputMode:'resize',
+		    pageParam:{param:param,status:status,id:id,OrderNo:OrderNo,is_pri:api.pageParam.is_pri},
+		    rect: {
+		        x: 0,
+		        y: headerPos.h,
+		        w: width,
+		        h: height
+		    }
+		});	
+		//点击立即购买触发bill_confirmdd页面的buy		
+		$('.xyc_footer').click(function(){
+			if(status=='2'){
+				api.execScript({
+	        	name:'mi_buycar_head_w',
+	        	frameName:'mi_buycar_f',
+	            script: 'xychide();'
+            	});
+			}			
+			api.execScript({
+				frameName:'bill_confirmdd_f',
+		        script: 'buy()'
+	        });	     
+		})
+		
+		
+		//解决逛逛购买--登录跳回--页面登录---加延迟  --解决：Android 动画执行期间关闭无效BUG问题
+		setTimeout(function() {
+			api.closeWin({
+		    	name:'login_head_w'
+		    });
+		},500);
+        
+	};
+	
+</script>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

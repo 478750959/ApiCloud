@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+  <head>
+    <title>
+    </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="css/ui-img.css">
+	<link rel="stylesheet" href="css/ui-input.css">
+    <link rel="stylesheet" href="css/ui-res.css">
+    <link rel="stylesheet" href="css/ui-btn.css">
+    <link rel="stylesheet" href="css/ui-base.css">
+    <link rel="stylesheet" href="css/ui-box.css">
+    <link rel="stylesheet" href="css/ui-color.css">
+	<link rel="stylesheet" href="css/ui-list.css">
+	<link rel="stylesheet" href="css/style.css">
+    <script src="js/y_control.js"></script>
+    <script src="js/y_click.js"></script>
+	<script src="js/dis_control.js"></script>
+	<script src="js/y_json.js"></script>
+	<script src="js/y_icache.js"></script>
+	<script src="js/y_tmpl.js"></script>
+	<script src="js/config.js"></script>
+    <script>
+	</script>
+  </head>
+<body class="um-vp" ontouchstart>
+	<div id="list">
+		<div></div>
+	</div>
+</body>
+<script>
+zy_init();
+var params = getStorJson('params');
+var view = params.view;
+var uid = '';
+var cContent = $$('list');
+var curpage = 1;
+var totpage = 1;
+var upt = '';
+var update = {};
+if(view=='other') uid = params.uid;
+else uid = getstorage('UID');
+var fromCache = 0;
+var gurl = '';
+var album = 1;
+
+window.uexOnload = function ()
+{
+	setPageBounce(downcb, upcb);
+	zy_initcache();
+	loadList('', '1');
+	if(fromCache) loadList('', '');
+}
+function downcb(){
+	upt = '0';
+	update['0'] = 1;
+	loadList('');
+}
+function upcb(){
+	if (curpage < totpage) {
+		upt = '1';
+		update['1'] = 1;
+		loadList(curpage + 1);
+	}
+	else resetBV('1');
+}
+
+function loadList(pn, fg){
+	var url = home_url+"&mod=space&do=album&view=" + view + "&page="+pn + "&uid=" + uid;
+	gurl = url;
+	logs('loadList()-->url='+url);
+	var f = '';
+	if(!pn) f = '1';
+	fromCache = checkKey(url);
+	if(!fromCache) uexWindow.toast('1','5','加载中...',"");
+	$.getJSON(url, loadListCb, 'json', getJsonErr, 'POST', '', fg, f);
+}
+function loadListCb(json){
+	uexWindow.closeToast();
+	if(update[upt]){
+		update[upt] = 0;
+		resetBV(upt);
+	}
+	
+	if(json){
+		if (Int(json.status)<1) {
+			uexWindow.toast('0','5',json.message,2000);
+			setstorage(gurl,'');
+			return;
+		}
+		
+		var list = json.list;
+		var length = zy_tmpl_count(list);		
+		var res = '';
+		if (length > 0) {
+			var tmpl = '<li ontouchstart="zy_touch(\'c-gra\')" onclick="go2new5(${albumid}, \'${albumname}\', \'${uid}\')" class="uc-n ub b-gra ubb t-bla  ub-at lis" id="${albumid}"> '
+							+'<div class="ub-f1 ub ub-ver">		'     
+								+'<div class="ulev-3 t-gra">${username}</div>	' 
+					    		+'<div class="ulev0 t-bla umar-t">${albumname}</div>'
+								
+							+'</div>'
+							+'<div>'
+								+'<div class="lis-th2 ub-img5 uc-a1">'
+									+'<img src="images/mylogo.png" ${cb:pic} class="inforpic" id="al${albumid}"/>'
+								+'</div>'
+								+'<div class="ub ub-ac t-gra ulev-2" style="margin-top:0.6em;">'
+									+'<div class="umh2 umw2 ub-img5 im5 lpic"></div>'
+								    +'${updatetime}'
+								+'</div>' 
+							+'</div>'
+							+'<div class="res8 lis-sw ub-img4" style="margin-top:1.5em;"></div>'
+						+'</li>'
+						+'<li class="ubt1"></li>';
+			res = zy_tmpl(tmpl,list,zy_tmpl_count(list),j2vCb);
+			
+			curpage = Int(json.zywy_curpage);
+			totpage = Int(json.zywy_totalpage);
+		}
+		else{
+			res = '<div class="tx-c"><div class="umh1"></div><div>暂无相册</div></div>';
+		}
+		
+		if(curpage==1)
+       	{
+       		while(cContent.childElementCount>1)
+       		{
+       			cContent.removeChild(cContent.firstElementChild);
+       		}
+       	}
+		
+		var node = document.createElement("ul");
+		node.innerHTML = res;
+		cContent.insertBefore(node,cContent.lastElementChild);
+        imgCacheCall();
+	}
+}
+function j2vCb(d,c)
+{
+	var str = '';
+	 if(c.length>1)
+	 {
+		switch(c[1])
+		{
+			case 'pic':
+                pushCacheCall(function(){
+                    dis_imgcache('al'+d.albumid,d.pic,d.pic,imgLoadSucSrc,imgLoadErrSrc,null,'', '1');
+                });
+			break;
+		}
+	 }
+	 return str;
+}
+
+function go2new5(alid, alname, aluid){
+	setstorage('params','{"view":"'+view+'", "albumid":"'+alid+'", "albumname":"'+alname+'", "aluid":"'+aluid+'"}');
+	
+	//var o = getStorJson('params');
+	openwin('album_list','album_list.html','10');
+}
+</script>
+</html>

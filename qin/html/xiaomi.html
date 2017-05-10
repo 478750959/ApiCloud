@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+     <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+     <link rel="stylesheet" href="../css/api.css">
+     <link rel="stylesheet" href="../css/common.css">
+    <title>51小蜜</title>
+    <style>
+       #header span{
+       
+        height: 44px;
+        line-height: 44px;
+
+       }
+
+       .head-left{
+        float: left;
+        margin-left:10px;
+       font-size: 11pt;
+       background: url(../image/wallet_base_action_bar_back_normal.png) no-repeat;
+       background-position: left center;
+       background-size: 30% 30%;
+       margin-left: -5px;
+       }
+
+       .head-left p{
+        margin-left: 30px;
+        margin-top:1px;
+       }
+       
+       #main{
+            /*background: #E6E6E6;*/
+            margin: 0;
+            padding: 0;
+
+       }
+       
+       #nomess{
+       clear:both;
+        position: relative;
+        margin-top: 100px;
+        width: 100%;
+        height:250px;
+        background: url(../image/icon_nopeople.png) no-repeat top center;
+        background-size: 95px 95px;
+
+        text-align: center;
+
+       }
+       #nomess span{
+      
+          display:block;
+             position: relative;
+         text-align: center;
+          top: 100px;
+
+
+       }
+      .row{
+       display: block;
+       text-align: center;
+       margin: 0px;
+       padding:0px;
+  
+      }
+      
+
+      .detail ul{
+        height: auto;
+        line-height: 1.5;
+        background: white;
+        margin: 10px auto;
+        border-top: 1px solid #E6E6E6;
+       
+
+       }
+
+       .detail li{
+        height: 30px;
+       /* font-weight: bold;*/
+        z-index: 0;
+        position: relative;
+        border-bottom:  1px solid #E6E6E6;
+        padding-left: 40px;
+         padding-top: 10px;
+        padding-bottom: 10px;
+
+       }
+       .xiaomi{
+        background: url(../image/icon_wallet_nor.png)  no-repeat left center;
+        background-size: 32px 32px;
+       }
+       .huodong{
+        background: url(../image/icon_wallet_nor.png)  no-repeat left center;
+        background-size: 32px 32px;
+       }
+
+     .detail li span.arrow{
+        width: 14px;
+        height: 14px;
+        background:url(../image/wallet_base_indicator_arrow.png) no-repeat center center !important;
+        z-index: 100 !important;
+        position: absolute;
+        top:18px;
+        right: 5px;
+
+        
+      }
+
+
+      
+    </style>
+</head>
+<body>
+    <div id="wrap">
+        <div id="header">
+            
+            <span class="head-left" tapmode onclick="goback()"><p>51小蜜</p></span>
+            
+        </div>
+        <div id="main">   
+              <div id="nomess">
+                 <span>暂时无消息</span>
+              </div>           
+             <!-- <div class="detail">
+               <ul id="detail">
+                 <li class="xiaomi">51小蜜<span class="arrow"></span></li>
+                 <li class="huodong">活动管家<span class="arrow"></span></li>
+               </ul>
+             </div> -->
+           
+        </div>
+
+    </div>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>      
+</body>
+</html>

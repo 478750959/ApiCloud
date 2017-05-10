@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/common.css"/>
+    <style>
+        html, body {
+            background-color: #EDEDED !important;
+        }
+
+        li {
+            position: relative;
+            padding: 3px 10px;
+            border-bottom: 1px solid #E0E0E0;
+            background-size: 10px;
+            background-repeat: no-repeat;
+            background-position: 78%;
+        }
+
+        li:first-child {
+            height: 46px;
+            display: -webkit-box;
+            -webkit-box-align: center;
+        }
+
+        li.arrowD {
+            background-image: url("../image/destination_header_arrow_down@2x.png");
+        }
+
+        li.arrowU {
+            background-image: url("../image/destination_header_arrow_up@2x.png");
+        }
+
+        .liActive {
+            background-color: #3ABA63;
+        }
+
+        li.arrowU.liActive {
+
+            background-image: url("../image/destination_header_arrow_up_sel@2x.png") !important;
+        }
+
+        li.arrowD.liActive {
+            background-image: url("../image/destination_header_arrow_down_sel@2x.png");
+        }
+
+        li div {
+            display: block;
+            padding: 10px 30px;
+            background-size: 20px;
+            background-repeat: no-repeat;
+            background-position: left;
+        }
+
+        .home {
+            background-image: url("../image/drawer_icon_home@2x.png");
+        }
+
+        .liActive .home, .home.active {
+            background-image: url("../image/drawer_icon_home_sel@2x.png");
+        }
+
+        .my {
+            background-image: url("../image/drawer_icon_user@2x.png");
+        }
+
+        .liActive .my, .my.active {
+            background-image: url("../image/drawer_icon_user_sel@2x.png");
+        }
+
+        .nearby {
+            background-image: url("../image/drawer_list_icon_nearby@2x.png");
+        }
+
+        .liActive .nearby, .nearby.active {
+            background-image: url("../image/drawer_list_icon_nearby_sel@2x.png");
+        }
+
+        .domestic {
+            background-image: url("../image/drawer_list_icon_domestic@2x.png");
+        }
+
+        .liActive .domestic, .domestic.active {
+            background-image: url("../image/drawer_list_icon_domestic_sel@2x.png");
+        }
+
+        .maldives {
+            background-image: url("../image/drawer_list_icon_maldives@2x.png");
+        }
+
+        .liActive .maldives, .maldives.active {
+            background-image: url("../image/drawer_list_icon_maldives_sel@2x.png");
+        }
+
+        .Europe {
+            background-image: url("../image/drawer_list_icon_europe@2x.png");
+        }
+
+        .liActive .Europe, .Europe.active {
+            background-image: url("../image/drawer_list_icon_europe_sel@2x.png");
+        }
+
+        .America {
+            background-image: url("../image/drawer_list_icon_america@2x.png");
+        }
+
+        .liActive .America, .America.active {
+            background-image: url("../image/drawer_list_icon_america_sel@2x.png");
+        }
+
+        .neighbor {
+            background-image: url("../image/drawer_list_icon_japan@2x.png");
+        }
+
+        .liActive .neighbor, .neighbor.active {
+            background-image: url("../image/drawer_list_icon_japan_sel@2x.png");
+        }
+
+        .sAsia {
+            background-image: url("../image/drawer_list_icon_southeast_asia@2x.png");
+        }
+
+        .liActive .sAsia, .sAsia.active {
+            background-image: url("../image/drawer_list_icon_southeast_asia_sel@2x.png");
+        }
+
+        .HMT {
+            background-image: url("../image/drawer_list_icon_hongkong@2x.png");
+        }
+
+        .liActive .HMT, .HMT.active {
+            background-image: url("../image/drawer_list_icon_hongkong_sel@2x.png");
+        }
+
+        .AMA {
+            background-image: url("../image/drawer_list_icon_australia@2x.png");
+        }
+
+        .liActive .AMA, .AMA.active {
+            background-image: url("../image/drawer_list_icon_australia_sel@2x.png");
+        }
+
+        menu {
+            position: absolute;
+        }
+
+        span {
+            padding: 5px 10px;
+            background-color: #EDEDED;
+            margin: 5px 10px 5px 0;
+        }
+
+        .menu {
+            background-color: #DDDDDD;
+        }
+
+        .menu div {
+            word-break: break-all;
+            width: 240px;
+            margin: 8px 0;
+        }
+
+        .span-active {
+            color: #3ABA63;
+        }
+
+    </style>
+</head>
+<body>
+<nav>
+    <ul>
+        <li tapmode="liActive" onclick="openMenu(this,0)"><div class="home active">首页</div></li>
+        <li tapmode="liActive" onclick="openMenu(this,1)"><div class="my">我的途牛</div></li>
+        <li class="arrowD " tapmode="liActive" onclick="openMenu(this)"><div class="nearby">周边旅游</div></li>
+        <li class="menu hidden">
+            <div>
+                <span onclick="openMenu(this,2,'国庆专线')" tapmode="span-active">国庆专线</span>
+                <span onclick="openMenu(this,2,'漂流')" tapmode="span-active">漂流</span>
+                <span onclick="openMenu(this,2,'名山胜水')" tapmode="span-active">名山胜水</span>
+                <span onclick="openMenu(this,2,'初秋山水')" tapmode="span-active">初秋山水</span>
+                <span onclick="openMenu(this,2,'古镇')" tapmode="span-active">古镇</span>
+                <span onclick="openMenu(this,2,'城市')" tapmode="span-active">城市</span>
+                <span onclick="openMenu(this,2,'人文景观')" tapmode="span-active">人文景观</span>
+            </div>
+        </li>
+        <li class="arrowD" tapmode="liActive" onclick="openMenu(this)"><div class="domestic">国内旅游</div></li>
+        <li class="menu hidden">
+            <div>
+                <span onclick="openMenu(this,2,'海南')" tapmode="span-active">海南</span>
+                <span onclick="openMenu(this,2,'云南')" tapmode="span-active">云南</span>
+                <span onclick="openMenu(this,2,'四川')" tapmode="span-active">四川</span>
+                <span onclick="openMenu(this,2,'北京')" tapmode="span-active">北京</span>
+                <span onclick="openMenu(this,2,'华东')" tapmode="span-active">华东</span>
+                <span onclick="openMenu(this,2,'山东')" tapmode="span-active">山东</span>
+                <span onclick="openMenu(this,2,'东北')" tapmode="span-active">东北</span>
+                <span onclick="openMenu(this,2,'新疆')" tapmode="span-active">新疆</span>
+                <span onclick="openMenu(this,2,'山西')" tapmode="span-active">山西</span>
+                <span onclick="openMenu(this,2,'陕西')" tapmode="span-active">陕西</span>
+                <span onclick="openMenu(this,2,'广西')" tapmode="span-active">广西</span>
+                <span onclick="openMenu(this,2,'湖南')" tapmode="span-active">湖南</span>
+                <span onclick="openMenu(this,2,'西藏')" tapmode="span-active">西藏</span>
+                <span onclick="openMenu(this,2,'福建')" tapmode="span-active">福建</span>
+                <span onclick="openMenu(this,2,'内蒙古')" tapmode="span-active">内蒙古</span>
+                <span onclick="openMenu(this,2,'西北')" tapmode="span-active">西北</span>
+                <span onclick="openMenu(this,2,'广东')" tapmode="span-active">广东</span>
+                <span onclick="openMenu(this,2,'贵州')" tapmode="span-active">贵州</span>
+                <span onclick="openMenu(this,2,'河南')" tapmode="span-active">河南</span>
+                <span onclick="openMenu(this,2,'河北')" tapmode="span-active">河北</span>
+            </div>
+        </li>
+        <li tapmode="liActive" onclick="openMenu(this,2,'马尔代夫')"><div class="maldives">马尔代夫</div></li>
+        <li tapmode="liActive" onclick="openMenu(this,2,'欧洲')"><div class="Europe">欧洲</div></li>
+        <li tapmode="liActive" onclick="openMenu(this,2,'美洲')"><div class="America">美洲</div></li>
+        <li class="arrowD" tapmode="liActive" onclick="openMenu(this)"><div class="neighbor">日韩朝蒙</div></li>
+        <li id="neighbor " class="menu hidden">
+            <div>
+                <span onclick="openMenu(this,2,'韩国')" tapmode="span-active">韩国</span>
+                <span onclick="openMenu(this,2,'日本')" tapmode="span-active">日本</span>
+            </div>
+        </li>
+        <li class="arrowD" tapmode="liActive" onclick="openMenu(this)"><div class="sAsia">东南亚</div></li>
+        <li id="sAsia" class="menu hidden">
+            <div>
+                <span onclick="openMenu(this,2,'泰国')" tapmode="span-active">泰国</span>
+                <span onclick="openMenu(this,2,'东南亚')" tapmode="span-active">东南亚</span>
+                <span onclick="openMenu(this,2,'南亚')" tapmode="span-active">南亚</span>
+            </div>
+        </li>
+        <li class="arrowD" tapmode="liActive" onclick="openMenu(this)"><div class="HMT">港澳台</div></li>
+        <li id="HMT" class="menu hidden">
+            <div>
+                <span onclick="openMenu(this,2,'港澳')" tapmode="span-active">港澳</span>
+                <span onclick="openMenu(this,2,'台湾')" tapmode="span-active">台湾</span>
+            </div>
+        </li>
+        <li class="arrowD" tapmode="liActive" onclick="openMenu(this)"><div class="AMA">澳洲中东非</div></li>
+        <li id="AMA" class="menu hidden">
+            <div>
+                <span onclick="openMenu(this,2,'澳洲')" tapmode="span-active">澳洲</span>
+                <span onclick="openMenu(this,2,'中东非洲')" tapmode="span-active">中东非洲</span>
+            </div>
+        </li>
+    </ul>
+</nav>
+
+</body>
+<script type="text/javascript" src="../script/zepto.min.js"></script>
+<script>
+    apiready = function () {
+        api.setStatusBarStyle({
+            style: 'dark'
+        });
+        fixIos7Bar($("nav"));
+        api.addEventListener({
+            name: 'keyback'
+        }, function (ret, err) {
+            api.closeSlidPane();
+        });
+    };
+    function openMenu(obj, index, title) {
+        api.execScript({name: 'win_homeSlider', frameName: 'frm_toursList_tab', script: 'closeFrameGroup()'})
+        if ($(obj).next().hasClass('menu')) {
+            $(obj).next().toggleClass('hidden');
+            $(".menu").not($(obj).next()).addClass('hidden');
+            $(obj).children().toggleClass('active');
+            $('li').not($(obj)).removeClass('liActive arrowU');
+            $(obj).addClass('liActive').toggleClass(' arrowU');
+            $(".menu").find('span').removeClass('span-active');
+        } else {
+            if (index >= 2 && $(obj).get(0).tagName == 'SPAN') {
+                $(obj).addClass('span-active').siblings().removeClass('span-active');
+            } else {
+                $('li').not($(obj)).removeClass('liActive arrowU');
+                $(".menu").addClass('hidden').find('span').removeClass('span-active');
+                $(obj).toggleClass('liActive ');
+            }
+        }
+        if (title) {
+            localStorage.setItem("destination", title);
+        }
+        if (typeof index == 'number') {
+            localStorage.setItem("index", index);
+            api.execScript({
+                name: 'win_homeSlider',
+                script: 'setFrameGroupIndex(' + JSON.stringify({index: index, title: title}) + ')'
+            });
+            api.closeSlidPane();
+        }
+
+    }
+</script>
+</html>

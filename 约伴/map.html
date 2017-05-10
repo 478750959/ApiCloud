@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+<head>
+    <title></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="css/ui-btn.css">
+	<link rel="stylesheet" href="css/ui-base.css">
+	<link rel="stylesheet" href="css/ui-box.css">
+	<link rel="stylesheet" href="css/ui-color.css">
+	<link rel="stylesheet" href="css/ui-res.css">
+	<link rel="stylesheet" href="css/style.css">
+	<script src="js/y_control.js"></script>
+	<script src="js/y_click.js"></script>
+	<script src="js/dis_control.js"></script>
+    <script></script>
+</head>
+<body class="um-vp c-gra5" ontouchstart>
+    <div id="page_0" class="up ub ub-ver c-gra" tabindex="0">
+        <div id="header" class="c-blu3 uh">
+            <div class="c-m2 t-wh">
+                <a class="btn btn-l btn-a ub ub-ac" ontouchstart="zy_touch('btn-act1')" onclick="closewin();">
+                    <div class="ulim"><img src="images/back.png" class="sbtn"></div>
+                </a>
+                <h1 class="ut ulev0 ut-s tx-c umar-l2" id="ttl">&nbsp;</h1>
+            </div>
+        </div>
+        <div id="content" class="ub-f1 tx-l t-bla"></div>
+    </div>
+</body>
+<script>
+zy_init();
+var params = getStorJson('params');
+var subject = params.subject;
+if(subject) setHtml('ttl', subject)
+window.uexOnload = function(type){
+    if (!type) {
+        //zy_con("content", "map_content.html", 0, $$("header").offsetHeight);
+		//uexWindow.toast('1','5','地图加载中...',"");
+		loadScript();
+        //mapOpen();
+    }
+	window.onorientationchange=window.onresize=function()
+	{
+		zy_resize("content",0,$$("header").offsetHeight);				
+	}
+};
+function loadScript() {
+  var script = document.createElement("script");
+  script.src = "http://api.map.baidu.com/api?v=1.2&callback=loadmap";
+  document.body.appendChild(script);
+}
+function loadmap(){
+	var lat = params.lat;
+	var lng = params.log;
+
+
+	var map = new BMap.Map("content");          // 创建地图实例
+	logs('loadmap()-->lat='+lat+', lng='+lng);
+
+	var opts = {type: BMAP_NAVIGATION_CONTROL_LARGE };  
+	map.addControl(new BMap.NavigationControl(opts)); 
+	//map.addControl(new BMap.MapTypeControl());  
+	var point = new BMap.Point(lng,lat);  // 创建点坐标
+	//map.setCurrentCity("北京");
+	map.centerAndZoom(point, 15); 
+	var marker = new BMap.Marker(point);        // 创建标注  
+	map.addOverlay(marker); 
+
+	//uexWindow.closeToast();
+}
+//此处使用会和列表的map重叠，全局可能只有一个baidumap
+function mapOpen(){
+    bMap = api.require('baiduMap');
+    var y = $$("header").offsetHeight;
+    var h = int(api.frameHeight - $$("header").offsetHeight)
+    //打开地图
+    bMap.open({
+        x: 0,
+        y: y,
+        w: api.frameWidth,
+        h: h,
+        fixed: false,
+        fixedOn: api.frameName
+    },function(ret,err){
+        if(ret){
+            searchNearBy();
+        }else{
+            // alert(JSON.stringify(err));
+        }
+    });
+}
+//直接将第一页的带地理位置的约会在地图上显示
+function searchNearBy(){
+    bMap.showUserLocation({
+        isShow:true,
+        trackingMode:'none'
+    });
+
+    //定位
+    bMap.startLocation({
+        accuracy: '100m',
+        filter:1,
+        autoStop: true
+    },function(ret, err){
+        if(ret){
+            // alert(JSON.stringify(ret));
+            var sta = ret.status;
+            var lat = ret.lat;
+            var lon = ret.lon;
+            var t = ret.timestamp;
+
+            setTimeout(function(){
+                bMap.setZoomLevel({
+                    level: 16
+                });
+            },100);
+
+            //定位中心
+            bMap.setCenter({
+                lon: lon,
+                lat: lat
+            });
+
+        }else{
+            // alert(JSON.stringify(err));
+        }
+    });
+
+}
+</script>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+	    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+	    <title>首页</title>
+	    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+	    <link rel="stylesheet" type="text/css" href="../css/common.css"/>
+		<style>
+        .detail-nav{
+            border-bottom: 1px solid #e7e7e7;
+        }
+        .detail-nav ul{
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;
+        }
+        .detail-nav li{
+            height: 40px;
+            line-height: 30px;
+            -webkit-box-flex: 1; 
+            -webkit-flex: 1;
+            flex: 1;
+            text-align: center;
+            font-size: 14px;
+            padding: 5px 0;
+            background-color: #fff;
+        }
+        .detail-nav li div{
+            padding: 0 10px;
+            border-right: 1px solid #e7e7e7;
+            background: url(../image/ic_routelist_dropdown_arrow.png) no-repeat bottom right;
+            -webkit-background-size: 9px;
+            background-size: 9px;
+            -webkit-background-origin: content;
+            -webkit-background-origin: content-box;
+            background-origin: content-box;
+        }
+        .detail-nav li:last-child div{
+            border-right: none;
+        }
+        </style>
+	</head>
+	<body>
+	<div class="detail-nav">
+        <ul>
+            <li class="tap" tapmode="tap-active" onclick="openDetailNavCon()">
+                <div>美食</div>
+            </li>
+            <li class="tap" tapmode="tap-active">
+                <div>全城</div>
+            </li>
+            <li class="tap" tapmode="tap-active">
+                <div>智能排序</div>
+            </li>
+            <li class="tap" tapmode="tap-active">
+                <div>筛选</div>
+            </li>
+        </ul>
+    </div>
+	
+    <script type="text/javascript" src="../script/api.js"></script>
+    <script>
+    function changeTitle(name){
+        var $select = $api.dom('.detail-nav');
+        var $selectLi = $api.first($select,'li');
+        $selectLi.innerHTML = '';
+        $selectLi.innerHTML = '<div>'+name+'</div>';
+    }
+    function openDetailNavCon(){
+        api.execScript({
+            name: 'win_detail',
+            script: 'openDetailNavCon()'
+        });
+    }
+
+    apiready = function(){
+        changeTitle(api.pageParam.name);
+    }
+    </script>
+	</body>
+
+</html>

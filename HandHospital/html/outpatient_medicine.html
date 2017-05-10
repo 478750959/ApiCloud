@@ -1,0 +1,99 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>APP</title>
+		<link rel="stylesheet" type="text/css" href="../css/api.css" />
+		<link rel="stylesheet" type="text/css" href="../css/common.css" />
+		<link rel="stylesheet" type="text/css" href="../css/detail.css" />
+	</head>
+	<body>
+		<div id="wrap">
+			<script id="record-template" type="text/x-dot-template">
+				{{ for(var i=0; i<it.length; i++) { }}
+				<section class="content header_bg">
+					<div class="middle">{{=it[i].groupNo}}</div>
+				</section>
+				<section class="content">
+					<div class="left text-overflow">
+						药品名称
+					</div>
+					<div class="middle text-overflow">
+						{{=it[i].medicineNo}}
+					</div>
+				</section>
+				<section class="content">
+					<div class="left text-overflow">
+						生产日期
+					</div>
+					<div class="middle text-overflow">
+						{{=it[i].medicineDate}}
+					</div>
+				</section>
+				<section class="content">
+					<div class="left text-overflow">
+						单位
+					</div>
+					<div class="middle text-overflow">
+						{{=it[i].unit}}
+					</div>
+				</section>
+				<section class="content">
+					<div class="left text-overflow">
+						数量
+					</div>
+					<div class="middle text-overflow">
+						{{=it[i].drugquantity}}
+					</div>
+				</section>
+				<section class="content">
+					<div class="left text-overflow">
+						特别注意
+					</div>
+					<div class="middle text-overflow">
+						{{=it[i].specifications}}
+					</div>
+				</section>
+				
+				<section class="content">
+					<div class="left text-overflow">
+						使用方法
+					</div>
+					<div class="middle text-overflow">
+						{{=it[i].method}}　{{=it[i].freq}}
+					</div>
+				</section>
+				
+				<section class="content">
+					<div class="left text-overflow">
+						使用次数
+					</div>
+					<div class="middle text-overflow">
+						{{=it[i].dosequantity}}　{{=it[i].doseunit}}
+					</div>
+				</section>
+				
+				<section class="content">
+					<div class="left text-overflow">
+						总天数
+					</div>
+					<div class="middle text-overflow">
+						{{=it[i].totalday}}
+					</div>
+				</section>
+				{{ } }}
+			</script>
+			<div id="main">
+				<section id="content">
+					
+				</section>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../script/api.js"></script>
+	<script type="text/javascript" src="../script/zepto.min.js"></script>
+	<script type="text/javascript" src="../script/doT.min.js"></script>
+	<script type="text/javascript" src="../script/constants.js"></script>
+	<script type="text/javascript" src="../script/outpatient_medicine.js"></script>
+</html>

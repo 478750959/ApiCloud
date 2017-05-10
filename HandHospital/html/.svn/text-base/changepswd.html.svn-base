@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>changepswd</title>
+		<link rel="stylesheet" type="text/css" href="../css/api.css" />
+		<link rel="stylesheet" type="text/css" href="../css/changepswd.css" />
+	</head>
+	<body>
+		<div id='wrap'>
+			<div id='main'>
+				<form name="modifyPassword" id="modifyPassword" method="post">
+					<div class='old pswd'>
+						<span class='title'>旧密码：</span>
+						<input type='hidden' value='' id="phoneNumber"/>
+						<input type='password' class='password' id="oldPassword" nonull='请输入旧的密码'>
+						</input>
+					</div>
+					<div class='new pswd'>
+						<span class='title'>新密码：</span>
+						<input type='password' class='password' id="password" nonull='请输入新的密码'>
+						</input>
+					</div>
+					<div class='new2 pswd'>
+						<span class='title'>确认密码：</span>
+						<input type='password' class='password' id="repassword" nonull='请输入确认密码' />
+					</div>
+					<div class='tips'>
+						新密码可输入6-12个字符，字母和数字组成。
+					</div>
+				</form>
+				<button class='button blue' id='save' tapmode="buttonActive" onclick="comfirm()">
+					保存
+				</button>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../script/api.js"></script>
+	<script type="text/javascript" src="../script/zepto.min.js"></script>
+	<script type="text/javascript" src="../script/constants.js"></script>
+	<script>
+		apiready = function() {
+			var user = $api.getStorage('user');
+			$("#realName").val(user.realName);
+			$("#phoneNumber").val(user.phoneNumber);
+		};
+		/**
+		 * 登录
+		 */
+		function comfirm() {
+			if (FROM_NOT_NULL("modifyPassword")) {
+				if($("#repassword").val() != $("#password").val()){
+					api.alert({
+						msg : "两次输入的密码不一致!"
+					});
+					return;
+				}
+				//		alert(JSON.stringify(FROM_TO_JSON("modifyUser")));
+				api.ajax({
+					url : USER_URL + "?cmd=modifyPassword",
+					method : 'post',
+					cache : false,
+					timeout : 3000,
+					data : {
+						values : FROM_TO_JSON("modifyPassword")
+					}
+				}, function(ret, err) {
+					if (ret) {
+//						if (ret.resultCode == RESULT_CODE_SUCCESS) {
+//							//保存基本的用户信息
+//							$api.setStorage('user', ret.result);
+//						}
+						api.alert({
+							msg : ret.resultMessage
+						});
+					} else {
+						api.alert({
+							msg : "网络或者服务器有问题!"
+						});
+					};
+				});
+			}
+		}
+	</script>
+</html>

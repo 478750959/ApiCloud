@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+<head>
+    <title>好友列表</title>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="css/ui-btn.css">
+    <link rel="stylesheet" href="css/ui-base.css">
+    <link rel="stylesheet" href="css/ui-box.css">
+    <link rel="stylesheet" href="css/ui-color.css">
+    <link rel="stylesheet" href="css/ui-res.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/ui-tab.css">
+    <script src="js/y_control.js"></script>
+    <script src="js/y_click.js"></script>
+    <script src="js/dis_control.js"></script>
+    <script src="js/y_anim.js"></script>
+    <script>
+    </script>
+</head>
+<body class="um-vp c-gra5" ontouchstart>
+<div id="page_0" class="up ub ub-ver" tabindex="0">
+    <div id="header" class="c-blu3 uh">
+        <div class="c-m2 t-wh">
+            <div class="" ontouchstart="zy_touch('btn-act1')" onclick="closewin();">
+                <div class="btn btn-l btn-a ub ub-ac umw4 umh3" style="z-index: 99;">
+                    <div class="ulim"><img src="images/back.png" class="sbtn"></div>
+                </div>
+            </div>
+            <h1 class="ut ulev0 ut-s tx-c" id="ttl">
+                <div class="uhide" id="stt">
+                    <div class="ub-f1"></div>
+                    <div ontouchstart="zy_touch('c-gra')" onclick="slderbar('content',0)" id="checkSt" class="tx-c t-wh" style="width: 30%">
+                        推荐
+                    </div>
+                    <div ontouchstart="zy_touch('c-gra')" onclick="slderbar('content',1)" id="checkSt1" class="tx-c t-gra4" style="width: 30%">
+                        同圈子
+                    </div>
+                    <div class="ub-f1"></div>
+                </div>
+            </h1>
+            <div class="slider_status uhide" id="slider_status">
+                <span id="home_bar"></span>
+            </div>
+            <a class="ub btn btn-r btn-n ub-ac" ontouchstart="zy_touch('btn-act1')" onclick="go2setting();" id="card_setting">
+                <div class="ulim" id="btn_right">设置</div>
+            </a>
+        </div>
+    </div>
+    <div id="content" class="ub-f1 tx-l t-bla"></div>
+</div>
+</body>
+<script>
+zy_init();
+var params = getStorJson('params');
+var tts = params.title;
+var pageid = params.pageid;
+var module = '_8_9_10_';
+var indexof = module.indexOf('_' + pageid + '_');
+if(indexof < 0){
+    zy_anim_pop('card_setting', 'ub');//从显示到隐藏，才能让ub-ac起作用
+    zy_anim_push('card_setting', 'uhide');
+}
+
+window.uexOnload = function (type) {
+    if(params.verify_mobile && pageid == 11) setTimeout(function(){closewin(0, 'verify_mobile');}, 1500);//如果是从手机验证成功后打开手机好友，则把验证窗口关闭
+    if (!type) {
+        if (!isSML && pageid == 8) {//单身名片支持左右滑动
+            zy_anim_push('stt', 'ub');
+            zy_anim_pop('stt', 'uhide');
+            zy_anim_pop('slider_status', 'uhide');
+            var frames = [
+                {
+                    name: 'recommend',
+                    url: './friend_content.html',
+                    pageParam: {index: 0}
+                },
+                {
+                    name: 'sametag',
+                    url: './friend_content.html',
+                    pageParam: {index: 1}
+                }
+            ];
+            var osH = $$("header").offsetHeight;
+            Y.conFrameGroup('content', 0, osH, frames, 'slderbarCallback');
+            //初始化游标
+            var width_checkSt = parseInt(window.getComputedStyle($$("checkSt"),null).width);//菜单宽度
+            var width_bar = parseInt(window.getComputedStyle($$("home_bar"),null).width);//游标宽度
+            $$('slider_status').style.left = int(0.5 * (int(window.innerWidth) - width_checkSt - width_bar)) + "px";
+            var paddingTop = $$('header').style.paddingTop;
+            $$('slider_status').style.top = (int(osH) - 10 - paddingTop) + "px";
+        } else {
+            setHtml('ttl', tts);
+            zy_con("content", "friend_content.html", 0, $$("header").offsetHeight);
+        }
+    }
+    window.onorientationchange = window.onresize = function () {
+        zy_resize("content", 0, $$("header").offsetHeight);
+    }
+};
+function slderbar(groupName,index) {
+    Y.setFrameGroupIndex({
+        name:groupName,
+        index:index,
+        scroll:true
+    });
+}
+/** 只显示两页时，如果多页，需要对index*width进行处理
+ * @param id    ：home_bar 横线标记的id
+ * @param num   ：0 or 100
+ * @param barId : 第一个bar的id，checkSt
+ */
+function slderbarCallback(index) {
+    var id = 'home_bar';
+    var barId = 'checkSt';
+    var width = parseInt(window.getComputedStyle($$(barId),null).width);
+    if(index!=0){
+        zy_anim_pop('checkSt', 't-wh');
+        zy_anim_push('checkSt', 't-gra4');
+        zy_anim_pop('checkSt1', 't-gra4');
+        zy_anim_push('checkSt1', 't-wh');
+    }else{
+        zy_anim_pop('checkSt', 't-gra4');
+        zy_anim_push('checkSt', 't-wh');
+        zy_anim_pop('checkSt1', 't-wh');
+        zy_anim_push('checkSt1', 't-gra4');
+    }
+    var css = "-webkit-transform:translate(" + index * width + "px,0)";
+    $$(id).style.cssText += ';' + css
+}
+function go2setting(){
+    var title, rolemoduleid;
+    switch(int(pageid)){
+        case 8:
+            title = '单身名片';
+            rolemoduleid = 1;
+            break;
+        case 9:
+            title = '职业名片';
+            rolemoduleid = 2;
+            break;
+        case 10:
+            title = '校友名片';
+            rolemoduleid = 3;
+            break;
+    }
+    var uid = getstorage('UID');
+    var str = '{"view":"me", "uid":"' + uid  + '", "rolemoduleid":"' + rolemoduleid + '", "title":"' + title + '"}';
+    //console.log(str);
+    setstorage('params', str);
+    openwin('manage_role', 'manage_role.html' ,'10');
+}
+</script>
+</html>

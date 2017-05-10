@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+  <head>
+    <title>
+    </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="css/ui-input.css">
+    <link rel="stylesheet" href="css/ui-on.css">
+    <link rel="stylesheet" href="css/ui-img.css">
+    <link rel="stylesheet" href="css/ui-res.css">
+    <link rel="stylesheet" href="css/ui-list.css">
+    <link rel="stylesheet" href="css/ui-base.css">
+    <link rel="stylesheet" href="css/ui-box.css">
+    <link rel="stylesheet" href="css/ui-color.css">
+	<link rel="stylesheet" href="css/style.css">
+    <script src="js/y_control.js"></script>
+	<script src="js/dis_control.js"></script>
+    <script src="js/y_click.js"></script>
+    <script>
+	</script>
+  </head>
+<body class="um-vp" ontouchstart>
+	<div class="uinn18">
+		<div class="uba b-gra c-wh uc-a"> 	
+			<div class="uc-t ub b-gra t-bla ub-ac lis"> 
+			    <div class="uinn ulim">图片质量</div>
+				<div class="ub-f1 ub b-gra sel"> 
+					<div class="ub-f1 ut-s uinn ulev-3 t-gra tx-r" id="txt">标准（压缩比例75%）</div>  
+					<select name="sel0" selectedindex="0"  style="border:none !important; " id="sel1" onchange="selectmenu()">  
+				  		<option>原图（不压缩）</option>  
+				  		<option>标准（压缩比例75%）</option>  
+				  		<option>普通（压缩比例50%）</option>
+				 	</select> 
+				 </div>
+				 <div class="res8 lis-sw ub-img4"></div> 
+			</div>
+	  	</div>
+	</div>
+</body>
+<script>
+zy_init();
+var sl = $$('sel1');
+var sli = 1;
+var va = getstorage('picupcompr');
+if(va && va!='2'){
+	if(va=='0'){sli=0}
+	else if(va=='1'){sli=2;}
+	else sli=2;
+	
+	setHtml('txt', sl.options[sli].text);
+}
+if(sl) sl.selectedIndex=sli;
+
+window.uexOnload = function ()
+{
+	setPageBounce('', '');
+}
+function selectmenu(){
+	zy_selectmenu('sel1');
+	
+	sli = sl.selectedIndex;
+	var val = '1';
+	if(sli==0){val='0';}
+	else if(sli==1){val='2';}
+	else if(sli==2){val='3';}
+	else {val='1';}
+	setstorage('picupcompr', val);
+}
+</script>
+</html>

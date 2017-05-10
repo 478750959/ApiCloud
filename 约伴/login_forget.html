@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+  <head>
+    <title>
+    </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="css/ui-btn.css">
+    <link rel="stylesheet" href="css/ui-input.css">
+    <link rel="stylesheet" href="css/ui-img.css">
+    <link rel="stylesheet" href="css/ui-res.css">
+    <link rel="stylesheet" href="css/ui-list.css">
+    <link rel="stylesheet" href="css/ui-base.css">
+    <link rel="stylesheet" href="css/ui-box.css">
+    <link rel="stylesheet" href="css/ui-color.css">
+	<link rel="stylesheet" href="css/style.css">
+    <script src="js/y_control.js"></script>
+    <script src="js/y_click.js"></script>
+	<script src="js/config.js"></script>
+	<script src="js/dis_control.js"></script>
+	<script src="js/y_json.js"></script>
+	<script src="js/y_anim.js"></script>
+    <style>
+        .uinn-r{
+            padding:1.125em;
+        }
+    </style>
+  </head>
+<body class="um-vp" ontouchstart>
+    <div id="page_0" class="up ub ub-ver" tabindex="0">
+        <!--header开始-->
+        <div id="header" class="uh c-blu3">
+            <div class="c-blu3 t-wh">
+                <div class="" ontouchstart="zy_touch('btn-act1')" onclick="closewin();">
+                    <div class="btn btn-l btn-a ub ub-ac umw4 umh3" style="z-index: 99;">
+                        <div class="ulim"><img src="images/back.png" class="sbtn"></div>
+                    </div>
+                </div>
+                <h1 class="ub ub-ac umh5 ulev0 ut-s ub-pc" id="ttl">重设密码</h1>
+            </div>
+        </div>
+        <!--header结束-->
+        <!--content开始-->
+        <div id="content" class="ub t-bla ub-ac tx-l c-wh umh10 uinn18">
+            <div id="page1" class="ub ub-ver">
+                <div class="ub c-m2 t-bla ub-ac umh3 lis">
+                    <div class="ut-s umw4">手机号</div>
+                    <div class="ub ub-f1 tx-r t-gra ulev-3 umar-l">
+                        <div class="uinput">
+                            <div class="uinn1 ufl">
+                                <input placeholder="请输入手机号码" type="tel" class="uc-n ulev0" id="j_mobile" value="">
+                            </div>
+                            <div class="ufl ubl ubr ubb b-org" style="height: .3em; width: 100%;"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ub c-m2 t-bla ub-ac umh3 lis">
+                    <div class="ut-s umw4">验证码</div>
+                    <div class="ub ub-f1 tx-r t-gra ulev-3 umar-l">
+                        <div class="uinput">
+                            <div class="ub">
+                            <div class="ub ub-ac uinn1 ub-f1 ufl">
+                                <input placeholder="请输入验证码" type="text" class="uc-n ulev0" id="sms_code" value="">
+                            </div>
+                            <div class="ub ub-ac c-org ulev-1 uinn5" ontouchstart="zy_touch('btn-act1')" onclick="submitMobile();">
+                                <div class="t-wh">获取</div>
+                            </div>
+                            </div>
+                            <div class="ufl ubl ubr ubb b-org" style="height: .3em; width: 100%;"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ub c-m2 t-bla ub-ac umh3 lis">
+                    <div class="ut-s umw4">新密码</div>
+                    <div class="ub ub-f1 tx-r t-gra ulev-3 umar-l">
+                        <div class="uinput">
+                            <div class="ub">
+                                <div class="ub ub-ac uinn1 ub-f1 ufl">
+                                    <input placeholder="请输入新密码" type="text" class="uc-n ulev0" id="j_psw" value="">
+                                </div>
+                                <div class="ub ub-ac c-org ulev-1 uinn5" ontouchstart="zy_touch('btn-act1')" onclick="psTypeChange();">
+                                    <div class="t-wh" id="psw_btn">隐藏</div>
+                                </div>
+                            </div>
+                            <div class="ufl ubl ubr ubb b-org" style="height: .3em; width: 100%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--content结束-->
+        <div id="footer" class="ub ub-ver ub-pc ub-ac uf t-wh">
+            <div ontouchstart="zy_touch('btn-act')" onclick="submit();" class="ub umh5 ub-ac c-gra uh ub-pc ubt b-gra">
+                确定
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+zy_init();
+var params = getStorJson('params');
+var mobile = '';
+var psw = '';
+var verifycode = '';
+window.uexOnload = function(){
+
+};
+//检查手机是否可以发送验证码,如果可以就发送
+function submitMobile(){
+    if(!checkMobile()) return;
+    if(going) return;
+    var r_url = login_url + "&mod=register&action=register&appplatform=1&checkinfo=1&mobile=" + mobile;//对应member_register.php $_GET['checkinfo']
+    going = 1;
+    $.getJSON(r_url, function(json) {
+        going = 0;
+        var str  = json.message ? json.message : "该手机不能获取验证码";
+        if (parseInt(json.status) == 1) {
+            sendVerifyCode();
+        }else uexWindow.toast('0', '5', str, 1500);
+    }, 'json', getJsonErr, 'POST', '', '');
+}
+//检查手机号码
+function checkMobile(){
+    mobile = getValue("j_mobile");
+    if(!mobile){
+        uexWindow.toast('0', '5', "请输入手机号码", 1500);
+        return false;
+    }
+    var re = /1(?:[38]\d|4[57]|5[01256789])\d{8}/;
+    if(!re.test(mobile)){
+        uexWindow.toast('0', '5', "手机号码不正确", 1500);
+        return false;
+    }
+    return true;
+}
+function sendVerifyCode(){
+    var r_url  = plugin_url + "&id=smstong:verifycode&appplatform=1&action=getregverifycode&mobile=" + mobile;
+    //return;
+    uexWindow.toast('1', '5', "正在发送验证码", '');
+    $.getJSON(r_url, function(json) {
+        uexWindow.closeToast();
+        if (parseInt(json.status) != 1) {//验证码发送失败
+            uexWindow.toast('0', '5', json.message, 2000);
+        }else{
+            uexWindow.toast('0', '5', '验证码已经发送，请注意查收！', 2000);
+        }
+    }, 'json', getJsonErr, 'POST', '', '');
+}
+function submit(){
+    if(!checkForm()) return;
+    var r_psw = encodeURIComponent(psw);
+    var url = member_url + "&mod=logging&action=password_forget&passwordsubmit=true&appplatform=1&mobile="
+            + mobile + "&verifycode=" + verifycode + "&newpassword=" + r_psw;
+    $.getJSON(url, function(json) {
+        if(json.status == '1'){
+            var o = json ;
+            var username  = o.username ;
+            if(undefined == o.username ) username = '';
+            var str = '你的用户名是'+ username + '，请登录';
+            uexWindow.toast('0','5',str ,2000);
+            setTimeout('uexWindow.close(\"\");', 2000);
+            setTimeout(function(){
+                setStorJson('params',{"view":"login_forget", "uname":username});
+                uescript('login', 'getLogininfor();');
+            }, 2000);
+        }else{
+            var str = json.message;
+            uexWindow.toast('0','5',str,2000);
+        }
+    });
+}
+function checkForm(){
+    verifycode = getValue("sms_code");
+    if ('' == verifycode) {
+        uexWindow.toast('0', '5', "请输入验证码", 1500);
+        return false;
+    }
+    if (fucCheckLength(verifycode) != 6) {
+        uexWindow.toast('0', '5', "验证码为6位", 1500);
+        return false;
+    }
+    psw = getValue("j_psw");
+    psw = trim(psw);
+    if(!checkMobile()) return false;
+    if (psw == '') {
+        uexWindow.toast('0', '5', "新密码不能为空或空格", 1500);
+        return false;
+    }
+    if (fucCheckLength(psw) > 15) {
+        uexWindow.toast('0', '5', "新密码必须少于15个字符", 1500);
+        return false;
+    }
+    return true;
+}
+function psTypeChange(){
+    var obj = $$('j_psw');
+    if (obj.type == "password"){
+        obj.type="text";
+        setHtml('psw_btn', "隐藏");
+    }else{
+        obj.type="password";
+        setHtml('psw_btn', "显示");
+    }
+}
+</script>
+</html>

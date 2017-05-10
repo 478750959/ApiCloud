@@ -1,0 +1,304 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>MI</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/xyc.css"/>
+    <style>
+    	html,body{
+    		background:white;
+    	}
+    	.xyc_jiajian{
+    		display:-webkit-box;
+    		-webkit-box-orient:horizontal;
+    		padding-top:0.2rem;
+    	}
+    	.mid{
+    		display:block;
+    		margin: 0 0.04rem;
+    		width:1.2rem;
+    		border:1px solid #e0e0e0;
+    		line-height:0.5rem;
+    		text-align:center;
+    	}
+    	.jian,.jia{
+    		line-height:0.5rem;
+    		width:0.5rem;
+    		text-align:center;
+    		border: 1px solid #e0e0e0;
+    		font-size: 0.3rem;
+			color: #565656;
+    	}
+    	.mi_buycar_list{
+    		width:auto;
+    		margin-right:0.8rem;
+    	}
+    </style>
+</head>
+<body>
+    <script id="cartshopping" type="text/x-dot-template">
+		{{if(it != ''){  }}
+			{{ for(var i in it){ }}
+		<li id="myadd_{{=it[i].id}}">
+			<div class="mi_buycar_list">
+				<!--<div class="mi_buycar_check">
+					<input type='checkbox' class='mi_buycar_xz' onclick='xycclick(this)'/>
+					<div class="mi_buycar_checkdiv"></div>
+				</div>-->
+				<div class="mi_buycar_imgtxt">
+    				<div class="mi_buycar_img"><img src='{{=it[i].goods_logo}}!gl'></div>
+    				<div class="mi_buycar_txt">
+    				<p>{{=it[i].goods_name}}:{{=it[i].goods_attribute}}</p>
+    				<!--<h4><span>￥</span><em>{{=it[i].shop_price}}</em></h4>-->
+    					<div class="xyc_jiajian">
+    						<span class="jian"    onclick="jian(this,'{{=it[i].id}}')">-</span>
+							<input type="number" readonly="readonly" value="{{=it[i].goods_number}}" class="mid" />
+							<span class="jia" onclick="jia(this,'{{=it[i].id}}')">+</span>
+    					</div>   					   				     
+    				<!--	<a class="mi_buycar_bbsx"></a>-->
+    				</div>
+				</div>
+			</div>
+			<a class='mi_buycar_del' onclick ='xycclick2("mi_buycar_del_f",this)'   data-price="{{=it[i].shop_price}}" data-id="{{=it[i].id}}" data-num="{{=it[i].goods_number}}">删<br/>除</a>
+		</li>
+			{{ } }}
+		{{ }else{ }}
+		{{ } }}
+	</script>	
+<div id="wrap">
+    <div id="main">
+    		
+    	<ul class="mi_buycar_lists" id="cart">
+    	</ul>
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/comm.js"></script>
+<script type="text/javascript" src="../script/font.js"></script>
+<script type="text/javascript" src="../script/doT.min.js"></script>	
+<script type="text/javascript" src="../script/zepto.js"></script>
+<script type="text/javascript" src="../script/debug.js"></script>
+<script>
+	//	function a(){
+//		 var cx = 0;
+//		 var cy = 0;
+//		 var x = 0;
+//		 var y = 0;
+//		 var list = document.getElementsByClassName('mi_buycar_list');
+//		 for(var i =0;i<list.length;i++){
+//		 	list[i].style.webkitTransition = 'left ease-out 0.2s';
+//		 }
+//		$('.mi_buycar_imgtxt').bind('touchstart', function(evt){
+//		 	evt.preventDefault(); //阻止触摸时浏览器的缩放、滚动条滚动等 
+//			var touch = evt.touches[0]; //获取第一个触点  
+//		    cx = Number(touch.pageX); //页面触点X坐标  
+//		    cy = Number(touch.pageY);
+//
+//		})
+//		 $('.mi_buycar_imgtxt').bind('touchmove', function(evt){
+//			var touch = evt.touches[0]; //获取第一个触点  
+//		    x = Number(touch.pageX); //页面触点X坐标  
+//		    y = Number(touch.pageY);
+//		    if(cx-x>5||cx-x<-5){
+////				debug.error(1);    
+//		    	evt.preventDefault(); //阻止触摸时浏览器的缩放、滚动条滚动等 
+//		    }	
+//		 })
+//		$('.mi_buycar_imgtxt').bind('touchend', function(evt){
+//			evt.preventDefault(); //阻止触摸时浏览器的缩放、滚动条滚动等 
+//		 	var jl = cx-x;	 
+//		 	if(jl>32){
+//		 		$(this).parent('.mi_buycar_list').css('left','-0.8rem'); 
+//		 	}else if(jl<-32){
+//		 		$(this).parent('.mi_buycar_list').css('left','0rem');
+//		 		$(this).prev('.mi_buycar_check').children('.mi_buycar_checkdiv').removeClass('yuan');
+//		 		$(this).prev('.mi_buycar_check').children('.mi_buycar_xz').prop('checked',false);
+//		 	};
+//		 })
+//	}
+	//点击每个商品的选择框触发的函数
+//	function xycclick(ooo){
+//		var flage = $(ooo).prop("checked");
+//	  	if (flage ==true){
+//		  	$(ooo).next().addClass('yuan');
+//		  	$(ooo).parents('.mi_buycar_list').css('left','-0.8rem');
+//		}else{
+//	  		$(ooo).next().removeClass('yuan');
+//	    }
+//	}
+	//实时更新购物车的数量
+//		var start_time=0;
+		var is_ok=true;
+	function set_num(param,callback){
+		var info=is_login();
+		if(!info){
+			to_login();
+			return false;
+		}
+		for(var p  in info){
+			param[p]=info[p];
+		}
+		if(is_ok){
+				is_ok=false;
+				ajaxRequest('cart/mycar_num','post',param,function(ret,err){
+				if(err){
+					api.toast({
+		                msg:err.msg
+	                });
+	                return false;
+				}
+				if(ret.status){	
+					is_ok=true;	      
+					callback(ret);
+				}else{
+					api.toast({
+		                msg:ret.info
+	                });
+				}
+		});
+		}
+	
+	}
+//点击减号和加号改动input的值
+		function jian(obj,id){
+//			 start_time=new Date().getTime();
+		    var text = parseInt($(obj).next().val());
+			if(text<=1) {
+				text =1;
+				$(obj).next('.mid').val('1');
+				return false;
+			}else{
+				text--;
+				set_num({'m':2,'id':id},function(ret){
+					if(ret.status){
+						$(obj).next('.mid').val(ret.info);
+						 //发送到mi_f的监听事件
+				       api.sendEvent({
+		                	name:'num_change'		                	
+		                });
+				       //发送到购物车编辑的监听事件
+				       api.sendEvent({
+					       name: 'to_buy',
+					       extra:{'num':1}			  
+					   });	
+					}
+				})				
+			}
+		}
+		function jia(obj,id){	
+//			 start_time=new Date().getTime();	
+			var text = parseInt($(obj).prev().val());
+			text++;
+			set_num({'m':1,'id':id},function(ret){
+					if(ret.status){
+						$(obj).prev('.mid').val(ret.info);
+						 //发送到mi_f的监听事件
+				       api.sendEvent({
+		                	name:'num_change'
+		                });
+				       //发送到购物车编辑的监听事件
+				        api.sendEvent({
+					       name: 'to_buy',
+					       extra:{'num':1}			  
+					   });	
+					}
+				})				
+		}
+//	点击删除按钮触发的函数，跳转到删除蒙版，传值 id,num,
+	function xycclick2(xyc,obj){
+		var width = api.winWidth;
+		var height = api.winHeight;
+		var id = $(obj).attr('data-id');
+		var num = $(obj).attr('data-num');		
+		var price = $(obj).attr('data-price');
+		api.openFrame({
+			name : xyc,
+			url : xyc + '.html',
+			bounces : false,
+			opaque : false,
+			vScrollBarEnabled : false,
+			pageParam : {
+				'name' : xyc,
+				'id' : id,
+				'num': num,
+				'price':price
+			},
+			rect : {
+				x : 0,
+				y : 0,
+				w : width,
+				h : height
+			}
+		});
+	}
+	function add_del(id) {
+		$('#myadd_' + id).remove();
+	}
+
+	function getdata(page){
+		var info = is_login();
+		var param = {};
+		for (var p in info) {
+			param[p] = info[p];
+		}
+		param.page=page;
+		api.showProgress({
+		        title: '加载中',
+		        modal: false
+		    });
+		ajaxRequest('cart/cartlst', 'post',param,function(ret,err){		
+		api.hideProgress();	
+			if(err){
+				api.toast({
+					msg:err.msg
+				});
+				return false;
+			}
+			if(ret.status){
+				  var data = ret.info.data;
+				  totalNum=ret.info.page;
+				  var content = $api.dom('#cart');
+				  var tpl = $api.byId('cartshopping').text;
+				  var tempFn = doT.template(tpl);
+				  if(page==0){
+				  	 $api.html(content,'');
+				  	 $api.html(content, tempFn(data));
+				  }else{
+				  	 $api.append(content, tempFn(data));
+				  }
+				 
+				  $api.setStorage('cartshopping',data); 
+			}else{
+				api.toast({
+					msg:ret.info
+				});
+			}
+		
+		})
+	}
+	var totalNum=0;
+    apiready = function () {
+    	 var currentPage = 0;	
+    	getdata(0);
+    	//从删除页面传过来的监听，目的是为了刷新页面。
+    	api.addEventListener({
+	        name:'del_car'
+        },function(ret,err){
+        	getdata(0);
+        	currentPage=0;
+        });      	
+		//滚动到底部
+		api.addEventListener({
+		    name:'scrolltobottom'
+		},function(ret,err) {
+			if(currentPage < (totalNum - 1)) {			
+				currentPage++;
+		    	getdata(currentPage);
+		    }
+		})
+	}
+</script>
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+	<link rel="stylesheet" href="../css/api.css">
+	<style>
+	html{background-color:rgb(250,250,250);}
+	body{overflow:hidden;background-color:rgb(250,250,250);}
+	.header{height:50px;width:100%;background-color:rgb(242,242,242);border-bottom:1px solid rgb(200,200,200);}
+	.header-ul li{float:left;}
+	.header-ul-icon{width:50px;height:50px;background:url(../image/previous_arrow@2x.png) center no-repeat;background-size:80%;margin:0 10px;}
+	.header-ul-title{line-height: 50px;font-size:1.5em;}
+	.body-div{margin:0 20px;}
+	.body-div input{height:30px;width:96%; border-bottom:3px solid rgb(200,200,200);display:block;margin:20px 0 0 0;padding:0 2%;line-height:30px;outline-style:none;}
+	.body-div-forget{color:rgb(110,210,214);margin:20px 0 0 0;}
+	.bottom-submit{height:40px;width:90%;background-color:rgb(21,192,199);margin:0 auto;line-height:40px;text-align:center;position:absolute;bottom:5%;left:5%;}
+	.body-div-register{color:rgb(110,210,214);margin:20px 0 0 0;height:20px;width:100%;}
+	</style>
+</head>
+<body>
+	<div class="header">
+		<ul class="header-ul after">
+			<li class="header-ul-icon" onclick="api.closeWin();"></li>
+			<li class="header-ul-title">登录</li>
+		</ul>
+	</div>
+	<div class="body1">
+		<div class="body-div">
+			<input type="text" class="body-div-account" id="body-div-account" placeholder="邮箱/手机号">
+			<input type="password" class="body-div-password" id="body-div-password" placeholder="请输入密码">
+			<div class="body-div-forget">忘记密码?</div>
+			<div class="body-div-register" id="body-div-register">没有华为账号?</div>
+		</div>
+	</div>
+	<div class="bottom">
+		<div class="bottom-submit" id="bottom-submit">
+			登录
+		</div>
+	</div>
+<script src="../script/api.js"></script>
+<script src="../script/common.js"></script>
+<script>
+
+
+	/***给两个input添加时间 -start-*/
+	document.getElementById('body-div-account').onfocus = function(){
+		this.style.borderBottomColor="rgb(31,164,209)";
+	}
+	document.getElementById('body-div-account').onblur = function(){
+		this.style.borderBottomColor="rgb(200,200,200)";
+	}
+
+	document.getElementById('body-div-password').onfocus = function(){
+		this.style.borderBottomColor="rgb(31,164,209)";
+	}
+	document.getElementById('body-div-password').onblur = function(){
+		this.style.borderBottomColor="rgb(200,200,200)";
+	}
+	/*给两个input添加时间 -end-***/
+
+
+	document.getElementById('bottom-submit').onclick=function(){
+		var body_div_account = document.getElementById('body-div-account').value;
+		var body_div_password = document.getElementById('body-div-password').value;
+		if(body_div_account === ''){
+			alert('请输入手机/邮箱');
+			return;
+		}
+		if(body_div_password === ''){
+			alert('请输入密码');
+			return;
+		}
+		var user = api.require('user');
+		user.login({
+			username: body_div_account,
+			password: body_div_password
+		}, function(ret, err) {
+			if (ret) {
+				// alert(ret['userId']);
+				var information = {};
+				information.username=body_div_account;
+				information.userd=ret['userId'];
+				$api.setStorage('user',information);
+				// openWin('Win_register');
+
+
+				api.execScript({
+					name:'root',
+					frameName:'frame_index_me',
+					script:'reloadMe();'
+				});
+
+				api.closeWin();
+				// alert(JSON.stringify(information));
+			} else {
+				alert('账号或密码错误');
+			}
+			/*alert(JSON.stringify(ret));
+			alert(JSON.stringify(err));*/
+		});
+	}
+
+		document.getElementById('body-div-register').onclick=function(){
+
+/*var key = 'user';
+var user = {};
+user.name = 'kenny';
+user.email = 'kenny@163.com';
+$api.setStorage(key, user);
+user = $api.getStorage(key);
+alert(user);*/
+			openWin('Win_register');
+		}
+
+</script>
+</body>
+</html>

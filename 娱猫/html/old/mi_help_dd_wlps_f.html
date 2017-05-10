@@ -1,0 +1,62 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>MI</title>
+		<link rel="stylesheet" type="text/css" href="../css/api.css"/>
+		<style>
+			html,body{
+				background:white;
+			}
+			.help_lists{
+				padding:0.1rem 0.3rem 0;
+			}
+			.help_list{
+				padding:0 0.1rem;
+				border-bottom:1px solid #dddddd;
+				height:0.8rem;
+				line-height:0.8rem;
+				font-size:0.26rem;
+				color:#565656;
+			}
+			.help_txt{
+				width:5.56rem;
+				height:1.4rem;
+				margin:0.75rem auto 0;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="wrap">
+			<div id="main">
+				<div class="help_lists">
+					<div class="help_list" onclick = "openNext('mi_help_next_head_w',41)">发货时间？</div>
+					<div class="help_list" onclick = "openNext('mi_help_next_head_w',42)">包裹到哪了？</div>
+					<div class="help_list" onclick = "openNext('mi_help_next_head_w',43)">没收到商品但是订单显示签收了？</div>
+					<div class="help_list" onclick = "openNext('mi_help_next_head_w',44)">拒收会收取运费吗？</div>
+					<div class="help_list" onclick = "openNext('mi_help_next_head_w',45)">能否自己选择物流？</div>
+					<div class="help_list" onclick = "openNext('mi_help_next_head_w',46)">可以货到付款吗？</div>
+					<div class="help_list" onclick = "openNext('mi_help_next_head_w',47)">偏远地区能否送到？</div>
+					<div class="help_list" onclick = "openNext('mi_help_next_head_w',48)">提供送货上门服务吗？</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../script/api.js"></script>
+	<script type="text/javascript" src="../script/font.js"></script>
+	<script>
+		function openNext(xyc, count) {
+			api.openWin({
+				name : xyc,
+				url : xyc + '.html',
+				opaque : false,
+				reload : true,
+				vScrollBarEnabled : false,
+				pageParam : {
+					count : count
+				}
+			});
+		}
+	</script>
+</html>

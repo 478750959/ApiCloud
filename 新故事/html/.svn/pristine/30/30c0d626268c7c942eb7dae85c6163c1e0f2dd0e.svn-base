@@ -1,0 +1,161 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=0, width=device-width"/>
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="format-detection" content="address=no" />
+    <title>api</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../css/common.css" />
+    <link rel="stylesheet" type="text/css" href="../css/modifyPwd.css" />
+</head>
+
+<body>
+    <div id="wrap">
+        <div id="header">
+            <a class="back-icon" tapmode="" onclick="api.closeWin()"></a>
+            <h1>注册</h1>
+        </div>
+        <div id="main">
+            <div class="input-wrap">
+                <input type="text" placeholder="请输入电子邮件" onfocus="edit(this)" onblur="cancel(this)" id="userName" class="txt" value="" />
+                <i class="del" tapmode="" onclick="delWord(this)"></i>
+            </div>
+            <div class="input-wrap">
+                <input type="password" placeholder="请输入密码" onfocus="edit(this)" onblur="cancel(this)" id="userPwd" class="txt" value="" />
+                <i class="del" tapmode="" onclick="delWord(this)"></i>
+            </div>
+            <div class="input-wrap">
+                <input type="password" placeholder="请再次输入密码" onfocus="edit(this)" onblur="cancel(this)" id="userPwd2" class="txt" value="" />
+                <i class="del" tapmode="" onclick="delWord(this)"></i>
+            </div>
+            
+            <div class="loginBtn">
+                <a class="btn" tapmode="active" onclick="register()">提交</a>
+            </div>
+        </div>
+    </div>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript" src="../script/register.js"></script>
+<script>
+
+function checkRegular(){
+		var pwEl = $api.byId('userName');
+		var pwVal = $api.val(pwEl);
+		if(pwVal.length > 0){
+			if(!regular(pwVal)){
+				api.toast({msg: '邮箱格式不正确，请重新输入！', location: 'middle'});
+				setTimeout(function(){pwEl.focus();}, 2000);
+			}		
+		}
+	}
+	
+function regular(pw){
+//	var reg = /^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/;
+//	return reg.test(pw);
+   return true;
+}
+
+function register(){
+		var pwEl1 = $api.byId('userPwd');
+		var pwEl2 = $api.byId('userPwd2');
+		var pwVal1 = $api.val(pwEl1);
+		var pwVal2 = $api.val(pwEl2);
+		$api.setStorage('pwVal1', pwVal1);
+		if(pwVal1.length <= 0){
+			api.toast({msg: '请输入密码', location: 'middle'});
+			setTimeout(function(){pwEl1.focus();}, 2000);
+			return;
+		}else if(!regular(pwVal1)){
+			api.toast({msg: '密码格式不正确，请重新输入！', location: 'middle'});
+			setTimeout(function(){pwEl1.focus();}, 2000);
+			return;
+		}else if(pwVal2.length <= 0){
+			api.toast({msg: '请再次输入密码', location: 'middle'});
+			setTimeout(function(){pwEl2.focus();}, 2000);
+			return;
+		}else if(pwVal1 != pwVal2){
+			api.toast({msg: '两次密码输入不符，请重新输入！', location: 'middle'});
+			setTimeout(function(){pwEl2.focus();}, 2000);
+			return;
+		}else{
+			reg();
+		}
+	}
+	
+	function doNetRequest(values){
+		api.showProgress({'title': '设置中', modal: false});
+		api.ajax({
+	    	url: serverUrl + '/ModifyUserPassword',
+		    method:'post',
+		    cache:false,
+		    timeout:15,
+		    dataType:'json',
+		    data:{'values':values}
+	    }, ajaxBack);
+	}
+	
+	
+    function reg(){
+    var pwEl = $api.byId('userName');
+	var pwVal = $api.val(pwEl);
+	var pwEl2 = $api.byId('userPwd2');
+	var pwVal2 = $api.val(pwEl2);
+    var model = api.require('model');
+    model.config({appId:'A6974887568667',appKey:'09652FAC-1E1B-D3C4-90BB-2BC09472893F'});
+        var user = api.require('user');
+        user.register({
+               username: pwVal,
+               password: pwVal2,
+               email:pwVal
+       }, ajaxBack);
+  }
+	
+	
+	function ajaxBack(ret,err){
+
+		if(ret && ret.id){
+    		$api.setStorage('logined', 'done');//设置登录状态	
+		    		
+			var usr = $api.getStorage('usr');
+			if(usr){
+				$api.rmStorage('usr');
+			}
+			usr = {};
+			
+			
+			usr.name = $api.getStorage('name');			
+			usr.password = $api.val($api.byId('pw1'));			
+			$api.setStorage('usr', usr);
+			$api.rmStorage('name');
+
+			
+			api.execScript({name:'root', script:'updateHeader();'});
+
+    		api.hideProgress();
+				api.toast({msg: '注册成功', location: 'middle'});
+				setTimeout(api.closeToWin({name: 'root'}), 2000);
+    	}else{
+    		api.hideProgress();	
+    			api.toast({msg: '此用户已经存在,请重新注册', location: 'middle'});
+    	}
+	}
+	
+	function bindInfo(account, uid, afterBindInfo){
+		var push = api.require('push');
+		push.bind({
+			userName: account,
+			userId: uid
+		}, function(ret, err){
+			if(ret && ret.status){
+				afterBindInfo(ret, err);
+			}
+		});
+	}
+</script>
+</body>
+</html>
+

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/common.css"/>
+</head>
+<body>
+<header>
+    <div class="user header ">
+        <div class="btn back" tapmode="" onclick="api.closeWin()"></div>
+
+        <div class="title"></div>
+        <div class="btn"></div>
+    </div>
+</header>
+<script type="text/javascript" src="../script/zepto.min.js"></script>
+<script>
+    apiready = function () {
+        fixIos7Bar($("header"));
+        $(".title").html(api.pageParam.name);
+        api.openFrame({
+            name: "frm_sliderDetail",
+            url: 'frm_sliderDetail.html',
+            rect: {
+                x: 0,
+                y: $("header").height(),
+                h: 'auto',
+                w: 'auto'
+            }
+        })
+    }
+
+</script>
+</body>
+</html>

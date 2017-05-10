@@ -1,0 +1,354 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>APP</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/common.css" />
+    <style>
+        #wrap{
+            background-color: #2B2B2B;
+        }
+        #main{
+            padding: 0 1em;
+            position: relative;
+        }
+        #movieDetailBackBtn{
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: auto;
+            height: 48px;
+            background: url(../../res/drawable-xhdpi/arrow_left_yellow.png) 8px center no-repeat;
+            background-size: 7px 14px;
+        }
+        #movieDetailBackBtn:active{
+            background-color: #191919;
+        }
+        #movieDetailBackBtn .chooseCityImg{
+            display: inline-block;
+            border: none;
+            outline: none;
+            width: 32px;
+            height: 32px;
+            float: left;
+            margin-left: 22px;
+            margin-top: 7px;
+            
+        }
+        #movieDetailBackBtn .chooseCityBackSpan{
+            color: #D4A82A;
+            line-height: 48px;
+            padding: 0 1em;
+        }
+        #chooseStyleBtn{
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            height: 48px;
+            width: 48px;
+            background: url(../../res/drawable-xhdpi/ico_share_white.png);
+            background-size: 100% 100%;
+        }
+        #chooseStyleBtn:active{
+            background: url(../../res/drawable-xhdpi/ico_share_orange.png);
+            background-size: 100% 100%;
+        }
+
+        #main .config_list_box{
+            position: relative;
+        }
+        .config_list_box .options_shadow{
+            width: 100%;
+            height: 46px;
+            position: relative;
+        }
+        .config_list_box .options{
+            color: #5C5C5C;
+            width: 100%;
+            height: 46px;
+            line-height: 60px;
+            background-color: #2B2B2B;
+            position: absolute;
+            left: 0;
+            top: 0;
+            z-index: 1;
+        }
+
+        .config_list_box .options_list{
+
+        }
+        .config_list_box .options_li{
+            width: 100%;
+            height: 45px;
+            background-color: #373737;
+            margin: 4px auto;
+            display: -webkit-box;
+            -webkit-box-orient: horizontal;
+            position: relative;
+        }
+        .options_li span{
+            position: relative;
+        }
+        .options_li .title{
+            color: #FFF;
+            height: 45px;
+            line-height: 45px;
+            float: left;
+            text-indent: 15px;
+            -webkit-box-flex: 1;
+            -webkit-flex: 1;
+            flex: 1;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+            
+        }
+        .options_li .status{
+            float: right;
+            color: #727272;
+            padding: 0 1em;
+            height: 45px;
+            line-height: 45px;
+        }
+        .options_li .switch{
+            /*float: right;*/
+            width: 96px;
+            height: 24px;
+            position: absolute;
+            right: 9px;
+            top: 50%;
+            -webkit-transform: translate(0,-50%);
+                    transform: translate(0,-50%);
+        }
+        .options_li .switch.off{
+            background:#373737 url(../../res/drawable-xhdpi/btn_off.png) left top no-repeat;
+            background-size: 100% 100%;
+        }
+        .options_li .switch.on{
+            background:#373737 url(../../res/drawable-xhdpi/btn_on.png) left top no-repeat;
+            background-size: 100% 100%;
+        }
+
+
+    </style>
+</head>
+<body>
+    <div id="wrap">
+        <div id="header">
+            <a id="movieDetailBackBtn" tapmode  onclick="api.closeWin();">
+                <img src="../../res/drawable-hdpi/ic_launcher.png" class="chooseCityImg">
+                <span class="chooseCityBackSpan">设置</span>
+            </a>
+        </div>
+        <div id="main">
+            <div class="config_list_box">
+                <div class="options_shadow">
+                    
+                </div>
+                <div class="options">系统设置</div>
+                <ul class="options_list">
+                    <li class="options_li  cus_act_li" onclick="changeMovie();" tapmode>
+                        <span class="title">影片默认浏览模式</span>
+                        <span class="status" id="status_movie">海报模式</span>
+                    </li>
+                    <li class="options_li cus_act_li" onclick="changeImage();" tapmode>
+                        <span class="title">图片质量设置</span>
+                        <span class="status" id="status_image">高质量</span>
+                    </li>
+                    <li class="options_li cus_act_li" onclick="changeDis();" tapmode>
+                        <span class="title">周边搜索范围</span>
+                        <span class="status" id="status_dis">500m</span>
+                    </li>
+                    <li class="options_li cus_act_li" onclick="changeGeo();" tapmode>
+                        <span class="title">开启位置服务</span>
+                        <span class="switch" id="status_geo"></span>
+                    </li>
+                    <li class="options_li cus_act_li" onclick="" tapmode>
+                        <span class="title">清空缓存</span>
+                        <span class="status">已使用11M</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="config_list_box">
+                <div class="options_shadow">
+                    
+                </div>
+                <div class="options">提醒</div>
+                <ul class="options_list">
+                    <li class="options_li cus_act_li" onclick="changeNew();" tapmode>
+                        <span class="title">新片上映提醒</span>
+                        <span class="switch" id="status_new"></span>
+                    </li>
+                    <li class="options_li cus_act_li" onclick="" tapmode>
+                        <span class="title">关于</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/common.js"></script>
+<script type="text/javascript" src="../../script/zepto.js"></script>
+<script type="text/javascript">
+
+apiready = function(){
+    Zepto(function($){
+        var header = $api.byId('header');
+        $api.fixIos7Bar(header); 
+        var headerPos = $api.offset(header);
+        // var wW = api.winWidth;
+        // var wH = api.winHeight;
+        // api.winHeight不适合用来写页面，
+        var movieDetailBackBtn = $api.byId('movieDetailBackBtn');
+
+        // 影片默认浏览模式 
+        var $statusMovie = $('#status_movie');
+        if ($api.getStorage('movieStyle')) {
+            if ($api.getStorage('movieStyle') == 'show') {
+                $statusMovie.text('海报模式');
+            } else{
+                $statusMovie.text('列表模式');
+            }
+        }; 
+        // 影片默认浏览模式 
+        window.changeMovie = function(){
+            api.confirm({
+                title: '影片默认浏览模式',
+                msg: '选择您需要的影片默认浏览模式',
+                buttons:[ '海报模式', '列表模式','取消']
+            },function(ret,err){
+                if(ret.buttonIndex == 1){
+                    // 1：海报
+                    $api.setStorage('movieStyle','show');
+                    $statusMovie.text('海报模式');
+                } else if(ret.buttonIndex == 2){
+                    $api.setStorage('movieStyle','list');
+                    $statusMovie.text('列表模式');
+                } else {
+
+                }
+            });
+        }
+        // 图片质量设置 
+        var $statusImage = $('#status_image');
+        if ($api.getStorage('imageQua')) {
+            if ($api.getStorage('imageQua') == 'high') {
+                $statusImage.text('高质量');
+            } else{
+                $statusImage.text('低质量');
+            }
+        } else{
+            $api.setStorage('imageQua','high');
+        }
+        // 图片质量设置 
+        window.changeImage = function(){
+            api.confirm({
+                title: '图片质量设置',
+                msg: '选择您需要的图片质量',
+                buttons:[ '高质量', '低质量','取消']
+            },function(ret,err){
+                if(ret.buttonIndex == 1){
+                    // 1：海报
+                    $api.setStorage('imageQua','high');
+                    $statusImage.text('高质量');
+                } else if(ret.buttonIndex == 2){
+                    $api.setStorage('imageQua','low');
+                    $statusImage.text('低质量');
+                } else {
+
+                }
+            });
+        }
+        // 搜索范围设置 
+        var $statusDis = $('#status_dis');
+        if ($api.getStorage('status_dis')) {
+            $statusDis.text($api.getStorage('status_dis'));
+        } else{
+            $api.setStorage('500m');
+        }
+        // 搜索范围设置 
+        window.changeDis = function(){
+            // 按钮只能三个，这个应该有个累死的模块吧，html挺麻烦的
+            api.confirm({
+                title: '周边搜索范围',
+                msg: '选择您要搜索的周边范围',
+                buttons:[ '500m','2km','取消']
+            },function(ret,err){
+                switch(ret.buttonIndex){
+                    case 1: $api.setStorage('status_dis','500m');
+                            $statusDis.text('500m');
+                            break;
+                    // case 2: $api.setStorage('status_dis','1km');
+                    //         $statusDis.text('1km');
+                    //         break;
+                    case 2: $api.setStorage('status_dis','2km');
+                            $statusDis.text('2km');
+                            break;
+                    // case 4: $api.setStorage('status_dis','5km');
+                    //         $statusDis.text('5km');
+                            break;
+                    case 3: break;
+                }
+            });
+        }
+
+        // 位置开关
+        var $statusGeo = $('#status_geo');
+        if ($api.getStorage('status_geo')) {
+            $statusGeo.removeClass('on');
+            $statusGeo.removeClass('off');
+            $statusGeo.addClass($api.getStorage('status_geo'));
+        } else{
+            $api.setStorage('status_geo','on');
+            $statusGeo.addClass('on');
+        }
+        // 位置开关
+        window.changeGeo = function(){
+            if ($statusGeo.hasClass('on')) {
+                $statusGeo.removeClass('on');
+                $statusGeo.addClass('off');
+                $api.setStorage('status_geo','off');
+            } else{
+                $statusGeo.removeClass('off');
+                $statusGeo.addClass('on');
+                $api.setStorage('status_geo','on');
+            }
+        };
+
+        // 新片提醒
+        $statusNew = $('#status_new');
+        if ($api.getStorage('status_new')) {
+            $statusNew.removeClass('on');
+            $statusNew.removeClass('off');
+            $statusNew.addClass($api.getStorage('status_new'));
+        } else{
+            $api.setStorage('status_new','on');
+            $statusNew.addClass('on');
+        }
+        // 位置开关
+        window.changeNew = function(){
+            if ($statusNew.hasClass('on')) {
+                $statusNew.removeClass('on');
+                $statusNew.addClass('off');
+                $api.setStorage('status_new','off');
+            } else{
+                $statusNew.removeClass('off');
+                $statusNew.addClass('on');
+                $api.setStorage('status_new','on');
+            }
+        };
+
+
+
+
+
+
+    });
+};
+// apiready();
+</script>
+</html>

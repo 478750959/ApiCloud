@@ -1,0 +1,103 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,initial-scale=1.0,width=device-width"/>
+    <title>APP</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/common.css" />
+    <style>
+        #main{
+        }
+        .display-box{
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;
+        }
+        .box-orient-v{
+            -webkit-box-orient: vertical;
+            -webkit-flex-flow: column;
+                    flex-flow: column;
+        }
+        .box-orient-h{
+            -webkit-box-orient: horizontal;
+            -webkit-flex-flow: row;
+                    flex-flow: row;
+        }
+        .box-flex-1{
+            -webkit-box-flex: 1;
+            -webkit-flex: 1;
+            flex: 1;
+        }
+
+
+        .table-container{
+
+        }
+        .table-container table{
+            border-collapse: collapse;
+        }
+        .table-container tr{
+
+        }
+        .table-container td{
+            background-color: #FFF;
+            border: 2px solid #F1F1F1;
+        }
+        .table-container td img{
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div id="wrap">
+        <div id="main">
+            <div class="table-container">
+                <table>
+                    <tr>
+                        <td>
+                            <img src="../../image/ent-icon1.png" alt="" tapmode="tap-active" data-url="http://m.ctrip.com/html5/" data-title="最高返2倍F币" data-frameName="" onclick="toWeb(this);">
+                        </td>
+                        <td>
+                            <img src="../../image/ent-icon2.png" alt="" tapmode="tap-active" data-url="http://m.jd.com/" data-title="最高返72%" data-frameName="" onclick="toWeb(this);">
+                        </td>
+                        <td>
+                            <img src="../../image/ent-icon3.png" alt="" tapmode="tap-active" data-url="http://m.yhd.com/" data-title="最高返81%" data-frameName="" onclick="toWeb(this);">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <img src="../../image/ent-icon4.png" alt="" tapmode="tap-active" data-url="http://www.amazon.cn/" data-title="最高返4.2倍F币" data-frameName="" onclick="toWeb(this);">
+                        </td>
+                        <td>
+                            <img src="../../image/ent-icon5.png" alt="" tapmode="tap-active" data-url="http://i.meituan.com/" data-title="最高返1.8%" data-frameName="" onclick="toWeb(this);">
+                        </td>
+                        <td>
+                            <img src="../../image/ent-icon6.png" alt="" tapmode="tap-active" data-url="http://m.suning.com/" data-title="最高返45元" data-frameName="" onclick="toWeb(this);">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <img src="../../image/ent-icon1.png" alt="" tapmode="tap-active" data-url="http://m.ctrip.com/html5/" data-title="最高返2倍F币" data-frameName="" onclick="toWeb(this);">
+                        </td>
+                        <td>
+                            <img src="../../image/ent-icon2.png" alt="" tapmode="tap-active" data-url="http://m.jd.com/" data-title="最高返72%" data-frameName="" onclick="toWeb(this);">
+                        </td>
+                        <td>
+                            <img src="../../image/ent-icon3.png" alt="" tapmode="tap-active" data-url="http://m.yhd.com/" data-title="最高返81%" data-frameName="" onclick="toWeb(this);">
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/common.js"></script>
+<script type="text/javascript" src="../../script/zepto.js"></script>
+<script type="text/javascript">
+
+    apiready = function(){
+    };
+</script>
+</html>

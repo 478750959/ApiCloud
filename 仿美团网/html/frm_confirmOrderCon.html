@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+	    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+	    <title>首页</title>
+	    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+	    <link rel="stylesheet" type="text/css" href="../css/common.css"/>
+		<style>
+            .box{
+                background-color: #fff;
+                border-bottom: 1px solid #e7e7e7;
+                margin-bottom: 10px;
+            }
+            .order-list{
+                position: relative;
+                font-size: 14px;
+                padding: 15px 20px;
+                border-bottom: 1px solid #e7e7e7;
+            }
+            .order-list input{
+                border: none;
+                outline: none;
+            }
+            .order-list .btn-check{
+                padding: 5px 15px;
+                background-color: #32b9a8;
+                color: #fff;
+                text-align: center; 
+                position: absolute;
+                top: 10px;
+                right: 10px;
+                border-radius: 5px;
+            }
+            .btn-full{
+                padding: 10px 0;
+                text-align: center;
+                background-color: #32b9a8;
+                color: #fff;
+                margin: 15px;
+                border-radius: 5px;
+
+            }
+            .order-l{
+               float: left;
+            }
+            .order-r{
+                float: right;
+                font-size: 16px;
+            }
+            .order-r.sum{
+                color: orange;
+            }
+            .opt-num{
+                position: absolute;
+                top: 7px;
+                right: 20px;
+            }
+
+            .opt-btn-increase{
+                border-radius: 5px;
+                background-color: #666;
+                display: inline-block;
+                width: 32px;
+                height: 32px;
+                background: #ddd url(../image/ic_add.png) no-repeat center center;
+                -webkit-background-size: 16px;
+                background-size: 16px;
+                vertical-align: middle;
+            }
+            .opt-btn-reduce{
+                border-radius: 5px;
+                display: inline-block;
+                width: 32px;
+                height: 32px;
+                background: #ddd url(../image/ic_subtract.png) no-repeat center center;
+                -webkit-background-size: 16px;
+                background-size: 16px;
+                vertical-align: middle;
+            }
+            .opt-btn-increase,
+            .opt-btn-reduce,
+            .opt-input{
+                display: inline-block;
+            }
+            .opt-input{
+                background: url(../image/bg_edit_selected.9.png) no-repeat left -17px;
+                width: 39px;
+                height: 30px;
+                padding-left: 8px;
+            }
+            .opt-input input{
+                width: 24px;
+                text-align: center;
+            }
+            .opt-input input:focus{
+                border: none;
+                outline: none;
+
+            }
+            .opt-btn-increase.active,
+            .opt-btn-reduce.active{
+                background-color: #32b9a8;
+            }
+
+            .tr{
+                text-align: right;
+            }
+            .m20{
+                margin: 20px;
+            }
+            em{
+                color: #32b9a8;
+            }
+            .f12{
+                font-size: 12px;
+            }
+            .c999{
+                color: #999;
+            }
+            
+        </style>
+	</head>
+	<body>
+	<div id="main"> 
+        <div class="box">
+            <div class="order-list clearfix">
+                <span class="order-l">单人餐</span>
+                <span class="order-r J-sPrice">12.9元</span>
+            </div>
+            <div class="order-list clearfix">
+                <span class="order-l">数量:</span>
+                <div class="opt-num">   
+                    <div class="tap opt-btn-reduce active" tapmode="tap-active" onclick="reduce()"></div><div class="opt-input">
+                        <input type="text" id="sNum" value="1" onblur="sum()">
+                    </div><div class="tap opt-btn-increase active"  tapmode="tap-active" onclick="increase()"></div>
+                </div>
+            </div>
+            <div class="order-list clearfix">
+                <span class="order-l">小计:</span>
+                <span class="order-r sum J-sum">12.9元</span>
+            </div>
+        </div>
+
+        <div class="box">
+            <div class="order-list">
+                <input type="text" placeholder="请输入手机号">
+                <span class="tap btn-check" tapmode="tap-active">发送验证码</span>
+            </div>
+            <div class="order-list">
+                <input type="text" placeholder="请输入短信验证码">
+            </div>
+        </div>
+
+        <div class="tap btn-full" tapmode="tap-active">
+            快捷下单
+        </div>
+
+        <div class="tr m20 f12">
+            已有美团账号，请<em>登陆</em>
+        </div>
+
+        <div class="m20 f12 c999">温馨提示：未注册美团账号的手机号，登陆时将自动注册<br>
+            美团账号，且代表您已同意<em>美团网用户协议</em></div>
+
+
+        
+    </div>
+	
+    <script type="text/javascript" src="../script/api.js"></script>
+	<script type="text/javascript">
+    function call(){
+        api.call({
+            type: 'tel_prompt',
+            number: '10086'
+        });
+    }
+        function openItemDetail(){
+            api.openWin({
+                name: 'win_detailItem',
+                url: 'win_detailItem.html',
+                animation:{
+                    type:"movein",                //动画类型（详见动画类型常量）
+                    subType:"from_right",       //动画子类型（详见动画子类型常量）
+                    duration:300                //动画过渡时间，默认300毫秒
+                }
+            })
+        }  
+
+        // 单价
+        var $sPrice = $api.dom('.J-sPrice');
+        // 数量
+        var $sNum = $api.byId('sNum');
+        // 小计
+        var $sum = $api.dom('.J-sum');
+        var $sPriceText = $api.text($sPrice);
+        var $reduce = $api.dom('.opt-btn-reduce');
+        var $increase = $api.dom('.opt-btn-increase');
+        function increase(){
+            
+            if(parseInt($sNum.value) == 500){
+                $sNum.value = 500;
+                $api.toast('数量最大是500');
+            }else{
+                $sNum.value = parseInt($sNum.value)+1;
+                sum();
+            }
+            checkBtn();
+            
+        }  
+        function reduce(){
+            
+            if(parseInt($sNum.value)==1){
+                $sNum.value = 1;
+                $api.toast('数量最小是1');
+            }else{
+                $sNum.value = parseInt($sNum.value)-1;
+                sum();
+            }
+            checkBtn();
+            
+        }
+
+        function checkBtn(){
+            if(parseInt($sNum.value)<=1){
+                $api.removeCls($reduce, 'active');
+            }else if(parseInt($sNum.value)>=500){
+                $api.removeCls($increase, 'active');
+            }else{
+                if($api.hasCls($reduce, 'active')){  
+                }else{
+                    $api.addCls($reduce, 'active');
+                }
+                if($api.hasCls($increase, 'active')){  
+                }else{
+                    $api.addCls($increase, 'active');
+                }
+            }
+        }
+
+        function sum(){
+            
+            if(parseInt($sNum.value)<=1){
+                $sNum.value = 1;
+                $api.removeCls($reduce, 'active');
+            }else if(parseInt($sNum.value)>=500){
+                $sNum.value = 500;
+                $api.removeCls($increase, 'active');
+            }else{
+                $api.addCls($reduce, 'active')
+                $api.addCls($increase, 'active')
+            }
+            var sum = (parseFloat($sPriceText) * parseInt($sNum.value)).toFixed(2);
+            $api.text($sum,sum);
+        }
+
+		apiready = function(){
+            checkBtn();
+		}
+	</script> 
+	</body>
+
+</html>

@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="../../css/ui-img.css">
+    <link rel="stylesheet" href="../../css/ui-res.css">
+    <link rel="stylesheet" href="../../css/ui-list.css">
+    <link rel="stylesheet" href="../../css/ui-btn.css">
+    <link rel="stylesheet" href="../../css/ui-base.css">
+    <link rel="stylesheet" href="../../css/ui-box.css">
+    <link rel="stylesheet" href="../../css/ui-color.css">
+	<link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/ui-card.css">
+    <link rel="stylesheet" href="css/common.css">
+    <script src="../../js/y_control.js"></script>
+    <script src="../../js/y_click.js"></script>
+	<script src="../../js/y_json.js"></script>
+	<script src="../../js/y_tmpl.js"></script>
+	<script src="../../js/y_anim.js"></script>
+	<script src="../../js/dis_control.js"></script>
+	<script src="../../js/config.js"></script>
+    <script src="../../js/y_icache.js"></script>
+    <script src="script/common.js"></script>
+    <script>
+	</script>
+  <style>
+      .umw15 {
+          min-width:1.5em;
+      }
+      .t-wh span {color: white;}
+  </style>
+  </head>
+<body class="um-vp c-gra">
+    <div class="uinn c-wh ubb b-gra umar-b">
+        <div class="ub uinn5 ub-ac" ontouchstart="zy_touch('c-gra')" onclick="go2Map();">
+            <div class="im-dplace ub-img umh4 umw14"></div>
+            <div class="ub-ac umar-l ub-f1">地图模式</div>
+        </div>
+    </div>
+	<div id="all" class="c-gra1">
+		<div class="c-gra1" id="page0"> <!--- 普通主题　全部 ---->
+			<div></div>
+		</div>
+	</div>
+</body>
+<script>
+zy_init();
+var params = getStorJson('params');
+var cContent = $$('all');
+var pages =  {curid:0, precid:0, updr:'0', tpid:''};
+pages[0] = {curpn:1, totpn:1, ld:0};
+var fromCache = 0;//标记第一次取数，是否从个本地缓存
+var fromServer = 0;//标记本次的getjson，是否来自于服务器
+var ucurl = getstorage('ucurl');
+if(!ucurl) ucurl = guc;
+var current_win = 'dating_list';//因为有公用的js，可以通过此设置来分支
+var frameLoaded = 0;//framegroup中的frame可以响应滑动事件来执行uexOnload
+var mylocation = getStorJson('location');//当前用户的地理位置
+window.uexOnload = function(type)
+{
+    if(frameLoaded) return;
+    frameLoaded = 1;
+    zy_initcache();
+	if(!type){
+        setPageBounce(downcb, upcb);
+        loadList('', '0', '1');
+        if(fromCache) loadList('', '0', '');
+	}
+};
+function downcb(){
+	var i = pages.curid;//0
+	pages.updr = '0';
+    loadList('', i, '');
+}
+function upcb(){
+	var i = pages.curid;
+	var o = pages[i];
+	if (o.curpn < o.totpn) {
+		pages.updr = '1';
+		loadList(o.curpn + 1, i, '');
+	}
+	else resetBV('1');
+}
+
+function loadList(pn, tpid, flag){
+    if(going) return;
+    var province = location.province ? location.province : '';
+    var city = location.city ? location.city : '';
+    var url = '';
+	var type = '';
+ 	if (Int(tpid)>0) {
+		type = '&typeid=' + tpid;
+	}
+    //用经纬度后没法缓存
+	url =  forum_url + "&mod=forumdisplay&fid="+ fid + "&page=" + pn + type + '&province=' + province + '&city=' + city;
+	if (url) {
+        going = 1;
+        fromCache = checkKey(url);
+        if(!fromCache || fromCache && !flag) fromServer = 1;
+		if(!fromCache) uexWindow.toast('1','5','加载中...',"");
+		$.getJSON(url, getJsonCallback, 'json', getJsonErr, 'POST', '', flag);
+	}
+}
+function getJsonCallback(json){
+	uexWindow.closeToast();
+    going = 0;
+	if (pages.updr) {
+		resetBV(pages.updr);
+		pages.updr = '';
+	}
+	
+	if (json) {
+		if (json.status && Int(json.status)<1) {
+			uexWindow.toast('0','5',json.message,2000);
+			return;
+		}
+        //列表更新时将时间保存到本地，下次启动app时根据此时间提醒小红点
+        if(json.timestamp) setstorage('plugin_reminder_timestamp', json.timestamp);
+		var list = json[1] || json.list;
+		var length = zy_tmpl_count(list);
+		var id = pages.curid;
+		var pid = 'page' + id;
+		var cContent = $$(pid);
+		var o = pages[id];
+		if(length<1){
+			while(cContent.childElementCount>1)
+       		{
+       			cContent.removeChild(cContent.firstElementChild);
+       		}
+			
+			var notes = '暂无神秘约会';
+			if (json.back=='1' && json.message) notes = json.message;
+			
+			var node = createEle("div");
+			node.className = 'uinn10 tx-c';
+			node.innerHTML = notes;
+			cContent.insertBefore(node,cContent.lastElementChild);
+			return;
+		}
+
+        var tmpl = '<li class="" id="item_${tid}">'
+                +'<div class="ub umh6 uinn18 ub-ver" style="background-color:${cb:bg_style}">'
+                    +'<div class="ub-f1 ub ub-ver">'
+                        +'<div class="ub ub-ac" ontouchstart="zy_touch(\'c-gra\')" ontouchstart="zy_touch(\'c-gra\')" onclick="alert_anonymous(${from_uid}, ${verified});">'
+                            +'<div class="ub ub-ac ub-f1">'
+                                +'<div class="ub-img1 dating_avatar ${cb:avatar}" id="suid_${tid}_${from_uid}"></div> '
+                                +'<div class="ub ub-f1">'
+                                    +'<div class="uhide ub-ac ulev-1 t-gra ${cb:c_style}" id="author_name">${author}</div>'
+                                    +'${cb:verify}'
+                                    +'<div class="ub ub-ac ulev-1 t-gra ${cb:c_style}">${cb:profile}</div>'
+                                + '</div>'
+                            + '</div>'
+                            +'<div class="ub t-org uinn3 umar-l ulev-1">${cb:relation}</div>'
+                        +'</div> '
+                        +'<div class="ub ub-ver uinn_c" ontouchstart="zy_touch(\'\')" ontouchstart="zy_touch(\'c-gra\')" onclick="go2new5(${tid}, ${pid}, ${from_uid},\'${cb:bg_style_1}\', \'${cb:c_style}\');">'
+                            +'<div class="ub ub-ac ub-f1 uinn3 umh3 ulev1">'
+                                +'<div class="umh4 umar-t ulh1 uof ${cb:c_style}">${message}</div>'
+                            +'</div>'
+                            +'${cb:img}'
+                            +'<div class="t-gra ulev-1 ${cb:c_style}">${cb:info}</div>'
+
+                        +'</div>'
+					+'</div>'
+                    +'<div class="ub ub-ac ulev-1 umar-t1">'
+                        +'<div class="ub ub-f1 umar-l">'
+                            +'<div class="t-gra ${cb:c_style}">${share_time}</div>'
+                            +'<div class="t-gra umar-l ${cb:c_style}">${cb:distance}</div>'
+                        +'</div>'
+                        +'<div class="ub">'
+                            +'<div class="ub ub-ac uinn" ontouchstart="zy_touch(\'c-gra\')" ontouchstart="zy_touch(\'c-gra\')" onclick="go2new5(${tid}, ${pid}, ${from_uid},\'${cb:bg_style_1}\', \'${cb:c_style}\');">'
+                                +'<div class="umh2 umw1 ub-img8 im-reply${cb:i_style}"></div><div class="umar-r ${cb:c_style}">评论</div><div id="t_count_${tid}" class="${cb:c_style}">${replies}</div>'
+                            +' </div>'
+                            +'<div class="ub ub-ac uinn" ontouchstart="zy_touch(\'c-gra\')" onclick="go2members(\'${tid}\', \'${fid}\', \'${from_uid}\', \'${subject}\', \'${applied}\');">'
+                                +'<div class="umh2 umw1 ub-img8 im-2dating${cb:i_style}"></div><div class="umar-r ${cb:c_style}">要约</div><div id="m_count_${tid}" class="${cb:c_style}">${m_count}</div>'
+                            +' </div>'
+                        +' </div>'
+                    +'</div>'
+                +'</div>'
+				+'</li><li class="ubt1"></li>';
+
+		var res = zy_tmpl(tmpl,list,length,j2vCb_list);
+		
+		if(json.zywy_curpage) o.curpn = int(json.zywy_curpage);
+		if(json.zywy_totalpage) o.totpn = int(json.zywy_totalpage);
+		
+       	if(o.curpn==1)
+       	{
+       		while(cContent.childElementCount>1)
+       		{
+       			cContent.removeChild(cContent.firstElementChild);
+       		}
+       	}
+		var node = document.createElement("ul");
+		node.className = '';
+		node.innerHTML = res;
+		cContent.insertBefore(node,cContent.lastElementChild);
+        imgCacheCall();
+		if(res) o.ld=1;
+        //showMap(list);
+	}
+}
+
+function updateLists(){
+    loadList('', '0', '');
+}
+function go2new5(tid, pid, authorid, bg_color, txt_color){//详细页面保持相同的颜色风格
+	//setstorage('params','{"wname":"dating_list", "popname":"content", "tid":"'+tid+'", "uid":"'+aid+'", "bg_color":"'+bg_color+'", "txt_color":"'+txt_color+'"}');
+    var params = {
+        "wname": "dating_list",
+        "popname" : "content",
+        "tid": tid,
+        "pid": pid,
+        "authorid": authorid,
+        "bg_color": bg_color,
+        "txt_color": txt_color
+    };
+    //var str = JSON.stringify(params);
+    //setstorage()
+    setStorJson('params', params);
+    //var o = getStorJson('params');
+    openwin('dating_detail','detail.html','10');
+}
+
+function go2user5(uid){
+    setstorage('params','{"uid":"'+uid+'"}');
+    openwin('friend_information','../../friend_information.html','10');
+}
+var bg_color = '';//记录一条记录解析式，模版中的背景颜色，在模版中不能出现多次get_bg_style的调用
+var color_type = 0;
+var deep_type = '4';
+function get_bg_style(){
+    var color_array = [];//不要使用全局变量，影响界面的性能，导致拖动卡顿
+    color_array[0] = ['#EDDCFF',   '#ddeeee', '#33dddd', '#EDDCFF', '#eeffee',  '#eefaff', '#eeddff'];
+    color_array[1] = ['white'];
+    color_array[2] = ['#eeffee', '#ddffe0', 'E893E2', '#33dddd','ghostwhite', 'lightgray'];
+    color_array[3] = ['white'];
+    color_array[4] = ['brown', 'currentcolor', '#990066', 'darkslategray', 'darkcyan',
+        'indigo', 'maroon', 'purple', 'slategrey', 'teal', 'deepskyblue'];
+    color_array[5] = ['white'];
+    color_array[6] = ['#eeffee', '#ddffe0', 'E893E2', '#33dddd','ghostwhite', 'lightgray'];
+    color_array[7] = ['white'];
+    color_type ++;//
+    if(color_type == 8) color_type = 0;
+    var index = Math.floor(Math.random() * (color_array[color_type]['length'] - 1));
+    bg_color = color_array[color_type][index];
+    return bg_color;
+}
+function get_c_style(){
+    var str = '';
+    if(color_type == deep_type){//深色
+        str =  't-wh'
+    }
+    return str;
+}
+function get_i_style(){
+    var str = '';
+    if(color_type == deep_type){//深色
+        str =  '1'
+    }
+    return str;
+}
+function go2Map(){
+    openwin('dating_map', 'list_map_content.html', 10);
+}
+</script>
+</html>

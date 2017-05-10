@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+  <title>HTML</title>
+  
+  <!-- Replace favicon.ico & apple-touch-icon.png in the root of your domain and delete these references -->
+  <link rel="shortcut icon" href="/favicon.ico">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="stylesheet" type="text/css" href="../css/api.css" />
+  <link rel="stylesheet" type="text/css" href="../css/slidepage.css" />
+
+	<style>
+		html {width: 100%;height: 100%;}
+		body {background: #DFE2E6;width: 100%;height: 100%;}
+		#topbar {background: #EBECF0; height:50px; border-bottom: 1px solid #DDDFE3;}
+		.right_btn{float: right;padding: 11px 15px 11px 15px;}
+		#logo {padding: 11px 0 0 10px;height: 28px;}
+		#topbar_profile {height: 28px;}
+		#topbar_search {height: 28px;}
+		.btn_click {background: #DADDE0;}
+		#topbar_title {display: inline-block;font-size: 24px; line-height: 50px;padding-left: 10px;}
+
+	</style>
+</head>
+
+<body>
+	
+	<!-- <div id="topbar">
+        <p id="topbar_title">热点</p>
+        <img src="../image/topbar_profile.png" alt="" class="right_btn" id="topbar_profile"   tapmode="btn_click" onclick="emptyopt()">
+        <img src="../image/topbar_search.png" alt="" class="right_btn" id="topbar_search"  tapmode="btn_click">
+        
+    </div> -->
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script>
+	function emptyopt () {
+	}
+</script>
+</html>

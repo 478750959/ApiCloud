@@ -1,0 +1,188 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,initial-scale=1.0,width=device-width"/>
+    <title>APP</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/common.css" />
+    <style>
+        .display-box{
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;
+        }
+        .box-orient-h{
+            -webkit-box-orient: horizontal;
+            -webkit-flex-flow: row;
+                    flex-flow: row;
+        }
+        .box-orient-v{
+            -webkit-box-orient: vertical;
+            -webkit-flex-flow: column;
+                    flex-flow: column;
+        }
+        .box-flex-1{
+            -webkit-box-flex: 1;
+            -webkit-flex: 1;
+            flex: 1;
+        }
+        .header{
+            height: 45px;
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-orient: horizontal;
+            -webkit-flex-flow: row;
+                    flex-flow: row;
+            border-bottom: 1px solid #BCB3AF;
+            background-color: #E7E7E7;
+        }
+        #main{
+            background-color: #EEEEEE;
+        }
+        .search-box{
+            -webkit-box-flex: 1;
+            display: -webkit-flex;
+            display: flex;
+            display: -webkit-box;
+            -webkit-flex: 1;
+            flex: 1;
+            padding: 7px 8px;
+        }
+        .search-inner{
+            width: 100%;
+            display: block;
+            height: 31px;
+            background-color: #FFF;
+            border-radius: 16px;
+        }
+        .search-box input{
+            color: #000;
+            font-size: 1em;
+            text-indent: 4px;
+            position: relative;
+            top: 8px;
+            float: left;
+            overflow: hidden;
+        }
+        .search-icon{
+            width: 29px;
+            height: 29px;
+            background: url(../../res/taobao_search_icon.png) 4px center no-repeat;
+            background-size: 15px 15px;
+            float: left;
+            margin-left: 7px;
+        }
+        .header-right{
+            width: 48px;
+        }
+        .header-right span{
+            height: 45px;
+            line-height: 45px;
+            color: #66524A;
+        }
+        .tabBar-box{
+            padding:20px 10px;
+            background-color: #FFF;
+        }
+        .tabBar-inner{
+            width: 100%;
+            margin-right: -10px;
+        }
+        .tabBar-inner .item{
+            background-color: #EEEEEE;
+            color: #333333;
+            height: 35px;
+            line-height: 35px;
+            font-size: 14px;
+            padding: 0 14px;
+            margin-right: 10px;
+            margin-bottom: 10px;
+            float: left;
+        }
+        .tabBar-inner .item:active,.tabBar-inner .item.tap-active{
+            background-color: #B8B8B8;
+        }
+        .tabBar-btn{
+            margin-top: 10px;
+            width: 100%;
+            background-color: #DBDBDB;
+            font-size: 1.18em;
+            color: #666666;
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            border-radius: 8px;
+        }
+        .tabBar-btn:active,.tabBar-btn.tap-active{
+            background-color: #B8B8B8;
+        }   
+    </style>
+</head>
+<body>
+    <div id="wrap">
+        <div class="header">
+            
+            <div class="search-box">
+                <div class="search-inner">
+                    <i class="search-icon">
+                    </i>
+                    <input type="text" placeholder="搜品牌/商品">  
+                </div>
+            </div>
+            <div class="header-right">
+                <span>取消</span>
+            </div>
+        </div>
+        <div id="main">
+            <div class="tabBar-box display-box box-orient-v">
+                <div class="tabBar-inner">
+                    <span class="item" tapmode="tap-active">女装</span>
+                    <span class="item" tapmode="tap-active">男装</span>
+                    <span class="item" tapmode="tap-active">女鞋</span>
+                    <span class="item" tapmode="tap-active">手表</span>
+                    <span class="item" tapmode="tap-active">男鞋</span>
+                    <span class="item" tapmode="tap-active">箱包</span>
+                    <span class="item" tapmode="tap-active">运动</span>
+                    <span class="item" tapmode="tap-active">户外</span>
+                    <span class="item" tapmode="tap-active">内衣</span>
+                    <span class="item" tapmode="tap-active">玩具</span>
+                </div>
+                <div class="tabBar-btn" tapmode="tap-active" onclick="changeSearch();">换一批</div>
+            </div>
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/common.js"></script>
+<script type="text/javascript" src="../../script/zepto.js"></script>
+<script type="text/javascript">
+    var changeSearch = function(){
+        var arr2 = ['<span class="item" tapmode="tap-active">女装</span>',
+                    '<span class="item" tapmode="tap-active">男装</span>',
+                    '<span class="item" tapmode="tap-active">女鞋</span>',
+                    '<span class="item" tapmode="tap-active">手表</span>',
+                    '<span class="item" tapmode="tap-active">男鞋</span>',
+                    '<span class="item" tapmode="tap-active">箱包</span>',
+                    '<span class="item" tapmode="tap-active">运动</span>',
+                    '<span class="item" tapmode="tap-active">户外</span>',
+                    '<span class="item" tapmode="tap-active">内衣</span>',
+                    '<span class="item" tapmode="tap-active">玩具</span>'];
+        var arr = [];
+        var len = arr2.length;
+        var str = '';
+        for (var i = 0; i < len; i++) {
+            arr.push(arr2.splice(Math.random()*arr2.length, 1));
+        }
+        for (var j = 0; j < len; j++) {
+            str += arr[j][0];
+        }
+        $api.html($api.dom('.tabBar-inner'),str);
+        api.parseTapmode();
+    };
+    apiready = function(){
+
+    };
+</script>
+</html>

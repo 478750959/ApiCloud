@@ -1,0 +1,94 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>设置</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/xyc.css"/>
+</head>
+<body>
+<div id="wrap">
+	<header id='header'>
+		<div class="miHeader">
+        	<a href='javascript:;' class='head_icon back' onclick='api.closeWin();'></a>
+        	<span class='mi_head_txt'></span>
+        </div>
+	</header>
+	<div id="main"></div>
+	<div id="footer" class='xyc_footer'   onclick="mysave()">保存</div>
+</div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/font.js"></script>
+<script type="text/javascript" src="../script/zepto.js"></script>
+<script type="text/javascript" src="../script/comm.js"></script>
+<script>
+	apiready = function() {
+		var name = "";
+		switch(api.pageParam.count) {
+			//1为编辑页面，3为添加新页面
+			case 1:
+				name = 'mi_set_add_edit_f';
+				$('.mi_head_txt').text('编辑地址');
+				break;
+			case 3:
+				name = "mi_set_add_new_f";
+				$('.mi_head_txt').text('添加新地址');
+				break;
+		}
+		var header = $api.byId('header');
+		$api.fixIos7Bar(header);
+		var width = api.winWidth;
+		var footer = $api.byId('footer');
+		var headerPos = $api.offset(header);
+		var footerPos = $api.offset(footer);
+		var height = api.winHeight - headerPos.h - footerPos.h;
+		api.setStatusBarStyle({
+		    style: 'dark'
+		});
+		api.openFrame({
+			name : name,
+			url : name + '.html',
+			softInputMode:'resize',
+			bounces : false,
+			opaque : true,
+			vScrollBarEnabled : false,
+			pageParam :{'id':api.pageParam.add_id,
+			BuyerName:api.pageParam.BuyerName,
+			Phone:api.pageParam.Phone,
+			Adr:api.pageParam.Adr,
+			is_default:api.pageParam.is_default,
+			Zip:api.pageParam.Zip,
+			Province:api.pageParam.Province,
+			City:api.pageParam.City,
+			Town:api.pageParam.Town
+			
+			},
+			rect : {
+				x : 0,
+				y : headerPos.h,
+				w : width,
+				h : height
+			}
+		});	
+	}
+			function mysave(){
+				var param = api.pageParam.count;
+			if (param == 3) {
+				api.execScript({
+					name : 'mi_set_add_head_w',
+					frameName : 'mi_set_add_new_f',
+					script : 'save()'
+				});
+			}
+			if (param == 1) {
+				api.execScript({
+					name : 'mi_set_add_head_w',
+					frameName : 'mi_set_add_edit_f',
+					script : 'save()'
+				});
+			}
+		}	
+</script>
+</html>

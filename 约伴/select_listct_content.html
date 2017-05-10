@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+  <head>
+    <title>
+    </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="css/ui-img.css">
+    <link rel="stylesheet" href="css/ui-res.css">
+    <link rel="stylesheet" href="css/ui-list.css">
+    <link rel="stylesheet" href="css/ui-base.css">
+    <link rel="stylesheet" href="css/ui-box.css">
+    <link rel="stylesheet" href="css/ui-color.css">
+	<link rel="stylesheet" href="css/style.css">
+    <script src="js/y_control.js"></script>
+    <script src="js/y_click.js"></script>
+	<script src="js/y_json.js"></script>
+	<script src="js/y_tmpl.js"></script>
+	<script src="js/y_anim.js"></script>
+    <script src="js/config.js"></script>
+	<script src="js/dis_control.js"></script>
+    <script src="js/y_icache.js"></script>
+    <script>
+	</script>
+  <style>
+
+      input[type="radio"]:checked+div.tp-trend {
+          background-image: url(./images/icon-check.png) ;
+      }
+      input[type="radio"]+div.tp-trend {
+          background-image: url(./images/icon-uncheck.png) ;
+      }
+      .umw15 {
+          min-width:1.5em;
+      }
+  </style>
+  </head>
+<body class="um-vp" ontouchstart>
+	<div id="all">
+		<div class="c-gra1" id="page0"> <!--- 普通主题　全部 ---->
+			<div></div>
+		</div>
+	</div>
+</body>
+<script>
+zy_init();
+var fid = forums.trend.fid;
+var uid = getstorage('UID');
+var view = 'com';
+var cContent = $$('all');
+var pages =  {curid:0, precid:0, updr:'0', tpid:''};
+pages[0] = {curpn:1, totpn:1, ld:0};
+var fromCache = 0;
+var ucurl = getstorage('ucurl');
+if(!ucurl) ucurl = guc;
+var removed_new = {};
+var trend_tid = '';
+window.uexOnload = function (type)
+{
+	if(!type){
+		setPageBounce(downcb, upcb);
+		loadList('', '0', '1');
+		if(fromCache) loadList('', '0', '');
+	}
+}
+function downcb(){
+	var i = pages.curid;//0
+	pages.updr = '0';
+	if(view == "child") resetBV('0');
+	else loadList('', i, '');
+}
+function upcb(){
+	var i = pages.curid;
+	var o = pages[i];
+	if (o.curpn < o.totpn) {
+		pages.updr = '1';
+		loadList(o.curpn + 1, i, '');
+	}
+	else resetBV('1');
+}
+
+function pagesCb(pid){
+	pages.curid = pid;
+}
+function loadList(pn, tpid, flag){	
+	var url = '';
+	var type = '';
+ 	if (Int(tpid)>0) {
+		type = '&typeid=' + tpid;
+	}
+	if(view=="com") url =  forum_url + "&mod=forumdisplay&fid="+ fid + "&page=" + pn + type;// + pw + type;
+	else url = forum_url+"&mod=ajax&action=gettopthread&fid=" + fid;
+	logs('url='+url);
+
+	if (url) {
+		fromCache = checkKey(url);
+		if(!fromCache) uexWindow.toast('1','5','加载中...',"");
+		var f = pn?'':'1';
+		$.getJSON(url, getJsonCallback, 'json', getJsonErr, 'POST', '', flag, f);
+	}
+}
+function getJsonCallback(json){
+	uexWindow.closeToast();
+	if (pages.updr) {
+		resetBV(pages.updr);
+		pages.updr = '';
+	}
+	
+	if (json) {
+		if (Int(json.status)<1) {
+			uexWindow.toast('0','5',json.message,2000);
+			return;
+		}
+			
+		var list = json[1] || json.list;
+		var length = zy_tmpl_count(list);
+		var id = json.catid || pages.curid;
+		var pid = 'page' + id;
+		var cContent = $$(pid);
+		var o = pages[id];
+		if(length<1){
+			while(cContent.childElementCount>1)
+       		{
+       			cContent.removeChild(cContent.firstElementChild);
+       		}
+			
+			var notes = '暂无版块内容';
+			if (json.back=='1' && json.message) notes = json.message;
+			
+			var node = createEle("div");
+			node.className = 'uinn10 tx-c';
+			node.innerHTML = notes;
+			cContent.insertBefore(node,cContent.lastElementChild);
+			return;
+		}
+		
+		if(o.ld){
+			//logs('loadCatCb()-->aid1='+cContent.children[0].children[0].id+', aid2='+list[0].tid);
+			//if(cContent.children[0].children[0].id==list[0].tid) return;
+		}
+
+        var tmpl = '<li class="ub umh6 uinn18 c-wh umar-t" id="${tid}">'
+                    +'<div class="lis-th2 ub-img" ontouchstart="zy_touch(\'c-gra\')" onclick="go2user5(${from_uid}, \'${from_username}\', \'\');">'
+                        +'<img src="images/mylogo.png" class="inforpic2" ${cb:avatar} id="suid_${tid}_${from_uid}"/>'
+                        +'<div class="ulev-2 t-gra tx-c">${share_time}</div>'
+                    +'</div> '
+                    +'<div class="ub-f1 ub ub-ver">'
+                        +'<div class="ub ub-ver ub-f1">'
+                            +'<div class="ub t-bla ulev0 ut-s">'
+                                +'<div class="ub ub-f1">'
+                                    +'<div class="ufl t-bla" ontouchstart="zy_touch(\'c-gra\')" onclick="go2user5(${from_uid}, \'${from_username}\', \'\');">${from_username}</div>'
+                                + '</div>'
+                            +'</div>'
+                            +'<div class="ub ub-ac umar-t">'
+                                +'<div class="ub ub-ac ulev-1">${cb:tagname}</div>'
+                                +'<div class="t-gra ulev-1">${cb:share}</div>'
+                            +'</div>'
+                        +'</div>'
+                        +'<div class="ub ub-ver">'
+                            +'<div class="lis-sw2 ub-img im-arrowup"></div>'
+                            +'<div class="ub ub-ver c-wh1 uba b-gra2">'
+                                +'<div class="ub">'
+                                    +'<div class="ub ub-ac uinn3 umar-t umar-b ulh umh3 uof" ontouchstart="zy_touch(\'c-gra\')" onclick="go2new5(${tid}, ${authorid}, \'${new}\');">'
+                                        +'${cb:img}'
+                                        +'<div class="ub-f1 umar-l t-gra5" id="subject_${tid}">${subject}</div>'
+                                    +'</div>'
+                                +'</div>'
+                                +'<div class="t-gra ulev-1">${cb:info}</div>'
+                            +'</div>'
+                        +'</div>'
+						+'<div class="ub ub-ac t-gra1 ulev0 umar-t ub-pc" ontouchstart="zy_touch(\'c-gra\')" onclick="threadSelect(${tid})"> '
+                            +'<div class="ub ulev0 uinn11">'
+                                +'<input class="uhide" type="radio" name="cb_${tid}" id="cb_${tid}">'
+                                +'<div class="umh2 umw15 ub-img5 tp-trend lpic"></div>'
+                                +'<div class="">选择</div>'
+                            +'</div>'
+			 		   +' </div>'
+					+'</div>'
+				+'</li><li class="ubt1"></li>';
+
+		var res = zy_tmpl(tmpl,list,length,j2vCb);
+		
+		if(json.zywy_curpage) o.curpn = int(json.zywy_curpage);
+		if(json.zywy_totalpage) o.totpn = int(json.zywy_totalpage);
+		
+       	if(o.curpn==1)
+       	{
+       		while(cContent.childElementCount>1)
+       		{
+       			cContent.removeChild(cContent.firstElementChild);
+       		}
+       	}
+		var node = document.createElement("ul");
+		node.className = '';
+		node.innerHTML = res;
+		cContent.insertBefore(node,cContent.lastElementChild);
+        imgCacheCall();
+		if(res) o.ld=1;
+	}
+}
+function j2vCb(d,c)
+{
+    var str = '';
+    if(c.length>1)
+    {
+        switch(c[1])
+        {
+            case 'todayposts':
+                var tp = Int(d.todayposts);
+                str = (tp>99)? '99+':tp;
+                break;
+            case 'avatar':
+                var src = ucurl+d.from_uid;
+                var avatarid = 'suid_'+ d.tid + '_' + d.from_uid;
+                pushCacheCall(function(){
+                    dis_imgcache(avatarid,src,src,imgLoadSucSrc,imgLoadErrSrc,null,'',1);
+                });
+                break;
+            case 'img':
+                if(d.img){
+                    var picid = 'i'+d.tid;
+                    str = '<div class="lis-th2 ub-img">'
+                            +'<img src="images/mylogo.png" class="inforpic" id="'+picid+'"/>'
+                            +'</div>';
+
+                    pushCacheCall(function(){
+                        dis_imgcache(picid,d.img,d.img,imgLoadSucSrc,imgLoadErrSrc,null,'', 1);
+                    });
+                }
+                break;
+            case 'tagname':
+                if(d.tagname){
+                    str = '<div class="t-gra">向圈子</div>'
+                            +'<div class="umar-r umar-l" id="tagid_' + d.tagid + '" ontouchstart="zy_touch(\'c-gra\')" onclick="go2tag5(' + d.tagid + ', \'' + d.tagname + '\')">'
+                                +'<div class="ut-s uba b-org uc-a2 ub-ac uinn-c">' + d.tagname + '</div>'
+                            +'</div>'
+                }
+                break;
+            case 'share':
+                var fname = '', module = '';
+                fname = get_forumname(fid);
+                module = get_module(fid);
+                str = d.is_share ? forums[module].op : '发布';
+                str += fname;
+                break;
+            case 'new':
+                if(Int(d.new) && uid)
+                    str = '<div class="ufr c-blu4 t-wh uc-a ulev-1 uinn-c" id="new_'+ d.tid +'">' + d.scount + '</div>'
+                break;
+            case 'info':
+                str = (d.starttimefrom ? '<div class="ub ub-ac uinn"><div class="umh2 umw1 ub-img8 im-dtime-gra umar-r"></div><div class="ub-f1 t-gra">' + d.starttimefrom +'</div></div>' : '')
+                        +(d.place ? '<div class="ub ub-ac uinn"><div class="umh2 umw1 ub-img8 im-dplace-gra umar-r"></div><div class="ub-f1 t-gra">' + d.place + '</div></div>' : '')
+                if(d.discounts){
+                    var discounts = get_discount(d.discounts);
+                    str += '<div class="ub ub-ac uinn"><div class="umh2 umw1 ub-img8 im-ddiscount-gra umar-r"></div><div class="t-gra ub-f1">' + discounts + '</div></div>';
+                }
+                break;
+        }
+    }
+    return str;
+}
+
+function go2new5(tid, aid, snew){
+    if(snew == 1) {
+        if(removed_new[tid]) snew = 0;
+        else{
+            if($$('new_' + tid))removeNode('new_' + tid);
+            removed_new[tid] = 1;//下次点击不要设snew参数,没有办法更新icache通过变量来控制
+        }
+    }
+    setstorage('params','{"fid":"'+fid+'", "tid":"'+tid+'", "uid":"'+aid+'", "snew":"'+snew+'"}');
+    //var o = getStorJson('params');
+    openwin('forum_detail_trend', 'forum_detail.html','10');
+}
+function threadSelect(tid){
+    var str = '已取消选择', subject = '';
+    var checked = !(trend_tid == tid);
+    $$('cb_' + tid).checked = checked;
+    if(trend_tid) $$('cb_' + trend_tid).checked = false;
+    if(checked){
+        str = '已选中此攻略';
+        trend_tid = tid;
+        subject = $$('subject_' + trend_tid).innerHTML;
+    }else{
+        trend_tid = '';
+    }
+    setTimeout(function(){uexWindow.toast('0', '5', str, 1500);}, 500);
+    setstorage('params','{"tid":"' + trend_tid + '", "subject":"' + subject  + '"}');
+    ueppscript('editor', 'content', 'addTrend();');
+    if(checked) setTimeout(function(){uescript('select_listct', 'closewin();');}, 2000)
+}
+function go2user5(uid, username, isf){
+
+}
+function go2tag5(tagid, tagname){
+
+}
+</script>
+</html>

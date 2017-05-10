@@ -1,0 +1,141 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>report</title>
+		<link rel="stylesheet" type="text/css" href="../css/api.css" />
+		<link rel="stylesheet" type="text/css" href="../css/common.css" />
+		<link rel="stylesheet" type="text/css" href="../css/report.css" />
+		<style>
+			#div1 {
+				margin-top: 30px;
+				width: 100%;
+				text-align: center;
+			}
+			#div1 span {
+				height: 35px;
+				text-align: center;
+				color: #3795f2;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="wrap">
+			<div id="main">
+				<div class="hp_input one">
+					<span class="title">电话号码:</span>
+					<input type="text" id="phoneNumber" value="">
+					</input>
+				</div>
+				<div class="hp_input two">
+					<span class="title">密码:</span>
+					<input type="password" id="password" value="">
+					</input>
+				</div>
+				<button tapmode="buttonActive" class="button blue" onclick="comfirm()" id="comfirm">
+					确定
+				</button>
+				<div id="div1">
+					<span onclick="openForget()" tapmode>找回密码?</span><span>|</span><span onclick="openRegister()" tapmode>新用户注册?</span>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../script/api.js"></script>
+	<script type="text/javascript" src="../script/constants.js"></script>
+	<script type="text/javascript" src="../script/zepto.min.js"></script>
+	<script>
+		apiready = function() {
+			api.toast({
+			    msg: '操作其它功能前,请先登录!',
+			    duration:2000,
+			    location: 'bottom'
+			});
+		};
+		
+		/**
+		 * 登录 
+		 */
+		function comfirm(){
+			
+			var password = $('#password').val();
+			var phoneNumber = $('#phoneNumber').val();
+			
+			if (!(password && $api.trimAll(password))) {
+				api.alert({
+					msg : '请输入密码!'
+				});
+				return;
+			}
+					
+			if (!(phoneNumber && $api.trimAll(phoneNumber))) {
+				api.alert({
+					msg : '请再输手机号码!'
+				});
+				return;
+			}	
+			
+			api.showProgress({
+				title : '登录中...',
+				modal : false
+			});
+			
+			api.ajax({
+				url : USER_URL + "?cmd=userLogin", 
+				method : 'post',
+				cache : false,
+				timeout : 3000,
+				data : {
+					values : {
+						phoneNumber : phoneNumber,
+						password : password
+					}
+				}
+			}, function(ret, err) {
+				if (ret) {
+					if (ret.resultCode == RESULT_CODE_SUCCESS) {
+						//保存基本的用户信息
+						$api.setStorage('user',ret.result);
+						api.closeWin();
+					} else {
+						api.alert({
+							msg : ret.resultMessage
+						});
+					}
+				} else {
+					api.alert({
+						msg : "网络或者服务器有问题!"
+					});
+				};
+				api.hideProgress();
+			});
+		}
+		
+		function openForget(){
+			api.openWin({
+				name : "forget",
+				url : 'framework.html',
+				pageParam : {
+					'index' : 0,
+					'depName' : '找回密码',
+					'type':'forget',
+					'newUser' : 0
+				},
+			});
+		}
+		
+		function openRegister(){
+			api.openWin({
+				name : "register",
+				url : 'framework.html',
+				pageParam : {
+					'index' : 0,
+					'depName' : '注册',
+					'type':'register',
+					'newUser' : 1
+				},
+			});
+		}
+	</script>
+</html>

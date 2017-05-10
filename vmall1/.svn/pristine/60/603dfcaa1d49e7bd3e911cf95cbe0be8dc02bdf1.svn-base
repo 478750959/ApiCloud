@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+	<title></title>
+	<link rel="stylesheet" href="../css/api.css">
+	<style>
+	html,body{height:100%;width:100%;}
+	.wrap img{width:100%;margin-bottom:-4px;}
+	</style>
+</head>
+<body>
+	<div class="wrap">
+		<img src="../image/mate71.jpg">
+		<img src="../image/mate72.jpg">
+		<img src="../image/mate73.jpg">
+		<img src="../image/mate74.jpg">
+		<img src="../image/mate75.jpg">
+		<img src="../image/mate76.jpg">
+		<img src="../image/mate77.jpg">
+		<img src="../image/mate78.jpg">
+		<img src="../image/mate79.jpg">
+		<img src="../image/mate710.jpg">
+		<img src="../image/mate711.jpg">
+		<img src="../image/mate712.jpg">
+		<img src="../image/mate713.jpg">
+		<img src="../image/mate714.jpg">
+	</div>
+	<script src="../script/api.js"></script>
+	<script>
+		apiready = function(){
+			// alert(api.pageParam.pId);
+		}
+	</script>
+</body>
+</html>

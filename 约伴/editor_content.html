@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+  <head>
+    <title>
+    </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="css/ui-tab.css">
+    <link rel="stylesheet" href="css/ui-input.css">
+    <link rel="stylesheet" href="css/ui-img.css">
+    <link rel="stylesheet" href="css/ui-res.css">
+    <link rel="stylesheet" href="css/ui-list.css">
+    <link rel="stylesheet" href="css/ui-base.css">
+    <link rel="stylesheet" href="css/ui-box.css">
+    <link rel="stylesheet" href="css/ui-color.css">
+	<link rel="stylesheet" href="css/style.css">
+    <script src="js/y_control.js"></script>
+	<script src="js/y_click.js"></script>
+	<script src="js/dis_control.js"></script>
+	<script src="js/config.js"></script>
+	<script src="js/y_json.js"></script>
+	<script src="js/y_tmpl.js"></script>
+    <script src="js/y_anim.js"></script>
+	<script src="js/dis_upload.js"></script>
+
+    <script>
+	</script>
+	<style>
+	.facepic{width:4.9em; height:1.5em;}
+	.tab1{
+		height : 2em;
+        padding : .5em 0.8em
+	}
+    </style>
+
+</head>
+<body class="um-vp c-gra" ontouchstart="zy_cc(this);">
+    <div class="c-wh uc-n b-gra2 ubb uinput umar-t20" id="sub">
+        <div class="uinn16">
+            <input placeholder="添加标题（限40字）" type="text" class="uc-n ulev0" id="txt1" onfocus="myOnfocus(0);" onblur="myOnblur(0);">
+        </div>
+    </div>
+    <div class="c-wh uc-n b-gra2 ubb uinput" id="c_itime">
+        <div class="uinn16">
+            <input placeholder="时间" type="text" class="uc-n ulev0"  name="itime" id="itime" readonly="true" ontouchstart="zy_touch('c-gra')" onclick="opendatetime();">
+        </div>
+    </div>
+    <div class="c-wh uc-n b-gra2 ubb uinput" id="c_iplace">
+        <div class="uinn16">
+            <input placeholder="地点" type="text" class="uc-n ulev0"  name="ipace" id="iplace">
+        </div>
+    </div>
+    <div class="c-wh uc-n uinput">
+        <div class="uinn16">
+            <textarea placeholder="添加内容（限500字）" class="uc-n ulev0 umh11" id="txt2" onfocus="myOnfocus(1);" onblur="myOnblur(1);"></textarea>
+        </div>
+        <div class="uinn3" id="imgs">
+            <div class=""></div>
+        </div>
+    </div>
+    <div class="c-wh">
+        <div class="ub umar-t1" id="menus">
+            <div ontouchstart="zy_touch('btn-act1')" onclick="getpic(1);" class="ub-f1 ub ub-ac tab1 t-wh ubt ubb b-gra ">
+                <div class="ub-img5 tp-tp morepic"></div>
+                <div class="t-gra">图片</div>
+            </div>
+            <div ontouchstart="zy_touch('btn-act1')" onclick="getpic(0);" class="ub-f1 ub ub-ac tab1 t-wh ubt ubb b-gra">
+                <div class="ub-img5 tp-zx morepic"></div>
+                <div class="t-gra">拍照</div>
+            </div>
+        </div>
+        <div ontouchstart="zy_touch('btn-act1')" onclick="go2trend();" class="ub tab1 ub-ac  ubb b-gra" id="menu_trend">
+            <div class="ub-img5 tp-td morepic" id="locss"></div>
+            <div class="t-gra">攻略</div>
+            <div class="ub-f1 ub-ac" id="trend"></div>
+        </div>
+        <div ontouchstart="zy_touch('btn-act1')" onclick="go2tag();" class="ub tab1 ub-ac ubb b-gra">
+            <div class="ub-img5 tp-sharetag morepic"></div>
+            <div class="t-gra" id="sharetag">约伴</div>
+            <div class="ub-f1 ub-ac" id="share"></div>
+        </div>
+	</div>
+</body>
+  <script type="text/javascript">
+      function opendatetime(){
+          uescript('editor', 'opendatetime();');
+      }
+  </script>
+<script>
+zy_init();
+var params = getStorJson('params');
+var fid = '';
+var tid = '';
+var trend_tid = '';
+var pid = '';
+var touid = '';
+var picid = '';
+var mfr = '';
+var eimg = $$('imgs');
+var eee = $$("txt2");
+var uploadHttp = '';
+var attachnew = [];
+var attachvalue = '';
+var log = '';
+var lat = '';
+var isok = true;
+var myUpload = null;
+var onFoc = [0, 0];
+var uid = getstorage('UID');
+if(params.fid) fid = params.fid;
+if(params.tid) tid = params.tid;
+if(params.pid) pid = params.pid;
+if(params.picid) picid = params.picid;
+//以前发布未成功上传的标题，内容，图片保留，此处可以预置
+var dataName = [uid+'_thread_t', uid+'_thread_C', uid+'_thread_I', uid+'_thread_time', uid+'_thread_place'];
+var dataPre = ['', '','', ''];
+dataPre[0] = getstorage(dataName[0]);
+if(dataPre[0]) setValue('txt1', dataPre[0]);
+dataPre[1] = getstorage(dataName[1]);
+if(dataPre[1]) setValue('txt2', dataPre[1]);
+dataPre[3] = getstorage(dataName[3]);
+if(dataPre[3]) setValue('itime', dataPre[3]);
+dataPre[4] = getstorage(dataName[4]);
+if(dataPre[4]) setValue('iplace', dataPre[4]);
+var ImgObj = getStorJson(dataName[2]);
+//
+uploadHttp = forum_url + "&mod=ajax&action=uploadimage";
+addTrend();
+var module = get_module(fid);
+window.uexOnload=function(t)
+{
+    prepare_field();
+	logs("editor-->params: "+JSON.stringify(params));
+    setPageBounce('', '');
+
+	var pf = getstorage('platform');
+	if(pf==0) mfr='iPhone';
+	else if(pf==1) mfr='Android';
+	
+	for(var k in ImgObj){
+		//var item = ImgObj[k];
+		susCb(k, 1);
+	}
+    reportBarOpen();
+};
+function prepare_field(){
+    if (module == 'trend'){
+        zy_anim_push('c_itime', 'uhide');
+        zy_anim_push('c_iplace', 'uhide');
+        setHtml('sharetag', forums[module].op);
+        removeNode('menu_trend');
+    }
+}
+function myOnfocus(i){
+	onFoc[i] = 1;
+}
+
+function myOnblur(i){
+	onFoc[i] = 0;
+}
+
+function getLogLat(){
+	logs('getLogLat()-->1: log='+log+', lat='+lat);
+	if(lat && log) return;
+	uexLocation.onChange = function(lat2, log2){
+		if(lat2 && log2){
+			lat = lat2;
+			log = log2;
+			uexLocation.closeLocation();
+			logs('getLogLat()-->2: log='+log+', lat='+lat);
+			
+			var e = $$('locss');
+			if(e) e.className = 'ub-f1 ub-img5 tp-dws';
+		}
+	}
+	uexLocation.openLocation();
+}
+
+function getpic(i){
+	if(!myUpload) myUpload = new disUpload(uploadHttp, 'thread', actCb, susCb);
+	myUpload.upMethod(i);
+}
+
+function actCb(val){
+	isok = val;
+}
+function susCb(val, f){
+    attachnew.push(val);
+    addimgpreview(val);
+    if(f!=1) setAtt(val);
+
+    if(myUpload) ImgObj[val] = myUpload.src;
+}
+
+function addimgpreview(val){
+	var src = '';
+	var ii = '';
+    if(myUpload) src = myUpload.src;
+    else src = ImgObj[val];
+    ii = val;
+	logs('addimgpreview()-->ii='+val+', src='+src);
+	var node = document.createElement("span");
+	node.innerHTML = '<img src="'+src+'" class="edpic" ontouchstart="zy_touch(\'c-gra\')" onclick="imgoperate(\'i'+ii+'\');" id="i'+ii+'"/>';
+	eimg.insertBefore(node,eimg.lastElementChild);
+}
+
+var eleimg = null;
+function imgoperate(id){
+	logs('imgoperate-->id='+id);
+	eleimg = $$(id);
+	uexWindow.cbActionSheet = function(opId, dataType, data)
+	{
+		if (data == "0") {
+			src = '';
+			var id2 = eleimg.id;
+			removeNode(id2);
+			
+			var id3 = id2.replace('i', '');
+			logs('imgoperate-->id3='+id3);
+			id3 = Int(id3);
+			for(var k in attachnew){
+				var itm = attachnew[k];
+				if (itm == id3) {
+					attachnew.splice(k, 1);
+					delete ImgObj[itm];
+					removeAtt(id3);
+					break;
+				}
+			}
+		} else if (data == "1") {
+			var array = [];
+			array[0] = eleimg.src;
+			uexImageBrowser.open(array, 0, 1);
+		}
+	}
+	
+	var value = ["删除","预览"];
+	uexWindow.actionSheet('', '取消', value);
+}
+
+function getFace(){
+	var t = 1;
+	if(onFoc[0] || onFoc[1]) t = 500;
+	logs('getFace()----->t='+t);
+	setTimeout("uescript('editor', 'opneFace()');", t);
+}
+
+
+function submit(){
+	var url = '';
+	var str = '';
+	var sub = '';
+	var msg = getValue("txt2");
+	var sub2 = '';
+	var msg2 = '';
+    var sortstr = '';
+    var trendstr = '';
+	
+	if(!isok) return;
+	
+    sub = getValue("txt1");
+    sub = trim(sub);
+    if (sub == '') {
+        uexWindow.toast('0', '5', "标题不能为空", 2000);
+        return;
+    }
+    //var module = get_module(fid);
+    if(module == 'interest'){
+        var itime = '';
+        var iplace = '';
+        var sort = '&sortid=1';
+        itime = getValue('itime');
+        if (itime == '') {
+            uexWindow.toast('0', '5', "请输入时间", 2000);
+            return;
+        }
+        itime = encodeURIComponent(itime);
+        iplace = getValue('iplace');
+        iplace = encodeURIComponent(iplace);
+        if(trend_tid) trendstr = '&typeoption[ttid]=' + trend_tid;
+        sortstr = '&typeoption[iplace]=' + iplace + '&typeoption[itime]=' + itime + sort + trendstr;
+    }
+
+
+    if (fucCheckLength(sub) > 80) {
+        uexWindow.toast('0', '5', "标题请小于40个字", 2000);
+        return;
+    }
+    sub2 = encodeURIComponent(sub);
+
+	msg = trim(msg);
+	if (msg == '') {
+		uexWindow.toast('0', '5', "内容不能为空", 2000);
+		return;
+	}
+	if (fucCheckLength(msg) > 1000) {
+		uexWindow.toast('0', '5', "内容请小于500个字", 2000);
+		return;
+	}
+    msg = msg + attachvalue;//图片放在最后
+	msg2 = encodeURIComponent(msg);
+	
+	if (attachnew.length>0){
+		str = '&attachnew=' + attachnew.join(',');
+	}
+
+    url = 'http://'+ip+'/forum.php?mod=post&action=newthread&fid=' + fid
+            + '&extra=&topicsubmit=yes&allownoticeauthor=1&jsoncallback=?&subject=' + sub2 + "&message=" + msg2 + str + '&longitude='
+            + log + '&latitude=' + lat + '&device=' + mfr + sortstr + '&tagids=' + tagids;
+
+	logs('submit()-->url='+url);
+	
+	uexWindow.toast('1', '5', "正在发布...", "");
+	isok = false;
+	$.getJSON(url, submitCb, 'json', getJsonErr2, 'POST', '', '');
+}
+function submitCb(json){
+	isok = true;
+	var str = '发布失败';
+	var succ = true;
+	if(json){
+		logs("submitCb()---json: "+JSON.stringify(json));
+        if (json.tid){
+            if(json.status == '1') str = '此帖需要通过审核才能发表';
+            else str = '发布成功';
+        }
+        else if (json.pid) {
+            str = '回帖成功';
+            if(pid) str = '回复成功';
+        }
+        else if(json.cid) str = '回复成功';
+        else if(json.newdoid) str = '发布成功';
+        else {
+            if (json.message)  str = json.message;
+            else str = '发布失败';
+            succ = false;
+        }
+	}
+	else succ = false;
+	uexWindow.toast('0', '5', str, 1500);
+	if(succ){
+        var needShare = tagids == '' ? 1 : 0;
+        setstorage('params','{"fid":"' + fid + '", "tid":"' + json.tid + '", "uid":"'+ uid +'", "needShare":"'+ needShare +'"}');
+        for(var i=0; i<5; i++){
+            setstorage(dataName[i], '');
+        }
+        //var o = getStorJson('params');
+        if(module == 'interest'){
+            ueppscript('root', 'content1', 'loadListAll(\'\', \'\')');
+            openwin('forum_detail','forum_detail.html','10');
+        }
+        else if(module == 'trend'){
+            ueppscript('root', 'forum_listct', 'loadList(\'\', \'0\', \'\')');
+            openwin('forum_detail_trend','forum_detail.html','10');
+        }
+
+        setTimeout(function(){uescript("editor", "closewin(0, 'editor');");}, 1000);
+	}
+}
+
+function getJsonErr2(s){
+	isok = true;
+	resetBV('0');
+	resetBV('1');
+	var str = '返回数据有误！';
+	if(s.status=='-1') str = '无网络，连接失败^_^！';
+	uexWindow.toast('0','5',str,"1500");
+	logs('getJsonErr2-->msg='+s.message);
+}
+
+function closeEditor(){
+	var v1 = getValue("txt1");
+	var v2 = getValue("txt2");
+    var itime = getValue('itime');
+    var iplace = getValue('iplace');
+	if(v1) setstorage(dataName[0], v1);
+	if(v2) setstorage(dataName[1], v2);
+    if(itime) setstorage(dataName[3], itime);
+    if(iplace) setstorage(dataName[4], iplace);
+	setStorJson(dataName[2], ImgObj);
+	uescript('editor', 'closewin();');
+}
+
+/*获取论坛表情*/
+eval(function(p, a, c, k, e, d) {
+	e = function(c) {
+		return (c < a ? '' : e(parseInt(c / a)))
+				+ ((c = c % a) > 35 ? String.fromCharCode(c + 29) : c
+						.toString(36))
+	};
+	if (!''.replace(/^/, String)) {
+		while (c--) {
+			d[e(c)] = k[c] || e(c)
+		}
+		k = [ function(e) {
+			return d[e]
+		} ];
+		e = function() {
+			return '\\w+'
+		};
+		c = 1
+	}
+	;
+	while (c--) {
+		if (k[c]) {
+			p = p.replace(new RegExp('\\b' + e(c) + '\\b', 'g'), k[c])
+		}
+	}
+	return p
+}
+(
+	'n m(d){p(d){b 1:a\':)\';0;b 2:a\':(\';0;b 3:a\':D\';0;b 4:a\':\\\'(\';0;b 5:a\':@\';0;b 6:a\':o\';0;b 7:a\':c\';0;b 8:a\':$\';0;b 9:a\';c\';0;b q:a\':L\';0;b l:a\':r\';0;b t:a\':k\';0;b f:a\':e:\';0;b g:a\':u:\';0;b i:a\':j:\';0;b h:a\':s:\';0;b y:a\':N:\';0;b K:a\':G:\';0;b H:a\':J:\';0;b O:a\':M:\';0;b I:a\':E:\';0;b x:a\':w:\';0;b v:a\':F\';0;b z:a\':C:\';0;B:A(\'插入表情错误\');0}}',
+	51,
+	51,
+	'break||||||||||return|case|P|id|loveliness|13|14|16|15|curse|lol|11|getdiscuzSmiley|function||switch|10|Q|dizzy|12|funk|23|kiss|22|17|24|showmessage|default|call||time|handshake|sleepy|19|21|hug|18||victory|shutup|20'
+			.split('|'), 0, {}))
+			
+function insertface(i){
+	logs('insertface-->i='+i);
+	var ft = '';
+	ft = getdiscuzSmiley(i);
+	var e = eee;
+	if(e){
+		e.value += ft;
+		e.scrollTop=e.scrollHeight;
+	}
+}
+
+function setAtt(val){
+    attachvalue += '[attach]'+val+'[/attach]';
+}
+function removeAtt(val){
+    var str = '[attach]'+val+'[/attach]';
+    attachvalue = attachvalue.replace(str, '');
+}
+function go2trend(){
+    if($$('trend').innerHTML && trend_tid){
+        trendOperate(trend_tid);
+    }else openwin('select_listct', 'select_listct.html', '10');
+}
+function addTrend(){
+    var params = getStorJson('params');
+    var tid = params.tid;
+    var subject = params.subject;
+    var ele = $$('trend');
+
+    if(tid){
+        if(!subject){
+            //uexWindow.toast('0','5','不能插入动向',"1500");
+            return;
+        }
+        trend_tid = tid;
+        ele.innerHTML = '<div class="ufr ulev-1" id="t_' + tid + '">' + subject + '</div>';
+    }else{
+        if($$('t_' + tid)) removeNode('t_' + tid);
+        trend_tid = '';
+    }
+}
+function trendOperate(tid){
+    uexWindow.cbActionSheet = function(opId, dataType, data)
+    {
+        if (data == "0") {
+            removeNode('t_' + tid);
+            trend_tid = '';
+        } else if (data == "1") {
+            openwin('select_listct', 'select_listct.html', '10');
+        }
+    };
+    var value = ["删除", "选择"];
+    uexWindow.actionSheet('', '取消', value);
+}
+function go2tag(){
+    var str = '{"wname":"editor", "popname":"content"}';
+    setstorage('params',str);
+    openwin('tag_select', 'tag_select.html', '12');
+}
+var tagids = '';
+//给tagids赋值，在提交时拼接post字串
+function addTag(){
+    var params = getStorJson('params');
+    tagids  = params.tagids;
+    var tagnames = params.tagnames;
+    var ele = $$('share');
+    if(tagnames){
+        ele.innerHTML = '<div class="ufr ulev-1">' + tagnames +'</div>';
+    }
+}
+function set_value_time(value){
+    setValue('itime', value);
+    //setTimeout(function(){$$('itime').focus();}, 1000);
+}
+</script>
+</html>

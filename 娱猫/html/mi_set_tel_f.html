@@ -1,0 +1,273 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>MI</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <style>
+    	.mi_set_tel_con{
+			max-width:6.4rem;
+			margin:0 auto;
+			padding-top:0.7rem;
+			padding-left:0.6rem;
+		}
+		.mi_set_tel_con h4{
+			color:#565656;
+			font-size:0.28rem;
+			font-weight:normal;
+			line-height:0.28rem;
+			margin-bottom:0.32rem;
+		}
+		.set_tel_input1{
+			float:left;
+			width:3.4rem;
+			padding-left:0.16rem;
+			height:0.76rem;
+			border:0.02rem solid #ecebeb;
+			border-radius:0.1rem; 
+			font-size:0.28rem;
+			color:#222;
+			outline:none;
+			background:white;
+		}
+		.set_tel_hq{
+			float:left;
+			margin-left:0.2rem;
+			width:1.68rem;
+			height:0.76rem;
+			border:0.02rem solid #56b3a3;
+			background:#f4fffd;
+			border-radius:0.1rem;
+			font-size:0.24rem;
+			color:#56b3a3;
+			line-height:0.76rem;
+			text-align:center;
+			
+		}
+		.set_tel_hq_a{
+			position:absolute;
+			left: 3.8rem;
+			top: 0rem;
+			width:1.68rem;
+			height:0.76rem;
+			border:0.02rem solid #56b3a3;
+			background:#f4fffd;
+			border-radius:0.1rem;
+			font-size:0.24rem;
+			color:#56b3a3;
+			line-height:0.76rem;
+			text-align:center;
+		}
+		.set_tel_yz{
+			position:relative;
+			margin-bottom:0.4rem;
+		}
+		.set_tel_input2{
+			display:block;
+			padding-left:0.16rem;
+			height:0.76rem;
+			border:0.02rem solid #ecebeb;
+			border-radius:0.1rem; 
+			font-size:0.28rem;
+			color:#222;
+			outline:none;
+			width:5.3rem;
+			margin-bottom:0.4rem;
+			background:white;
+		}
+    </style>
+</head>
+<body>
+<div id="wrap">
+    <div id="main">
+    	<div class='mi_set_tel_con'>
+    		<h4>请输入您要绑定的手机号</h4>
+	    	<input class='set_tel_input2' type='tel'  name='phone'/>
+	    	<h4>请输入收到的短信验证码</h4>
+	    	<div class='set_tel_yz clearfix'>
+	    		<input type='tel' class='set_tel_input1'  name='code'>
+	    		<div class='set_tel_hq'>
+	    			获取验证码
+	    		</div>
+	    		<a class='set_tel_hq_a none'>60</a>
+	    	</div>
+	    	<h4>请输入密码</h4>
+	    	<input class='set_tel_input2' type='password'  name='password'/>
+    	</div>
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/comm.js"></script>
+<script type="text/javascript" src="../script/font.js"></script>
+<script type="text/javascript" src="../script/zepto.js"></script>
+<script>
+	//获取验证码
+	var is_ok=true;
+	function get_code(param, callBack) {
+		api.showProgress({
+			title : '处理中',
+			modal : false
+		});
+		if(is_ok){
+				is_ok=false;
+				ajaxRequest('user/get_code', 'post', param, function(ret, err) {
+					is_ok=true;
+					api.hideProgress();
+					if (err) {
+						api.toast({
+							msg : ret.msg
+						});
+						return false
+					}
+					callBack(ret);
+				});
+		}
+		
+	
+	}
+//	$('.phone').html(getstor('phone'));
+	$('.set_tel_hq').click(function(){		
+		var phone=$.trim($('input[name=phone]').val());	
+		if(phone==''){
+			api.toast({msg:'手机号不能为空！', location: 'middle'});
+				return false;
+		}
+		 var regex = /^0?(13[0-9]|15[012356789]|18[0123456789]|17[0]|14[57])[0-9]{8}$/;
+			 if(!regex.test(phone)){
+			  api.toast({msg: '手机号格式不正确!', location: 'middle'});
+				return false;
+		 }
+		 var obj=$api.getStorage('bind');    		 
+      		var info=obj.auth;      		
+      		for(var p in info){
+      			if(p=='sina_uid'){
+      				var param={'phone':phone,'m':3,'sina_uid':info[p]};  
+      			} else if(p=='wx_openid'){
+      				var param={'phone':phone,'m':3,'wx_openid':info[p]};  
+      			}
+      		}     		
+		 //倒计时.........................
+		get_code(param,function(ret){			
+			if(ret.status){
+				var x = parseInt($(".set_tel_hq_a").text());
+				var t;
+				$(".set_tel_hq_a").removeClass("none")
+				t=setInterval(function(){
+					x--;
+					if(x<1){
+						$('.set_tel_hq').text('重新获取')
+						$(".set_tel_hq_a").addClass("none")
+						x=60;
+						clearInterval(t);
+					};
+					$(".set_tel_hq_a").text(x);						
+				},1000)
+			}else{
+				api.toast({msg:ret.info, location: 'middle'});
+				return false;
+			}
+		});
+	});
+//绑定手机号
+	function bind_phone() {			
+		var phone = $.trim($("input[name=phone]").val());
+		var code=$.trim($("input[name=code]").val());	
+		var password=$.trim($('input[name=password]').val());		
+		if(phone==''){
+		  api.toast({msg: '手机号不能为空!', location: 'middle'});
+			return false;
+		}
+		var regex = /^0?(13[0-9]|15[012356789]|18[0123456789]|17[0]|14[57])[0-9]{8}$/;
+		 if(!regex.test(phone)){
+		  api.toast({msg: '手机号格式不正确!', location: 'middle'});
+			return false;
+		 }			
+		if(code==''){
+	 	  	api.toast({msg: '验证码不能为空!', location: 'middle'});
+			return false;
+		 }
+		 if(password==''){
+		 	api.toast({msg: '密码不能为空!', location: 'middle'});
+			return false;
+		 } 
+		  if(!/^[0-9a-zA-Z]{6,16}$/.test(password)){  
+		    api.toast({msg: '密码为6-16位的字母和数字!', location: 'middle'});
+			return false;
+      		}   
+      		var obj=$api.getStorage('bind');    		 
+      		var info=obj.auth;      		
+      		for(var p in info){
+      			if(p=='sina_uid'){
+      				var param={'phone':phone,'code':code,'password':password,'sina_uid':info[p]};  
+      			} else if(p=='wx_openid'){
+      				var param={'phone':phone,'code':code,'password':password,'wx_openid':info[p]};  
+      			}
+      		}     		
+      		param.m=3;		
+			param.password=SHA1(password);
+			api.showProgress({
+			 title: '处理中',
+				modal: false
+			}); 							
+			ajaxRequest('user/bind_phone','post',param,function(ret,err){							
+				if(err){
+					api.toast({
+		                msg:err.msg
+	                });
+	                return false;
+				}	
+				if(ret.status){
+							var user = ret.info.login_info;
+							var sina = ret.info.sina_info;
+							var wx=ret.info.wx_info;
+							$api.setStorage('mine', user);
+//							replace_into('user', user, function(ret) {
+//								if (ret.status) {
+//									//													alert('用户信息');
+//									//														go_center();
+//								}
+//							})
+							if(!isEmpty(wx)){
+								$api.setStorage('wx',wx);
+//								replace_into('wxif', wx, function(ret) {
+//											if (ret.status) {
+//												//													alert('新浪信息');
+//											}
+//								});
+							}
+							if(!isEmpty(sina)){
+								$api.setStorage('sina',sina);
+//								replace_into('sinaif', sina, function(ret) {
+//									if (ret.status) {
+//										//													alert('新浪信息');
+//									}
+//								});
+							}														
+							$api.rmStorage('bind');
+							api.openWin({
+					    		name: 'mi_sethead_w',
+						        url: 'mi_sethead_w.html',
+						        opaque: true,
+						        reload:true,
+						        vScrollBarEnabled: false,
+						        pageParam:{count:1},
+					    	})
+							api.execScript({
+						        name:'mi_sethead_w',
+						        frameName:'mi_set_f',
+						        script: 'phone('+phone+');'
+					        });	
+					        api.closeWin({
+					        	name:'login_head_w'
+                            });
+				}else{
+					api.toast({
+                        msg:ret.info
+                      });
+				}						
+			});			   		
+	}	
+</script>
+</html>

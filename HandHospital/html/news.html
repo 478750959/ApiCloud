@@ -1,0 +1,64 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>report</title>
+		<link rel="stylesheet" type="text/css" href="../css/api.css" />
+		<link rel="stylesheet" type="text/css" href="../css/common.css" />
+		<link rel="stylesheet" type="text/css" href="../css/news.css" />
+	</head>
+	<body>
+		<div id="wrap">
+			<div id="main">
+				<script id="banner-template" type="text/x-dot-template">
+	                {{ for(var i=0; i<it.length; i++) { }}
+		                <div>
+		                    <img src="{{=it[i].title_img}}" />
+		                    <label><div class="blur"></div>{{=it[i].title}}</label>
+		                </div>
+	                {{ } }}
+            	</script>
+            	
+            	<script id="content-template" type="text/x-dot-template">
+	                {{ for(var i=0; i<it.length; i++) { }}
+		               	<section style="border: none" onclick="openWin('{{=it[i].content_id}}')">
+							<img class="left" src="{{=it[i].title_img}}"></img>
+							<div class="middle">
+								<h2 class="text-overflow">{{=it[i].title}}</h2>
+								<p>{{=it[i].description}}</p>
+								<h3>{{=it[i].createDate}}</h3>
+							</div>
+						</section>
+	                {{ } }}
+            	</script>
+            	
+				<div id='slide' class='swipe'>
+					<div class='swipe-wrap' id="banner-content">
+						
+					</div>
+					<ul id="pointer">
+						<li>
+							<a class="active"></a>
+						</li>
+						<li>
+							<a></a>
+						</li>
+						<li>
+							<a></a>
+						</li>
+					</ul>
+				</div>
+				<div id="content">
+					
+				</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../script/api.js"></script>
+	<script type="text/javascript" src="../script/zepto.min.js"></script>
+	<script type="text/javascript" src="../script/doT.min.js"></script>
+	<script type="text/javascript" src="../script/swipe.js"></script>
+	<script type="text/javascript" src="../script/constants.js"></script>
+	<script type="text/javascript" src="../script/news.js"></script>
+</html>

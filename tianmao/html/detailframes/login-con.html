@@ -1,0 +1,145 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>APP</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/common.css" />
+    <style>
+        #main{
+            padding: 0.75em;
+            background-color: #F9F9F9;
+            background-image: url(../../res/img/tmall_bg_login_logo.png);
+            background-position: center 236px;
+            background-repeat: no-repeat;
+            background-size: 123px 18px;
+        }
+        .login-form{
+            border: 1px solid #CCC;
+            border-radius: 5px;
+            background-color: #FFF;
+        }
+        .login-form-top{
+            position: relative;
+            height: 51px;
+            border-bottom: 1px solid #CCC;
+        }
+        .login-form-bottom{
+            position: relative;
+            height: 51px;
+        }
+        .span-left{
+            height: 51px;
+            width: 56px;
+            line-height: 51px;
+            color: #1F1F1F;
+            text-indent: 0.4em;
+            position: absolute;
+            top: 50%;
+            -webkit-transform: translateY(-50%);
+                    transform: translateY(-50%);
+        }
+        .login-form input{
+            position: absolute;
+            color: #1F1F1F;
+            left: 56px;
+            top: 50%;
+            -webkit-transform: translateY(-50%);
+                    transform: translateY(-50%);
+        }
+        .btn-group{
+            margin-top: 0.75em;
+        }
+        .btn-box-left{
+            width: 49%;
+        }
+        .btn-box-right{
+            width: 49%;
+        }
+        .btn{
+            display: block;
+            height: 47px;
+            border-radius: 6px;
+            line-height: 47px;
+            text-align: center;
+        }
+        .log{
+            background: url(../../res/img/tmall_button_red_bg_nor.png) center center no-repeat;
+            background-size: 100% 100%;
+            border: 1px solid #850909;
+            color: #FFF;
+        }
+        .log:active,.log.tap-active{
+            background: url(../../res/img/tmall_button_red_bg_press.png) center center no-repeat;
+            background-size: 100% 100%;
+        }
+        .reg{
+            background: url(../../res/img/tmall_button_white_bg_nor.png) center center no-repeat;
+            background-size: 100% 100%;
+            border: 1px solid #C8C8C8;
+            color: #909090;
+        }
+        .reg:active,.reg.tap-active{
+            background: url(../../res/img/tmall_button_white_bg_pressed.png) center center no-repeat;
+            background-size: 100% 100%;
+        }
+        
+        .autologin{
+            margin-top: 24px;
+        }
+        .autologin-text{
+            color: #212122;
+            height: 17px;
+            line-height: 17px;
+        }
+        .checkBox{
+            display: inline-block;
+            background: url(../../res/img/tmall_checkbox_off.png) center center no-repeat;
+            background-size: 100% 100%;
+            width: 17px;
+            height: 17px;
+            vertical-align: middle;
+        }
+         
+        .autologin.active .checkBox{
+            background: url(../../res/img/tmall_checkbox_on.png) center center no-repeat;
+            background-size: 100% 100%;
+        }
+    </style>
+</head>
+<body>
+    <div id="wrap">
+        <div id="main">
+            <div class="login-form">
+                <div class="login-form-top clearfix">
+                    <span class="pull-left span-left">账号：</span>
+                    <input type="text" placeholder="账号">
+                </div>
+                <div class="login-form-bottom clearfix">
+                    <span class="pull-left span-left">密码：</span>
+                    <input type="password" placeholder="密码">
+                </div>
+            </div>
+            <div class="btn-group clearfix">
+                <div class="btn-box-left pull-left">
+                    <a class="btn reg" tapmode="tap-active">手机注册</a>
+                </div>
+                <div class="btn-box-right pull-right">
+                    <a class="btn log" tapmode="tap-active">登录</a>
+                </div>
+            </div>
+            <div class="autologin active">
+                <i class="checkBox"></i>
+                <span class="autologin-text">自动登录</span>
+            </div>
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript">
+    apiready = function(){
+
+    }
+</script>
+</html>

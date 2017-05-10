@@ -1,0 +1,437 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>MI</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <!--<link rel="stylesheet" type="text/css" href="../css/common.css"/>-->
+    <!--<link rel="stylesheet" type="text/css" href="../css/xyc.css"/>-->
+    <link rel="stylesheet" type="text/css" href="../css/lwq.css"/>
+</head>
+<style>
+	html,body{
+		background: transparent;
+		background:rgba(0,0,0,0.7);
+	}
+	#main {
+		/*background: transparent;*/
+		/*background-image: none;*/
+		width:100%;
+		height:100%;
+	}
+	.yxopacity { 
+		position: absolute;
+		left:0;
+		top:0;
+		width:100%;
+		height:100%;
+		background:#000;
+		opacity:0.7;
+	}
+	.yxopacity span {
+		  position: absolute;
+		  top: 1%;
+		  right: 1%;
+		  width: 0.6rem;
+		  height: 0.6rem;
+		  background: url(../image/close_yinyin.png) no-repeat center center;
+		  background-size: contain;
+	}
+	.yxaaaa {
+		background: url(../image/yinmai_guanquan.png) no-repeat center center;
+		background-size: contain;
+	}
+	.yinyins4 {
+		width: 36%;
+		height: 41%;
+		top: 28.6%;
+		left: 27%;
+	}
+	.xyc_img{
+		position:absolute;
+		display:block;
+		width:6.4rem;
+		height:1.8rem;
+		bottom:0;
+		left:50%;
+		margin-left:-3.2rem;
+	}
+	.ly_yyCont{
+		width:100%;
+		height:100%;
+		background:rgba(0,0,0,0.4);
+		position:relative;
+		z-index: 998;
+	}
+	.ly_yyCont img {
+			display: block;
+			position:absolute;
+		}
+	.i1{
+		width:1.83rem;
+		height:2.47rem;
+		top:48%;
+		left:65%;
+		z-index: 999;
+	}
+	.i3{
+		width:2.28rem;
+		height:0.69rem;
+		top:65%;
+		left:50%;
+		z-index: 999;
+		margin-left:-1.14rem;
+	}
+	.i2{
+		width:5.14rem;
+		height:2.4rem;
+		top:15%;
+		left:8.75%;
+		z-index: 999;
+	}
+</style>
+<body> 
+<div id="wrap">
+    <div id="main">
+    	<div class="ly_yyCont">
+    		<img src='../image/yinyin_mark1.png' class="i1"/>
+    		<img src='../image/yinyin_mark2.png' class="i2"/>
+    		<img src='../image/yinyin_mark3.png' class="i3"/>
+    	</div>
+    	<div class="yinyindiv lwqpat lwqwh">
+    		<div class="yxopacity">
+    			<span class ='closea none' onclick="xyc()"></span>
+    			<img src="../image/stroll_img.png" class="xyc_img"    onclick="jump()">
+    		</div>
+            <!-- 这个是刚进来的显示的div -->
+            <div class="yinyinc1 lwqpat lwqdbw " id="yinyinc1di">
+                <img src="../image/yinyin1.png" alt="" class="lwqdbw">
+                <span class="yinyins1 lwqpat lwqdb" id="yinyins1di"></span>
+                <span class="yinyins2 lwqpat lwqdb" id="yinyins2di"></span>
+            </div>
+            <div class="yinyinc2 lwqpat lwqwh"  id="yinyinc2di">
+                <div class="yinyinc2b1 lwqpat lwqdbw">
+                    <img src="../image/yinyin3.jpg" alt="" class="lwqdbw">
+                    <!-- 图片动态特效 -->
+                    <span class="yinyins4 lwqpat lwqdb yxaaaa pulse" id="yinyins4di"></span>
+                    <!-- 叉号关闭按钮 -->
+                    <span class="yinyins3 lwqpat lwqdb" id="yinyins3di"></span>
+                    <!-- pyinyin5图片控制文案变化，按顺序分别是yinyin5，6，7，8 -->
+                    <!--<img src="../image/yinyin5.png" alt="" class="pyinyin5 lwqdbw lwqpat" id="pyinyin5di">-->
+                    <div class="pyinyin5 lwqdbw lwqpat" id="pyinyin5di">扫描中，将话筒靠近声源...</div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</div>
+</body>
+<!--<script type="text/javascript" src="../script/debug.js"></script>-->
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/comm.js"></script>
+<script type="text/javascript" src="../script/font.js"></script>
+<script type="text/javascript" src="../script/zepto.js"></script>
+<script>
+	//点击按钮关闭进来的提示图层
+	$('.i3').click(function(){
+		$('.ly_yyCont').addClass('none');
+		$('.closea').removeClass('none');
+	})
+	//点击图片跳转
+	function jump(){
+		ajaxRequest('poster/to_tag','post',{},function(ret,err){
+			if(err){
+				api.toast({
+	                msg:err.msg
+                });
+                return false;
+			}
+			if(ret.status){
+				if(ret.info.is_online==1){
+					param = {
+						'id' : ret.info.id,
+						pic : ret.info.logo,
+						is_online : 'off'
+					};
+					api.openWin({
+						name : 'bill_con_head_w2',
+						url : 'bill_con_head_w2.html',
+						reload : true,
+						vScrollBarEnabled : false,
+						pageParam : param
+					});
+				}else if(ret.info.is_online==2){
+					param = {
+						'id' : ret.info.id,
+						pic : ret.info.img,
+						is_online : 'on'
+					};
+					api.openWin({
+						name : 'bill_con_head_w',
+						url : 'bill_con_head_w.html',
+						reload : true,
+						vScrollBarEnabled : false,
+						pageParam : param
+					});
+				}																
+			}
+		});
+	}
+	//点击关闭的按钮打开确定关闭弹窗
+	function xyc(){
+		api.setStatusBarStyle({
+        	style:'dark'
+        });
+        api.openFrame({
+	        name: 'yinyin_mark',
+		    url: 'yinyin_mark.html',
+		    opaque: false,
+		    vScrollBarEnabled: false,
+		    bounces: false,
+	        rect: {
+		        x:0,
+		        y:0,
+		        w:api.winWidth,
+		        h:api.winHeight
+	        }
+        });
+	}
+	//关闭的弹窗传递过来的函数
+	function xyc_closeyinyin(){
+		api.closeFrame({
+	        name: 'yinyin_mark'
+        });
+		api.closeFrame({
+	        name: 'yinyin'
+        });
+	}
+			function stop(){
+					var obj=api.require('lbbniu');	
+					obj.stop(function(ret,err){
+//					api.alert({msg:ret.info
+//              });
+					lwq_removeClass("yinyins4di", " yxaaaa");
+					lwq_removeClass("yinyins4di", " pulse");
+
+					});
+				}	
+			function shibie(){
+				var obj=api.require('lbbniu');				 
+				obj.start(function(ret,err){				
+					 if(ret.status==0) {
+					 	lwq_removeClass("yinyins4di", " yxaaaa");
+    					lwq_removeClass("yinyins4di", " pulse");
+//					 	api.toast({
+//			                msg:ret.info
+//		                });
+					 }
+//					if(ret.status==3){
+//						api.toast({
+//			                msg:'音量'+ret.info*10
+//		                });
+//		                return false;
+//					}
+					if(ret.status==1){					
+						var object=JSON.parse(ret.info);					
+						if(object.response.status.code!=0){
+							lwq_removeClass("yinyins4di", " yxaaaa");
+	    					lwq_removeClass("yinyins4di", " pulse");
+							pyinyin5.innerHTML = "没有识别结果,请点击重试!";
+						}else{
+//							 stop();	
+							lwq_removeClass("yinyins4di", " yxaaaa");
+							lwq_removeClass("yinyins4di", " pulse");
+	//TODO// 	shibie   jieguo     stop();	
+							api.showProgress({
+								style: 'default',
+							    title: '处理中',
+							    modal: false
+					        });	
+							ajaxRequest('jump/go_topic','post',object.response,function(ret,err){
+								api.hideProgress();
+								if(err){
+									api.toast({
+		                                msg:err.msg
+	                                });
+	                                return false;
+								}
+								if(ret.status){
+									var width = api.winWidth;
+								    var height = api.winHeight;
+								    api.openFrame({
+									    name: 'yinmai_movie',
+									    url: 'yinmai_movie.html',
+									    bounces: false,
+									    opaque: true,
+									    reload: true,
+									    vScrollBarEnabled: false,
+									    pageParam:{data:ret.info},
+									    rect: {
+									        x: 0,
+									        y: 0,
+									        w: width,
+									        h: height
+									    }
+									});	
+									
+//									api.alert({msg:ret.info});
+								}else{
+									api.toast({
+		                                msg:ret.info
+	                                });	
+								}
+							});
+						}
+					}										
+				})
+			}												
+    function lwq_addClass(id,className) {
+        var element = document.getElementById(id);
+        if(element.className == ""){
+            element.className = className;
+        }else if(element.className != null && element.className.indexOf(className) > -1) {
+        
+        } else {
+            element.className += " "+className;
+        }
+    }
+    function lwq_removeClass(id,className){
+        var element = document.getElementById(id);
+        if(element.className != null && element.className.indexOf(className) > -1){
+            element.className = element.className.replace(className, "");
+        }
+    }
+
+    var yinyins1 = document.getElementById('yinyins1di');
+    var yinyins2 = document.getElementById('yinyins2di');
+    var yinyins3 = document.getElementById('yinyins3di');
+    var yinyins4 = document.getElementById('yinyins4di');
+    var yinyinc1 = document.getElementById('yinyinc1di');
+    var yinyinc2 = document.getElementById('yinyinc2di');
+    var pyinyin5 = document.getElementById('pyinyin5di');
+    //扫描
+    yinyins1.onclick = function(){ //拍照
+//      alert("后台看这里~~~开始扫描");
+		api.toast({msg:'二期开放，敬请期待！'});
+		return false;
+			api.showProgress({
+				style: 'default',
+			    title: '处理中',
+			    modal: false
+			});	
+			ajaxRequest('jump','post',{},function(ret,err){
+//			api.alert({msg:ret});
+			api.hideProgress();
+								if(err){
+									api.toast({
+		                                msg:err.msg
+	                                });
+	                                return false;
+								}
+								if(ret.status){
+//								api.alert({msg:ret.info.tags});
+									var width = api.winWidth;
+								    var height = api.winHeight;
+								    api.openFrame({
+									    name: 'yinmai_movie',
+									    url: 'yinmai_movie.html',
+									    bounces: false,
+									    opaque: true,
+									    reload: true,
+									    vScrollBarEnabled: false,
+									    pageParam:{data:ret.info},
+									    rect: {
+									        x: 0,
+									        y: 0,
+									        w: width,
+									        h: height
+									    }
+									});	
+//									$('#yinyinc2di').addClass('lwqnone');
+// 									$('#yinyinc1di').removeClass('lwqnone');
+//									api.alert({msg:ret.info});
+								}else{
+									api.toast({
+		                                msg:ret.info
+	                                });	
+								}
+							});
+		
+    }
+    //声音
+    yinyins2.onclick = function(){//声音
+    	lwq_addClass("yinyins2di", "yxaaaa");
+    	lwq_addClass("yinyins2di", "pulse1");
+    	lwq_addClass("yinyins4di", " yxaaaa");
+	    lwq_addClass("yinyins4di", " pulse");
+        lwq_addClass("yinyinc1di","lwqop0");
+    	setTimeout(function() {
+    		lwq_removeClass("yinyins2di", " yxaaaa");
+    		lwq_removeClass("yinyins2di", " pulse1");
+    		lwq_addClass("yinyinc1di","lwqnone");
+        	lwq_addClass("yinyinc2di","yinyinc2an");
+        	pyinyin5.innerHTML = "扫描中，将话筒靠近声源...";
+        	shibie();
+    	}, 300);
+        
+    }
+    //打叉
+    yinyins3.onclick = function(){
+//      alert("打叉之后的跳到首页");
+		lwq_removeClass("yinyinc1di"," lwqnone");
+        lwq_removeClass("yinyinc1di","lwqop0");
+        lwq_removeClass("yinyinc2di"," yinyinc2an");
+        stop();
+    }
+    // 不同状态分别设置不同的图片地址，5，6，7，8
+    // pyinyin5.src = "../image/yinyin7.png";//在不同的状态替换不同的地址
+	yinyins4.onclick = function(){
+		pyinyin5.innerHTML = "扫描中，将话筒靠近声源...";
+		lwq_addClass("yinyins4di", "yxaaaa");
+		lwq_addClass("yinyins4di", "pulse");
+		shibie();
+    }
+    apiready = function(){
+        api.addEventListener({
+	    	name:'shibie'
+	    },function(ret,err){
+    		lwq_removeClass("yinyins2di", " yxaaaa");
+    		lwq_removeClass("yinyins2di", " pulse1");
+    		lwq_addClass("yinyinc1di","lwqnone");
+        	lwq_addClass("yinyinc2di","yinyinc2an");
+        	pyinyin5.innerHTML = "扫描中，将话筒靠近声源...";
+        	shibie();
+	    });
+	    
+		//判断是否为ios
+		var strDM = api.systemType;
+	    if (strDM == 'ios') {
+	  		$('.yxopacity span').css('top',30);
+	    	api.setStatusBarStyle({
+            	style:'light'
+            });
+	    }
+    }
+    function wocalei(){
+   		lwq_removeClass("yinyinc1di"," lwqnone");
+        lwq_removeClass("yinyinc1di","lwqop0");
+        lwq_removeClass("yinyinc2di"," yinyinc2an");
+    	api.closeFrame({name:'yinmai_movie'});
+    }
+    //
+    function init_start() {
+//    	api.setFrameAttr({
+//			name:'yinmai_movie',
+//			hidden:true
+//		});
+		api.closeFrame({
+	        name: 'yinmai_movie'
+        });
+		api.sendEvent({name:'shibie'});
+		
+		lwq_addClass("yinyins4di", "yxaaaa");
+		lwq_addClass("yinyins4di", "pulse");
+    }
+</script>
+</html>

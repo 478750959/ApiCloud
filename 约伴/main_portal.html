@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+  <head>
+    <title>
+    </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="css/ui-base.css">
+    <link rel="stylesheet" href="css/ui-box.css">
+    <link rel="stylesheet" href="css/ui-color.css">
+	<link rel="stylesheet" href="css/ui-img.css">
+	<link rel="stylesheet" href="css/style.css">
+    <script src="js/y_control.js"></script>
+    <script src="js/y_click.js"></script>
+	<script src="js/dis_control.js"></script>
+	<script src="js/y_json.js"></script>
+	<script src="js/y_tmpl.js"></script>
+	<script src="js/config.js"></script>
+	<script src="js/y_icache.js"></script>
+    <script>
+	</script>
+  </head>
+<body class="um-vp c-gra5" ontouchstart>
+	<div id="pages">
+		<div id="page0"></div>
+		<div></div>
+	</div>
+</body>
+<script>
+zy_init();
+var objcat = {curcid:0, precid:0, updr:''};
+objcat[0] = {ld:0, curpn:1, totpn:1};
+var cContent = $$('pages');
+var fromCache = 0;
+window.uexOnload = function ()
+{
+	setPageBounce(downcb, upcb);
+	zy_initcache();
+	loadtop('1');
+	if(fromCache) loadtop('');
+}
+function upcb(){
+	var i = objcat.curcid;
+	var o = objcat[i];
+	logs('upcb()-->curpage='+o.curpn+', totpage='+o.totpn);
+	if (o.curpn < o.totpn) {
+		objcat.updr = '1';
+		loadcat(i, o.curpn + 1, '');
+	}
+	else 
+		resetBV('1');
+}
+function downcb(){
+	var i = objcat.curcid;
+	objcat.updr = '0';
+	if(i==0) loadtop('');
+	else loadcat(i, '', '');
+}
+function portalcat(i){
+	if(!(objcat[i])) objcat[i] = {ld:0, curpn:1, totpn:1};
+	
+	if(objcat.curcid == i){
+		//update ???
+	}
+	else{
+		objcat.precid = objcat.curcid;
+		objcat.curcid = i;
+		
+		if(objcat[i].ld){
+			var p1 = 'page'+objcat.precid;
+			var p2 = 'page'+i;
+			my_page_switch(p1,p2);
+		}
+		else{
+			if(i==0) loadtop();
+			else loadcat(i, '');
+		}
+	}
+}
+
+function loadtop(f){
+	var url = portal_url + '&mod=ajax&act=newarticle';
+	fromCache = checkKey(url);
+	if(!fromCache) uexWindow.toast('1','5','加载中...',"");
+	$.getJSON(url, loadTopCb, 'json', getJsonErr, 'POST', '', f, '1');
+}
+function loadTopCb(json){
+	uexWindow.closeToast();
+	if (objcat.updr) {
+		resetBV(objcat.updr);
+		objcat.updr = '';
+	}
+	
+	if (json) {
+		if (Int(json.status) < 0) {
+			uexWindow.toast('0', '5', json.message, 2000);
+			return;
+		}
+		
+		var cContent = $$('page0');
+		var list = json;
+		var length = zy_tmpl_count(list);
+		var res = '';
+		var aid = '';
+		if(length>0){
+			var o = objcat[0];
+			aid = list[0].aid;
+		
+			if(o.ld){
+				logs('loadTopCb()-->aid1='+cContent.children[0].id+', aid2='+list[0].aid);
+				if(cContent.children[0].id==list[0].aid) return;
+			}
+			
+			var tmpl = '<li class="ub umh6 uinn ubb b-gra" id="a_${aid}" ontouchstart="zy_touch(\'c-gra\')" onclick="go2new5(${aid});">'
+							+'<div class="ub-f1 ub ub-ver">'
+								+'<div class="t-bla ulev0 ut-s">${title}</div>'
+								+'<div class="t-gra1 ulev-1 ub-f1 umar-t ulh uof maxh">'
+									+'${content}'
+								+'</div>'
+								+'<div class="ub ub-ac t-gra ulev-2 umar-t"> '
+					 		    	+'<div class="umh2 umw2 ub-img5 im5 lpic ub-posl"></div>'
+							 		+'${dateline}'
+					 		    +'</div>'
+							+'</div>'
+							+'${cb:img}'
+						+'</li><li class="ubt1"></li>';
+			res = zy_tmpl(tmpl,list,zy_tmpl_count(list),j2vCb);
+		}
+		else{
+			res = '<div class="uinn8 tx-c">暂无资讯</div>';
+		}
+		
+
+		var node = createEle("ul");
+		node.id = aid;
+		node.innerHTML = res;;
+		cContent.insertBefore(node,cContent.firstElementChild);
+		
+		if(o.ld)
+       	{
+       		while(cContent.childElementCount>1)
+       		{
+       			cContent.removeChild(cContent.lastElementChild);
+       		}
+       	}
+		
+		if(aid) o.ld = 1;
+	}
+}
+
+function loadcat(id, pn, f){
+	var p = 'page'+id;
+	var e = $$(p);
+	if(!e){
+		var node = createEle("div");
+		node.id = p;
+		node.innerHTML = '<div></div>';;
+		cContent.insertBefore(node,cContent.lastElementChild);
+	}
+	var p1 = 'page'+objcat.precid;
+	my_page_switch(p1,p);
+	
+	var url = portal_url + '&mod=list&catid=' + id + '&page='+ pn;
+	var ss = '1';
+	if(pn>1) ss = '';
+	if(!objcat[id].ld) uexWindow.toast('1','5','加载中...',"");
+	$.getJSON(url, loadCatCb, 'json', getJsonErr, 'POST', '', f, ss);
+}
+function loadCatCb(json){
+	uexWindow.closeToast();
+	if (objcat.updr) {
+		resetBV(objcat.updr);
+		objcat.updr = '';
+	}
+	if (json) {
+		if (Int(json.status) < 0) {
+			uexWindow.toast('0', '5', json.message, 2000);
+			return;
+		}
+		
+		var id = json.catid || objcat.curcid;
+		var pid = 'page' + id;
+		var cContent = $$(pid);
+		var o = objcat[id];
+		var list = json[0];
+		
+		if(list.length<1){
+			var nid = 'notes'+id;
+			var e = $$(nid);
+			if(!e){
+				var node = createEle("div");
+				node.id = nid;
+				node.className = 'uinn8 tx-c';
+				node.innerHTML = '暂无栏目内容';
+				cContent.insertBefore(node,cContent.lastElementChild);
+			}
+			return;
+		}
+		
+		if(o.ld){
+			logs('loadCatCb()-->aid1='+cContent.children[0].id+', aid2='+list[0].aid);
+			if(cContent.children[0].id==list[0].aid) return;
+		}
+		
+		var tmpl = '<div class="ub umh6 uinn ubb b-gra" id="a_${aid}" ontouchstart="zy_touch(\'c-gra\')" onclick="go2new5(${aid});">'
+						+'<div class="ub-f1 ub ub-ver">'
+							+'<div class="t-bla ulev0 ut-s">${title}</div>'
+							+'<div class="t-gra1 ulev-1 ub-f1 umar-t ulh uof maxh">'
+								+'${content}'
+							+'</div>'
+							+'<div class="ub ub-ac t-gra ulev-2 umar-t"> '
+				 		    	+'<div class="umh2 umw2 ub-img5 im5 lpic ub-posl"></div>'
+						 		+'${dateline}'
+				 		    +'</div>'
+						+'</div>'
+					+'</div><div class="ubt1"></div>';
+		var res = zy_tmpl(tmpl,list,zy_tmpl_count(list),j2vCb);
+		
+		o.curpn = int(json.zywy_curpage);
+		o.totpn = int(json.zywy_totalpage);
+		
+		if(o.ld && o.curpn==1)
+       	{
+       		while(cContent.childElementCount>1)
+       		{
+       			cContent.removeChild(cContent.firstElementChild);
+       		}
+       	}
+		
+		var node = createEle("div");
+		node.id = list[0].aid;
+		node.innerHTML = res;
+		cContent.insertBefore(node,cContent.lastElementChild);
+        imgCacheCall();
+		
+		logs('loadCatCb()-->id='+id+', totalpage='+o.totpn);
+		if(res) o.ld=1;
+	}
+}
+function j2vCb(d,c)
+{
+	var str = '';
+	 if(c.length>1)
+	 {
+		switch(c[1])
+		{
+			case 'img':
+				var picid = 'img'+d.aid;
+				if(d.pic){
+					str = '<div class="umw5 ulpic us"><div class="uabs1 umw6 umh8"><img src="images/mylogo.png" class="inforpic1" id="'+picid+'"/></div></div>';
+				
+					var src = d.pic;
+                    pushCacheCall(function(){
+                        dis_imgcache(picid,src,src,imgLoadSucSrc,imgLoadErrSrc,null,'', 1);
+                    });
+				}
+				break;
+		}
+	 }
+	 return str;
+}
+
+function go2new5(aid){
+	setstorage('params','{"aid":"'+aid+'", "catname":"22"}');
+	openwin('portal_detail','portal_detail.html','10');
+}
+</script>
+</html>

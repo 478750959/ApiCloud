@@ -1,0 +1,273 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>APP</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/common.css" />
+    <style>
+        #main{
+            padding: 0;
+        }
+        table{
+            border-collapse:collapse;
+        }
+        tr{
+            width: 100%;
+        }
+        td{
+            border: 1px solid #ccc;
+            position: relative;
+            width: 33%;
+        }
+        table img{
+            width: 100%;
+        }
+        td .normal{
+            display: block;
+        }
+        td .shadow{
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+        td .s1{
+            background: url(../../image/class_nav1.png) center center no-repeat;
+            background-size: 100% 100%;
+        }
+        td:active .s1{
+            background: url(../../image/class_nav1_p.png) center center no-repeat;
+            background-size: 100% 100%;
+        }
+        td .s2{
+            background: url(../../image/class_nav2.png) center center no-repeat;
+            background-size: 100% 100%;
+        }
+        td:active .s2{
+            background: url(../../image/class_nav2_p.png) center center no-repeat;
+            background-size: 100% 100%;
+        }
+        td .s3{
+            background: url(../../image/class_nav3.png) center center no-repeat;
+            background-size: 100% 100%;
+        }
+        td:active .s3{
+            background: url(../../image/class_nav3_p.png) center center no-repeat;
+            background-size: 100% 100%;
+        }
+        td .s4{
+            background: url(../../image/class_nav4.png) center center no-repeat;
+            background-size: 100% 100%;
+        }
+        td:active .s4{
+            background: url(../../image/class_nav4_p.png) center center no-repeat;
+            background-size: 100% 100%;
+        }
+        td .s5{
+            background: url(../../image/class_nav5.png) center center no-repeat;
+            background-size: 100% 100%;
+        }
+        td:active .s5{
+            background: url(../../image/class_nav5_p.png) center center no-repeat;
+            background-size: 100% 100%;
+        }
+        td .s6{
+            background: url(../../image/class_nav6.png) center center no-repeat;
+            background-size: 100% 100%;
+        }
+        td:active .s6{
+            background: url(../../image/class_nav6_p.png) center center no-repeat;
+            background-size: 100% 100%;
+        }
+        td .s7{
+            background: url(../../image/class_nav7.png) center center no-repeat;
+            background-size: 100% 100%;
+        }
+        td:active .s7{
+            background: url(../../image/class_nav7_p.png) center center no-repeat;
+            background-size: 100% 100%;
+        }
+        td .s8{
+            background: url(../../image/class_nav8.png) center center no-repeat;
+            background-size: 100% 100%;
+        }
+        td:active .s8{
+            background: url(../../image/class_nav8_p.png) center center no-repeat;
+            background-size: 100% 100%;
+        }
+        td .s9{
+            background: url(../../image/class_nav9.png) center center no-repeat;
+            background-size: 100% 100%;
+        }
+        td:active .s9{
+            background: url(../../image/class_nav9_p.png) center center no-repeat;
+            background-size: 100% 100%;
+        }
+        td .s10{
+            background: url(../../image/class_nav10.png) center center no-repeat;
+            background-size: 100% 100%;
+        }
+        td:active .s10{
+            background: url(../../image/class_nav10_p.png) center center no-repeat;
+            background-size: 100% 100%;
+        }
+        td .s11{
+            background: url(../../image/class_nav11.png) center center no-repeat;
+            background-size: 100% 100%;
+        }
+        td:active .s11{
+            background: url(../../image/class_nav11_p.png) center center no-repeat;
+            background-size: 100% 100%;
+        }
+        td .s12{
+            background: url(../../image/class_nav12.png) center center no-repeat;
+            background-size: 100% 100%;
+        }
+        td:active .s12{
+            background: url(../../image/class_nav12_p.png) center center no-repeat;
+            background-size: 100% 100%;
+        }
+        td .s13{
+            background: url(../../image/class_nav13.png) center center no-repeat;
+            background-size: 100% 100%;
+        }
+        td:active .s13{
+            background: url(../../image/class_nav13_p.png) center center no-repeat;
+            background-size: 100% 100%;
+        }
+        td .s14{
+            background: url(../../image/class_nav14.png) center center no-repeat;
+            background-size: 100% 100%;
+        }
+        td:active .s14{
+            background: url(../../image/class_nav14_p.png) center center no-repeat;
+            background-size: 100% 100%;
+        }
+        td .s15{
+            background: url(../../image/class_nav15.png) center center no-repeat;
+            background-size: 100% 100%;
+        }
+        td:active .s15{
+            background: url(../../image/class_nav15_p.png) center center no-repeat;
+            background-size: 100% 100%;
+        }
+        td .s16{
+            background: url(../../image/class_nav16.png) center center no-repeat;
+            background-size: 100% 100%;
+        }
+        td:active .s16{
+            background: url(../../image/class_nav16_p.png) center center no-repeat;
+            background-size: 100% 100%;
+        }
+    </style>
+</head>
+<body>
+    <div id="wrap">
+        <div id="main"> 
+            <div class="container">
+                <table>
+                    <tr>
+                        <td tapmode onclick="">
+                            <img src="../../image/class_nav1.png" alt="" class="normal">
+                            <div class="shadow s1"></div>
+                        </td>
+                        <td tapmode onclick="">
+                            <img src="../../image/class_nav2.png" alt="" class="normal">
+                            <div class="shadow s2"></div>
+                        </td>
+                        <td tapmode onclick="">
+                            <img src="../../image/class_nav3.png" alt="" class="normal">
+                            <div class="shadow s3"></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td tapmode onclick="">
+                            <img src="../../image/class_nav4.png" alt="" class="normal">
+                            <div class="shadow s4"></div>
+                        </td>
+                        <td tapmode onclick="">
+                            <img src="../../image/class_nav5.png" alt="" class="normal">
+                            <div class="shadow s5"></div>
+                        </td>
+                        <td tapmode onclick="">
+                            <img src="../../image/class_nav6.png" alt="" class="normal">
+                            <div class="shadow s6"></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td tapmode onclick="">
+                            <img src="../../image/class_nav7.png" alt="" class="normal">
+                            <div class="shadow s7"></div>
+                        </td>
+                        <td tapmode onclick="">
+                            <img src="../../image/class_nav8.png" alt="" class="normal">
+                            <div class="shadow s8"></div>
+                        </td>
+                        <td tapmode onclick="">
+                            <img src="../../image/class_nav9.png" alt="" class="normal">
+                            <div class="shadow s9"></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td tapmode onclick="">
+                            <img src="../../image/class_nav10.png" alt="" class="normal">
+                            <div class="shadow s10"></div>
+                        </td>
+                        <td tapmode onclick="">
+                            <img src="../../image/class_nav11.png" alt="" class="normal">
+                            <div class="shadow s11"></div>
+                        </td>
+                        <td tapmode onclick="">
+                            <img src="../../image/class_nav12.png" alt="" class="normal">
+                            <div class="shadow s12"></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td tapmode onclick="">
+                            <img src="../../image/class_nav13.png" alt="" class="normal">
+                            <div class="shadow s13"></div>
+                        </td>
+                        <td tapmode onclick="">
+                            <img src="../../image/class_nav14.png" alt="" class="normal">
+                            <div class="shadow s14"></div>
+                        </td>
+                        <td tapmode onclick="">
+                            <img src="../../image/class_nav15.png" alt="" class="normal">
+                            <div class="shadow s15"></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td tapmode onclick="">
+                            <img src="../../image/class_nav16.png" alt="" class="normal">
+                            <div class="shadow s16"></div>
+                        </td>
+                        <td tapmode onclick="">
+                            &nbsp;
+                        </td>
+                        <td tapmode onclick="">
+                            &nbsp;
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            
+        </div>
+
+    </div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript">
+    apiready = function(){
+        var width = api.frameWidth;
+        var aTd = $api.domAll('td');
+        var w33 = width*0.33;
+        for (var i = 0,len = aTd.length; i < len; i++) {
+            $api.css(aTd[i],'width:'+w33+'px;');
+        };
+    }
+</script>
+</html>

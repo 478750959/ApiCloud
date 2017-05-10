@@ -1,0 +1,65 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>MI</title>
+		<link rel="stylesheet" type="text/css" href="../css/api.css"/>
+		<style>
+			html,body{
+				background:white;
+			}
+			.help_lists{
+				padding:0.1rem 0.3rem 0;
+			}
+			.help_list{
+				padding:0 0.1rem;
+				border-bottom:1px solid #dddddd;
+				height:0.8rem;
+				line-height:0.8rem;
+				font-size:0.26rem;
+				color:#565656;
+			}
+			.help_txt{
+				width:5.56rem;
+				height:1.4rem;
+				margin:0.75rem auto 0;
+			}
+			.help_txt img{
+				width:100%;
+				height:100%;
+				display: block;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="wrap">
+			<div id="main">
+				<div class="help_lists">
+					<div class="help_list" onclick = "openNext('mi_set_head_w',32)">订单问题</div>
+					<div class="help_list" onclick = "openNext('mi_set_head_w',33)">购物问题</div>
+					<div class="help_list" onclick = "openNext('mi_set_head_w',34)">其它问题</div>
+				</div>
+				<div class="help_txt">
+					<img src = '../image/help_txt.png'>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../script/api.js"></script>
+	<script type="text/javascript" src="../script/font.js"></script>
+	<script>
+		function openNext(xyc, count) {
+			api.openWin({
+				name : xyc,
+				url : xyc + '.html',
+				opaque : false,
+				reload : true,
+				vScrollBarEnabled : false,
+				pageParam : {
+					count : count
+				}
+			});
+		}
+	</script>
+</html>

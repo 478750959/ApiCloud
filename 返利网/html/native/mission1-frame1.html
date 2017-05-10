@@ -1,0 +1,239 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,initial-scale=1.0,width=device-width"/>
+    <title>APP</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/common.css" />
+    <style>
+        #wrap{
+            display: block;
+        }
+        #main{
+            background-color: #EBE8E8;
+            padding: 0.625em;
+        }
+        .display-box{
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;
+        }
+        .box-orient-v{
+            -webkit-box-orient: vertical;
+            -webkit-flex-flow: column;
+                    flex-flow: column;
+        }
+        .box-orient-h{
+            -webkit-box-orient: horizontal;
+            -webkit-flex-flow: row;
+                    flex-flow: row;
+        }
+        .box-flex-1{
+            -webkit-box-flex: 1;
+            -webkit-flex: 1;
+            flex: 1;
+        }
+        .app-box{
+            background-color: #FFF;
+            border-radius: 3px;
+        }
+        .app-list{
+
+        }
+        .app-list .app-item{
+            padding: 0.875em 0.625em;
+            border-bottom: 1px solid #EBE8E8;
+        }
+        .app-list .app-item:active,.app-list .app-item.tap-active{
+            background-color: #EBE8E8;
+        }
+        .app-item .icon{
+            width: 70px;
+            height: 65px;
+            position: relative;
+        }
+        .icon img{
+            width: 50px;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            -webkit-transform: translate(-50%,-50%);
+                    transform: translate(-50%,-50%);
+        }
+        .app-item .app-item-right{
+
+        }
+        .app-item-right .top{
+            font-size: 1.1em;
+            padding-bottom: 0.6em;
+        }
+        .top .app-name{
+            font-size: 1.1em;
+            color: #333333;
+        }
+        .app-name .icon-need{
+            width: 1.93em;
+            height: 1em;
+            background: url(../../res/mission_icon1.png) center center no-repeat;
+            background-size: 100%;
+            display: inline-block;
+            position: relative;
+            left: 0.5em;
+            top: 2px;
+        }
+        .top .count{
+            font-size: 1.1em;
+            color: #00A0E9;
+        }
+        .count .dollor{
+            color: #00A0E9;
+            font-size: 0.625em;
+        }
+        .app-item-right .fav,.app-item-right .des{
+            font-size: 0.625em;
+            color: #666666;
+            display: block;
+        }
+        .app-item-right .fav{
+            padding-bottom: 0.6em;
+        }
+    </style>
+</head>
+<body>
+    <div id="wrap">
+        <div id="main">
+            <div class="app-box">
+                <ul class="app-list">
+                    <li class="app-item display-box box-orient-h" tapmode="tap-active" onclick="">
+                        <div class="icon">
+                            <img src="../../image/icon_xiaohuoban.png" alt="">
+                        </div>
+                        <div class="app-item-right box-flex-1">
+                            <div class="top clearfix">
+                                <span class="app-name pull-left">小伙伴<i class="icon-need"></i></span>
+                                <span class="count pull-right">126 <span class="dollor">F币</span></span>
+                            </div>
+                            <span class="fav">1005.2万人下载 12.27MB</span>
+                            <span class="des">攻略全福利多，认证送5元</span>
+                        </div>
+                    </li>
+                    <li class="app-item display-box box-orient-h" tapmode="tap-active" onclick="">
+                        <div class="icon">
+                            <img src="../../image/icon_xiaohuoban.png" alt="">
+                        </div>
+                        <div class="app-item-right box-flex-1">
+                            <div class="top clearfix">
+                                <span class="app-name pull-left">小伙伴<i class="icon-need"></i></span>
+                                <span class="count pull-right">126 <span class="dollor">F币</span></span>
+                            </div>
+                            <span class="fav">1005.2万人下载 12.27MB</span>
+                            <span class="des">攻略全福利多，认证送5元</span>
+                        </div>
+                    </li>
+                    <li class="app-item display-box box-orient-h" tapmode="tap-active" onclick="">
+                        <div class="icon">
+                            <img src="../../image/icon_xiaohuoban.png" alt="">
+                        </div>
+                        <div class="app-item-right box-flex-1">
+                            <div class="top clearfix">
+                                <span class="app-name pull-left">小伙伴<i class="icon-need"></i></span>
+                                <span class="count pull-right">126 <span class="dollor">F币</span></span>
+                            </div>
+                            <span class="fav">1005.2万人下载 12.27MB</span>
+                            <span class="des">攻略全福利多，认证送5元</span>
+                        </div>
+                    </li>
+                    <li class="app-item display-box box-orient-h" tapmode="tap-active" onclick="">
+                        <div class="icon">
+                            <img src="../../image/icon_xiaohuoban.png" alt="">
+                        </div>
+                        <div class="app-item-right box-flex-1">
+                            <div class="top clearfix">
+                                <span class="app-name pull-left">小伙伴<i class="icon-need"></i></span>
+                                <span class="count pull-right">126 <span class="dollor">F币</span></span>
+                            </div>
+                            <span class="fav">1005.2万人下载 12.27MB</span>
+                            <span class="des">攻略全福利多，认证送5元</span>
+                        </div>
+                    </li>
+                    <li class="app-item display-box box-orient-h" tapmode="tap-active" onclick="">
+                        <div class="icon">
+                            <img src="../../image/icon_xiaohuoban.png" alt="">
+                        </div>
+                        <div class="app-item-right box-flex-1">
+                            <div class="top clearfix">
+                                <span class="app-name pull-left">小伙伴<i class="icon-need"></i></span>
+                                <span class="count pull-right">126 <span class="dollor">F币</span></span>
+                            </div>
+                            <span class="fav">1005.2万人下载 12.27MB</span>
+                            <span class="des">攻略全福利多，认证送5元</span>
+                        </div>
+                    </li>
+                    <li class="app-item display-box box-orient-h" tapmode="tap-active" onclick="">
+                        <div class="icon">
+                            <img src="../../image/icon_xiaohuoban.png" alt="">
+                        </div>
+                        <div class="app-item-right box-flex-1">
+                            <div class="top clearfix">
+                                <span class="app-name pull-left">小伙伴<i class="icon-need"></i></span>
+                                <span class="count pull-right">126 <span class="dollor">F币</span></span>
+                            </div>
+                            <span class="fav">1005.2万人下载 12.27MB</span>
+                            <span class="des">攻略全福利多，认证送5元</span>
+                        </div>
+                    </li>
+                    <li class="app-item display-box box-orient-h" tapmode="tap-active" onclick="">
+                        <div class="icon">
+                            <img src="../../image/icon_xiaohuoban.png" alt="">
+                        </div>
+                        <div class="app-item-right box-flex-1">
+                            <div class="top clearfix">
+                                <span class="app-name pull-left">小伙伴<i class="icon-need"></i></span>
+                                <span class="count pull-right">126 <span class="dollor">F币</span></span>
+                            </div>
+                            <span class="fav">1005.2万人下载 12.27MB</span>
+                            <span class="des">攻略全福利多，认证送5元</span>
+                        </div>
+                    </li>
+                    <li class="app-item display-box box-orient-h" tapmode="tap-active" onclick="">
+                        <div class="icon">
+                            <img src="../../image/icon_xiaohuoban.png" alt="">
+                        </div>
+                        <div class="app-item-right box-flex-1">
+                            <div class="top clearfix">
+                                <span class="app-name pull-left">小伙伴<i class="icon-need"></i></span>
+                                <span class="count pull-right">126 <span class="dollor">F币</span></span>
+                            </div>
+                            <span class="fav">1005.2万人下载 12.27MB</span>
+                            <span class="des">攻略全福利多，认证送5元</span>
+                        </div>
+                    </li>
+                    <li class="app-item display-box box-orient-h" tapmode="tap-active" onclick="">
+                        <div class="icon">
+                            <img src="../../image/icon_xiaohuoban.png" alt="">
+                        </div>
+                        <div class="app-item-right box-flex-1">
+                            <div class="top clearfix">
+                                <span class="app-name pull-left">小伙伴<i class="icon-need"></i></span>
+                                <span class="count pull-right">126 <span class="dollor">F币</span></span>
+                            </div>
+                            <span class="fav">1005.2万人下载 12.27MB</span>
+                            <span class="des">攻略全福利多，认证送5元</span>
+                        </div>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/common.js"></script>
+<script type="text/javascript">
+
+    apiready = function(){
+
+    };
+</script>
+</html>

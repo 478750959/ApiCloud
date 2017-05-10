@@ -1,0 +1,104 @@
+<!doctype html>
+<html style="background:rgba(0,0,0,0.4)">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>MI</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <!--<link rel="stylesheet" type="text/css" href="../css/common.css"/>-->
+    <link rel="stylesheet" type="text/css" href="../css/xyc.css"/>
+</head>
+<body style="background:rgba(0,0,0,0.4)">
+<div id="wrap">
+    <div id="main">
+    	<div class="set_sex">
+    		<div class="set_sex1 man">男</div>
+    		<div class="set_sex1 woman">女</div>
+    		<div class="set_sex3" onclick='api.closeFrame();'>取消</div>
+    	</div>
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/comm.js"></script>
+<script type="text/javascript" src="../script/font.js"></script>
+<script type="text/javascript" src="../script/zepto.js"></script>
+<script>
+	function do_change(param){
+		var info=is_login();
+		if(!info){
+			to_login();
+			return false;
+		}
+		for(var p in info){
+			param[p]=info[p];
+		}
+		 api.showProgress({
+		 	title: '处理中',
+			modal: false
+		}); 
+		setTimeout(function(){
+			api.hideProgress();
+		},1000);		
+		ajaxRequest('user/save_myinfo','post',param,function(ret,err){
+			api.hideProgress();
+			if(err){
+				api.toast({
+	                msg:err.msg
+                });
+                return false;
+			}
+			if(ret.status){	
+					api.toast({
+	                    msg:'性别修改成功！'
+                    });			
+				 	var user=$api.getStorage("mine");
+	                user.sex=param.sex;
+	                $api.setStorage("mine",user);              
+	                //更新用户信息表	
+	                api.execScript({
+		                name:'mi_sethead_w',
+		                frameName:'mi_set_f',
+		                script: 'sex("'+sex+'");'
+	                });
+//	                 api.closeFrame();	
+//	                update('user',{'sex':param.sex},{'id':getstor('id')},function(ret,err){
+//	                	if(err){
+//	                		api.toast({
+//	                            msg:err.msg
+//                          });
+//	                	}
+//	                	if(ret.status){               			
+//							api.execScript({
+//				                name:'mi_sethead_w',
+//				                frameName:'mi_set_f',
+//				                script: 'sex("'+sex+'");'
+//			                });
+//	                	}else{
+//	                		api.toast({
+//	                            msg:'内部数据异常'
+//                          });
+//	                	}
+//	                })		
+			}else{
+				if(ret.info=="no_login"){
+					to_login();
+					return false;
+				}
+				api.toast({
+	                msg:ret.info
+                });
+			}		
+		});	
+	}
+	var sex='';
+	$('.man').click(function(){
+		sex = $(this).text();	
+		do_change({sex:1});
+	})
+	$('.woman').click(function(){
+		sex = $(this).text();		
+		do_change({sex:2});
+	})
+</script>
+</html>

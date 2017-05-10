@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+  <head>
+    <title>
+    </title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="css/ui-tab.css">
+    <link rel="stylesheet" href="css/ui-input.css">
+    <link rel="stylesheet" href="css/ui-img.css">
+    <link rel="stylesheet" href="css/ui-res.css">
+    <link rel="stylesheet" href="css/ui-list.css">
+    <link rel="stylesheet" href="css/ui-base.css">
+    <link rel="stylesheet" href="css/ui-box.css">
+    <link rel="stylesheet" href="css/ui-color.css">
+	<link rel="stylesheet" href="css/style.css">
+      <link rel="stylesheet" href="css/ui-btn.css">
+    <script src="js/y_control.js"></script>
+	<script src="js/y_click.js"></script>
+	<script src="js/dis_control.js"></script>
+    <script src="js/y_icache.js"></script>
+	<script src="js/config.js"></script>
+	<script src="js/y_json.js"></script>
+    <script src="js/y_tmpl.js"></script>
+	<style>
+
+	</style>
+  </head>
+<body class="um-vp c-gra5" ontouchstart="zy_cc(this);">
+	<div>
+        <div class="">
+            <div class="b-gra uc-n" id="list">
+                <div></div>
+            </div>
+        </div>
+	</div>
+</body>
+<script>
+zy_init();
+var params = getStorJson('params');
+var uid = getstorage('UID');
+var curpage = 1;
+var totpage = 1;
+var upt = '';
+var update = {};
+
+
+window.uexOnload = function ()
+{
+    setPageBounce(downcb, upcb);
+    zy_initcache();
+
+    loadFriendTags('', '');
+    //updateLists();
+}
+function downcb(){
+    upt = '0';
+    update['0'] = 1;
+    loadFriendTags('', '');
+}
+function upcb(){
+    if (curpage < totpage) {
+        upt = '1';
+        update['1'] = 1;
+        loadFriendTags(curpage+1, '');
+    }
+    else{
+        resetBV('1');
+    }
+}
+
+function loadFriendTags(pn, flag){
+    var url = home_url + '&mod=spacecp&ac=friend&op=moderate_tag&do=viewtags';
+    if(!checkKey(url)) uexWindow.toast('1','5','加载中...',"");
+    $.getJSON(url, loadListCb, 'json', getJsonErr2, 'POST', '', '');
+}
+var pid = '';
+function loadListCb(json, id){
+    uexWindow.closeToast();
+    if(update[upt]){
+        update[upt] = 0;
+        resetBV(upt);
+    }
+    if(json){
+        if (int(json.status)<1) {
+            uexWindow.toast('0','5',json.message,2000);
+            return;
+        }
+
+        var cContent = $$('list');
+        var res = '';
+        var list = json.list;
+
+        var length = zy_tmpl_count(list);
+        if(length>0){
+            var tmpl = '<li ontouchstart="zy_touch(\'c-gra\')" onclick="go2tag5(${tagid}, \'${tagname}\');" class="uc-n ubb ub b-gra t-bla ub-ac lis" id="tag_${tagid}">'
+                            +'<div class="ub-f1 ub umh4 line-hei2">	'
+                                +'<div class="ub-f1 ulev0">${tagname}</div>'
+                                +'<div class="ub ufr ulev-1 t-gra ut-s">'
+                                    +'<div class="umar-r">一度(${count1d})</div>'
+                                    +'<div class="umar-r">二度(${count2d})</div>'
+                                +'</div> '
+                            +'</div> '
+                            +'</li>  '
+                      +'<li class="ubt1"></li>';
+
+            res = zy_tmpl(tmpl,list,length,'');
+            curpage = Int(json.zywy_curpage);
+            totpage = Int(json.zywy_totalpage);
+        }
+        else{
+            res = '<div class="uinn8 tx-c">暂无列表内容</div>';
+        }
+
+        if(curpage==1){
+            while(cContent.childElementCount>1)	{
+                cContent.removeChild(cContent.firstElementChild);
+            }
+        }
+        var node = document.createElement("ul");
+        node.innerHTML = res;
+        cContent.insertBefore(node,cContent.lastElementChild);
+    }
+}
+function updateLists(){
+    loadFriendTags('', '');
+    setstorage('Logout_4', '');
+}
+function getJsonErr2(s){
+	resetBV('0');
+	resetBV('1');
+	var str = '返回数据有误！';
+	if(s.status=='-1') str = '无网络，连接失败^_^！';
+	uexWindow.toast('0','5',str,"1500");
+	logs('getJsonErr2-->msg='+s.message);
+}
+function go2tag5(tagid, tagname){
+    setstorage('params','{"wname":"moderate_tag", "popname":"content", "tagid":"'+tagid+'", "tagname":"'+tagname+'"}');
+    openwin('friendtag_edit','friendtag_edit.html','10');
+}
+function closeEditor(){
+	//setStorJson(dataName[2], ImgObj);
+    ueppscript('tag_select', 'content', 'loadFriendTags(\'\', \'\');');//推荐页面新增，推荐页面管理和人脉圈新增，修改4个入口
+    setTimeout("uescript('moderate_tag', 'closewin();');", 1500);
+}
+
+</script>
+</html>

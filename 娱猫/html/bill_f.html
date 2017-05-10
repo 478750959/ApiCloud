@@ -1,0 +1,382 @@
+ <!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>海报</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/common.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/xyc.css"/>
+    <!--<link rel="stylesheet" type="text/css" href="../css/swiper.min.css"/>-->
+    <link rel="stylesheet" href="../css/idangerous.swiper.css">
+        <link rel="stylesheet" href="../css/idangerous.swiper.3dflow.css">
+    <style>
+    	.xycxyc{
+    		z-index:90;
+    	}
+        .swiper-container{
+                width:100%;
+                /*display:-webkit-box;*/
+                /*-webkit-box-sizing:border-box;*/
+                /*position:absolute;*/
+                padding:0.5rem 0;
+                /*height:7.15rem;*/
+        }
+        .swiper-slide{
+                /*width:5.07rem;*/
+                height:100%;
+                background:url(../image/bill_list_bg.png) no-repeat;
+                background-size:100% 100%;
+        }
+        .swiper-slide img{
+                display:block;
+                width:98.62%;
+                height:96.8%;
+        }
+    </style>
+    <script id="big_tpl" type="text/x-dot-template">
+        {{ for(var p in it) { }}
+         <div class="swiper-slide"  onclick = "xycclick(this)"   is_on_sale="{{=it[p].is_on_sale}}"  jump_type="{{=it[p].jump_type}}"       pic="{{=it[p].b}}"      goods_id="{{=it[p].goods_id}}"   url="{{=it[p].url}}"       is_online="{{=it[p].is_online}}"        pid="{{=it[p].id}}"><img     src="{{=it[p].b}}"    /></div>
+        {{ } }} 
+    </script>
+    <script id="small_tpl" type="text/x-dot-template">
+    {{ for(var p in it) { }}
+         <div class="bill_smallImg       {{ if(p==3)  { }}   opacity  {{ } }}" id="i{{=p}}"><img src='{{=it[p].s}}'        /></div>
+    {{ } }}                             
+    </script>
+</head>
+<body>
+<div id="wrap">
+    <div id="main" class='main bill_main'>
+        <div class="swiper-container xycxyc">
+            <div class="swiper-wrapper">              
+            </div>
+        </div>
+        <div class="bill_smallImgs" id='target'>
+        </div>
+        <div class="bill_huxian"></div>
+    </div>
+</div>
+<input name='poster_name' type="hidden">
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/comm.js"></script>
+<script type="text/javascript" src="../script/doT.min.js"></script>
+<script type="text/javascript" src="../script/font.js"></script>
+<script type="text/javascript" src="../script/zepto.js"></script>
+<script type="text/javascript" src="../script/touch.js"></script>
+<!--<script type="text/javascript" src="../script/swiper.min.js"></script>-->
+<script src="../script/idangerous.swiper-2.0.min.js"></script>
+<script src="../script/idangerous.swiper.3dflow-2.0.js"></script>
+<!--<script type="text/javascript" src="../script/echo.js"></script>-->
+<!--<script type="text/javascript" src="../script/debug.min.js"></script>-->
+<script>
+//点击图片列表进入标签页面					   
+
+	function xycclick(obj) {
+		var id = $(obj).attr('pid');
+		var pic = $(obj).attr('pic');
+		var is_online = $(obj).attr('is_online');
+		var goods_id = $(obj).attr('goods_id');
+		var url = $(obj).attr('url');
+		var jump_type = $(obj).attr('jump_type');	
+		var is_on_sale = $(obj).attr('is_on_sale');	
+		var param = {};
+		if (is_online == 1) {
+			param = {
+				'id' : id,
+				pic : pic,
+				is_online : 'off'
+			};
+			api.openWin({
+				name : 'bill_con_head_w2',
+				url : 'bill_con_head_w2.html',
+				reload : true,
+				vScrollBarEnabled : false,
+				pageParam : param
+			});
+		} else if (is_online == 2) {
+			param = {
+				'id' : id,
+				pic : pic,
+				is_online : 'on'
+			};
+			api.openWin({
+				name : 'bill_con_head_w',
+				url : 'bill_con_head_w.html',
+				reload : true,
+				vScrollBarEnabled : false,
+				pageParam : param
+			});
+		}else if(is_online==3){
+			if(jump_type==1 && goods_id!=false  && is_on_sale==1){
+				api.openWin({
+					name : 'bill_dethead_w',
+					url :  'bill_dethead_w.html',
+					opaque : true,
+					delay : 500,
+					vScrollBarEnabled : false,
+					pageParam : {
+						count : 3,
+						goods_id:goods_id
+					}
+				});	
+			}else if(jump_type==2 && url!=false){
+//				if(is_login()){
+					api.openWin({
+				        name:'bill_con_goods_head_w',
+				        url: 'bill_con_goods_head_w.html',
+				        opaque : true,
+						reload : true,
+						vScrollBarEnabled : false,
+						pageParam : {
+							u:url
+						}
+			        });
+//				}else{
+//					to_login();
+//				}
+				
+			}	
+		}
+	}
+
+	function getdata() {
+		//          	var now = Date.now();
+		var poster = $api.getStorage('poster');
+		//            	var user_set=isEmpty($api.getStorage('userset')) ? '' : $api.getStorage('userset');
+		var net_type = isEmpty($api.getStorage('net_type')) ? '' : $api.getStorage('net_type');	
+			poster='';
+		if (!isEmpty(poster) && net_type == 0) {  //不重新获取
+//			alert('不重新获取');
+			var dataInter = poster.data;
+			if (net_type == 0) {
+				for (var p in dataInter) {
+					for (var k in dataInter[p]) {
+						if (k == 'logo') {
+							get_img = function(url, obj) {
+								var img = SHA1(url);
+								if (obj[img] == undefined) {
+									if (url == undefined) {
+										return '../image/blank.gif';
+									} else {
+										return url;
+									}
+								} else {
+									return obj[img];
+								}
+							}
+							api.hideProgress();
+							var my_img_obj = $api.getStorage('img_obj');
+							if (my_img_obj != undefined) {
+								dataInter[p]['b'] = get_img(dataInter[p]['b'], my_img_obj);
+								dataInter[p]['s'] = get_img(dataInter[p]['s'], my_img_obj);
+							}
+						}
+					}
+				}
+			}
+			var interText = doT.template($("#small_tpl").html());
+			$(".bill_smallImgs").html(interText(dataInter));
+			var interText = doT.template($("#big_tpl").html());
+			$(".swiper-wrapper").html(interText(dataInter));
+			aaa();
+		} else { //重新获取
+//			alert('重新获取');
+			//              api.alert({msg:$api.getStorage('img_obj')});
+			ajaxRequest('poster/get_poster', 'post', {}, function(ret, err) {
+				api.hideProgress();
+				if (err) {
+					api.toast({
+						msg : err.msg
+					});
+					return false;
+				}
+				if (!ret.status) {
+					api.toast({
+						msg : ret.info
+					});
+					return false;
+				}
+				var dataInter = ret.info;
+				if (net_type == 'wifi' || net_type == '4G') {
+					//                              if(dataInter){
+					var img_obj = {};
+					var sss = new Array();
+					for (var p in dataInter) {
+						for (var k in dataInter[p]) {
+							if (k == 'logo') {
+								dataInter[p]['b'] = dataInter[p][k] + '!pb';
+								dataInter[p]['s'] = dataInter[p][k] + '!ps';
+								sss.push(dataInter[p]);
+							}
+						}
+					}
+					var arr = ['s', 'b'];
+					imgCache(sss, arr);
+					function imgCache(data, arr) {
+						var s = function(p, type) {
+							api.imageCache({
+								url : data[p][type],
+								thumbnail : false
+							}, function(ret, err) {
+								if (ret) {
+									var path = ret.url;
+									img_obj[SHA1(data[p][type])] = path;
+									$api.setStorage('img_obj', img_obj);
+									if (p + 1 == data.length) {
+										if (arr.length > 1) {
+											if (type == arr[1])
+												return;
+											s(0, arr[1]);
+										}
+										return;
+									}
+									s(p + 1, type);
+								}
+							})
+						}					
+						s(0, arr[0]);
+					}
+					$api.setStorage('poster', {
+						data : dataInter
+					});
+					var interText = doT.template($("#small_tpl").html());
+					$(".bill_smallImgs").html(interText(dataInter));
+					var interText = doT.template($("#big_tpl").html());
+					$(".swiper-wrapper").html(interText(dataInter));
+					aaa();
+				} else {
+					for (var p in dataInter) {
+						for (var k in dataInter[p]) {
+							if (k == 'logo') {
+								dataInter[p]['b'] = dataInter[p][k] + '!pb';
+								dataInter[p]['s'] = dataInter[p][k] + '!ps';
+							}
+						}
+					}
+					$api.setStorage('poster', {
+						data : dataInter
+					});
+					var interText = doT.template($("#small_tpl").html());
+					$(".bill_smallImgs").html(interText(dataInter));
+					var interText = doT.template($("#big_tpl").html());
+					$(".swiper-wrapper").html(interText(dataInter));
+					aaa();
+				}
+			});
+		}
+	}
+
+	var aaa = function() {
+		var hh = $('#main').height();
+		var gao = parseInt($('#target').height());
+		var top = parseInt($('#target').css('bottom'));
+		var a = gao + top;
+		var height = parseInt(hh - a);
+		var top = parseInt($(".swiper-container").css('padding-top'));
+		var bottom = parseInt($(".swiper-container").css('padding-bottom'));
+		var h = height - top - bottom;
+		var w = h * 0.706;
+		var target = document.getElementById('target');
+		var data = -45;
+		var now = 0;
+		var rx = 0, ry = 0;
+		var cx = 0, cy = 0;
+		var time1;
+		target.style.webkitTransform = "rotate(-45deg)"
+		$('.swiper-container').css('height', h);
+		$('.swiper-slide').width(w);
+		var swiper = new Swiper('.swiper-container', {
+			initialSlide : 3,
+			centeredSlides : true, //居中显示slider
+			slidesPerView : 'auto',
+			updateOnImagesReady : true,
+			tdFlow : {
+				shadows : false,
+			},
+			onSlideChangeStart : function(swiper) {
+				var index = swiper.activeIndex;
+				var i = index - swiper.previousIndex;
+				if (i > 0) {
+					data -= i * 15;
+				}
+				if (i < 0) {
+					data += -(i * 15);
+				}
+				target.style.webkitTransition = 'all ease-out 0.1s';
+				target.style.webkitTransform = 'rotate(' + data + 'deg)';
+				$('.bill_smallImg').eq(index).addClass('opacity').siblings().removeClass('opacity');
+			}
+		});
+		target.addEventListener('touchstart', function(evt) {
+			evt.preventDefault();
+			//阻止触摸时浏览器的缩放、滚动条滚动等
+			var touch = evt.touches[0];
+			//获取第一个触点
+			rx = Number(touch.pageX);
+			//页面触点X坐标
+			ry = Number(touch.pageY);
+			time1 = new Date();
+			time1 = time1.getTime();
+		}, false)
+		target.addEventListener('touchmove', function(evt) {
+			evt.preventDefault();
+			//阻止触摸时浏览器的缩放、滚动条滚动等
+			var touch = evt.touches[0];
+			//获取第一个触点
+			cx = Number(touch.pageX);
+			//页面触点X坐标
+			cy = Number(touch.pageY);
+		}, false)
+		target.addEventListener('touchend', function(evt) {
+			var size = $('.swiper-slide').size();
+			var xyc = cx - rx;
+			var time2 = new Date();
+			time2 = time2.getTime();
+			var t = time2 - time1;
+			if ((xyc > 30 || xyc < -30) && (t > 100)) {
+				//为了求一个速度，
+				var c = xyc / 60;
+				//四舍五入取整为了正好停在中间位置。
+				var a = Math.round(c);
+				var b = a * 15;
+				//b为转动的角度,  now为转了多少个
+				data += b;
+				now = -(data / 15);
+				if (data > 0 && b > 0 || now == -0) {
+					data = 0;
+					now = 0;
+				}
+				if (data <= -size * 15 && b < 0 && now >= 23) {
+					data = (1 - size) * 15;
+					now = size - 1;
+					//                                          return false;
+				}
+				target.style.webkitTransform = 'rotate(' + data + 'deg)';
+				target.style.webkitTransition = 'all ease-out 0.3s';
+				$('.bill_smallImg').removeClass('opacity');
+				$('#i' + now).addClass('opacity');
+				swiper.swipeTo(now, 1000, false);
+			}
+		})
+	}
+	apiready = function() {
+//		api.addEventListener({
+//			name : 'online'
+//		}, function(ret, err) {
+//			var connectionType = ret.connectionType;
+////				    api.alert({
+////				        msg:connectionType+'online'
+////			      });
+//			$api.setStorage('net_type', connectionType);
+//		})
+		api.showProgress({
+			style : 'default',
+			title : '加载中',
+			modal : false
+		});
+		getdata();
+	}
+</script>
+</html>

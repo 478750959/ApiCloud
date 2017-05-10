@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>title</title>
+		<link rel="stylesheet"type="text/css" href="../css/weui.css">
+		<link rel="stylesheet" type="text/css" href="../css/example.css" />
+		<style>
+			body {
+			}
+		</style>
+	</head>
+	<body ontouchstart="" gtools_scp_screen_capture_injected="true" style="zoom: 1;">
+		<div class="container js_container">
+			<div class="page">
+				<div class="hd">
+					<h1 class="page_title">Toast</h1>
+				</div>
+				<div class="bd spacing">
+					<a href="javascript:;" class="weui_btn weui_btn_primary" id="showToast" onclick="showToast();">点击弹出Toast</a>
+					<a href="javascript:;" class="weui_btn weui_btn_primary" id="showLoadingToast" onclick="showLoadingToast();">点击弹出Loading Toast</a>
+				</div>
+				<!--BEGIN toast-->
+				<div id="toast" style="display: none;">
+					<div class="weui_mask_transparent"></div>
+					<div class="weui_toast">
+						<i class="weui_icon_toast"></i>
+						<p class="weui_toast_content">
+							已完成
+						</p>
+					</div>
+				</div>
+				<!--end toast-->
+				<!-- loading toast -->
+				<div id="loadingToast" class="weui_loading_toast" style="display:none;">
+					<div class="weui_mask_transparent"></div>
+					<div class="weui_toast">
+						<div class="weui_loading">
+							<div class="weui_loading_leaf weui_loading_leaf_0"></div>
+							<div class="weui_loading_leaf weui_loading_leaf_1"></div>
+							<div class="weui_loading_leaf weui_loading_leaf_2"></div>
+							<div class="weui_loading_leaf weui_loading_leaf_3"></div>
+							<div class="weui_loading_leaf weui_loading_leaf_4"></div>
+							<div class="weui_loading_leaf weui_loading_leaf_5"></div>
+							<div class="weui_loading_leaf weui_loading_leaf_6"></div>
+							<div class="weui_loading_leaf weui_loading_leaf_7"></div>
+							<div class="weui_loading_leaf weui_loading_leaf_8"></div>
+							<div class="weui_loading_leaf weui_loading_leaf_9"></div>
+							<div class="weui_loading_leaf weui_loading_leaf_10"></div>
+							<div class="weui_loading_leaf weui_loading_leaf_11"></div>
+						</div>
+						<p class="weui_toast_content">
+							数据加载中
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../script/api.js"></script>
+	<script type="text/javascript">
+		apiready = function() {
+		};
+		function showToast() {
+			var toast = $api.byId('toast');
+			//			$api.cssVal(el,'width'); // => 800px
+			//			if (toast.css('display') != 'none') {
+			if ($api.cssVal(toast, 'display') != 'none') {
+				return;
+			}
+			//			toast.show();
+			$api.css(toast, 'display:block');
+			setTimeout(function() {
+				//				$toast.hide();
+				$api.css(toast, 'display:none');
+			}, 2000);
+		}
+
+		function showLoadingToast() {
+			var loadingToast = $api.byId('loadingToast');
+			//			if (loadingToast.css('display') != 'none') {
+			if ($api.cssVal(loadingToast, 'display') != 'none') {
+				return;
+			}
+			//			loadingToast.show();
+			$api.css(loadingToast, 'display:block');
+			setTimeout(function() {
+				//				loadingToast.hide();
+				$api.css(loadingToast, 'display:none');
+			}, 2000);
+		}
+	</script>
+</html>

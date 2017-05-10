@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+<head>
+    <title>
+    </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="css/ui-btn.css">
+    <link rel="stylesheet" href="css/ui-input.css">
+    <link rel="stylesheet" href="css/ui-img.css">
+    <link rel="stylesheet" href="css/ui-res.css">
+    <link rel="stylesheet" href="css/ui-list.css">
+    <link rel="stylesheet" href="css/ui-base.css">
+    <link rel="stylesheet" href="css/ui-box.css">
+    <link rel="stylesheet" href="css/ui-color.css">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/y_control.js"></script>
+    <script src="js/y_click.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/dis_control.js"></script>
+    <script src="js/y_json.js"></script>
+    <script src="js/y_anim.js"></script>
+    <style>
+        .uinn-r{
+            padding:1.125em;
+        }
+    </style>
+</head>
+<body class="um-vp" ontouchstart>
+<div id="page_0" class="up ub ub-ver" tabindex="0">
+    <!--header开始-->
+    <div id="header" class="uh c-blu3">
+        <div class="c-blu3 t-wh">
+            <div class="" ontouchstart="zy_touch('btn-act1')" onclick="closewin();">
+                <div class="btn btn-l btn-a ub ub-ac umw4 umh3" style="z-index: 99;">
+                    <div class="ulim"><img src="images/back.png" class="sbtn"></div>
+                </div>
+            </div>
+            <h1 class="ub ub-ac umh5 ulev0 ut-s ub-pc" id="ttl">约伴服务协议</h1>
+        </div>
+    </div>
+    <!--header结束-->
+    <!--content开始-->
+    <div id="content" class="ub-f1 tx-l t-bla">
+
+    </div>
+    <!--content结束-->
+</div>
+</body>
+<script>
+    zy_init();
+    window.uexOnload = function(){
+
+        zy_con("content", 'license_content.html', 0, $$("header").offsetHeight);
+
+        window.onorientationchange=window.onresize=function()
+        {
+            zy_resize("content",0,$$("header").offsetHeight);
+        }
+    };
+</script>
+</html>

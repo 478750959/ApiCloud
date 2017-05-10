@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+<head>
+	<title>
+	</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+	<link rel="stylesheet" href="css/ui-img.css">
+	<link rel="stylesheet" href="css/ui-res.css">
+	<link rel="stylesheet" href="css/ui-list.css">
+	<link rel="stylesheet" href="css/ui-base.css">
+	<link rel="stylesheet" href="css/ui-box.css">
+	<link rel="stylesheet" href="css/ui-color.css">
+	<link rel="stylesheet" href="css/style.css">
+    <script src="js/y_control.js"></script>
+    <script src="js/y_click.js"></script>
+	<script src="js/y_json.js"></script>
+	<script src="js/y_tmpl.js"></script>
+	<script src="js/y_icache.js"></script>
+	<script src="js/dis_control.js"></script>
+	<script src="js/config.js"></script>
+	<script></script>
+	<style>
+	.ext-bg-send {
+	white-space:normal;
+	border:8px solid rgba(0,0,0,0.2);
+	border-right-width: 16px;
+	border-top-width: 8px;
+	-webkit-border-image: url(images/sender-.png) 7 16 9 8 stretch stretch;
+	}
+	.ext-bg-send-j{
+	position:absolute;
+	right:0;
+	top:0;
+	margin-top:.2em;
+	z-index:100;
+	display:block;
+	}
+	.ext-bg-recv-j{
+	right:auto;
+	left:0;
+	}
+	.ext-bg-recv {
+	-webkit-border-image: url(images/recv-.png) 7 16 9 16 stretch stretch;
+	border-left-width: 16px;
+	}
+	.ext-dateline{
+	position: absolute;
+	bottom: -1.8em;
+	font-size: .7em;
+	font-weight: normal;
+	overflow: visible;
+	width: 100%;
+	text-align: center;
+	}
+	.ext-txt-color{
+	color:#4a4a4a;
+	}
+	.ui-li-desc {
+	font-size: .75em;
+	font-weight: normal;
+	display: block;
+	margin: -.5em 0 .6em;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	padding: 0 0.2em;
+	}
+	.ui-listview {
+		margin: 0;
+		counter-reset: listnumbering
+	}
+	</style>
+</head>
+<body class="um-vp" ontouchstart>
+	<div id="list">
+		<div id="last"></div>
+	</div>
+</body>
+<script>
+zy_init();
+var uid = getstorage('UID');
+var params = getStorJson('params');
+var touid = params.touid;
+var curpage = 1;
+var totpage = 1;
+var upt = '';
+var update = {};
+var cContent = $$('list');
+var ucurl = getstorage('ucurl');
+var mu = {aid:0, pid:0};
+var ud1st = 0;
+var isnew = params.isnew;
+if(!ucurl) ucurl = guc;
+
+window.uexOnload = function ()
+{
+	setPageBounceMsg(downcb, upcb);
+	zy_initcache();
+	
+	var f = '1';
+	if(isnew=='1') f='';
+	loadList('', f);
+}
+function upcb(){
+	logs('upcb()------>');
+	upt = '1';
+	update['1'] = 1;
+	loadList('', '');
+}
+function downcb(){
+	logs('downcb()------>');
+	if (curpage < totpage) {
+		upt = '0';
+		update['0'] = 1;
+		loadList(curpage + 1, '');
+	}
+	else resetBV('0');
+}
+
+function loadList(pn, flag){
+	var url =  home_url + "&mod=space&do=pm&subop=view" + "&touid=" + touid + "&page="+pn;
+	if(!checkKey(url)) uexWindow.toast('1','5','加载中...',"");
+	var f = pn?'':'1';
+	logs('Msg_detaill-->loadlist-->url='+url);
+	$.getJSON(url, loadListCb, 'json', getJsonErr, 'POST', '', flag, f);
+}
+function loadListCb(json){
+	uexWindow.closeToast();
+	if(update[upt]){
+		update[upt] = 0;
+		resetBV(upt);
+	}
+		
+	if(json){
+		if (Int(json.status)<1) {
+			uexWindow.toast('0','5',json.message,2000);
+			return;
+		}
+		
+		var list = json.list;
+		var length = zy_tmpl_count(list);
+		if(!ud1st && list && list[length-1]){
+			var id0 = 0;
+			var id1 = list[length-1].authorid+'_'+list[length-1].pmid;
+			if(cContent && cContent.children[0] && cContent.children[0].lastElementChild) id0=cContent.children[0].lastElementChild.id;
+			logs('id0='+id0+', id1='+id1);
+			if(id0==id1) return;
+		}
+		ud1st = 0;
+		curpage = Int(json.zywy_curpage);
+		totpage = Int(json.zywy_totalpage);
+		
+		var res = '';
+		if (length > 0) {
+			var tmpl = '<li id="${authorid}_${pmid}" style="padding-top:.5em;">'
+						+'${cb:datetime}'
+						//+'<div class="ub ub-ac ub-pc">'
+							//+'<span class="c-gra6 t-wh uinn3 ulev-3 uc-a1">${datetime}</span>'
+						//+'</div>'
+						+'<div class="uc-n"> '  
+				 		+'<div ontouchstart="zy_touch(\'btn-act\')" onclick="msg_menu(${authorid}, ${pmid});" class="ub t-bla ub-at lis ${cb:mine}">'
+				  			+'<div class="lis-th2 ub-img uc-a1">'
+				     			+'<img src="images/mylogo.png" class="inforpic" id="${pmid}" ${cb:pic}/>'
+				     		+'</div>'
+							+'<div class="ub-f1 ub">'
+								+'<div class="ub-at ub-pt">'
+									+'<div style="margin:0;word-break:break-all;" class="ui-li-desc ext-txt-color ext-bg-send ulev0 uof ${cb:touid1}">'
+									+'${message}'
+									+'</div>'
+									+'${cb:touid2}'
+								+'</div>'
+								+'<div class="ub-f1"></div>'
+							+'</div>'
+							+'<div style="width:3.8em;"></div> ' 
+				 		+'</div> '    
+				  		+'</div>'
+					+'</li>';
+			res = zy_tmpl(tmpl,list,zy_tmpl_count(list),j2vCb);
+		}
+		else{
+			res = '<div class="uinn8 tx-c">暂无消息</div>';
+		}
+		
+		if(curpage==totpage)
+       	{
+       		while(cContent.childElementCount>1)
+       		{
+       			cContent.removeChild(cContent.firstElementChild);
+       		}
+       	}
+		
+		var node = document.createElement("ul");
+		node.innerHTML = res;;
+		cContent.insertBefore(node,cContent.firstElementChild);
+        imgCacheCall();
+		var e=document.body;
+		e.scrollTop=e.scrollHeight;
+	}
+}
+var dlpre = 0;
+function j2vCb(d,c)
+{
+	var str = '';
+	 if(c.length>1)
+	 {
+		switch(c[1])
+		{
+			case 'pic':
+				var src = ucurl+d.authorid;
+                pushCacheCall(function(){
+                    dis_imgcache(d.pmid,src,src,imgLoadSucSrc,imgLoadErrSrc,null,'',1);
+                });
+			break;
+			case 'mine':
+				if(d.authorid==uid) str = 'ub-rev ub-pe';
+			break;
+			case 'touid1':
+				if(d.authorid==touid) str = 'ext-bg-recv';
+			break;
+			case 'touid2':
+				if(d.authorid==uid) str = '<div class="ext-bg-send-j"><img src="images/sender-j-.png"></div>';
+				else str = '<div class="ext-bg-send-j ext-bg-recv-j"><img src="images/recv-j-.png"></div>';
+			break;
+			case 'datetime':
+				var ti = (Int(d.dateline) - Int(d.founddateline))/(3600*24);
+				//logs('ti='+ti);
+				if(dlpre==0 || Math.abs(ti-dlpre)>1)
+					str = '<div class="ub ub-ac ub-pc"><span class="c-gra6 t-wh uinn3 ulev-3 uc-a1">'+d.datetime+'</span></div>';
+				dlpre = ti;
+			break;
+		}
+	 }
+	 return str;
+}
+
+function go2new5(touid, tousername){
+	//setstorage('params','{"touid":"'+touid+'", "tousername":"'+tousername+'"}');
+	
+	//var o = getStorJson('params');
+	//openwin('msg_detail','msg_detail.html','10');
+}
+
+function msg_menu(aid, pid)
+{
+	mu.aid = aid;
+	mu.pid = pid;
+	var cb = cbActionSheet1;
+	var array = ['删除', '全部删除'];	
+	if(aid == touid)
+	{
+		array = ['个人信息','删除', '全部删除'];
+		cb = cbActionSheet2;
+	}
+	
+	uexWindow.cbActionSheet = cb;
+	uexWindow.actionSheet('', '取消', array);
+}
+
+function cbActionSheet1(opId, dataType, data){
+	if(data == 0) msgDelItem();
+	else if(data == 1) msgDelAll();
+}
+function cbActionSheet2(opId, dataType, data){
+	if(data == 0) go2info();
+	else if(data == 1) msgDelItem();
+	else if(data == 2) msgDelAll();
+}
+
+function msgDelItem(){
+	var url = home_url+"&mod=spacecp&ac=pm&op=delete&deletepm_pmid[]="+mu.pid+"&touid="+mu.aid+"&deletesubmit=true";
+	uexWindow.toast('1','5','请稍候...',"");
+	$.getJSON(url,function(json) {
+		if (json.status == '1') {
+			uexWindow.toast(0, 5, '删除成功', 2000);
+			
+			var id = mu.aid+'_'+mu.pid;
+			removeNode(id);
+		} else {
+			uexWindow.toast(0, 5, '删除失败', 2000);
+		}
+	},'json', getJsonErr, 'POST');
+}
+
+function msgDelAll(){
+	var url = home_url+"&mod=spacecp&ac=pm&op=delete&deletepm_deluid[]="+touid+"&deletesubmit=true";
+	uexWindow.toast('1','5','请稍候...',"");
+	$.getJSON(url,function(json) {
+		if (json.status == '1') {
+			
+			var e = cContent.firstElementChild;
+			while(e)
+			{
+				cContent.removeChild(e);
+				e = e.nextElementSibling;
+				if(e && e.id=='last') break;
+			}
+			
+			uexWindow.toast(0, 5, '删除成功', 2000);
+		} else {
+			uexWindow.toast(0, 5, '删除失败', 2000);
+		}
+	},'json', getJsonErr, 'POST');
+}
+
+function go2info(){
+	setstorage('params','{"uid":"'+touid+'", "username":"'+params.tousername+'", "isfriend":""}');
+	openwin('friend_information','friend_information.html','10');
+}
+
+function update5(){
+	ud1st = 1;
+	loadList('', '');
+}
+
+function setPageBounceMsg(downcb, upcb){
+	var str = '';
+	uexWindow.onBounceStateChange = function (type,status){
+		//logs('onBounceStateChange-->type='+type+', status='+status);
+		if(downcb && type==0 && status==2) downcb();
+		if(upcb && type==1 && status==2) upcb();
+	}
+	
+	uexWindow.setBounce("1");
+	
+	uexWindow.notifyBounceEvent("0","1");
+	str = '{"pullToReloadText":"下拉加载更多..."}';
+	if(!isSML) uexWindow.setBounceParams('0', str);
+	uexWindow.showBounceView("0","#E6E6E6",'1');
+	
+	uexWindow.notifyBounceEvent("1","1");
+	str = '{"pullToReloadText":"上拉刷新..."}';
+	if(!isSML) uexWindow.setBounceParams('1', str);
+	uexWindow.showBounceView("1","#E6E6E6",'1');
+}
+</script>
+</html>

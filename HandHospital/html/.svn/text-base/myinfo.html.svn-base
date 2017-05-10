@@ -1,0 +1,169 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>report</title>
+		<link rel="stylesheet" type="text/css" href="../css/api.css" />
+		<link rel="stylesheet" type="text/css" href="../css/common.css" />
+		<style>
+			#wrap {
+				width: 100%;
+				display: -webkit-box;
+				display: -webkit-flex;
+				display: flex;
+				-webkit-box-orient: vertical;
+				-webkit-flex-flow: column;
+				flex-flow: column;
+			}
+			#main {
+				-webkit-box-flex: 1;
+				-webkit-flex: 1;
+				flex: 1;
+			}
+			section {
+				border-bottom: 1px solid #BDBDBD;
+				padding: 10px;
+				display: -webkit-box;
+			}
+			.left {
+				width: 25px;
+				height: 25px;
+				display: -webkit-box;
+				-webkit-box-align: center;
+				-webkit-background-size: 25px 25px !important;
+				background-size: 25px 25px !important;
+			}
+			.middle {
+				-webkit-box-flex: 1;
+				-webkit-box-align: center;
+				display: -webkit-box;
+				font-size: 14px;
+				color: #5E5E5E;
+				margin-left: 5px;
+			}
+			.right {
+				width: 25px;
+				display: -webkit-box;
+				background: url(../image/right.png) no-repeat center;
+				-webkit-background-size: 10px 17px;
+			}
+			#main .myorder {
+				background: url(../image/myorder.png) no-repeat center center;
+			}
+			#main .myuser {
+				background: url(../image/myuser.png) no-repeat center center;
+			}
+			#main .report {
+				background: url(../image/report.png) no-repeat center center;
+			}
+			#main .myinfo {
+				background: url(../image/myinfo.png) no-repeat center center;
+			}
+			#main .password {
+				background: url(../image/password.png) no-repeat center center;
+			}
+			#main .about {
+				background: url(../image/about.png) no-repeat center center;
+			}
+			#main .push {
+				background: url(../image/push.png) no-repeat center center;
+			}
+			.top {
+				width: 100%;
+				background-color: #f5f5f5;
+			}
+			.top .title {
+				margin-left: 18px;
+				height: 35px;
+				line-height: 35px;
+				color: #5e5e5e;
+				font-size: 16px;
+			}
+			#exit {
+				display: none;
+				width: 100%;
+				height: 35px;
+				-webkit-box-flex: 1;
+				-webkit-flex: 1;
+				box-flex: 1;
+			}
+			#userinfo {
+				margin-top: 20px;
+				width: 100%;
+				height: 35px;
+				text-align: center;
+				color: #3795f2;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="wrap">
+			<div id="main">
+				<div id="userinfo" onclick="openLogin()" tapmode>
+					注册/登录
+				</div>
+				<div class='top'>
+					<span class="title">账户设置</span>
+				</div>
+				<section class="sec1" tapmode="grayActive" onclick="openWin('addinfo','完善信息')">
+					<a class="left myinfo"></a>
+					<div class="middle">
+						完善信息
+					</div>
+				</section>
+				<section style="border: none" tapmode="grayActive" onclick="openWin('changepswd','修改密码')">
+					<a class="left password"></a>
+					<div class="middle">
+						修改密码
+					</div>
+				</section>
+				<div class='top'>
+					<span class="title">我的相关</span>
+				</div>
+				<section class="sec1" tapmode="grayActive" onclick="openWin('order_record','预约记录')">
+					<a class="left myorder"></a>
+					<div class="middle">
+						预约记录
+					</div>
+				</section>
+				<section class="sec1" tapmode="grayActive" onclick="openWin('report_record','报告单记录')">
+					<a class="left report"></a>
+					<div class="middle">
+						报告单记录
+					</div>
+				</section>
+				<section style="border: none;display:none" tapmode="grayActive" onclick="openWin('myuser','常用就诊人')">
+					<a class="left myuser"></a>
+					<div class="middle">
+						常用就诊人
+					</div>
+				</section>
+				<div class='top'>
+					<span class="title">设置</span>
+				</div>
+				<section class="sec1" tapmode="grayActive">
+					<a class="left push"></a>
+					<div class="middle">
+						实时推送
+					</div>
+				</section>
+				<section style="border: none" tapmode="grayActive">
+					<a class="left about"></a>
+					<div class="middle">
+						关于
+					</div>
+				</section>
+			</div>
+			<div class="btn_wrap">
+				<button class="button red" id="exit" tapmode="buttonActive">
+					退出当前账号
+				</button>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../script/api.js"></script>
+	<script type="text/javascript" src="../script/zepto.min.js"></script>
+	<script type="text/javascript" src="../script/constants.js"></script>
+	<script type="text/javascript" src="../script/myinfo.js"></script>
+</html>

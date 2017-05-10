@@ -1,0 +1,188 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>我的订单</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/common.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/ly.css"/>
+</head>
+<body>
+<style>
+	html,body {
+		background:none;
+	}
+	#wrap {
+		background:none;
+	}
+</style>
+<div id="wrap">
+<div id="main">
+    <div class="ly_mask ly_canc none">
+	    <div class="cancle_dd">   	
+	    	<div>
+	    		<h2 class="title"></h2>
+	    		<p class="content"></p>
+	    	</div>  	
+	    	<p>
+	    		<span class="btn-n">取消</span>
+	    		<span class="btn-y">确定</span>
+	    	</p>    	
+	    </div>
+    </div> 	
+</div>
+</div>	
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/comm.js"></script>
+<script type="text/javascript" src="../script/font.js"></script>
+<script type="text/javascript" src="../script/zepto.js"></script>
+<script>
+apiready=function(){
+	var title=api.pageParam.title,content=api.pageParam.content,m=api.pageParam.m,src=api.pageParam.src;
+	$('.title').html(title);
+	$('.content').html(content);
+	$(".ly_canc").removeClass('none');		
+	switch(m){
+		case 1://发现新版本
+			$('.ly_canc span').bind("click", function() {
+				$(".ly_canc").addClass('none');	
+				if($(this).attr("class") == 'btn-y'){
+					$api.setStorage('check_up','1');
+					$api.rmStorage('firstStart');
+					$api.rmStorage('aa');
+					api.openWin({
+						name : 'update',
+						url : src
+					});
+					api.closeFrame();						
+				}else if($(this).attr('class') == 'btn-n'){						
+					api.toast({
+	                    msg:'已取消更新'
+                    });	
+                    api.closeFrame();				
+				}
+			})
+			break;
+			case 2://解绑微信
+			$('.ly_canc span').bind("click", function() {
+					$(".ly_canc").addClass('none');	
+				if($(this).attr("class")== 'btn-y'){
+				var info=is_login();
+				if(isEmpty(info)){
+					to_login();
+					api.closeFrame();		
+					return false;
+				}
+					var param={};
+					for(var p in info){
+						param[p]=info[p]
+					}
+					param.m='wx';
+					api.showProgress({
+						title : '处理中',
+						modal : false
+					});
+					ajaxRequest('user/unbind','post',param,function(ret,err){
+					api.hideProgress();
+						if(err){
+							api.toast({
+	                            msg:err.msg
+                            });
+						}
+						if(ret.status){
+						api.toast({
+	                        msg:'解绑成功!'
+                        });
+						var user=$api.getStorage('mine');
+						user.wx_openid='';
+						user.wx_btime='';
+						$api.setStorage('mine',user);
+						$api.rmStorage('wx');
+						api.execScript({
+							name:'mi_sethead_w',
+							frameName:'mi_set_f',
+							script:'rm_wx();'
+						})		
+						api.closeFrame();			
+						}else{
+							api.toast({
+	                            msg:ret.info
+                            });
+                            api.closeFrame();		
+						}
+					});	
+				}else if($(this).attr('class') == 'btn-n'){						
+					api.toast({
+	                    msg:'取消操作!'
+                    });		
+                    api.closeFrame();			
+				}
+			})
+			break;
+			case 3://解绑新浪
+			$('.ly_canc span').bind("click", function() {
+				$(".ly_canc").addClass('none');	
+				if($(this).attr("class")== 'btn-y'){
+				var info=is_login();
+				if(isEmpty(info)){
+					to_login();
+					api.closeFrame();		
+					return false;
+				}
+					var param={};
+					for(var p in info){
+						param[p]=info[p]
+					}
+					param.m='sina';
+					api.showProgress({
+						title : '处理中',
+						modal : false
+					});
+					ajaxRequest('user/unbind','post',param,function(ret,err){
+					api.hideProgress();
+						if(err){							
+							api.toast({
+	                            msg:err.msg
+                            });
+                            api.closeFrame();		
+						}
+						if(ret.status){
+						api.toast({
+	                        msg:'解绑成功!'
+                        });
+						var user=$api.getStorage('mine');
+						user.sina_uid='';
+						user.sina_btime='';
+						$api.setStorage('mine',user);
+						$api.rmStorage('sina');
+						api.execScript({
+							name:'mi_sethead_w',
+							frameName:'mi_set_f',
+							script:'rm_sina();'
+						})	
+						api.closeFrame();		
+						}else{
+							api.toast({
+	                            msg:ret.info
+                            });
+                            api.closeFrame();		
+						}
+					});	
+				}else if($(this).attr('class') == 'btn-n'){						
+					api.toast({
+	                    msg:'取消操作!'
+                    });	
+                    api.closeFrame();				
+				}
+			})
+			break;
+	}
+}
+</script>
+</html>
+
+
+
+

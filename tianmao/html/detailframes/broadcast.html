@@ -1,0 +1,187 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>APP</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/common.css" />
+    <style>
+        #header{
+            text-align: center;
+        }
+        #header h5{
+            display: inline-block;
+            color: #FFF;
+            line-height: 48px;
+            width: 100%;
+            position: absolute;
+            left: 0;
+        }
+        #main{
+            padding: 0;
+        }
+        .btn_box{
+            width: 52px;
+            height: 48px;
+            position: relative;
+        }
+        .btn_box img{
+            width: 23px;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            -webkit-transform: translate(-50%,-50%);
+                    transform: translate(-50%,-50%);
+        }
+        .btn_box.pull-left{
+            background: url(../../res/img/webview_dividing.png) right center no-repeat;
+            background-size: 1px 100%;
+            position: relative;
+            z-index: 1;
+        }
+        .btn_box.pull-left:active,.btn_box.pull-left.tap-active{
+            background: #7F0000 url(../../res/img/webview_dividing.png) right center no-repeat;
+            background-size: 1px 100%;
+        }
+        .btn_box.pull-right{
+            background: url(../../res/img/webview_dividing.png) left center no-repeat;
+            background-size: 1px 100%;
+            position: relative;
+            z-index: 1;
+        }
+        .btn_box.pull-right:active,.btn_box.pull-right.tap-active{
+            background: #7F0000 url(../../res/img/webview_dividing.png) left center no-repeat;
+            background-size: 1px 100%;
+        }
+        
+        .navbar-shadow{
+            width: 100%;
+            display: block;
+            position: relative;
+        }
+        .navInnerBar{
+            display: block;
+            width: 85%;
+            height: 100%;
+            margin: 0 auto;
+            background-color: #C50000;
+        }
+    </style>
+</head>
+<body>
+    <div id="wrap">
+        <div id="header">
+            <div class="btn_box pull-left" tapmode="tap-active" onclick="api.closeWin();">
+                <img src="../../res/img/tmall_btn_bar_back.png" alt="">
+            </div>
+            <h5></h5>
+            <div class="navbar-shadow">
+                <div id="navBar_fun">
+                    <span class="navBar_btn active" onclick="jumpToBC(0);" tapmode="tap-active">
+                        新品
+                    </span>
+                    <span class="navBar_btn" onclick="jumpToBC(1);" tapmode="tap-active">
+                        优惠
+                    </span>
+                    <span class="navBar_btn" onclick="jumpToBC(2);" tapmode="tap-active">
+                        专享
+                    </span>
+                    <span class="navBar_btn" onclick="jumpToBC(3);" tapmode="tap-active">
+                        专题
+                    </span>
+                    <span class="navBar_bar">
+                        <span class="navInnerBar"></span>
+                    </span>
+                </div>
+            </div>
+            
+        </div>
+        <div id="main"> 
+
+        </div>
+
+    </div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/common.js"></script>
+<script type="text/javascript">
+    
+    var navBarFun = $api.dom('#navBar_fun');
+    var funH = $api.offset(navBarFun).h;
+    var aNavBarBtn = $api.domAll('#navBar_fun .navBar_btn');
+    var navBarBar = $api.dom('#navBar_fun .navBar_bar');
+    var setNavBarBtn = function(index){
+        $api.addCls(aNavBarBtn[index],'active');
+        navBarBar.style.webkitTransform = 'translateX('+index*100+'%)';
+        for (var i = 0; i < 4; i++) {
+            if (i != index) {
+                $api.removeCls(aNavBarBtn[i],'active');
+            }   
+        }
+    };
+    var jumpToBC = function(index){
+        api.setFrameGroupIndex ({
+            name: 'bbc',
+            index: index,
+            scroll: true
+        });
+    }
+    apiready = function(){
+        var header = $api.byId('header');
+        $api.fixIos7Bar(header); 
+        var headerPos = $api.offset(header);
+        var main = $api.byId('main');
+        var mainPos = $api.offset(main);
+        var name = api.pageParam.name;
+        var title = api.pageParam.title;
+        $api.dom('#header h5').innerHTML = title;
+        api.openFrameGroup ({
+            name: 'bbc',
+            background: '#EEEEF0',
+            scrollEnabled: true,
+            rect: {
+                x: 0,
+                y: headerPos.h + funH,
+                w: 'auto',
+                h: mainPos.h - funH
+            },
+            index: 0,
+            frames:
+            [{
+                name: 'broadcast-con1', 
+                url: './broadcast-con1.html', 
+                pageParam:{}, 
+                bounces:true, 
+                opaque:true,
+                bgColor: '#EEEEF0'
+            },{
+                name: 'broadcast-con2', 
+                url: './broadcast-con2.html',
+                pageParam:{}, 
+                bounces:true, 
+                opaque:true,
+                bgColor: '#EEEEF0'
+            },{
+                name: 'broadcast-con3', 
+                url: './broadcast-con3.html',
+                pageParam:{}, 
+                bounces:true, 
+                opaque:true,
+                bgColor: '#EEEEF0'
+            },{
+                name: 'broadcast-con4', 
+                url: './broadcast-con4.html',
+                pageParam:{}, 
+                bounces:true, 
+                opaque:true,
+                bgColor: '#EEEEF0'
+            }]
+        }, function(ret, err){
+            var name = ret.name;
+            var index = ret.index;
+            setNavBarBtn(index);
+        });  
+    }
+</script>
+</html>

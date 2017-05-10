@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+	<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>逛逛</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/common.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/xyc.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/gg.css"/>	
+    <style>
+		.xyc{
+			height:0;
+			overflow:hidden;
+		}
+		.gg-m-con{
+			overflow:hidden;
+		}
+		.gg-m-a img{
+			display:block;
+			width:100%;
+			background:#AAA;
+		}
+    </style>	
+	</head>
+<body>
+
+<script id="dot_tpl" type="text/x-dot-template">
+	{{ for(var p in it) { }}
+	<div class="gg-m-tc">
+		{{ if(it[p].children!=undefined &&   it[p].children!='')  {   }}		
+	 	 <div class="gg-m-top">
+	 	 {{  }else { }}
+	 	  <div class="gg-m-top" onclick="det({{=it[p].id}})">
+	 	 {{ } }}
+	 	 	<a class="gg-m-a"  href="javascript:void(0)">
+	 	 	   <!--<img src="../image/img/gga.jpg"       data-echo="{{=it[p].cat_img}}"   alt="a" />-->
+	 	 	   <img    src="../image/zhanwei.png"    data-echo="{{=it[p].cat_img}}"/>
+	 	 	</a>
+	 	 </div>
+	 	 <div class="gg-m-con none">
+	 	 	  <ul>
+	 	 	  	{{ if(it[p].children!=undefined &&  it[p].children!='')  {   }}
+	 	 	  	{{ for(var i=0,res=it[p].children;i<res.length;i++) { }}
+	 	 	  	<li onclick="det({{=res[i].id}},'{{=res[i].cat_name}}')"><span class="gg-sp"></span><span class="gg-span">{{=res[i].cat_name}}</span><span class="gg-spa"></span></li>
+	 	 	  	{{  } }}
+	 	 	  	{{  } }}
+	 	 	  </ul>
+	      </div>
+	 </div>	  
+ {{　}　　}}       	 
+</script>       	 
+	 <div class="main" id="main" s='1'>
+         	<div class="gg-main">         	
+	         </div>	 
+         </div> 
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/comm.js"></script>
+<script type="text/javascript" src="../script/font.js"></script>
+<script type="text/javascript" src="../script/doT.min.js"></script>
+<script type="text/javascript" src="../script/zepto.js"></script>	
+<script type="text/javascript" src="../script/echo.js"></script>
+<script>
+	function det(id,title){
+//	alert(id+'---'+title);return;
+		api.openWin({
+	        name: 'stroll_gg_w',
+	        url: 'stroll_gg_w.html',
+	        opaque: true,
+	        vScrollBarEnabled: false,
+	        pageParam : {
+					id : id,
+					title:title
+				}
+	    });
+	}
+	function  act(){
+		var height = 0;
+		var div = $('.gg-m-con');
+		var xyc=0;
+		$('.gg-m-top').click(function(){
+			
+			$(this).next().toggleClass('none');
+			$(this).parent().siblings().find('.gg-m-con').addClass('none');
+//			alert($(this).parents('.gg-m-tc').index())
+			var hh = $('.gg-m-tc')[0].offsetHeight;
+			var h2 = document.body.clientWidth/640*22;
+			var tt = $(this).parents('.gg-m-tc').index()*(hh+h2);
+			document.body.scrollTop=tt;
+//			$(this).parents('.gg-main').scrollTop(0);
+		})				
+		echo.init({
+	      offset: 100,
+	      throttle: 250,
+	      unload: false,
+	      callback: function (element, op) {     
+	      }
+	    });
+	}
+	function get_data(){
+			var sort_obj={}; 
+			var sort=isEmpty($api.getStorage('sort')) ?  '' : $api.getStorage('sort');		                                                                
+            var net_type=isEmpty($api.getStorage('net_type'))  ?  ''  :  $api.getStorage('net_type');  
+			sort='';                  
+			if(sort && net_type == 0){
+				 	sort_obj = $api.getStorage('sort_obj');  
+					api.hideProgress();
+					for(var p in sort){
+						var img = SHA1(sort[p].cat_img);
+						if(sort_obj[img]==undefined){
+							sort[p].cat_img="../image/zhanwei.png";
+						}else{
+							sort[p].cat_img=sort_obj[img];
+						}						
+					}
+					var interText = doT.template($("#dot_tpl").text());				
+					$(".gg-main").html(interText(sort));
+					act();
+				}else{
+				ajaxRequest('sort','post',{},function(ret,err){
+				api.hideProgress();
+					if(err){
+						api.toast({
+		                    msg:err.msg
+	                    });
+	                    return false;
+					}
+					if(ret.status){	
+						var res=ret.info;	
+						var img=new Array();							
+						for(var p in res){
+							res[p].cat_img=res[p].cat_img+'!gg'	 
+							img.push(res[p].cat_img);                       	  
+						}	
+						Cacheimg(img);
+						function Cacheimg(src){
+							var n=0;
+							var len=src.length;							
+                            s(src,n);                           										
+							function s(src,n){
+									api.imageCache({
+	                                url:src[n],
+	                                thumbnail:false
+	                                }, function(ret, err) {
+	                                    if (ret) { 
+                                    	if (n == len) {										
+											return;
+										}
+										s(src,n + 1);	                                                                                                                                                                                                                                                                                                  
+	                                    var path = ret.url; 	                                  				                                    	                                                                                                                                                                                                                                                                      
+	                                    sort_obj[SHA1(src[n])]=path;
+	                                    $api.setStorage('sort_obj',sort_obj);					                                                                       
+	                                    }
+                            	})                           						
+							}
+						};							
+						$api.setStorage('sort',res);						
+						var interText = doT.template($("#dot_tpl").text());				
+						$(".gg-main").html(interText(res));
+						act();
+					}else{
+						api.toast({
+		                    msg:ret.info
+	                    });
+					}				
+				});	
+			}										
+	}
+	apiready=function(){
+		api.showProgress({
+			style: 'default',
+		    title: '加载中',
+		    modal: false
+        });
+		get_data();
+	}
+</script>
+</html>

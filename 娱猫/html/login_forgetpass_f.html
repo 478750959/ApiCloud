@@ -1,0 +1,250 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>MI</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+	<style>
+		
+		.login_tel_con{
+			max-width:4.52rem;
+			margin: 0 auto;
+			padding-top:0.35rem;
+		}
+		.login_tel_input{
+			display:-webkit-box;
+			width:100%;
+			height:0.8rem;
+			border:1px solid #dedcdc;
+			border-radius:0.1rem;
+			-webkit-box-sizing:border-box;
+			padding:0.26rem;
+			font-size:0.24rem;
+			line-height:0.28rem;
+			color:#565656;
+			outline:none;
+			margin-bottom:0.2rem;
+		}
+		.login_forgetpass_input{
+			width:2.7rem;
+			float:left;
+		}
+		.login_tel_btn{
+			width:100%;
+			height:0.9rem;
+			color:white;
+			line-height:0.9rem;
+			background:#ff7f88;
+			text-align:center;
+			font-size:0.32rem;
+			margin-top:0.95rem;
+		}
+		/*获取验证码的模块*/
+		.set_tel_hq{
+			float:right;
+			width:1.68rem;
+			height:0.76rem;
+			border:0.02rem solid #56b3a3;
+			background:#f4fffd;
+			border-radius:0.1rem;
+			font-size:0.24rem;
+			color:#56b3a3;
+			line-height:0.76rem;
+			text-align:center;
+		}
+		.xyc_yzm{
+			position:relative;
+		}
+		.set_tel_hq_a{
+			position:absolute;
+			right:0;
+			top: 0rem;
+			width:1.68rem;
+			height:0.76rem;
+			border:0.02rem solid #56b3a3;
+			background:#f4fffd;
+			border-radius:0.1rem;
+			font-size:0.24rem;
+			color:#56b3a3;
+			line-height:0.76rem;
+			text-align:center;
+		}
+		/*获取验证码的模块*/
+		.login_forget{
+			margin-top:0.45rem;
+		}
+		.forgetpass_pass{
+			display:-webkit-box;
+			width:100%;
+			-webkit-box-pack: justify;
+		}
+		.forgetpass_pass p{
+			width:1rem;
+			text-align:right;
+			font-size : 0.24rem;
+			color: #565656;
+			line-height:0.8rem;
+		}
+		.forgetpass_pass_input{
+			width:3.4rem;
+		}
+	</style>
+</head>
+<body>
+<div id="wrap">
+    <div id="main">
+    	<div class="login_tel_con">
+    		<!--<div class="login_tel_input">
+    			<span>国家和地区</span>
+    		</div>-->
+    		<!--<input type="tel" placeholder="+86&nbsp;&nbsp;请输入手机号" class='login_tel_input'/>-->
+    		<input type="tel" placeholder="请输入手机号" class='login_tel_input' name='phone'/>
+    		<div class='clearfix xyc_yzm'>
+    			<input type="tel" class="login_forgetpass_input login_tel_input" name='code'/>
+    			<div class='set_tel_hq'>
+	    			获取验证码
+	    			
+	    		</div>
+	    		<a class='set_tel_hq_a none'>60</a>
+    		</div>
+    		<div class="login_forget">
+    			<div class="forgetpass_pass">
+    				<p>新密码</p>
+    				<input type='password' class='login_tel_input forgetpass_pass_input'  name='password'/>
+    			</div>
+    			<div class="forgetpass_pass">
+    				<p>确认密码</p>
+    				<input type='password' class='login_tel_input forgetpass_pass_input'  name="repassword"/>
+    			</div>
+    		</div>
+    	</div>
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/font.js"></script>
+<script type="text/javascript" src="../script/comm.js"></script>
+<script type="text/javascript" src="../script/zepto.js"></script>
+<script>
+		//获取验证码
+		var is_ok=true;
+		function get_code(param, callBack) {
+			api.showProgress({
+				title : '处理中',
+				modal : false
+			});
+			if(is_ok){
+					is_ok=false;
+					ajaxRequest('user/get_code', 'post', param, function(ret, err) {
+						is_ok=true;
+						api.hideProgress();
+						if (err) {
+							api.toast({
+								msg : ret.msg
+							});
+							return false
+						}
+						callBack(ret);
+					});
+			}
+			
+		
+		}
+
+				//找回密码
+		function findpwd(param, callBack) {
+			param.password = SHA1(param.password);
+			param.m = 2;
+			api.showProgress({
+				title : '处理中',
+				modal : false
+			});
+			ajaxRequest('user/findpwd', 'post', param, function(ret, err) {
+				api.hideProgress();
+				if (err) {
+					api.toast({
+						msg : err.msg
+					});
+					return false;
+				}
+				callBack(ret);
+			});
+		}
+		function do_find(callback){
+			var phone=$.trim($('input[name=phone]').val());
+			var code =$.trim($('input[name=code]').val());
+			var password=$.trim($('input[name=password]').val());
+			var repassword=$.trim($('input[name=repassword]').val());
+			if(phone==''){
+				 api.toast({msg: '手机号不能为空!', location: 'middle'});
+				return false;
+			}
+			if(code==''){
+			 api.toast({msg: '验证码不能为空!', location: 'middle'});
+				return false;
+			}
+			if(password==''){
+			 api.toast({msg: '新密码不能为空!', location: 'middle'});
+				return false;
+			}
+			if(!/^[0-9a-zA-Z]{6,16}$/.test(password)){  
+			   api.toast({msg: '密码为6-16位的字母和数字!', location: 'middle'});
+					return false;
+		      }
+			if(password!=repassword){
+			 api.toast({msg: '两次密码不一致!', location: 'middle'});
+				return false;
+			}
+			findpwd({phone:phone,code:code,password:password},function(ret){				
+				if(ret.status){
+					api.toast({
+	                    msg:ret.info
+	                });
+	                setTimeout(function(){                   
+	                	to_login();
+	                },800);
+				}else{
+					api.toast({
+	                    msg:ret.info
+	                });
+				}	
+			})		 
+		}
+		$('.set_tel_hq').click(function(){		
+			var phone=$.trim($('input[name=phone]').val());
+			if(phone==''){
+			  api.toast({msg: '手机号不能为空!', location: 'middle'});
+				return false;
+			}
+			 var regex = /^0?(13[0-9]|15[012356789]|18[0123456789]|17[0]|14[57])[0-9]{8}$/;
+			 if(!regex.test(phone)){
+			  api.toast({msg: '手机号格式不正确!', location: 'middle'});
+				return false;
+			 }	
+			 //控制60秒
+			 //倒计时.........................
+			get_code({'phone':phone,m:2},function(ret){			
+				if(ret.status){
+					var x = parseInt($(".set_tel_hq_a").text());
+					var t;
+					$(".set_tel_hq_a").removeClass("none")
+					t=setInterval(function(){
+						x--;
+						if(x<1){
+							$('.set_tel_hq').text('重新获取')
+							$(".set_tel_hq_a").addClass("none")
+							x=60;
+							clearInterval(t);
+						};
+						$(".set_tel_hq_a").text(x);						
+					},1000)
+				}else{
+					api.toast({msg:ret.info, location: 'middle'});
+					return false;
+				}
+			});
+		});
+		
+</script>
+</html>

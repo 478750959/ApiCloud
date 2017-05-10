@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+  <head>
+    <title>
+    </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="css/ui-img.css">
+    <link rel="stylesheet" href="css/ui-res.css">
+    <link rel="stylesheet" href="css/ui-list.css">
+    <link rel="stylesheet" href="css/ui-base.css">
+    <link rel="stylesheet" href="css/ui-box.css">
+    <link rel="stylesheet" href="css/ui-color.css">
+	<link rel="stylesheet" href="css/style.css">
+    <script src="js/y_control.js"></script>
+    <script src="js/y_click.js"></script>
+	<script src="js/dis_control.js"></script>
+	<script src="js/config.js"></script>
+    <script src="js/y_json.js"></script>
+    <script src="js/y_anim.js"></script>
+    <script>
+	</script>
+  </head>
+<body class="um-vp c-gra" ontouchstart="zy_cc(this);">
+	<div class="uinn18">
+		<ul class="uba b-gra c-wh uc-a">  
+		  	<li ontouchstart="zy_touch('c-gra')" onclick="go2new5(1);" class="uc-t ubb ub b-gra t-bla ub-ac lis">
+		 		<div class="ub-img5 im18 morepic"></div>  
+		   		<div class="ub-f1 ut-s ulev0">浏览设置</div>    
+		 		<div class="res8 lis-sw ub-img4"></div>   
+		 	</li>   
+			<li ontouchstart="zy_touch('c-gra')" onclick="go2new5(3);" class="ub ubb b-gra t-bla ub-ac lis">
+		  		<div class="ub-img5 im20 morepic"></div>    
+		 		<div class="ub-f1 ut-s ulev0">隐私设置</div>   
+		  		<div class="res8 lis-sw ub-img4"></div>   
+		 	</li>    
+			    
+			<li ontouchstart="zy_touch('c-gra')" onclick="go2new5(4);" class="uc-b ub  t-bla ub-ac lis">
+		  		<div class="ub-img5 im21 morepic"></div>     
+		 		<div class="ub-f1 ut-s ulev0">修改密码</div>   
+		 		<div class="res8 lis-sw ub-img4"></div>
+		    </li>   
+		</ul>
+	</div>
+	<div class="uinn18_1">
+		<ul class="uba b-gra c-wh uc-a">  
+		    <!--
+		  	<li ontouchstart="zy_touch('c-gra')" onclick="" class="uc-t ubb ub b-gra t-bla ub-ac lis">
+		 		<div class="ub-img5 im18 morepic"></div>  
+		   		<div class="ub-f1 ut-s ulev0">关于我们</div>    
+		 		<div class="res8 lis-sw ub-img4"></div>   
+		 	</li>   
+			<li ontouchstart="zy_touch('c-gra')" onclick="" class="ub ubb b-gra t-bla ub-ac lis">
+		  		<div class="ub-img5 im20 morepic"></div>    
+		 		<div class="ub-f1 ut-s ulev0">给我评价</div>   
+		  		<div class="res8 lis-sw ub-img4"></div>   
+		 	</li> 
+			<li ontouchstart="zy_touch('c-gra')" onclick="" class="ub ubb b-gra t-bla ub-ac lis">
+		  		<div class="ub-img5 im20 morepic"></div>    
+		 		<div class="ub-f1 ut-s ulev0">告诉朋友</div>   
+		  		<div class="res8 lis-sw ub-img4"></div>   
+		 	</li>  
+			-->
+			<li ontouchstart="zy_touch('c-gra')" onclick="help();" class="ub ubb b-gra t-bla ub-ac lis">
+		  		<div class="ub-f1 ut-s ulev0">咨询与建议</div>   
+		  		<div class="res8 lis-sw ub-img4"></div>   
+		 	</li>
+            <li ontouchstart="zy_touch('c-gra')" id="version" class="ubb b-gra t-bla ub-ac lis uhide">
+                <div class="ub-f1 ulev0">软件版本</div>
+                <div id="cur_ver" class="lis-sw1 umar-r3 tx-r"></div>
+            </li>
+		</ul>
+	</div>
+	
+    <div class="uinn18">
+        <div ontouchstart="zy_touch('btn-act')" onclick="logOutCf();" class="c-red uinn c-m2 t-wh uinn14 ulev0 tx-c">退出帐号</div>
+    </div>
+</body>
+<script>
+zy_init();
+window.uexOnload = function ()
+{
+    if(isAndroid){
+        zy_show('version');
+        $$("cur_ver").innerHTML=api.appVersion;
+    }
+	setPageBounce('', '');
+	uexWidgetOne.cbError = errorCb;
+};
+function go2new5(i){
+	var wnm = 'setlist';
+	var url = 'setlist.html';
+	var str = '';
+	
+	switch(i)
+	{
+		case 1:
+			str = '{"view":"browsing"}';
+		break;
+		case 2:
+			str = '{"view":"upload"}';
+		break;
+		case 3:
+			str = '{"view":"privacy"}';
+		break;
+		case 4:
+			str = '{"view":"secure"}';
+		break;
+		case 5:
+			str = '{"view":"weibo"}';
+		break;
+	}
+	
+	logs('go2new5()-->i='+i+', wnm='+wnm+'. url='+url);
+	if(str) setstorage('params', str);
+	if(url){
+		//var o = getStorJson('params');
+		openwin(wnm,url,'10');
+	}
+}
+function errorCb(){
+	uexWindow.toast('0','5','手机信息功能不可用',2000);
+}
+function logOutCf(){
+    uexWindow.cbConfirm = function(opId, dataType, data){
+        if(int(data)==0) logout();
+    }
+
+    var mycars = ['确定', '取消'];
+    uexWindow.confirm('提示', '你确定要退出此帐号？', mycars);
+}
+function logout(){
+    setstorage('UID', '');
+    uid = '';
+    uexWindow.toast('1','5','请稍候...',"");
+    var url = login_url+"&mod=logging&action=logout";
+    $.getJSON(url,function(json){
+        uexWindow.closeToast();
+        uexWindow.toast('0','5',"你已成功退出", 1500);
+        cleanCache();//清除缓存
+        uescript('root', 'logoutSuccess();');
+        setTimeout("uescript('setting', 'closewin()');", 2000);
+    },'json', function(){uexWindow.toast('0','5',"退出失败", 1500);});
+}
+
+
+/**
+ * 咨询与建议
+ */
+function help(){
+   var uid = Int(getstorage('UID'));
+    //联系约哈小秘书
+    var toUserId = Int(serviceuid);//"5000"
+    var currentRoomId="";
+	//考虑到userId次序问题，改为两个userId最小值在前，这样双方可以取到同一个key。
+	if (uid < toUserId) {
+		currentRoomId = "talk_"+uid + "-" + toUserId;
+	}else {
+	    currentRoomId = "talk_"+toUserId + "-" + uid;
+	}	
+    setstorage('currentRoomId', currentRoomId);//加入某个聊天室。
+    setstorage('currentRoomId_title', "约伴小秘");//标题。
+    
+    openwin('msg_detail_yb', 'msg_detail_yb.html', '10');
+  
+}
+
+
+/**
+ * 关于
+
+function about(){
+    openwin('about', 'about.html', '10');
+}
+
+ */
+</script>
+</html>

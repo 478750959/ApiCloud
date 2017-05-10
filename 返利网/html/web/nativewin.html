@@ -1,0 +1,141 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>Hello APP</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/common.css" />
+    <style>
+        #header{
+            background-color: #FCFCFC;
+        }
+        .btn-box{
+            width: 56px;
+            height: 48px;
+            padding-top: 4px;
+        }
+        .btn-home{
+            width: 40px;
+            margin-left: 1em;
+            background: url(../../res/home_icon.png) center center no-repeat;
+            background-size: 100%;
+            padding-top: 0;
+        }
+        .btn-box img{
+            margin: 0 auto;
+            width: 40px;
+            display: block;
+        }
+        .btn-box:active,.btn-box.tap-active{
+            background-color: #82D0ED;
+        }
+        .btn-home:active,.btn-home.tap-active{
+            background:#82D0ED url(../../res/home_press_icon.png) center center no-repeat;
+            background-size: 100%;
+        }
+        #header .title{
+            font-size: 1.1em;
+            line-height: 48px;
+            color: #585858;
+            text-align: left;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+        #header .header-content{
+            border-bottom: 1px solid #BABABA;
+            box-shadow: 0 0 6px #BABABA;
+        }
+        .search-box{
+            position: relative;
+            -webkit-box-flex: 1;
+            -webkit-flex: 1;
+            flex: 1;
+            padding-right: 3px;
+            padding-top: 4px;
+            padding-left: 8px;
+        }
+        .search-box-inner{
+            height: 40px;
+            background-color: #EEEEEE;
+            border-radius: 4px;
+        }
+        .search-box-inner .icon-search{
+            height: 100%;
+            width: 20px;
+            background: url(../../res/search_icon.png) center center no-repeat;
+            background-size: 20px 20px;
+            float: left;
+            margin-left: 5px;
+        }
+        .search-box-inner .search-fake-input{
+            height: 100%;
+            line-height: 40px;
+            padding-left: 3px;
+            color: #B8B8B8;
+            font-size: 14px;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+            display: block;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="wrap">
+        <div id="header">
+            <div class="header-content clearfix">
+                <div class="btn-box btn-home" tapmode="tap-active" onclick="api.closeToWin({name:'root'});">
+                    
+                </div>
+                <h5 class="title">测试</h5>
+            </div>
+        </div>
+        <div id="main">
+                
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/common.js"></script>
+<script type="text/javascript">
+    
+    apiready = function(){
+        var title = api.pageParam.title;
+        var url = api.pageParam.url;
+        var frameName = api.pageParam.frameName;
+        var index = api.pageParam.index;
+        if (frameName == 'ent-group') {
+            $api.dom('.ent-tabBar').style.display = 'block';
+        }
+        var header = $api.byId('header');
+        $api.fixIos7Bar(header); 
+        window.headerPos = $api.offset(header);
+        var main = $api.byId('main');
+        window.mainPos = $api.offset(main);
+        
+        
+        var curUrl = url;
+        if (frameName) {
+            curUrl = '../native/'+frameName+'.html';
+        }
+        $api.dom('#header .title').innerHTML = title;
+
+        api.openFrame({
+            name: 'webframe',
+            url: curUrl,
+            bounces: false,
+            rect: {
+                x: 0,
+                y: headerPos.h,
+                w: 'auto',
+                h: mainPos.h
+            }
+        });  
+        
+        
+    };
+</script>
+</html>

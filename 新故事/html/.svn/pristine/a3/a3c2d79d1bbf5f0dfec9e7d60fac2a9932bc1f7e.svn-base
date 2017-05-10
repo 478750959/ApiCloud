@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<title>关于我们</title>
+<meta charset="utf-8">
+<meta name="viewport" content="initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=0, width=device-width"/>
+<link rel="stylesheet" type="text/css" href="../css/api.css" />
+<link rel="stylesheet" type="text/css" href="../css/common.css" />
+<script type="text/javascript" src="../script/api.js"></script>
+<script>
+function GetPicture()
+	{
+		var picture = document.getElementById("picture");
+		api.getPicture({
+		    sourceType: 'album',
+		    encodingType: 'jpg',
+		    mediaValue: 'pic',
+		    destinationType: 'url',
+		    allowEdit: true,
+		    quality: 100,
+		    targetWidth:200,
+		    targetHeight:200,
+		    saveToPhotoAlbum: true
+		}, function(ret, err){ 
+		    if (ret) {
+		        api.alert({msg:ret.data});
+		        picture.setAttribute("src",ret.data);
+		        $api.setStorage("aventer",ret.data);//头像
+		    } else{
+		        api.alert({msg:err.msg});
+		    };
+		});
+	}
+
+</script>
+	</head>
+	<body>
+		<img src="../image/1.jpg" height="200px" id="picture"/>
+		<button onclick="GetPicture()">点击测试</button>
+	</body>
+
+</html>

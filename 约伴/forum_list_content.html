@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+<head>
+	<title>
+	</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+	<link rel="stylesheet" href="css/ui-img.css">
+	<link rel="stylesheet" href="css/ui-res.css">
+	<link rel="stylesheet" href="css/ui-list.css">
+	<link rel="stylesheet" href="css/ui-base.css">
+    <link rel="stylesheet" href="css/ui-btn.css">
+	<link rel="stylesheet" href="css/ui-box.css">
+	<link rel="stylesheet" href="css/ui-color.css">
+    <link rel="stylesheet" href="css/ui-card.css">
+	<link rel="stylesheet" href="css/style.css">
+    <script src="js/y_control.js"></script>
+	<script src="js/y_click.js"></script>
+	<script src="js/y_json.js"></script>
+	<script src="js/y_tmpl.js"></script>
+	<script src="js/y_anim.js"></script>
+    <script src="js/y_icache.js"></script>
+    <script src="js/dis_control.js"></script>
+	<script src="js/config.js"></script>
+	<script>
+	</script>
+    <style>
+
+    </style>
+</head>
+<body class="um-vp" ontouchstart>
+    <div class="">
+        <div style="position:relative;">
+            <img src="images/cover.png" class="uh" style="height:12em;" />
+        </div>
+        <div class="cover">
+            <h3 id="username" class="t-wh" ontouchstart="zy_touch('c-gra')" onclick="go2user5();"></h3>
+            <div style="float: right; text-align: center;">
+                <div class="avatar" ontouchstart="zy_touch('c-gra')" onclick="go2user5();">
+                    <img src="images/mylogo.png" class="" id="avat"/>
+                </div>
+            </div>
+        </div>
+    </div>
+	<div class="umar-t20 c-gra1" id="listall">
+		<div></div>
+	</div>
+</body>
+<script>
+zy_init();
+var params = getStorJson('params');
+var view = params.view;
+var curpage = 1;
+var totpage = 1;
+var upt = '';
+var uid = '';
+var username = '';
+if(view=='other') uid = params.uid;
+else if(params.uid && params.uid !=getstorage('UID')){
+    view = 'other';
+    uid = params.uid;
+} else{
+    uid = getstorage('UID');
+    view = 'me';
+}
+if (params.username) username = params.username;
+else if(getstorage('username')) username = getstorage('username');
+var fromCache = 0;
+var ucurl = getstorage('ucurl');
+if(!ucurl) ucurl = guc;
+window.uexOnload = function (type)
+{
+    zy_initcache();
+
+	if(!type){
+		setPageBounce(downcb, upcb);
+        loadInfo();
+		loadList('', '1');
+		if(fromCache) loadList('', '');
+	}
+}
+function downcb(){
+	upt = '0';
+	loadList('', '');
+}
+function upcb(){
+	if (curpage < totpage) {
+		upt = '1';
+		loadList(curpage + 1, '');
+	}
+	else resetBV('1');
+}
+function loadInfo(){
+    var pic = ucurl + uid; // "<img src="http://discuz.3g2win.com/uc_server/avatar.php?uid=2611&size=middle" />"
+    //$$('avat').src = pic;
+    dis_imgcache('avat',pic,pic,imgLoadSucSrc,imgLoadErrSrc,null,'',1);
+    setHtml('username', username);
+}
+function loadList(pn, flag){
+    if(going) return;
+	var url = '';
+	url = home_url + "&mod=space&do=thread&uid=" + uid + '&type=thread'+'&page=' + pn; //if(view=='myreply')
+	if(url){
+		fromCache = checkKey(url);
+        going = 1;
+		if(!fromCache) uexWindow.toast('1','5','更新中...',"");
+		var f = pn?'':'1';
+
+		$.getJSON(url, getJsonCallback, 'json', getJsonErr, 'POST', '', flag, f);
+	}
+}
+function getJsonCallback(json){
+    uexWindow.closeToast();
+    going = 0;
+    resetBV(upt);
+    logs("loadListAllCb(): json="+json);
+    if(json){
+        if(Int(json.status)<1){
+            uexWindow.toast('0','5',json.message,2000);
+            return;
+        }
+
+        var cContent = $$('listall');
+        var list = json.list;
+
+        if(list && list[0]){
+            var id0 = 0;
+            var id1 = list[0].tid;
+            if(cContent && cContent.children[0] && cContent.children[0].children[0]) id0=cContent.children[0].children[0].id;
+            if (id0 == id1) {//返回数据对比界面没有变化
+                return;
+            }
+        }
+
+       var tmpl = '<li class="ub umh6 uinn18 c-wh umar-t" id="${tid}">'
+                    +'<div class="lis-th3 ub-img" >'
+                        +'<div class="ulev1 t-bla tx-c">${taketime}</div>'
+                    +'</div> '
+                    +'<div class="ub-f1 ub ub-ver">'
+                        +'<div class="ub ub-ver ub-f1">'
+                            +'<div class="ub t-bla ulev0 ut-s umar-b">'
+                                +'<div class="ub-f1">'
+                                    +'<div class="ufl t-bla" ontouchstart="zy_touch(\'c-gra\')" onclick="go2user5();">${from_username}</div>'
+                                + '</div>'
+                                +'<div class="ufl t-gra uinn3 ulev-1"> ${cb:share}</div>'
+                            +'</div>'
+                            +'<div class="ub ub-f1">'
+                                +'<div class="ub-f1 ub-ac ulev-1">${cb:tags}</div>'
+                            +' </div>'
+                        +' </div>'
+                        +'<div class="ub ub-ver">'
+                            +'<div class="lis-sw2 ub-img im-arrowup"></div>'
+                            +'<div class="ub ub-ver c-wh1 uba b-gra2" onclick="go2new5(${tid}, ${authorid}, ${tagid}, \'${tagname}\', \'${new}\', \'${fid}\');" ontouchstart="zy_touch(\'c-gra\')">'
+                                +'<div class="ub ub-ac uinn3 umar-b ulh umh3 umar-t uof">'
+                                    +'${cb:img}'
+                                    +'<div class="ub-f1 umar-l t-gra5">${subject}</div>'
+                                +'</div>'
+                                +'<div class="t-gra ulev-1">${cb:info}</div>'
+                            +'</div>'
+                        +'</div>'
+						+'<div class="ub ub-ac ulev-1 umar-t1"> '
+                            +'<div class="ub ub-f1">'
+                                +'<div class="ub ub-ac uinn" onclick="go2members(\'${tid}\',\'${fid}\', \'${start_status}\', \'${subject}\');" ontouchstart="zy_touch(\'c-gra\')">'
+                                    +'<div class="${cb:notdating}">'
+                                        +'<div class="umh2 umw1 ub-img8 im-credit umar-r"></div>'
+                                        +'<div class="">${cb:sharetag_title}</div>'
+                                        +'<div id="t_count_${tid}" class="">${t_count}</div>'
+                                    +' </div>'
+                                    +'${cb:apply_count}'
+                                +' </div>'
+                            +' </div>'
+                            +'${cb:btn_share_tag}'
+			 		   +'</div>'
+					+'</div>'
+				+'</li><li class="ubt1"></li>';
+
+		var res = zy_tmpl(tmpl,list,zy_tmpl_count(list),j2vCb);
+        curpage = Int(json.zywy_curpage);
+        totpage = Int(json.zywy_totalpage);
+        if(curpage==1)
+        {
+            while(cContent.childElementCount>1)
+            {
+                cContent.removeChild(cContent.firstElementChild);
+            }
+        }
+        var node = document.createElement("ul");
+        node.className = "";
+        node.innerHTML = res;
+        cContent.insertBefore(node,cContent.lastElementChild);
+        imgCacheCall();
+    }
+}
+function j2vCb(d,c)
+{
+    var str = '';
+    var isdating = (d.fid == forums.dating.fid);
+    var module = get_module(d.fid);
+    if(c.length>1)
+    {
+        switch(c[1])
+        {
+            case 'todayposts':
+                var tp = Int(d.todayposts);
+                str = (tp>99)? '99+':tp;
+                break;
+            case 'avatar':
+                var src = ucurl+d.from_uid;
+                var avatarid = 'suid_'+ d.tid + '_' + d.from_uid;
+                pushCacheCall(function(){
+                    dis_imgcache(avatarid,src,src,imgLoadSucSrc,imgLoadErrSrc,null,'',1);
+                });
+
+                break;
+            case 'img':
+                if(d.img){
+                    var picid = 'i'+d.tid;
+                    str = '<div class="lis-th2 ub-img">'
+                            +'<img src="images/mylogo.png" class="inforpic" id="'+picid+'"/>'
+                            +'</div>';
+
+                    pushCacheCall(function(){
+                        dis_imgcache(picid, d.img, d.img, imgLoadSucSrc, imgLoadErrSrc, null, '', '1');
+                    });
+                }
+                break;
+            case 'tags':
+                if(d.tags){
+                    var tags = d.tags;
+                    var tagname;
+                    str = '<div class="t-gra ufl uinn19 uinn-c">'+ forums[module].op +'圈子</div>';
+                    for(var key in tags){
+                        tagname = tags[key];
+                        str += '<div class="">'
+                                     +'<div class="ufl uba b-org uc-a uinn-c uinn19">' + tagname + '</div>'
+                                +'</div>'
+                    }
+
+                }
+                break;
+            case 'share':
+                var fname = '';
+                fname = forums[module]['long_name'];
+                switch (d.taketype){
+                    case 'post':
+                        str = '发布了';
+                        break;
+                    case 'apply':
+                        str = '报名了';
+                        if(isdating) str = '要约了';
+                        break;
+                    case 'share':
+                        str = forums[module].op + '了';
+                        break;
+                }
+                str += fname;
+                break;
+            case 'btn_share_tag':
+                d.tagname = d.tagname || '';
+                if(isdating) {
+                    break;
+                }
+                if(int(d.start_status) > 1){//过期
+                    str = '<div class="ub ulev0 uinn11 c-gra6" ontouchstart="zy_touch(\'btn-act1\')" onclick="uexWindow.toast(\'0\',\'5\',\'该活动已结束\',2000)">'
+                            +'<div class="umh2 umw12 ub-img8 sharetag"></div>'
+                            +'<div class="ub t-wh">'+ forums[module].op +'</div>'
+                            +'</div>';
+                }else{
+                    str = '<div class="ub ulev0 uinn11 c-org" ontouchstart="zy_touch(\'btn-act1\')" onclick="share_tag(' + d.tid + ','+ d.fid + ','+ d.tagid+',\''+ d.tagname + '\')">'
+                            +'<div class="umh2 umw12 ub-img8 sharetag"></div>'
+                            +'<div class="ub t-wh">' + forums[module].op + '</div>'
+                            +'</div>';
+                }
+                break;
+            case 'notdating':
+                if(isdating) str = 'uhide';
+                else str = 'ub';
+                break;
+            case 'apply_count':
+                if(isdating) str = '<div class="umh2 umw1 ub-img8 im-member umar-l umar-r"></div><div class="">要约</div><div id="m_count_' + d.tid + '" class="">' + d.m_count + '</div>';
+                else str = ((d.fid == forums.trend.fid) ? '' : '<div class="umh2 umw1 ub-img8 im-member umar-l umar-r"></div><div class="">报名</div><div id="m_count_' + d.tid + '" class="">' + d.m_count + '</div>');
+                break;
+            case 'sharetag_title':
+                str = forums[module].op;
+                break;
+            case 'info':
+                str = (d.starttimefrom ? '<div class="ub ub-ac uinn"><div class="umh2 umw1 ub-img8 im-dtime-gra umar-r"></div><div class="ub-f1 t-gra">' + d.starttimefrom +'</div></div>' : '')
+                        +(d.place ? '<div class="ub ub-ac uinn"><div class="umh2 umw1 ub-img8 im-dplace-gra umar-r"></div><div class="ub-f1 t-gra">' + d.place + '</div></div>' : '')
+                if(d.discounts){
+                    var discounts = get_discount(d.discounts);
+                    str += '<div class="ub ub-ac uinn"><div class="umh2 umw1 ub-img8 im-ddiscount-gra umar-r"></div><div class="t-gra ub-f1">' + discounts + '</div></div>';
+                }
+                break;
+        }
+    }
+    return str;
+}
+
+function go2new5(tid, aid, tagid, tagname, snew, fid){
+    //var o = getStorJson('params');
+    if(fid == forums.dating.fid){
+        setstorage('params','{"tid":"'+tid+'", "wname":"forum_list", "popname":"content"}');
+        openwin('dating_detail', 'plugin/p1/detail.html','10');
+    }else{
+        setstorage('params','{"tid":"'+tid+'", "wname":"forum_list", "popname":"content", "uid":"'+aid+'", "fid":"' + fid + '", "tagid":"'+tagid+'", "tagname":"'+tagname+'", "snew":"'+snew+'"}');
+        if(fid == forums.trend.fid) openwin('forum_detail_trend','forum_detail.html','10');//攻略
+        else openwin('forum_detail','forum_detail.html','10');//自发活动
+    }
+}
+function share_tag(tid, fid, tagid, tagname){
+    if(!checkLogin()) return;
+    var str = '{"type":"thread", "wname":"forum_list", "popname":"content", "openwin":"friendtag_member", "tid":"' + tid + '", "fid":"' + fid + '", "tagid":"' + tagid + '", "tagname":"' + tagname + '"}';
+    setstorage('params',str);
+    openwin('friendtag_member', 'friendtag_edit.html', '12');
+}
+function go2user5(){
+    if(0 && view == 'me'){//回到主窗口：我
+        uescript('root', 'navSelected(4);')
+        setTimeout("uescript('forum_list', 'closewin();');", 500);
+    }else{//弹出新窗口
+        setstorage('params','{"uid":"'+uid+'", "username":"'+username+'", "view":"'+view+'"}');
+        openwin('friend_information','friend_information.html','10');
+    }
+}
+function refreshCount(count, tid, type){
+    var obj;
+
+    if(!type || type == 'sharetag'){//推荐点数
+        obj = $$('t_count_' + tid);
+    }else if(type == 'join'){//参加人数
+        obj = $$('m_count_' + tid);
+    }
+
+    count = parseInt(count);
+    if(!count){
+        return;
+    }
+    var old_count = 0;
+    if(obj.innerHTML){
+        old_count = parseInt(obj.innerHTML);
+    }
+    obj.innerHTML = old_count + count;
+}
+function go2members(tid, fid, start_status, subject){
+    if(!checkLogin()) return;
+    if(fid == forums.dating.fid) return;//神秘约会不能进入成员，//todo 自己发布的应该可以进入
+    var startstamp = int(start_status) == 0 ? 9333222111 : 0;//娶一个最大的数，比较起来肯定是未开始状态
+    setstorage('params','{"tid":"'+tid+'", "fid":"'+fid+'", "startstamp":"'+startstamp+'", "subject":"'+subject+'"}');
+    openwin('activity_member','activity_member.html','10');
+}
+//暂时无用
+function select_tag(tid){
+    var str = '{"wname":"forum_listct", "popname":"content", "tid":"'+tid+'"}';
+    setstorage('params',str);
+    openwin('tag_select', 'tag_select.html', '10');
+}
+</script>
+</html>

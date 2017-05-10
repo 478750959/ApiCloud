@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="css/ui-img.css">
+    <link rel="stylesheet" href="css/ui-res.css">
+    <link rel="stylesheet" href="css/ui-list.css">
+    <link rel="stylesheet" href="css/ui-btn.css">
+    <link rel="stylesheet" href="css/ui-base.css">
+    <link rel="stylesheet" href="css/ui-box.css">
+    <link rel="stylesheet" href="css/ui-color.css">
+	<link rel="stylesheet" href="css/style.css">
+    <script src="js/y_control.js"></script>
+    <script src="js/y_click.js"></script>
+	<script src="js/y_json.js"></script>
+	<script src="js/y_tmpl.js"></script>
+	<script src="js/y_anim.js"></script>
+	<script src="js/dis_control.js"></script>
+	<script src="js/config.js"></script>
+    <script src="js/y_icache.js"></script>
+    <script src="js/module/navigationbar.js"></script>
+    <script>
+	</script>
+  <style>
+      .umw15 {
+          min-width:1.5em;
+      }
+      .trend_img{
+          width: 100%;
+          height: auto;
+      }
+  </style>
+  </head>
+<body class="um-vp">
+    <div class="umh3" id="navigation"> <!--- 普通主题　全部 ---->
+        <div></div>
+    </div>
+
+	<div id="all" class="c-gra1">
+		<div class="c-gra1" id="page0"> <!--- 普通主题　全部 ---->
+			<div></div>
+		</div>
+	</div>
+</body>
+<script>
+zy_init();
+var params = getStorJson('params');
+//var fid = params.fid;
+var fid = forums.trend.fid;
+var uid = getstorage('UID');
+var view = 'com';
+var cContent = $$('all');
+var pages =  {curid:0, precid:0, updr:'0'};
+pages[0] = {curpn:1, totpn:1, ld:0};
+var fromCache = 0;
+var ucurl = getstorage('ucurl');
+if(!ucurl) ucurl = guc;
+var removed_new = {};
+var frameLoaded = 0;//framegroup中的frame可以响应滑动事件来执行uexOnload,//修改为0，2015/5/6, 初始化时不执行
+window.uexOnload = function(type){
+    if(frameLoaded) return;
+    frameLoaded = 1;
+    zy_initcache();
+	if(!type){
+        //setTimeout(function(){
+            setPageBounce(downcb, upcb);
+            loadList('', '0', '1');
+            if(fromCache) loadList('', '0', '');
+        //}, 2000);//延迟加载避免，同时下载一个人的头像，从而改变了缓存的key，//直接加载攻略，否则可能与定位来的更新冲突
+	}
+    navigationBarOpen();
+}
+function downcb(){
+	//var i = pages.curid;//0
+	pages.updr = '0';
+	loadList('', fid, '');
+    uid && uescript('root', 'menuNotice(\'share_trend\', 0);')
+}
+function upcb(){
+	var i = pages.curid;
+	var o = pages[i];
+	if (o.curpn < o.totpn) {
+		pages.updr = '1';
+		loadList(o.curpn + 1, fid, '');
+	}
+	else resetBV('1');
+}
+
+function loadList(pn, _fid, flag){
+    if(going) return;
+    frameLoaded = 1;//在ios下，uexonload在frame加载是不执行，所以是定位先刷新列表，然后用户滑动时，不再刷新列表。
+    var location = getStorJson('location');
+    var province = location.province ? location.province : '';
+    var city = location.city ? location.city : '';
+    var url = '';
+	var type = '';
+ 	if (Int(_fid)) {
+		fid = _fid;
+	}
+    //用经纬度后没法缓存
+	if(view=="com") url =  forum_url + "&mod=forumdisplay&fid="+ fid + "&page=" + pn + type + '&province=' + province + '&city=' + city;
+	else url = forum_url+"&mod=ajax&action=gettopthread&fid=" + fid;
+	if (url) {
+        going = 1;
+        fromCache = checkKey(url);
+		if(!fromCache && int(fid)) uexWindow.toast('1','5','加载中...',"");//在ios下闪烁，暂时去掉//从子菜单导航时需要toast
+		var f = pn?'':'1';
+		$.getJSON(url, getJsonCallback, 'json', getJsonErr, 'POST', '', flag, f);
+	}
+}
+function getJsonCallback(json){
+	uexWindow.closeToast();
+    going = 0;
+	if (pages.updr) {
+		resetBV(pages.updr);
+		pages.updr = '';
+	}
+	
+	if (json) {
+		if (json.status && Int(json.status)<1) {
+			uexWindow.toast('0','5',json.message,2000);
+			return;
+		}
+			
+		var list = json[1] || json.list;
+		var length = zy_tmpl_count(list);
+		var id = json.catid || pages.curid;
+		var pid = 'page' + id;
+		var cContent = $$(pid);
+		var o = pages[id];
+		if(length<1){
+			while(cContent.childElementCount>1)
+       		{
+       			cContent.removeChild(cContent.firstElementChild);
+       		}
+			
+			var notes = '暂无攻略内容';
+			if (json.back=='1' && json.message) notes = json.message;
+			
+			var node = createEle("div");
+			node.className = 'uinn10 tx-c';
+			node.innerHTML = notes;
+			cContent.insertBefore(node,cContent.lastElementChild);
+			return;
+		}
+		
+		if(o.ld){
+			//logs('loadCatCb()-->aid1='+cContent.children[0].children[0].id+', aid2='+list[0].tid);
+			//if(cContent.children[0].children[0].id==list[0].tid) return;
+		}
+
+       var tmpl = '<li class="ub ub-ver umh6 uinn18 c-wh ubb b-gra" id="${tid}">'
+                        +'<div class="ub">'
+                            +'<div class="ub ub-ac lis-th2 ub-img" ontouchstart="zy_touch(\'c-gra\')" onclick="go2user5(${from_uid}, \'${from_username}\', \'\');">'
+                                +'<img src="images/mylogo.png" class="inforpic2" ${cb:avatar} id="suid_${tid}_${from_uid}"/>'
+                            +'</div> '
+                            +'<div class="ub ub-ver ub-f1">'
+                                +'<div class="ub t-bla ulev0 ut-s">'
+                                    +'<div class="ub ub-f1 ub-ac">'
+                                        +'<div class="t-bla umar-r" ontouchstart="zy_touch(\'c-gra\')" onclick="go2user5(${from_uid}, \'${from_username}\', \'\');">${from_username}</div>'
+                                        +'${cb:user_group}'
+                                    + '</div>'
+                                    /*+'<div class="ub t-org uinn3 ulev-1 umar-l">${cb:degree}</div>'*/
+                                +'</div>'
+                                +'<div class="ub ub-ac umar-t3">'
+                                    +'<div class="ub ub-ac">'
+                                        +'<div class="ub ub-ac ulev-1">${cb:tagname}</div>'
+                                        +'<div class="t-gra ulev-1">${cb:share}</div>'
+                                    + '</div>'
+                                +' </div>'
+                            +' </div>'
+                            +'${cb:btn_share_tag}'
+                        +'</div>'
+                        +'<div class="ub ub-ver">'
+                            +'<div class="lis-sw2 ub-img im-arrowup"></div>'
+                            +'<div class="ub ub-ver c-wh1 uba b-gra2" ontouchstart="zy_touch(\'c-gra\')" onclick="go2new5(${tid}, ${authorid}, ${tagid}, \'${tagname}\', \'${new}\');">'
+                                +'<div class="ub">'
+                                    +'<div class="ub ub-ac ub-f1 umar-t uinn3 umar-b ulh umh3 uof">'
+                                        +'<div class="ub-f1 umar-l t-gra5">${subject}</div>'
+                                    +'</div>'
+                                    +'<div class="ub ub-ac umar-t umar-b">${cb:new}</div>'
+                                +'</div>'
+                                +'<div class="t-gra ulev-1">${cb:info}</div>'
+                                +'${cb:img}'
+                            +'</div>'
+                        +'</div>'
+                        +'<div class="ub ub-ac ulev-1 umar-t1">'
+                            +'<div class="ub ub-f1"> '
+                                +'<div class="ulev-1 t-gra tx-c umar-l">${share_time}</div>'
+                               /* +'<div class="ub ub-ac uinn" ontouchstart="zy_touch(\'c-gra\')" onclick="go2members(\'${tid}\', \'${fid}\', \'${start_status}\', \'${subject}\');">'
+                                    +'<div class="umh2 umw1 ub-img8 umar-r im-credit"></div><div class="umar-r">推荐</div><div id="t_count_${tid}" class="umar-r">${t_count}</div>'
+                                +' </div>'*/
+                            +' </div>'
+			 		   +' </div>'
+				+'</li><li class="ubt1"></li>';
+
+		var res = zy_tmpl(tmpl,list,length,j2vCb);
+		
+		if(json.zywy_curpage) o.curpn = int(json.zywy_curpage);
+		if(json.zywy_totalpage) o.totpn = int(json.zywy_totalpage);
+		
+       	if(o.curpn==1)
+       	{
+       		while(cContent.childElementCount>1)
+       		{
+       			cContent.removeChild(cContent.firstElementChild);
+       		}
+       	}
+		var node = document.createElement("ul");
+		node.className = '';
+		node.innerHTML = res;
+		cContent.insertBefore(node,cContent.lastElementChild);
+        imgCacheCall();
+		if(res) o.ld=1;
+        removed_new = {};//重新初始化提示
+        //Y.log('step:' + 8);
+	}
+}
+function j2vCb(d,c)
+{
+    var str = '';
+    var other  = (uid != d.from_uid);
+    if(c.length>1)
+    {
+        switch(c[1])
+		{
+			case 'todayposts':
+				var tp = Int(d.todayposts);
+				str = (tp>99)? '99+':tp;
+			    break;
+            case 'avatar':
+                var src = ucurl+d.from_uid;
+                var avatarid = 'suid_'+ d.tid + '_' + d.from_uid;
+                pushCacheCall(function(){
+                    dis_imgcache(avatarid,src,src,imgLoadSucSrc,imgLoadErrSrc,null,'','1');
+                });
+                break;
+			case 'img':
+				if(d.img){
+					var picid = 'i'+d.tid;
+					str = '<div class="">'
+                                +'<img src="" class="trend_img" id="'+picid+'"/>'
+							+'</div>';
+
+                    pushCacheCall(function(){
+                        dis_imgcache(picid, d.img, d.img, imgLoadSucSrc, imgLoadErrSrc, null, '', '1');
+                    });
+				}
+                break;
+            case 'tagname':
+                /*
+                 str = d.is_share ? '<div class="t-gra">向圈子</div>' : '';
+                 替换为以下内容by tom 20150325*/
+                //如果未约圈子，只约了好友，则显示“向你推荐”
+                if(d.tagname)
+                    str = d.is_share ? '<div class="t-gra">向圈子</div>' : '';
+                else
+                    str = d.is_share ? '<div class="t-gra">向你</div>' : '';
+
+                if(d.tagname){
+                    str += '<div class="umar-r umar-l" id="tagid_' + d.tagid + '" ontouchstart="zy_touch(\'c-gra\')" onclick="go2tag5(' + d.from_uid + ', \'' + d.from_username + '\',' + d.tagid + ', \'' + d.tagname + '\')">'
+                                +'<div class="ut-s uba b-org uc-a2 ub-ac uinn-c">' + d.tagname + '</div>'
+                            +'</div>'
+                }
+			    break;
+            case 'share':
+                var fname = '';
+                fname = get_forumname(fid);
+                str = d.is_share ? '推荐' : '发布了';
+                //str += fname;
+                break;
+            /*case 'fname':
+                str = get_forumname(d.fid);
+                break;*/
+            case 'user_group':
+                if(d.host_gid) str = '<div class="umh2 umw1 ub-img8 im-host"></div>';
+                break;
+            case 'degree':
+                if(parseInt(d.degree) == 1) str = '一度';
+                else if(parseInt(d.degree) == 2) str = '二度';
+                else str = '';
+                break;
+            case 'new':
+                if(d.new && Int(d.new) && uid && other)
+                    str = '<div class="ufr ub-img5 rimg umar-r" id="new_'+ d.tid +'">' + /*d.scount +*/ '</div>'
+                break;
+            case 'btn_share_tag':
+                d.tagname = d.tagname || '';
+                if(int(d.start_status) > 1){//过期
+                    str = '<div class="ub ulev0 uinn11 c-gra6" ontouchstart="zy_touch(\'btn-act1\')" onclick="uexWindow.toast(\'0\',\'5\',\'该攻略已结束\',2000)">'
+                                +'<div class="umh2 umw12 ub-img8 tp-sharetag"></div>'
+                                +'<div class="ub t-wh ulev-1">推荐</div>'
+                            +'</div>';
+                }else{
+                    str = '<div class="ub ub-ac ulev-1 uinn11 umw6" ontouchstart="zy_touch(\'btn-act1\')" onclick="share_tag(' + d.tid + ','+d.fid + ',' + d.tagid+',\''+ d.tagname + '\')">'
+                                +'<div class="tagpic ub-img5 tp-sharetag"></div>'
+                                +'<div class="ub ub-ac ulev0 umar-l1">推荐</div>'
+                                +'<div id="t_count_'+ d.tid +'" class="umar-l">'+ (int(d.t_count) ? d.t_count : '') +'</div>'
+                            +'</div>';
+                }
+                break;
+            case 'info':
+                str = (d.starttimefrom ? '<div class="ub ub-ac uinn"><div class="umh2 umw1 ub-img8 im-dtime-gra umar-r"></div><div class="t-gra ub-f1">' + d.starttimefrom +'</div></div>' : '')
+                        +(d.place ? '<div class="ub ub-ac uinn"><div class="umh2 umw1 ub-img8 im-dplace-gra umar-r"></div><div class="t-gra ub-f1">' + d.place + '</div></div>' : '')
+                if(d.discounts){
+                    var discounts = get_discount(d.discounts);
+                    str += '<div class="ub ub-ac uinn"><div class="umh2 umw1 ub-img8 im-ddiscount-gra umar-r"></div><div class="t-gra ub-f1">' + discounts + '</div></div>';
+                }
+                break;
+		}
+    }
+    return str;
+}
+function updateLists(){
+    loadList('', '0', '');
+}
+function go2new5(tid, aid, tagid, tagname, snew){
+    if(snew == 1) {
+        if(removed_new[tid]) snew = 0;
+        else remove_new(tid);
+    }
+	setstorage('params','{"wname":"root", "popname":"forum_listct", "fid":"'+fid+'", "tid":"'+tid+'", "uid":"'+aid+'", "tagid":"'+tagid+'", "tagname":"'+tagname+'", "snew":"'+snew+'"}');
+    //var o = getStorJson('params');
+    openwin('forum_detail_trend','forum_detail.html','10');
+}
+
+function remove_new(tid){
+    if($$('new_' + tid))removeNode('new_' + tid);
+    removed_new[tid] = 1;//下次点击不要设snew参数,没有办法更新icache通过变量来控制
+    uescript('root', 'cancelNotification(\'share_trend\')');
+}
+function share_tag(tid, fid, tagid, tagname){
+    if(!checkLogin()) return;
+    var str = '{"type":"thread", "wname":"root", "popname":"forum_listct", "openwin":"friendtag_member", "tid":"' + tid + '", "fid":"' + fid  + '", "tagid":"' + tagid + '", "tagname":"' + tagname + '"}';
+    setstorage('params',str);
+    openwin('friendtag_member', 'friendtag_edit.html', '10');
+}
+//暂时无用
+function select_tag(tid){
+    var str = '{"wname":"forum_listct", "popname":"content", "tid":"'+tid+'"}';
+    setstorage('params',str);
+    openwin('tag_select', 'tag_select.html', '10');
+}
+
+function go2user5(uid, username, isf){
+    setstorage('params','{"uid":"'+uid+'", "username":"'+username+'", "isfriend":"'+isf+'"}');
+    openwin('friend_information','friend_information.html','10');
+}
+function go2tag5(uid, username, tagid, tagname){
+    setstorage('params','{"wname":"root", "popname":"content1", "tagid":"'+tagid+'", "tagname":"'+tagname+'", "uid":"'+uid+'", "username":"'+username+'"}');
+    openwin('friendtag_edit','friendtag_edit.html','10');
+}
+function refreshCount(count, tid, type){
+    var obj;
+
+    if(!type || type == 'sharetag'){//推荐点数
+        obj = $$('t_count_' + tid);
+    }else if(type == 'join'){//参加人数
+        obj = $$('m_count_' + tid);
+    }
+
+    count = parseInt(count);
+    if(!count){
+        return;
+    }
+    var old_count = 0;
+    if(obj.innerHTML){
+        old_count = parseInt(obj.innerHTML);
+    }
+    obj.innerHTML = old_count + count;
+}
+function go2members(tid, fid, start_status, subject){
+    if(!checkLogin()) return;
+    var startstamp = int(start_status) == 0 ? 9333222111 : 0;
+    var json_params = {"tid": tid ,"fid": fid , "startstamp": startstamp, "subject": subject};
+    setStorJson('params', json_params);
+    openwin('activity_member','activity_member.html','10');
+}
+function updatelist(fid){
+    loadList('', fid, '1');
+    if(fromCache) loadList('', fid, '');
+}
+</script>
+</html>

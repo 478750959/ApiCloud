@@ -1,0 +1,148 @@
+<!doctype html>
+<html style="background: none;">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>我的订单</title>
+    <link rel="stylesheet" type="text/css" href="../css/ly.css"/>
+    <style>
+	</style>
+</head>
+<body style="background: none;">
+
+<div id="wrap">
+<div id="main">
+   	<div class="ly_mask ly_delt">
+	    <div class="icon ly_confbuy" >
+	    	<dl class="fix">
+	    		<dt ><img src="" id="logo"></dt>
+	    		<dd>
+	    			<p class="price">¥<span id="money"></span></p>
+	    			<p id="title"></p>
+	    		</dd>
+	    	</dl>
+	    	<div id="attr">
+	    		<script id="attribute" type="text/x-dot-template">
+	    		{{ for(var i in it) { }}
+			    	<div class="size lysize fix">
+			    		<input type='hidden'  sel="{{=it[i].key}}"    class="mysel   {{=it[i].key}}"/>
+			    		<h2 class="xych">{{=it[i].attr_name}}</h2>
+			    		{{ for(var j in it[i]['attr_value']){ }}
+			    			<span class="xyc_span"   onclick="sel(this)">{{=it[i]['attr_value'][j]}}</span>
+						{{ } }}
+			    	</div>
+		    	{{ } }}
+	    		</script>
+	    	
+	    	
+	    	</div>	
+	    	
+	    	<!--<div class="size fix">
+	    		<h2>颜色分类</h2>
+	    		<span class="xyc_span current">红棕色</span>
+	    		<span class="xyc_span">黑色</span>
+	    	</div>-->
+	    	<div class="size buynum fix">
+	    		<h2>购物数量</h2>
+	    		<p>
+	    			<span class="jian">-</span>
+	    			<input type="number" value="1" class="mid" /> 
+	    			
+	    			<span class="add">+</span>
+	    		</p>
+	    	</div>	    	
+	    	<a href="javascript:void(0);" class="buy" onclick="openNext('bill_dethead_w',4)">确认购买</a>
+			<span class="cancle"></span>
+	    </div>
+    </div> 	
+</div>
+</div>	
+</body>
+<script type="text/javascript" src="../script/api.js"></script>				
+<script type="text/javascript" src="../script/font.js"></script>
+<script type="text/javascript" src="../script/zepto.js"></script>
+<script type="text/javascript" src="../script/doT.min.js"></script>	
+<script type="text/javascript" src="../script/comm.js"></script>
+<script type="text/javascript" src="../script/ly.js"></script>
+<script>
+	//点击切换效果
+    function sel(obj){
+		$(obj).addClass('current').siblings('span').removeClass('current');
+		var val=$(obj).html();
+		$(obj).siblings('input').val(val);		
+	}
+	function openNext(xyc,count){
+
+			$.each($('.mysel'),function(k,v){
+//					api.alert({msg:$(v).prev("h2").html});
+				api.alert({msg:$(v).text()});
+			});
+			var attribute='';
+			$.each($('.mysel'),function(k,v){
+				var cls=$(v).attr('sel');
+				attribute += $(v).next().text()+':'+$('.'+cls).val()+';';		
+			});
+			param.attribute = attribute;
+		 	param.goods_name = ware.goods_name;
+		 	param.shop_price = ware.shop_price;
+		 	param.goods_logo = ware.logo;
+		 	param.goods_number = $('.mid').val();
+		 	param.goods_id = id;
+			api.openWin({
+		        name: 'bill_confirm_w',
+		        url: 'bill_confirm_w.html',
+		        opaque: true,
+		        reload: true,
+		        pageParam:{ count:2,param:param,status:1},
+		        vScrollBarEnabled: false
+		    });
+			api.openWin({
+		        name: xyc,
+		        url: xyc+'.html',
+		        opaque: true,
+		        reload: true,
+		        pageParam:{ count:count},
+		        vScrollBarEnabled: false
+		    });
+	}
+	var param = {};
+	var id;
+	apiready = function () {	
+		$('.ly_delt .icon .cancle').bind("touchstart", function() {
+			$('.ly_delt').addClass('none');
+			api.closeFrame();
+		})
+		 id = api.pageParam.id;
+	    ajaxRequest('goods/order', 'post',{id:id}, function (ret,err) {
+//	    	api.alert({msg:ret});
+	    	if (ret.status) {
+				var attribute = ret.info.attribute;
+	        	
+	        	 for(var p in   attribute){
+	        	 	attribute[p].key=SHA1(attribute[p].attr_name);
+	        	 } 
+	        	//内容
+	        	$("#title").html(ware.goods_name);
+	        	//金钱 
+	        	$("#money").html(ware.shop_price);
+	        	
+	        	//头像
+	        	$("#logo").attr("src",ware.logo);
+	        	
+	        	//属性
+	        	var content = $api.dom('#attr');
+				var tpl = $api.byId('attribute').text;
+	    		var tempFn = doT.template(tpl);
+				$api.html(content, tempFn(attribute));
+
+	         }
+	        
+	    });	
+	}
+	
+</script>
+</html>
+
+
+
+

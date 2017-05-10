@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <style>
+        body, html {
+            height: 100%;
+        }
+
+        body {
+            background-image: url(../image/bg.jpg);
+            background-repeat: no-repeat;
+            background-size: 100%;
+        }
+
+        header {
+            display: -webkit-box;
+        }
+
+        .title {
+            -webkit-box-flex: 1;
+            text-align: center;
+            line-height: 50px;
+            font-size: 20px;
+        }
+
+        .btn {
+            width: 50px;
+            height: 50px;
+        }
+
+        .cancel {
+            background-image: url("../image/ad_close_gray@2x.png");
+            background-size: 40px;
+            background-repeat: no-repeat no-repeat;
+            background-position: center;
+        }
+
+        i {
+            display: block;
+            width: 30px;
+            height: 30px;
+            background-size: 30px;
+            background-repeat: no-repeat no-repeat;
+            background-position: center;
+        }
+
+        .user {
+            background-image: url("../image/login_account@2x.png");
+        }
+
+        .password {
+            background-image: url("../image/logn_password@2x.png");
+        }
+
+        .input-wrap {
+            padding: 10px 0;
+            display: -webkit-box;
+        }
+
+        .input-wrap:first-child {
+            border-bottom: 1px solid #d4d4d4;
+        }
+
+        .form {
+            background-color: rgba(255, 255, 255, 0.8);
+            margin: 40px 20px 0 20px;
+            border-radius: 8px;
+            padding: 0 10px;
+            line-height: 30px;
+        }
+
+        .input-wrap input {
+            display: block;
+            -webkit-box-flex: 1;
+            background-color: rgba(255, 255, 255, 0);
+            outline: none;
+            height: 30px;
+        }
+
+        .find-pwd {
+            text-align: right;
+            margin: 40px;
+        }
+
+        .button.green {
+            background-color: #36b05e;
+        }
+
+        .button {
+            display: block;
+            color: white;
+            margin: 0 40px;
+            text-align: center;
+            border-radius: 8px;
+            height: 40px;
+            line-height: 40px;
+        }
+
+        .button.yellow {
+            background-color: #FF7800;
+        }
+
+        .margin-top-25 {
+            margin-top: 25px;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <div class="btn cancel" tapmode="" onclick="api.closeWin()"></div>
+    <div class="title">登陆</div>
+    <div class="btn"></div>
+</header>
+<div class="content">
+    <div class="form">
+        <div class="input-wrap">
+            <i class="user"></i>
+            <input type="text" placeholder="用户名" class="txt" id="username" value=""/>
+
+        </div>
+        <div class="input-wrap">
+            <i class="password"></i>
+            <input type="password" placeholder="密码" class="txt" id="password" value=""/>
+
+        </div>
+    </div>
+    <p class="find-pwd"><span>找回密码</span></p>
+
+    <div class="button green" id="login" tapmode="" onclick="login()">登录</div>
+    <div class="button yellow margin-top-25" tapmode="" onclick="register()">注册新用户</div>
+</div>
+<script src="../script/zepto.min.js"></script>
+<script>
+    apiready = function () {
+        fixIos7Bar($("header"));
+
+    };
+    function closeWin() {
+        api.closeWin({
+
+        })
+    }
+    function login(){
+        api.alert({
+            msg:"登陆成功"
+        })
+    }
+    function register(){
+        api.openWin({
+            name:"win_register",
+            url:'win_register.html'
+        })
+    }
+</script>
+</body>
+</html>

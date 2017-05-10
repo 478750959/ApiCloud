@@ -1,0 +1,188 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>MI</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/xyc.css"/>
+    <style>
+    	html,body{
+    		background:white;
+    	}
+    	.wushuju{
+    		position:relative;
+    	}
+    	.wushuju_img1{
+    		display:block;
+    		width:1.59rem;
+    		height:1.41rem;
+    		position:absolute;
+    		left:50%;
+    		margin-left:-0.8rem;
+    		top:1.5rem;
+    	}
+    	.wushuju_img2{
+    		top:3.25rem;
+    		left:50%;
+    		margin-left:-1.35rem;
+    		display:block;
+    		width:2.67rem;
+    		height:0.7rem;
+    		position:absolute;
+    	}
+    	.wushuju_btn{
+    		position:absolute;
+    		top:4.8rem;
+    		left:50%;
+    		margin-left:-1.15rem;
+    		height:0.64rem;
+    		width:2.36rem;
+    		text-align:center;
+    		line-height:0.64rem;
+    		font-size:0.32rem;
+    		color:#656564;
+    		border:0.02rem solid #656564;
+    		border-radius:0.1rem;
+    	}
+    </style>
+</head>
+<body>
+<script id="bill_labels" type="text/x-dot-template">
+    	{{  for(var p in it) {  }}
+    		<li id="myadd_{{=it[p].goods_id}}">
+    			<div class="mi_buycar_list">
+    				<div class="mi_buycar_imgtxt">
+	    				<div class="mi_buycar_img"><img src='{{=it[p].logo}}' onclick="to_goods({{=it[p].goods_id}})"></div>
+	    				<div class="mi_buycar_txt">
+	    					<p>{{=it[p].goods_name}}</p>
+	    					<h4><span>￥</span><em>{{=it[p].shop_price}}</em></h4>
+	    					<a class="mi_buycar_bbsx" id="{{=it[p].is_on_sale}}"></a>
+	    				</div>
+    				</div>
+    			</div>
+    			<a class='mi_buycar_del'>删<br/>除</a>
+    		</li>
+    		{{ } }}
+    		</script>
+
+
+<div id="wrap">
+    <div id="main">
+    	<div class="wushuju none">
+			<img src='../image/dd_noneicon.png' class='wushuju_img1'/>
+			<img src='../image/collect_nonetxt.png' class='wushuju_img2'/>
+			<div class="wushuju_btn" onclick="openNext()">去逛逛</div>
+    	</div>
+    	<ul class="mi_buycar_lists" id="container">
+    	
+	  	</ul>
+    </div>
+</div>
+<input name='total' type='hidden'>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/font.js"></script>
+<script type="text/javascript" src="../script/comm.js"></script>
+<script type="text/javascript" src="../script/zepto.js"></script>
+<script type="text/javascript" src="../script/doT.min.js"></script>
+<script>
+	//如果没有数据，点击去逛逛按钮跳转到逛逛页面
+	function openNext(){
+		api.execScript({
+			name:'root',
+	        script: 'xyc_scroll();'
+        });
+	}
+	function to_goods(id){
+		api.openWin({
+			name : 'bill_dethead_w',
+			url :  'bill_dethead_w.html',
+			opaque : true,
+			delay : 1000,
+			vScrollBarEnabled : false,
+			pageParam : {
+				goods_id:id
+			}
+		});	
+	}
+	function add_del(id) {
+		$('#myadd_' + id).remove();
+		api.closeFrame({
+	        name: 'mi__collect_del_f2'
+        });
+	}
+function get_lst(param){	
+	var info=is_login();
+	if(!info){
+		to_login();
+		return false;
+	}
+	for(var p in info){
+		param[p]=info[p];
+	}
+	  api.showProgress({
+			title : '加载中',
+			modal : false
+		});
+     ajaxRequest('user/user_coll_ls', 'post',param,function(ret,err){//
+     api.hideProgress();
+	    if (err) {
+			api.toast({
+				msg : err.msg
+			});
+			return false;
+		}
+		if (ret.status && !isEmpty(ret.info.data)) {	
+			$('.wushuju').addClass('none');
+			var data = ret.info.data;			 
+			 $('input[name=total]').val(ret.info.num);
+			if(param.page==0){	
+			var interText = doT.template($("#bill_labels").text());
+			$("#container").html(interText(data));
+			}else{
+				var interText = doT.template($("#bill_labels").text());
+				$("#container").append(interText(data));
+			}
+			
+			$("#container li").each(function() {
+            	var is_on_sal=$(this).find('.mi_buycar_bbsx').attr('id');	
+				if(is_on_sal=='是'){
+					$(this).find('.mi_buycar_bbsx').css({'display':'none'});		
+				}else{
+					$(this).find('.mi_buycar_bbsx').css({'display':'block'});	
+				}	
+            });						
+		} else {
+			$("#container").empty();
+			$('.wushuju').removeClass('none');
+			if(ret.info=='no_login'){
+				to_login();
+				return false;
+			}
+		}
+	})
+}
+apiready=function(){	
+  			var page=0;
+			get_lst({page:0});
+			
+			api.addEventListener({
+	            name:'scrolltobottom'
+            },function(ret,err){  
+            	var num=$('input[name=total]').val();         
+	    		if (page < num - 1) {
+					page++;
+					get_lst({page : page});									
+				}		
+				api.refreshHeaderLoadDone();
+            }); 
+            api.addEventListener({
+	            name:'flush_coll'
+            },function(ret,err){
+            		get_lst({page:0});
+            		page=0;
+            });                    		
+	}   
+</script>
+</html>

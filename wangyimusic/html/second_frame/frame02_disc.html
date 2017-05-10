@@ -1,0 +1,102 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="copyright" content="www.apicloud.com" />
+<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+<title>主播电台</title>
+<link rel="stylesheet" type="text/css" href="../../css/api.css" />
+<style>
+html,body {min-height: 100%;}
+.fr {float: right;}
+.fl {float: left;}
+.mt5 {margin-top: 5px;}
+.mt10 {margin-top: 10px;}
+.mt15 {margin-top: 15px;}
+.mt20 {margin-top: 20px;}
+.ml5 {margin-left: 0.5em;}
+.mr5 {margin-right: 0.5em;}
+.hdivider {width: 100%; height: 1px;background-color: #e0e0e0;}
+
+.row {display: -webkit-box;display: -webkit-flex;}
+.col {-webkit-box-flex:1; -webkit-flex:1; flex:1;margin: 0 5px; position: relative;}
+
+.swiper-container img {width: 100%;}
+
+/* 歌单标题 */
+.sectionTitle {height: 2em; line-height: 2em; font-size: 1.12em;}
+.sectionTitle .titleDivider {display: inline-block; height: 1.12em; width: 3px; vertical-align: top; background-color: #D43C33; margin-top: 0.44em; margin-left: 0.7em; margin-right: 0.3em;}
+/* 歌单 */
+.col .listcoverbar {position: absolute; top: 0; background-color: rgba(0,0,0,0.4); width: 100%;height: 1.2em;}
+.col .listcoverbar span {color: #fff;}
+.col .listcoverbar .earphone {width: 1em; margin-top: 0.2em; margin-right: 0.3em;}
+.col .listcover {width: 100%;}
+.col .listtitle {height: 2.4em; font-size: 1em; line-height: 1.2em; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;}
+
+/* item样式 */
+.egret-item {height: 4em;}
+.egret-item .egret-item-box-cover-center {display: table; height: inherit;}
+.egret-item .egret-item-box-cover-center .egret-item-box-abtc {display: table-cell; vertical-align: middle;}
+.egret-item .egret-item-box-cover-center .egret-item-box-abtc img {width: 3em; vertical-align: top;}
+/* 右侧箭头样式 */
+.egret-item .egret-item-arrow {display: table; height: inherit;}
+.egret-item .egret-item-arrow .egret-item-box-abtc {display: table-cell; vertical-align: middle;}
+.egret-item .egret-item-arrow .egret-item-box-abtc img {width: 0.8em; vertical-align: top;}
+/* 中间shelf  两个条目*/
+.egret-item .egret-item-shelf {height: inherit; }
+.egret-item .egret-item-shelf .egret-item-shelf-title {font-size: 1.1em; margin-top: 0.6em;}
+.egret-item .egret-item-shelf .egret-item-shelf-subtitle {font-size: 0.6em; color: #666; margin-top: 0.6em;}
+/* 中间shelf 一个条目 */
+.egret-item .egret-item-shelf-single {height: inherit; line-height: 4em;font-size: 1.1em;}
+.egret-item .egret-item-shelf-redclassify {color: #E03F40; border:1px solid #E03F40; font-size: inherit;padding: 0.1em;border-radius: 1px;margin-right: 5px;}
+
+
+/* 用flex重写框架 */
+.egret-flex-item {display: -webkit-box;-webkit-box-align:center;height: 4em;}
+/* 左部logo */
+.egret-flex-item-logo {max-width: 50px; min-width: 50px; margin-left: 0.5em; margin-right: 0.2em;-webkit-box-flex: 1; -webkit-box-align: center;}
+.egret-flex-item-logo img {height: 3em; width: 3em; -webkit-box-align: center;vertical-align: top;/*否则图片不会居中，底部仍然是会有空白*/}
+/* 中间文本信息 */
+.egret-flex-item-shelf {overflow: hidden; -webkit-box-flex:2; -webkit-box-align: center;}
+.egret-flex-item-shelf div {text-overflow: ellipsis; white-space: nowrap; overflow: hidden;}
+.egret-flex-item-shelf .egret-flex-item-shelf01 {font-size: 1.1em;}
+.egret-flex-item-shelf .egret-flex-item-shelf02 {font-size: 0.6em; color: #666; margin-top: 0.6em;}
+.egret-flex-item-shelf .egret-flex-item-redclassify {color: #E03F40; border: 1px solid #E03F40; font-size: inherit; padding: 0.1em; border-radius: 1px; margin-right: 5px;}
+
+/* 右部箭头 */
+.egret-flex-item-arrow {-webkit-box-flex: 1;max-width: 10px; min-width: 10px; margin-right: 5px;}
+.egret-flex-item-arrow img {width: 100%; max-width: 10px;}
+
+/* 悬浮 */
+.fmbtnhover {background: #D8D9DA ;}
+
+</style>
+</head>
+<body>
+
+<div class="egret-flex-item" tapmode="fmbtnhover" onclick="openMusicPlay()">
+	<div class="egret-flex-item-logo">
+		<img src="../../image/frame0103cover/downloaddiscover.jpg" alt="" class="">
+	</div>
+	<div class="egret-flex-item-shelf">
+		<div class="egret-flex-item-shelf01">轻快的生活</div>
+		<div class="egret-flex-item-shelf02">以莉高露 1首</div>
+	</div>
+	<div class="egret-flex-item-arrow">
+		<img src="../../image/cm2_list_icn_arr.png" alt="" class="">
+	</div>
+</div>
+
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript">
+function openMusicPlay () {
+	api.openWin({
+		name: 'disclist',
+		url: './disclist.html',
+		delay:200
+	});
+}
+apiready = function  () {}
+</script>
+</html>

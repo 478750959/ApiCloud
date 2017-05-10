@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>商品详情</title>
+    <link rel="stylesheet" type="text/css" href="../css/ly.css"/>
+    <style>
+    	#collect img{
+    		display:block;
+    		border-radius:50% 50%;
+    	}
+    </style>	
+</head> 
+<body style='background:#fefdfa;'>
+	<div id="wrap">
+		<div id="main" class="ly_max none">
+			<div class="swiper-container">
+			<script id="wareImg" type="text/x-dot-template">
+				{{ for(var i in it) { }}
+				<div class="swiper-slide">
+					<img src="{{=it[i].image}}!ls" alt="">
+			    </div>		
+				{{ } }}
+			</script>	
+				<div class="swiper-wrapper" id="a">					
+					
+				</div>
+				<div class="pagination"></div>
+			</div>
+			<div class="ly_detcont">
+				<h2  id="title"></h2>
+				<p id="money"><span>¥</span></p>
+			</div>	
+			<div class="ly_box">
+				<p class="ly_tag fix">
+					<span>卖家包邮</span>
+					<span>已有<em id="count"></em>人 购买</span>
+				</p>
+				<script id="parameter" type="text/x-dot-template">
+						{{ for(var i in it){ }}
+						<!--{{ if(it[i]!=undefined) {  }}-->
+						<p class="fix">
+							<span class="lt tit">{{=i}}：</span>							
+							{{  for(var p in  it[i])  {    }}
+							<span class="lt cont">{{=it[i][p]}}</span>
+							{{ } }} 							
+						</p>
+						<!--{{  } }}-->
+						{{ } }}
+					</script>	
+				<div class="ly_detmsg fix" id="attr">
+										
+				</div>				
+			</div>		
+			<p class="det_btn" onclick="openNext('bill_confirm_w',1)">商品详情</p>
+			<div class="det_tab det_tabs">
+				<ul class="fix">
+					<li class="current colect">谁收藏过</li>
+					<li class="goods">商品评价</li>
+					<!--<span class="collect"></span>-->
+				</ul>
+				
+				<div class="fix"> 
+					<div id="collect">						
+					</div>
+					<p class="tex my_coll"    onclick="more_coll(this)">查看更多&gt;&gt;</p>
+					<p class="lsl_coll hid tex none"   onclick="less_coll()">收起部分收藏</p>
+				</div>	
+				
+				<div class="fix ly_dis none" >									
+					<div id="comment">						
+					</div>
+					<p class="tex my_comm"    onclick="more_comm(this)">查看更多&gt;&gt;</p>
+					<p class="lsl_comm hid tex none"   onclick="less_comm()">收起部分评论</p>
+				</div>
+				
+				<script id="comm" type="text/x-dot-template">						
+					{{ for(var i in it) { }}					
+					<dl class="fix">
+					 	<dt class="lt"><img src="{{if(it[i].headimg==undefined   ||  it[i].headimg==''  ||  it[i].is_null=='1') {  }}../image/touxiang.png{{   } else {  }}   {{=it[i].headimg}}    {{  }  }}"></dt>
+					 	<dd class="rt">
+					 		<p class="fix">
+					 			<span class="lt tit">{{if(it[i].is_null==1) { }} 匿名 {{ }else{  }} {{=it[i].nickname}}  {{  } }}</span>
+					 			<span class="rt time">{{=it[i].addtime}}</span>
+					 		</p>
+					 		<p>{{=it[i].content}}</p>
+					 	</dd>
+					</dl>
+					{{ } }}						
+				</script>
+				
+						
+				<script id="collection" type="text/x-dot-template">
+					{{ for(var i in it) { }}					
+							<p><img src="{{if(it[i].headimg==undefined   ||  it[i].headimg=='') {  }}../image/touxiang.png{{   } else {  }}   {{=it[i].headimg}}    {{  }  }}"></p>					
+					{{ } }}
+				</script>	
+								
+					
+			</div>
+			<div class="det_tab tab_w">
+				<ul class="fix">
+					<li class="current">同剧推荐</li>
+					<li>同类推荐</li>
+				</ul>				
+				<div class="fix" id="brand">					
+				</div>				
+				<div class="fix none" id="groom">					
+				</div>			
+				<script id="nominate" type="text/x-dot-template">
+					{{ for(var i in it) { }}
+					<p onclick="to_goods({{=it[i].id}})"><img src="{{=it[i].logo}}!tjl"></p>
+					{{ } }}
+				</script>	
+				<script id="same" type="text/x-dot-template">
+					{{ for(var i in it) { }}
+					<p  onclick="to_goods({{=it[i].id}})"><img src="{{=it[i].logo}}!tjl"></p>
+					{{ } }}
+				</script>	
+			</div>
+			<span class="ly_top"></span>
+			<p class="ly_share none">
+				<span></span>
+			</p>			
+			
+		</div>
+		<footer class="ly_xq fix" id="footer">
+			<div class="two">
+		    	<a href="javascript:void(0);" class="car" onclick="openFm('bill_confbuy_f',1)">加入购物车<span class="none"></span></a>
+		    	<a href="javascript:void(0);" class="buy" onclick="openFm('bill_confbuy_f',2)">立即购买</a>
+			</div>
+	    </footer>
+	</div>
+	<input type='hidden' name='goods_name'>
+	<input type='hidden' name='goods_pic'>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/zepto.js"></script>	
+<script type="text/javascript" src="../script/font.js"></script>
+<script type="text/javascript" src="../script/doT.min.js"></script>
+<script type="text/javascript" src="../script/comm.js"></script>
+<script type="text/javascript" src="../script/idangerous.swiper-2.0.min.js"></script>
+<script type="text/javascript" src="../script/ly.js"></script>
+<script>
+	var m=0;
+	function more_comm(obj){
+		var count=$(obj).attr('count');
+		
+		if(m<count-1){
+			
+			m++;
+			if(m==count-1){
+				$('.my_comm').addClass('none');
+				$('.lsl_comm').removeClass('none');			
+			}
+			
+			ajaxRequest('goods/comm','post',{'page':m,'goods_id':api.pageParam.goods_id},function(ret,err){
+				if(err){
+					api.toast({
+						msg:err.msg
+					});
+					return false;
+				}
+				if(ret.status){				
+				var tpl4 = $api.byId('comm').text;
+	    		var tempFn4 = doT.template(tpl4);
+	    		var html=tempFn4(ret.info);
+	    		$('#comment').append(html);			
+				}else{
+					api.toast({
+						msg:ret.info
+					});
+				}
+			});
+		}	
+		
+	}
+	function less_comm(){
+			ajaxRequest('goods/comm','post',{'page':0,'goods_id':api.pageParam.goods_id},function(ret,err){
+				if(err){
+					api.toast({
+						msg:err.msg
+					});
+					return false;
+				}
+				if(ret.status){	
+				$('.my_comm').removeClass('none');
+				$('.lsl_comm').addClass('none');	
+				m=0;						
+				var tpl4 = $api.byId('comm').text;
+	    		var tempFn4 = doT.template(tpl4);
+	    		var html=tempFn4(ret.info);
+	    		$('#comment').html(html);			
+				}else{
+					api.toast({
+						msg:ret.info
+					});
+				}
+			});
+	}
+	var n=0;
+	function more_coll(obj){
+		var count=$(obj).attr('count');		
+		if(n<count-1){
+			
+			n++;
+			if(n==count-1){
+				$('.my_coll').addClass('none');
+				$('.lsl_coll').removeClass('none');			
+			}			
+			ajaxRequest('goods/coll','post',{'page':n,'goods_id':api.pageParam.goods_id},function(ret,err){
+				if(err){
+					api.toast({
+						msg:err.msg
+					});
+					return false;
+				}
+				if(ret.status){				
+				var tpl4 = $api.byId('collection').text;
+	    		var tempFn4 = doT.template(tpl4);
+	    		var html=tempFn4(ret.info);
+	    		$('#collect').append(html);			
+				}else{
+					api.toast({
+						msg:ret.info
+					});
+				}
+			});
+		}	
+	}
+	function less_coll(){
+		ajaxRequest('goods/coll','post',{'page':0,'goods_id':api.pageParam.goods_id},function(ret,err){
+				if(err){
+					api.toast({
+						msg:err.msg
+					});
+					return false;
+				}
+				if(ret.status){		
+				$('.my_coll').removeClass('none');
+				$('.lsl_coll').addClass('none');
+				n=0;				
+				var tpl4 = $api.byId('collection').text;
+	    		var tempFn4 = doT.template(tpl4);
+	    		var html=tempFn4(ret.info);
+	    		$('#collect').html(html);			
+				}else{
+					api.toast({
+						msg:ret.info
+					});
+				}
+			});
+	}
+	var xycb=1;
+	function to_goods(id){	
+		var xyca={};	
+		if(api.winName=="bill_dethead_w"){
+			xycb=2;//2为打开bill_dethead_in_w窗口
+			xyca={'name':'bill_dethead_in_w','url':'bill_dethead_in_w.html'};
+		}else if(api.winName=="bill_dethead_in_w"){
+			xycb=1;
+			xyca={'name':'bill_dethead_w','url':'bill_dethead_w.html'};
+		}
+		api.openWin({
+			name : xyca.name,
+			url :  xyca.url,
+			opaque : true,
+			reload:true,
+			vScrollBarEnabled : false,
+			pageParam : {				
+				goods_id:id
+				
+			}
+		});			
+	}	
+//	var id;
+	function openNext(xyc,count){
+//		if(xyc=='bill_confirm_w'){
+//			xyc='bill_confirm_in_w';
+			var param={
+				goods_name:$('input[name=goods_name]').val(),
+				goods_pic:$('input[name=goods_pic]').val(),
+				count: count,
+				id:api.pageParam.goods_id,
+				xycb:xycb
+			};
+//		}else{
+//			param={count:count,id:api.pageParam.goods_id};
+//		}		
+		
+        api.openWin({
+            name: xyc,
+            url: xyc+'.html',
+            opaque: true,
+            reload: true,
+            pageParam:param,
+            vScrollBarEnabled: false
+        });
+    }
+    function openFm(xyc,count){
+	    var width = api.winWidth;
+	    var height = api.winHeight;
+	    api.openFrame({
+		    name: xyc,
+		    url: xyc+'.html',
+		    bounces: false,
+		    opaque: false,		
+		    vScrollBarEnabled: false,
+		    pageParam:{count:count,id:api.pageParam.goods_id},
+		    rect: {
+		        x: 0,
+		        y: 0,
+		        w: width,
+		        h: height
+		    }
+		});	
+	}
+	//点击加入购物车
+	function xyc(){
+		api.closeFrame({
+			name:'bill_confbuy_f'
+		});
+		$('.car span').removeClass('none');
+		setTimeout(function(){
+			$('.car span').addClass('none');
+		},1500)
+	}
+//	$('.ly_xq .car').bind("touchstart", function() {
+//		
+//	})
+	function swipe(){
+		var mySwiper = new Swiper('.swiper-container',{
+		autoplay: 3000,
+		pagination: '.pagination',
+	    grabCursor: true,
+	    paginationClickable: true,
+	    autoplayDisableOnInteraction : false
+	})
+	
+	}
+	function get_data(goods_id){			
+		 ajaxRequest('goods/commodity', 'post',{'id':goods_id}, function(ret,err){
+		 	api.hideProgress();		
+		 	if(err){
+		 		api.toast({
+		 			msg:err.msg
+		 		});
+		 		return false;
+		 	}
+	    	if (ret.status) {      		    			    		
+	    		var info=ret.info;  	   	
+	        	var ware = info.ware;
+	        	var same = info.same;
+	        	var nominate = info.nominate;
+	        	var wareImg  = info.wareImg;
+	        	var collection = info.collection;
+	        	var comm = info.comm;
+	        	var comm_count  = info.comm_count;	
+	        	var parameter = info.parameter;
+	        	var coll_count  = info.coll_count; 	        	
+	        	$('#count').html(ware.count);
+	        	if(comm_count<=1){
+	        		$('.my_comm').addClass('none');
+	        	}       	              	    
+	        	if(coll_count<=1){
+	        		$('.my_coll').addClass('none');
+	        	}    	
+	        	//内容
+	        	$("#title").html(ware.goods_name);
+	        	// share
+	        	api.sendEvent({
+					    name: 'get_share',
+					    extra:ware
+					});
+					$('input[name=goods_name]').val(ware.goods_name);	
+		    		 $('input[name=goods_pic]').val(ware.logo);	
+	        	//金钱 
+	        	$("#money").html('<span>¥</span >'+ware.shop_price);
+	        	
+	        	//同类推荐
+	        	var content = $api.dom('#groom');
+				var tpl = $api.byId('same').text;
+	    		var tempFn = doT.template(tpl);
+				$api.html(content, tempFn(same));
+				//同剧推荐
+				var content1 = $api.dom('#brand');
+				var tpl1 = $api.byId('nominate').text;
+	    		var tempFn1 = doT.template(tpl1);
+				$api.html(content1, tempFn1(nominate));   
+	         	
+	         	//轮播
+	         	var content2 = $api.dom('#a');
+				var tpl2 = $api.byId('wareImg').text;
+	    		var tempFn2 = doT.template(tpl2);
+				$api.html(content2, tempFn2(wareImg));
+				
+				//收藏
+				$('.my_coll').attr('count',coll_count);
+				var content3 = $api.dom('#collect');
+				var tpl3 = $api.byId('collection').text;
+	    		var tempFn3 = doT.template(tpl3);
+				$api.html(content3, tempFn3(collection));
+				
+				//评论
+				$('.my_comm').attr('count',comm_count);
+				var content4 = $api.dom('#comment');
+				var tpl4 = $api.byId('comm').text;
+	    		var tempFn4 = doT.template(tpl4);
+				$api.html(content4, tempFn4(comm));				
+				//属性				
+				var content5 = $api.dom('#attr');
+				var tpl5 = $api.byId('parameter').text;
+	    		var tempFn5 = doT.template(tpl5);
+				$api.html(content5, tempFn5(parameter));
+				swipe();
+				api.hideProgress();
+	 	 	  	$('#main').removeClass('none');
+	         }
+	        
+	    });
+	}
+	apiready = function(){
+		api.showProgress({
+				style: 'default',
+			    title: '加载中',
+			    modal: false
+	        });
+		get_data(api.pageParam.goods_id);
+		api.addEventListener({
+	        name:'cg_coll'
+        },function(ret,err){
+//      	api.alert({msg:ret});
+        	var goods_id=ret.value.goods_id;
+        	get_data(goods_id);
+        });
+	}
+	
+
+</script>
+</html>

@@ -1,0 +1,23 @@
+<div class="page-group">
+	<div id="page-news" class="page">
+		<header class="bar bar-nav">
+			<h1 class='title'>资讯详情</h1>
+			<a class="button button-link button-nav pull-left back"> <span
+				class="icon icon-left"></span> 返回
+			</a>
+		</header>
+		<div class="content hidden" style="padding-bottom:4em;">
+			<div class="">
+				<img class="whole-img" :src="one.img_path">
+			</div>
+			<p class="uinn">{{one.descp}}</p>
+
+		</div>
+
+	</div>
+	<script type="text/javascript">
+		
+	</script>
+</div>
+
+

@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+  <head>
+    <title>我的信息
+    </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="css/ui-img.css">
+    <link rel="stylesheet" href="css/ui-res.css">
+    <link rel="stylesheet" href="css/ui-list.css">
+    <link rel="stylesheet" href="css/ui-base.css">
+    <link rel="stylesheet" href="css/ui-btn.css">
+    <link rel="stylesheet" href="css/ui-box.css">
+    <link rel="stylesheet" href="css/ui-color.css">
+	<link rel="stylesheet" href="css/style.css">
+    <script src="js/y_control.js"></script>
+	<script src="js/y_click.js"></script>
+	<script src="js/dis_control.js"></script>
+	<script src="js/y_json.js"></script>
+	<script src="js/y_tmpl.js"></script>
+	<script src="js/y_anim.js"></script>
+	<script src="js/config.js"></script>
+	<script src="js/dis_upload.js"></script>
+	<script src="js/y_icache.js"></script>
+     <script src="js/project/profile.js"></script>
+    <script>
+	</script>
+	<style>
+	.uc-l {
+	-webkit-border-top-left-radius: 0.5em;
+	border-top-left-radius: 0.5em;
+	-webkit-border-bottom-left-radius: 0.5em;
+	border-bottom-left-radius: 0.5em
+	}
+	.uc-r {
+	-webkit-border-top-right-radius: 0.5em;
+	border-top-right-radius: 0.5em;
+	-webkit-border-bottom-right-radius: 0.5em;
+	border-bottom-right-radius: 0.5em
+	}
+	.ubrw0 {
+	border-right-width: 0;
+	}
+	.pad2{
+		padding:.3em 0;
+	}
+	</style>
+  </head>
+<body class="um-vp c-wh1" ontouchstart>
+	<!--列表开始-->
+	<div class="uc-n ">
+ 		<div class="uc-n ub ub-ac uinn8">
+     		<div class="lis-th3 ub-img5 uc-a1" ontouchstart="zy_touch('c-gra')" onclick="avatChange();">
+     			<img src="images/mylogo.png" class="inforpic1" id="avat"/>
+				<div class="inforpos uhide" id="tpic">
+					<img src="images/pic.png" class="inforimg"/>
+				</div>
+     		</div>   
+			 
+ 			<div class="ub-f1 ub ub-ver">	 
+ 	    		<div class="ulev1 ut-s ulev0" id="nick">&nbsp;</div>		    
+    			<div class="ub ub-ac ut-s umar-t" id="host_gid"></div>
+ 	   		 	<div class="t-gra ut-s ulev-1  umar-t"><span id="sex">&nbsp;</span><span id="place">&nbsp;</span></div>
+ 			</div>
+			 <div ontouchstart="zy_touch('c-gra')" onclick="help(2);" class="ub-f1 uhide " id="tools">
+			 	  <div class="ub-img5"><img src="images/qrcode-s.png" class="inforpic1_1" id="myqr"></div>
+	         </div>  	
+			<div class="umar-l ub-ver">
+				<div class="ub ub-ac ut-s ulev-1 umar-b umar-r">
+                    <div class="umh2 umw1 ub-img8 im-credit"></div>
+                    <div class="t-gra umar-r">约伴</div>
+                    <div id="credit" class="t-gra1"></div>
+                </div>
+				<div id="isfd" class="ufr"></div>
+                <div id="fadd_tmpl" class="uhide">
+                    <div class="ub ub-ac c-org umar-t uinn11" ontouchstart="zy_touch('btn-act1')" onclick="friendAdd();">
+                        <div class="afbtn"></div>
+                        <div class="t-wh">加为好友</div>
+                    </div>
+                </div>
+                <div id="fagree_tmpl" class="uhide">
+                    <div class="ub ub-ac c-org umar-t uinn11" ontouchstart="zy_touch('btn-act1')" onclick="friendAdd();">
+                        <!--<div class="afbtn"></div>-->
+                        <div class="t-wh">批准请求</div>
+                    </div>
+                </div>
+
+                <div id="fdel_tmpl" class="uhide">
+                    <div class="ub ub-ac c-org umar-t uinn11" ontouchstart="zy_touch('btn-act1')" onclick="friendDel();">
+                        <div class="dfbtn" ></div>
+                        <div class="t-wh">取消好友</div>
+                    </div>
+                </div>
+                <div id="fwait_tmpl" class="uhide">
+                    <div class="ub ub-ac uba b-gra3 umar-t uinn11 ub-pc t-gra">
+                        <div>等待批准</div>
+                    </div>
+                </div>
+			</div>
+ 		</div>  
+  	</div>
+    <div class="uba b-gra c-wh umar-b1 umar-t1">
+        <ul class="c-wh uc-a">
+            <li ontouchstart="zy_touch('c-gra')" onclick="go2new5(8);" class="uc-t ub ubb b-gra ub-ac lis">
+                <div class="ub-img5 im-single newpic"></div>
+                <div class=" ub-f1 ut-s ulev0" id="appSelected8">单身名片</div>
+                <div class="ub ub-ver">
+                    <div class="ub ub-pe uinn11" id="set_role_single">已启用</div>
+                    <div class="ub ub-pe t-gra ulev-1 ut-s uinn1" id="profile_single"></div>
+                </div>
+
+            </li>
+            <li ontouchstart="zy_touch('c-gra')" onclick="go2new5(9);" class="uc-t ub ubb b-gra ub-ac lis">
+                <div class="ub-img5 im-occupation newpic"></div>
+                <div class=" ub-f1 ut-s ulev0" id="appSelected9">职业名片</div>
+                <div class="ub ub-ver">
+                    <div class="ub ub-pe uinn11" id="set_role_occupation">已启用</div>
+                    <div class="ub ub-pe t-gra ulev-1 ut-s uinn1" id="profile_occupation"></div>
+                </div>
+            </li>
+            <li ontouchstart="zy_touch('c-gra')" onclick="go2new5(10);" class="uc-t ub ubb b-gra ub-ac lis">
+                <div class="ub-img5 im-education newpic"></div>
+                <div class=" ub-f1 ut-s ulev0" id="appSelected10">校友名片</div>
+                <div class="ub ub-ver">
+                    <div class="ub ub-pe uinn11" id="set_role_education">已启用</div>
+                    <div class="ub ub-pe t-gra ulev-1 ut-s uinn1" id="profile_education"></div>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <div class="c-wh">
+        <div class="ub ub-ac lis ubb b-gra" ontouchstart="zy_touch('c-gra')" onclick="go2new5(1);">
+            <div class="ub-img5 tp-sharetag morepic"></div>
+            <div class="umar-r t-gra ut-s ulev0">记录</div>
+            <div class="ub-f1 uinn1" id="threadlist"></div>
+        </div>
+        <div class="ub ub-ac lis" ontouchstart="zy_touch('c-gra')" onclick="go2new5(3);">
+            <div class="ub-img5 im29 morepic"></div>
+            <div class="umar-r t-gra ut-s ulev0">相册</div>
+            <div class="ub ub-f1 uinn1 ub-pe" id="gallery"></div>
+        </div>
+    </div>
+
+    <div class="uba b-gra c-wh" id="ft">
+        <!--   共同好友  added by tom 20150404-->
+        <div class="ub ubb b-gra ub-ac lis" ontouchstart="zy_touch('c-gra')" id="link_friend" onclick="go2new5(11);">
+            <div class="ub-img5 im28 morepic"></div>
+            <div class="umar-r t-gra ut-s ulev0">共同好友</div>
+            <div class="ub ub-f1 uinn1 ub-pe" id="get_link_friend"></div>
+        </div>
+        <div class="uc-b ub ub-ac lis">
+            <div class="ub-img5 im30 morepic"></div>
+            <div class=" ut-s ulev0 umar-r t-gra">圈子</div>
+            <div class="ub-f1 uinn1" id="friend_tag"></div>
+        </div>
+    </div>
+	<!--个人资料页，设置列表-->
+    <div class="uhide" id="slist" ontouchstart="zy_cc(this);">
+		<div class="uba b-gra c-wh">
+		 	<div ontouchstart="zy_touch('c-gra')" onclick="go2new5(4);" class="ub ubb b-gra ub-ac lis">
+		  		<div class="ub-img5 im16 morepic"></div>
+		 		<div class="ub-f1 ut-s t-gra ulev0">我的访客</div>
+		 	</div>
+			<div ontouchstart="zy_touch('c-gra')" onclick="go2new5(5);" class="uc-b ub ub-ac lis">
+		  		<div class="ub-img5 im17 morepic"></div>
+		 		<div class="ub-f1 ut-s t-gra ulev0">我访问的人</div>
+		    </div>
+		</div>
+	</div>
+	
+
+
+</body>
+<script>
+zy_init();
+var params = getStorJson('params');
+var view = params.view;
+var nmage = '';
+var update = 0;
+var myUpload = null;
+var act = 0;
+//var hisSingle = '';//view!=me时是否单身
+var ucurl = getstorage('ucurl');
+if(!ucurl) ucurl = guc;
+var privacy_view_album = '';
+var isfriend = '';
+var fromCache = 0;
+var uid = params.uid;   //被访问者uid
+var s_uid = getstorage('UID');
+var link_friend=0;      //共同好友数
+if(uid == s_uid) view = 'me';
+if(view == 'me'){
+	
+	//当前用户才能看自己的二维码
+    //var qr_url=yh_talk_server+"img/getUserQRCode.do?key=c4ca4238a0b923820dcc509a6f75849b&uid="+s_uid;//个人二维码地址
+    //$$('myqr').src=qr_url;
+    zy_anim_pop('tools','uhide');
+	
+	zy_anim_pop('slist','uhide');
+	zy_anim_pop('tpic','uhide');
+    zy_hide('link_friend');     //隐藏共同好友
+    zy_anim_push('ft','uhide');
+    setHtml('appSelected11','单身名片设置');
+    setHtml('appSelected12','职业名片设置');
+    setHtml('appSelected13','校友名片设置');
+}else{
+	view = 'other';
+	nmage = params.username;
+	var src = $$('fadd_tmpl').innerHTML;
+	if (params.isfriend) {
+        zy_hide('link_friend');     //隐藏共同好友
+        src = $$('fdel_tmpl').innerHTML;
+    }
+	setHtml('isfd',src);
+}
+
+window.uexOnload = function ()
+{
+	setPageBounce(downcb, '');
+	zy_initcache();
+    loadAll('1');
+    if(fromCache) loadAll('');
+};
+function downcb(){
+	update = 1;
+    loadAll('');
+}
+function loadAll(f){
+    loadInfor(f);       //个人信息
+    loadList(f);
+    loadGallery(f);     //相册
+}
+function avatChange(){
+    //如果查看他人头像，点击看大图：
+	if(view!='me') {
+        var avatarurl = serverurl+ "uc_server/avatar.php?size=big&uid="+uid;
+        var arr = [];
+        arr[0] = avatarurl;
+        uexImageBrowser.open(arr,"0","1");
+        //return;
+    }else{
+
+        if(!act) return;
+        var uc = getstorage('uc');
+        if(uc){
+            avatarUpload(uc);
+            return;
+        }
+
+        var url = home_url + "&mod=spacecp&ac=avatar";
+        act = 0;
+        $.getJSON(url, function(json) {
+            act = 1;
+            if (json.message) {
+                uexWindow.toast('0','5',json.message,2000);
+            }else{
+                if(json.uc){
+                    setstorage('uc', json.uc);
+                    avatarUpload(json.uc);
+                }
+            }
+        });
+
+    }
+
+}
+
+function avatarUpload(uc){
+	var ulUrl = uc_url + "&m=user&a=uploadavatar&" + uc;
+	myUpload = new disUpload(ulUrl, 'avatar', actCb, susCb);
+	myUpload.upSelect();
+}
+function actCb(val){
+	
+}
+function susCb(val){
+	var e = $$('avat');
+	if(e) e.src = val;
+	
+	var pic = ucurl + uid;
+	var lsg = window.localStorage;
+	if(lsg) lsg.removeItem(pic);
+}
+function friendDel(){
+    if(going) return;
+    going = 1;
+	uexWindow.cbConfirm = function(opId, dataType, data){
+        going = 0;
+ 		if(Int(data)==0) friendDel2();
+	};
+	var mycars = ['确定', '取消'];
+	uexWindow.confirm('提示', '解除好友关系', mycars);
+}
+function friendAdd(){
+    var str = '{"wname":"friend_information", "popname":"content", "fuid":"'+uid+'"}';
+    setstorage('params',str);
+
+    openwin('friend_add', 'friend_add.html', '10');
+}
+function friendAddBack(status){
+    var relation = Int(status);
+    if(relation == 1){//发出请求，按钮为等待批准
+        setHtml('isfd', $$('fwait_tmpl').innerHTML);
+    }else if(relation == 2){//对方发出了请求，按钮为批准申请,这种情况不可能在我操作后发生
+    }else if(relation == 3){
+        setHtml('isfd', $$('fdel_tmpl').innerHTML);
+        refresh_main_friend();
+    }
+}
+function friendDel2(){
+	var url = home_url + "&mod=spacecp&ac=friend&op=ignore&confirm=1&uid="+uid+"&friendsubmit=true";
+	uexWindow.toast('1','5','请稍候...',"");
+	$.getJSON(url, friendDelCb, 'json', getJsonErr, 'POST', '', '');
+}
+function friendDelCb(json){
+	uexWindow.closeToast();
+	if(json && json.status){
+		uexWindow.toast('0','5',json.status,2000);
+		//$$('isfd').src = 'images/addfriend.png';
+		setHtml('isfd', $$('fadd_tmpl').innerHTML);
+        refresh_main_friend();
+	}
+	else uexWindow.toast('0','5',"操作失败", 2000);
+}
+function refresh_main_friend(){
+    var openedPages = getstorage('openedPages') || '';
+    if(openedPages.indexOf('2') >= 0) ueppscript('root', 'content2', 'loadFriendTags(\'\', \'\')');//如果已经打开人脉页面，刷新
+}
+function go2new5(i){
+	var wnm = 'morelist';
+	var url = 'morelist.html';
+	var str = '{"view":"'+view+'", "uid":"'+uid+'", "username":"'+nmage+'"}';
+	
+	switch(i)
+	{
+		case 1:
+			wnm = 'forum_list';
+			url = 'forum_list.html';
+		break;
+		case 2:
+			wnm = 'blog';
+			url = 'blog.html';
+		break;
+		case 3:
+            if(privacy_view_album == 1 && !isfriend){
+                uexWindow.toast('0', '5', 'TA的相册好友可见', 2000);
+                return;
+            }else if(privacy_view_album == 2){
+                uexWindow.toast('0', '5', 'TA的相册保密', 2000);
+                return;
+            }
+			wnm = 'album';
+			url = 'album.html';
+		break;
+		case 4:
+			str = '{"view":"visitor"}';
+		break;
+		case 5:
+			str = '{"view":"trace"}';
+		break;
+		case 8://单身名片
+            if($$('set_role_single').innerHTML  == '已关闭' && view != 'me'){
+                uexWindow.toast('0', '5', '已关闭', 2000);
+                return;
+            }
+			wnm = 'manage_role';
+			url = 'manage_role.html';
+            str = '{ "view":"' + view + '", "uid":"' + uid  + '", "rolemoduleid":"1"'+ ', "title":"' + $$('appSelected' + i).innerHTML.substr(0,4) + '"}';//单身名片
+            break;
+        case 9://职业名片
+            if($$('set_role_occupation').innerHTML  == '已关闭' && view != 'me'){
+                uexWindow.toast('0', '5', '已关闭', 2000);
+                return;
+            }
+            wnm = 'manage_role';
+            url = 'manage_role.html';//职业名片
+            str = '{ "view":"' + view + '", "uid":"' + uid  + '", "rolemoduleid":"2"'+ ', "title":"' + $$('appSelected' + i).innerHTML.substr(0,4) + '"}';//单身名片
+            break;
+        case 10://校友名片
+            if($$('set_role_education').innerHTML  == '已关闭' && view != 'me')
+            {
+                uexWindow.toast('0', '5', '已关闭', 2000);
+                return;
+            };
+            wnm = 'manage_role';
+            url = 'manage_role.html';//学校名片
+            str = '{ "view":"' + view + '", "uid":"' + uid  + '", "rolemoduleid":"3"'+ ', "title":"' + $$('appSelected' + i).innerHTML.substr(0,4) + '"}';//单身名片
+            break;
+        case 11://共同好友
+            wnm = 'morelist';
+            url = 'morelist.html';//访问记录
+            str = '{"view":"linkf"' + ', "fuid":"' + uid + '"}';
+            break;
+
+	}
+	
+	if(str) setstorage('params', str);
+	if(url){
+		//var o = getStorJson('params');
+		openwin(wnm,url,'10');
+	}
+}
+
+function loadInfor(f){
+	var zz = "&z="+Int(Math.random()*100);
+	if(view=='me') uid = getstorage('UID');
+	var url = home_url + "&mod=space&do=profile&uid="+uid;
+    fromCache = checkKey(url);
+	if(!fromCache) uexWindow.toast('1','5','更新中...',"");
+	$.getJSON(url, loadInforCb, 'json', getJsonErr, 'POST', '', f, 1);
+}
+function loadInforCb(json){
+	act = 1;
+	uexWindow.closeToast(); 
+	if(update){
+		update = 0;
+		resetBV('0');
+	}
+	
+	var o = json;
+	if(o){
+		if (Int(o.status)<0) {
+			uexWindow.toast('0','5',o.message,2000);
+			return;
+		}
+		
+		if (json.nologin=='1') {
+			setstorage('UID', '');
+			checkLogin();
+			return;
+		}
+		
+		/*头像*/
+		var pic = ucurl+o.uid; // "<img src="http://discuz.3g2win.com/uc_server/avatar.php?uid=2611&size=middle" />"
+		//$$('avat').src = pic;
+
+        dis_imgcache('avat',pic,pic,imgLoadSucSrc,imgLoadErrSrc,null,'',1);
+
+		
+		setHtml('nick', o.username);
+        nmage = o.username
+        uescript('friend_information', "setHtml('ttl', '" + nmage + "');");//title
+        setstorage('username', o.username);
+		if(o.credit) setHtml("credit", o.credit);
+		
+		//setHtml('note', o.spacenote?o.spacenote:'&nbsp;');
+        if(o.host_gid)setHtml('host_gid', '<div class="umh2 umw1 ub-img8 im-host"></div><div class="umar-l ulev-1">主办方</div>');
+        else setHtml('host_gid', '');
+		
+		var sx = '保密，'
+		if((o.profiles && o.profiles.gender)) sx=o.profiles.gender.value+'，';
+		setHtml('sex', sx);
+		
+		var add = o.resideprovince || o.address;
+		add = add?add:'暂无地址信息';
+		setHtml("place", add);
+		
+		if(view!='me' && o.button){
+			var srcf = $$('fadd_tmpl').innerHTML;
+			if(o.button.title=='ignore') {
+				srcf = $$('fdel_tmpl').innerHTML;
+			}
+			setHtml('isfd',srcf);
+		}
+		
+		if(o.isfriend){
+			if (o.isfriend == '3') {
+                isfriend = 1;
+				src=$$('fdel_tmpl').innerHTML;
+			}else if(o.isfriend == '1') src = $$('fwait_tmpl').innerHTML;
+            else if(o.isfriend == '2') src = $$('fagree_tmpl').innerHTML;
+			setHtml('isfd',src);
+		}
+        //显示单身名片是否启用
+        show_role_modules(o.rolemodule, o.profiles);
+        setStorJson('profiles', o.profiles);//保存后在其他页面会调用
+        //
+        if(view != 'me' && o.tagnames){
+            if(o.privacy_view && o.privacy_view.album)
+                privacy_view_album = Int(o.privacy_view.album);
+            var tagstr = '', name = '';
+            var tagnames = o.tagnames;
+            var count = 0;
+            for (var key in tagnames) {
+                if(++count >8){
+                    break;
+                }
+                name = tagnames[key];
+                tagstr += '<div class="ufr uba b-org uc-a2 ulev-1 uinn11 uinn19">'+ name +'</div>';
+            }
+            setHtml('friend_tag', tagstr);
+        }
+        // 设置共同好友数：
+        link_friend= o.link_friend_count;
+        if(view != 'me'){
+            if(link_friend!==0){
+                setHtml('get_link_friend', "共"+link_friend+"人");
+            }else{
+                zy_hide('link_friend');     //隐藏共同好友
+            }
+        }
+	}
+}
+/**
+ * 获取该用户最近的一条记录
+ * @param {Object} f
+ */
+function loadList(f){
+	var url = home_url + "&mod=space&do=thread&uid="  + uid + '&type=thread&getone=1';//只得到一条
+	//if(!checkKey(url)) uexWindow.toast('1','5','更新中...',"");
+    //fromCache = checkKey(url);
+	$.getJSON(url, loadListCb, 'json', getJsonErr, 'POST', '', f, 1);
+}
+function loadListCb(json){
+	//uexWindow.closeToast();
+	var o = json;
+	if (o) {
+		if (Int(o.status) < 0) {
+			uexWindow.toast('0', '5', o.message, 2000);
+			return;
+		}
+		
+		var list = o.list;
+		var length = zy_tmpl_count(list);
+		
+		if(o.total){
+			//setHtml('tn', o.total);
+			setHtml('fns', o.total);
+		}
+        //获取共同好友数：
+        if(o.link_friend) {
+            link_friend=o.link_friend;
+        }
+		
+		if(length>0){
+			var tmpl = '<div class="t-bla ub-ac"> 	 '
+                            +'<div class="ulev0 t-bla ut-s tx-r">${subject}</div> '
+					 	+'</div>';
+			var res = zy_tmpl(tmpl,list,length,j2vCb);
+			setHtml('threadlist', res);
+		}
+	}
+}
+function j2vCb(d,c)
+{
+}
+function show_role_modules(rolestatus, profiles){
+    var rs = '';
+    var role_profile = {
+        single: ['age', 'height'],
+        occupation: ['occupation'],
+        education: ['graduateschool']
+    };
+    if(zy_tmpl_count(rolestatus) > 0) rs = rolestatus;//view != me
+    else rs = getStorJson('role_status');//view== me
+    if(zy_tmpl_count(profiles) > 0) {}//view != me
+    else profiles = getStorJson('profiles');//view== me
+    for(var key in rs){
+        if(parseInt(rs[key])){
+            var html_profile = '';
+            //添加概要资料
+            var fields = role_profile[key];
+            for(var index in fields){//将数组中的每项资料拼起来
+                var field = fields[index];
+                if(profiles[field]){
+                    var value = profiles[field]['value'] || '';
+                    html_profile += value + ' ';
+                }
+            }
+            setHtml('profile_' + key, html_profile);
+            //
+            setHtml('set_role_' + key,'已启用');
+        }
+        else{
+            setHtml('set_role_'+ key,'已关闭');
+            //hisSingle = 'false';//点击时控制不跳转
+        }
+    }
+}
+
+function updateLists(){
+    loadAll('');
+}
+var gurl = '';
+/**
+ * 获取该用户相册
+ * @param {Object} f
+ */
+function loadGallery(f){
+    var url = home_url+"&mod=space&do=album&newest=1" + "&uid=" + uid;
+    gurl = url;
+    //fromCache = checkKey(url);
+    //if(!fromCache) uexWindow.toast('1','5','更新中...',"");
+    $.getJSON(url, loadGalleryCb, 'json', getJsonErr, 'POST', '', f, 1);
+}
+function loadGalleryCb(json){
+    //uexWindow.closeToast();
+    if(json){
+        if (Int(json.status)<1) {
+            //uexWindow.toast('0','5',json.message,2000);
+            setstorage(gurl,'');
+            setHtml('gallery', "");//切换用户时，上一个用户有内容，导致新登录的用户沿用老信息。
+            return;
+        }
+
+        var list = json.list;
+        var length = zy_tmpl_count(list);
+        var res = '';
+        if (length > 0) {
+            var tmpl = '<div class="ub-img5 lis-th3 us">'
+                            +'<img src="images/mylogo.png" ${cb:pic} class="inforpic1" id="pic${picid}"/>'
+                        +'</div>';
+            res = zy_tmpl(tmpl, list, length, j2vCb2);
+            setHtml('gallery', res);
+            imgCacheCall();
+        }
+    }
+
+}
+function j2vCb2(d,c)
+{
+    var str = '';
+    if(c.length>1)
+    {
+        switch(c[1])
+        {
+            case 'pic':
+                pushCacheCall(function(){
+                    dis_imgcache('pic'+d.picid, d.pic, d.pic, imgLoadSucSrc, imgLoadErrSrc, null, '', '1');
+                });
+                break;
+        }
+    }
+    return str;
+}
+
+/**
+ * 联系约哈小秘书或打开我的二维码
+ */
+function help(op){
+  var uid = Int(getstorage('UID'));
+  if(op==1){
+    //联系约哈小秘书
+    var toUserId = Int(serviceuid);//"5000"
+    var currentRoomId="";
+	//考虑到userId次序问题，改为两个userId最小值在前，这样双方可以取到同一个key。
+	if (uid < toUserId) {
+		currentRoomId = "talk_"+uid + "-" + toUserId;
+	}else {
+	    currentRoomId = "talk_"+toUserId + "-" + uid;
+	}	
+    setstorage('currentRoomId', currentRoomId);//加入某个聊天室。
+    setstorage('currentRoomId_title', "约伴小秘");//标题。
+    
+    openwin('msg_detail_yb', 'msg_detail_yb.html', '10');
+  }else if(op==2){
+    //显示我的二维码
+    var qr_url=yh_talk_server+"img/getUserQRCode.do?key=c4ca4238a0b923820dcc509a6f75849b&uid="+uid;//个人二维码地址
+    var arr = [];
+	arr[0] = qr_url;
+	uexImageBrowser.open(arr,'0','1');//‘0’表示打开第一张图，‘1’表示直接打开图片
+  }
+}
+
+</script>
+</html>

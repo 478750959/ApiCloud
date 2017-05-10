@@ -1,0 +1,52 @@
+#wrap {
+	height: 100%;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-orient: vertical;
+	-webkit-flex-flow: column;
+	flex-flow: column;
+}
+
+#main {
+	-webkit-box-flex: 1;
+	-webkit-flex: 1;
+	flex: 1;
+	padding: 10px;
+}
+
+#comfirm {
+	height: 40px;
+	font-weight: bold;
+	width: 100%;
+	margin-top: 30px;
+}
+
+section {
+	padding: 0 10px;
+	margin-top: 20px;
+	border: 1px solid #BDBDBD;
+	height: 60px;
+	line-height: 60px;
+	border-radius: 5px;
+	-webkit-border-radius: 5px;
+	overflow: hidden;
+}
+
+.left {
+	float: left;
+}
+.right {
+	float: right;
+}
+.buttonback {
+	position: relative;
+	overflow: hidden;
+}
+.img {
+	z-index: 999;
+	left: 50%;
+	margin-left: -80px;
+	top: 35px;
+	position: absolute;
+}

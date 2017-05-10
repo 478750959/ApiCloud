@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+  <head>
+    <title>
+    </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="css/ui-input.css">
+    <link rel="stylesheet" href="css/ui-on.css">
+    <link rel="stylesheet" href="css/ui-img.css">
+    <link rel="stylesheet" href="css/ui-res.css">
+    <link rel="stylesheet" href="css/ui-list.css">
+    <link rel="stylesheet" href="css/ui-base.css">
+    <link rel="stylesheet" href="css/ui-box.css">
+    <link rel="stylesheet" href="css/ui-color.css">
+	<link rel="stylesheet" href="css/style.css">
+    <script src="js/y_control.js"></script>
+    <script src="js/y_click.js"></script>
+	<script src="js/y_json.js"></script>
+	<script src="js/config.js"></script>
+	<script src="js/dis_control.js"></script>
+    <script>
+	</script>
+  </head>
+<body class="um-vp" ontouchstart>
+	<div class="uinn18">
+		<div class="uba  b-gra c-wh uc-a uinn6">
+			<div ontouchstart="zy_touch('btn-act')" class=" ub t-gra ub-ac umh4 lis">
+		 		<div class="tx-r ut-s ulev-3">相册</div>      
+				<div class="ub-f1 ub sel">
+					<div class="ub-f1 ut-s ulev0 t-bla tx-r" id="t6">公开</div>
+					<select name="sel0" selectedindex="2"  style="border:none !important; " id="s6" onchange="selectmenu('s6')">
+				  		<option>公开</option>  
+				  		<option>好友可见</option>
+						<option>保密</option>
+				 	</select>
+				 </div>  
+		  		<div class="res8 lis-sw ub-img4"></div>   
+		 	</div>
+		</div>
+		<div class="uba b-gra c-wh uc-a uinn6" style="margin-top:1em;">
+		  	<div class="uc-t ub c-m2 t-gra ub-ac umh4 lis">
+		   		<div class="tx-r ut-s ulev-3">公开我的位置</div>
+				<div class="ub-f1"></div>    
+				<input class="uhide" type="checkbox" id="cb" checked="checked">	
+				<div class="swi uc-a1 uba b-gra"  ontouchstart="zy_touch('c-gra')" onclick="zy_for(event)">
+					<div class="uabs swi-btn"></div>
+				</div>
+		 	</div>
+		</div>
+	</div>
+</body>
+<script>
+zy_init();
+var e1 = $$('s1'); 
+var e2 = $$('s2');
+var e3 = $$('s3');
+var e4 = $$('s4');
+var e5 = $$('s5');
+var e6 = $$('s6');
+var e7 = $$('s7');
+var e8 = $$('cb');
+window.uexOnload = function ()
+{
+	setPageBounce('', '');
+	getprivacy();
+};
+function getprivacy(){
+	var url = home_url + "&mod=spacecp&ac=privacy";
+	$.getJSON(url, function(json) {
+		var o = json.privacy.view;
+		/*var i1 = o.friend;
+		var i2 = o.wall;
+		var i3 = o.home;
+		var i4 = o.doing;
+		var i5 = o.blog;*/
+		var i6 = o.album;
+		//var i7 = o.share;
+		
+		/*if(i1 != 0){
+			//e1.selectedIndex=i1;
+			//setHtml('t1',e1.options[i1].text);
+		}
+		if(i2 != 0){
+			//e2.selectedIndex=i2;
+			//setHtml('t2',e2.options[i2].text);
+		}
+		if(i3 != 0){
+			//e3.selectedIndex=i3;
+			//setHtml('t3',e3.options[i3].text);
+		}
+		if(i4 != 0){
+			e4.selectedIndex=i4;
+			setHtml('t4',e4.options[i4].text);
+		}
+		if(i5 != 0){
+			e5.selectedIndex=i5;
+			setHtml('t5',e5.options[i5].text);
+		}*/
+		if(int(i6)){
+			e6.selectedIndex=i6;
+			setHtml('t6', e6.options[i6].text);
+		}
+		/*if(i7 != 0){
+			//e7.selectedIndex=i7;
+			//setHtml('t7',e7.options[i7].text);
+		}*/
+		
+		if(o.allow_state == '0'){
+			e8.checked = false;
+		}
+	});
+}
+function submit(){
+	var v1 = 0;//e1.selectedIndex; 
+	var v2 = 0;//e2.selectedIndex;
+	var v3 = 0;//e3.selectedIndex;
+	/*var v4 = e4.selectedIndex;
+	var v5 = e5.selectedIndex;
+	*/
+    var v6 = e6.selectedIndex;
+	//var v7 = 0;//e7.selectedIndex;
+	var e = e8.checked;
+	var ad = '0';
+	if(e) ad = '1';
+	//var url = home_url + "&mod=spacecp&ac=privacy&op=base&friend="+v1+"&wall="+v2+"&home="+v3+"&doing="+v4+"&blog="+v5+"&album="+v6+"&share="+v7+"&address="+ad+"&privacysubmit=1";
+	//var url = home_url + "&mod=spacecp&ac=privacy&op=base&doing="+v4+"&blog="+v5+"&album="+v6+"&address="+ad+"&privacysubmit=1";
+    var url = home_url + "&mod=spacecp&ac=privacy&op=base&album="+v6+"&address="+ad+"&privacysubmit=1";
+	logs('privacy-->url='+url);
+	uexWindow.toast(1, 5, '请稍候...', '');
+	$.getJSON(url, function(json) {
+		var str = '';
+		if(json.status=="0") str = json.message;
+		else str = json.status;
+		uexWindow.toast(0, 5, str, '2000');
+		setTimeout("uescript('setlist', 'closewin();');", 1500);
+	},'json', getJsonErr);
+}
+function selectmenu(id){
+	zy_selectmenu(id);
+}
+</script>
+</html>

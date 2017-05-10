@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+	<title></title>
+	<link rel="stylesheet" href="../css/api.css">
+	<link rel="stylesheet" href="../css/common.css">
+	<style>
+	.hr-10{background-color:rgb(247,247,247);}
+	.wrap{border-top:1px solid rgb(222,222,222);border-bottom:1px solid rgb(222,222,222);box-sizing:border-box;padding:12px;}
+	.wrap2{margin:0 0 20px 0;}
+	.wrap2-header{display:-webkit-box;-webkit-box-align:center;}
+	.wrap3{margin:0 0 5px 0;}
+	.title1{font-size:14px;margin:0 0 15px 0;}
+	.title2{font-size:14px;margin:5px 5px 5px 0;}
+	.title3{font-size:13px;margin:0 5px 0 0;}
+	.content1{color:rgb(171,171,171);margin:0 0 15px 0;font-size:13px;}
+	.content2{border-top:1px solid rgb(222,222,222);display:-webkit-box;-webkit-box-flex:1;height:1px;}
+	.content3{font-size:13px;color:rgb(183,183,183);word-break:break-all;}
+	</style>
+</head>
+<body>
+	<div class="wrap">
+		<div class="title1">包装清单</div>
+		<div class="content1">手机（含内置电池） x 1，充电器 x 1， USB 线 x 1， 3.5mm 耳机 x 1，卡座捅针 x 1，安全说明 x 1，快速指南 x 1，售后服务手册 x 1</div>
+	</div>
+	<div class="hr-10"></div>
+	<div class="wrap">
+		<div class="title1">参数规格</div>
+		<div class="wrap2">
+			<div class="wrap2-header">
+				<span class="title2">主体</span><span class="content2"></span>
+			</div>
+			<div class="wrap3">
+				<span class="title3">品牌</span><span class="content3">华为（HUAWEI）</span>
+			</div>
+			<div class="wrap3">
+				<span class="title3">型号</span><span class="content3">HUAWEI MT7-CL00</span>
+			</div>
+			<div class="wrap3">
+				<span class="title3">上市时间</span><span class="content3">2014年9月</span>
+			</div>
+			<div class="wrap3">
+				<span class="title3">外观设计</span><span class="content3">直板</span>
+			</div>
+			<div class="wrap3">
+				<span class="title3">智能手机</span><span class="content3">是</span>
+			</div>
+			<div class="wrap3">
+				<span class="title3">操作系统</span><span class="content3">华为 EMUI 3.0（兼容 Android 4.4）</span>
+			</div>
+			<div class="wrap3">
+				<span class="title3">用户界面</span><span class="content3">华为 EMUI 3.0</span>
+			</div>
+			<div class="wrap3">
+				<span class="title3">CPU型号</span><span class="content3">麒麟925</span>
+			</div>
+			<div class="wrap3">
+				<span class="title3">CPU核数</span><span class="content3">超八核</span>
+			</div>
+			<div class="wrap3">
+				<span class="title3">CPU主频</span><span class="content3">4核A15 1.8 GHz+4核A7 1.3 GHz+微智核</span>
+			</div>
+			<div class="wrap3">
+				<span class="title3">双卡</span><span class="content3">双卡双待双通</span>
+			</div>
+			<div class="wrap3">
+				<span class="title3">输入方式</span><span class="content3">华为输入法</span>
+			</div>
+		</div>
+		<div class="wrap2">
+			<div class="wrap2-header">
+				<span class="title2">网络</span><span class="content2"></span>
+			</div>
+			<div class="wrap3">
+				<span class="title3">4G网络制式</span><span class="content3">电信4G（TDD-LTE/FDD-LTE）</span>
+			</div>
+			<div class="wrap3">
+				<span class="title3">3G网络制式</span><span class="content3">电信3G（CDMA2000）/ WCDMA（国际漫游）</span>
+			</div>
+			<div class="wrap3">
+				<span class="title3">2G网络制式</span><span class="content3">电信2G（CDMA）/ 移动/联通2G（GSM）</span>
+			</div>
+			<div class="wrap3">
+				<span class="title3">网络制式</span><span class="content3">主卡：支持中国电信4G/3G/2G；副卡：移动/联通2G；上、下卡槽可任意选择其中之一设置为主卡</span>
+			</div>
+			<div class="wrap3">
+				<span class="title3">网络频率</span><span class="content3">4G: TDD-LTE: Band 41(100MHz),FDD-LTE: Band1/3（B1仅限于国际漫游使用）; 3G: CDMA 800MHz 1X&EVDO,WCDMA/HSPA+/DC-HSDPA: 850/900/1900/2100MHz（国际漫游）,DC-HSPA+ 42Mbps: Band1(国际漫游); 2G: GSM/GPRS/EDGE: SIM1：850/900/1800/1900MHz（国际漫游）,SIM2：900/1800/1900MHz</span>
+			</div>
+			<div class="wrap3">
+				<span class="title3">浏览器</span><span class="content3">华为 EMUI 3.0默认浏览器</span>
+			</div>
+		</div>
+		<div class="wrap2">
+			<div class="wrap2-header">
+				<span class="title2">屏幕</span><span class="content2"></span>
+			</div>
+			<div class="wrap3">
+				<span class="title3">屏幕尺寸</span><span class="content3">6.0英寸</span>
+			</div>
+			<div class="wrap3">
+				<span class="title3">屏幕色彩</span><span class="content3">1670万色</span>
+			</div>
+			<div class="wrap3">
+				<span class="title3">屏幕类型</span><span class="content3">LTPS/ IPS TFT触摸屏（支持手套触摸）</span>
+			</div>
+			<div class="wrap3">
+				<span class="title3">分辨率</span><span class="content3">FHD 1920 x 1080</span>
+			</div>
+			<div class="wrap3">
+				<span class="title3">屏幕像素密度PPI</span><span class="content3">368 PPI</span>
+			</div>
+			<div class="wrap3">
+				<span class="title3">触摸屏</span><span class="content3">多点触控触摸屏</span>
+			</div>
+		</div>
+		<div class="wrap2">
+			<div class="wrap2-header">
+				<span class="title2">传感器</span><span class="content2"></span>
+			</div>
+			<div class="wrap3">
+				<span class="title3">重力感应器</span><span class="content3">支持</span>
+			</div>
+			<div class="wrap3">
+				<span class="title3">接近光传感器</span><span class="content3">支持</span>
+			</div>
+			<div class="wrap3">
+				<span class="title3">亮度传感器</span><span class="content3">支持</span>
+			</div>
+			<div class="wrap3">
+				<span class="title3">电子罗盘</span><span class="content3">支持</span>
+			</div>
+			<div class="wrap3">
+				<span class="title3">陀螺仪</span><span class="content3">支持</span>
+			</div>
+			<div class="wrap3">
+				<span class="title3">NFC</span><span class="content3">支持</span>
+			</div>
+			<div class="wrap3">
+				<span class="title3">指纹传感器</span><span class="content3">按压式指纹传感器、360度指纹识别、芯片级安全解决方案；快速熄屏解锁、访客模式、文件加密、应用锁、指纹拍照</span>
+			</div>
+		</div>
+		<div class="wrap2">
+			<div class="wrap2-header">
+				<span class="title2">存储</span><span class="content2"></span>
+			</div>
+			<div class="wrap3">
+				<span class="title3">运行内存（RAM）</span><span class="content3">2GB</span>
+			</div>
+			<div class="wrap3">
+				<span class="title3">机身内存（ROM）</span><span class="content3">16GB</span>
+			</div>
+			<div class="wrap3">
+				<span class="title3">用户可用空间（ROM）</span><span class="content3">大于或等于11 GB</span>
+			</div>
+			<div class="wrap3">
+				<span class="title3">存储卡类型</span><span class="content3">microSD卡</span>
+			</div>
+			<div class="wrap3">
+				<span class="title3">最大支持扩展</span><span class="content3">最大支持128GB</span>
+			</div>
+		</div>
+		<div class="wrap2">
+			<div class="wrap2-header">
+				<span class="title2">娱乐功能</span><span class="content2"></span>
+			</div>
+			<div class="wrap3">
+				<span class="title3">视频解码</span><span class="content3">H.263、H.264、MPEG-4</span>
+			</div>
+			<div class="wrap3">
+				<span class="title3">视频文件格式</span><span class="content3">*.3gp、*.mp4、*.webm、*.mkv</span>
+			</div>
+			<div class="wrap3">
+				<span class="title3">音频解码</span><span class="content3">MP3、MIDI、AMR-NB、AMR-WB、AAC、AAC+、eAAC+、PCM、WMA</span>
+			</div>
+			<div class="wrap3">
+				<span class="title3">音频文件格式</span><span class="content3">*.mp3、*.mid、*.amr、*.awb、*.3gp、*.mp4、*.m4a、*.aac、*.wav、*.ogg、*.flac、*.mkv</span>
+			</div>
+			<div class="wrap3">
+				<span class="title3">图片解码</span><span class="content3">PNG、GIF（静态）、JPEG、BMP、WEBP、WBMP</span>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

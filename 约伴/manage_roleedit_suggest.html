@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+<head>
+    <title>
+    </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="css/ui-input.css">
+    <link rel="stylesheet" href="css/ui-on.css">
+    <link rel="stylesheet" href="css/ui-img.css">
+    <link rel="stylesheet" href="css/ui-res.css">
+    <link rel="stylesheet" href="css/ui-list.css">
+    <link rel="stylesheet" href="css/ui-base.css">
+    <link rel="stylesheet" href="css/ui-box.css">
+    <link rel="stylesheet" href="css/ui-color.css">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/y_control.js"></script>
+    <script src="js/y_click.js"></script>
+    <script src="js/y_json.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/dis_control.js"></script>
+    <script src="js/y_anim.js"></script>
+    <script src="js/y_tmpl.js"></script>
+    <script>
+    </script>
+</head>
+<body class="um-vp c-gra5" ontouchstart>
+<div id="page_0" class="up ub ub-ver" tabindex="0">
+    <!--header开始-->
+    <div id="header" class="ub c-blu3 uh">
+        <div class="ub ub-ac umw3" ontouchstart="zy_touch('btn-act1')" onclick="closewin();">
+            <div class="btn btn-a ub ub-ac">
+                <div class="ulim"><img src="images/back.png" class="sbtn"></div>
+            </div>
+        </div>
+        <div class="c-m2 t-wh" id="hhh">
+            <h1 class="ut ulev0 ut-s tx-c" tabindex="0" id="ttl">&nbsp;</h1>
+        </div>
+    </div>
+    <!--header结束-->
+
+    <!--content开始-->
+    <div id="content" class="ub-f1 tx-l t-bla"></div>
+    <!--content结束-->
+</div>
+</body>
+<script>
+zy_init();
+var params = getStorJson('params');
+var from_wnd = params.from_wnd;
+var from_frame = params.from_frame;
+var field = params.field;
+var list;//返回的json保存为数组，当点击cell时根据index获取title
+var listOpened = 0;
+var content_height = '';
+window.uexOnload = function () {
+    var s=window.getComputedStyle($$('header'),null);
+    var header_height = $$("header").offsetHeight;
+    uexWindow.openPopover("header","0", "manage_roleedit_suggestinput.html","", 0, 0, int(s.width), int(header_height), int(s.fontSize),"0", "false");
+    content_height = int(window.getComputedStyle($$('content'),null).height);
+};
+function getSuggest(value){
+    if(!value){
+        if(listOpened){
+            Y.listViewReloadData({
+                data: []
+            });
+        }
+        return;
+    }
+    value = encodeURIComponent(value);
+    //获取10个单位名称，并提示
+    var url = home_url + '&mod=misc&ac=profile_suggest&field=' + field + '&value=' + value;
+    $.getJSON(url, cbSuggest);
+    /*var params = {
+        method  : 'post' ,
+        url     : url    ,
+        dataType: 'text',
+        callback: cbSuggest
+    };
+    Y.ajax(params);*/
+}
+function cbSuggest(str){
+    if(!str) return;
+    var json = result_json(str);
+    if(!json || json.status < 0) return;
+    list = json.list;
+    var length = zy_tmpl_count(list);
+    if(!length) return;
+    var data = [];
+    for (var key in list) {
+        var value = list[key];
+        data.push({title: value, titleColor: '#333333'});
+    }
+    if(listOpened){
+        Y.listViewReloadData({
+            data: data
+        });
+    }else{
+        listViewOpen(data);
+    }
+}
+function listViewOpen(data) {
+    var listViewCB = function (ret, err) {//点击cell的回调
+        if (!ret) {
+            $$('keywords').enable = false;
+            Y.alert({title: "出错了", msg: err["msg"]});
+            return;
+        }
+        //将选中的值赋给表单
+        ueppscript(from_wnd, from_frame, 'set_suggest_field(\'' + field + '\', \'' + list[ret.index] + '\')');
+        setTimeout(function(){closewin();}, 500);
+    };
+
+    var offset_y = isAndroid ? 20 : 0;
+    var offset_x = 10;
+    var params = {
+        x: offset_x,
+        y: int($$('header').offsetHeight + offset_y),
+        w: window.innerWidth - 2* offset_x,
+        h: content_height - offset_y -10,
+        data: data,
+        callback: listViewCB,
+        borderColor: '#DBDBDB',
+        cellBgColor: '#FFFFFF',
+        cellHeight: 50
+    };
+    Y.listViewOpen(params);
+    listOpened = 1;
+}
+</script>
+</html>

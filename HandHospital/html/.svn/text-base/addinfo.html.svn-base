@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>addinfo</title>
+		<link rel="stylesheet" type="text/css" href="../css/api.css" />
+		<link rel="stylesheet" type="text/css" href="../css/addinfo.css" />
+	</head>
+	<body>
+		<div id='wrap'>
+			<div id='main'>
+				<form name="modifyUser" id="modifyUser" method="post">
+					<div class='name input'>
+						<span class='title'>姓名：</span>
+						<input type='hidden' value='' id="phoneNumber"/>
+						<input type='hidden' value='' id="userId"/>
+						<input type='hidden' value='' id="sex">
+						</input>
+						<input class='myname' type='text' value='' id="realName" nonull="姓名不能为空!">
+						</input>
+					</div>
+					<div class='sex input'>
+						<span class='title'>性别：</span>
+						<span onclick="selectSex(1)" tapmode> <span tapmode="active" class="radiospan radiochecked" id="male"></span> <span class='NAN'>男</span> </span>
+						<span onclick="selectSex(0)" tapmode> <span tapmode="active" class="radiospan radionocheck" id="female"></span> <span class='NV'>女</span> </span>
+					</div>
+					<div class='infonub input'>
+						<span class='title'>身份证号：</span>
+						<input type='text' class='myinfonub' value='' id="idCardNum" nonull="身份证号不能为空!">
+						</input>
+					</div>
+					<div class='phonenub input'>
+						<span class='title'>医保卡号：</span>
+						<input type='text' class='myphone' value='' id="ybCardNum">
+						</input>
+					</div>
+					<div class='cardnub input'>
+						<span class='title'>就诊卡号：</span>
+						<input type='text' class='mycardnub' value='' id="medicalCardNum">
+						</input> <!--<span tapmode="" class="more" onclick="openMore"></span>-->
+					</div>
+				</form>
+				<button class='button blue' id='save' tapmode="buttonActive" onclick="save()">
+					保存
+				</button>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../script/api.js"></script>
+	<script type="text/javascript" src="../script/zepto.min.js"></script>
+	<script type="text/javascript" src="../script/constants.js"></script>
+	<script type="text/javascript" src="../script/addinfo.js"></script>
+</html>

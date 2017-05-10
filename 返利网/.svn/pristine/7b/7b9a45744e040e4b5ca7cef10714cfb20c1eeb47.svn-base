@@ -1,0 +1,133 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>Hello APP</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/common.css" />
+    <style>
+        #header{
+            background-color: #FCFCFC;
+        }
+        .btn-box{
+            width: 56px;
+            height: 48px;
+            padding-top: 4px;
+        }
+        .btn-back{
+            width: 40px;
+            margin-left: 1em;
+            background: url(../../res/back_normal.png) center center no-repeat;
+            background-size: 100%;
+            padding-top: 0;
+        }
+        .btn-box img{
+            margin: 0 auto;
+            width: 40px;
+            display: block;
+        }
+        .btn-box:active,.btn-box.tap-active{
+            background-color: #82D0ED;
+        }
+        .btn-back:active,.btn-back.tap-active{
+            background:#82D0ED url(../../res/back_hover.png) center center no-repeat;
+            background-size: 100%;
+        }
+        #header .title{
+            -webkit-box-flex: 1;
+            -webkit-flex: 1;
+            flex: 1;
+            font-size: 1.1em;
+            line-height: 48px;
+            color: #585858;
+            text-align: left;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+        #header .header-content{
+            border-bottom: 1px solid #BABABA;
+        }
+    </style>
+</head>
+<body>
+    <div id="wrap">
+        <div id="header">
+            <div class="header-content clearfix">
+                <div class="btn-box btn-back" tapmode="tap-active" onclick="backOrClose();">
+                    
+                </div>
+                <h5 class="title">&nbsp;</h5>
+                <div class="btn-box" tapmode="tap-active" onclick="api.closeWin();">
+                    <img src="../../res/webview_close.png" alt="">
+                </div>
+                <div class="btn-box" tapmode="tap-active" onclick="openMore();">
+                    <img src="../../res/more_normal.png" alt="">
+                </div>
+                
+            </div>
+        </div>
+        <div id="main">
+                
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/common.js"></script>
+<script type="text/javascript">
+    var backOrClose = function(){
+        
+		var str = 'api.historyBack(function(ret, err){if (ret.status){} else {api.closeWin();}});';
+        api.execScript({
+            frameName: 'webframe',
+            script: str
+        });
+    };
+    var openMore = function(){
+        api.openFrame({
+            name: 'webmore',
+            url: './webmore.html',
+            bounces: false,
+            rect: {
+                x: 0,
+                y: 0,
+                w: 'auto',
+                h: 'auto'
+            }
+        });
+    };
+    var openFrameFn = function(){
+        api.openFrame({
+            name: 'webframe',
+            url: curUrl,
+            bounces: false,
+            rect: {
+                x: 0,
+                y: headerPos.h,
+                w: 'auto',
+                h: mainPos.h
+            }
+        });  
+    };
+    apiready = function(){
+        var title = api.pageParam.title;
+        var url = api.pageParam.url;
+        var frameName = api.pageParam.frameName;
+
+        var header = $api.byId('header');
+        $api.fixIos7Bar(header); 
+        window.headerPos = $api.offset(header);
+        var main = $api.byId('main');
+        window.mainPos = $api.offset(main);
+        
+        
+        window.curUrl = url;
+        if (frameName) {
+            curUrl = '../native/'+frameName+'.html';
+        }
+        $api.dom('#header .title').innerHTML = title;
+        openFrameFn();
+    };
+</script>
+</html>

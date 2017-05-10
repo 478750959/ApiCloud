@@ -1,0 +1,126 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="copyright" content="www.apicloud.com" />
+<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+<title>正在播放</title>
+<link rel="stylesheet" type="text/css" href="../../css/api.css" />
+<link rel="stylesheet" type="text/css" href="../../css/egret.css" />
+<style>
+
+@-webkit-keyframes playing {
+	/*0%   { transform: rotate(0deg);}*/
+	100% { -webkit-transform: rotate(360deg);}
+}
+
+@keyframes playing {
+	100% { transform: rotate(360deg);}
+}
+body {height: 100%;}
+.br {border-right: 1px solid #0A0A0A;}
+.bl {border-right: 1px solid #232323;}
+
+/* 上部效果 */
+.play-up {position: relative;}
+.play-up-bg {width: 100%;height: 100%;position: absolute;}
+.play_needle {position: absolute; vertical-align: top; top: -20px; width: 200px; left: 50%; margin-left: -100px;
+	transform: rotate(-30deg);
+	transform-origin: 50% 10%;
+	transition: all 0.8s ease;
+
+	-webkit-transform: rotate(-30deg); 
+	-webkit-transform-origin: 50% 10%;
+	-webkit-transition: all 0.8s ease;}
+
+.playdisc {position: absolute; width: 80%; left: 50%; margin-left: -40%; top: 30px; }
+
+.play-up-toolbar {position: relative; bottom: 50px; display: -webkit-box; padding: 0 50px; height: 50px; border-top: 1px solid #e0e0e0; -webkit-box-align: center;}
+.play-up-toolbar .play-up-tool {-webkit-box-flex:1;text-align: center;}
+.play-up-toolbar .play-up-tool img {height: 30px;}
+
+/* 底部控制 */
+.play-control {position: absolute;width: 100%;bottom: 0;height: 60px;border-top: 1px solid #e0e0e0;}
+.play-control .loopmode {position: absolute; left: 0; vertical-align: top; line-height: 60px; text-align: center; font-size: 0.8em; color: #444;padding-left: 10px;}
+.play-control .controllist {position: absolute;right: 0;vertical-align: top; line-height: 60px; text-align: center; font-size: 0.8em; color: #444;padding-right: 10px;}
+.play-control .play-control-bar {position: absolute;left:60px; right: 60px;height: 60px;}
+.play-control .play-control-bar img {width: 50px;padding-top: 5px;position: absolute;}
+.play-control .play-control-bar .play-control-bar-bg {height: 40px;margin-top: 10px;background-color: #D6D6D6;border-radius: 20px;width: 100%;}
+
+.fminfo {position: absolute; bottom: 70px; width: 100%; text-align: center;}
+.fminfo .fmtitle {font-size: 1.2em;}
+.fminfo .fmsinger {font-size: 0.8em;color: #555;padding-top: 10px;}
+</style>
+</head>
+<body>
+
+<div class="play-up">
+	
+	<img src="../../image/frame0101cover/fmcover.jpg" alt="" class="playdisc">
+	<div class="fminfo">
+		<div class="fmtitle">极乐世界</div>
+		<div class="fmsinger">郑钧</div>
+	</div>
+</div>
+<div class="play-up-toolbar">
+	<div class="play-up-tool"><img src="../../image/frame0101cover/cm2_rdi_btn_love.png" alt=""></div>
+	<div class="play-up-tool"><img src="../../image/frame0101cover/cm2_rdi_btn_dlt.png" alt=""></div>
+	<div class="play-up-tool"><img src="../../image/frame0101cover/cm2_rdi_btn_next.png" alt=""></div>
+</div>
+
+<div class="play-control">
+	<div class="loopmode">00:00</div>
+	<div class="controllist">03:53</div>
+	<div class="play-control-bar">
+		<img src="../../image/musicplay/play_btn_play.png" alt="" data-click="0" class="play-control-btn" onclick="switchmusic(this)">
+		<div class="play-control-bar-bg"></div>
+	</div>
+</div>
+
+
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript">
+
+function playmusic () {
+	var musicdisc = document.getElementsByClassName('playdisc')[0];
+	var musicneedle = document.getElementsByClassName('play_needle')[0];
+
+	musicdisc.style.webkitAnimationPlayState = 'running';
+	musicneedle.style.transform = 'rotate(0deg)';
+	musicneedle.style.webkitTransform = 'rotate(0deg)';
+}
+
+function stopmusic () {
+	var musicdisc = document.getElementsByClassName('playdisc')[0];
+	var musicneedle = document.getElementsByClassName('play_needle')[0];
+
+	musicdisc.style.webkitAnimationPlayState = 'paused';
+	musicneedle.style.transform = 'rotate(-30deg)';
+	musicneedle.style.webkitTransform = 'rotate(-30deg)';
+}
+
+function switchmusic (button) {
+
+	var click = button.getAttribute("data-click");
+		
+	if (click == 0) {
+		// 点开
+		button.setAttribute("data-click", 1);
+		button.src = "../../image/musicplay/play_btn_pause.png";
+		// playmusic ();
+	}else {
+		// 关闭
+		button.setAttribute("data-click", 0);
+		button.src = "../../image/musicplay/play_btn_play.png";
+		// stopmusic ();
+	}
+}
+
+window.onload = function  () {
+	var playbg = document.getElementsByClassName('play-up')[0];
+	playbg.style.height = document.documentElement.clientHeight - 60 + 'px';
+}
+apiready = function  () {}
+</script>
+</html>

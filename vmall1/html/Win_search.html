@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+	<link rel="stylesheet" href="../css/api.css">
+	<style>
+	html,body{height:100%;}
+	body{background-color:rgb(247,247,247);}
+	.header{height:50px;background-color:rgb(224,29,32);display:-webkit-box;-webkit-box-align:center;position:relative;}
+	.header-search{display:-webkit-box;-webkit-box-flex:1;background-color:rgb(228,56,59);height:30px;border:1px solid rgb(229,100,100);border-radius:10px;margin-left:10px;}
+	.header-search-input{display:-webkit-box;-webkit-box-flex:1;padding-left:10px;color:rgb(255,255,255);height:30px;outline-style:none;}
+	.header-cross{height:30px;width:30px;background:url(../image/close.png);background-size:contain; position:absolute;right:50px;top:10px;}
+	.header-selectView{height:30px;width:30px;background-color:rgb(222,222,222);background:url(../image/menu-l.png) center no-repeat;background-size:90%;display:none;margin:0 0 0 10px;}
+	.header-secrchImg{height:40px;width:40px;background-color:rgb(200,0,0);background:url(../image/search.png) center no-repeat;background-size:50%;}
+	.search-wrap{display:block;}
+	.search-main{padding:0 10px;}
+	.search-main-title{color:rgb(160,160,160);margin:0 0 10px 10px;}
+	.search-main-title-ul{width:100%;}
+	.search-main-title-li{border:1px solid rgb(183,183,183);height:50px;line-height:50px;text-align:center;width:31.33%;float:left;box-sizing:border-box;border-radius:10px;margin:1%;background-color:rgb(255,255,255);}
+	.showResult{width:100%;height:100%;display:none;}
+	.showResult-nav{height:40px;box-sizing:border-box;border-bottom:1px solid rgb(200,200,200);}
+	.showResult-nav-ul{width:100%;}
+	.showResult-nav-li{float:left;width:25%;box-sizing:border-box;height:40px;line-height: 40px;text-align:center;}
+	.showResult-nav-price-arrow{width:10px;height:10px;background-color:rgb(255,255,255);background:url(../image/icon1.png) 0 -70px no-repeat;margin:0 0 0 5px;}
+	.showResult-list{height:100%;background-color:rgb(255,255,255);display:block;}
+	.showResult-list-wrap{margin:0 10px;}
+	.showResult-list-wrap-item{overflow:hidden;border-bottom:1px solid rgb(222,222,222);}
+	.showResult-list-wrap-item-img{height:60px;width:30px;margin:20px; background-color:rgb(222,222,222);display:inline-block;float:left;}
+	.showResult-list-wrap-item-name{margin:15px 0 5px 0;}
+	.showResult-list-wrap-item-notice{color:rgb(150,150,150);font-size:12px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;}
+	.showResult-list-wrap-item-price{color:rgb(200,0,0);margin:5px 0;}
+	.showResult-list-wrap-item-evaluate{color:rgb(150,150,150);font-size:12px;}
+	.showResult-list-wrap-item-stock{color:rgb(150,150,150);font-size:12px;float:right;}
+	.showResult-icon{display:none;}
+	.showResult-icon-item{height:220px;width:50%;border-right:1px solid rgb(222,222,222);border-bottom:1px solid rgb(222,222,222);box-sizing:border-box;float:left;background-color:rgb(255,255,255);display:block;}
+	.showResult-icon-item-wrap{margin:0 10px;}
+	.showResult-icon-item-img{display:block;background-color:rgb(222,222,222);height:120px;width:60px;margin:25px auto 15px auto;}
+	.showResult-icon-item-notice{font-size:12px;color:rgb(150,150,150);overflow:hidden;white-space: nowrap;text-overflow:ellipsis;margin:0 0 5px 0;}
+	.showResult-icon-item-price{color:rgb(200,0,0);}
+	</style>
+</head>
+<body>
+	<div class="header">
+		<div class="header-search">
+			<input class="header-search-input" id="header-search-input" type="text" placeholder="荣耀6" value="">
+		</div>
+		<a href="javascript:;" class="header-cross" id="header-cross"></a>
+		<div class="header-selectView" id="header-selectView"></div>
+		<div class="header-secrchImg" id="header-secrchImg"></div>
+	</div>
+	<div class="search-wrap" id="search-wrap">
+		<div class="hr-10"></div>
+		<div class="search-main-title">热门搜索</div>
+		<div class="search-main" id="search-main">
+		<script type="text/x-dot-template" id="search-main-template">
+			<ul class="search-main-title-ul after">
+			<ul class="search-main-title-ul after">
+				<li class="search-main-title-li" tapmode onclick="search('{{=it['p01']}}',1,'desc');">{{=it['p01']}}</li>
+				<li class="search-main-title-li" tapmode onclick="search('{{=it['p02']}}',1,'desc');">{{=it['p02']}}</li>
+				<li class="search-main-title-li" tapmode onclick="search('{{=it['p03']}}',1,'desc');">{{=it['p03']}}</li>
+			</ul>
+			<ul class="search-main-title-ul after">
+				<li class="search-main-title-li" tapmode onclick="search('{{=it['p04']}}',1,'desc');">{{=it['p04']}}</li>
+				<li class="search-main-title-li" tapmode onclick="search('{{=it['p05']}}',1,'desc');">{{=it['p05']}}</li>
+				<li class="search-main-title-li" tapmode onclick="search('{{=it['p06']}}',1,'desc');">{{=it['p06']}}</li>
+			</ul>
+			<ul class="search-main-title-ul after">
+				<li class="search-main-title-li" tapmode onclick="search('{{=it['p07']}}',1,'desc');">{{=it['p07']}}</li>
+				<li class="search-main-title-li" tapmode onclick="search('{{=it['p08']}}',1,'desc');">{{=it['p08']}}</li>
+				<li class="search-main-title-li" tapmode onclick="search('{{=it['p09']}}',1,'desc');">{{=it['p09']}}</li>
+			</ul>
+		</script>
+		</div>
+	</div>
+	<div class="showResult" id="showResult">
+		<div class="showResult-nav">
+			<ul class="showResult-nav-ul after">
+				<li class="showResult-nav-li" id="showResult-nav-relevancy" tapmode onclick="search(keyword,1,'desc');">相关度</li>
+				<li class="showResult-nav-li" id="showResult-nav-new" tapmode onclick="search(keyword,2,'desc');">最新</li>
+				<li class="showResult-nav-li" id="showResult-nav-popularity" tapmode onclick="search(keyword,3,'desc');">人气</li>
+				<li class="showResult-nav-li" id="showResult-nav-price" tapmode onclick="search(keyword,4,'desc');">价格<span class="showResult-nav-price-arrow" id="showResult-nav-price-arrow"></span></li>
+			</ul>
+		</div>
+		<div class="showResult-list" id="showResult-list">
+			<div class="showResult-list-wrap" id="showResult-list-wrap">
+			</div>
+		</div>
+		<div class="showResult-icon" id="showResult-icon">
+			<ul id="showResult-icon-ul">
+	
+			</ul>
+		</div>
+	</div>
+				<script type="text/x-dot-template" id="showResult-list-template">
+				{{for(var key in it){}}
+					<div class="showResult-list-wrap-item" onclick="openSearchWin('win_product','{{=it[key]['id']}}')">
+						<img class="showResult-list-wrap-item-img" src="{{=it[key]['thumbnail']['url']}}">
+						<p class="showResult-list-wrap-item-name">{{=it[key]['shortName']}}</p>
+						<p class="showResult-list-wrap-item-notice">{{=it[key]['description']}}</p>
+						<p class="showResult-list-wrap-item-price">&#165;{{=it[key]['price']}}</p>
+						<p class="showResult-list-wrap-item-evaluate">2897人评价(96%好评)<span class="showResult-list-wrap-item-stock">暂时缺货</span></p>
+					</div>
+				{{}}}
+				</script>
+				<script type="text/x-dot-template" id="showResult-icon-template">
+				{{for(var key in it){}}
+					<li class="showResult-icon-item" onclick="openSearchWin('win_product','{{=it[key]['id']}}')">
+						<div class="showResult-icon-item-wrap">
+							<img class="showResult-icon-item-img" src="{{=it[key]['thumbnail']['url']}}">
+							<p class="showResult-icon-item-name">{{=it[key]['shortName']}}</p>
+							<p class="showResult-icon-item-notice">{{=it[key]['description']}}</p>
+							<p class="showResult-icon-item-price">&#165;{{=it[key]['price']}}<span class="showResult-list-wrap-item-stock">暂时缺货</span></p>
+						</div>
+					</li>
+				{{}}}
+				</script>
+	<script src="../script/api.js"></script>
+	<script src="../script/doT.min.js"></script>
+	<script>
+	var keyword = null;
+	var priceSwith = 1;
+	var search = function(param,pattern,ascDesc){
+		api.showProgress();
+		keyword=param;
+		var scValue = null;
+		switch(pattern){
+			case 1:
+				scValue = 'updatedAt';
+				document.getElementById('showResult-nav-relevancy').style.borderBottom='1px solid rgb(200,0,0)';
+				document.getElementById('showResult-nav-new').style.borderBottom='0px solid rgb(200,0,0)';
+				document.getElementById('showResult-nav-popularity').style.borderBottom='0px solid rgb(200,0,0)';
+				document.getElementById('showResult-nav-price').style.borderBottom='0px solid rgb(200,0,0)';
+					document.getElementById('showResult-nav-price-arrow').style.backgroundPosition='0 -70px';
+				break;
+			case 2:
+				scValue = 'createdAt';
+				document.getElementById('showResult-nav-relevancy').style.borderBottom='0px solid rgb(200,0,0)';
+				document.getElementById('showResult-nav-new').style.borderBottom='1px solid rgb(200,0,0)';
+				document.getElementById('showResult-nav-popularity').style.borderBottom='0px solid rgb(200,0,0)';
+				document.getElementById('showResult-nav-price').style.borderBottom='0px solid rgb(200,0,0)';
+					document.getElementById('showResult-nav-price-arrow').style.backgroundPosition='0 -70px';
+				break;
+			case 3:
+				scValue = 'sort';
+				document.getElementById('showResult-nav-relevancy').style.borderBottom='0px solid rgb(200,0,0)';
+				document.getElementById('showResult-nav-new').style.borderBottom='0px solid rgb(200,0,0)';
+				document.getElementById('showResult-nav-popularity').style.borderBottom='1px solid rgb(200,0,0)';
+				document.getElementById('showResult-nav-price').style.borderBottom='0px solid rgb(200,0,0)';
+					document.getElementById('showResult-nav-price-arrow').style.backgroundPosition='0 -70px';
+				break;
+			case 4:
+				scValue = 'price';
+				if(priceSwith===1){
+					ascDesc = 'desc';
+					priceSwith = 2;
+					document.getElementById('showResult-nav-price-arrow').style.backgroundPosition='0 -110px';
+				} else {
+					ascDesc = 'asc';
+					priceSwith = 1;
+					document.getElementById('showResult-nav-price-arrow').style.backgroundPosition='0 -90px';
+				}
+				document.getElementById('showResult-nav-relevancy').style.borderBottom='0px solid rgb(200,0,0)';
+				document.getElementById('showResult-nav-new').style.borderBottom='0px solid rgb(200,0,0)';
+				document.getElementById('showResult-nav-popularity').style.borderBottom='0px solid rgb(200,0,0)';
+				document.getElementById('showResult-nav-price').style.borderBottom='1px solid rgb(200,0,0)';
+				break;
+			default:
+				// code...;
+		}
+
+		var query = api.require("query");
+
+		query.createQuery(function(ret, err) {
+			if (ret && ret.qid) {
+				var queryId = ret.qid;
+				query.limit({
+					qid:queryId,
+					value:"1000"
+				});
+
+				if(ascDesc==='desc'){
+					query.desc({
+						qid:queryId,
+						column:scValue
+					});
+				} else {
+					query.asc({
+						qid:queryId,
+						column:scValue
+					});
+				}
+
+				var model = api.require("model");
+				model.findAll({
+					class: "product",
+					qid: queryId
+				}, function(ret, err){
+					// alert(JSON.stringify(ret));
+					var retValue = [];
+					// var param = '华为P8';
+					// alert(JSON.stringify(ret.length));
+					for(var key in ret) {
+						var okNum = 0;
+						for(var i=0;i<param.length;i++){
+							patt="/"+param.charAt(i)+'+'+"/";
+							patt=eval("("+patt+")");
+							if(patt.test(ret[key]['shortName'])){
+								okNum +=1;
+							} else {
+								// console.log('defeat');
+								break;
+							}
+						}
+						if(param.length==okNum){
+							retValue.push(ret[key]);
+						}
+					} 
+
+					/*for(var key in ret){
+						var patt = "/"+param+"/";
+						patt  = eval("("+patt+")");
+						if(patt.test(ret[key]['longName'])){
+							retValue.push(ret[key]);
+						}
+					}*/
+					var showResult_list_template = document.getElementById('showResult-list-template').innerHTML;
+					document.getElementById('showResult-list-wrap').innerHTML = doT.template(showResult_list_template)(retValue);
+					var showResult_icon_template = document.getElementById('showResult-icon-template').innerHTML;
+					document.getElementById('showResult-icon-ul').innerHTML = doT.template(showResult_icon_template)(retValue);
+					// alert(JSON.stringify(retValue));
+				});
+			}
+		});
+
+		document.getElementById('search-wrap').style.display='none';
+		document.getElementById('showResult').style.display='block';
+		document.getElementById('header-selectView').style.display='block';
+		document.getElementById('header-cross').style.right= '90px';
+
+		api.hideProgress();
+
+		// alert(param);
+	}
+	/*click cross*/
+	document.getElementById('header-cross').onclick = function(){
+		document.getElementById('header-search-input').value='';
+		document.getElementById('header-search-input').focus();
+		document.getElementById('search-wrap').style.display='block'
+		document.getElementById('showResult').style.display='none';
+		document.getElementById('header-selectView').style.display='none';
+		document.getElementById('header-cross').style.right= '50px';
+	}
+	/*click magnifier*/
+	document.getElementById("header-secrchImg").onclick = function(){
+		var header_search_input_value = document.getElementById("header-search-input").value;
+		if(header_search_input_value === ''){
+			search(document.getElementById('header-search-input').placeholder,1,'desc');
+		} else {
+			search(document.getElementById('header-search-input').value,1,'desc');
+		}
+	}
+
+	/*click list*/
+	var view_symbol = 1;
+	document.getElementById('header-selectView').onclick = function (){
+		if(view_symbol === 1){
+			this.style.background = "url(../image/menu.png) center no-repeat";
+			this.style.backgroundSize = '90%';
+			document.getElementById('showResult-list').style.display='none';
+			document.getElementById('showResult-icon').style.display='block';
+			view_symbol = 2;
+		} else {
+			this.style.background = "url(../image/menu-l.png) center no-repeat";
+			this.style.backgroundSize = '90%';
+			document.getElementById('showResult-icon').style.display='none';
+			document.getElementById('showResult-list').style.display='block';
+			view_symbol = 1;
+		}
+		// alert(this.style);
+	}
+	
+	var openSearchWin = function(name,pId){
+	        api.openWin({
+	            name:name,
+	            url:name+'.html',
+	            pageParam:{pId:pId},
+	            delay:100
+	        });
+	}
+
+	apiready = function () {
+		if(api.pageParam.searchWord){
+			search(api.pageParam.searchWord,1,'desc');
+		}
+		var model = api.require("model");
+		model.findById({
+			class:"popular",
+			id:"55cc32832f83c7a114055a76"
+		},function(ret,err){
+			var wrap_main_template = document.getElementById('search-main-template').innerHTML;
+			document.getElementById('search-main').innerHTML = doT.template(wrap_main_template)(ret);
+		});
+	}
+	</script>
+</body>
+</html>

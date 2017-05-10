@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+  <head>
+    <title>
+    </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="css/ui-btn.css">
+    <link rel="stylesheet" href="css/ui-img.css">
+    <link rel="stylesheet" href="css/ui-res.css">
+    <link rel="stylesheet" href="css/ui-list.css">
+    <link rel="stylesheet" href="css/ui-base.css">
+    <link rel="stylesheet" href="css/ui-box.css">
+    <link rel="stylesheet" href="css/ui-color.css">
+	<link rel="stylesheet" href="css/style.css">
+    <script src="js/y_control.js"></script>
+    <script src="js/y_click.js"></script>
+	<script src="js/dis_control.js"></script>
+	<script src="js/y_json.js"></script>
+	<script src="js/y_tmpl.js"></script>
+	<script src="js/y_anim.js"></script>
+	<script src="js/y_icache.js"></script>
+	<script src="js/config.js"></script>
+	<script src="js/dis_share.js"></script>
+	<script src="js/y_event.js"></script>
+    <script>
+	</script>
+  </head>
+<body class="um-vp c-gra5" ontouchstart id="myevt">
+	<div class="us uc-a"></div>
+	<div class="uc-n ub t-bla ub-ac lis uhide" id="subject"></div>
+	<div class="uinn" id="content"></div>
+	<div class="umar-t" id="cmnum"></div>
+	<!--回帖列表-->
+	<div id="comlist" class="">
+		<div id="lists"></div>
+		<!--回帖页跳转导航-->
+		<div id="nav" ontouchstart="zy_cc(this);"></div>
+	</div>
+	<div style="height:2.5em"></div>
+</body>
+<script>
+zy_init();
+var params = getStorJson('params');
+var picid = params.picid;
+var uid = params.uid;
+var windWH = '';
+var favID = '';
+var act = 0;
+var curp = 1;
+var totp = 1;
+var ucurl = '';
+var subject = '';
+var cnum = 0;
+var ucurl = getstorage('ucurl');
+if(!ucurl) ucurl = guc;
+
+window.uexOnload = function ()
+{
+	windWH = "&width="+int(window.innerWidth*2/3)+"&height="+int(window.innerWidth*2/3);
+	zy_initcache();
+	setPageBounce(downcb, '');
+	
+	setstorage('active', '');
+	
+	var fg = '1';
+	if(params.from) fg = '';
+	loadBlog('', fg);
+	addListen();
+	//uescript('album_detail', 'setNavDiv();');
+}
+function upcb(){
+	resetBV('1');
+}
+function downcb(){
+	loadListUpdate();
+}
+
+/*照片内容*/
+function loadBlog(pn, fg){
+	var url = home_url+"&mod=space&do=album&uid="+ uid +"&picid="+ picid + '&page='+pn +windWH;
+	if(!checkKey(url)) uexWindow.toast('1','5','加载中...',"");
+	logs('album_detail::1--->url='+url);
+	$.getJSON(url, loadListPortalCb, 'json', getJsonErr, 'POST', '', fg, '1');
+}
+function loadListPortalCb(json){
+	uexWindow.closeToast();
+	if(json){
+		if (Int(json.status)<0) {
+			uexWindow.toast('0','5',json.message,2000);
+			return;
+		}
+		
+		if (Int(json.status)==0) {
+			myConfirm(json.message, 'album_detail');
+			return;
+		}
+		
+		var o = json.pic;
+		cnum = o.replynum;
+		
+		if(json.favorite_id){
+			favID = json.favorite_id;
+			//ueppscript('album_detail', 'nav', 'favoriteUI(1)');
+		}
+		if(o) uescript('album_detail', 'setNavDiv("'+favID+'");');
+		act = 1;
+		setstorage('active', '1');
+		subject = json.title;
+		setHtml('subject', json.title);
+		
+		var maps = '';
+		var device = '';
+		
+		if(o.address) maps = '<span class="t-blu ulev-3 ufl ub-f1" style="text-decoration:underline; margin-top:.5em;" onclick="lookmap('+o.latitude+','+o.longitude+');"><img src="images/goto3.png" class="ub-f1" style="width:1em;">'+o.address+'</span>';
+		if(o.device) device = ''/*'<span class="t-gra7 ulev-3 ufr">来自'+o.device+'客户端</span>'*/;
+		
+		var str2 = '<div class="b-gra uc-n ">'    	  
+						+'<div ontouchstart="zy_touch(\'c-gra\')" class=" ub b-gra t-bla ub-ac lis"> '
+					   		+'<div class="lis-th2 ub-img5 uc-a1 us">'
+				     			+'<img src="images/mylogo.png" class="inforpic" id="p'+picid+'"/>'
+				     		+'</div>    '
+					 		+'<div class="ub-f1 ub ub-ver"> '
+					 		   +' <div class="ulev0">'+o.username+'</div> '
+					 		   +' <div class="ub ub-ac t-gra ulev-2 umar-t1"> '
+					 		    	+'<div class="umh2 umw2 ub-img5 im3 lpic"></div> '
+					 		    	+ cnum
+					 		    	+'<div class="umh2 umw2 ub-img5 im4 lpicl lpic"></div> '
+					 		    	+'<div class="ub-f1">'+o.remote+'</div>'
+									+'<div class="umh2 umw2 ub-img5 im5 lpicl lpic"></div>'
+					 		    	+o.dateline
+					 		   +'</div>'
+					 		+'</div>' 
+						+'</div>'
+					+'</div>'
+					+'<div class="ubll"></div>'
+					+'<div class="b-gra uof"  style="position:relative; padding:.5em;">'
+						//+'<img src="images/line.png" class="uh" style="position:absolute; top:0em; left:0; height:.2em;"/>'
+						+'<div onclick="hyperlinkHandle(event);" class="ub ub-ac ub-pc"><img src="'+o.pic+'" ontouchstart="zy_touch(\'c-gra\')" onclick="viewBigImg(\''+o.pic+'\');"/></div>'
+						+maps
+						+device
+					+'</div>'
+					//+'<div style="position:relative;">'
+						//+'<img src="images/ad.jpg" class="uh umar-t" style="height:3em;" />'
+						//+'<div class="recpic"><img src="images/recommend.png" style="height:1.5em;" /></div>'
+					//+'</div>';
+		setHtml('content', str2);
+		
+		var pic = ucurl + uid;
+        pushCacheCall(function(){
+            dis_imgcache('p'+picid,pic,pic,imgLoadSucSrc,imgLoadErrSrc,null,'',1);
+        });
+		onloadimg();
+		
+		var str3 = '<img src="images/plbg.png" class="recbg" />'
+					+'<div class="t-wh ulev0 rectxt" id="replynum">'+cnum+'条评论</div>';
+		setHtml('cmnum', str3);
+		
+		if(cnum>0) loadListComCb(json);
+        imgCacheCall();
+	}
+}
+
+function loadListComCb(json){
+	//logs('loadListComCb222-->json='+JSON.stringify(json));
+	if(json){
+		var list = json.list;
+		
+		var tmpl = '<div class="b-gra uc-n">'  	 
+				 		+'<div ontouchstart="zy_touch(\'c-gra\')" class="uc-n ubb1 ub b-gra t-bla ub-ac lis">'
+							+'<div class="lis-th2 ub-img5 uc-a1 tx-c us">'
+				     			+'<img src="images/mylogo.png" ${cb:img} class="inforpic" id="pic${cid}"/>'
+								+'<span class="t-gra ulev-1 tx-c">&nbsp;</span>'
+				     		+'</div>'  
+				 			+'<div class="ub-f1 ub ub-ver">'	 
+				 	    		+'<div class="ulev0" ><span>${author}</span><span class="ulev-1 t-gra ufr">${dateline}</span></div>'		    
+				    			+'<div class="ulev-1 umh4 umar-t ulh1 uof ">${message}</div>'
+								+'<div class="ub">'
+									+'<div class="ub-f1"></div>'
+									+'<div class="t-gra7 ulev-1">&nbsp;&nbsp;</div>'
+								+'</div>'
+				 			+'</div>'      
+				 		+'</div>'  
+				  	+'</div>';
+		var res = zy_tmpl(tmpl,list,zy_tmpl_count(list),j2vCb);
+		
+		//var cContent = $$('comlist');
+		//var node = createEle("div");
+		//node.innerHTML = res;
+		//cContent.insertBefore(node,cContent.lastElementChild);
+		setHtml('lists', res);
+		
+		onloadimg();
+		
+		var cp = json.zywy_curpage;
+		var tp = json.zywy_totalpage;
+		if(cp) curp = Int(cp);
+		if(tp) totp = Int(tp);
+		
+		if(totp>1){
+			var str = '<div class="pagebg ub ub-ac ub-pc">'
+						+'<div class="uinn17 pagel ub-img5" ontouchstart="zy_touch(\'pagel-a\')" onclick="getNextPage(-1)"></div>'
+						+'<div class="uinn17 pagebtn" ontouchstart="zy_touch(\'pagebtn-a\')" onclick="go2Page()">'+curp+'/'+totp+'</div>'
+						+'<div class="uinn17 pager ub-img5" ontouchstart="zy_touch(\'pager-a\')" onclick="getNextPage(1)"></div>'
+					+'</div>';
+			setHtml('nav', str);
+		}
+	}
+}
+
+var fn = 1;
+function j2vCb(d,c)
+{
+	var str = '';
+	 if(c.length>1)
+	 {
+		switch(c[1])
+		{
+			case 'img':
+			var src = ucurl + d.authorid;
+			var id = 'pic'+d.cid;
+            pushCacheCall(function(){
+                dis_imgcache(id,src,src,imgLoadSucSrc,imgLoadErrSrc,null,'',1);
+            });
+			break;
+		}
+	 }
+	 return str;
+}
+
+function favorite(){
+	if(act){
+		var url = '';
+		if(favID){
+			/*取消收藏*/
+			url = home_url+"&mod=spacecp&ac=favorite&op=delete&deletesubmit=true&favid="+favID;
+		}
+		else{
+			/*添加收藏*/
+			url = home_url + "&mod=spacecp&ac=favorite&type=blog&id=" +blogid+"&spaceuid="+ uid+"&favoritesubmit=ture";
+		}
+		uexWindow.toast('1','5','请稍候...','');
+		$.getJSON(url, favoriteCb, 'json', getJsonErr, 'POST', '', '');
+	}
+	else uexWindow.toast('0','5','数据加载中，请稍候','2000');
+}
+function favoriteCb(json){
+	if(json){
+		var  str = '操作失败';
+		if(favID){
+			/*取消收藏*/
+			if (json.status == '1') {
+				favID = '';
+				str = '取消收藏成功';
+				ueppscript('album_detail', 'nav', 'favoriteUI()');
+				setMyData(1, '');
+			}else{
+				if(json.message) str = json.message;
+			}
+		}
+		else{
+			/*添加收藏*/
+			str = json.message;
+			if(json.favorite_id){
+				favID = json.favorite_id;
+				str = '收藏成功';
+				ueppscript('album_detail', 'nav', 'favoriteUI(1)');
+				setMyData(1, favID);
+			}
+		}
+		uexWindow.toast('0','5',str, 2000);
+	}
+}
+
+function setMyData(id, val){
+	var key = home_url+"&mod=space&do=album&uid="+ uid +"&picid="+ picid + '&page=' + windWH;
+	var obj = getStorJson(key);
+	if(obj){
+		if(id==0) obj.replynum = cnum;
+		else if(id==1) obj.favorite_id = val;
+		setStorJson(key, obj);
+	}
+}
+
+function getNextPage(cmd){
+	var np = 0;
+	if(cmd==-1){
+		if(curp>1) np=curp-1;
+	}
+	else{
+		if(curp<totp) np=curp+1;
+	}
+	if(np>0){
+		uexWindow.toast('1','5','加载中...',"");
+		loadListCom(np);
+	}	
+}
+
+function go2Page(){
+	var keycap = ['确定','取消'];
+	uexWindow.cbPrompt = function (opId, dataType, data){
+		var objdata = eval('('+data+')');
+		if(objdata.num==0){
+			var num = int(objdata.value);
+			if(0<num && num<=totp) loadListCom(num);
+			else uexWindow.alert('提示', '输入错误！', '确定');
+        }
+	}
+	uexWindow.prompt('请输入页码：','请输入页码：', '', keycap);
+}
+
+var ii = 0;
+function onloadimg(){
+	var ee = document.getElementsByTagName("img");
+	var imgsrc = '';
+	for(var key in ee)
+	{
+		var eimage = ee[key];
+		imgsrc = eimage.src;
+		if(imgsrc && imgsrc.indexOf('http://')==0 && imgsrc.indexOf('.gif')<0 && !eimage.id)
+		{
+			var id = "img_"+ii;
+			eimage.src = '';
+			eimage.id = id;
+			
+			var imgs = imgsrc.split('&src=');
+			if(imgs && imgs[1]) imgs = imgs[1];
+			else imgs = imgsrc;
+			imglists[ii] = imgs;
+            /*pushCacheCall(function(){
+                dis_imgcache(id,imgsrc,imgsrc,imgLoadSucSrc,imgLoadErrSrc,null, '', '1');
+            });*/
+			ii++;
+		}
+	}
+}
+
+function readDefalt(){
+	zy_anim_pop('content', 'uhide');
+	zy_anim_pop('comlist', 'uhide');
+}
+
+function readArtOnly(){
+	zy_anim_pop('content', 'uhide');
+	zy_anim_push('comlist', 'uhide');
+}
+
+function readComOnly(){
+	zy_anim_push('content', 'uhide');
+	zy_anim_pop('comlist', 'uhide');
+}
+
+function deletet(){
+	var array = ['删除'];
+	uexWindow.cbActionSheet = function (opId, dataType, data){
+		if(data=="0"){
+			var url = home_url+"&mod=misc&ac=album_pic_delete&deletesubmit=true&picid="+picid;
+			$.getJSON(url, function (json){
+				if(json != '') {
+					act = 0;
+					uexWindow.toast('0','5','删除成功',2000);
+					ueppscript('album_list', 'content', 'delPicCb();');
+					setTimeout("uescript('album_detail', 'closewin();');",1500);
+				}
+			});
+		}
+	}
+	uexWindow.actionSheet('', '取消', array);
+}
+
+function weiboShare(){
+	if(act){
+		var id = getstorage('UID');
+		if (!id) {
+			alert('请先登陆');
+			openwin('login', 'login.html', '12');
+			return;
+		}
+		var url = serverurl+'home.php?mod=space&do=album&uid='+uid+'&picid='+picid;
+		sharestart(url, uid, subject, 'album_detail');
+	}
+}
+
+function lookmap(lat, log){
+	setstorage('params','{"lat":"'+lat+'", "log":"'+log+'"}');
+	openwin('map','map.html','10');
+}
+
+
+function loadListUpdate(){
+	var url = home_url+"&mod=space&do=album&uid="+ uid +"&picid="+ picid + '&page=' +windWH;
+	$.getJSON(url, ListUpdateCb, 'json', getJsonErr, 'POST', '', '', 1);
+}
+function ListUpdateCb(json){
+	//logs('ListUpdateCb-->json='+JSON.stringify(json));
+	resetBV('0');
+	if(json && json.pic && Int(json.pic.replynum)>0){
+		loadListComCb(json);
+	}
+}
+function update5(){
+	cnum++;
+	setHtml('replynum', cnum+"条评论");
+	setTimeout('loadListUpdate();', 500);
+	
+	//setMyData(0, '');
+}
+var myEvt = null;
+function addListen(){
+	if(!isSML && !myEvt) 
+		myEvt = new zyEvent('myevt',moveCb,endCb,0,null);
+}
+function moveCb(ele,dX,dY){
+	logs('moveCb()--------dX='+dX+', dy='+dY);
+	if(act && dY<-10){
+		var sc = getstorage('fscreen');
+		if (!sc) {	
+			uescript('album_detail', 'openFscr();');
+			act = 0;
+			setTimeout('act=1;', 500);
+		}
+	}
+}
+function endCb(e,dX,dY,t){
+	logs('endCb()--> dX='+dX+', dY='+dY+', t='+t);
+	/*var sc = getstorage('fscreen');
+	if (!sc) {
+		event.preventDefault();
+		event.stopPropagation();
+		
+		if (t != 'down') {//(dX>10 || dY>10)
+			uescript('album_detail', 'openFscr();');
+			act = 0;
+			setTimeout('act=1;', 500);
+		}
+	}*/
+}
+
+function moveOutsc(){
+	var hh = getstorage('headerHeight');
+	var dy = hh;
+	var fsc = getstorage('fscreen');
+	if(fsc) dy = '-'+hh;
+	
+	logs('album_detail_content-->moveOutsc()-->dy='+dy);
+	
+	disShowAnim('0', dy);
+}
+
+function viewBigImg(src){
+	var arr = [];
+	logs('viewBigImg()-->src1='+src);
+	var pattern = /&src=(.*?)&/i;
+	var mts = pattern.exec(src); 
+	if(mts) src = mts[1];
+	logs('viewBigImg()-->src2='+src);
+	arr[0] = src;
+	uexImageBrowser.open(arr, 0, 1);
+}
+</script>
+</html>

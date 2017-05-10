@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+     <link rel="stylesheet" href="../css/api.css">
+     <link rel="stylesheet" href="../css/common.css">
+    <title>用车须知</title>
+    <style>
+        #wrap{
+           background: #F0F0F0;
+
+        }
+
+        #header span{
+
+          height: 44px;
+          line-height: 44px;
+
+
+
+         }
+
+        /*.head-left{
+        float: left;
+        margin-left:10px;
+       font-size: 11pt;
+       background: url(../image/wallet_base_action_bar_back_normal.png) no-repeat;
+       background-position: left center;
+       background-size: 30% 75%;
+       margin-left: -5px;
+       }
+
+       .head-left p{
+        margin-left: 25px;
+       }*/
+
+        .head-left{
+        float: left;
+        margin-left:10px;
+       font-size: 11pt;
+       background: url(../image/wallet_base_action_bar_back_normal.png) no-repeat;
+       background-position: left center;
+       background-size: 20% 30%;
+       /*margin-left: -5px;*/
+       }
+
+       .head-left p{
+        margin-left: 25px;
+        margin-top:1px;
+       }   
+         #detail {
+        /*margin: 10px auto;*/
+        margin: 0 auto;
+        
+        width: 100px;
+        /*height: 35px;*/
+        
+        position: relative;
+        border-bottom: 1px solid #F0F0F0;
+       /* padding-left: 10px;
+        padding-top: 5px;*/
+        /*position: relative;*/
+       }
+      
+
+       
+     #onoff{
+        position: absolute;
+        
+        right: 5px;
+        top:8px;
+        
+        width: 150px;
+        height:40px;
+        text-align: left;
+
+        line-height: 38px;
+        background: #E33801; 
+        z-index: 1;
+       }
+
+       #onoff p{
+        display: block;
+        margin-left: 15%;
+       }
+       #switchoff{
+
+        position: absolute;
+        background:white;
+         width: 75px;
+        height:38px;
+        right:6px;
+        top:9px;
+        z-index: 100;
+        text-align: center;
+        line-height: 38px;
+       }
+    </style>
+</head>
+<body>
+    <div id="wrap">
+      <div id="header">
+              <span class="head-left" tapmode onclick="goback()"><p>用车须知</p></span>
+              
+        </div>
+           <div id="detail">
+                    <div id="onoff">
+                      <p>乘客</p>
+                    </div>
+                    <div id="switchoff">
+                      车主
+                    </div>
+             </div>
+        
+              
+   </div>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>     
+</body>
+</html>

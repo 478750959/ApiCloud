@@ -1,0 +1,145 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>商品详情</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/xyc.css"/>
+    <style>
+    	.ly_share {
+			position: absolute;
+			right: 0;
+			top: 0;
+			width: 0.95rem;
+			height: 100%;
+			/*border-left: 0.02rem solid #fde2dc;*/
+			font-size: 0.24rem;
+			color: #ff7f88;
+			text-align: center;
+			line-height: 0.98rem;
+		}
+    </style>
+</head>
+<body>
+<div id="wrap" class="ly_contain">
+	<header id='header'>
+		<div class="miHeader">
+        	<a href='javascript:;' class='head_icon back' onclick='api.closeWin();'></a>
+        	<span class='mi_head_txt'>商品详情</span>
+        	<a class="head_icon2 ly_share" onclick="openFm()"></a>
+        </div>
+	</header>
+	<!--<footer class="ly_xq fix" id="footer">
+	   	<a href="javascript:void(0);" class="buy">立即购买</a>
+    </footer>-->
+</div>
+<input  type='hidden' name='goods_name'>
+<input  type='hidden' name='goods_pic'>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/font.js"></script>
+<script type="text/javascript" src="../script/comm.js"></script>
+<script type="text/javascript" src="../script/zepto.js"></script>
+<script>
+	apiready = function () {
+//			setTimeout(function(){
+//				api.closeWin({
+//          	name:'bill_dethead_in_w'
+//          });
+//			},1000)
+			
+			$('.ly_share').addClass('none');			
+			var appBundle;
+			if (api.systemType == 'ios'){
+			    appBundle = 'wechat://';
+			    app_installed(appBundle,function(ret){
+			    	if(ret){			    		
+			    		$('.ly_share').removeClass('none');			    					    	
+			    	}
+			    });
+			    appBundle = "sinaweibo://";
+			    app_installed(appBundle,function(ret){
+			    	if(ret){			    		
+			    		$('.ly_share').removeClass('none');
+			    	}	
+			    });
+			}else{
+					$('.ly_share').removeClass('none');
+			} 
+		 api.addEventListener({
+		    	name:'get_share'
+		    },function(ret,err){	   
+		    	var res=ret.value;	    				    	
+		    	 $('input[name=goods_name]').val(res.goods_name);	
+		    	 $('input[name=goods_pic]').val(res.logo);	
+		    });	
+		var name = "bill_det_f";
+		var header = $api.byId('header');
+		$api.fixIos7Bar(header);
+		var headerPos = $api.offset(header);	    
+	    var width = api.winWidth;	    
+	    var height = api.winHeight - headerPos.h;
+	  	api.setStatusBarStyle({
+		    style: 'dark'
+		});
+//	    if(api.pageParam.count == 2||api.pageParam.count == 4) {
+//	    	$('.miHeader span').text('确认订单');
+//	    	name = "bill_confirmdd_f";																																																																																																																																																																																																																																																																																																																																																																															
+////          api.closeFrame({name:'bill_confbuy_f'}); 	    
+//	    }
+	    api.openFrame({
+		    name: name,
+		    url: name+'.html',
+		    bounces: false,
+		    opaque: true,		
+		    reload:true,	   
+		    vScrollBarEnabled: false,
+		    pageParam:{ headerHeight: headerPos.h,tid:"0"
+				, goods_id:api.pageParam.goods_id}, rect: { x: 0,
+					y: headerPos.h,
+					w: width,
+					h: height
+					}
+					});
+				};
+				function openFm() {
+					var width = api.winWidth;
+					var height = api.winHeight;
+					api.openFrame({
+						name : 'bill_share_f',
+						url : 'bill_share_f.html',
+						bounces : false,
+						opaque : false,
+						reload : true,
+						vScrollBarEnabled : false,
+						pageParam:{
+							goods_name : $('input[name=goods_name]').val(),
+							goods_pic : $('input[name=goods_pic]').val(),
+							m : 'goods'
+						},
+						rect : {
+							x : 0,
+							y : 0,
+							w : width,
+							h : height
+						}
+					});
+				}
+</script>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <style>
+    html,body{font-family:'microsoft yahei';height:100%;}
+    #wrap{height: 100%;display: -webkit-box;display: -webkit-flex;display: flex; -webkit-box-orient: vertical;-webkit-flex-flow: column;flex-flow: column;}
+    .header-top{height:50px;background-color:rgb(224,29,32);position:relative;text-align: center}
+    .header-top-word{color:rgb(255,255,255);font-size: 20px;line-height: 50px}
+    .header-top-img{height:50px;width:50px; position:absolute;background:url(../image/home.png) center no-repeat;right:10px;top:0;background-size: 30px 30px}
+    .header-bottom{width:100%;}
+    .header-bottom-ul{display:-webkit-box;text-align:center;}
+    .header-bottom-ul-current{color:rgb(224,29,32);}
+    .header-bottom-ul li{-webkit-box-flex:1;height:39px;line-height: 39px;border-bottom:1px solid rgb(222,222,222);font-weight:700;}
+    #main{-webkit-box-flex: 1; -webkit-flex: 1;flex: 1;}
+    #footer{height:50px;width:100%;border-top: 1px solid rgb(222,222,222);display:-webkit-box;}
+    .footer-item{margin:5px 0;border-radius:10px;position:relative;box-sizing:border-box;}
+    #footer-item-left{width:38%;background-color:rgb(224,29,32);}
+    #footer-item-middle{width:38%;background-color:rgb(240,127,0);margin:5px 0;}
+    #footer-item-right{width:20%;background:url(../image/empty_shopping.png) center/contain no-repeat;}
+    .footer-item-word{color:rgb(255,255,255);font-size:20px;line-height:40px;text-align:center;width:100%;}
+    .footer-item-word-left{}
+    .footer-item-word-right{}
+    .interspace{width:2%;}
+    </style>
+</head>
+	<body>
+		<div id="wrap">
+			<div id="header">
+				<div class="header-top">
+					<h1 class="header-top-word">商品详情</h1>
+					<a class="header-top-img" tapmode onclick="api.closeWin()"></a>
+				</div>
+				<div class="header-bottom">
+					<ul class="header-bottom-ul" id="header-bottom-ul">
+						<li class="header-bottom-ul-current" tapmode="" onclick="setFGI(0)">基本信息</li>
+						<li class="" tapmode="" onclick="setFGI(1)">图文详情</li>
+						<li class="" tapmode="" onclick="setFGI(2)">参数/售后</li>
+						<li class="" tapmode="" onclick="setFGI(3)">评价(0)</li>
+					</ul>
+				</div>
+			</div>
+			<div id="main">
+				
+			</div>
+			<div id="footer">
+				<div class="interspace"></div>
+				<div class="footer-item" id="footer-item-left" tapmode onclick="buy_now();">
+					<span class="footer-item-word footer-item-word-left">立即下单</span>
+				</div>
+				<div class="interspace"></div>
+				<div class="footer-item" id="footer-item-middle" tapmode onclick="cart_add();">
+					<span class="footer-item-word footer-item-word-right">加入购物车</span>
+				</div>
+				<div class="footer-item" id="footer-item-right" tapmode onclick="openWin('win_cart');"></div>
+			</div>
+		</div>
+		<script src="../script/api.js"></script>
+		<script src="../script/common.js"></script>
+		<script>
+		var cart=[];
+		var productCart = {};
+		var setFGI = function(index) {
+			api.setFrameGroupIndex({
+				name:'product_group',
+				index:index,
+				scroll:true
+			});
+		}
+
+		var cart_add = function(){
+			// alert(JSON.stringify($api.getStorage('shopping')));
+
+			if($api.getStorage('cart')){
+				var cartJson=$api.getStorage('cart');
+			} else {
+				var cartJson=[];
+			}
+
+			// alert(JSON.stringify($api.getStorage('cart')));
+			for(var key in $api.getStorage('cart')){
+				if($api.getStorage('cart')[key]['productId']===$api.getStorage('shopping')['productId']){
+					cartJson[key]['num']=parseInt($api.getStorage('cart')[key]['num'])+parseInt($api.getStorage('shopping')['num']);
+					$api.setStorage('cart',cartJson);
+					// alert(JSON.stringify(cartJson));
+					return;
+				}
+			}
+			productCart['productId']=$api.getStorage('shopping')['productId'];
+			productCart['num']=$api.getStorage('shopping')['num'];
+			cartJson.push(productCart);
+			$api.setStorage('cart',cartJson);
+			// alert(JSON.stringify($api.getStorage('cart')));
+			api.toast({msg:'添加成功',duration:1000,location:'bottom'});
+		}
+
+		var buy_now = function(){
+			$api.rmStorage('cart');
+		}
+
+		apiready = function () {
+			var header = $api.byId('header');
+			var footer = $api.byId('footer');
+			header = $api.offset(header);
+			footer = $api.offset(footer);
+			var main_height = api.winHeight-header.h-footer.h;
+
+			api.openFrameGroup({
+				name:'product_group',
+				background:'rgb(255,255,255)',
+				scrollEnabled:false,
+				rect:{
+					x:0,
+					y:90,
+					w:'auto',
+					h:main_height
+				},
+				index:0,
+				frames:[{
+					name:'frame_product_basicInfo',
+					url:'frame_product_basicInfo.html',
+					pageParam:{pId:api.pageParam.pId},
+					bgColor:'rgb(255,255,255)',
+					bounces:false
+				},{
+					name:'frame_product_imageText',
+					url:'frame_product_imageText.html',
+					pageParam:{pId:api.pageParam.pId},
+					bgColor:'rgb(255,255,255)'
+				},{
+					name:'frame_product_paramService',
+					url:'frame_product_paramService.html',
+					pageParam:{pId:api.pageParam.pId},
+					bgColor:'rgb(247,247,247)'
+				},{
+					name:'frame_product_evaluate',
+					url:'frame_product_evaluate.html',
+					pageParam:{pId:api.pageParam.pId},
+					bgColor:'rgb(255,255,255)'
+				}]
+			},function(ret,err){
+				var header_bottom_ul_li = document.getElementById('header-bottom-ul').getElementsByTagName('li');
+				var i = header_bottom_ul_li.length;
+				while(i--) {
+					header_bottom_ul_li[i].className="";
+				}
+
+				header_bottom_ul_li[ret.index].className='header-bottom-ul-current';
+			});
+
+			/*api.openFrame({
+				name:'frame_product_basicInfo',
+				url:'frame_product_basicInfo.html',
+				rect:{
+					x:0,
+					y:90,
+					w:'auto',
+					h:main_height
+				}
+			});*/
+		}
+		</script>
+	</body>
+</html>

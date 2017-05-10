@@ -1,0 +1,88 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>APP</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/common.css" />
+    <style>
+        #main{
+            padding: 0;
+            background-color: #F9F9F9;
+            padding-top: 1em;
+        }
+        .option{
+            height: 57px;
+            border-bottom: 1px solid #CCC;
+            margin-top: 1em;
+            background-color: #FFF;
+        }
+        .option:active,.option.tap-active{
+            background-color: #EEEEEE;
+        }
+        .option .option-left{
+            width: 66px;
+            height: 57px;
+            position: relative;
+            float: left;
+        }
+        .option img{
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 42px;
+            -webkit-transform: translate(-50%,-50%);
+                    transform: translate(-50%,-50%);
+        }
+        .option .text{
+            height: 57px;
+            line-height: 58px;
+            text-align: left;
+            color: #000;
+            display: block;
+            float: left;
+        }
+        .option:active .text,.option.tap-active .text{
+            color: #737373;
+        }
+    </style>
+</head>
+<body>
+    <div id="wrap">
+        <div id="main">
+            <div class="option" tapmode="tap-active" onclick="openCommon('login','登录');">
+                <div class="option-left">
+                    <img src="../../res/img/config_icon1.png" alt="">
+                </div>
+                <span class="text">天猫推荐</span>
+            </div>
+            <div class="option" tapmode="tap-active" onclick="openCommon('login','登录');">
+                <div class="option-left">
+                    <img src="../../res/img/config_icon2.png" alt="">
+                </div>
+                <span class="text">范儿消息</span>
+            </div>
+            <div class="option" tapmode="tap-active" onclick="openCommon('login','登录');">
+                <div class="option-left">
+                    <img src="../../res/img/config_icon3.png" alt="">
+                </div>
+                <span class="text">我的消息</span>
+            </div>
+            <div class="option" tapmode="tap-active" onclick="openCommon('login','登录');">
+                <div class="option-left">
+                    <img src="../../res/img/config_icon4.png" alt="">
+                </div>
+                <span class="text">物流助手</span>
+            </div>
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/common.js"></script>
+<script type="text/javascript">
+    apiready = function(){
+
+    }
+</script>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>
+    </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="css/ui-img.css">
+    <link rel="stylesheet" href="css/ui-res.css">
+    <link rel="stylesheet" href="css/ui-list.css">
+    <link rel="stylesheet" href="css/ui-base.css">
+    <link rel="stylesheet" href="css/ui-box.css">
+    <link rel="stylesheet" href="css/ui-color.css">
+	<link rel="stylesheet" href="css/style.css">
+    <script src="js/y_control.js"></script>
+    <script src="js/y_click.js"></script>
+	<script src="js/y_json.js"></script>
+	<script src="js/y_tmpl.js"></script>
+	<script src="js/y_anim.js"></script>
+	<script src="js/dis_control.js"></script>
+	<script src="js/config.js"></script>
+    <script src="js/y_icache.js"></script>
+    <script>
+	</script>
+    <style>
+        .uth {
+            display: block;
+            width:80%;
+        }
+    </style>
+  </head>
+<body class="um-vp c-gra">
+    <div id="page0" class="up ub ub-ver">
+        <div class="ub-f1"></div>
+        <div id="tags" class=""></div>
+        <div class="ub-f1"></div>
+    </div>
+</body>
+<script>
+zy_init();
+var frameindex = '';
+var sheet = null;
+var loaded = 0;
+var fromCache = 0;
+window.uexOnload = function(){
+    if(loaded) return;
+    loaded = 1;
+    zy_initcache();
+    if(!isSML){
+        var pageParam = api.pageParam;//获取framegroup中的页面参数
+        var index = pageParam.index;//0, 1
+        frameindex = int(index);
+    }
+    createCSS();
+    loadTags(frameindex, '1');
+    if(fromCache) loadTags(frameindex, '');
+};
+function loadTags(pn, flag){
+    if(going) return;
+    going = 1;
+    var url = home_url + '&mod=misc&ac=recommend_tags&pn=' + pn;
+    fromCache = checkKey(url);
+    //if(!fromCache) uexWindow.toast('1','5','加载中...',"");//在小的frame上只能部分显示，可能的话应该在win中提示
+    $.getJSON(url, function (json){
+        going = 0;
+        if(json){
+            var list = json;
+            var length = zy_tmpl_count(list);
+            var cf = 'tags_handle(${tagid})';
+            tl = '<div class="ub tw ufl ub-pc umar-b umar-t">'
+                        +'<div class="ub ub-ac ub-pc ut-s uc-a2 uth umh4 c-gra1" id="tagid_${tagid}" onclick="'+ cf +'">${tagname}</div>'
+                    +'</div>';
+            var res = zy_tmpl(tl,list,length);
+            setHtml('tags', res);
+        }
+    }, 'json', getJsonErr, 'POST', '', flag);
+}
+function tags_handle(tagid){
+    var sel = $$('tagid_' + tagid);
+    if(!sel) return;
+    //变颜色
+    if(sel.className.indexOf('c-gra1') < 0){//选中变为不选中
+        sel.className = sel.className.replace('c-org t-wh', 'c-gra1');
+    }else{//未选中
+        sel.className = sel.className.replace('c-gra1', 'c-org t-wh');
+    }
+    uescript('tag_batch', 'change_tagids(\'' + tagid + '\')');
+}
+function createCSS(){
+    if(!sheet) {
+        var style = document.createElement("style");
+        document.body.appendChild(style);
+        sheet = style.sheet;
+    }
+    var w=int(int(window.innerWidth)/3);
+    var c="width:"+w+"px";
+    sheet.addRule(".tw",c);
+}
+</script>
+</html>

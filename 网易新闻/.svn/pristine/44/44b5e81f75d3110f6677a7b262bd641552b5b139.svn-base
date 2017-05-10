@@ -1,0 +1,89 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/common.css"/>
+    <style>
+        body{
+            height: auto;
+        }
+        .category {
+            width: 100%;
+        }
+
+        .category li {
+
+            display: inline-block;
+            width: 24%;
+            text-align: center;
+            padding: 10px 0;
+
+        }
+
+        span {
+            width: 88%;
+            box-sizing: border-box;
+            border: 1px solid #DDDDDE;
+            padding: 7px 0;
+            border-radius: 20px;
+            color: #424242;
+
+        }
+        .more-lable{
+            padding: 10px;
+            background-color: #E7E7E7;
+        }
+    </style>
+<body>
+<ul class="category">
+    <li><span>头条</span></li>
+    <li><span>热点</span></li>
+    <li><span>娱乐</span></li>
+    <li><span>体育</span></li>
+    <li><span>财经</span></li>
+    <li><span>北京</span></li>
+    <li><span>科技</span></li>
+    <li><span>汽车</span></li>
+    <li><span>房产</span></li>
+    <li><span>游戏</span></li>
+    <li><span>时尚</span></li>
+    <li><span>精选</span></li>
+    <li><span>房产</span></li>
+    <li><span>聚和阅读</span></li>
+    <li><span>中国足球</span></li>
+</ul>
+<div class="more-lable">
+    点击添加更多栏目
+</div>
+<script src="../script/zepto.min.js"></script>
+<script>
+    apiready=function(){
+        api.openFrame({
+            name: 'frm_more_nav',
+            url: 'frm_more_nav.html',
+            rect: {
+                x: 0,
+                y:$(".category").height()+$(".more-lable").height()+95,
+                w: $("body").width(),
+                h: 'auto'
+            }
+        })
+        $(".category").on('click','li',function(){
+            api.setFrameGroupIndex({
+                name: 'group',
+                index:1
+            });
+            api.execScript({
+                name:'root',
+                script:'openMenu()'
+            })
+            /*api.closeFrame({name:'frm_more_nav'});
+            api.closeFrame();*/
+
+        })
+    }
+</script>
+</body>
+</html>

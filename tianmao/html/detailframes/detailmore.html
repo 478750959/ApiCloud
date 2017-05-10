@@ -1,0 +1,111 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>APP</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/common.css" />
+    <style>
+        html,body,#header,#main{
+            background: transparent;
+            padding: 0;
+        }
+        ul{
+            background-color: rgba(0,0,0,0.6);
+            position: absolute;
+            right: 0;
+            z-index: 1;
+        }
+        li{
+            color: #FFF;
+            height: 55px;
+            line-height: 55px;
+            width: 98px;
+            /*font-size: 16px;*/
+            border-bottom: 1px solid #555555;
+        }
+        li.last{
+            border-bottom: none;
+        }
+        li .icon{
+            width: 18px;
+            height: 100%;
+            vertical-align: bottom;
+            display: inline-block;
+            margin-left: 0.8em;
+        }
+        .icon-share{
+            background: url(../../res/img/navi_menuitem_share.png) center center no-repeat;
+            background-size: 18px 18px;
+        }
+        .icon-search{
+            background: url(../../res/img/navi_menuitem_search.png) center center no-repeat;
+            background-size: 18px 18px;
+        }
+        .icon-home{
+            background: url(../../res/img/navi_menuitem_home.png) center center no-repeat;
+            background-size: 18px 18px;
+        }
+        .shadow{
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            left: 0;
+            top: 0;
+        }
+        /*../../res/img/navi_menuitem_home.png*/
+        /*navi_menuitem_search*/
+        /*navi_menuitem_share*/
+    </style>
+</head>
+<body>
+    <div id="wrap">
+        <div class="shadow" tapmode="tap-active" onclick="api.closeFrame({name:'detailmore'});"></div>
+        <div id="header"></div>
+        <div id="main">
+            <ul>
+                <li tapmode="tap-active" onclick="openShareAndHide();">
+                    <i class="icon-share icon"></i>
+                    分享
+                </li>
+                <li tapmode="tap-active" onclick="openCommon('search','搜索');">
+                    <i class="icon-search icon"></i>
+                    搜索
+                </li>
+                <li class="last" tapmode="tap-active" onclick="api.closeWin({name:'detailwinweb'});">
+                    <i class="icon-home icon"></i>
+                    首页
+                </li>
+            </ul>
+        </div>
+        
+    </div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/common.js"></script>
+<script type="text/javascript">
+    var openShareAndHide = function(){
+        api.openFrame({
+            name: 'shareframe',
+            url: './shareframe.html',
+            bounces: false,
+            rect:{
+                x: 0,
+                y: 0,
+                w: 'auto',
+                h: 'auto'
+            }
+        });
+        api.setFrameAttr({
+            name: 'detailmore',
+            hidden: true
+        });
+    };
+    apiready = function(){
+        window.header = $api.byId('header');
+        $api.fixIos7Bar(header); 
+
+    }
+</script>
+</html>

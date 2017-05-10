@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+	    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+	    <title>首页</title>
+	    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+	    <link rel="stylesheet" type="text/css" href="../css/common.css"/>
+		<style>
+		#header{
+            height: 46px;
+            font-size: 14px;
+            color: #fff;
+            background-color: #3ac0b5;
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;
+
+            -webkit-flex-direction: row;
+            flex-direction: row;
+
+            -webkit-flex-wrap: wrap;
+            flex-wrap: wrap;
+
+            -webkit-box-align: center; 
+            -webkit-align-items: center;
+            align-items: center;
+            border-bottom: 1px solid #2ba399;
+        }
+        
+        .place{
+            display: inline-block;
+            padding-left: 10px;
+            padding-right: 5px;
+            line-height: 46px;
+        }
+        .map{
+            display: inline-block;
+            line-height: 46px;
+        }
+        .search-bar{
+            height: 32px;
+            line-height: 32px;
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;
+
+            -webkit-box-flex: 1; 
+            -webkit-flex: 1;
+            flex: 1;
+            border-radius: 50px;
+            background-color: #2ba399;
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+        .search-bar input{
+        	-webkit-box-flex: 1; 
+            -webkit-flex: 1;
+            flex: 1;
+            outline: none;
+            color: #fff;
+            border: none;
+            background-color: transparent;
+        }
+
+        /*icon*/
+        .i-arrow-down{
+            display: inline-block;
+            padding: 10px;
+            background: url(../image/ic_arrow_white_down.png) no-repeat center center;
+            -webkit-background-size: 12px;
+            background-size: 12px;
+            vertical-align: middle;
+        }
+        .i-search{
+        	display: inline-block;
+            padding: 16px;
+            background: url(../image/ic_action_search.png) no-repeat center center;
+            -webkit-background-size: 24px;
+            background-size: 24px;
+            vertical-align: top;
+        }
+        .i-map{
+            display: inline-block;
+            padding: 20px;
+            background: url(../image/ic_action_map.png) no-repeat center center;
+            -webkit-background-size: 24px;
+            background-size: 24px;
+            vertical-align: top;
+        }
+	</style>
+	</head>
+	<body>
+	<div id="wrap">
+		<div id="header">
+	        <div class="btn place" tapmode="topbar-active">北京<i class="i-arrow-down"></i></div>
+	        <div class="search-bar" tapmode="" onclick="alert(1)">
+	            <i class="i-search"></i>
+	            <input type="text" placeholder="请输入商家、分类或商圈" readonly>
+	        </div>
+	        <div class="btn map" tapmode="topbar-active">
+	            <i class="i-map"></i>
+	        </div>
+	    </div>
+	    <div id="main"></div>
+	    <div id="footer"></div>
+	</div>
+	
+	
+	<script type="text/javascript" src="../script/api.js"></script>
+	<script type="text/javascript">
+
+        function exitApp(){
+            api.addEventListener({
+                name: 'keyback'
+            }, function(ret, err){
+                api.toast({
+                        msg: '再按一次返回键退出'+api.appName,
+                        duration:2000,
+                        location: 'bottom'
+                    });
+                    
+                    api.addEventListener({
+                        name: 'keyback'
+                    }, function(ret, err){
+                        api.closeWidget({
+                                id: 'A6988774458897',     //这里改成自己的应用ID
+                                retData: {name:'closeWidget'},
+                                silent:true
+                            });
+                    });
+                    
+                    setTimeout(function(){
+                            exitApp();
+                    },3000)
+            });
+        }
+
+		apiready = function(){
+            exitApp();
+			var header = $api.byId('header');
+			var headerPos = $api.offset(header);
+			var main = $api.byId('main');
+			var mainPos = $api.offset(main);
+			$api.fixIos7Bar(header);
+
+			api.openFrame({
+				name : 'frm_homeMain',
+				url : 'frm_homeMain.html',
+				bounces : false,
+				rect : {
+					x : 0,
+					y : headerPos.h,
+					w : 'auto',
+					h : mainPos.h,
+				}
+			});
+
+			var obj = api.require('tabBar');
+			obj.open({
+			    bgImg:'widget://image/abc_ab_bottom_solid_light_holo.9.png',
+			    selectImg:'widget://res/selecte_tabBar.png',
+			    items:[{title:'团购',img:'widget://image/ic_menu_deal_off.png',color:'#999999',selected:'widget://image/ic_menu_deal_on.png',selectedTitleColor:'#36b9af'},
+			          {title:'上门',img:'widget://image/ic_menu_apollo_off.png',color:'#999999',selected:'widget://image/ic_menu_apollo_on.png',selectedTitleColor:'#36b9af'},
+			          {title:'商家',img:'widget://image/ic_menu_poi_off.png',color:'#999999',selected:'widget://image/ic_menu_poi_on.png',selectedTitleColor:'#36b9af'},
+			          {title:'我的',img:'widget://image/ic_menu_user_off.png',color:'#999999',selected:'widget://image/ic_menu_user_on.png',selectedTitleColor:'#36b9af'},
+			          {title:'更多',img:'widget://image/ic_menu_more_off.png',color:'#999999',selected:'widget://image/ic_menu_more_on.png',selectedTitleColor:'#36b9af'}],
+			    selecteIndex:'0',
+			    h:'47'
+			},function(ret,err){
+			    api.alert({msg:ret.index});
+			});
+		}
+	</script> 
+	</body>
+
+</html>

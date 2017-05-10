@@ -1,0 +1,230 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>APP</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/common.css" />
+    <style>
+        #main{
+            padding: 0;
+        }
+        table{
+            border-collapse:collapse;
+        }
+        tr{
+            width: 100%;
+        }
+        td{
+            border: 1px solid #ccc;
+            position: relative;
+            width: 33%;
+        }
+        .s1{
+            background: url(../../image/class_nav1.png) center center no-repeat;
+            background-size: 100% 100%;
+        }
+        .s1:active,.s1.tap-active{
+            background: url(../../image/class_nav1_p.png) center center no-repeat;
+            background-size: 100% 100%;
+        }
+        .s2{
+            background: url(../../image/class_nav2.png) center center no-repeat;
+            background-size: 100% 100%;
+        }
+        .s2:active,.s2.tap-active{
+            background: url(../../image/class_nav2_p.png) center center no-repeat;
+            background-size: 100% 100%;
+        }
+        .s3{
+            background: url(../../image/class_nav3.png) center center no-repeat;
+            background-size: 100% 100%;
+        }
+        .s3:active,.s3.tap-active{
+            background: url(../../image/class_nav3_p.png) center center no-repeat;
+            background-size: 100% 100%;
+        }
+        .s4{
+            background: url(../../image/class_nav4.png) center center no-repeat;
+            background-size: 100% 100%;
+        }
+        .s4:active,.s4.tap-active{
+            background: url(../../image/class_nav4_p.png) center center no-repeat;
+            background-size: 100% 100%;
+        }
+        .s5{
+            background: url(../../image/class_nav5.png) center center no-repeat;
+            background-size: 100% 100%;
+        }
+        .s5:active,.s5.tap-active{
+            background: url(../../image/class_nav5_p.png) center center no-repeat;
+            background-size: 100% 100%;
+        }
+        .s6{
+            background: url(../../image/class_nav6.png) center center no-repeat;
+            background-size: 100% 100%;
+        }
+        .s6:active,.s6.tap-active{
+            background: url(../../image/class_nav6_p.png) center center no-repeat;
+            background-size: 100% 100%;
+        }
+        .s7{
+            background: url(../../image/class_nav7.png) center center no-repeat;
+            background-size: 100% 100%;
+        }
+        .s7:active,.s7.tap-active{
+            background: url(../../image/class_nav7_p.png) center center no-repeat;
+            background-size: 100% 100%;
+        }
+        .s8{
+            background: url(../../image/class_nav8.png) center center no-repeat;
+            background-size: 100% 100%;
+        }
+        .s8:active,.s8.tap-active{
+            background: url(../../image/class_nav8_p.png) center center no-repeat;
+            background-size: 100% 100%;
+        }
+        .s9{
+            background: url(../../image/class_nav9.png) center center no-repeat;
+            background-size: 100% 100%;
+        }
+        .s9:active,.s9.tap-active{
+            background: url(../../image/class_nav9_p.png) center center no-repeat;
+            background-size: 100% 100%;
+        }
+        .s10{
+            background: url(../../image/class_nav10.png) center center no-repeat;
+            background-size: 100% 100%;
+        }
+        .s10:active,.s10.tap-active{
+            background: url(../../image/class_nav10_p.png) center center no-repeat;
+            background-size: 100% 100%;
+        }
+        .s11{
+            background: url(../../image/class_nav11.png) center center no-repeat;
+            background-size: 100% 100%;
+        }
+        .s11:active,.s11.tap-active{
+            background: url(../../image/class_nav11_p.png) center center no-repeat;
+            background-size: 100% 100%;
+        }
+        .s12{
+            background: url(../../image/class_nav12.png) center center no-repeat;
+            background-size: 100% 100%;
+        }
+        .s12:active,.s12.tap-active{
+            background: url(../../image/class_nav12_p.png) center center no-repeat;
+            background-size: 100% 100%;
+        }
+        .s13{
+            background: url(../../image/class_nav13.png) center center no-repeat;
+            background-size: 100% 100%;
+        }
+        .s13:active,.s13.tap-active{
+            background: url(../../image/class_nav13_p.png) center center no-repeat;
+            background-size: 100% 100%;
+        }
+        .s14{
+            background: url(../../image/class_nav14.png) center center no-repeat;
+            background-size: 100% 100%;
+        }
+        .s14:active,.s14.tap-active{
+            background: url(../../image/class_nav14_p.png) center center no-repeat;
+            background-size: 100% 100%;
+        }
+        .s15{
+            background: url(../../image/class_nav15.png) center center no-repeat;
+            background-size: 100% 100%;
+        }
+        .s15:active,.s15.tap-active{
+            background: url(../../image/class_nav15_p.png) center center no-repeat;
+            background-size: 100% 100%;
+        }
+        .s16{
+            background: url(../../image/class_nav16.png) center center no-repeat;
+            background-size: 100% 100%;
+        }
+        .s16:active,.s16.tap-active{
+            background: url(../../image/class_nav16_p.png) center center no-repeat;
+            background-size: 100% 100%;
+        }
+    </style>
+</head>
+<body>
+    <div id="wrap">
+        <div id="main"> 
+            <div class="container">
+                <table>
+                    <tr>
+                        <td tapmode="tap-active" data-url="http://nvzhuang.tmall.com/market/fushi/nvzhuang_mobile.php" data-title="精品女装" onclick="toDetail(this);" class="s1">
+                        </td>
+                        <td tapmode="tap-active" data-url="http://nvzhuang.tmall.com/market/fushi/nvzhuang_mobile.php" data-title="精品女装" onclick="toDetail(this);" class="s2">
+                        </td>
+                        <td tapmode="tap-active" data-url="http://nvzhuang.tmall.com/market/fushi/nvzhuang_mobile.php" data-title="精品女装" onclick="toDetail(this);" class="s3">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td tapmode="tap-active" data-url="http://nvzhuang.tmall.com/market/fushi/nvzhuang_mobile.php" data-title="精品女装" onclick="toDetail(this);" class="s4">
+                        </td>
+                        <td tapmode="tap-active" data-url="http://nvzhuang.tmall.com/market/fushi/nvzhuang_mobile.php" data-title="精品女装" onclick="toDetail(this);" class="s5">
+                        </td>
+                        <td tapmode="tap-active" data-url="http://nvzhuang.tmall.com/market/fushi/nvzhuang_mobile.php" data-title="精品女装" onclick="toDetail(this);" class="s6">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td tapmode="tap-active" data-url="http://nvzhuang.tmall.com/market/fushi/nvzhuang_mobile.php" data-title="精品女装" onclick="toDetail(this);" class="s7">
+                        </td>
+                        <td tapmode="tap-active" data-url="http://nvzhuang.tmall.com/market/fushi/nvzhuang_mobile.php" data-title="精品女装" onclick="toDetail(this);" class="s8">
+                        </td>
+                        <td tapmode="tap-active" data-url="http://nvzhuang.tmall.com/market/fushi/nvzhuang_mobile.php" data-title="精品女装" onclick="toDetail(this);" class="s9">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td tapmode="tap-active" data-url="http://nvzhuang.tmall.com/market/fushi/nvzhuang_mobile.php" data-title="精品女装" onclick="toDetail(this);" class="s10">
+                        </td>
+                        <td tapmode="tap-active" data-url="http://nvzhuang.tmall.com/market/fushi/nvzhuang_mobile.php" data-title="精品女装" onclick="toDetail(this);" class="s11">
+                        </td>
+                        <td tapmode="tap-active" data-url="http://nvzhuang.tmall.com/market/fushi/nvzhuang_mobile.php" data-title="精品女装" onclick="toDetail(this);" class="s12">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td tapmode="tap-active" data-url="http://nvzhuang.tmall.com/market/fushi/nvzhuang_mobile.php" data-title="精品女装" onclick="toDetail(this);" class="s13">
+                        </td>
+                        <td tapmode="tap-active" data-url="http://nvzhuang.tmall.com/market/fushi/nvzhuang_mobile.php" data-title="精品女装" onclick="toDetail(this);" class="s14">
+                        </td>
+                        <td tapmode="tap-active" data-url="http://nvzhuang.tmall.com/market/fushi/nvzhuang_mobile.php" data-title="精品女装" onclick="toDetail(this);" class="s15">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td tapmode="tap-active" data-url="http://nvzhuang.tmall.com/market/fushi/nvzhuang_mobile.php" data-title="精品女装" onclick="toDetail(this);" class="s16">
+                        </td>
+                        <td tapmode="tap-active" data-url="http://nvzhuang.tmall.com/market/fushi/nvzhuang_mobile.php" data-title="精品女装" onclick="toDetail(this);" class="s17">
+                        </td>
+                        <td tapmode="tap-active" data-url="http://nvzhuang.tmall.com/market/fushi/nvzhuang_mobile.php" data-title="精品女装" onclick="toDetail(this);" class="s18">
+                        </td>
+                    </tr>
+                    
+                </table>
+            </div>
+            
+        </div>
+
+    </div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/common.js"></script>
+<script type="text/javascript">
+    apiready = function(){
+        // var width = document.body.getBoundingClientRect().width;
+        var width = api.frameWidth;
+        var aTd = $api.domAll('td');
+        var w33 = width*0.3333333;
+        var h33 = w33*186/239;
+        for (var i = 0,len = aTd.length; i < len; i++) {
+            $api.css(aTd[i],'width:'+w33+'px;height:'+h33+'px;');
+        };
+    }
+    // apiready();
+</script>
+</html>

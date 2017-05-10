@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+     <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+     <link rel="stylesheet" href="../css/api.css">
+     <link rel="stylesheet" href="../css/common.css">
+    <title>收支明细</title>
+    <style>
+       #header span{
+
+        height: 44px;
+        line-height: 44px;
+
+       }
+
+       .head-left{
+        float: left;
+        margin-left:10px;
+       font-size: 11pt;
+       background: url(../image/wallet_base_action_bar_back_normal.png) no-repeat;
+       background-position: left center;
+       background-size: 30% 30%;
+       margin-left: -5px;
+       }
+
+       .head-left p{
+        margin-left: 30px;
+        margin-top:1px;
+       }
+       #main{
+            background: #E6E6E6;
+            margin: 0;
+            padding: 0;
+
+       }
+       #detail{
+         clear:both;
+         width: 90%;
+         margin: 15px auto;
+          height: auto;
+         position: relative;
+         padding-top:10px;
+         
+
+       }
+      #detail ul{
+        height: auto;
+        line-height: 1.5;
+        background: white;
+        /*margin: 5px auto;*/
+
+       }
+
+       #detail li{
+        height: 55px;
+        font-weight: normal;
+        margin-top: 10px;
+        padding-top:5px;
+        padding-bottom: 5px;
+        border-bottom: 1px solid #F0F0F0;
+
+
+       }
+
+
+       
+     
+
+      .span-left{
+            
+            width: 50%;
+        overflow:hidden;
+         text-overflow:ellipsis; 
+         white-space:nowrap; 
+         text-align: left;
+
+            }
+      .span-right{
+           position: absolute;
+           right: 5px;
+
+           
+        
+            }      
+      
+    </style>
+</head>
+<body>
+    <div id="wrap">
+        <div id="header">
+            <span class="head-left" tapmode onclick="goback()"><p>收支明细</p></span>
+            
+        </div>
+        <div id="main">
+             <div id="detail" class="detail">
+               <ul>
+                 <li>
+                    <div>
+                    <span class="span-left"><h4>取消订单退款</h4></span><span class="span-right"><h4>￥32</h4></span>
+                    </div>
+                    <div>
+                    <span class="span-left">账务流水号:2015041999999</span><span class="span-right">2015-04-19</span>
+                    </div>
+                 </li>
+                 <li>
+                    <div>
+                    <span class="span-left"><h4>取消订单退款</h4></span><span class="span-right"><h4>￥32</h4></span>
+                    </div>
+                    <div>
+                    <span class="span-left">账务流水号:2015041999999</span><span class="span-right">2015-04-19</span>
+                    </div>
+                 </li> 
+               </ul>
+             </div>
+            
+        </div>
+
+    </div>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>      
+</body>
+</html>

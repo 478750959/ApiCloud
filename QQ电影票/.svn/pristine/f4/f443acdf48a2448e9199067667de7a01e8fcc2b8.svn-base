@@ -1,0 +1,117 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>APP</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/common.css" />
+    <style>
+        #wrap{
+            background-color: #282828;
+        }
+        #main{
+            padding: 0;
+            position: relative;
+        }
+        /*box_middle*/
+        #main .box_middle{
+            position: absolute;
+            /*height: 66%;*/
+            /*top: 33%;*/
+            width: 100%;
+            background-color: #282828;
+            z-index: 1;
+        }
+        #box_middle_shadow{
+            height: 64px;
+        }
+        
+        #main .box_middle span{
+            color: #B1B1B1;
+        }
+        #main .box_middle .middle_p{ 
+            overflow: hidden;
+            margin: 2px 1em;
+            color: #B1B1B1;
+            /**/
+            display: -webkit-box;
+            -webkit-box-orient: horizontal;
+            position: relative;
+        }
+        #main .box_middle .middle_span_detail{
+            color: #B1B1B1;
+        }
+        #main .box_middle .middle_p.detail{
+            text-indent: 2em; 
+        }
+        #main .box_middle .middle_p:after{
+            clear: both;
+        }
+        #main .box_middle .middle_span_left{
+            float: left;
+            width: 3em;
+            text-align: left;
+            position: relative;
+        }
+        #main .box_middle .middle_span_right{
+            float: left;
+            -webkit-box-flex: 1;
+            -webkit-flex: 1;
+            flex: 1;
+            position: relative;
+        }
+    </style>
+</head>
+<body ontouchstart="">
+    <div id="wrap">
+        <div id="main">
+            <div class="box_middle">
+                <div class="box_middle_top">
+                    <p class="middle_p">
+                        <span class="middle_span_left">评分：</span>
+                        <span class="middle_span_right">8.2</span>
+                    </p>
+                    <p class="middle_p">
+                        <span class="middle_span_left">导演：</span>
+                        <span class="middle_span_right">乔纳森.理贝斯曼</span>
+                    </p>
+                    <p class="middle_p">
+                        <span class="middle_span_left">主演：</span>
+                        <span class="middle_span_right">梅根.福克斯 阿伦.瑞奇森 诺尔.费舍 威廉.菲德内尔 威尔.阿奈特</span>
+                    </p>
+                    <p class="middle_p">
+                        <span class="middle_span_left">地区：</span>
+                        <span class="middle_span_right">美国</span>
+                    </p>
+                    <p class="middle_p">
+                        <span class="middle_span_left">类型：</span>
+                        <span class="middle_span_right">喜剧/动作/科幻/冒险</span>
+                    </p>
+                    <p class="middle_p">
+                        <span class="middle_span_left">片长：</span>
+                        <span class="middle_span_right">101分钟</span>
+                    </p>
+                    <p class="middle_p">
+                        <span class="middle_span_left">上映：</span>
+                        <span class="middle_span_right">2014年10月31日</span>
+                    </p>
+                    <p class="middle_p">
+                        <span class="middle_span_detail">剧情介绍</span>
+                    </p>
+                    <p class="middle_p detail">
+                        在犯罪和恐惧不断蔓延的城市里，史莱德和他所率领的邪恶大脚帮把警方和政客牢牢控制在魔掌中，未来的前景更是一片黑暗，直到离群索居的四位忍者神龟兄弟挺身而出。他们在一场变调的科学实验中存活了下来，从下水道崛起并承担使命，成为戴着面具的终极正义使者。面对史莱德想要支配整座城市的残酷计划，忍者神龟将和勇敢无惧的女记者爱普尔·奥尼尔（梅根·福克斯 Megan Fox 饰）以及爱耍嘴皮的摄影师弗恩（威尔·阿奈特 Will Arnett 饰）通力合作，拯救纽约市民。
+                    </p>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript">
+    apiready = function(){       
+    };
+</script>
+</html>

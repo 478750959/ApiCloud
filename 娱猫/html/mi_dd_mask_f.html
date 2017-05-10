@@ -1,0 +1,170 @@
+<!doctype html>
+<html style="background:transparent;">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>我的订单</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <!--<link rel="stylesheet" type="text/css" href="../css/common.css"/>-->
+    <link rel="stylesheet" type="text/css" href="../css/ly.css"/>
+    <style>
+    	.ly_mask{
+    		background:none;
+    	}
+	</style>
+</head>
+<body style="background:rgba(0,0,0,0.4)">
+
+<div id="wrap">
+<div id="main">
+    <!--        、、、、、、、、、、、 确定取消订单？蒙版、、、、、、、、、                          -->
+    <div class="ly_mask ly_canc none">
+	    <div class="cancle_dd">   	
+	    	<div>
+	    		<h2>确定取消订单？</h2>
+	    		<p>取消之后将无法恢复</p>
+	    	</div>  	
+	    	<p>
+	    		<span class="btn-n">取消</span>
+	    		<span class="btn-y">确定</span>
+	    	</p>    	
+	    </div>
+    </div> 
+    
+    <!--        、、、、、、、、、、、 确定删除订单？蒙版、、、、、、、、、                          -->
+   	<div class="ly_mask ly_delt none">
+	    <div class="cancle_dd">   	
+	    	<div>
+	    		<h2>确定删除订单？</h2>
+	    		<p>删除之后将无法恢复</p>
+	    	</div>  	
+	    	<p>
+	    		<span class="btn-n">取消</span>
+	    		<span class="btn-y">确定</span>
+	    	</p>    	
+	    </div>
+    </div> 
+	
+</div>
+</div>	
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/comm.js"></script>
+<script type="text/javascript" src="../script/font.js"></script>
+<script type="text/javascript" src="../script/zepto.js"></script>
+<!--<script type="text/javascript" src="../script/ly.js"></script>-->
+<script>	
+	function del_order(){
+			var info = is_login();
+			var param={};
+				if (!info) {
+					to_login();
+					return false;
+				}
+				for (var p in info) {
+					param[p] = info[p];
+				}
+		 param.id = api.pageParam.id;
+		ajaxRequest('order/del', 'post',param,function(ret,err){
+			if(err){
+				api.toast({
+					msg:err.msg
+				});
+				return false;
+			}
+			if(ret.status){
+			  	api.toast({
+					msg:'删除成功'
+				});
+				api.sendEvent({name:'get_tab'});
+				api.sendEvent({name:'del__dd1'});
+				api.sendEvent({name:'flush_pj'});
+				if(api.pageParam.from == 'det'){
+					api.closeWin({
+	                	name:'mi_dd_details_w'
+	                });
+				}				
+			}else{
+				api.toast({
+					msg:ret.info
+				});
+			}
+			$('.ly_mask').addClass('none');
+			api.closeFrame();
+		})
+	}
+	apiready = function() {		
+		//删除订单
+		if(api.pageParam.count == 11) {
+			$(".ly_delt").removeClass('none');
+			$('.ly_delt span').click(function(){
+			
+				if($(this).attr("class") == 'btn-y'){				
+					del_order();				
+				}else if($(this).attr('class') == 'btn-n'){
+					$('.ly_delt').addClass('none');
+					api.closeFrame();
+				}							
+			});
+			
+		}
+		//取消订单
+		if(api.pageParam.count == 12|| api.pageParam.count == 112) {
+			$(".ly_canc").removeClass('none');
+			$('.ly_canc span').bind("touchstart", function() {
+				if($(this).attr("class")== 'btn-y'){
+						var info = is_login();
+						var param={};
+							if (!info) {
+								to_login();
+								return false;
+							}
+							for (var p in info) {
+								param[p] = info[p];
+							}
+					 param.OrderNo =  api.pageParam.id;					 
+					ajaxRequest('order/mycancel', 'post',param,function(ret,err){
+					if(err){
+						api.toast({
+							msg:err.msg
+						});
+						return false;
+					}
+					if(ret.status){
+					  	api.toast({
+							msg:'取消成功'
+						});
+						api.sendEvent({
+							name:'del__dd1'
+						});
+						api.sendEvent({
+					        name:'get_tab'
+				        });							
+						//从订单详情页面点击取消订单过来的值为112
+						if(api.pageParam.count == 112){
+							api.closeWin({
+			                	name:'mi_dd_details_w'
+			                });
+						}
+					}else{
+						api.toast({
+							msg:'操作失败'
+						});
+					}
+					api.closeFrame();
+				})
+				}else if($(this).attr('class') == 'btn-n'){
+				
+					$('.ly_mask').addClass('none');
+					api.closeFrame();
+				}
+			})
+		}
+	}
+
+</script>
+</html>
+
+
+
+

@@ -1,0 +1,130 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>设置</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <style>
+    	html,body{
+    		background:rgba(0,0,0,0.4);
+    	}
+    	.mark{
+    		width:100%;
+    		height:100%;
+    	}
+    	.con{
+    		width:5.4rem;
+    		background:white;
+    		position:absolute;
+    		left: 50%;
+    		margin-left:-2.7rem;
+    		min-height:2.64rem;
+    		top:20%;
+    		border-radius:0.1rem;
+    		border:0.02rem solid #dedcdc;
+    		display:-webkit-box;
+    		-webkit-box-sizing: border-box;
+    		padding:0.15rem 0.36rem;
+    		-webkit-box-orient: vertical;
+    	}
+    	.con_close{
+    		width:0.6rem;
+    		height:0.6rem;
+    		background:url(../image/dd_details_close.png) no-repeat;
+    		background-size:100% 100%;
+    		position:absolute;
+    		top:-0.3rem;
+    		right:-0.3rem;
+    	}
+    	.con_h3{
+    		font-size:0.3rem;
+    		color:#333333;
+    		line-height:0.7rem;
+    		height:0.7rem;
+    		width:100%;
+    		font-weight:normal;
+    		border-bottom:1px solid #cecece;
+    	}
+    	.con_ul{
+    		padding:0 0.1rem;
+    		width:4.44rem;
+    		height:4rem;
+    		overflow:auto;/* winphone8和android4+ */
+			-webkit-overflow-scrolling: touch; /* ios5+ */
+    	}
+    	.con_li{
+    		padding-top:0.22rem;
+    		padding-left:0.18rem;
+    		padding-bottom:0.16rem;
+    		font-size:0.24rem;
+    		background:url(../image/dd_details_li.png) no-repeat left 0.34rem;
+    		background-size:0.07rem 0.07rem; 
+    		border-bottom:1px dashed #cecece;
+    		line-height:0.28rem;
+    	}
+    	.con_ul li:last-child{
+    		border:none;
+    	}
+    	.con_ul li:nth-child(odd){
+    		color:#ff7f88;
+    	}
+    </style>
+</head>
+<body>
+<div id="wrap">
+	<script id="tpl" type="text/x-dot-template">
+				{{ for(var  p in it) { }}	
+					<li class="con_li"      onclick='to_pj({{=JSON.stringify(it[p])}})'>{{=it[p].goods_name}}{{=it[p].goods_attribute}}</li>
+				{{  } }}	
+	</script>
+	<div id='main'>
+		<div class="mark">
+			<div class="con">
+				<div class="con_close" onclick="api.closeFrame();"></div>
+				<h3 class="con_h3">选择您要评价的商品：</h3>
+				<ol class="con_ul">
+					<!--<li class="con_li">运动球服套装 春秋爆款运动训练篮球 拉链套服</li>
+					<li class="con_li">印尼进口皇冠奶油饼干</li>
+					<li class="con_li">印尼进口皇冠奶油饼干</li>
+					<li class="con_li">印尼进口皇冠奶油饼干</li>
+					<li class="con_li">印尼进口皇冠奶油饼干</li>-->
+				</ol>
+			</div>
+		</div>
+	</div>
+	
+</div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/font.js"></script>
+<script type="text/javascript" src="../script/zepto.js"></script>
+<script type="text/javascript" src="../script/comm.js"></script>
+<script type="text/javascript" src="../script/doT.min.js"></script>
+<script>
+	function to_pj(obj) {
+		api.openWin({
+			name : 'mi_dd_head_w',
+			url : 'mi_dd_head_w.html',
+			reload : true,
+			vScrollBarEnabled : false,
+			pageParam : {
+				data : obj,
+				count : 5,
+				from:api.pageParam.from
+			}
+		});		
+		
+//		api.closeFrame({name:'mi_dd_details_mark_f'});	 
+	}
+	apiready = function() {
+		var interText = doT.template($("#tpl").text());
+		$(".con_ul").html(interText(api.pageParam.data));
+		api.addEventListener({
+			name : 'keyback'
+		}, function(ret, err) {	
+			api.closeFrame();
+		});
+	}	
+</script>
+</html>

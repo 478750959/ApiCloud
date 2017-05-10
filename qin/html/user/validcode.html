@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,initial-scale=1.0,width=device-width"/>
+    <title>APP</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/common.css" />
+<style>
+html,body{
+	  margin:0;
+	  padding:0;
+	   }
+body{	   
+ background:#AFE05B;
+ height: 100%;
+
+ }
+
+ #main{
+	  margin:0 auto;
+	  padding:0;
+	  width:90%;
+	  height: 100%;
+	
+	  
+ }
+ #main .in_put {
+	 width:100% !important;
+	 height:30px;
+	 border:none;
+	 border:2px #FFF solid;
+	 font-size:16px;
+	 line-height:18px;
+	 border-radius:1px;
+	 margin-bottom:5px;
+	
+	
+	}
+label{
+	 font-family:Verdana, Geneva, sans-serif;
+     width:100% !important;
+	 margin-bottom:1px;
+	}
+#loginform{
+  position:relative;
+  top: 25px;
+  font-family:Verdana, Geneva, sans-serif;
+
+}
+
+ #login{
+ width:100% !important;
+ 
+ background-color: #A5A5A5;
+ padding: 10px;
+ border-radius:5px;
+ 
+}
+
+#line{
+margin-top: 200px;
+text-align:center;
+}
+#account{
+
+	  width:100%;
+
+     margin-top: 10px;
+
+}
+.third{
+ float: left;
+ margin-left: 10px;
+ width:60px;
+ height: 60px;
+ 
+}
+hr{
+/*color: #FFFFFF !important;*/
+border: 1px  #FFFFFF solid;
+  margin-top: 2px;
+}
+
+.goto1{
+float: left;
+  margin-top: 10px;
+}
+
+.goto2{
+  margin-top: 10px;
+  float: right;
+}
+</style>
+</head>
+
+<body>
+	<div id="main">
+	     <div id="loginform">
+			<label for="uname"><!--账号-->
+			 <input type="text" class="in_put" id="uname" name="uname"  value="" placeholder="输入验证码" autofocus="autofocus"/>
+			 </label><br />
+			 
+			 <!--<label for="uname">
+			 <input type="text" class="in_put" id="umail" name="umail"  value="" placeholder="邮箱" autofocus="autofocus"/>
+			 </label><br />-->
+
+			  <button id="login" class="goto1" onclick="validcodelogin()">验证</button>
+			  <!--<button id="reg" class="goto2">注册</button>-->	
+		 </div>
+		 
+	</div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/common.js"></script>
+<script type="text/javascript">
+function GetPwd(){
+  api.showProgress({
+        title: '正在登录...',
+        modal: false
+    });
+    var name = $api.val($api.byId('uname'));
+    var umail = $api.val($api.byId('umail'));
+
+    var loginUlr = '/user/resetRequest';
+    var bodyParam = {
+        username: name,
+        email: umail,
+        language:'zh_CN'
+    }
+    ajaxRequest(loginUlr, 'post', JSON.stringify(bodyParam),'',function (ret, err) {
+        if (ret) {
+            api.alert({
+                msg: '新密码已发往你的邮箱！'
+            }, function () {
+                api.closeWin();
+            });
+            
+        } else {
+           
+            var einfo = err;
+//          if (err.status=='401')
+//          {
+//	            api.alert({
+//	                msg: '邮箱尚未验证'
+//	            });
+//          }
+//          alert('json'+JSON.stringify(err));
+            api.alert({
+                msg: err.msg
+            },function(ret, err){
+            if (einfo.statusCode=='401'){
+               api.alert({
+	                msg: '邮箱尚未验证'
+	            });
+	         }   
+	             alert('json'+JSON.stringify(einfo));
+            });
+        }
+        api.hideProgress();
+    })
+
+}
+function validcodelogin(){
+	var uzShareSMSModule = api.require('moduleShareSMS');
+	
+	var nums = $api.val($api.byId('uname'));
+	
+	var phone = $api.getStorage('phone');
+	
+	$api.rmStorage('phone');
+
+	uzShareSMSModule.submitVerificationCode({
+	    key:"7dcef6b2e40c",
+	    secret:"1e67b1c9acca7d8bd6a09354b4f32e40",
+	    phone: phone,
+	    code: nums
+	}, function(ret, err){
+	    if(ret.status == 1){
+//	        alert("注册成功");
+            api.openWin({
+	          name: 'resetpwd',
+	          url: 'resetpwd.html'
+          });
+	    } else {
+	        alert(ret.description);
+	    }
+	});
+
+}
+</script>
+</html>

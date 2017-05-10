@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+  <head>
+    <title>
+    </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="css/ui-img.css">
+    <link rel="stylesheet" href="css/ui-res.css">
+    <link rel="stylesheet" href="css/ui-list.css">
+    <link rel="stylesheet" href="css/ui-base.css">
+    <link rel="stylesheet" href="css/ui-box.css">
+    <link rel="stylesheet" href="css/ui-color.css">
+	<link rel="stylesheet" href="css/style.css">
+    <script src="js/y_control.js"></script>
+    <script src="js/y_click.js"></script>
+	<script src="js/y_json.js"></script>
+	<script src="js/y_tmpl.js"></script>
+	<script src="js/dis_control.js"></script>
+	<script src="js/config.js"></script>
+    <script>
+	</script>
+  </head>
+<body class="um-vp" ontouchstart>
+	<div class="b-gra uc-n" id="list">    	 
+		<div></div>
+  	</div>
+</body>
+<script>
+zy_init();
+var uid = getstorage('UID');
+var params = getStorJson('params');
+var view = params.view;
+var curpage = 1;
+var totpage = 1;
+var upt = '';
+var update = {};
+var cContent = $$('list');
+if(view!='me') uid=params.uid;
+var fcount = 0;
+window.uexOnload = function ()
+{
+	setPageBounce(downcb, upcb);
+	loadList('', 1);
+}
+function downcb(){
+	upt = '0';
+	update['0'] = 1;
+	loadList('', '');
+}
+function upcb(){
+	if (curpage < totpage) {
+		upt = '1';
+		update['1'] = 1;
+		loadList(curpage + 1, '');
+	}
+	else resetBV('1');
+}
+
+function loadList(pn, flag){
+    if(going) return;
+	var url = home_url+"&mod=spacecp&ac=friend&op=request&page="+ pn+"&z="+Math.random();
+    going = 1;
+	uexWindow.toast('1','5','加载中...',"");
+	$.getJSON(url, loadListCb, 'json', getJsonErr, 'POST', '', flag);
+}
+function loadListCb(json){
+	uexWindow.closeToast();
+    going = 0;
+	if(update[upt]){
+		update[upt] = 0;
+		resetBV(upt);
+	}
+		
+	if(json){
+		if (Int(json.status)<1) {
+			uexWindow.toast('0','5',json.message,2000);
+			return;
+		}
+		
+		var list = json.list;
+		var length = zy_tmpl_count(list);
+		fcount = length;
+		if(list && list[0]){
+			var id0 = 0;
+			var id1 = list[0].fuid;
+			if(cContent && cContent.children[0] && cContent.children[0].children[0]) id0=cContent.children[0].children[0].id;
+			logs('id0='+id0+', id1='+id1);
+			if(id0==id1) return;
+		}
+		
+		var res = '';
+		if (length > 0) {
+			var tmpl = '<div ontouchstart="zy_touch(\'c-gra\')" onclick="takeAtion(\'${fuid}\', \'${fusername}\');" class="uc-n ubb ub b-gra t-bla ub-ac lis" id="${fuid}">'
+				 			+'<div class="ub-f1 ub ub-ver">	' 
+				 	    		+'<div class="ulev0"><span class="ulev0">${fusername}</span><span class="t-gra ulev-3 umar-l">请求加你为好友</span></div>'
+				 	    		+'<div class="ub ub-ac t-gra ulev-2 umar-t">'
+									+'<div class="ub-f1"></div>'
+								 	+'<div class="umh2 umw2 ub-img5 im5 lpic"></div>'
+									+'${dateline}'
+								+'</div>' 
+				 			+'</div>'      
+				 		+'</div> '
+						+'<div class="ubt1"></div>';
+			res = zy_tmpl(tmpl,list,zy_tmpl_count(list),j2vCb);
+			
+			curpage = Int(json.zywy_curpage);
+			totpage = Int(json.zywy_totalpage);
+		}
+		else{
+			res = '<div class="uinn10 tx-c">暂无好友请求</div>';
+		}
+		
+		if(curpage==1)
+       	{
+       		while(cContent.childElementCount>1)
+       		{
+       			cContent.removeChild(cContent.firstElementChild);
+       		}
+       	}
+		
+		var node = document.createElement("div");
+		node.innerHTML = res;;
+		cContent.insertBefore(node,cContent.lastElementChild);
+	}
+}
+function j2vCb(d,c)
+{
+	var str = '';
+	 if(c.length>1)
+	 {
+		switch(c[1])
+		{
+			case 'pic':
+				break;
+		}
+	 }
+	 return str;
+}
+
+function go2new5(touid, tousername){
+	//setstorage('params','{"touid":"'+touid+'", "tousername":"'+tousername+'"}');
+	
+	//var o = getStorJson('params');
+	//openwin('msg_detail','msg_detail.html','10');
+}
+
+function takeAtion(id, uname){
+	var uid = id;
+	uexWindow.cbActionSheet = function (opId, dataType, data){
+		var i=Int(data);
+		if(i==0){
+			setstorage('params','{"uid":"'+uid+'", "username":"'+uname+'", "isfriend":""}');
+			openwin('friend_information','friend_information.html','10');
+		}
+		else if(i==1){
+			friendConfirm(uid);
+		}
+		else if(i==2){
+			ignoreReq(uid);
+		}
+	}
+	var array = ['查看主页','同意请求','忽略请求'];
+	uexWindow.actionSheet('', '取消', array);
+}
+
+var guid = '';
+function friendConfirm(uid){
+	guid = uid;
+	var url = home_url + "&mod=spacecp&ac=friend&op=add&uid="+uid+"&gid=0&note=&addsubmit=1";
+	uexWindow.toast('1','5','请稍候...',"");
+	$.getJSON(url, friendConfirmCb, 'json', getJsonErr, 'POST', '', '');
+}
+function friendConfirmCb(json){
+	uexWindow.closeToast();
+	if(json && json.status){
+		uexWindow.toast('0','5',json.status,2000);
+		actResult();
+	}
+}
+
+function ignoreReq(uid){
+	guid = uid;
+	uexWindow.cbConfirm = function(opId, dataType, data){
+ 		if(int(data)==0) ignoreReqOK();
+	}
+		
+	var mycars = ['确定', '取消'];
+    uexWindow.confirm('提示', '你确定忽略好友请求？', mycars);
+}
+function ignoreReqOK(){
+	var uid = guid;
+	var url = home_url + "&mod=spacecp&ac=friend&op=ignore&confirm=1&uid="+uid+"&friendsubmit=true";
+	uexWindow.toast('1','5','请稍候...',"");
+	$.getJSON(url, ignoreReqOKCb, 'json', getJsonErr, 'POST', '', '');
+}
+
+function ignoreReqOKCb(json){
+	uexWindow.closeToast();
+	actResult();
+}
+
+function actResult(){
+	fcount--;
+	var e = $$(guid);
+	var pnode = e.parentElement;
+	var ne = e.nextElementSibling;
+	pnode.removeChild(e);
+	pnode.removeChild(ne);
+	
+	if(fcount==0){
+		var node = document.createElement("div");
+		node.innerHTML = '<div class="uinn8 tx-c">暂无好友请求</div>';
+		cContent.insertBefore(node,cContent.lastElementChild);
+	}
+}
+</script>
+</html>

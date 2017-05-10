@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+  <head>
+    <title>
+    </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="css/ui-img.css">
+    <link rel="stylesheet" href="css/ui-res.css">
+    <link rel="stylesheet" href="css/ui-list.css">
+    <link rel="stylesheet" href="css/ui-base.css">
+    <link rel="stylesheet" href="css/ui-box.css">
+    <link rel="stylesheet" href="css/ui-color.css">
+    <link rel="stylesheet" href="css/ui-btn.css">
+    <link rel="stylesheet" href="css/ui-tab.css">
+	<link rel="stylesheet" href="css/style.css">
+    <script src="js/y_control.js"></script>
+    <script src="js/y_click.js"></script>
+	<script src="js/y_anim.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/dis_control.js"></script>
+
+    <script>
+	</script>
+    <style>
+        .drdc{
+          -webkit-transition: all 0.2s ease-in-out;
+        }
+
+        input[type="radio"]:checked+div.drdc{
+          -webkit-transform: scale(1,1);
+        }
+
+        input[type="radio"]+div.drdc{
+          -webkit-transform: scale(0,0);
+        }
+    </style>
+  </head>
+<body class="um-vp" style="background-color: #FFFFFF !important;">
+    <input class="uhide" type="radio" id="rdnav" checked="true">
+	<div class="drdc ub ub-ac c-wh tab2 ubt b-gra tp-click" style="width:100%;">
+        <div ontouchstart="zy_touch('btn-act1')" onclick="shareout();" class="ub-f1 ub ub-pc">
+            <div class="ub-img tp-share umw1"></div>
+            <div class="ub ub-ac">分享</div>
+        </div>
+        <div ontouchstart="zy_touch('btn-act1')" onclick="forum_msg()" class="ub-f1 ub ub-pc ubr ubl b-gra">
+            <div class="ub-img tp-reply umw1"></div>
+            <div class="ub ub-ac umar-r">聊天</div>
+            <div class="ub ub-ac t-gra1" id="cnum"></div>
+        </div>
+		<div ontouchstart="zy_touch('btn-act1')" onclick="sharetag();" class="ub-f1 ub ub-pc">
+			<div class="ub-img tp-collect umw1"></div>
+            <div class="ub ub-ac umar-r" id="sharetag">约伴</div>
+            <div class="ub ub-ac t-gra1" id="t_count"></div>
+		</div>
+	</div>
+</body>
+<script>
+zy_init();
+var params = getStorJson('popnav');
+var uid = getstorage('UID');
+var isAd = getstorage('isAd');
+var view = params.view;
+var tid = params.tid;
+var fid = params.fid, module = '';
+var current_win = 'forum_detail';
+if(params.fid) {
+    fid = params.fid;
+    module = get_module(fid);
+    if(module == 'trend') current_win = 'forum_detail_trend';//如果用户点了嵌入攻略，活动和攻略的窗口都显示，所以要区分
+}
+if(fid) setHtml('sharetag', forums[get_module(fid)].op);
+var picid = params.picid;
+var tagid = '';
+var tagname = '';
+if(int(params.tagid)) tagid = params.tagid;
+if(params.tagname) tagname = params.tagname;
+var wname = {};
+wname['forum'] = current_win;
+wname['album'] = 'album_detail';
+var my5 = wname[view];
+
+window.uexOnload = function ()
+{
+	//logs('pop_nav()-->params='+getstorage('popnav'));
+	//if(!isSML) moveOutsc();
+    var cnum = 0, t_count = 0;
+    if(int(params.cnum)) cnum = params.cnum;//评论
+    if(int(params.t_count)) t_count = params.t_count;//约伴数
+    addNum(cnum, t_count, 0);
+};
+function addNum(replies, shares, add){
+    var old_shares;
+    var old_replies;
+    replies = int(replies);
+    shares = int(shares);
+    if(add){
+        old_shares = force_int($$('t_count').innerHTML);
+        old_replies = force_int($$('cnum').innerHTML);
+    }else{
+        old_shares = 0;
+        old_replies = 0;
+    }
+    if(replies) setHtml('cnum', replies + old_replies);
+    if(shares) setHtml('t_count', shares + old_shares);
+}
+function forum_msg(){
+    ueppscript(current_win, 'content', 'forum_msg();');
+}
+function shareout(){
+    ueppscript(current_win, 'content', 'shareout();');
+}
+function sharetag(){
+    if(!checkLogin()) return;
+    if(int(params.activityclose)){
+        uexWindow.toast('0','5','活动已结束',2000);
+        return;
+    }
+    var str = '{"type":"thread", "wname":"' + current_win + '", "popname":"content", "openwin":"friendtag_member", "tid":"'+tid+'", "fid":"'+fid+'", "tagid":"'+tagid+'", "tagname":"'+tagname+'"}';
+    setstorage('params',str);
+    //openwin('tag_select', 'tag_select.html', '10');
+    openwin('friendtag_member', 'friendtag_edit.html', '10');
+}
+function favoriteUI(flag){
+	var id = 'imgfav';
+	var css1 = 'tp-favorited';
+	var css2 = 'tp-collect';
+	var txt = '';
+	if(!flag){
+		var c = css1;
+		css1 = css2;
+		css2 = c;
+	}
+	zy_anim_push(id,css1);
+	zy_anim_pop(id,css2);
+}
+function shownav(show){
+    $$('rdnav').checked = show;
+    var delay = show ? 0 : 180;
+    //console.log('show:'+ show);
+    setTimeout(function(){uescript(current_win, 'Y.setFrameAttr({name: \'nav\',hidden: '+ !show +'});');}, delay);
+}
+</script>
+</html>

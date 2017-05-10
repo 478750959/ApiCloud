@@ -1,0 +1,227 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>APP</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/common.css" />
+    <style>
+        body,html{
+            background-color: #2B2B2B;
+        }
+    	#main {
+    		background-color: #2B2B2B;
+            padding: 1em;
+    	}
+        /*轮播图*/
+        .swipe {
+            overflow: hidden;
+            /*visibility: hidden;*/
+            /*position: relative;*/
+            position: absolute;
+            width: 100%;
+            left: 0;
+            top: 0;
+        }
+        .swipe-wrap {
+            overflow: hidden;
+            position: relative;
+        }
+        .swipe-wrap .swipe-box {
+            float:left;
+            width:100%;
+            position: relative;
+        }
+        .swipe-wrap img{
+            height: 148px;
+            width: 100%;
+            display: block;
+        }
+        #title-box{
+            height: 30px;
+            width: 100%;
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            background-color: rgba(0,0,0,0.3);
+        }
+        #title-box-text{
+            color: #FFF;
+            text-align: left;
+            text-indent: 1em;
+            line-height: 30px;
+        }
+        #title-box-ul{
+            position: absolute;
+            right: 0;
+            top: 0;
+            padding-right: 12px;
+        }
+        #title-box-ul li{
+            width: 11px;
+            height: 30px;
+            line-height: 30px;
+            float: left;
+            background: url(../../res/drawable-xhdpi/slider_dot.png) transparent center center no-repeat;
+            background-size: 8px 8px;
+
+        }
+        #title-box-ul li.active{
+            background: url(../../res/drawable-xhdpi/slider_dot_current.png) transparent center center no-repeat;
+            background-size: 8px 8px;
+        }
+        /*轮播图end*/
+        /*4个按钮*/
+        #btns_box{
+            width: 100%;
+            height: 172px;
+            margin-top: 148px;
+            overflow: hidden;
+        }
+        #btns_box .act_btn{
+            color: #F4B800;
+            /*height: 82px;*/
+            width: 48%;
+            display: inline-block;
+            float: left;
+            text-indent: -1000em;
+            margin-bottom: 10px;
+        }
+        #btns_box .event_2{
+            float: right;
+            margin-bottom: 10px;
+        }
+        #btns_box .event_3{
+        }
+        #btns_box .event_4{
+            float: right;
+        }
+        #btns_box .event_1{
+            
+        }
+        /*4个按钮end*/
+        /*活动详情按钮*/
+        #act_detail_box{
+            width: 100%;
+            margin-top: 10px;
+        }
+        #act_detail_box .act_detail_btn{
+            width: 100%;
+            /*height: 140px;*/
+            position: relative;
+            margin-bottom: 10px;
+        }
+        #act_detail_box img{
+            display: block;
+            width: 100%;
+            /*height: 100%;*/
+        }
+        #act_detail_box .statu{
+            position: absolute;
+            color: #FFF;
+            left: 0;
+            top: 0;
+            width: 85px;
+            height: 21px;
+            text-align: center;
+            line-height: 21px;
+        }
+        #act_detail_box .ing{
+            background-color: #0084FF;
+            
+        }
+        #act_detail_box .end{
+            background-color: #617488;
+        }
+        /*活动详情按钮end*/
+    </style>
+</head>
+<body>
+    <div id="wrap">
+        <div id="main">
+
+            <div id='slider' class='swipe'>
+                <div class='swipe-wrap'>
+                    <div class="swipe-box">
+                        <img src="../../res/drawable-xhdpi/act_3.png" alt="一周电影推荐《移动迷宫》">
+                    </div>
+                    <div class="swipe-box">
+                        <img src="../../res/drawable-xhdpi/act_4.png" alt="一分钱抢票《冰川时代2》">
+                    </div>
+                    <div class="swipe-box">
+                        <img src="../../res/drawable-xhdpi/act_1.png" alt="发暗号抢电影票">
+                    </div>
+                    <div class="swipe-box">
+                        <img src="../../res/drawable-xhdpi/act_2.png" alt="全城通缉">
+                    </div>
+                </div>
+                <div id="title-box">
+                    <span id="title-box-text">
+                        一周电影推荐《移动迷宫》
+                    </span>
+                    <ul id="title-box-ul">
+                        <li class="active"></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                    </ul>
+                </div>
+            </div>
+            <!-- 敬请期待等 -->
+            <div id="btns_box">
+                <img src="../../res/drawable-xhdpi/event_menu_1.png" onclick="openActGroup(0);" alt="免费抢票" class="act_btn event_1">
+                <img src="../../res/drawable-xhdpi/event_menu_2.png" onclick="openActGroup(1);" alt="电影观察" class="act_btn event_2">
+                <img src="../../res/drawable-xhdpi/event_menu_3.png" onclick="openActGroup(2);" alt="团购专场" class="act_btn event_3">
+                <img src="../../res/drawable-xhdpi/event_menu_4.png" alt="敬请期待" class="act_btn event_4">
+            </div>
+            <!-- 活动详情按钮 -->
+            <div id="act_detail_box">
+                <div class="act_detail_btn">
+                    <span class="statu ing">进行中</span>
+                    <img src="../../res/drawable-xhdpi/act_1.png" alt="111">
+                </div>
+                <div class="act_detail_btn">
+                    <span class="statu end">已结束</span>
+                    <img src="../../res/drawable-xhdpi/act_2.png" alt="111">
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/common.js"></script>
+<script type="text/javascript" src="../../script/zepto.js"></script>
+<script type="text/javascript" src="../../script/swipe.js"></script>
+<script>
+    apiready = function(){
+        Zepto(function($){
+            var aLi = $('#title-box-ul li');
+            var act_title = $('#title-box-text');
+            window.mySwipe = Swipe($api.byId('slider'),{
+                auto: 3000,
+                continuous: true,
+                callback: function(index,elem) {
+
+                    var i = aLi.length;
+                    while (i--) {
+                        aLi[i].className = '';
+                    }
+                    aLi[index].className = 'active';
+                    var text = $(elem).find('img').attr('alt');
+                    act_title.text(text);
+                }
+            });
+            $('#act_detail_box .act_detail_btn').on('click', function(event) {
+                goActDetail();
+            });
+            $('#slider .swipe-box').on('click', function(event) {
+                goActDetail();
+            });
+        });
+
+
+    };
+
+</script>
+</html>

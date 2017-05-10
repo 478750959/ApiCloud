@@ -1,0 +1,106 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>report</title>
+		<link rel="stylesheet" type="text/css" href="../css/api.css" />
+		<link rel="stylesheet" type="text/css" href="../css/common.css" />
+		<style>
+			#wrap {
+				width: 100%;
+				display: -webkit-box;
+				display: -webkit-flex;
+				display: flex;
+				-webkit-box-orient: vertical;
+				-webkit-flex-flow: column;
+				flex-flow: column;
+			}
+
+			#main {
+				-webkit-box-flex: 1;
+				-webkit-flex: 1;
+				flex: 1;
+			}
+
+			h1 {
+				margin-top: 18px;
+				margin-bottom: 18px;
+				width: 100%;
+				text-align: center;
+			}
+
+			section {
+				padding: 10px;
+				display: -webkit-box;
+			}
+
+			.top {
+				width: 100%;
+			}
+
+			.top .title {
+				height: 35px;
+				line-height: 35px;
+				color: #FFFFFF;
+				font-size: 16px;
+				background: #3B92E8;
+			}
+
+			.top h2 {
+				margin-top: 8px;
+				margin-bottom: 8px;
+				margin-left: 18px;
+				color: #5E5E5E;
+				font-size: 16px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="wrap">
+			<div id="main">
+				<h1>医院信息写在这里</h1>
+				<div class='top'>
+					<div class="title">
+						【地址】
+					</div>
+					<h2>福建省福州市XX区XX路XXX号</h2>
+				</div>
+
+				<div class='top'>
+					<div class="title">
+						【邮编】
+					</div>
+					<h2>XXXXXX</h2>
+				</div>
+
+				<div class='top'>
+					<div class="title">
+						【联系方式】
+					</div>
+					<h2>电话：05XX-8335XXXX（总机）</h2>
+					<h2>传真：05XX-8711XXXX</h2>
+				</div>
+
+				<div class='top'>
+					<div class="title">
+						【官方网址】
+					</div>
+					<h2>http://www.baidu.com</h2>
+				</div>
+
+				<div class='top'>
+					<div class="title">
+						【公交路线】
+					</div>
+					<h2>1路、2路、8路、11路、22路、54路、64路、66路、76路、77路、80路、86路、88路、97路、101路、103路、106路、117路、121路、122路、125路、201路、K3路、K1步行100米-200米即到。</h2>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../script/api.js"></script>
+	<script type="text/javascript">
+		apiready = function() {
+		};
+	</script>
+</html>

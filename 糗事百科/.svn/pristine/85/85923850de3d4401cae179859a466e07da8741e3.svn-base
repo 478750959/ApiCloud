@@ -1,0 +1,125 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>APP</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/common.css" />
+    <link rel="stylesheet" href="../../css/light.css" class="light-style">
+    <link rel="stylesheet" href="../../css/dark.css" class="dark-style" disabled>
+    <style>
+        
+    </style>
+</head>
+<body class="qiushi-frame">
+    <div id="wrap">
+        <div id="main" class="qiushi-frame">
+            <div class="qiushi-box">
+                <div class="qiushi-top clearfix" tapmode="tap-active" onclick="indexToProfile(this);" data-id="120333" data-type="">
+                    <span class="qiushi-icon-box pull-left">
+                        <img src="../../res/default_users_avatar.png" alt="">
+                    </span>
+                    <span class="user-name pull-left">这就是用户名</span>
+                </div>
+                <div class="qiushi-content-text" tapmode="tap-active" onclick="indexToQiushiDetail(this);" data-id="90000099">
+                    <p class="text">觉得挺好笑！。。。。究竟要多少字？</p>
+                </div>
+                <div class="qiushi-content-img" tapmode="tap-active" onclick="indexToQiushiDetail(this);" data-id="90000099">
+                    <img src="../../image/app95680733.jpg" alt="">
+                </div>
+                <div class="status-box">
+                    <span class="agree">
+                        <span class="agree-count">1000</span>
+                        好笑&nbsp;·
+                    </span>
+                    <span class=" comment">
+                        <span class=" comment-count">1000</span>
+                        评论
+                    </span>
+                </div>
+                <div class="btns-group clearfix">
+                    <div class="icon icon-agree pull-left" tapmode="tap-active" onclick=""></div>
+                    <div class="icon icon-disagree pull-left" tapmode="tap-active" onclick=""></div>
+                    <div class="icon icon-comment pull-left" tapmode="tap-active" onclick="indexToQiushiDetail(this);" data-id="90000099"></div>
+                    <div class="icon icon-share" tapmode="tap-active" onclick="indexToShareOption(this)" data-id="100100004"></div>
+                </div>
+            </div>
+            <div class="qiushi-box">
+                <div class="qiushi-top clearfix" tapmode="tap-active" onclick="indexToProfile(this);" data-id="120333" data-type="">
+                    <span class="qiushi-icon-box pull-left">
+                        <img src="../../res/default_users_avatar.png" alt="">
+                    </span>
+                    <span class="user-name pull-left">这就是用户名</span>
+                </div>
+                <div class="qiushi-content-text" tapmode="tap-active" onclick="indexToQiushiDetail(this);" data-id="90000099">
+                    <p class="text">觉得挺好笑！。。。。究竟要多少字？</p>
+                </div>
+                <div class="qiushi-content-img" tapmode="tap-active" onclick="indexToQiushiDetail(this);" data-id="90000099">
+                    <!-- <img src="../../image/app95680733.jpg" alt=""> -->
+                </div>
+                <div class="status-box">
+                    <span class="agree">
+                        <span class="agree-count">1000</span>
+                        好笑&nbsp;·
+                    </span>
+                    <span class=" comment">
+                        <span class=" comment-count">1000</span>
+                        评论
+                    </span>
+                </div>
+                <div class="btns-group clearfix">
+                    <div class="icon icon-agree pull-left" tapmode="tap-active" onclick=""></div>
+                    <div class="icon icon-disagree pull-left" tapmode="tap-active" onclick=""></div>
+                    <div class="icon icon-comment pull-left" tapmode="tap-active" onclick="indexToQiushiDetail(this);" data-id="90000099"></div>
+                    <div class="icon icon-share" tapmode="tap-active" onclick="indexToShareOption(this)" data-id="100100004"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/theme.js"></script>
+<script type="text/javascript" src="../../script/bindSwipe.js"></script>
+<script type="text/javascript" src="../../script/common.js"></script>
+<script type="text/javascript">
+// 绑定轻划调出隐藏底部按钮组
+    var showBottomTabBar = function(){
+        if ($api.getStorage('bottomTabBarLock') == 'hidden') {
+            $api.setStorage('bottomTabBarLock','shown');
+            api.setFrameAttr({
+                name: 'qiushi-bottom',
+                hidden: false
+            });
+        } else{
+
+        }
+    };
+// 解绑定轻划调出隐藏底部按钮组  
+    var hideBottomTabBar = function(){
+        if ($api.getStorage('bottomTabBarLock') == 'shown') {
+            $api.setStorage('bottomTabBarLock','hidden');
+            api.setFrameAttr({
+                name: 'qiushi-bottom',
+                hidden: true
+            });
+        } else{
+   
+        } 
+    };
+
+    window.bindSwipe = new BindSwipe(document,{
+        // dir: 'y',
+        swipeUpFn: function(){
+            hideBottomTabBar()
+        },
+        swipeDownFn: function(){
+            showBottomTabBar()
+        }
+    });
+    apiready = function(){
+        addFrame('essence-type');
+
+    }
+</script>
+</html>

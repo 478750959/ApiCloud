@@ -1,0 +1,85 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,initial-scale=1.0,width=device-width"/>
+    <title>APP</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/common.css" />
+    <style>
+        html,body,#header{
+            background: transparent;
+        }
+        #header{
+            height: 48px;
+            border-bottom: 1px solid transparent;
+        }
+        #main{
+            position: relative;
+        }
+        .shadow{
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+        .list{
+            float: right;
+            margin-right: 0.5em;
+            box-shadow: 0px 0px 6px #000;
+        }
+        .list li{
+            position: relative;
+            z-index: 2;
+            height: 48px;
+            width: 196px;
+            line-height: 48px;
+            font-size: 1em;
+            text-indent: 1em;
+            background-color: #000;
+            color: #FFF;
+        }
+        .list li:active,.list li.tap-active{
+            background-color: #82D0ED;
+        }
+    </style>
+</head>
+<body>
+    <div id="wrap">
+        <div class="shadow" tapmode="tap-active" onclick="hide();"></div>
+        <div id="header">
+            
+        </div>
+        <div id="main">
+            <ul class="list">
+                <li tapmode="tap-active" onclick="refresh();">刷新</li>
+            </ul>
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript">
+    var hide = function(){
+        api.setFrameAttr({
+            name: 'webmore',
+            hidden: true
+        });
+    };
+    var refresh = function(){
+        hide();
+        // webframe
+        var str = 'location.reload();';
+        api.execScript({
+            frameName: 'webframe',
+            script: str
+        });
+    };
+    apiready = function(){
+        var header = $api.byId('header');
+        $api.fixIos7Bar(header); 
+
+    };
+</script>
+</html>

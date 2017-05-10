@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+<head>
+	<title></title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+	<link rel="stylesheet" href="css/ui-input.css">
+	<link rel="stylesheet" href="css/ui-btn.css">
+	<link rel="stylesheet" href="css/ui-base.css">
+	<link rel="stylesheet" href="css/ui-box.css">
+	<link rel="stylesheet" href="css/ui-color.css">
+	<link rel="stylesheet" href="css/ui-res.css">
+	<link rel="stylesheet" href="css/style.css">
+    <script src="js/y_control.js"></script>
+	<script src="js/y_click.js"></script>
+	<script src="js/dis_control.js"></script>
+	<script src="js/config.js"></script>
+	<script src="js/y_json.js"></script>
+	
+	
+	<script src="js/socketio/talkUtil.js"></script>
+	
+	<script>
+	</script>
+</head>
+<body class="um-vp c-gra5" ontouchstart>
+    <div id="page_0" class="up ub ub-ver" tabindex="0">
+        <!--header开始-->
+        <div id="header" class="c-blu3 uh">
+
+        	<div class="c-m2 t-wh">
+				 <a class="btn btn-l btn-a ub ub-ac" ontouchstart="zy_touch('btn-act1')" onclick="goBack();">       
+		              <div class="ulim"><img src="images/back.png" class="sbtn"></div>
+		         </a>
+            	<h1 class="ut ulev0 ut-s tx-c umar-l2" id="ttl">&nbsp;</h1>
+			</div>
+        </div>
+        <!--header结束--><!--content开始-->
+        <div id="content" class="ub-f1 tx-l t-bla">
+            
+        </div>
+        <!--content结束-->
+		
+		<!--footer开始-->
+		<div id="footer" class="uh ub msg-fbg umh5" >
+				<div class="ub-f1 " style="padding-left:0.5em;margin-top:0.2em;">
+			   		<textarea placeholder="请输入内容" type="text" class="ub-f1 uh umh5 uc-a1" name="msg" id="msg" style=""></textarea>	
+				</div>
+               <div class="ub uinn1 umh5 tx-c" ontouchstart="zy_touch('c-gra')" onclick="sendMsg();">
+						<div class="btn4-n-yb ub-f1 umh5 tx-c">发送</div>  
+				</div>
+        
+        <!--footer结束-->
+    </div>
+</body>
+<script>
+zy_init();
+var params = getStorJson('params');
+var tid = params.tid;
+setHtml('ttl', params.subject);
+window.uexOnload = function(type){
+    if (!type) {
+		var off1 = $$("header").offsetHeight;
+		//打开聊天消息列表页面。
+		//传参数：currentRoomId，若是约伴、活动和分享，则为对应的tid（帖子id），若是点对点聊天，则为userId-toUserId
+		//此处为点对点聊天。
+		var userId = getstorage('UID');
+		var params = getStorJson('params');
+		var toUserId = params.touid;
+		var currentRoomId=getRoomIdGroup(tid);
+		setstorage('currentRoomId',currentRoomId);//加入某个聊天室。
+		
+        zy_con("content", "forum_msg_content.html", 0, off1);
+    }
+	window.onorientationchange=window.onresize=function()
+	{
+		zy_resize("content",0,$$("header").offsetHeight);				
+	}
+}
+
+/**
+ * 发送聊天内容
+ */
+function sendMsg(){
+//调用浮动窗口的发送消息函数sendMsg();
+//传递消息内容
+if($$("msg").value==""){
+	return;
+}
+setstorage('msg',$$("msg").value);
+uexWindow.evaluatePopoverScript("forum_msg","content","sendMsg()");
+$$("msg").value="";
+}
+
+function goBack(){
+	//执行“互动”浮动窗口里的更新列表函数，以便获取最新的消息数。
+	//uexWindow.evaluatePopoverScript("forum_detail","content","updateLists()");
+	closewin();
+}
+</script>
+</html>

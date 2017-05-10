@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <style>
+        html, body {
+            background-color: transparent;
+            font-size: 14px;
+            height: 100%;
+        }
+        .content{
+            width: 100%;
+            overflow: hidden;
+        }
+        .tab-content {
+            display: -webkit-box;
+            width: 400%;
+            background: #FFFFFF;
+            border-top: 1px solid #DBDBDB;
+        }
+
+        .tab-content ul {
+            width: 25%;
+        }
+
+        .tab-content li {
+            padding: 10px 0;
+            margin: 0 10px;
+            border-bottom: 1px solid #DBDBDB;
+        }
+    </style>
+</head>
+<body onclick="closeFrame()" tapmode="">
+<div class="content">
+    <div class="tab-content">
+        <ul>
+            <li>30天销量</li>
+            <li>满意度</li>
+            <li>价格由高到低</li>
+            <li>价格由低到高</li>
+        </ul>
+        <ul>
+            <li>全部草原</li>
+            <li>雨中草原</li>
+        </ul>
+        <ul>
+            <li>全部品类</li>
+            <li>跟团旅游</li>
+            <li>自驾游</li>
+        </ul>
+        <ul>
+            <li>30天销量</li>
+            <li>满意度</li>
+        </ul>
+    </div>
+</div>
+<script src="../script/zepto.min.js"></script>
+<script>
+    function slider(index){
+        var x=-$(window).width()*index+'px';
+        $(".tab-content").css({'-webkit-transform':'translate('+x+')'/*,'-webkit-transition':'500ms linear' 滑动效果*/} )
+    }
+    function closeFrame() {
+        api.execScript({frameName: 'frm_toursList_tab', script: 'closeFrameGroup()'})
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+  <head>
+    <title>
+    </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="css/ui-img.css">
+    <link rel="stylesheet" href="css/ui-res.css">
+    <link rel="stylesheet" href="css/ui-list.css">
+    <link rel="stylesheet" href="css/ui-base.css">
+    <link rel="stylesheet" href="css/ui-box.css">
+    <link rel="stylesheet" href="css/ui-color.css">
+	<link rel="stylesheet" href="css/style.css">
+    <script src="js/y_control.js"></script>
+    <script src="js/y_click.js"></script>
+	<script src="js/dis_control.js"></script>
+	<script src="js/y_json.js"></script>
+	<script src="js/y_tmpl.js"></script>
+	<script src="js/y_icache.js"></script>
+	<script src="js/config.js"></script>
+    <script src="js/y_anim.js"></script>
+    <script src="js/socketio/talkUtil.js"></script>
+    <script></script>
+  </head>
+<body class="um-vp" ontouchstart>
+	<div id="page1" class="">
+		<div></div>
+	</div>
+	
+	<div id="page2" class="">
+		<div></div>
+	</div>
+</body>
+<script>
+zy_init();
+var pages =  {curview:'page2', updr:'0'};
+pages['page1'] = {curpage:1, totpage:1, ld:0, note:'暂无未读提醒'};
+pages['page2'] = {curpage:1, totpage:1, ld:0, note:'暂无提醒'};
+var ucurl = getstorage('ucurl');
+if(!ucurl) ucurl = guc;
+var fromCache = 0;
+window.uexOnload = function (){
+	setPageBounce(downcb, upcb);
+	zy_initcache();
+	loadList('', '1');
+    if(fromCache) loadList('', '');
+};
+function downcb(){
+	pages.updr = '0';
+	loadList('', '');
+}
+function upcb(){
+	var o = pages[pages.curview];
+	if (o.curpage < o.totpage) {
+		pages.updr = '1';
+		loadList(o.curpage + 1, '');
+	}
+	else resetBV('1');
+}
+
+function loadList(pn, fg){
+    var url = home_url+"&mod=space&do=notice&page="+ pn;
+    fromCache = checkKey(url);
+    if(!fromCache) uexWindow.toast('1','5','加载中...',"");
+	$.getJSON(url, loadListCb, 'json', getJsonErr, 'POST', '', fg);
+}
+function loadListCb(json){
+	uexWindow.closeToast();
+	resetBV(pages.updr);
+	
+	if(json){
+		if (Int(json.status)<1) {
+			uexWindow.toast('0','5',json.message,2000);
+			return;
+		}
+		var cContent = $$(pages.curview);
+		var list = json.list;
+		var length = zy_tmpl_count(list);		
+		var res = '';
+		var o = pages[pages.curview];
+		if(json.zywy_curpage) o.curpage = Int(json.zywy_curpage);
+		if(json.zywy_totalpage) o.totpage = Int(json.zywy_totalpage);
+
+		if(o.curpage==1)
+       	{
+       		while(cContent.childElementCount>1)
+       		{
+       			cContent.removeChild(cContent.firstElementChild);
+       		}
+       	}
+		
+		if (length > 0) {
+			var tmpl = '<div ontouchstart="zy_touch(\'${cb:onbg}\')" onclick="go2new5(\'${type}\', \'${param}\', \'${from_idtype}\', \'${author}\', \'${new}\')" class="uc-n ubb ub b-gra t-bla ub-at lis" id="${id}">'
+				 			+'<div class="lis-th2 ub-img uc-a1">'
+				     			+'<img src="images/mylogo.png" ${cb:pic} class="inforpic" id="pic${id}"/>'
+				     		+'</div>'
+                            +'<div class="ub ub-f1 ub-ac">'
+                                +'<div class="ub-f1 ub ub-ver umar-l">'
+                                    +'<div class="ub ub-ac">'
+                                        +'<div class="ub-f1">${cb:author}</div>'
+                                        +'<div class="t-gra ulev-2">${dateline}</div>'
+                                    +'</div>'
+                                    +'<div class="ulev-3 umar-t ${cb:new}" id="id_note">${note}</div>'
+                                +'</div>'
+                                /*+'<div class="res8 lis-sw ub-img4"></div>'*/
+                                +'${cb:icon}'
+                            +'</div>'
+				 		+'</div> '
+						+'<div class="ubt1"></div>';
+			res = zy_tmpl(tmpl,list,zy_tmpl_count(list),j2vCb);
+			if(res && pages.curview=='page2') o.ld = 1;
+		}
+		else{
+			cContent.className = 'uinn18';
+			res = '<div class="tx-c">'+o.note+'</div>';
+		}
+		
+		var node = document.createElement("div");
+		node.className = 'b-gra uc-n';
+		node.innerHTML = res;
+		cContent.insertBefore(node,cContent.lastElementChild);
+        imgCacheCall();
+	}
+}
+function j2vCb(d,c)
+{
+	var str = '';
+	 if(c.length>1)
+	 {
+		switch(c[1])
+		{
+            case 'pic':
+                var src;
+                if(d.author && d.authorid) src = ucurl + d.authorid;
+                else src = ucurl;//uid=0时在avatar.php中返回logo.png
+                var picid = 'pic'+d.id;
+                pushCacheCall(function(){
+                    dis_imgcache(picid,src,src,imgLoadSucSrc,imgLoadErr,null,'',1);
+                });
+				break;
+			case 'icon':
+				if(d.type=='post' || (d.type=='activity' || d.type == 'u_love' || d.type == 'dating') && int(d.from_id) || d.from_idtype=='friendrequest' || d.from_idtype == 'service')
+					str = '<div class="res8 lis-sw ub-img4"></div>';
+			    break;
+			case 'onbg':
+				if(d.type=='post' || d.type=='blogcomment' || d.from_idtype=='friendrequest')
+					str = 'onbg';
+			    break;
+			case 'author':
+				if(d.author) str = d.author;
+				else str = '系统提醒';
+                break;
+            case 'new':
+                if(d.new == 1) str = 't-bbla';
+                else str = '';
+			    break;
+		}
+	 }
+	 return str;
+}
+function selected(i){
+	var p2 = 'page'+i;
+	if(pages.curview == p2){
+		//update ???
+	}
+	else{
+		var p1 = pages.curview;	
+		pages.curview = p2;
+		my_page_switch(p1,p2);
+		if(p2=='page2') setHtml(p1, '<div class="tx-c">暂无未读提醒</div><div></div>');
+		if(!pages[p2].ld) loadList('', '');
+	}
+}
+
+/**
+ * 
+ * @param {Object} type 类型
+ * @param {Object} ps
+ * @param {Object} idtype 类型子类
+ * @param {Object} author 
+ * @param {Object} status 该提醒是否阅读（第一次或重新刷新后算已读）。0：已读；1：未读
+ */
+function go2new5(type, ps, idtype, author,status){
+	var params = paramsParse(ps);
+	var str = '';
+	var wname = '';
+	var url = '';
+	if(type=='post'){ /*回复帖子*/
+		str = '{"tid":"'+params.tid+'", "pid":"'+params.pid+'", "view":"forum", "from":"reminder"}';
+		wname = 'forum_detail';
+		url = 'forum_detail.html';
+	}else if((type == 'activity' || type == 'u_love') && int(params.tid)){ /*活动*/
+        str = '{"tid":"'+params.tid+'", "view":"forum", "from":"reminder"}';
+        wname = 'forum_detail';
+        url = 'forum_detail.html';
+    }else if(type == 'dating' && int(params.tid)){ /*神秘约会*/
+        str = '{"tid":"'+params.tid+'", "view":"forum", "from":"reminder"}';
+        wname = 'dating_detail';
+        url = 'plugin/p1/detail.html';
+    }else if(type=='blogcomment'){ /*评论日志*/
+		str = '{"uid":"'+params.uid+'", "blogid":"'+params.id+'", "view":"blog" , "from":"reminder"}';
+		wname = 'blog_detail';
+		url = 'blog_detail.html';
+	}else if(type=='wall'){ /*留言*/
+		//str = '{"uid":"'+params.uid+'"}';
+		//wname = 'msg_board';
+		//url = 'msg_board.html';
+	}else if(type=='poke'){ /*打招呼*/
+	}else if(type=='friend'){ /*加好友*/
+		if (idtype == 'friendrequest') {
+			/*
+			if(status=="1"){
+				takeAtion(params.uid, author);
+				//服务端代码修改后才启用此处逻辑。
+			}*/
+			takeAtion(params.uid, author);
+		}
+	}else if(type=='wall'){ /*留言*/
+	}else if(type=='piccomment'){ /*评论照片*/
+		//setstorage('params','{"view":"'+view+'", "albumid":"'+alid+'", "albumname":"'+alname+'", "aluid":"'+aluid+'"}');
+		//str = '{"view":"me", }';
+	}else if(type == 'system'){
+        if(params.from_idtype == 'service'){
+            var uid = int(params.uid) ? params.uid : serviceuid;
+            var room_id=getRoomIdP2P(getstorage('UID'),uid);
+            setstorage('currentRoomId',room_id);//加入某个聊天室。
+            //var uname = getstorage('username');//main_more中获取后会保存到缓存
+            setstorage('currentRoomId_title','约伴小秘');//标题。
+            wname = 'msg_detail_yb';
+            url = 'msg_detail_yb.html';
+        }
+    }
+	if(url){
+		if(str) setstorage('params', str);
+		openwin(wname, url, '10');
+	}
+    zy_anim_push('id_note', 't-gra');
+    zy_anim_pop('id_note', 't-bbla');
+}
+function paramsParse(str){
+    var params = {};
+    var loc = str;
+    if (loc.indexOf("?") == 0) 
+        loc = loc.substr(loc.indexOf('?') + 1);
+	if(loc){
+		var pieces = loc.split('&');
+	    params.keys = [];
+	    for (var i = 0; i < pieces.length; i += 1) {
+	        var keyVal = pieces[i].split('=');
+	        params[keyVal[0]] = decodeURIComponent(keyVal[1]);
+	        params.keys.push(keyVal[0]);
+	    }
+	}
+    return params;
+}
+
+function takeAtion(id, uname){
+	var uid = id;
+	uexWindow.cbActionSheet = function (opId, dataType, data){
+		var i=Int(data);
+		if(i==0){
+			setstorage('params','{"uid":"'+uid+'", "username":"'+uname+'", "isfriend":""}');
+			openwin('friend_information','friend_information.html','10');
+		}
+		else if(i==1){
+			friendConfirm(uid);
+		}
+		else if(i==2){
+			ignoreReq(uid);
+		}
+	}
+	var array = ['查看个人信息','同意请求','忽略请求'];
+	uexWindow.actionSheet('', '取消', array);
+}
+function friendConfirm(uid){
+    //var str = '{"wname":"friend_information", "popname":"content", "fuid":"'+uid+'"}';
+    var str = '{"fuid":"'+uid+'"}';//不需要回调处理
+    setstorage('params',str);
+
+    openwin('friend_add', 'friend_add.html', '10');
+}
+/*var guid = '';
+function friendConfirm(uid){
+	guid = uid;
+	var url = home_url + "&mod=spacecp&ac=friend&op=add&uid="+uid+"&gid=0&note=&addsubmit=1";
+	uexWindow.toast('1','5','请稍候...',"");
+	$.getJSON(url, friendConfirmCb, 'json', getJsonErr, 'POST', '', '');
+}
+function friendConfirmCb(json){
+	uexWindow.closeToast();
+	if(json && json.status){
+		uexWindow.toast('0','5',json.status,2000);
+		//actResult();
+	}
+}*/
+function actResult(){
+    //fcount--;
+    var e = $$(guid);
+    var pnode = e.parentElement;
+    var ne = e.nextElementSibling;
+    pnode.removeChild(e);
+    pnode.removeChild(ne);
+
+  /*  if(fcount==0){
+        var node = document.createElement("div");
+        node.innerHTML = '<div class="uinn8 tx-c">暂无好友请求</div>';
+        cContent.insertBefore(node,cContent.lastElementChild);
+    }*/
+}
+var guid = 0;
+function ignoreReq(uid){
+	guid = uid;
+	uexWindow.cbConfirm = function(opId, dataType, data){
+ 		if(int(data)==0) ignoreReqOK();
+	}
+		
+	var mycars=['确定', '取消'];
+	uexWindow.confirm('提示', '你确定忽略好友请求？', mycars);
+}
+function ignoreReqOK(){
+	var uid = guid;
+	var url = home_url + "&mod=spacecp&ac=friend&op=ignore&confirm=1&uid="+uid+"&friendsubmit=true";
+	uexWindow.toast('1','5','请稍候...',"");
+	$.getJSON(url, ignoreReqOKCb, 'json', getJsonErr, 'POST', '', '');
+}
+
+function ignoreReqOKCb(json){
+	uexWindow.closeToast();
+}
+</script>
+</html>

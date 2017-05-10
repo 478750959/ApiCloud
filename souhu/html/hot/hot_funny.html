@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+  <title>HTML</title>
+  
+  <!-- Replace favicon.ico & apple-touch-icon.png in the root of your domain and delete these references -->
+  <link rel="shortcut icon" href="/favicon.ico">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+  <link rel="stylesheet" type="text/css" href="../../css/slidepage.css" />
+
+	<style>
+		html {width: 100%;/*height: 100%;*/min-height: 100%;background: #D5D8DB;}
+		body {width: 100%;/*height: 100%;*/min-height: 100%;background: #D5D8DB;}
+
+		.hot_card {position: relative;margin-bottom: 10px;background: #E8E9ED;}
+		.hot_cover {width: 100%;}
+		.videotitle {font-size: 14px; padding-left: 10px; padding-bottom: 2px; padding-top: 7px;}
+		.videoLen {font-size: 9px; color: #A7A7AB; padding-left: 10px; padding-bottom: 7px; padding-top: 5px;}
+		.cardr {position: absolute; width: 40px; right: 10px; bottom: 5px;}
+		.rightarrow {height: 9px; padding-right: 5px;}
+
+		.vd {color: #D9D9DD;}
+
+		/* 分享按钮点击 */
+		.cardr {background-image: url(../../image/share_icon_normal.png); height: 40px; background-size: 40px; bottom: 10px;}
+		.sharehover {background-image: url(../../image/share_icon_pressed.png) !important;}
+	</style>
+</head>
+
+<body>
+	
+
+	<div class="hot_card">
+		<img src="../../image/funnyhotcover01.jpg" alt="" class="hot_cover">
+		<div class="cardl">
+			<div class="videotitle">囧闻一箩筐：女司机太猛了倒车时掉河里</div>
+			<div class="videoLen"><img src="../../image/hot_pic_more.png" alt="" class="rightarrow">搜狐视频娱乐播报  <span class="vd">|</span> 01:09</div>
+		</div>
+		<div class="cardr" tapmode="sharehover" onclick="openShareFrame()">
+			<!-- <img src="../../image/share_icon_normal.png" alt="" class="hot_cover"> -->
+		</div>
+	</div>
+
+	<div class="hot_card">
+		<img src="../../image/funnyhotcover02.jpg" alt="" class="hot_cover">
+		<div class="cardl">
+			<div class="videotitle">亮瞎眼！婚礼上音乐出了问题新人竟然~</div>
+			<div class="videoLen"><img src="../../image/hot_pic_more.png" alt=""  class="rightarrow">搜狐视频娱乐播报  <span class="vd">|</span> 01:09</div>
+		</div>
+		<div class="cardr" tapmode="sharehover" onclick="openShareFrame()">
+			<!-- <img src="../../image/share_icon_normal.png" alt="" class="hot_cover"> -->
+		</div>
+	</div>
+
+	<div class="hot_card">
+		<img src="../../image/funnyhotcover03.jpg" alt="" class="hot_cover">
+		<div class="cardl"   tapmode="btn_click" onclick="openNewWindow('hot_detail')">
+			<div class="videotitle">我草大片：吐槽<闪电侠>之闪电快男日记</div>
+			<div class="videoLen"><img src="../../image/hot_pic_more.png" alt=""  class="rightarrow">搜狐视频娱乐播报  <span class="vd">|</span> 01:09</div>
+		</div>
+		<div class="cardr" tapmode="sharehover" onclick="openShareFrame()">
+			<!-- <img src="../../image/share_icon_normal.png" alt="" class="hot_cover"> -->
+		</div>
+	</div>
+
+	<div class="hot_card">
+		<img src="../../image/funnyhotcover04.jpg" alt="" class="hot_cover">
+		<div class="cardl"   tapmode="btn_click" onclick="openNewWindow('hot_detail')">
+			<div class="videotitle">一囧故事:锤子手机降价 情怀被现实击垮</div>
+			<div class="videoLen"><img src="../../image/hot_pic_more.png" alt=""  class="rightarrow">搜狐视频娱乐播报  <span class="vd">|</span> 01:09</div>
+		</div>
+		<div class="cardr" tapmode="sharehover" onclick="openShareFrame()">
+			<!-- <img src="../../image/share_icon_normal.png" alt="" class="hot_cover"> -->
+		</div>
+	</div>
+	
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script>
+	function emptyopt () {
+	}
+	function openShareFrame()
+	{
+		api.openFrame({
+		    name: 'shareframe',
+		    url: './hot_share.html',
+		    bounces:false,
+		    rect:{
+				x:0,
+				y:0,
+				w:'auto',
+				h:'auto'
+			},
+	    });
+	}
+	
+	function openNewWindow(type)
+	{
+		api.openWin({
+		    name: type,
+		    url: './'+type+'.html',
+		    pageParam: {title:'曝柯震东恋上台版Baby 球场打闹生情愫'},
+		    bounces: true,
+		    // opaque: false,
+		    // bgColor:  'rgba(255,255,255,0)',
+		    // vScrollBarEnabled:false,
+		    // hScrollBarEnabled:true
+	    });
+	}
+
+	apiready = function (){
+		api.setRefreshHeaderInfo({
+			visible: true,
+			bgColor: 'rgba(0,0,0,0)',
+			textColor: '#666',
+			textDown: '下拉刷新',
+			textUp: '释放刷新'	
+		}, function(ret, err){
+		    api.refreshHeaderLoadDone();
+		});
+	};
+</script>
+</html>

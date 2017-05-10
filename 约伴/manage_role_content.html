@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+  <head>
+    <title>
+    </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="css/ui-input.css">
+    <link rel="stylesheet" href="css/ui-on.css">
+    <link rel="stylesheet" href="css/ui-img.css">
+    <link rel="stylesheet" href="css/ui-res.css">
+    <link rel="stylesheet" href="css/ui-list.css">
+    <link rel="stylesheet" href="css/ui-base.css">
+    <link rel="stylesheet" href="css/ui-box.css">
+    <link rel="stylesheet" href="css/ui-color.css">
+	<link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/ui-card.css">
+    <script src="js/y_control.js"></script>
+    <script src="js/y_click.js"></script>
+	<script src="js/y_json.js"></script>
+	<script src="js/config.js"></script>
+	<script src="js/dis_control.js"></script>
+    <script src="js/y_icache.js"></script>
+    <script src="js/y_anim.js"></script>
+    <script src="js/y_tmpl.js"></script>
+    <script>
+	</script>
+    <style>
+      .ps{
+          margin: 0px;
+          border: 0px;
+          width: 100%;
+          height: 100%;
+          -webkit-appearance: none;
+          padding: .4em 0;
+          line-height: 1.2em;
+          background: none;
+          text-decoration: none;
+          font-size: 0.875em;
+          display: block;
+      }
+      .p_title{
+          min-width: 4em;
+      }
+    </style>
+  </head>
+<body class="um-vp c-wh" ontouchstart>
+    <div class="c-gra">
+        <div class="uba c-wh ubb b-gra umar-b1 uhide" id="verify_bar">
+            <div class="uc-t ub t-gra ub-ac umh4 lis" ontouchstart="zy_touch('c-gra')" onclick="go2verify();">
+                <div class="tx-r ut-s ulev-3"  id="verify">单位或高校验证</div>
+                <div class="ub-f1 tx-r" id="verify_status"></div>
+                <div class="res8 lis-sw ub-img4"></div>
+            </div>
+        </div>
+
+        <div class="c-wh">
+            <div class="uba c-wh ubb b-gra umar-b2 uhide" id="control_bar">
+                <div class="uc-t ub ubb b-gra t-gra ub-ac lis">
+                    <div class="tx-r ut-s ulev-3" id="appttl">启用单身名片</div>
+                    <div class="ub-f1"></div>
+                    <input class="uhide" type="checkbox" id="cb" checked="checked">
+                    <div class="swi uc-a1 uba b-gra"  ontouchstart="zy_touch('c-gra')" onclick="changeRoleStatus();">
+                        <div class="uabs swi-btn us"></div>
+                    </div>
+                </div>
+                <div class="uc-t ub t-gra ub-ac umh4 lis" ontouchstart="zy_touch('c-gra')" onclick="editProfile();">
+                    <div class="tx-r ut-s ulev-3">修改资料</div>
+                    <div class="ub-f1"></div>
+                    <div class="res8 lis-sw ub-img4"></div>
+                </div>
+            </div>
+            <!--单身名片-->
+            <div id="alist1" class="c-wh uinn1 b-gra uc-n"></div>
+            <div id="alist1_tmpl" class="uhide">
+                <ul>
+                    <div class="raised drop-shadow carddetail" style = "min-height:6em;">
+                        <div style="float: right; text-align: center;">
+                            <div class="avatar"  ontouchstart="zy_touch('c-gra')" >
+                                <img src="images/mylogo.png" class="" ${cb:img} id="pic_${uid}"/>
+                            </div>
+                        </div>
+                        <h3 style="padding-right: 5em">
+                            ${username} ${cb:verify}
+                            <div class="t-gra ufr" style="font-weight: normal">${cb:distance}</div>
+                        </h3>
+                        <ul class="t-gra">
+                            <li class="b_field">${cb:b_field}</li>
+                            ${cb:d_field}
+                        </ul>
+                    </div>
+                </ul>
+            </div>
+            <!--职业名片-->
+            <div id="alist2" class="c-wh uinn1 b-gra uc-n"></div>
+            <div id="alist2_tmpl" class="uhide">
+                <div class="raised drop-shadow carddetail" style = "min-height:6em;">
+                    <div style="float: right; text-align: center;">
+                        <div class="avatar" ontouchstart="zy_touch('c-gra')" >
+                            <img src="images/mylogo.png" class="" ${cb:img} id="pic_${uid}"/>
+                        </div>
+                    </div>
+                    <h3 style="padding-right: 5em">
+                        ${username} ${cb:verify}
+                        <div class="t-gra ufr" style="font-weight: normal">${cb:distance}</div>
+                    </h3>
+                    <ul class="t-gra">
+                        <li class="b_field">${cb:b_field}</li>
+                        ${cb:d_field}
+                    </ul>
+                </div>
+            </div>
+            <!--校友名片-->
+            <div id="alist3" class="c-wh uinn1 b-gra uc-n"></div>
+            <div id="alist3_tmpl" class="uhide">
+                <div class="raised drop-shadow carddetail" style = "min-height:6em;">
+                    <div style="float: right; text-align: center;">
+                        <div class="avatar" ontouchstart="zy_touch('c-gra')" >
+                            <img src="images/mylogo.png" class="" ${cb:img} id="pic_${uid}"/>
+                        </div>
+                    </div>
+                    <h3 style="padding-right: 5em">
+                        ${username} ${cb:verify}
+                        <div class="t-gra ufr" style="font-weight: normal">${cb:distance}</div>
+                    </h3>
+                    <ul class="t-gra">
+                        <li class="b_field">${cb:b_field}</li>
+                        ${cb:d_field}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+zy_init();
+var params = getStorJson('params');
+var rolemoduleid = params.rolemoduleid;
+console.log(rolemoduleid);
+//james Y150127,3种名片状态
+var o_rolemodule ;//用户所有的模块状态，对象
+var rolemodule ;//当前查看的模块
+var rolestatus ;//当前模块的状态
+var uid = '';
+var verifying = getstorage('verifying');
+
+var view = params.view;
+if(view == 'me'){
+    removeNode('followflag');
+    zy_anim_pop('verify_bar', 'uhide');
+    zy_anim_pop('control_bar', 'uhide');
+    uid = getstorage('UID');
+}else{
+    view = 'other';
+    uid = params.uid;
+}
+
+var title = params.title;
+var username = params.username;
+var ucurl = getstorage('ucurl');
+if(!ucurl) ucurl = guc;
+var fromCache = 0;
+window.uexOnload = function ()
+{
+    setHtml('appttl', '启用'+ title);
+	setPageBounce('', '');
+    loadprofile('1');
+    if(fromCache) loadprofile('');
+};
+
+function loadprofile(fg){
+    o_rolemodule = getStorJson('role_status');
+    rolemodule = getRolemodule();
+    rolestatus = o_rolemodule[rolemodule];
+    var ac = rolemodule + 'card';
+    var url = home_url + '&mod=space&do=recommend&ac='+ ac + '&uid='+ uid;
+    fromCache = checkKey(url);
+    if(!fromCache) uexWindow.toast('1','5','加载中...',"");
+    $.getJSON(url, loadprofileCb, 'json', getJsonErr, 'POST', '', fg, '1');
+}
+
+function loadprofileCb(json){
+    uexWindow.closeToast();
+    //logs('loadListForumCb-->json='+JSON.stringify(json));
+    if(json){
+        //单身名片状态
+        if(view == 'me'){
+            var status = '';
+            if(!isUndefined(rolestatus) && parseInt(rolestatus)){
+                status = true;
+                zy_anim_pop('alist'+rolemoduleid, 'uhide');
+            }else{
+                status = false;
+                zy_anim_push('alist'+rolemoduleid, 'uhide');
+            }
+            if($$('cb')) $$('cb').checked = status;
+        }
+        //
+        var list = json.list;
+        var length = zy_tmpl_count(list);
+        if(length>0){
+            var user = list[0];
+            //得到验证状态，单位，并且缓存
+            if (view == 'me' && user.verify) {
+                var verify = user.verify;
+                if (verify == '0') {
+                    if (!verifying)setHtml('verify_status', '未验证');
+                    else setHtml('verify_status', '验证中，请邮件激活');
+                }
+                if (verify == '1') setHtml('verify_status', '已验证');
+                var email = user.email;//重新验证时可带入
+                var company = user.company.value;
+                setStorJson('params', {"email": email, "wn": "manage_role", "pop": "content", "rolemoduleid": rolemoduleid, "company": company});
+                //setStorJson('params', {"email" : email, "wn":"manage_role", "pop":"content", "rolemoduleid" : rolemoduleid , "title" : title});
+            }
+            //单身名片
+            var tmpl = $$('alist' + rolemoduleid + '_tmpl').innerHTML;
+            var res = zy_tmpl(tmpl, list, 1, j2vCb);
+            setHtml('alist' + rolemoduleid, res);
+            imgCacheCall();
+        }
+        //
+    }
+}
+function j2vCb(d,c)
+{
+    var str = '';
+    if(c.length>1)
+    {
+        switch(c[1])
+        {
+            case 'img':
+                var src = ucurl+d.uid;
+                var picid = 'pic_'+d.uid;
+                pushCacheCall(function(){
+                    dis_imgcache(picid,src,src,imgLoadSucSrc,imgLoadErrSrc,null,'',1);
+                });
+                break;
+            case 'verify':
+                if(d.verify == '1'){
+                    str = '<strong class="user-v">验</strong>';
+                }else{
+                    str = '<strong class="user-not-v">未验证</strong>';
+                }
+                break;
+            case 'distance':
+                str = get_distance(d.distance);
+                break;
+            case 'b_field':
+                var b_fields = ['gender', 'education', 'height'];
+                if(rolemoduleid == 1)  b_fields = ['gender', 'education', 'height'];
+                else if(rolemoduleid == 2) b_fields = ['gender', 'education', 'resideprovince'];
+                else if(rolemoduleid == 3) b_fields = ['gender', 'education', 'resideprovince'];
+                var j = 0;
+                for(var key in b_fields){
+                    if(d[b_fields[key]] && d[b_fields[key]]['value'] !=null){
+                        if(rolemoduleid == 2 && b_fields[key] == 'education' ){//职业名片中学历是博士才显示
+                            if(d[b_fields[key]]['value'].indexOf("博士") >= 0) str += '<span class="b_fieldtitle" ' + (j++ ? '' : ' style="border-left:0;"') + '>' + d[b_fields[key]]['value'] + '</span>';
+                        }else str += '<span class="b_fieldtitle" ' + (j++ ? '' : ' style="border-left:0;"') + '>' + d[b_fields[key]]['value'] + '</span>';
+                    }
+                }
+                break;
+            case 'd_field':
+                //var d_fields = ['residecity', 'age', 'occupation', 'bio'];
+                var d_fields =  ['residecity', 'age', 'occupation', 'bio'];
+                if(rolemoduleid == 1) d_fields = ['residecity', 'age', 'occupation', 'bio'];
+                else if(rolemoduleid == 2) d_fields = ['occupation', 'company', 'position'];
+                else if(rolemoduleid == 3) d_fields = ['graduateschool', 'major', 'schoolyear'];
+                for(var key in d_fields){
+                    field = d_fields[key];
+                    if(d[field] && d[field]['value'] !=null){
+/*                        if(view != 'me' && (field == 'age' || field == 'company') && d.f_mutual != 3){
+                            str += '<li id="field_'+ field + d.uid +'_show" style="display:none;"><em class="mobile">' + d[field]['title'] + '：</em>' + d[field]['value'] + '</li>';
+                            str += '<li id="field_'+ field + d.uid +'_hide"><em class="mobile">' + d[field]['title'] + '：</em>xxx</li>';
+                        }else*/
+                            str += '<li><em class="mobile t-gra">' + d[field]['title'] + '：</em>' + d[field]['value'] + '</li>';
+                    }
+                }
+                break;
+            case 'card_btn':
+                if(d.f_mutual == 3) str = '<span class="btn_match card_btn c-gra uinn11">已加好友</span>';
+                else if (d.f_mutual == 2) str = '<div class="ub ub-ac uinn11 c-org" ontouchstart="zy_touch(\'c-gra\')" ontouchstart="zy_touch(\'c-gra\')" onclick="friend_request('+ d.uid +', 2);">'
+                                                    +'<div class="ub t-wh">批准请求</div>'
+                                                +'</div>';
+                else if (d.f_mutual == 1) str = '<span class="btn_grey card_btn c-gra uinn11">等待批准</span>';
+                else str= '<div class="ub ub-ac uinn11 c-org"  ontouchstart="zy_touch(\'c-gra\')" onclick="friend_request('+ d.uid +', 0);">'
+                            +'<div class="afbtn"></div>'
+                            +'<div class="ub t-wh">加好友</div>'
+                         +'</div>';
+                break;
+            case 'reason':
+                if(d.reason){
+                    str = '<li><em>关系：</em>'+ d.reason +'</li>';
+                }
+                break;
+        }
+    }
+    return str;
+}
+function changeRoleStatus(){
+    var new_status = !$$('cb').checked;
+    var old_status = parseInt(rolestatus) ? 'true':'false';
+    if(('' + new_status) == old_status){
+        return false;
+    }
+    //由关到开
+    if(new_status){
+        if(going) return;
+        confirmCard(new_status) ;
+    }else{//由开到关
+        uexWindow.cbConfirm = function (opId, dataType, data) {
+            if (int(data) == 0) {
+                if(going) return;
+                doSwitch(new_status) ;
+            }
+        };
+        var confirmtitle = '确认关闭' + params.title ;
+        var str = '关闭后，其他用户在'+ params.title + '推荐列表里将看不到你';
+        var mycars =['关闭', '不关闭'];
+        uexWindow.confirm(confirmtitle, str, mycars);
+    }
+}
+
+function go2verify(){
+    openwin('company_verify', 'company_verify.html', '10');
+}
+function update_verify(){
+    var params = getStorJson('params');
+    var company = params.company;
+    if(company){
+        setValue('company', company);
+        setHtml('verify_status', '验证中，请邮件激活');
+    }
+}
+function editProfile(){
+    setstorage('modifyfrom', 'modify');
+    setStorJson('params', {"rolemoduleid": rolemoduleid ,"title": title});
+    openwin('manage_roleedit','manage_roleedit.html','10');
+}
+
+function friend_request(uid, f_mutual){
+    if(going) return;
+    //var url = home_url + '&mod=spacecp&ac=follow&op=add&from=head&fuid='+ uid;
+    var tagids = '';
+//    if(params.tagids) tagids = params.tagids;*/
+    //交换名片处理逻辑替换成加为好友处理逻辑
+    var url =f_mutual? home_url + "&mod=spacecp&ac=friend&op=add&uid="+uid+"&tagids="+ tagids
+            +"&note=&add2submit=1":"&mod=spacecp&ac=friend&op=add&uid="+uid+"&tagids="+ tagids +"&note=&addsubmit=1";
+    //uexWindow.toast('1','5','请稍候...',"");
+    going = 1;
+    uexWindow.toast('1','5','请稍候...',"");
+    $.getJSON(url, function(json){
+        going = 0;
+        var str = '';
+        if(json==0) str = '请求失败';
+        else{
+            if(f_mutual){
+                //显示资料
+                $$('field_age'+ uid +'_show').style.display = '';
+                $$('field_age'+ uid +'_hide').style.display = 'none';
+                $$('field_company'+ uid +'_show').style.display = '';
+                $$('field_company'+ uid +'_hide').style.display = 'none';
+                //改变button状态
+                $$('accept_' + uid).innerHTML = '<span class="btn_match card_btn">已加为好友</span>';
+                str = '已成功加为好友';
+            }else{
+                $$('accept_' + uid).innerHTML = '<span class="btn_grey card_btn c-gra uinn11">等待批准</span>';
+                //str = '已发出请求,请等待批准';
+                str = '好友请求已发出,请等待批准';
+            }
+        }
+        uexWindow.toast('0', '5', str, 2000);
+    }, 'json', getJsonErr, 'POST', '', '', '');
+}
+
+function getRolemodule(){
+    var key = '';
+    if(rolemoduleid == 1) key = 'single';
+    if(rolemoduleid == 2) key = 'occupation';
+    if(rolemoduleid == 3) key = 'education';
+    return key;
+}
+
+function confirmCard(new_status) {
+    var str = '';
+    uexWindow.cbConfirm = function (opId, dataType, data) {
+        if (int(data) == 1) {
+            iscardempty(new_status);
+        }
+    };
+    var confirmtitle = '确认启用'+params.title;
+    switch (rolemodule){
+        case 'single':
+            str = '单身用户才能启用'+ params.title +'，确定启用?';
+            break;
+        case 'occupation':
+            str = '启用' + params.title + '后，将会为你推荐同事同行!';
+            break;
+        case 'education':
+            str = '启用' + params.title + '后，将会为你推荐同学校友!';
+            break;
+    }
+    var mycars =['取消', '启用'];
+    uexWindow.confirm(confirmtitle, str, mycars);
+}
+
+function iscardempty(new_status) {
+    going = 1;
+    var url = home_url + '&mod=space&do=recommend&ac=isempty&rolemodule='+ rolemodule + '&uid='+ uid;
+    $.getJSON(url, function(json) {
+    going = 0;
+    var iscardempty = json.iscardempty ;
+    if(parseInt(iscardempty)){        //如果资料为空，confirm 是否edit
+        uexWindow.cbConfirm = function (opId, dataType, data) {
+            if (int(data) == 1) {
+                setstorage('modifyfrom', 'switch');
+                setStorJson('params', {"rolemoduleid": rolemoduleid ,"title": title});
+                openwin('manage_roleedit','manage_roleedit.html','10');
+            }
+        };
+        var confirmtitle = '请编辑' + params.title;
+        var str = '需要先补充相关个人资料';
+        var mycars =['取消', '去编辑'];
+        uexWindow.confirm(confirmtitle, str, mycars);
+    }else doSwitch(new_status) ;//资料不为空
+    } , 'json', getJsonErr, 'POST', '', '');
+}
+
+//做开启或关闭名片的动作
+function doSwitch(new_status) {
+    going = 1;
+    var url = forum_url + '&mod=ajax&action=set_profile&rolemodule='+ rolemodule + '&status=' + new_status;
+    $.getJSON(url, function(json) {
+        going = 0;
+        var str = '';
+        var second = 1500 ;
+        if(json==0) {
+            if(new_status) str = '启用失败';
+            else str = '关闭失败';
+        }
+        else{
+            $$('cb').checked = new_status;
+            if(new_status) zy_anim_pop('alist'+rolemoduleid, 'uhide');
+            else zy_anim_push('alist'+rolemoduleid, 'uhide');
+
+            var new_rolestatus = new_status? 1: 0 ;
+            o_rolemodule[rolemodule] = '' + new_rolestatus;
+            setStorJson('role_status',o_rolemodule);
+            rolestatus = '' + new_rolestatus;
+            uescript('root', 'update_role_module();');//修改人脉里的单身名片
+            ueppscript('root', 'content4', 'show_role_modules();');//修改个人空间单身名片的状态
+            if(new_status) str = '已启用';
+            else str = '已关闭';
+        }
+        uexWindow.toast('0', '5', str, second);
+    }, 'json', getJsonErr, 'POST', '', '');
+}
+</script>
+</html>

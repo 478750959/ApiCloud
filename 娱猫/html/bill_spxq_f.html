@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html style='background:#fefdfa;'>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>商品详情</title>
+    <link rel="stylesheet" type="text/css" href="../css/ly.css"/>
+    <style>
+    	html{font-family:'微软雅黑'}
+    	*{margin:0;padding:0;}
+		body,html{-webkit-touch-callout:none;-webkit-text-size-adjust:none;-webkit-tap-highlight-color:transparent;-webkit-user-select:none;}
+		article,aside,details,fieldset,figcaption,figure,footer,header,main,nav,section{display:block}
+		a,button,cite,code,del,em,img,label,mark,small,strong,textarea,time,var{display:inline-block}
+		footer,header,section{position:relative}
+		ol,ul{list-style:none}
+		button,input,textarea{border:0;margin:0;padding:0;font-size:1em;line-height:1em;background-color:transparent}
+		span{display:inline-block}
+		a:active,a:hover{outline:0}
+		a,a:visited{text-decoration:none}
+		.wordWrap,label{word-wrap:break-word;word-break:break-all}
+		table{border-collapse:collapse;border-spacing:0}
+		td,th{padding:0}
+		.clearfix:after{content:' ';display:block;clear:both;visibility:hidden;line-height:0;height:0}
+		.loading_more{display:block;height:1.5em;width:100%}
+		.loading_more:before{background-image:url(../image/loading_more.gif) 30% center;background-repeat:no-repeat;background-size:contain;text-align:center}
+		.loading_more:after{content:'加载更多'}
+		html,body{width:100%;height:100%;background:#f7f7f7;}
+		#wrap{width:100%;height: 100%;display: -webkit-box;display: -webkit-flex;display: flex;-webkit-box-orient: vertical;-webkit-flex-flow: column;flex-flow: column;}
+		#main{-webkit-box-flex: 1; -webkit-flex: 1;flex: 1;}
+		.main{overflow:hidden;}
+		.none{display:none;}
+		input{outline:none;}
+		/*index页面上的 mi头部的样式*/
+		.miHeader{height:0.98rem;border-bottom:0.02rem solid #f27978;position:relative;line-height:0.98rem;text-align:center;font-size:0.3rem;color:#f27978;background:#fff7f8;}
+		.mi_head_txt{color:#f27978;}
+		.head_icon{position:absolute;left:0;top:0;width:0.95rem;height:100%;}
+		.back{background:url(../image/back_icon.png) no-repeat center center;background-size:0.26rem 0.48rem;}
+		/*底部footer的粉红色背景，白色文字居中，90px的高度*/
+		.xyc_footer{width:100%;height:0.9rem;position:fixed;bottom:0;text-align:center;color:white;font-size:0.32rem;line-height:0.9rem;background:#ff7f88;}
+		#header{background:#fff7f8;}
+    </style>
+</head> 
+<body style='background:#fefdfa;'>
+	<div id="wrap">
+		<div id="main" class="ly_max none">
+			<div class="ly_detlist" id="describe">
+				
+			</div>
+			<div class="det_tab tab_suuxq">
+				<ul class="fix">
+					<li class="current">同剧推荐</li>
+					<li>同类推荐</li>
+				</ul>
+				<div class="fix" id="brand">
+					<script id="nominate" type="text/x-dot-template">
+						{{ for(var i in it) { }}
+						<p onclick="to_goods({{=it[i].id}})"><img src="{{=it[i].logo}}"></p>
+						{{ } }}
+					</script>	
+				</div>
+				<div class="fix none" id="groom">
+					<script id="same" type="text/x-dot-template">
+						{{ for(var i in it) { }}
+						<p onclick="to_goods({{=it[i].id}})"><img src="{{=it[i].logo}}"></p>
+						{{ } }}
+					</script>	
+				</div>			
+			</div>
+			<span class="ly_top"></span>
+			<p class="ly_share none">
+				<span></span>
+			</p>
+			
+		</div>
+		<footer class="ly_xq fix" id="footer">
+			<div class="thr">
+				<a href="javascript:void(0);" class="shoucang">收藏</a>
+				<div class="xyc_tanxing">
+					<a href="javascript:void(0);" class="car" onclick="openFm('bill_confbuy_f',5)">加入购物车<span class="none"></span></a>
+		    		<a href="javascript:void(0);" class="buy" onclick="openFm('bill_confbuy_f',4)">立即购买</a>
+				</div>
+		    	
+			</div>
+	    </footer>
+	</div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>	
+<script type="text/javascript" src="../script/zepto.js"></script>
+<script type="text/javascript" src="../script/comm.js"></script>	
+<script type="text/javascript" src="../script/font.js"></script>
+<script type="text/javascript" src="../script/swiper.js"></script>
+<script type="text/javascript" src="../script/doT.min.js"></script>	
+<script type="text/javascript" src="../script/ly.js"></script>
+	
+<script>
+	function love(param,callback){
+		var info=is_login();
+		if(!info){
+//			api.toast({
+//		        msg:'请登录！'
+//	        });
+			to_login();
+	        return false;
+		}
+		for(var p in info){
+			param[p]=info[p];
+		}
+		var is_true=true;
+		if(is_true){
+			is_true=false;
+			ajaxRequest('user/goods_coll','post',param,function(ret,err){
+				is_true=true
+				if(err){
+					api.toast({
+			            msg:err.msg
+		            });
+		            return false;
+				}
+				if(ret.status){
+				api.sendEvent({
+				    name: 'cg_coll',
+				    extra:{goods_id:api.pageParam.id}				   
+				});
+					callback(ret.status);
+				}else{
+//					if(ret.info=='no_login'){
+//						to_login();
+//						return false;
+//					}
+//					api.toast({msg:ret.info});
+				}
+			});
+		}	
+	}
+	var xycd;
+	function to_goods(id){	
+			var xyca={};
+			if(xycd==1){
+				xyca={'name':'bill_dethead_in_w','url':'bill_dethead_in_w.html'};
+				
+			}else{
+				xyca={'name':'bill_dethead_w','url':'bill_dethead_w.html'};
+			}		
+			api.openWin({
+				name : xyca.name,
+				url :  xyca.url,
+				opaque : true,
+				reload:true,
+				vScrollBarEnabled : false,
+				pageParam : {				
+					goods_id:id
+				}
+			});					
+	}	
+	function openFm(xyc,count){
+	    var width = api.winWidth;
+	    var height = api.winHeight;
+	    api.openFrame({
+		    name: xyc,
+		    url: xyc+'.html',
+		    bounces: false,
+		    opaque: false,
+		    vScrollBarEnabled: false,
+		    pageParam:{ count:count,id:api.pageParam.id},
+		    rect: {
+		        x: 0,
+		        y: 0,
+		        w: width,
+		        h: height
+		    }
+		});	
+	}
+	//点击加入购物车
+	function xyc(){
+		api.closeFrame({
+			name:'bill_confbuy_f'
+		});
+		$('.car span').removeClass('none');
+		setTimeout(function(){
+			$('.car span').addClass('none');
+		},800)
+	}	
+	//收藏
+	$('.ly_xq .shoucang').bind("touchstart", function() {
+		var obj=this;
+		if($('.ly_xq .shoucang').hasClass('current')){			
+			love({goods_id:api.pageParam.id,m:1},function(ret){
+				if(ret){				
+					$(obj).removeClass('current');
+					api.execScript({
+				        name:'root',
+				        frameName:'mi_f',
+				        script: 'get_num();'
+			        });					
+				}
+			});
+		}else{
+			love({goods_id:api.pageParam.id,m:2},function(ret){
+				if(ret){				
+					$(obj).addClass('current');
+					api.execScript({
+				        name:'root',
+				        frameName:'mi_f',
+				        script: 'get_num()'
+			        });					
+				}
+			});								
+		}	
+	})
+	var info = is_login();
+	var param = {};
+	apiready = function(){
+		xycd = api.pageParam.xycc;
+		api.showProgress({
+			style: 'default',
+		    title: '加载中',
+		    modal: false
+        });
+	    param.id = api.pageParam.id;
+	    for (var p in info) {
+			param[p] = info[p];
+		}
+	   ajaxRequest('goods/comment', 'post',param, function (ret,err) {
+			if (ret.status) {
+//				api.alert({msg:ret})
+				var same = ret.info.same;
+	        	var nominate = ret.info.nominate;
+	        	var describe = ret.info.describe;
+	        	var collect  = ret.info.collect;
+	        	//商品
+	        	$("#describe").html(describe);
+	        	if(collect){
+	        		$('.ly_xq .shoucang').addClass('current');	
+	        	}
+	        	
+	        	
+	        	//同类推荐
+	        	var content = $api.dom('#groom');
+				var tpl = $api.byId('same').text;
+	    		var tempFn = doT.template(tpl);
+				$api.html(content, tempFn(same));
+				//同剧推荐
+				var content1 = $api.dom('#brand');
+				var tpl1 = $api.byId('nominate').text;
+	    		var tempFn1 = doT.template(tpl1);
+				$api.html(content1, tempFn1(nominate));  
+				api.hideProgress();
+	 	 	  	$('#main').removeClass('none');
+			}	    	
+	    });
+	}
+</script>
+</html>
+
+
+

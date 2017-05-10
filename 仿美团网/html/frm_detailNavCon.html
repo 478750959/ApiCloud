@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+	    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+	    <title>首页</title>
+	    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+	    <link rel="stylesheet" type="text/css" href="../css/common.css"/>
+		<style>
+        html, body {
+            background-color: transparent;
+            height: 100%;
+        }
+        .detail-nav-con{
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;
+            color: #666;
+        }
+        .detail-nav-con-l,
+        .detail-nav-con-r{
+            -webkit-box-flex: 1;
+            -webkit-flex: 1;
+            flex: 1;
+            height: 350px;
+            font-size: 14px;
+            overflow-y:scroll; 
+        }
+        .detail-nav-con-l::-webkit-scrollbar,
+        .detail-nav-con-r::-webkit-scrollbar{
+            display: none;
+        }
+        .detail-nav-con-l{
+            background-color: #fff;
+        }
+        .detail-nav-con-l li,
+        .detail-nav-con-r li{
+            padding-left: 30px;
+            height: 40px;
+            line-height: 40px;
+        }
+        .detail-nav-con-l li.active{
+            background-color: #e6e6e6;
+        }
+        .detail-nav-con-l li.active .flex-title{
+            color: #3ac0b5;
+        }
+        .detail-nav-con-l li .flex-title,
+        .detail-nav-con-l li .flex-num,
+        .detail-nav-con-r li .flex-title,
+        .detail-nav-con-r li .flex-num
+        {
+            float: left;
+            width: 49%;
+        }
+        .detail-nav-con-l li .flex-num{
+            text-align: right;
+            background: url(../image/ic_global_arrow_right.png) no-repeat right center;
+            -webkit-background-size: 15px;
+            background-size: 15px;
+            padding-right: 15px;
+        }
+        .detail-nav-con-l .food{
+            background: url(../image/inn_chinese_restaurant.png) no-repeat 5px center;
+            -webkit-background-size: 20px;
+            background-size: 20px;
+        }
+        .detail-nav-con-l .tour{
+            background: url(../image/inn_pick_up.png) no-repeat 5px center;
+            -webkit-background-size: 20px;
+            background-size: 20px;
+        }
+        .detail-nav-con-l .play{
+            background: url(../image/inn_card_charge.png) no-repeat 5px center;
+            -webkit-background-size: 20px;
+            background-size: 20px;
+        }
+        
+        .detail-nav-con-r{
+            background-color: #e6e6e6;
+        }
+        .detail-nav-con-r li .flex-num{
+            text-align: right;
+            padding-right: 10px;
+            color: #999;
+        }
+        .detail-nav-con-r li.active{
+            background: url(../image/ic_global_filter_check_green.png) no-repeat 10px center;
+            -webkit-background-size: 12px;
+            background-size: 12px;
+        }
+
+        .detail-nav-con-r li.active .flex-title{
+            color: #3ac0b5;
+        }
+        </style>
+	</head>
+	<body>
+	<div class="detail-nav-con">
+        <div class="detail-nav-con-l">
+            <ul>
+                <li class="tap food active" tapmode="tap-active" onclick="selectNav(0)">
+                    <div class="flex-title">美食</div>
+                    <div class="flex-num">20430</div>
+                </li>
+                <li class="tap tour" tapmode="tap-active" onclick="selectNav(1)">
+                    <div class="flex-title">旅游</div>
+                    <div class="flex-num">5215</div>
+                </li>
+                <li class="tap play" tapmode="tap-active" onclick="selectNav(2)">
+                    <div class="flex-title">休闲娱乐</div>
+                    <div class="flex-num">20430</div>
+                </li>
+            </ul>
+        </div>
+
+        <div class="detail-nav-con-r">
+            <ul>
+            </ul>
+        </div>
+    </div>
+	
+    <script type="text/javascript" src="../script/api.js"></script>
+    <script>
+    var jsonFood = {
+        'all' : {
+            'name' : '全部',
+            'num' : '25425'
+        },
+        'type-1' : {
+            'name' : '代金卷',
+            'num' : '5425'
+        },
+        'type-2' : {
+            'name' : '蛋糕甜品',
+            'num' : '5425'
+        },
+    }
+    var jsonTour = {
+        'all' : {
+            'name' : '全部',
+            'num' : '25425'
+        },
+        'type-1' : {
+            'name' : '境外游',
+            'num' : '12'
+        },
+        'type-2' : {
+            'name' : '境内门票',
+            'num' : '5425'
+        },
+    }
+
+    var $body = $api.dom('body');
+    var $con = $api.dom('.detail-nav-con')
+    $api.addEvt($body, 'click', function(e){
+        if(e.target == $body){
+            api.closeFrame();
+        }else{
+            e.stopPropagation();
+        }
+    });
+
+
+    var $navL = $api.dom('.detail-nav-con-l');
+    var $navLli = $api.domAll($navL,'li');
+    function selectNav(index){
+        for (var i = 0; i < $navLli.length; i++) {
+            if (index == i) {
+                $api.addCls($navLli[i],'active');
+            } else{
+                $api.removeCls($navLli[i],'active');
+            }
+        };
+
+        switch (index){ 
+            case 0:
+                buildHTML(jsonFood);
+            break; 
+
+            case 1:
+                buildHTML(jsonTour);
+            break; 
+
+            default : alert("error");
+            break; 
+        } 
+    }
+
+
+    function changeTitle(name){
+        api.execScript({
+            frameName: 'frm_detailNav',
+            script: 'changeTitle(\"'+ name +'\")'
+        });
+        api.execScript({
+            name: 'win_detail',
+            script: 'changeTitle(\"'+ name +'\")'
+        });
+    }
+
+    var $navRul = $api.dom('.detail-nav-con-r ul');
+    function selectItem(obj,name){
+        
+        changeTitle(name);
+        
+            var $navRli = $api.domAll($navRul,'li');
+            for (var i = 0; i < $navRli.length; i++) {
+                $api.attr($navRli[i],'index',i);
+                var $liIndex = $api.attr(obj,'index');
+                if ($liIndex == i) {
+                    $api.addCls($navRli[i],'active');
+                } else{
+                    $api.removeCls($navRli[i],'active');
+                }
+            }
+        updataItemList();
+        setTimeout(api.closeFrame(),500);
+    }
+
+    function updataItemList(){
+        alert("已更新商户列表");
+    }
+
+    function buildHTML(param){
+        
+        var buildHTML = '';
+        var active = '';
+        for(var i in param){
+            if(i == 'all'){
+                active = 'active';
+            }else{
+                active = '';
+            }
+            buildHTML += '<li class="tap '+active+'" tapmode="tap-active" onclick="selectItem(this,\''+param[i].name+'\')">\
+                            <div class="flex-title">'+param[i].name+'</div>\
+                            <div class="flex-num">'+param[i].num+'</div>\
+                          </li>'
+            
+        }
+        $navRul.innerHTML = '';
+        $api.append($navRul,buildHTML);
+    }
+    
+    function closeFrame() {
+        api.closeFrame();
+    }
+
+    apiready = function(){
+        selectNav(0);
+    }
+    </script>
+	</body>
+
+</html>

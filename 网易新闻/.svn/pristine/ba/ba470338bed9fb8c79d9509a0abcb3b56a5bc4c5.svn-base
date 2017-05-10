@@ -1,0 +1,478 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <script type="text/javascript" src="../script/zepto.min.js"></script>
+    <style>
+        body {
+            min-width: 320px;
+        }
+
+        /*
+        img {
+            width: 100%;
+            height: 100%;
+        }*/
+
+        /*slide*/
+        .swipe {
+            overflow: hidden;
+            /*visibility: hidden;*/
+            position: relative;
+        }
+
+        .swipe-wrap {
+            overflow: hidden;
+            position: relative;
+            height: 210px;
+        }
+
+        .swipe-wrap > div {
+            float: left;
+            width: 100%;
+            position: relative;
+        }
+
+        .swipe-wrap > div {
+            overflow: hidden;
+            position: relative;
+        }
+
+        .swipe-wrap img {
+            width: 100%;
+            height: 210px;
+        }
+
+        #slide {
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .lable {
+            background-image: -webkit-linear-gradient(top, rgba(59, 59, 59, .6), rgba(27, 27, 27, .6), rgba(50, 50, 50, .4), rgba(31, 31, 31, .4));
+            background-image: linear-gradient(top, rgba(59, 59, 59, .6), rgba(27, 27, 27, .6), rgba(50, 50, 50, .4), rgba(31, 31, 31, .4));
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 30px;
+            line-height: 30px;
+            padding-left: 20px;
+            display: block;
+            color: #fff;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+
+        #pointer {
+            position: absolute;
+            bottom: 0px;
+            overflow: hidden;
+            width: 92%;
+            text-align: right;
+        }
+
+        #pointer div {
+            display: inline-block;
+            width: 3px;
+            height: 3px;
+            border-radius: 3px;
+            margin-right: 4px;
+            background-color: #9B9B9B;
+            margin-bottom: 1.5px;
+        }
+
+        #pointer div.active {
+            width: 6px;
+            height: 6px;
+            background-color: #000000;
+            margin-bottom: 0;
+        }
+
+        /*list列表*/
+        .content li {
+            padding: 10px;
+            border-bottom: 1px solid #D8D8D8;
+            position: relative;
+        }
+
+        .tab-content li {
+            margin: 10px 5px;
+            padding: 10px;
+            font-size: 14px;
+            border-bottom: 1px solid #DBDBDB;
+        }
+
+        .item, .text {
+            display: -webkit-box;
+        }
+
+        .img {
+            width: 80px;
+            height: 60px;
+        }
+
+        img {
+            width: 100%;
+            display: block;
+        }
+
+        .text {
+            -webkit-box-flex: 1;
+            -webkit-box-orient: vertical;
+            margin: 0 5px;
+
+            overflow: hidden;
+        }
+
+        .subTitle {
+            color: gray;
+            font-size: 12px;
+            line-height: 16px;
+            margin-left: 3px;
+            overflow: hidden;
+        }
+
+        .title {
+            line-height: 18px;
+        }
+
+        .newsTips, .img-lable-newsTips {
+            width: 70px;
+            height: 15px;
+            position: absolute;
+            right: 0;
+            bottom: 1px;
+            font-size: 12px;
+            line-height: 17px;
+            color: gray;
+            float: right;
+            margin-top: 2px;
+            border: 1px solid;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        /*list列表*/
+        /*imgs*/
+        .img-lable, .after-img-lable, .after-slider-img-lable {
+            position: relative;
+            padding: 10px;
+        }
+
+        .after-img-lable, .after-slider-img-lable {
+            line-height: 17px;
+            font-size: 13px;
+        }
+
+        .after-img-lable {
+            height: 34px;
+        }
+
+        .after-slider-img-lable {
+            padding: 5px 10px 0 10px;
+        }
+
+        .img-lable-newsTips {
+            right: 12px;
+            bottom: 9px;
+        }
+
+        .fortag {
+            right: 50px;
+        }
+
+        .tag {
+            width: 30px;
+            border-radius: 0;
+        }
+
+        .blue-tag {
+            color: #002ADA;
+        }
+
+        .imgs {
+            display: -webkit-box;
+            width: 100%;
+            padding-bottom: 3px;
+            border-bottom: 1px solid #D8D8D8;
+        }
+
+        .imgs li {
+            width: 30%;
+            /*height: 55px;*/
+        }
+
+        .imgs li:not(:last-child) {
+            border-right: 1px solid #EDEDEB;
+            margin-right: 1.5%;
+        }
+
+        .imgs li:last-child {
+            margin-right: 10px;
+        }
+
+        .imgs li:first-child {
+            margin-left: 10px;
+        }
+
+        /*imgs*/
+        /*毛玻璃效果*/
+        .filter {
+            -webkit-filter: blur(10px); /* Chrome, Opera */
+            -moz-filter: blur(10px);
+            -ms-filter: blur(10px);
+            filter: blur(10px);
+        }
+
+        /*毛玻璃效果*/
+        .cover {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 999;
+        }
+
+        .hidden {
+            display: none !important;
+
+        }
+    </style>
+</head>
+
+<body tapmode="">
+<div id='slide' class='swipe'>
+    <div class='swipe-wrap' id="banner-content">
+
+        <!--<div onclick="" tapmode="">
+            <img src="../image/l19.jpg"/>
+        </div>
+        <div onclick="" tapmode="">
+            <img src="../image/l19.jpg"/>
+
+        </div>
+        <div onclick="" tapmode="">
+            <img src="../image/l19.jpg"/>
+        </div>
+        <div onclick="" tapmode="">
+            <img src="../image/l19.jpg"/>
+
+        </div>-->
+    </div>
+
+</div>
+<ul class="content" id="listView">
+    <!--<li><div class="item">
+        <div class="img"><img src="../image/l19.jpg"></div>
+        <div class="text"><p class="title">消防员:当时就想让孩子活下来</p>
+
+            <p class="subTitle">
+                222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222</p><span
+                    class="newsTips">098999</span></div>
+    </div></li>
+    <li><div class="item">
+        <div class="img"><img src="../image/l19.jpg"></div>
+        <div class="text"><p class="title">消防员:当时就想让孩子活下来</p>
+
+            <p class="subTitle">
+                222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222</p><span
+                    class="newsTips">098999</span></div>
+    </div></li>-->
+</ul>
+<section id="imgGroup">
+    <!-- <div class="img-lable">AAAAAAAAAAAA<span class="img-lable-newsTips">222跟贴</span></div>
+     <ul class="imgs">
+         <li onclick="" tapmode=""><img src="../image/l32.jpg"></li>
+         <li onclick="" tapmode=""><img src="../image/l32.jpg"></li>
+         <li onclick="" tapmode=""><img src="../image/l32.jpg"></li>
+     </ul>-->
+</section>
+<section id="topic">
+    <!-- <div class="img-lable">马修麦康纳：很多戏让我绝望</div>
+     <img src="../image/t1.jpg">
+
+     <div class="after-img-lable">
+         约翰唐尼因在华服刑20年，被CIA赞为忠诚楷模
+         <span class="img-lable-newsTips fortag">1427跟贴</span>
+         <span class="img-lable-newsTips tag blue-tag">独家</span>
+     </div>-->
+</section>
+<div class="cover hidden" onclick="clearFilter()" tapmode="">
+
+</div>
+<script>
+    apiready = function () {
+        setRefreshHeader();
+        render();
+    }
+
+    function render() {
+        renderBanner(bannerCallBack);
+        renderList(listCallBack);
+        renderTopic(topicCallBack);
+        renderImgGroup(imgGroupCallBack);
+    }
+
+    function renderTopic(callBack) {
+        var pointer = {_class: 'nav', id: api.pageParam.id, column: 'topic'}
+        var model = api.require('model');
+        var query = api.require('query');
+        query.createQuery(function (ret, err) {
+            if (ret && ret.qid) {
+                query.include({
+                    qid: ret.qid,
+                    column: pointer.column
+                });
+                query.whereEqual({
+                    qid: ret.qid,
+                    column: 'id',
+                    value: pointer.id
+                });
+                model.findAll({class: pointer._class, qid: ret.qid}, function (ret, err) {
+                    if (ret) {
+                        callBack(ret)
+                    } else {
+                        api.toast({msg: err.msg, location: 'middle'})
+                    }
+                });
+            } else {
+                alert(err)
+            }
+        });
+    }
+
+    function renderImgGroup(callBack) {
+        var relation = {_class: 'nav', id: api.pageParam.id, column: 'imgGroup'};
+        _relationFindAll(relation, callBack)
+    }
+    function renderBanner(callBack) {
+        var relation = {_class: 'nav', id: api.pageParam.id, column: 'banner'};
+        _relationFindAll(relation, callBack)
+    }
+
+
+    function renderList(callBack) {
+        var relation = {_class: 'nav', id: api.pageParam.id, column: 'list'};
+        _relationFindAll(relation, callBack)
+    }
+
+    function _relationFindAll(relation, callBack) {
+        var relation_m = api.require('relation');
+        relation_m.findAll({
+            class: relation._class,
+            id: relation.id,
+            column: relation.column
+        }, function (ret, err) {
+            if (ret) {
+                callBack(ret);
+            } else {
+                api.toast({msg: err.msg, location: 'middle'})
+            }
+        });
+    }
+
+    function topicCallBack(ret) {
+        var topic = ret[0].topic, title = topic.title, imgUrl = topic.img.url, digest = topic.digest, replyCount = topic.replyCount, TAG = topic.TAG;
+        var topicHttml = '<div tapmode="" onclick="toDetail()" class="img-lable">' + title + '</div> <img src="' + imgUrl + '"><div class="after-img-lable">' + digest + '<span class="img-lable-newsTips fortag">' + replyCount + '跟贴</span><span class="img-lable-newsTips tag blue-tag">' + TAG + '</span> </div>';
+        $("#topic").html(topicHttml);
+    }
+
+    function imgGroupCallBack(ret) {
+        var imgGroupHtml = '';
+        for (var i in ret) {
+            var imgUrl1 = ret[i].img1.url, imgUrl2 = ret[i].img2.url, imgUrl3 = ret[i].img3.url, title = ret[i].title, replyCount = ret[i].replyCount;
+            imgGroupHtml += '<div  class="img-lable">' + title + '<span class="img-lable-newsTips">' + replyCount + '跟贴</span></div><ul class="imgs"><li tapmode="" onclick="toDetail()"><img src="' + imgUrl1 + '"></li><li tapmode="" onclick="toDetail()"><img src="' + imgUrl2 + '"></li><li tapmode="" onclick="toDetail()"><img src="' + imgUrl3 + '"></li></ul>';
+        }
+        $("#imgGroup").html(imgGroupHtml);
+    }
+    function listCallBack(ret) {
+        var listHtml = '';
+        for (var i in ret) {
+            var imgUrl = ret[i].img.url, title = ret[i].title, subTitle = ret[i].subTitle, replyCount = ret[i].replyCount;
+            listHtml += '<li tapmode="" onclick="toDetail()"><div class="item"><div class="img"><img src="' + imgUrl + '"></div><div class="text"><p class="title">' + title + '</p><p class="subTitle">' + subTitle + '</p><span class="newsTips">' + replyCount + '</span></div></div></li>';
+        }
+        $("#listView").html(listHtml);
+    }
+
+    function bannerCallBack(ret) {
+        var imgsArr=[],titleArr=[];
+        for (var i in ret) {
+            imgsArr.push(ret[i].img.url);
+            titleArr.push(ret[i].title);
+        }
+        var scrollPicture = api.require('scrollPicture');
+        scrollPicture.open({
+            x:0,
+            y:0,
+            w:api.winWidth,
+            h:210,
+            intervalTime:10,
+            placeholderImg: 'widget://image/default.png',
+            subtitle:{
+                titles:titleArr,
+                bgColor:'#ffffff',
+                color:'#000000'
+            },
+            paths: imgsArr,
+            control: {
+                activeColor:'#000000',
+                inactiveColor:'#9B9B9B',
+                alignment:'right'
+            },
+            fixed:false,
+            fixedOn:'frame_'+api.pageParam.index
+        }, function (ret, err) {
+            if (ret.status) {
+                toDetail();
+            } else {
+
+            }
+        });
+
+    }
+    function setRefreshHeader() {
+        api.setRefreshHeaderInfo({
+            visible: true,
+            bgColor: '#ccc',
+            textColor: '#fff',
+            textDown: '下拉刷新...',
+            textUp: '松开刷新...',
+            showTime: true
+        }, function (ret, err) {
+            render();
+            api.refreshHeaderLoadDone();
+        });
+    }
+    function addFilter() {
+        try {
+            $("body").addClass('filter');
+            $(".cover").removeClass('hidden');
+        } catch (e) {
+            alert(e)
+        }
+
+    }
+    function clearFilter() {
+        if ($("body").hasClass('filter')) {
+            api.execScript({name: 'root', script: 'closeMenu()'});
+            _clearFilter();
+        }
+    }
+    function _clearFilter() {
+        $("body").removeClass('filter');
+        $(".cover").addClass('hidden');
+    }
+    function toDetail() {
+        api.openWin({
+            name: 'detail',
+            url: 'win_newsDetail.html'
+        })
+    }
+</script>
+</body>
+</html>

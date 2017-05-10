@@ -1,0 +1,39 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>order</title>
+		<link rel="stylesheet" type="text/css" href="../css/api.css" />
+		<link rel="stylesheet" type="text/css" href="../css/common.css" />
+		<link rel="stylesheet" type="text/css" href="../css/evaluate_framework.css" />
+	</head>
+	<body>
+		<div id="wrap">
+			<div id="header">
+				<a tapmode="" class="left" onclick="api.closeWin();"></a>
+				<h1 id="headerText">掌上医院</h1>
+				<a tapmode="" class="right"></a>
+			</div>
+			<div id="main"></div>
+			<div id="footer">
+				<div id="inputs">
+					<input type="text" id="title" value="" >
+					</input>
+					<br/>
+					<hr style="border-bottom: 1px solid #BDBDBD;"/>
+					<input type="text" id="content" value="" >
+					</input>
+				</div>
+				<button tapmode="buttonActive" class="button blue" onclick="comfirm()" id="comfirm">
+					评价
+				</button>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../script/api.js"></script>
+	<script type="text/javascript" src="../script/zepto.min.js"></script>
+	<script type="text/javascript" src="../script/doT.min.js"></script>
+	<script type="text/javascript" src="../script/constants.js"></script>
+	<script type="text/javascript" src="../script/evaluate_framework.js"></script>
+</html>

@@ -1,0 +1,69 @@
+<!doctype html>
+<html style="background:rgba(0,0,0,0.4)">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <style>
+    	.mark{
+    		width:100%;
+    		height:100%;
+    		position:relative;
+    	}
+    	.index_close{
+    		width:0.9rem;
+    		height:0.42rem;
+    		display:block;
+    		position:absolute;
+    		top:1.5rem;
+    		right:1rem;
+    	}
+    	.index_img1{
+    		display:block;
+    		position:absolute;
+    		width:4.69rem;
+    		height:5.34rem;
+    		top:2.2rem;
+    		left:50%;
+    		-webkit-transform:translate(-50%,0);
+    	}
+    	.index_img2{
+    		display:block;
+    		position:absolute;
+    		width:2.34rem;
+    		height:0.6rem;
+    		top:8rem;
+    		left:50%;
+    		margin-left:-1.17rem;
+    	}
+    </style>
+</head>
+<body style="background:rgba(0,0,0,0.4)">
+<div id="wrap">
+    <div id="main">
+    	<img src="../image/goods_close.png" class="index_close"/>
+		<img src="../image/goods_mark.png" class="index_img1"/>
+		<img src="../image/goods_mark_btn.png" class="index_img2"/>
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/font.js"></script>
+<script type="text/javascript" src="../script/zepto.js"></script>
+<script type="text/javascript" src="../script/comm.js"></script>
+<script>
+	$('.index_img2').click(function(){
+		to_login();
+//		发送到login_f页面的监听
+		api.addEventListener({
+	        name:'xxxx'
+        },function(ret,err){
+        	api.closeFrame();
+        });
+	})
+	$('.index_close').click(function(){
+		api.closeWin();
+	})
+</script>
+</html>

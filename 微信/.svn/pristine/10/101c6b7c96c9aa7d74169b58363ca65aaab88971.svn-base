@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<!-- saved from url=(0027)http://weui.github.io/weui/ -->
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<title>WeUI</title>
+		<link rel="stylesheet"type="text/css" href="../css/weui.css">
+		<link rel="stylesheet" type="text/css" href="../css/api.css" />
+		<link rel="stylesheet" type="text/css" href="../css/example.css" />
+		<body ontouchstart="" gtools_scp_screen_capture_injected="true" style="zoom: 1;">
+			<div class="container js_container">
+				<div class="page slideIn home">
+					<div class="hd">
+						<h1 class="page_title">WeUI</h1>
+						<p class="page_desc">
+							为微信Web服务量身设计
+						</p>
+					</div>
+					<div class="bd">
+						<div class="weui_grids">
+							<a href="javascript:;" class="weui_grid js_grid" data-id="button">
+							<div class="weui_grid_icon">
+								<img src="../image/icon_nav_button.png" alt="">
+							</div>
+							<p class="weui_grid_label">
+								Button
+							</p> </a>
+							<a href="javascript:;" class="weui_grid js_grid" data-id="cell">
+							<div class="weui_grid_icon">
+								<img src="../image/icon_nav_cell.png" alt="">
+							</div>
+							<p class="weui_grid_label">
+								Cell
+							</p> </a>
+							<a href="javascript:;" class="weui_grid js_grid" data-id="toast">
+							<div class="weui_grid_icon">
+								<img src="../image/icon_nav_toast.png" alt="">
+							</div>
+							<p class="weui_grid_label">
+								Toast
+							</p> </a>
+							<a href="javascript:;" class="weui_grid js_grid" data-id="dialog">
+							<div class="weui_grid_icon">
+								<img src="../image/icon_nav_dialog.png" alt="">
+							</div>
+							<p class="weui_grid_label">
+								Dialog
+							</p> </a>
+							<a href="javascript:;" class="weui_grid js_grid" data-id="progress">
+							<div class="weui_grid_icon">
+								<img src="../image/icon_nav_button.png" alt="">
+							</div>
+							<p class="weui_grid_label">
+								Progress
+							</p> </a>
+							<a href="javascript:;" class="weui_grid js_grid" data-id="msg">
+							<div class="weui_grid_icon">
+								<img src="../image/icon_nav_msg.png" alt="">
+							</div>
+							<p class="weui_grid_label">
+								Msg
+							</p> </a>
+							<a href="javascript:;" class="weui_grid js_grid" data-id="article">
+							<div class="weui_grid_icon">
+								<img src="../image/icon_nav_article.png" alt="">
+							</div>
+							<p class="weui_grid_label">
+								Article
+							</p> </a>
+							<a href="javascript:;" class="weui_grid js_grid" data-id="actionsheet">
+							<div class="weui_grid_icon">
+								<img src="../image/icon_nav_actionSheet.png" alt="">
+							</div>
+							<p class="weui_grid_label">
+								ActionSheet
+							</p> </a>
+							<a href="javascript:;" class="weui_grid js_grid" data-id="icons">
+							<div class="weui_grid_icon">
+								<img src="../image/icon_nav_icons.png" alt="">
+							</div>
+							<p class="weui_grid_label">
+								Icons
+							</p> </a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</body>
+		<script src="../script/zepto.min.js"></script>
+		<script src="../script/example.js"></script>
+		
+		
+</html>

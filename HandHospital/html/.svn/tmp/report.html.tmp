@@ -1,0 +1,128 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>取报告单</title>
+		<link rel="stylesheet" type="text/css" href="../css/api.css" />
+		<link rel="stylesheet" type="text/css" href="../css/common.css" />
+<<<<<<< .mine
+		<style>
+			#wrap {
+				height: 100%;
+				display: -webkit-box;
+				display: -webkit-flex;
+				display: flex;
+				-webkit-box-orient: vertical;
+				-webkit-flex-flow: column;
+				flex-flow: column;
+			}
+
+			#main {
+				-webkit-box-flex: 1;
+				-webkit-flex: 1;
+				flex: 1;
+				padding:10px;
+			}
+			
+			.one,.two{
+				margin-top: 20px;
+				width: 100%;
+				position: relative;
+				text-align: center;
+			}
+			
+			input{
+				border:none;
+				height: 55px;
+				font-size:23px;
+				line-height: 55px;
+				margin: 0em;
+				-webkit-box-flex: 1;
+				-webkit-flex: 1;
+				flex: 1;
+				width: 70%;
+			}
+			
+			.title {
+				display: inline-block;
+				width: 15%;
+				height: 55px;
+				line-height: 55px;
+				-webkit-background-size: 24px;
+				background-size: 24px;
+				position: absolute;
+				left: 2px;
+				font-size:20px;
+				color:#b6b6b6;
+			}
+			
+			.scan {
+				display: inline-block;
+				position: absolute;
+				bottom: 2px;
+				right: 20px;
+				height:50px;
+				width: 50px;
+				background: url(../image/scan_icon.png) no-repeat center center;
+				-webkit-background-size: 50px;
+				background-size: 50px;
+			}
+			
+			#comfirm {
+				width: 100%;
+				height: 60px;
+				margin-top: 50px;
+			}
+
+		</style>
+	ead>
+=======
+		<link href="../css/report.css" rel="stylesheet" type="text/css" />
+	</head>
+>>>>>>> .r22
+<<<<<<< .mine
+	<body>
+		<div id="wrap">
+			<div id="main">
+				<div class="hp_input one">
+					<span class="title">姓名:</span>
+					<input type="text" id="name" value="XXX"></input>
+				</div>
+				
+				<div class="hp_input two">
+					<span class="title">号码:</span>
+					<input type="text" id="name" value="523698745685211XX"></input>
+					<span tapmode="" class="scan" onclick="closeSelf()"></span>
+				</div>
+				
+				<button class="button blue" id="comfirm">确定</button>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../script/api.js"></script>
+</html>=======
+<body>
+<div class="zong">
+ <div class="top"></div>
+ <div class="nav">
+   <a tapmode="" class="left" onclick="backHome()"></a>
+   <h1>取报告单</h1>
+   <div class="right" onclick="history()">历史</div>
+ </div>
+
+
+   <div class="input1">
+   <input class="one" type="text" value="姓名："style="color:#B6B6B6"/>
+   </div>
+   <div class="input2">
+   <input class="two" type="text" value="检查号或医嘱号：" style="color:#B6B6B6"/>
+   <div class="scan" onclick="scan()"></div>
+   </div>
+
+ <div class="action">
+  <a href="#">确定</a>
+ </div>
+ <div class="footer" onclick="cantfind()">检查号或医嘱号找不到</div>
+</div>
+</body>>>>>>>> .r22

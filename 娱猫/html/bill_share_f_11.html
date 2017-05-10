@@ -1,0 +1,198 @@
+<!doctype html>
+<html style="background: none;">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>我的订单</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/common.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/ly.css"/>
+</head>
+<body style="background: none;">
+<style>
+</style>
+<div id="wrap">
+<div id="main">
+   	<div class="ly_mask ly_delt">
+	    <div class="icon">
+	    	<div class="fix">
+		    	<a href="javascript:void(0)"   id='sina'>
+					<dl>
+						<dt><img src="../image/login_sina.png"></dt>
+						<dd>新浪微博</dd>
+					</dl>
+				</a>
+				<a href="javascript:void(0);"  id="wx_hy">
+					<dl>
+						<dt><img src="../image/login_weixin.png"></dt>
+						<dd>微信好友</dd>
+					</dl>
+				</a>
+				<a href="javascript:void(0);"  id="wx_pyq">
+					<dl>
+						<dt><img src="../image/friend.jpg"></dt>
+						<dd>微信朋友圈</dd>
+					</dl>
+				</a>
+	    	</div>  	
+			<span class="cancle"></span>
+	    </div>
+    </div> 
+	
+</div>
+</div>	
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/font.js"></script>
+<script type="text/javascript" src="../script/zepto.js"></script>
+<script type="text/javascript" src="../script/debug.js"></script>
+<script>
+	function wx_share(type,title,content,img,url){	
+		api.imageCache({
+		    url: img
+		},function(ret,err){
+		    if (ret) {
+			        var path = ret.url;		        		        
+			        var weiXin = api.require('weiXin');		        
+			        	weiXin.registerApp(function(ret,err){
+			        		if(ret){
+			        				weiXin.sendRequest({
+								    scene:type,
+								    contentType:'web_page',
+								    title:title,
+								    description:content,
+								    thumbUrl:path,
+								    contentUrl:url
+								},function(ret,err){
+								    if(ret.status){
+								    	api.toast({
+					                        msg:'分享成功'
+				                        });				                       
+								    } else{
+//								    	api.toast({
+//					                        msg:err.msg
+//				                        });				                        
+								    }
+								    api.closeFrame({
+	                                    name: 'bill_share_f'
+                                    });							     
+								});
+			        		}
+			        	});		        		        		        		        						        
+				    }
+				});		
+	}	
+	function sina_share(){
+				var pic='';
+				if(api.pageParam.m=='poster' && api.pageParam.is_online=='on'){
+					pic=api.pageParam.sina_pic;					
+				}else{
+					pic=api.pageParam.goods_pic;
+				}				
+				api.imageCache({
+			    url: pic
+			},function(ret,err){
+			    if (ret) {
+			        var path = ret.url;			       
+			        var cont='';
+					switch(api.pageParam.m){
+						case 'goods':
+						 cont="我分享了最夺人眼球的娱猫精彩单品#"+api.pageParam.goods_name+"#他们是影视剧中的时尚单品搬运工，让你可见即可买。http://app185.vliang.com";
+						break;
+						case 'poster':
+						 cont="我分享了娱猫本期专题#"+api.pageParam.goods_name+"#这里进行全方位娱乐时尚指导，让你可见即可买。http://app185.vliang.com";
+						break;
+						case 'xinshui':
+						cont="我分享了娱猫心水文章#"+api.pageParam.goods_name+"#关注娱猫，让我们变得会买会穿，还能和明星用同款。http://app185.vliang.com";
+						break;
+						default:
+						cont="时尚单品搬运工，让你可见即可买!";
+						break;
+					}	
+					var myobj={
+							    contentType: 'image',
+							    text: cont,
+							   	imageUrl:path														    							    
+							};	     		        			        
+					var sinaWeiBo = api.require('sinaWeiBo');
+						sinaWeiBo.sendRequest(myobj,function(ret,err){
+							    if (ret.status) {
+							       api.toast({
+				                        msg:'分享成功'
+			                        })									        
+							    }else{
+//							        api.alert({
+//				                        msg:err.msg
+//			                        })									        
+							    }
+							      api.closeFrame({
+	                                    name: 'bill_share_f'
+                                    });	
+							});																												
+			    	}
+			});	
+	}
+	apiready = function() {			
+			$('#sina').click(function(){			
+				sina_share();
+			});
+			//发送给好友
+			$('#wx_hy').click(function(){
+				var type='session';
+				var title="时尚单品搬运工，让你可见即可买!";
+				var content=api.pageParam.goods_name;
+				var img=api.pageParam.goods_pic;
+				var url="http://app185.vliang.com";	
+				var cont ='';			
+				switch(api.pageParam.m){
+						case 'goods':
+						 cont="我分享了最夺人眼球的娱猫精彩单品#"+content+"#他们是影视剧中的时尚单品搬运工，让你可见即可买。";
+						break;
+						case 'poster':
+						 cont="我分享了娱猫本期专题#"+content+"#这里进行全方位娱乐时尚指导，让你可见即可买。";
+						break;
+						case 'xinshui':
+						cont="我分享了娱猫心水文章#"+content+"关注娱猫，让我们变得会买会穿，还能和明星用同款。";
+						break;
+						default:
+						cont="时尚单品搬运工，让你可见即可买!";
+						break;
+					}	
+				
+				wx_share(type,title,cont,img,url);
+			});
+			//分享到朋友圈
+			$('#wx_pyq').click(function(){
+				var type='timeline';			
+				var content=api.pageParam.goods_name;
+				var img=api.pageParam.goods_pic;
+				var url="http://app185.vliang.com";	
+				var title='';											
+				switch(api.pageParam.m){
+						case 'goods':
+						 title="我分享了最夺人眼球的娱猫精彩单品#"+content+"#他们是影视剧中的时尚单品搬运工，让你可见即可买。";
+						break;
+						case 'poster':
+						 title="我分享了娱猫本期专题#"+content+"#这里进行全方位娱乐时尚指导，让你可见即可买。";
+						break;
+						case 'xinshui':
+						 title="我分享了娱猫心水文章#"+content+"关注娱猫，让我们变得会买会穿，还能和明星用同款。";
+						break;
+						default:
+						 title="时尚单品搬运工，让你可见即可买!";
+						break;
+					}	
+				wx_share(type,title,content,img,url);
+			});	
+		$('.ly_delt .icon .cancle').bind("touchstart", function() {
+				 api.closeFrame({
+	                name: 'bill_share_f'
+	    		});	
+		})
+	}
+</script>
+</html>
+
+
+
+

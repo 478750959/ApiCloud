@@ -1,0 +1,127 @@
+{
+    "itemMaps": null,
+    "message": null,
+    "items": [
+        {
+            "summary": "无论从口感还是味道，都极接近地恢复了南方黑芝麻糊。",
+            "img_path": "/images/master/master_8.png",
+            "id": 8,
+            "title": "盛夏必吃！紫花菌煨青椒",
+            "type_name": "地方风味",
+            "from_addr": "出品/北京 小老虎糖水铺"
+        }, {
+            "summary": "无论从口感还是味道，都极接近地恢复了南方黑芝麻糊。",
+            "img_path": "/images/master/master_7.png",
+            "id": 7,
+            "title": "凉拌小鲜 毛蛤蜊拌菠菜",
+            "type_name": "地方风味",
+            "from_addr": "出品/北京 小老虎糖水铺"
+        }, {
+            "summary": "无论从口感还是味道，都极接近地恢复了南方黑芝麻糊。",
+            "img_path": "/images/master/master_6.png",
+            "id": 6,
+            "title": "没人不爱吃的什锦饭",
+            "type_name": "地方风味",
+            "from_addr": "出品/北京 小老虎糖水铺"
+        }, {
+            "summary": "无论从口感还是味道，都极接近地恢复了南方黑芝麻糊。",
+            "img_path": "/images/master/master_5.png",
+            "id": 5,
+            "title": "一看就会的广式花生薄",
+            "type_name": "地方风味",
+            "from_addr": "出品/北京 小老虎糖水铺"
+        }, {
+            "summary": "无论从口感还是味道，都极接近地恢复了南方黑芝麻糊。",
+            "img_path": "/images/master/master_4.png",
+            "id": 4,
+            "title": "周末聚会小吃 鮟鱇鱼火腿",
+            "type_name": "地方风味",
+            "from_addr": "出品/北京 小老虎糖水铺"
+        }, {
+            "summary": "无论从口感还是味道，都极接近地恢复了南方黑芝麻糊。",
+            "img_path": "/images/master/master_3.png",
+            "id": 3,
+            "title": "挑战重口味 水煮肉片",
+            "type_name": "地方风味",
+            "from_addr": "出品/北京 小老虎糖水铺"
+        }, {
+            "summary": "无论从口感还是味道，都极接近地恢复了南方黑芝麻糊。",
+            "img_path": "/images/master/master_2.png",
+            "id": 2,
+            "title": "海南飘香味 豉油皇文昌鸡",
+            "type_name": "地方风味",
+            "from_addr": "出品/北京 小老虎糖水铺"
+        }, {
+            "summary": "无论从口感还是味道，都极接近地恢复了南方黑芝麻糊。",
+            "img_path": "/images/master/master_1.png",
+            "id": 1,
+            "title": "浇汁豆腐",
+            "type_name": "地方风味",
+            "from_addr": "出品/北京 小老虎糖水铺"
+        }
+    ],
+    "errCode": "0",
+    "itemMaps": {
+        "methods": [{
+            "id": 1,
+            "step_content": "黑芝麻、花生、大米洗干净后用小火炒熟。因为量少，所以用锅炒反而比烤箱快。同时糯米粉放进烤箱，150℃烤15分钟至颜色微微发黄。",
+            "step_num": 1,
+            "master_id": 8
+        }, {
+            "id": 2,
+            "step_content": "大米炒到色泽金黄。黑芝麻炒到开始发出\u201C卜卜卜\u201D的小声响时就关火，不然焦了就会有苦味。花生炒熟后剥皮。",
+            "step_num": 2,
+            "master_id": 8
+        }, {
+            "id": 3,
+            "step_content": "大米先磨粉。花生和芝麻在打粉的时候会出油，所以研磨到没有大颗粒时，就混入糖粉、大米粉、糯米粉继续研磨，这样就能得到细腻的粉末。",
+            "step_num": 3,
+            "master_id": 8
+        }, {
+            "id": 4,
+            "step_content": "这是研磨好的。如果你在研磨时没有混合均匀，就把最后得到的所有粉末装进保鲜袋，打结，摇均匀。然后装进罐子里密封保存。",
+            "step_num": 4,
+            "master_id": 8
+        }, {
+            "id": 5,
+            "step_content": "每天早晨，舀四汤勺（就吃饭喝汤的小汤勺）芝麻粉于杯子里，开水冲泡，配上一块三明治，营养又健康~",
+            "step_num": 5,
+            "master_id": 8
+        }],
+        "meterials": [{
+            "material_name": "黑芝麻",
+            "id": 11,
+            "material_weight": "100g",
+            "master_id": 8
+        }, {
+            "material_name": "花生",
+            "id": 12,
+            "material_weight": "50g",
+            "master_id": 8
+        }, {
+            "material_name": "大米",
+            "id": 13,
+            "material_weight": "50g",
+            "master_id": 8
+        }, {
+            "material_name": "糖粉",
+            "id": 14,
+            "material_weight": "50g",
+            "master_id": 8
+        }, {
+            "material_name": "糯米粉",
+            "id": 15,
+            "material_weight": "120g",
+            "master_id": 8
+        }],
+        "tips": [{
+            "content": "制作较多的芝麻粉时，可以把花生放进烤箱，170℃烤15分钟。芝麻还是建议用锅老老实实地炒制，不然很容易就过头焦了。",
+            "id": 1,
+            "master_id": 8
+        }, {
+            "content": "有的人嫌芝麻的量太少了，你可以自己酌量增加，但不宜太多。因为黑芝麻润肠，吃少量通便，多了可能就会拉稀了。据说一天不要吃超过一两。",
+            "id": 2,
+            "master_id": 8
+        }]
+    }
+}

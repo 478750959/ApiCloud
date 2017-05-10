@@ -1,0 +1,141 @@
+/*start slide*/
+.swipe {
+	height: 30%;
+	width: 100%;
+	overflow: hidden;
+	visibility: hidden;
+	position: relative;
+}
+.swipe-wrap {
+	overflow: hidden;
+	position: relative;
+}
+.swipe-wrap > div {
+	float: left;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	position: relative;
+}
+
+.swipe-wrap img {
+	height: 100%;
+	width: 100%;
+}
+
+#slide {
+	height: 30%;
+	margin: 0 auto;
+	position: relative;
+}
+
+#pointer {
+	position: absolute;
+	right: 10px;
+	bottom: 12px;
+	overflow: hidden;
+}
+#pointer li {
+	float: left;
+	list-style: none;
+}
+#pointer li a {
+	display: inline-block;
+	width: 6px;
+	height: 6px;
+	border-radius: 6px;
+	border: 1px solid #55abce;
+	margin-right: 4px;
+}
+#pointer li a.active {
+	background-color: #55abce;
+}
+/*end slide*/
+
+#main {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-box-pack: center;
+}
+
+#content {
+	height: 70%;
+	width: 100%;
+}
+
+a {
+	-webkit-box-flex: 1;
+	display: -webkit-box;
+	-webkit-box-align: center;
+	-webkit-box-pack: center;
+}
+
+#slide div label {
+	background-image: -webkit-linear-gradient(top, rgba(59,59,59,.6), rgba(27,27,27,.6), rgba(50,50,50,.4), rgba(31,31,31,.4));
+	background-image: linear-gradient(top, rgba(59,59,59,.6), rgba(27,27,27,.6), rgba(50,50,50,.4), rgba(31,31,31,.4));
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	height: 40px;
+	line-height: 40px;
+	padding-left: 20px;
+	display: block;
+	color: #fff;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+section {
+	border-bottom: 1px solid #BDBDBD;
+	padding: 10px;
+	display: -webkit-box;
+	height: 70px;
+}
+.left {
+	width: 100px;
+	height: 85px;
+	display: -webkit-box;
+	-webkit-box-align: center;
+	-webkit-background-size: 100px 85px !important;
+	background-size: 100px 85px !important;
+}
+
+.middle {
+	height: 70px;
+	-webkit-box-flex: 1;
+	font-size: 14px;
+	color: #5E5E5E;
+	margin-left: 5px;
+}
+
+.middle h2 {
+	font-size: 14px;
+	overflow: hidden;
+}
+
+.middle h3 {
+	font-size: 12px;
+	color: #5E5E5E;
+}
+
+.middle p {
+	color: #999;
+	font-size: 12px;
+	overflow: hidden;
+	height: 80%;
+}
+
+.text-overflow {
+	display: block;/*内联对象需加*/
+	width: 100%;
+	word-break: keep-all;/* 不换行 */
+	white-space: nowrap;/* 不换行 */
+	overflow: hidden;/* 内容超出宽度时隐藏超出部分的内容 */
+	text-overflow: ellipsis;/* 当对象内文本溢出时显示省略标记(...) ；需与overflow:hidden;一起使用。*/
+}

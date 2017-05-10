@@ -1,0 +1,863 @@
+    #index{
+        background-color: #1E1E23;
+    }
+    #header{
+        /*height: 48px;*/
+        background-color: #131416;
+    }
+/*header-content*/
+    #header .header-content{
+        height: 48px;
+        width: 100%;
+        position: relative;
+    }
+    #header .header-btn{
+        width: 56px;
+        height: 48px; 
+    }
+    #header .header-btn.tap-active,#header .header-btn:active{
+        /*background-color: #E6A612;*/
+    }
+    #header .qiubaihuo.tap-active,#header .qiubaihuo:active,#header .menu.tap-active,#header .menu:active{
+        background-color: #414243;
+    }
+    .header-btn.qiushi{
+        background: url(../res/ic_qiushi_normal_dark.png) center center no-repeat;
+        background-size: 24px 24px;
+    }
+    .header-btn.nearby{
+        background: url(../res/ic_nearby_normal_dark.png) center center no-repeat;
+        background-size: 24px 24px;
+    }
+    .header-btn.message{
+        background: url(../res/ic_message_normal_dark.png) center center no-repeat;
+        background-size: 24px 24px;
+    }
+    .header-btn.qiubaihuo{
+        background: url(../res/ic_qiubaihuo_dark.png) center center no-repeat;
+        background-size: 24px 24px;
+    }
+    .header-btn.menu{
+        background: url(../res/page_menu_icon.png) center center no-repeat;
+        background-size: 24px 24px;
+    }
+    .header-btn.qiushi.active{
+        background: url(../res/ic_qiushi_select_dark.png) center center no-repeat;
+        background-size: 24px 24px;
+    }
+    .header-btn.nearby.active{
+        background: url(../res/ic_nearby_select_dark.png) center center no-repeat;
+        background-size: 24px 24px;
+    }
+    .header-btn.message.active{
+        background: url(../res/ic_message_select_dark.png) center center no-repeat;
+        background-size: 24px 24px;
+    }
+/*header-content end*/
+/*qiushi-tabBar*/
+    .qiushi-tabBar{
+        height: 48px;
+        background-color: #17191B;
+        position: relative;
+    }
+    .qiushi-tabBar .tabBar-btn{
+        width: 20%;
+        height: 47px;
+        border-bottom: 1px solid #17191B;
+        font-size: 0.8em;
+        line-height: 48px;
+        color: #464753;
+    }
+    .qiushi-tabBar .tabBar-btn:active,.qiushi-tabBar .tabBar-btn.tap-active{
+        background-color: #141517;
+    }
+    .qiushi-tabBar .tabBar-btn.active{
+        color: #BD7C1C;
+    }
+    .qiushi-tabBar .tabBar-bar{
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 20%;
+        height: 4px;
+        background-color: rgba(255,186,31,0.8);
+        -webkit-transition: all .25s ease;
+                transition: all .25s ease;
+    }
+/*qiushi-tabBar end*/
+/*menu */
+    .menu-list{
+        background-color: #303030;
+        box-shadow: 0 0 5px #161619;
+        position: relative;
+        width: 186px;
+        float: right;
+        z-index: 2;
+    }
+    .menu-list li{
+        height: 48px;
+        display: block;
+        border-bottom: 1px solid #4E4E4E;
+    }
+    .menu-list li:active,.menu-list li.tap-active{
+        background-color: #32809C;
+    }
+    .menu-list .top{
+        height: 64px;
+    }
+    .menu-list .bottom{
+        border-bottom: none;
+    }
+    .menu-list .icon-box{
+        width: 60px;
+        height: 48px;
+    }
+    .menu-list .top .icon-box{
+        height: 64px;
+    }
+    .menu-list .my-profile{
+        position: relative;
+    }
+    .menu-list .my-profile img{
+        position: absolute;
+        width: 36px;
+        height: 36px;
+        border-radius: 18px;
+        display: block;
+        left: 16px;
+        top: 50%;
+        -webkit-transform: translateY(-50%);
+                transform: translateY(-50%);
+    }
+    .menu-list .my-qiushi{
+        background: url(../res/ic_manage_my_qiushi_dark.png) 15px center no-repeat;
+        background-size: 33px 33px;
+    }
+    .menu-list .my-theme{
+        background: url(../res/ic_theme_mode_dark.png) 15px center no-repeat;
+        background-size: 33px 33px;
+    }
+    .menu-list .my-setting{
+        background: url(../res/ic_setting_dark.png) 15px center no-repeat;
+        background-size: 33px 33px;
+    }
+    .menu-list .my-feedback{
+        background: url(../res/ic_feedback_dark.png) 15px center no-repeat;
+        background-size: 33px 33px;
+    }
+    .menu-list li span{
+        color: #F3F3F3;
+        height: 48px;
+        line-height: 48px; 
+    }
+    .menu-list .top span{
+        height: 64px;
+        line-height: 64px; 
+    }
+/*menu end*/
+/*qiushi-bottom*/
+    #bottom-tabBar{
+        position: relative;
+    }
+    #bottom-tabBar .bottom-btn{
+        background-color: rgba(24,24,28,0.8);
+    }
+    #bottom-tabBar .bottom-btn:active,#bottom-tabBar .bottom-btn.top-active{
+        background-color: rgba(5,5,5,0.8);
+    }
+    #bottom-tabBar .icon-submit{
+        background: url(../res/submit_night.png) center center no-repeat;
+        background-size: 24px 24px;
+    }
+    #bottom-tabBar .icon-examine{
+        background: url(../res/examine_night.png) center center no-repeat;
+        background-size: 24px 24px;
+    }
+    #bottom-tabBar .bottom-spliter{
+        background-color: #3F404B;  
+    }
+    #bottom-tabBar .text{
+        color: #6A6C7E;
+    }
+/*qiushi-bottom end*/
+/*qiushi-frame*/
+    body.qiushi-frame{
+        background-color: #1E1E23;
+    }
+    body.qiushi-frame #wrap{
+        display: block;
+    }
+    #main.qiushi-frame{
+        padding: 0.313em 0.625em;
+        background-color: #1E1E23;
+    }
+    #main.qiushi-frame .qiushi-box{
+        background-color: #1E1E23;
+        width: 100%;
+        border-bottom: 1px solid #08090A;
+    }
+    #main.qiushi-frame .qiushi-top{
+        padding-left: 0.75em;
+        padding-top: 0.75em;
+    }
+    .qiushi-top .qiushi-icon-box{
+        width: 42px;
+        height: 42px;
+    }
+    .qiushi-top .qiushi-icon-box img{
+        width: 42px;
+        border-radius: 21px;
+        display: block;
+    }
+    .qiushi-top .user-name{
+        height: 42px;
+        line-height: 42px;
+        text-indent: 0.75em;
+        color: #464752;
+    }
+    .qiushi-box .qiushi-content-text{
+        padding: 0.75em; 
+    }
+    .qiushi-content-text .text{
+        color: #6A6C7E;
+        display: block;
+    }
+    .qiushi-box .qiushi-content-img{
+        padding-bottom: 0.75em;
+    }
+    .qiushi-box .qiushi-content-img img{
+        width: 100%;
+        display: block;
+    }
+    .qiushi-box .status-box{
+        padding-left: 0.75em;
+    }
+    .status-box span{
+        font-size: 0.625em;
+        color: #6A6C7E;
+        display: inline-block;
+    }
+    .qiushi-box .btns-group{
+        height: 63px;
+    }
+    .btns-group .icon{
+        width: 63px;
+        height: 63px;
+    }
+    .btns-group .icon.pull-left{
+        margin-right: 0.56em;
+    }
+    .btns-group .icon.pull-right{
+    }
+    .btns-group .icon-agree{
+        background: url(../res/operation_support_night.png) center center no-repeat;
+        background-size: 100%;
+    }
+    .btns-group .icon-agree:active,.btns-group .icon-agree.tap-active,.btns-group .icon-agree.active{
+        background: url(../res/operation_support_press_night.png) center center no-repeat;
+        background-size: 100%;
+    }
+    .btns-group .icon-disagree{
+        background: url(../res/operation_unsupport_night.png) center center no-repeat;
+        background-size: 100%;
+    }
+    .btns-group .icon-disagree:active,.btns-group .icon-disagree.tap-active,.btns-group .icon-disagree.active{
+        background: url(../res/operation_unsupport_press_night.png) center center no-repeat;
+        background-size: 100%;
+    }
+    .btns-group .icon-comment{
+        background: url(../res/operation_comments_night.png) center center no-repeat;
+        background-size: 100%;
+    }
+    .btns-group .icon-share {
+        float: right;
+        background: url(../res/operation_more_night.png) center center no-repeat;
+        background-size: 100%;
+    }
+    .btns-group .icon-comment:active,.btns-group .icon-comment.tap-active,.btns-group .icon-share:active,.btns-group .icon-share.tap-active{
+        background-color: #1B1B1F;
+        background-size: 100%;
+    }
+/*qiushi-frame end*/
+/*nearby*/
+    .nearby-wrap{
+        background-color: #1E1E23;
+    }
+    .nearby-box{
+        height: 78px;
+        background-color: #1E1E23;
+        border-bottom: 1px solid #16181B;
+    }
+    .nearby-box:active,.nearby-box.tap-active{
+
+    }
+    .nearby-box .user-icon{
+        width: 78px;
+        height: 78px;
+        position: relative;
+    }
+    .user-icon .img{
+        width: 62px;
+        height: 62px;
+        border-radius: 31px;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        -webkit-transform: translate(-50%,-50%);
+                transform: translate(-50%,-50%);
+        overflow: hidden;
+        background: url(../res/default_users_avatar_night.png) center center no-repeat;
+        background-size: 100%;
+    }
+    .user-icon img{
+        width: 100%;
+        display: block;
+        border-radius: 31px;
+    }
+    .nearby-box .user-profile-box{
+        margin-left: 78px;
+        height: 78px;
+    }
+    .user-profile-box .user-profile-top{
+        padding-top: 0.625em;
+        padding-bottom: 0.3em;
+        height: 1em;
+    }
+    .user-profile-top .user-name{
+        color: #6A6C7E;
+    }
+    .user-profile-top .user-dis{
+        color: #464753;
+        margin-right: 0.5em;
+    }
+    .user-profile-top .user-time{
+        color: #464753;
+    }
+    .user-profile-box .gender{
+        height: 2em;
+        font-size: 0.6em;
+        line-height: 2em;
+        color: #FFFFFF;
+        display: inline-block;
+        padding: 0 0.5em;
+        border-radius: 3px;
+    }
+    .user-profile-box .icon-gender{
+        display: inline-block;
+        height: 1.2em;
+        width: 1.2em;
+        vertical-align: text-bottom;
+    }
+    .user-profile-box .gender.male .icon-gender{
+        background: url(../res/one_profile_male_left_dark.png) center center no-repeat;
+        background-size: 100%;
+    }
+    .user-profile-box .gender.female .icon-gender{
+        background: url(../res/one_profile_female_left_dark.png) center center no-repeat;
+        background-size: 100%;
+    }
+    .user-profile-box .des{
+        color: #464752;
+        font-size: 0.8em;
+        display: block;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+        padding-top: 0.3em;
+    }
+/*nearby end*/
+/*qiushi-detail*/
+    .header-btn-back{
+        height: 48px;
+        display: inline-block;
+        padding: 0 0.7em;
+    }
+    .header-btn-back.tap-active,.header-btn-back:active {
+        background-color: #414243;
+    }
+    .icon-back{
+        height: 48px;
+        width: 12px;
+        background: url(../res/ic_arrow_left_dark.png) center center no-repeat;
+        background-size: 12px;
+        display: inline-block;
+        vertical-align: bottom;
+    }
+    .btn-back-title{
+        display: inline-block;
+        height: 48px;
+        line-height: 48px;
+        color: #C67A1A;
+    }
+    #footer.qiushi-detail{
+        border-top: 1px solid #0F1314;
+        background-color: #15191A;
+    }
+    .qiushi-detail .btn-send{
+        width: 30px;
+        height: 30px;
+        margin-right: 6px;
+        margin-top: 4px;
+        background: url(../res/messager_send_button_night.png) center center no-repeat;
+        background-size: 20px;
+    }
+    .qiushi-detail .btn-send:active,.qiushi-detail .btn-send.tap-active{
+        background-color: #040404;
+    }
+    .qiushi-detail .qiushi-detail-send{
+        margin-right: 36px;
+        padding: 3px 20px 7px 22px;
+        height: 36px;
+        box-sizing: border-box;
+    }
+    .qiushi-detail .qiushi-detail-send textarea{
+        font-size: 13px;
+        line-height: 19px;
+        height: 19px;
+        width: 100%;
+        color: #808487;
+    }
+/*qiushi-detail end*/
+/*qiushi-frame-in-detail*/
+    body.qiushi-frame-in-detail{
+        background-color: #1E1E23;
+    }
+    body.qiushi-frame-in-detail #wrap{
+        display: block;
+    }
+    .qiushi-frame-in-detail #main{
+        padding: 0.313em 0em;
+        background-color: #1E1E23;
+    }
+    .qiushi-frame-in-detail .qiushi-box{
+        background-color: #1E1E23;
+        width: 100%;
+        border-bottom: 1px solid #08090A;
+    }
+    .qiushi-frame-in-detail .qiushi-top{
+        padding-left: 0.75em;
+        padding-top: 0.75em;
+    }
+    .qiushi-top .qiushi-icon-box{
+        width: 42px;
+        height: 42px;
+    }
+    .qiushi-top .qiushi-icon-box img{
+        width: 42px;
+        border-radius: 21px;
+        display: block;
+    }
+    .qiushi-top .user-name{
+        height: 42px;
+        line-height: 42px;
+        text-indent: 0.75em;
+        color: #464752;
+    }
+    .qiushi-box .qiushi-content-text{
+        padding: 0.75em; 
+    }
+    .qiushi-content-text .text{
+        color: #6A6C7E;
+        display: block;
+    }
+    .qiushi-box .qiushi-content-img{
+        padding-bottom: 0.75em;
+    }
+    .qiushi-box .qiushi-content-img img{
+        width: 100%;
+        display: block;
+    }
+    .qiushi-box .status-box{
+        padding-left: 0.75em;
+    }
+    .status-box span{
+        font-size: 0.625em;
+        color: #6A6C7E;
+        display: inline-block;
+    }
+    .qiushi-box .btns-group{
+        height: 63px;
+    }
+    .btns-group .icon{
+        width: 63px;
+        height: 63px;
+    }
+    .btns-group .icon.pull-left{
+        margin-right: 0.56em;
+    }
+    .btns-group .icon.pull-right{
+    }
+    .btns-group .icon-agree{
+        background: url(../res/operation_support_night.png) center center no-repeat;
+        background-size: 100%;
+    }
+    .btns-group .icon-agree:active,.btns-group .icon-agree.tap-active,.btns-group .icon-agree.active{
+        background: url(../res/operation_support_press_night.png) center center no-repeat;
+        background-size: 100%;
+    }
+    .btns-group .icon-disagree{
+        background: url(../res/operation_unsupport_night.png) center center no-repeat;
+        background-size: 100%;
+    }
+    .btns-group .icon-disagree:active,.btns-group .icon-disagree.tap-active,.btns-group .icon-disagree.active{
+        background: url(../res/operation_unsupport_press_night.png) center center no-repeat;
+        background-size: 100%;
+    }
+    .btns-group .icon-comment{
+        background: url(../res/operation_comments_night.png) center center no-repeat;
+        background-size: 100%;
+    }
+    .btns-group .icon-share {
+        float: right;
+        background: url(../res/operation_more_night.png) center center no-repeat;
+        background-size: 100%;
+    }
+    .btns-group .icon-comment:active,.btns-group .icon-comment.tap-active,.btns-group .icon-share:active,.btns-group .icon-share.tap-active{
+        background-color: #1B1B1F;
+        background-size: 100%;
+    }
+    .qiushi-frame-in-detail .message-box{
+        border-bottom: 1px solid #111516;
+        background-color: #1C2021;
+        padding: 1em 0.7em;
+    }
+    .qiushi-frame-in-detail .message-box-left{
+
+    }
+    .qiushi-frame-in-detail .message-box-img{
+        width: 32px;
+        height: 32px;
+        border-radius: 16px;
+    }
+    .qiushi-frame-in-detail .message-box-img img{
+        width: 100%;
+        height: 100%;
+        border-radius: 32px;
+        display: block;
+    }
+    .qiushi-frame-in-detail .message-box-right{
+        margin-left: 40px;
+
+    }
+    .qiushi-frame-in-detail .message-box-top{
+
+    }
+    .qiushi-frame-in-detail .message-box-user{
+        color: #757A7E;
+        font-size: 0.625em;
+    }
+    .qiushi-frame-in-detail .message-box-stage{
+        font-size: 0.5em;
+        color: #45484D;
+    }
+    .qiushi-frame-in-detail .message-box-msg{
+        display: block;
+        padding-right: 1em;
+        font-size: 0.75em;
+        color: #45494C;
+    }
+/*qiushi-frame-in-detail end*/
+/*profile-bottom*/
+    #bottom-tabBar .icon-message{
+        background: url(../res/ic_message_dark.png) center center no-repeat;
+        background-size: 24px 24px;
+    }
+    #bottom-tabBar .icon-report{
+        background: url(../res/ic_report_dark.png) center center no-repeat;
+        background-size: 24px 24px;
+    }
+/*profile-bottom end*/
+/*profile-frame*/
+    .header-btn.edit{
+        background: url(../res/my_profile_edit_normal_dark.png) center center no-repeat;
+        background-size: 24px 24px;
+    }
+    #header .edit.tap-active, #header .edit:active, #header .menu.tap-active, #header .menu:active
+    {
+        background-color: #414243;
+    }
+    body.profile{
+        background-color: #1E1E23;
+    }
+    body.profile #wrap{
+        display: block;
+    }
+    body.profile #main{
+        background-color: #1E1E23;
+    }
+    body.profile .profile-top-container{
+        background: url(../res/one_profile_bg1_dark.jpg) center center no-repeat;
+        background-size: 100% 100%;
+    }
+    .profile-right .user-name{
+        color: #C6C4C7;
+    }
+    .profile-right .brief{
+        color: #B0ABB3;
+    }
+    .profile-right .icon-edit-brief{
+        background: url(../res/my_profile_edit_normal_dark.png) center center no-repeat;
+        background-size: 100%;
+    }
+    .profile-tabBar{
+        background-color: #17171B;
+    }
+    .profile-tabBar .bottom-btn{
+        color: #464753;
+    }
+    .profile-tabBar .bottom-btn:active,.profile-tabBar .bottom-btn.tap-active{
+        color: #4C4C54;
+        background-color: #050505;
+    }
+    .profile-tabBar .bottom-btn.active{
+        color: #BD7C1C;
+        background-color: #17171B;
+    }
+    .profile-tabBar .bottom-spliter{
+        background-color: #41424D;
+    }
+    .profile-tabBar .profile-slidBar{
+        background-color: #BD7C1B;
+    }
+    .profile-list li{
+        background-color: #1E2023;
+        border-bottom: 1px solid #131416;
+    }
+    .profile-list-title{
+        color: #6A6C7E;
+    }
+    .profile-list-right{
+        color: #464753;
+    }
+    .profile-list-right .profile-age{
+        height: 1.8em;
+        font-size: 0.9em;
+        line-height: 1.8em;
+        color: #FFFFFF;
+        display: inline-block;
+        padding: 0 0.5em;
+        border-radius: 3px;
+    }
+    .profile-list-right .icon-gender{
+        display: inline-block;
+        height: 1.2em;
+        width: 1.2em;
+        vertical-align: middle;
+    }
+    .profile-list-right .profile-age.male .icon-gender{
+        background: url(../res/one_profile_male_left_dark.png) center center no-repeat;
+        background-size: 100%;
+    }
+    .profile-list-right .profile-age.female .icon-gender{
+        background: url(../res/one_profile_female_left_dark.png) center center no-repeat;
+        background-size: 100%;
+    }
+    .profile-qiushi-box{
+        background-color: #131416;
+    }
+    body.profile .qiushi-box{
+        background-color: #1E1E23;
+        width: 100%;
+        border-bottom: 1px solid #08090A;
+        margin-bottom: 0.56em;
+    }
+    body.profile .qiushi-top{
+        padding-left: 0.75em;
+        padding-top: 0.75em;
+    }
+    .qiushi-top .qiushi-icon-box{
+        width: 42px;
+        height: 42px;
+    }
+    .qiushi-top .qiushi-icon-box img{
+        width: 42px;
+        border-radius: 21px;
+        display: block;
+    }
+    .qiushi-top .user-name{
+        height: 42px;
+        line-height: 42px;
+        text-indent: 0.75em;
+        color: #464752;
+    }
+    .qiushi-box .qiushi-content-text{
+        padding: 0.75em; 
+    }
+    .qiushi-content-text .text{
+        color: #6A6C7E;
+        display: block;
+    }
+    .qiushi-box .qiushi-content-img{
+        padding-bottom: 0.75em;
+    }
+    .qiushi-box .qiushi-content-img img{
+        width: 100%;
+        display: block;
+    }
+    .qiushi-box .status-box{
+        padding-left: 0.75em;
+    }
+    .status-box span{
+        font-size: 0.625em;
+        color: #6A6C7E;
+        display: inline-block;
+    }
+    .qiushi-box .btns-group{
+        height: 63px;
+    }
+    .btns-group .icon{
+        width: 63px;
+        height: 63px;
+    }
+    .btns-group .icon.pull-left{
+        margin-right: 0.56em;
+    }
+    .btns-group .icon.pull-right{
+    }
+    .btns-group .icon-agree{
+        background: url(../res/operation_support_night.png) center center no-repeat;
+        background-size: 100%;
+    }
+    .btns-group .icon-agree:active,.btns-group .icon-agree.tap-active,.btns-group .icon-agree.active{
+        background: url(../res/operation_support_press_night.png) center center no-repeat;
+        background-size: 100%;
+    }
+    .btns-group .icon-disagree{
+        background: url(../res/operation_unsupport_night.png) center center no-repeat;
+        background-size: 100%;
+    }
+    .btns-group .icon-disagree:active,.btns-group .icon-disagree.tap-active,.btns-group .icon-disagree.active{
+        background: url(../res/operation_unsupport_press_night.png) center center no-repeat;
+        background-size: 100%;
+    }
+    .btns-group .icon-comment{
+        background: url(../res/operation_comments_night.png) center center no-repeat;
+        background-size: 100%;
+    }
+    .btns-group .icon-share {
+        float: right;
+        background: url(../res/operation_more_night.png) center center no-repeat;
+        background-size: 100%;
+    }
+    .btns-group .icon-comment:active,.btns-group .icon-comment.tap-active,.btns-group .icon-share:active,.btns-group .icon-share.tap-active{
+        background-color: #1B1B1F;
+        background-size: 100%;
+    }
+/*profile-frame end*/
+/*config*/
+    .config #main{
+        background-color: #1E1E23;
+    }
+    .config ul{
+        background-color: #1E2023;
+        border-top: 2px solid #16181B;
+    }
+    .config li{
+        border-bottom: 1px solid #16181B;
+    }
+    .config li:active,.config li.tap-active{
+        background-color: #050505;
+    }
+    .config .config-left{
+        color: #6A6C7E;
+    }
+    .config .config-right{
+        color: #464752;
+    }    
+/*config end*/
+/*profile-bottom*/
+    #bottom-tabBar .icon-cleanlocal{
+        background: url(../res/bottombar_cleanlocal_night.png) center center no-repeat;
+        background-size: 24px 24px;
+    }
+    #bottom-tabBar .icon-shaixuan{
+        background: url(../res/bottombar_shaixuan_night.png) center center no-repeat;
+        background-size: 24px 24px;
+    }
+/*profile-bottom end*/
+/*message*/
+body.message{
+
+}
+body.message #main{
+    background: #1E1E23 url(../res/default_no_content_grey_dark.png) center 40% no-repeat;
+    background-size: 120px 110px;
+}
+body.message .no-content{
+    color: #3A3B45;
+    position: absolute;
+    width: 100%;
+    left: 0;
+    top: 50%;
+    text-align: center;
+    -webkit-transform: translateY(50px);
+            transform: translateY(50px);
+}
+/*message end*/
+/*share-option */
+    .share-list{
+        background-color: #303030;
+        box-shadow: 0 0 5px #161619;
+        z-index: 2;
+    }
+    .share-list li{
+        height: 48px;
+        display: block;
+        border-bottom: 1px solid #4E4E4E;
+    }
+    .share-list li:active,.share-list li.tap-active{
+        background-color: #32809C;
+    }
+    .share-list .top{
+        height: 64px;
+    }
+    .share-list .bottom{
+        border-bottom: none;
+    }
+    .share-list .icon-box{
+        width: 60px;
+        height: 48px;
+    }
+    .share-list .top .icon-box{
+        height: 64px;
+    }
+    .share-list .my-profile{
+        position: relative;
+    }
+    .share-list .my-profile img{
+        position: absolute;
+        width: 36px;
+        height: 36px;
+        border-radius: 18px;
+        display: block;
+        left: 16px;
+        top: 50%;
+        -webkit-transform: translateY(-50%);
+                transform: translateY(-50%);
+    }
+    .share-list .my-qiushi{
+        background: url(../res/ic_manage_my_qiushi_dark.png) 15px center no-repeat;
+        background-size: 33px 33px;
+    }
+    .share-list .my-theme{
+        background: url(../res/ic_theme_mode_dark.png) 15px center no-repeat;
+        background-size: 33px 33px;
+    }
+    .share-list .my-setting{
+        background: url(../res/ic_setting_dark.png) 15px center no-repeat;
+        background-size: 33px 33px;
+    }
+    .share-list .my-feedback{
+        background: url(../res/ic_feedback_dark.png) 15px center no-repeat;
+        background-size: 33px 33px;
+    }
+    .share-list li span{
+        color: #F3F3F3;
+        height: 48px;
+        line-height: 48px; 
+    }
+    .share-list .top span{
+        height: 64px;
+        line-height: 64px; 
+    }
+/*share-option end*/

@@ -1,0 +1,398 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>网易云音乐</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../css/common.css" />
+    
+    <style>
+     
+    /* 头部样式 */
+    .topbar {background: #D43C33; height:50px; /*border-bottom: 1px solid #DDDFE3;*/position: relative;}
+    .topbar_title {display: inline-block;font-size: 20px; line-height: 50px;padding-left: 12px;}
+    .hr01, .hr02 {height: 28px;}
+    .headerico {padding: 11px 15px 11px 15px;}
+    .headericohover {background: #DADDE0;}
+    .fr{float: right;}
+    .fl{float: left;}
+    img {vertical-align: top;}
+
+     /*第一头部*/
+    .egret-header-box {height: 50px;}
+    .egret-img {position: absolute;}
+    .egret-img img {height: 30px;padding: 10px;}
+    .egret-header-search {background-color: #fff; position: absolute; left: 60px; right: 20px; height: 34px; margin-top: 8px;border-radius: 4px;}
+    .egret-header-search img {margin-left: 30px; height: 20px; margin-top: 7px;}
+    .egret-header-search input {line-height: 24px;font-size: 14px;padding-top: 5px;}
+    .egret-header-search input:focus {/*border:0;*/ outline:none;}
+
+     /* 第二头部 */
+    .egret-header-text {line-height: 50px;color: #fff;font-size: 16px;padding: 0 10px;}
+    .egret-header-title {position: absolute;width: 100%;text-align: center;line-height: 50px;color: #fff;font-size: 20px;}
+
+
+    /* 第三头部 */
+    .egret-switchframe {position: absolute; left: 90px; right: 90px;background-color: #fcfcfc;text-align: center;height: 30px;line-height: 30px;bottom: 10px;border-radius: 4px;color: #fff;border: 1px solid #fff;}
+    .egret-switchframe div {width: 50%;display: inline-block;color: #fff;background-color: #D43C33;}
+    .egret-switchframe div:first-child {border-radius: 4px 0 0 4px;}
+    .egret-switchframe div:last-child {border-radius: 0px 4px 4px 0px;}
+    .egret-switchframe-selectswitch {background-color: #fff !important;color: #D43C33 !important;}
+
+     /* 头部切换样式 */
+     .activebar {display: block;}
+     
+     /* 底部切换按钮样式 */
+     ul {display: -webkit-box; display: -webkit-flex; display: flex; }
+     #footer {height: 51px; /*line-height: 50px;*/ background-color: #413A36;border-top: 1px solid #332E2A; }
+     #footer li{-webkit-box-flex: 1; -webkit-flex: 1; flex:1; /*height: 40px;*/}
+
+     /* 选项卡样式 */
+     .scrollbar {display: -webkit-box;display: -webkit-flex; text-align: center; height: 40px; line-height: 40px;background: #EBECF0;font-size: 12px;position: relative;}
+     .col1 {-webkit-box-flex:1;-webkit-flex: 1;flex:1;color: #909090;}
+     .indexbar {position: absolute;/*background: #0fc;*/width: 50%;height: 5px;left: 0px;bottom: 0px;-webkit-transition: 300ms;}
+     .redbox {background: #DB4646;width: 40px;height: 5px;position: relative;left: auto;right: auto; margin-left: auto; margin-right: auto;}
+
+     /********************/
+     /* 底部按钮原始样式 */
+     /********************/
+     .bbtn01 {background: url(../image/main_index01.png) no-repeat center 4px; }
+     .bbtn02 {background: url(../image/main_index02.png) no-repeat center 4px; }
+     .bbtn03 {background: url(../image/main_index03.png) no-repeat center 4px; }
+     .bbtn04 {background: url(../image/main_index04.png) no-repeat center 4px; }
+     .bottom_btn {width: 99%; /*height: 43px;*/padding-top: 23px;background-position-y: 4px; background-size: 24px;  font-size: 10px; color: #A5A5A5;}
+     
+     /* 底部按钮激活样式 */
+     .activebtn0 {/*background: url(../image/main_index01pressed.png) no-repeat center 4px; */}
+     .activebtn1 {/*background: url(../image/main_index02pressed.png) no-repeat center 4px; */}
+     .activebtn2 {/*background: url(../image/main_index03pressed.png) no-repeat center 4px; */}
+     .activebtn3 {/*background: url(../image/main_index04pressed.png) no-repeat center 4px; */}
+     .activebtn {color:#fff; background-size: 24px; background-color: #D33A31;}
+     .bottomhover {background-color: #46494B;}
+
+     /* 本地刷新图标 */
+     #localrefresh {display:none;float: right; width: 40px; padding: 5px 10px;}
+
+
+.navbar {display: -webkit-box; -webkit-box-orient: horizontal; position: relative; height: 40px; box-sizing: border-box; background: rgba(255,255,255,0.4); /*border-bottom: 1px solid #e0e0e0;*/ }
+    .navbar-item {display: block; -webkit-box-flex: 1; width: 100%; line-height: 40px;  font-size: 16px; text-align: center;color: #484848; background-color: #181919;}
+    .navbar-item-hov {background-color: rgba(254,242,228,0.7); }
+    .navbar-item-active {/*color: #D43C33;*/ color: #c8c8c8; }
+    #navmark {position: absolute; left: 0px; bottom: 0px; -webkit-transition: 300ms; text-align: center; height: 2px;background-color: #D43C33;}
+
+
+.switchbar_index_img {height: 20px; padding-top: 10px; padding-right: 5px;}
+
+    </style>
+</head>
+<body>
+    <div id="wrap">
+        <!-- 第三头部 -->
+        <div id="thridHeader" class="titlebar">
+            <div class="egret-header topbar">
+                <div class="egret-header-title">听歌识曲</div>
+                <div  class="egret-img"><img src="../image/cm2_icn_back.png" alt="" onclick="goback()" ></div>
+            </div>
+        </div>
+        <nav class="navbar" id="firstHeaderIndex">
+                <a id="navbar-item-recommend" class="navbar-item navbar-item-active" onclick="setFrameGroupIndex(0);"><img src="../image/cm2_toptab_mike_prs.png" class="switchbar_index_img" id="switchbar_index_left_img"/>识别音乐</a>
+                <a id="navbar-item-rank" class="navbar-item" onclick="setFrameGroupIndex(1);"><img src="../image/cm2_toptab_history.png" class="switchbar_index_img " id="switchbar_index_right_img"/>识别历史</a>
+                
+                <mark id="navmark"></mark>
+            </nav>
+
+
+      <div id="main">
+        
+      </div>
+      
+
+    </div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript">
+
+var thirdHeader = $api.byId('thridHeader');
+
+var firstHeaderOffset;
+var firstHeaderIndexHeight;
+
+var main      = $api.byId('main');
+var mainPos   = $api.offset(main);
+var isSecopen ;
+var isFirstopen;
+
+function emptyopt() {}
+
+function goback () {
+    api.closeWin({name:'findmusic'});
+}
+
+function openLeftgroup() {
+    // var footer = $api.byId('footer');
+    // var footerPos = $api.offset(footer);
+
+    var thridHeader = document.getElementById('thridHeader');
+    var thridHeader = $api.offset(thridHeader);
+
+    // 清除右部class
+    var leftbtn  = document.getElementsByClassName('egret-switchframe-leftbtn')[0];
+    var rightbtn = document.getElementsByClassName('egret-switchframe-rightbtn')[0];
+
+    // 注意，类名的前面有一个空格
+    rightbtn.className = 'egret-switchframe-rightbtn';
+    leftbtn.className  = 'egret-switchframe-leftbtn egret-switchframe-selectswitch';
+
+    api.openFrame({
+        name: 'frame0301',
+        url: '../html/third_frame/frame0301.html',
+        rect: {
+            x: 0,
+            y: thridHeader.h,
+            w: 'auto',
+            h: (api.frameHeight  - thridHeader.h)
+        },
+        bounces: false,
+        delay: 200
+    });
+}
+
+function openRightgroup() {
+    // var footer = $api.byId('footer');
+    // var footerPos = $api.offset(footer);
+
+    var thridHeader = document.getElementById('thridHeader');
+    var thridHeader = $api.offset(thridHeader);
+
+    // 清除左部class
+    var leftbtn  = document.getElementsByClassName('egret-switchframe-leftbtn')[0];
+    var rightbtn = document.getElementsByClassName('egret-switchframe-rightbtn')[0];
+
+    rightbtn.className = 'egret-switchframe-rightbtn egret-switchframe-selectswitch';
+    leftbtn.className  = 'egret-switchframe-leftbtn';
+
+    api.openFrame({
+        name: 'frame0302',
+        url: '../html/third_frame/frame0302.html',
+        rect: {
+            x: 0,
+            y: thridHeader.h,
+            w: 'auto',
+            h: (api.frameHeight  - thridHeader.h)
+        },
+        bounces: false,
+        delay: 200
+    });
+}
+
+function openNewWindow(type) {
+    api.openWin({
+        name: type,
+        url: '../html/' + type + '.html',
+        pageParam: {},
+        bounces: false,
+        opaque: false
+    });
+}
+
+
+// 隐藏所有的一级frame
+function hideAllFrame() {
+
+    api.setFrameAttr({
+        name: 'second_frame',
+        hidden: true
+    });
+
+    api.setFrameGroupAttr({
+        name: 'findmusicgroup',
+        hidden: true
+    });
+}
+
+function setFrameGroupIndex(frameIndex) {
+	setFrameGroupStatus(frameIndex);
+
+    api.setFrameGroupIndex({
+        name: 'findmusicgroup',
+        index: frameIndex,
+        scroll: true
+    });
+}
+
+function setFrameGroupStatus(frameIndex) {
+
+    switch (frameIndex) {
+        case 0:
+            {
+                $api.byId('navbar-item-recommend').className = "navbar-item navbar-item-active";
+                $api.byId('navbar-item-rank').className      = "navbar-item";
+                $api.byId('switchbar_index_left_img').src      = "../image/cm2_toptab_mike_prs.png";
+                $api.byId('switchbar_index_right_img').src      = "../image/cm2_toptab_history.png";
+
+                // var num = (api.winWidth / 4) * frameIndex;
+                // $api.css($api.byId('navmark'), "-webkit-transform:translate(" + num + "px,0)");
+
+                break;
+            }
+        case 1:
+            {
+                $api.byId('navbar-item-recommend').className = "navbar-item";
+                $api.byId('navbar-item-rank').className      = "navbar-item navbar-item-active";
+                
+                $api.byId('switchbar_index_left_img').src      = "../image/cm2_toptab_mike.png";
+                $api.byId('switchbar_index_right_img').src      = "../image/cm2_toptab_history_prs.png";
+
+
+                // $api.css($api.byId('navmark'), "-webkit-transform:translate(" + num + "px,0)");
+                break;
+            }
+        default:
+            break;
+    }
+}
+
+// 打开第一个framegroup
+function openFirstFramegroup() {
+    // alert(firstHeaderOffset.h + firstHeaderIndexHeight);
+    // alert(firstHeaderOffset.h + firstHeaderIndexHeight);
+
+    api.openFrameGroup({
+        name: 'findmusicgroup',
+        background: '#FFF',
+        scrollEnabled: false,
+        rect: {
+            x: 0,
+            y: firstHeaderOffset.h + firstHeaderIndexHeight,
+            w: "auto",
+            h: api.frameHeight - firstHeaderOffset.h - firstHeaderIndexHeight 
+        },
+        index: 0,
+        frames: [{
+            name: 'findmusic01',
+            url: './findmusic01.html',
+            bounces: false,
+        }, {
+            name: 'findmusic02',
+            url: './findmusic02.html',
+            bounces: false,
+        }]
+    }, function(ret) {
+        setFrameGroupStatus(ret.index);
+    });
+}
+
+function offsetSecFrame () {
+    // alert(firstHeaderOffset.h + firstHeaderIndexHeight);
+
+    api.setFrameAttr({
+        name: 'newdiscframe',
+        rect: {
+                x: 0,
+                y: firstHeaderOffset.h + firstHeaderIndexHeight,
+                w: 'auto',
+                h: 'auto'
+            }
+    });
+}
+
+function backSecFrame () {
+    api.setFrameAttr({
+        name: 'newdiscframe',
+        rect: {
+                x: 0,
+                y: firstHeaderOffset.h,
+                w: 'auto',
+                h: 'auto'
+            }
+    });
+}
+
+function setFrameAttribute (framename, ishidden) {
+    api.setFrameGroupAttr({
+        name: framename,
+        hidden: ishidden
+    });
+}
+
+function openSecFrame () {
+    api.openFrame({
+            name: 'newdiscframe',
+            url: './newdiscframe.html',
+            bounces: false,
+            opaque: false,
+            rect: {
+                x: 0,
+                y: firstHeaderOffset.h,
+                w: 'auto',
+                h: 'auto'
+            }
+        
+        });
+}
+
+
+
+// 打开frame
+function openframeinstance(frame, marginTop, isBounce) {
+    api.openFrame({
+        name: frame,
+        url: '../html/' + frame + '/' + frame + '_body.html',
+        rect: {
+            x: 0,
+            y: marginTop,
+            w: 'auto',
+            h: api.frameHeight - marginTop 
+        },
+        // pageParam: {name: marginTop },
+        bounces: false,
+        vScrollBarEnabled: false,
+        hScrollBarEnabled: false,
+        delay: 200
+    });
+}
+
+// 移动滑动块
+function sliderbarCallback(id, num) {
+
+    // 得到背景元素的宽度
+    // var width=parseInt(window.getComputedStyle($api.byId('matchwidth'),null).width);
+    var width = parseInt(api.frameWidth / 2);
+    // api.alert({msg:width});
+    if (num != 0) {
+        num = width;
+    }
+    // 移动背景元素的宽度  在index.html不能获得 forth_frame.html上面的dom，虽然是在同一个手机屏幕上
+    $api.css($api.byId(id), "-webkit-transform:translate(" + num + "px,0)");
+}
+
+// 完成首页初始化
+apiready = function() {
+    
+    thirdHeader = $api.byId('thridHeader');
+    
+    var fortheader = $api.byId('fortheader');
+    var firstHeaderIndex = $api.byId('firstHeaderIndex');
+
+    $api.fixIos7Bar(thirdHeader);
+
+    // TODO 一定记得修改
+    firstHeaderOffset = $api.offset(thirdHeader);
+    firstHeaderIndexHeight = $api.offset(firstHeaderIndex).h;
+
+    // firstHeaderOffset.h -= firstHeaderIndexHeight;
+    
+    
+
+    var main = $api.byId('main');
+    var mainPos = $api.offset(main);
+
+    var scrollHeight = $api.dom('.navbar').offsetHeight;
+    // $api.byId('navmark').style.width = api.winWidth / 4 + 'px';
+
+    openFirstFramegroup();
+
+};
+</script>
+</html>

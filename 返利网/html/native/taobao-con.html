@@ -1,0 +1,93 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,initial-scale=1.0,width=device-width"/>
+    <title>APP</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/common.css" />
+    <style>
+        .header{
+            height: 47px;
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-orient: horizontal;
+            -webkit-flex-flow: row;
+                    flex-flow: row;
+            box-shadow: 0 0 3px #C5C5C5;
+            border-bottom: 1px solid #C5C5C5;
+        }
+        .header-left{
+            width: 48px;
+            background:#FF4300 url(../../res/taobao_ico.png) center center no-repeat;
+            background-size: 80%;
+        }
+        .search-box{
+            -webkit-box-flex: 1;
+            display: -webkit-flex;
+            display: flex;
+            display: -webkit-box;
+            -webkit-flex: 1;
+            flex: 1;
+            padding: 8px 10px;
+        }
+        .search-inner{
+            width: 100%;
+            display: block;
+            height: 29px;
+            border:1px solid #939495;
+            box-shadow: inset 0px 0px 3px #939495;
+        }
+        .search-box input{
+            color: #000;
+            font-size: 1em;
+            text-indent: 4px;
+            position: relative;
+            top: 6px;
+            float: left;
+            overflow: hidden;
+            outline: none;
+        }
+        .search-icon{
+            width: 29px;
+            height: 29px;
+            background: url(../../res/taobao_search_icon.png) 4px center no-repeat;
+            background-size: 15px 15px;
+            float: right;
+        }
+        #main{
+            background:#FFF url(../../res/taobao_bg.png) center 113px no-repeat;
+            background-size: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div id="wrap">
+        <div id="main">
+            <div class="header">
+                <div class="header-left">
+                    
+                </div>
+                <div class="search-box">
+                    <div class="search-inner">
+                        <input type="text" placeholder="搜淘宝宝贝拿返利">
+                        <i class="search-icon">
+                        </i>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/common.js"></script>
+<script type="text/javascript" src="../../script/zepto.js"></script>
+<script type="text/javascript">
+
+    apiready = function(){
+
+    };
+</script>
+</html>

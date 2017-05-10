@@ -1,0 +1,115 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>MI</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/xyc.css"/>
+    <style>
+    	
+    </style>
+</head>
+<body>
+<div id="wrap">
+    <div id="main">
+    	<div class='mi_set_nikename_con'>
+	    	<input class='set_nikename_input1' type='text' maxlength="10" id='set_nikename_input'/>
+	    	<h5>昵称须知：昵称不能为空，最多输入10个字符</h5>
+	    	<a class='set_nikename_btn' id='set_nikename_btn'     href="javascript:;">保&nbsp;存</a>
+    	</div>
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/comm.js"></script>
+<script type="text/javascript" src="../script/auth.js"></script>
+<script type="text/javascript" src="../script/font.js"></script>
+<script type="text/javascript" src="../script/zepto.js"></script>
+<script>
+	apiready = function(){
+		var nickname=getstor('nickname')  ?  getstor('nickname') : ''; 
+		$('#set_nikename_input').val(nickname);
+		$('#set_nikename_btn').click(function(){
+			var name =$api.trimAll($('#set_nikename_input').val());
+//			if(getstor('nickname')&&name==getstor('nickname')){
+//				api.toast({
+//		                msg:'昵称没有变化!'
+//	                });	
+//	               return false;
+//			}
+			if(name==''){
+			    api.toast({msg:'昵称不能为空!', location: 'middle'});
+				return false;
+			}
+			if(name.length>10){
+				 api.toast({msg:'最多输入10个字符!', location: 'middle'});
+				return false;
+			}
+			var regex = /^[0-9]*$/;
+			if(regex.test(name)){
+			    api.toast({msg: '昵称不可仅数字!', location: 'middle'});
+				return false;
+			 }		
+			do_change({nickname:name},function(ret,err){
+				if(ret.status){	
+//					api.toast({
+//		                msg:'昵称修改成功!'
+//	                });	
+	                //更新localstorage
+	                var user=$api.getStorage("mine");
+	                user.nickname=name;
+	                $api.setStorage("mine",user); 
+                	api.execScript({
+		                name:'mi_sethead_w',
+		                frameName:'mi_set_f',
+		                script: 'nickname("'+name+'");'
+                	});
+	                api.execScript({
+		                name:'root',
+		                frameName:'mi_f',
+		                script: 'my_name("'+name+'");'
+	                });  
+	               	                     
+	                //更新用户信息表	
+//					api.closeFrame();						
+				}else{
+					if(ret.info=='no_login'){
+						to_login();
+						return false;
+					}
+					 api.toast({msg:ret.info, location: 'middle'});
+				}
+			});	
+		})
+	}
+	function do_change(param,callback){
+		var info=is_login();
+		if(!info){
+			to_login();
+			return false;
+		}
+		for(var p in info){
+			param[p]=info[p];
+		}
+		 api.showProgress({
+		 	title: '处理中',
+			modal: false
+		}); 
+		setTimeout(function(){
+			api.hideProgress();
+		},500);		
+		ajaxRequest('user/save_myinfo','post',param,function(ret,err){
+			api.hideProgress();
+			if(err){
+				api.toast({
+	                msg:err.msg
+                });
+                return false;
+			}
+			callback(ret);			
+		});	
+	}
+
+</script>
+</html>

@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+<head>
+	<title></title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+	<link rel="stylesheet" href="css/ui-btn.css">
+    <link rel="stylesheet" href="css/ui-input.css">
+    <link rel="stylesheet" href="css/ui-img.css">
+    <link rel="stylesheet" href="css/ui-res.css">
+    <link rel="stylesheet" href="css/ui-list.css">
+    <link rel="stylesheet" href="css/ui-base.css">
+    <link rel="stylesheet" href="css/ui-box.css">
+    <link rel="stylesheet" href="css/ui-color.css">
+	<link rel="stylesheet" href="css/style.css">
+    <script src="js/y_control.js"></script>
+    <script src="js/y_click.js"></script>
+	<script src="js/config.js"></script>
+	<script src="js/dis_control.js"></script>
+	<script src="js/y_json.js"></script>
+	<script src="js/y_anim.js"></script>
+	<script src="js/socketio/talkUtil.js"></script>
+    <script src="js/project/login.js"></script>
+	
+	<script>
+	</script>
+    <style>
+        body {
+            /*background-image: url(images/login_bg.png);
+            background-repeat:  no-repeat;
+            background-size: 100%;*/
+        }
+        .c-log {
+            background-color: #D36;
+        }
+    </style>
+</head>
+<body class="um-vp" ontouchstart>
+    <div id="page_0" class="up ub ub-ver" tabindex="0">
+        <!--header开始-->
+        <div id="header" class="uh c-blu3">
+            <div class="c-blu3 t-wh">
+                <a class="btn btn-l btn-a ub ub-ac" ontouchstart="zy_touch('btn-act1')" onclick="closewin();">
+                    <div class="ulim"><img src="images/back.png" class="sbtn"></div>
+                </a>
+                <h1 class="umh5 ulev0 ut-s tx-c" id="ttl">&nbsp;</h1>
+                <a class="btn btn-r btn-n ub ub-ac ulev1" ontouchstart="zy_touch('btn-act1')" onclick="openRegister();" id="resg">
+                    <div class="ulim" id="btn_title">注册</div>
+                </a>
+            </div>
+        </div>
+
+        <div id="header1" class="c-blu3 uh ub-f1 ub ub-ac ub-pc ub-ver">
+            <div class="ub ub-f1 ub-ver ub-pc ub-ac">
+                <div class="ulev3 t-wh">相约、相伴</div>
+                <div class="ulev3 t-wh umar-t">一生的朋友</div>
+            </div>
+        </div>
+        <!--header结束-->
+        <!--content开始-->
+        <div id="content" class="t-bla ub-ac tx-l c-gra umh10">
+            <div id="page1" class="uinn18 ub ub-ver ub-pc ub-ac">
+                <div class="uc-t ub c-m2 t-bla ub-ac umh3 lis">
+                    <div class="ut-s">帐号</div>
+                    <div class="ub-f1 tx-r t-gra ulev-3 umar-l">
+                        <div class="uinput">
+                            <div class="uinn1 ufl">
+                                <input placeholder="手机号码/用户名" type="text" class="uc-n ulev0" id="uid" value="">
+                            </div>
+                            <div class="ufl ubl ubr ubb b-org" style="height: .3em; width: 100%;"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="uc-b c-m2 ub t-bla ub-ac umh3 lis">
+                    <div class="ut-s">密码</div>
+                    <div class="ub ub-f1 tx-r t-gra ulev-3 umar-l">
+                        <div class="uinput">
+                            <div class="uinn1 ufl">
+                                <input placeholder="请输入密码" type="password" class="uc-n ulev0" id="upass" value="">
+                            </div>
+                            <div class="ufl ubl ubr ubb b-org" style="height: .3em; width: 100%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="ub ub-ac ub-pc t-bla uinn10">
+                <div class="ub ub-f1 uinn17">
+                    <div id="wechat_login" class="uhide">
+                        <div onclick="login_weixin();" ontouchstart="zy_touch('btn-act1')" class="ub ub-ac ub-f1">
+                            <div class="im-wexin ub-img5 newpic"></div>
+                            <div class="ub-f1 ut-s tx-l">微信登录</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ub tx-r" ontouchstart="zy_touch('btn-act1')" onclick="login_Forget();" >
+                    忘记密码？
+                </div>
+            </div>
+        </div>
+        <!--content结束-->
+        <div id="footer" class="ub ub-ver ub-pc ub-ac uf t-wh">
+            <div ontouchstart="zy_touch('btn-act')" onclick="login(1);" class="ub umh5 ub-ac c-wh uh ub-pc ubt b-gra">
+                登  录
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+zy_init();
+var params = getStorJson('params');
+var view = params.view;
+var uname = params.uname;
+//var ost = getStorJson('usetting');
+//if(ost.regstatus!="1") removeNode('resg');
+window.uexOnload = function(type){
+    Y.wechatInstalled({//显示微信登录
+        callback: function(installed){
+            if(installed) zy_anim_pop('wechat_login', 'uhide');
+        }
+    })
+
+	if(uname){
+		setValue('uid', uname);
+		setValue('upass', '');
+	}
+
+	if(view=='setlist_secure'){
+		var unm = getstorage('username');
+		setValue('uid', unm);
+        setTimeout(function(){closewin(0, 'setlist');}, 500);
+	}else if(view=='login_forget'){//james，忘记密码，重置密码后，自动带出用户名
+        var unm = getstorage('username');
+        setValue('uid', unm);
+    }else{
+		var obj = getStorJson('login_infor');
+		if(obj.uname){
+			setValue('uid', obj.uname);
+			if(obj.upwd)setValue('upass', obj.upwd);
+		}
+	}
+
+	if(getstorage('simulate')){
+		setValue('uid', 'xxzhu');
+		setValue('upass', 'xxzhupwd');
+	}
+}
+//打开注册窗口
+function openRegister(){
+    openwin('register', 'register.html', '10');
+}
+function login_Forget(){
+    openwin('forget', 'login_forget.html', '10');
+}
+
+/**james
+ * 1 忘记密码，重置密码后，自动带出用户名,供跨窗口调用
+ * 2 注册时如手机号和用户名已注册后，自动带出手机号或用户名,供跨窗口调用
+  */
+function getLogininfor(){
+    var params = getStorJson('params');
+    var view = params.view;
+    var uname = params.uname;
+    if(view=='setlist_secure'){
+        var unm = getstorage('username');
+        setValue('uid', unm);
+    }else if(view=='login_forget'|| view=='register'){
+        if(!uname) return ;
+        setValue('uid', uname);
+        setValue('upass', '');
+    }else{
+        var obj = getStorJson('login_infor');
+        if(obj.uname){
+            setValue('uid', obj.uname);
+            setValue('upass','');
+        }
+    }
+}
+
+function login_weixin(){
+	var weiXin = api.require('weiXin');
+	weiXin.registerApp(function(ret,err){
+        if (ret.status) {
+            weiXin.auth(function(ret,err){
+                if(ret.status){
+                    //alert("auth："+ret.token);
+                    weiXin.getUserInfo(function(ret,err){
+                        if(ret.status){
+                            userInfo = ret;
+                            wx_login();
+                            //alert('unionid：'+ret.unionid+';nickname：'+ret.nickname);//用户统一标识。针对一个微信开放平台帐号下的应用，同一用户的unionid是唯一的。
+                        }else{
+                            if(refreshed) api.alert({msg: "获取信息失败: " + err.msg});
+                            refreshToken();
+                        }
+                    });
+                }
+            });
+        }else{
+            api.alert("不能注册微信服务：" + err.msg);
+        }
+    });
+}
+var refreshed = 0;
+function refreshToken(){
+    refreshed = 1;
+    var weiXin = api.require('weiXin');
+    weiXin.refreshToken(function(ret,err){
+        if(ret.status){
+            api.alert({msg: '请再次点击'});
+        }else{
+            //api.alert({msg: err.msg});
+        }
+    });
+}
+/**
+ * 利用openid，unionid登录，如果登录成功直接提示成功，不能登录时提示用户名，供用户修改，再提交注册
+ */
+var userInfo = {};
+/*var userInfo = {
+ openid:    json.openid,  //普通用户的标识，对当前开发者帐号唯一
+ nickname:  encodeURIComponent(json.nickname),    //普通用户昵称
+ sex:       json.sex,   //普通用户性别，1为男性，2为女性
+ province:  encodeURIComponent(json.province),  //普通用户个人资料填写的省份
+ city:      encodeURIComponent(json.city),  //普通用户个人资料填写的城市
+ headimgurl: json.headimgurl, //用户头像，最后一个数值代表正方形头像大小（有0、46、64、96、132数值可选，0代表640*640正方形头像），//用户没有头像时该项为空
+ unionid:    json.unionid    //用户统一标识。针对一个微信开放平台帐号下的应用，同一用户的unionid是唯一的。
+ }*/
+function wx_login(){
+    var url = login_url + "&mod=logging&action=login&appplatform=1&wx_login=1";
+    //传入username, unionid, openid
+    url += '&username=' + encodeURIComponent(userInfo.nickname) + '&unionid=' + encodeURIComponent(userInfo.unionid) + '&openid=' + encodeURIComponent(userInfo.openid);
+    uexWindow.toast('1', '5', "登录中...", '2000');
+    $.getJSON(url, function(json) {
+        uexWindow.closeToast();
+        var str = json.message ? json.message : '登录失败';
+        if (int(json.status) == 1 || json.status == 'LoginSuccess') {//登录成功, LoginSuccess老版本
+            uexWindow.toast('0', '5', str, 1500);
+            onLogin(json, '1');
+            setTimeout('closewin(0, \'login\');', 1500);
+        }else if(int(json.status) == 2) {//需要注册，提示用户改用户名
+            prompt_username(json.username);
+        }else{
+            uexWindow.toast('0', '5', str, 2000);
+        }
+    }, 'json', getJsonErr, 'POST', '', '');
+}
+/**
+ * @param ret 用户点击prompt的结果
+ */
+function wx_register(ret){
+    if(ret.buttonIndex == 1) return;//取消，第一个按钮
+    userInfo.username = ret.text;
+    url = login_url + "&mod=register&action=register&appplatform=1&wx_register=1";
+    var value = '';
+    for(var key in userInfo){
+        if(key == 'nickname' || key == 'country' || key == 'privilege') continue;
+        value = userInfo[key];
+        if(value) value = encodeURIComponent(value);
+        url += '&' + key + '=' + value;
+    }
+    uexWindow.toast('1', '5', "登录中...", '2000');
+    $.getJSON(url, function(json) {
+        uexWindow.closeToast();
+        var str = json.message ? json.message : '登录失败';
+        if (json.uid && parseInt(json.uid) > 1) {//注册成功并且登录
+            uexWindow.toast('0', '5', str, 1500);
+            onLogin(json, '');
+            setTimeout('closewin(0, \'login\');', 1500);
+        }else{//用户名不合法，重复，保留等问题
+            uexWindow.toast('0', '5', str, 1500);
+            setTimeout(function(){
+                prompt_username(ret.text);//登录不成功不要重新开始授权
+            }, 1500)
+        }
+    }, 'json', getJsonErr, 'POST', '', '');
+}
+function prompt_username(username){
+    Y.prompt({
+        title: '第一次微信登录，请确认用户名',
+        msg: '可以修改为你要显示的用户名',
+        text: username,
+        buttons: ['取消', '登录'],
+        callback: wx_register //确认登录时，去注册
+    });
+}
+</script>
+</html>

@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>
+    </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="../../css/ui-btn.css">
+    <link rel="stylesheet" href="../../css/ui-img.css">
+    <link rel="stylesheet" href="../../css/ui-res.css">
+    <link rel="stylesheet" href="../../css/ui-list.css">
+    <link rel="stylesheet" href="../../css/ui-base.css">
+    <link rel="stylesheet" href="../../css/ui-box.css">
+    <link rel="stylesheet" href="../../css/ui-color.css">
+	<link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/ui-card.css">
+    <link rel="stylesheet" href="css/common.css">
+    <script src="../../js/y_control.js"></script>
+    <script src="../../js/y_click.js"></script>
+    <script src="../../js/config.js"></script>
+	<script src="../../js/dis_control.js"></script>
+	<script src="../../js/y_json.js"></script>
+	<script src="../../js/y_tmpl.js"></script>
+	<script src="../../js/y_anim.js"></script>
+	<script src="../../js/y_slide.js"></script>
+	<script src="../../js/y_icache.js"></script>
+	<script src="../../js/dis_share.js"></script>
+	<script src="../../js/y_event.js"></script>
+    <script src="script/common.js"></script>
+
+    <script>
+	</script>
+	<style>
+    .quote{
+        padding:.2em;
+        background-color:#f9f9f9;
+        border-radius: .3em;
+    }
+    .q1{
+        background: url(../../images/yl.png);
+        -webkit-background-size:auto 80%;
+        background-size:auto 80%;
+        background-repeat:no-repeat;
+        background-position:center;
+        width: .6em;
+        height: .6em;
+        display: inline-block;
+        margin: 0 .2em .4em .2em;
+    }
+    .q2{
+        background: url(../../images/yr.png);
+        -webkit-background-size:auto 80%;
+        background-size:auto 80%;
+        background-repeat:no-repeat;
+        background-position:center;
+        width: .6em;
+        height: .6em;
+        display: inline-block;
+        margin: 0 .2em .4em .2em;
+    }
+    .t-wh span {color: white;}
+    p .cimg{
+        border:1px solid #aaa;
+        background-color: #fff;
+        padding: .3em;
+        border-radius: .4em;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, .3);
+        width:95%;
+    }
+  </style>
+  </head> 
+<body class="um-vp c-gra5" ontouchstart id="myevt">
+	<!--帖子内容-->
+    <div class="ubb b-gra2" id="content"></div>
+    <div class="uhide" id="content_tpl">
+        <div class="ub umh6 uinn18 ub-ver" id="${tid}" style="background-color:${cb:bg_style}">
+            <div class="ub-f1 ub ub-ver">
+                <div class="ub ub-ac" ontouchstart="zy_touch('c-gra')" ontouchstart="zy_touch('c-gra')" onclick="alert_anonymous(${from_uid}, ${verified});">
+                    <div class="ub-img1 inforpic2 umar-r ${cb:avatar}" id="suid_${tid}_${from_uid}"></div>
+                    <div class="ub ub-ver ub-f1">
+                        <div class="ub ub-ac ub-f1 umar-b">
+                            <div class="ub ub-ac ub-f1 ulev-1 t-gra ${cb:c_style}" id="author_name">匿名发布：${author}</div>
+                            <div class="ub t-org uinn3 umar-l ulev-1">${cb:relation}</div>
+                        </div>
+                        <div class="ub">
+                            ${cb:verify}
+                            <div class="ub ub-ac ulev-1 t-gra ${cb:c_style}">${cb:profile}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ub ub-ver umar-t30 umar-b30" ontouchstart="zy_touch('')" ontouchstart="zy_touch('c-gra')" onclick="">
+                    <div class="ub ub-ac ub-f1 uinn3 umh3 ulev1">
+                        <div class="ub-f1 umh4 umar-t ulh1 uof ${cb:c_style}">${message}</div>
+                    </div>
+                    <div class="t-gra ulev-1 ${cb:c_style}">${cb:info}</div>
+                </div>
+            </div>
+            <div class="ub ub-ac ulev-1 umar-t1">
+                <div class="ub ub-f1 umar-l">
+                    <div class="t-gra ${cb:c_style}">${share_time}</div>
+                    <div class="t-gra umar-l ${cb:c_style}">${cb:distance}</div>
+                </div>
+                <div class="ub">
+                    <div class="ub ub-ac uinn" ontouchstart="zy_touch('c-gra')" ontouchstart="zy_touch('c-gra')" onclick="go2new5(${tid}, ${pid}, ${from_uid})">
+                        <div class="umh2 umw1 ub-img8 im-reply${cb:i_style}"></div>
+                        <div class="umar-r ${cb:c_style}">评论</div>
+                        <div id="t_count_${tid}" class="${cb:c_style}">${replies}</div>
+                    </div>
+                    <div class="ub ub-ac uinn" ontouchstart="zy_touch('c-gra')" onclick="go2members('${tid}', '${fid}', '${from_uid}', '${subject}', '${applied}');">
+                        <div class="umh2 umw1 ub-img8 im-2dating${cb:i_style}"></div>
+                        <div class="umar-r ${cb:c_style}">要约</div>
+                        <div id="m_count_${tid}" class="${cb:c_style}">${m_count}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="ufr">
+        <div ontouchstart="zy_touch('c-gra')" onclick="report_thread();" class="t-gra ulev-1 uinn umar-r">举报</div>
+    </div>
+	<div class="umar-t1 umar-l uhide" id="cmnum">
+        <div class="uinn11 ubb b-org" id="replynum" onclick="">匿名评论</div>
+	</div>
+	
+	<!--回帖列表-->
+	<div id="comlist">
+		<div></div>
+	</div>
+	<div class="ub umar-t30 umar-b30">&nbsp;&nbsp;</div>
+</body>
+<script>
+zy_init();
+var usetting = getStorJson('usetting');
+var config_report = force_int(usetting['config_report']);//配置举报
+var params = getStorJson('params');
+var tid = params.tid;
+var pid = params.pid;//要回复的pid
+var t_pid = pid;//帖子的pid一直保留，回复时判断是否添加'回复xxx'的字眼
+var r_author = '';//要回复的花名
+var auid = params.authorid;//主题的作者
+var applied = '';
+var subject = '';
+var windWH = '';
+var ucurl = guc;
+var curp = 1;
+var totp = 1;
+var cnum = 0;//评论数
+var current_win = 'dating_detail';
+var thumbUrl = '';
+var wname = '';
+var popname = '';
+if(params.wname) wname = params.wname;
+if(params.popname) popname = params.popname;
+var bg_color = params.bg_color;
+var txt_color = params.txt_color;
+zy_anim_pop('author_name', 'uhide');//和列表不同的是显示花名
+var fromCache = 0;
+window.uexOnload = function (){
+    windWH = "&width="+int(window.innerWidth)+"&height="+int(window.innerHeight);
+	setPageBounce(downcb, upcb);
+	zy_initcache();
+    loadListForum('1');
+    if(fromCache) loadListForum('');
+
+    handle_replies();
+    if(!isSML) openChatbox();
+};
+function upcb(){
+    if (curp < totp) {
+        handle_replies(curp + 1);
+    }else resetBV('1');
+}
+function downcb(){
+	resetBV('0');
+	uexWindow.toast('1','5','更新中...',"");
+    loadListForum('');
+    handle_replies();
+}
+
+/*帖子内容*/
+function loadListForum(fg){
+    if(going) return;
+    going = 1;
+	uid = getstorage('UID');
+	var url = forum_url + "&mod=ajax&action=getpost&tid=" + tid + windWH +"&guid="+uid;
+    fromCache = checkKey(url);
+	if(!fromCache) uexWindow.toast('1','5','加载中...',"");
+	$.getJSON(url, loadListForumCb, 'json', getJsonErr, 'POST', '', fg, '1');
+}
+
+function loadListForumCb(json){
+    going = 0;
+    uexWindow.closeToast();
+	if(json){
+        //判断主题的状态
+		var ss = Int(json.status);
+		if (ss<0) {
+			if(ss==-3) myConfirm(json.message, current_win);
+			else uexWindow.toast('0','5',json.message,2000);
+			return;
+		}
+		var o = json;
+		if(!o.tid){
+			myConfirm('抱歉，指定的主题不存在或已被删除或正在被审核', current_win);
+			return;
+		}
+
+        //取全局变量
+        var ac = o.activity;
+        applied = ac.applyed;//是否要约
+        cnum = o.replies;//回复数
+        auid = o.authorid;//发起人
+        subject = o.subject;
+
+        //跟活动数据结构相关的信息
+        if(uid != auid){//不是发起人时
+            uescript(current_win, 'addJoinNode(' + applied + ');');
+        }else{
+            uescript(current_win, 'addJoinNode(2);');//添加要约成员
+        }
+
+        //初始化模版中要用到的变量，模版与list_content中尽量保持一致，所以建立神秘约会与活动数据结构对应关系
+        var list = [{
+            from_uid: o.authorid,
+            applied: ac.applyed,
+            verified: ac.appstatus,
+            gender: o.gender,
+            verify: o.verify,
+            author: o.author,
+            degree: o.degree,
+            same_company: o.same_company,
+            same_graduateschool: o.same_graduateschool,
+            age: o.age,
+            height: o.height,
+            occupation: o.occupation,
+            message: o.message,
+            starttimefrom: ac.starttimefrom,
+            place: ac.place,
+            img: o.img,
+            share_time: o.dateline,
+            distance: o.distance,
+            fid: o.fid,
+            tid: o.tid,
+            pid: o.pid,
+            replies: o.replies,
+            subject: o.subject,
+            m_count: ac.applynumber,
+        }];
+        var tmpl = $$('content_tpl').innerHTML;
+        var length = zy_tmpl_count(list);
+        var res = zy_tmpl(tmpl, list, length, j2vCb_list);
+		setHtml('content', res);
+        if(o.latitude && o.longitude){
+            if($$('info_place')) $$('info_place').onclick = function(){lookmap(o.latitude, o.longitude,  o.subject);}//地点有可能不存在
+            zy_anim_pop('place_img', 'im-dplace-gra');
+            zy_anim_push('place_img', 'im-dplace');
+        }
+        imgCacheCall();
+		onloadimg();
+        //handle_replies();
+	}
+}
+function lookmap(lat, log, subject){
+	setstorage('params','{"lat":"'+lat+'", "log":"'+log+'", "subject":"'+ subject +'"}');
+	openwin('map','../../map.html','10');
+}
+/**
+ * 为imagebrowser准备list
+ */
+var ii = 0;
+function onloadimg(){
+	var ee = document.getElementsByTagName("img");
+	var imgsrc = '';
+	for(var key in ee)
+	{
+		var eimage = ee[key];
+		imgsrc = eimage.src;
+		
+		if(imgsrc && imgsrc.indexOf('http://')==0 && eimage.onclick!=null && !eimage.id)
+		{
+			var id = "img_"+ii;
+			//eimage.src = '';
+			eimage.id = id;
+
+			var pattern = /&src=(.*?)&/i; 
+        	var imgs = pattern.exec(imgsrc); 
+			if(imgs && imgs[1]) imgs = imgs[1];
+			else{
+				imgs = imgsrc.split('&src=');
+				if(imgs && imgs[1]) imgs = imgs[1];
+				else imgs = imgsrc;
+			}
+			imglists[ii] = imgs;
+            /*pushCacheCall(function(){
+                dis_imgcache(id,imgsrc,imgsrc,imgLoadSucSrc,imgLoadErrSrc,null,'', '1');
+            });*/
+			ii++;
+		}
+	}
+}
+function activityCancel(){
+	var url = forum_url + '&mod=ajax&action=activitycancel&tid='+tid;
+	$.getJSON(url, function(json) {
+		var str = '取消要约成功';
+		if(json==0) str = '取消要约失败';
+		else{
+            uescript(current_win, 'joinResult("0")');
+            add_count('member', tid, -1);
+            //ueppscript('dating_list', 'content', "add_count('member', " + tid + ", -1);");//todo 如果该页面存在的话，执行，不存在时会错误吗？
+            //列表刷新掉，否则已经取消的再次点击时，还是会提示已经要约,//todo 刷新带来的问题是，颜色会变掉。
+            ueppscript('dating_list', 'content', "loadList('', '0', '');");
+            applied = '';
+        }
+		uexWindow.toast('0', '5', str, 2000);
+	}, 'json', getJsonErr, 'POST', '', '');
+}
+function go2user5(_uid, _username){
+    var params = {uid: _uid};
+    if(_username) params.username = _username;
+	setStorJson('params', params);
+	openwin('friend_information', '../../friend_information.html','10');
+}
+
+/**
+ * 回帖列表
+ */
+function handle_replies(pn){
+    if(1 || cnum > 0) loadListCom(pn);//如果判断的cnum的话，获取回复必须要放在获取内容的的getjson之类，否则可能cnum还没取到，获取回复就不执行了
+}
+
+function loadListCom(pn){
+    //if(going) return;
+    //going = 1;
+    var pstr = '';
+    if(t_pid){
+        pstr = '&pid=' + t_pid;
+    }
+    uexWindow.toast('1', '5', '加载中...', '');
+    var url = forum_url + "&mod=ajax&action=loadreply&tid="+tid+"&page="+pn+windWH+"&guid="+uid + pstr;
+    $.getJSON(url, loadListComCb, 'json', getJsonErr, 'POST', '', /*(pn ? '' : 1)*/'');//第一页使用缓存
+}
+function loadListComCb(json){
+    //uexWindow.closeToast();
+    //going = 0;
+    shwoReplies(json, '');
+    resetBV('0');
+}
+function shwoReplies(json, append){
+    if(json){
+        var list = json.list || json[0];
+        if(list){
+            if(zy_tmpl_count(list)) zy_show('cmnum');//显示评论title
+            var tmpl = '<div  class="b-gra ubb1 uc-n" id="${authorid}_${pid}">'
+                            +'<div class="uc-n ub b-gra t-bla ub-at lis">'
+                                +'<div class="ub-img1 dating_avatar ${cb:avatar}" id="pic${pid}" onclick="replyAct(${authorid}, \'${pid}\', \'${author}\');" ontouchstart="zy_touch(\'c-gra\')">'
+                                +'</div>'
+                                +'<div class="ub-f1 ub ub-ver" onclick="replyAct(${authorid}, \'${pid}\', \'${author}\');" ontouchstart="zy_touch(\'c-gra\')">'
+                                    +'<div class="ulev0 ub ub-ac"><div class="ub ub-ac ub-f1">${cb:author}</div><div class="ulev-1 t-gra ufr">${dateline}</div></div>'
+                                    +'<div class="ulev-1 umh4 umar-t ulh1 uof umh3" id="${pid}_message">${message}</div>'
+                                +'</div>'
+                            +'</div>'
+                            +(config_report ? ('<div class="ub">'
+                                +'<div class="ub-f1"></div>'
+                                +'<div class="t-gra ulev-1 uinn umar-r" ontouchstart="zy_touch(\'c-gra\')" onclick="report_thread(${pid});">举报</div>'
+                            +'</div>') : '')
+                    +'</div>';
+            var res = zy_tmpl(tmpl,list,zy_tmpl_count(list),j2vCb);
+
+            var cContent = $$('comlist');
+            if(append){
+                var node = createEle("div");
+                node.innerHTML = res;
+                cContent.appendChild(node);
+            }else{
+                setHtml('comlist', res);
+            }
+            onloadimg();
+
+            var cp = json.zywy_curpage;
+            var tp = json.zywy_totalpage;
+            if(cp) curp = Int(cp);
+            if(tp) totp = Int(tp);
+        }else if(json.msg){
+            var res = '<div class="uinn1">'+json.msg+'</div>';
+            setHtml('comlist', res);
+        }else setHtml('comlist', '评论列表加载有误，请刷新！');
+        imgCacheCall();
+        //var navParams = JSON.stringify({cnum: json.count});
+    }
+}
+function j2vCb(d,c)
+{
+    var str = '';
+    if(c.length>1)
+    {
+        switch(c[1])
+        {
+            case 'avatar':
+                //显示头像的情况：1，发起人或者评论者是浏览者，能看到自己的，2，浏览者是发起人，且某个评论者做了要约，能看到评论者
+                //3.浏览者是要约人，且要约成功，能看到发起人
+                if(int(d.applied) && uid == auid || uid == d.authorid || int(d.verified) && d.authorid == auid){
+                    var src = ucurl + d.authorid;
+                    var avatarid = 'pic'+d.pid;//'suid_'+ d.tid + '_' + d.from_uid;
+                    pushCacheCall(function(){
+                        dis_imgcache(avatarid,src,src,imgLoadSuc,imgLoadErr,null,'','');
+                    });
+                }else{
+                    str = (d.gender == 2 ? 'im-female' : 'im-male');
+                }
+                break;
+            /*case 'img':
+                var src = ucurl+d.authorid;
+                if(d.anonymous=="1") src=ucurl2+'/images/noavatar_middle.gif';
+                pushCacheCall(function(){
+                    dis_imgcache('pic'+d.pid,src,src,imgLoadSucSrc,imgLoadErrSrc,null,'', '');
+                });
+                break;*/
+            case 'author':
+                //if(d.anonymous=="1") str='匿名';
+                str = '<div id="' + d.pid + '_author">' + d.author + '</div>';
+                if(d.authorid == auid) str += '<div class="t-gra umar-l ulev-1">发起人</div>'
+                break;
+        }
+    }
+    return str;
+}
+var keyboard_show = 0;
+//评论框获得焦点，评论回复用，pid为回复的pid
+function replyAct(aid, c_pid, author){
+    if(!checkLogin()) return;
+    //var res = hyperlinkHandle(event);
+    //if(res || !act) return;
+    pid = c_pid;
+    if(keyboard_show) Y.inputKeyboard({show: 0});
+    openChatbox("回复" + author, 1);
+    keyboard_show = 1
+}
+
+//评论框获得焦点，评论主题用，pid为主题的pid
+function go2new5(tid, c_pid, aid){
+    pid = c_pid;
+    if(keyboard_show) Y.inputKeyboard({show: 0});
+    openChatbox('匿名评论', 1);
+    keyboard_show = 1;
+}
+function openChatbox(placeholder, keyboard){
+    Y.inputOpen({
+        placeholder: placeholder || '匿名评论',
+        keyboard: keyboard,
+        callback: function(ret){
+            var sendMsg = ret.msg;
+            if(sendMsg == ""){
+                return;
+            }
+            var en_sendMsg = encodeURIComponent(sendMsg);
+            //如果是回复主题，不要传pid，服务器就不会将帖子的内容作为有评论的引用写入message
+            var url = forum_url + '&mod=post&action=reply&tid=' + tid + '&pid=' + (pid == t_pid ? '' : pid) + '&replysubmit=1&message=' + en_sendMsg;
+            $.getJSON(url, function(json){
+                if(!int(json.pid)) return;
+                //将消息追加评论列表
+                if(pid != t_pid){//是评论，需要加上引用信息
+                    var quote_author = $$(pid + '_author').innerHTML;
+                    var quote_message = $$(pid + '_message').innerHTML;
+                    quote_message = quote_message.replace(/(\n)/g, "");
+                    quote_message = quote_message.replace(/(\t)/g, "");
+                    quote_message = quote_message.replace(/(\r)/g, "");
+                    quote_message = quote_message.replace(/<p class="quote">.*<\/p>/g, '');//正则去掉引用的引用
+                    console.log(quote_message);
+                    sendMsg = '<p class="quote"><span class="q1"></span>' + quote_author + '：' + quote_message + '<span class="q2"></span></p>' + sendMsg;//加样式
+                }
+                console.log(sendMsg);
+                var json_msg = {//和获取的回复列表的结构保持一致，但是只有一条，
+                    author: json.author,//取回的花名
+                    authorid: uid,
+                    message: sendMsg,
+                    dateline: '刚刚',
+                    pid: json.pid//新回复的pid
+                };
+                shwoReplies({list: [json_msg]}, 1);
+                //改变评论数
+                add_count('reply', tid, '');
+                ueppscript('dating_list', 'content', "add_count('reply', '"+ tid +"');");
+                if(pid != t_pid){//回复评论完成后，回到匿名评论的状态
+                    if(keyboard_show) Y.inputKeyboard({show: 0});
+                    openChatbox();
+                    pid = t_pid;
+                }
+            }, 'json', getJsonErr, 'POST', '', '');
+        }
+    });
+}
+//举报活动，攻略内容或者具体的某条回复，pid为空表示举报主题内容
+function report_thread(pid){
+    var report_data;
+    if(!pid){
+        report_data = {
+            rtype : 'thread',
+            fid : fid,
+            rid : tid,
+            tid : tid,
+            uid : ''
+        };
+    }else{
+        report_data = {
+            rtype : 'post',
+            fid : fid,
+            rid : pid,
+            tid : tid,
+            uid : ''
+        };
+    }
+    report_action(report_data);//有多个actionsheet的回调，因此要单独用Y.actionsheet来处理，在其中拼出message
+}
+var color_type = 2;
+var deep_type = '4';
+if(txt_color == 't-wh') color_type = deep_type;
+
+function get_bg_style(){
+    if(bg_color) return bg_color;
+    var color_array = ['#eeffee', '#ddffe0', 'E893E2', '#33dddd','ghostwhite', 'lightgray'];
+    var index = Math.floor(Math.random() * (color_array['length'] - 1));
+    bg_color = color_array[index];
+    return bg_color;
+}
+function get_c_style(){
+    if(txt_color) return txt_color;
+    else return '';
+}
+function get_i_style(){
+    var str = '';
+    if(txt_color == 't-wh'){
+        str =  '1'
+    }
+    return str;
+}
+
+</script>
+</html>

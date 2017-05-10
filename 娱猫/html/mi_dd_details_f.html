@@ -1,0 +1,575 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>设置</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <style>
+    	html,body{
+    		background:white;
+    	}
+    	.dd_details_h3{
+    		font-size:0.22rem;
+    		color:#565656;
+    		font-weight:normal;
+    		padding-left:0.2rem;
+    		line-height:0.76rem;
+    	}
+    	.dd_bianhao,.dd_status{
+    		color:#a2a2a2;
+    	}
+    	.dd_details_lianxi{
+    		background:#f7f7f7;
+    		padding:0.26rem 0.36rem;
+    		margin-bottom:0.2rem;
+    	}
+    	.dd_details_lianxi h3{
+			padding-left:0.53rem;
+			background:url(../image/mi_add_user.png) no-repeat left top;
+			background-size:0.31rem 0.32rem;
+			font-size:0.3rem;
+			color:#565656;
+			font-weight:normal;
+			line-height:0.32rem;
+			margin-bottom:0.18rem;
+			min-height:0.32rem;
+		}
+		.dd_details_lianxi h4{
+			padding-left:0.53rem;
+			background:url(../image/mi_add_add.png) no-repeat left top;
+			background-size:0.26rem 0.32rem;
+			font-size:0.22rem;
+			min-height:0.32rem;
+			color:#565656;
+			font-weight:normal;
+			line-height:0.32rem;
+		}
+		.dd_details_sp{
+			width:100%;
+			height:auto;
+			background:#f7f7f7;
+			margin-bottom:0.2rem;
+		}
+		.dd_details_list{
+			padding:0.3rem 0;
+			margin:0 0.2rem;
+			display:-webkit-box;
+			border-bottom:1px solid #dedcdc;
+		}
+		.dd_details_img{
+			width:1.2rem;
+			height:1.2rem;
+			margin-right:0.2rem;
+		}
+		.dd_details_img img{
+			display:block;
+			width:100%;
+			height:100%;
+		}
+		.dd_details_price{
+			width:1.6rem;
+		}
+		.dd_details_price h3{
+			text-align:right;
+			font-weight:normal;
+			color:#ff7f87;
+			font-size:0.22rem;
+			line-height:0.22rem;
+		}
+		.dd_details_price h3 span{
+			color:0.32rem;
+			color:#ff7f87;
+		}
+		.dd_details_price h5{
+			text-align:right;
+			font-weight:normal;
+			color:#b1b1b1;
+			font-size:0.2rem;
+			line-height:0.32rem;
+		}
+		.dd_details_price h5 span{
+			color:#b1b1b1;
+		}
+		.dd_details_txt{
+			-webkit-box-flex:1;
+			width:100%;
+		}
+		.dd_details_txt h2{
+			color:#565656;
+			font-size:0.22rem;
+			line-height:0.3rem;
+			font-weight:normal;
+		}
+		.dd_details_txt h4{
+			color:#999999;
+			font-size:0.18rem;
+			line-height:0.3rem;
+			font-weight:normal;
+		}
+		.dd_details_way{
+			background:#f7f7f7;
+			padding:0.2rem;		
+		}
+		.dd_detalis_mode{
+			font-size:0.22rem;
+			color:#999999;
+			line-height:0.28rem;
+			margin-bottom:0.14rem;
+			overflow:hidden;
+		}
+		.dd_details_span{
+			color:#999999;
+		}
+		.dd_details_span2{
+			color:#ff7f87;
+			float:right;
+		}
+		.dd_details_span2 em{
+			color:#ff7f87;
+		}
+		.footer{
+			position:fixed;
+			width:100%;
+			height:0.9rem;
+			bottom:0;
+			left:0;
+			background:white;
+		}
+		.footer_div{
+			width:100%;
+			height:100%;
+			font-size:0.32rem;
+			overflow:hidden;
+			background:white;
+		}		
+		.footer_assess{
+			background:#ff7f88;
+			text-align:center;
+			line-height:0.9rem;
+			color:white;
+		}
+		.footer1,.footer2{
+			float:left;
+			height:100%;
+			text-align:center;
+			line-height:0.9rem;
+		}
+		.footer_wait .footer1{
+			width:30%;
+			background:#dedcdc;
+			color:#565656;
+		}
+		.footer_wait .footer2{
+			width:70%;
+			background:#ff7f88;
+			color:white;
+		}
+		
+		.footer_ok .footer1{
+			width:50%;
+			background:#56b3a3;
+			color:white;
+		}
+		.footer_ok .footer2{
+			width:50%;
+			background:#ff7f88;
+			color:white;
+		}
+		.footer_send .footer2{
+			width:100%;
+			background:#ff7f88;
+			color:white;
+		}
+		.dd_details_kong{
+			width:100%;
+			height:1.5rem;
+		}		
+		.dd_details_lxkf{
+			width:100%;
+			padding-bottom:2rem;
+		}
+		.dd_xin_p{
+			font-size:0.3rem;
+			line-height:0.3rem;
+			margin-bottom:0.3rem;
+			color:#656564;
+			text-align:center;
+		}		
+		.dd_details_lxkf_btn{
+			width:3.28rem;
+			height:0.68rem;
+			background:url(../image/1.png) no-repeat;
+			background-size:100% 100%;
+			margin:0 auto;
+			
+		}
+    </style>
+</head>
+<body>
+<div id="wrap">
+	
+	<div id='main'>
+		<h3 class="dd_details_h3">订单编号：<span class="dd_bianhao"></span>&nbsp;&nbsp;订单状态：<span class='dd_status'></span></h3>
+		<div class="dd_details_lianxi">
+			<h3><span id="username"></span>&nbsp;&nbsp;<span id='add_tel'></span></h3>
+	    	<h4 id='add_add'></h4>
+		</div>
+		<div class="dd_details_sp" id="order_goods">
+			<script id="goods" type="text/x-dot-template">
+			{{ for(var i in it) { }}
+				<div class="dd_details_list">
+					<div class="dd_details_img"><img src="{{=it[i].goods_logo}}"></div>
+					<div class="dd_details_txt">
+						<h2>{{=it[i].goods_name}}</h2>
+						<h4>{{=it[i].goods_attribute}}</h4>
+					</div>
+					<div class="dd_details_price">
+						<h3>￥<span>{{=it[i].shop_price}}</span></h3>
+						<h5>x<span>{{=it[i].goods_number}}</span></h5>
+					</div>
+				</div>
+			{{ } }}
+			</script>
+		</div>
+		<div class="dd_details_way">
+			<div class="dd_detalis_mode">商品金额：<span class="dd_details_span2">￥<em id="money"></em></span></div>
+			<div class="dd_detalis_mode Express none">快递：<span class="dd_details_span"></span></div>
+			<div class="dd_detalis_mode Logistics none">运单号：<span class="dd_details_span"></span></div>
+			<!--<div class="dd_detalis_mode">支付方式：<span class="dd_details_span">微信支付</span></div>
+			<div class="dd_detalis_mode">发票抬头：<span class="dd_details_span">个人</span></div>
+			<div class="dd_detalis_mode">发票内容：<span class="dd_details_span">明细</span></div>-->			
+			<div class="dd_detalis_mode">运费：<span class="dd_details_span2">￥<em id="freight">0.00</em></span></div>
+		</div>
+		<div class="dd_details_kong"></div>	
+			<div class="dd_details_lxkf">
+				<p class="dd_xin_p">订单问题，申请退款，请点击这里</p>
+				<div class="dd_details_lxkf_btn"  onclick="link_kf()"></div>
+			</div>		
+		<footer id='footer' class="footer">		
+		</footer>
+	</div>
+	<script id="order" type="text/x-dot-template">
+		
+		{{ switch(it.order_status){  }}
+		{{case '0':}}  
+		<!--未付款-->
+		<div class="footer_assess footer_div" onclick="openFm('mi_dd_mask_f',11,'{{=it.id}}')">
+			删除订单
+		</div>
+
+		{{break;}}
+		{{case '1':}}  
+		<!--未付款-->
+		<div class="footer_wait footer_div">
+			<div class="footer1" onclick="openFm('mi_dd_mask_f',112,'{{=it.OrderNo}}')">取消订单</div>
+			<div class="footer2" onclick="openNext('bill_qrdd_w',110,'{{=it.OrderNo}}')">立即支付</div>
+		</div>
+
+		{{break;}}
+		{{case '2':}}
+		<!--代发货-->
+	   <div class="footer_send footer_wait footer_div ">
+	   {{ if(it.is_remind==1) { }}  
+	   	<div class="footer2">提醒成功</div>		
+	     {{ }else{ }} 
+	      <div class="footer2" onclick="deLiver(this)">提醒发货</div>
+  		{{  } }}					
+		</div>
+		{{break;}}
+		{{case '3':}}
+		<!--贷收货-->
+		<!--<div class="footer_ok footer_div">
+		<div class="footer1">查看物流</div>
+			<div class="footer2" onclick="confirm(this)">确认收货</div>
+		</div>-->
+
+		<div class="footer_assess footer_div" onclick="confirm(this)">
+			确认收货
+		</div>
+		
+		
+		
+		{{break;}}
+		{{case '4':}}
+		<!--未评价-->
+		<!--<div class="footer_assess footer_div" onclick = 'openthis(1)'>-->
+		<!--<div class="footer_assess footer_div" onclick = "appraise()">
+			评价订单
+		</div>-->
+		
+		
+		<div class="footer_wait footer_div">
+			<div class="footer1" onclick="openFm('mi_dd_mask_f',11,'{{=it.id}}')">删除订单</div>
+			<div class="footer2" onclick="appraise()">评价订单</div>
+		</div>
+		
+		
+		{{break;}}
+		
+		{{case '5':}}
+		<!--乙评价-->
+		<div class="footer_assess footer_div" onclick="openFm('mi_dd_mask_f',11,'{{=it.id}}')">
+			删除订单
+		</div>
+		{{break;}}
+		{{case '6':}}
+		<!--乙评价-->
+		<div class="footer_assess footer_div" onclick="openFm('mi_dd_mask_f',11,'{{=it.id}}')">
+			删除订单
+		</div>
+		{{break;}}
+		{{default:;}}
+		{{ } }}
+	</script>	
+	
+</div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/font.js"></script>
+<script type="text/javascript" src="../script/zepto.js"></script>
+<script type="text/javascript" src="../script/comm.js"></script>
+<script type="text/javascript" src="../script/doT.min.js"></script>
+<script>
+	function link_kf(){
+		api.openWin({
+				name : 'mi_sethead_w',
+				url : 'mi_sethead_w.html',
+				opaque : true,		
+				slidBackEnabled:false,	
+				vScrollBarEnabled : false,
+				pageParam : {
+					count : 2
+				}
+			});
+	}
+	function  appraise(){
+			var param={'xci':'dpj'};							
+			api.openWin({
+		        name: 'mi_dd_tab_head_w',
+		        url: 'mi_dd_tab_head_w.html',
+		        opaque: true,
+		        reload:true,
+		        opaque : true,		
+				slidBackEnabled:false,	
+				vScrollBarEnabled : false,
+		        pageParam:param
+		    });			
+	}
+		
+		function confirm(obj){
+		var info = is_login();
+		var param = {};
+		if (!info) {
+			to_login();
+			return false;
+		}
+		for (var p in info) {
+			param[p] = info[p];
+		}
+		 param.id = api.pageParam.id;
+		ajaxRequest('order/charge', 'post', param,function(ret,err){
+			if(err){
+				api.toast({
+					msg:err.msg
+				});
+				return false;
+			}
+			if(ret.status){
+				api.toast({
+					msg:ret.info
+				});
+//				$(obj).parent("p").parent("div").css("display","none");
+			}else{
+				api.toast({
+					msg:ret.info
+				});				
+			}
+		})	
+	}
+	function openthis(id) {
+		var width;
+		var height;
+		var name='';
+		if(id==1){
+		width = api.winWidth;
+		height = api.winHeight;
+		name = 'mi_dd_details_mark_f';
+		api.openFrame({
+			name : name,
+			url : name + '.html',
+			bounces : false,
+			opaque : true,
+//			vScrollBarEnabled : true,
+			pageParam : {id:id},
+			rect : {
+				x : 0,
+				y : 0,
+				w : width,
+				h : height
+			}
+		});
+		}
+	}
+	function openNext(xyc,count,orderno) {
+	    xid = id;
+		api.openWin({
+	        name: xyc,
+	        url: xyc+'.html',
+	        opaque: true,
+	        reload:true,
+	        delay: 500,
+	        vScrollBarEnabled: false,
+	        pageParam:{count:count,id:xid,status:3,OrderNo:orderno}		
+	    });
+	}
+	
+	function openFm(xyc,count,orderno){
+//	    xid = id;
+//		var name = 'mi_dd_mask_f';
+	    var width = api.winWidth;
+	    var height = api.winHeight;
+	    api.openFrame({
+		    name: xyc,
+		    url: xyc+'.html',
+		    bounces: false,
+		    opaque: false,
+		    reload: true,
+		    vScrollBarEnabled: false,
+		    pageParam:{count:count,id:orderno,from:'det'},
+		    rect: {
+		        x: 0,
+		        y: 0,
+		        w: width,
+		        h: height
+		    }
+		});	
+	}
+	
+	function deLiver(obj){
+	var info = is_login();
+	var param={};
+		if (!info) {
+			to_login();
+			return false;
+		}else{
+			for (var p in info) {
+			param[p] = info[p];
+			}
+		   param.id = id;
+			ajaxRequest('order/remind', 'post', param,function(ret,err){
+				
+				if(err){
+					api.toast({
+						msg:err.msg
+					});
+					return false;
+				}
+				if(ret.status){
+					api.toast({
+						msg:ret.info
+					});
+					$(obj).html('提醒成功');
+			
+				}else{
+					api.toast({
+						msg:ret.info
+					});
+				}
+	
+			})
+		}
+	
+	}
+	
+	var id;
+	var xid;
+	apiready = function() {
+		id = api.pageParam.id;
+		 api.showProgress({
+		        title: '加载中',
+		        modal: false
+		    });
+		ajaxRequest('order/particulars', 'post', {id:id},function(ret,err){
+		api.hideProgress();
+			if(err){
+				api.toast({
+					msg:err.msg
+				});
+				return false;
+			}
+			if(ret.status){
+			  	var  order = ret.info.order;
+			  	var  addr = ret.info.addr;
+			  	var  goods = ret.info.goods;			
+			  	//订单编号
+			  	$(".dd_bianhao").html(order.OrderNo);
+			  	var status='';
+			  	switch(order.order_status){
+			  		case  '0':
+			  			$('.dd_details_lxkf').addClass('none');
+						status='已取消';
+			  		break;
+			  		case '1':
+			  		$('.dd_details_lxkf').addClass('none');
+			  			status='待付款';
+			  		break;			  			
+			  		case '2':			  			
+			  			status='待发货';
+			  		break;
+			  		case '3':
+			  			$('.Express').removeClass('none').children('.dd_details_span').html(order.Express);			  			
+			  			$('.Logistics').removeClass('none').children('.dd_details_span').html(order.Logistics);			  			
+			  			status='待收货';
+			  		break;
+			  		case '4':
+			  			$('.Express').removeClass('none').children('.dd_details_span').html(order.Express);			  			
+			  			$('.Logistics').removeClass('none').children('.dd_details_span').html(order.Logistics);					  			
+			  			status='待评价';
+			  		break;
+			  		case '5':	
+			  			$('.Express').removeClass('none').children('.dd_details_span').html(order.Express);			  			
+			  			$('.Logistics').removeClass('none').children('.dd_details_span').html(order.Logistics);				  			
+			  			status='已评价';
+			  		break;
+			  		case '6':
+			  			$('.dd_details_lxkf').addClass('none');
+			  			status='已退款';
+			  		break;
+			  		case '7':
+			  			$('.dd_details_lxkf').addClass('none');
+			  			status='已删除';
+			  		break;
+			  	}
+			  	$('.dd_status').html(status);
+			  	if(!isEmpty(addr)){
+			  		//收货人
+			  		$("#username").html(addr.BuyerName);
+			  		//收货人电话
+			  		$("#add_tel").html(addr.Phone);
+			  		//收货人地址
+			  		$("#add_add").html(addr.Province+addr.City+addr.Town+addr.Adr);
+			  	
+			  	}			  					
+				//运费
+				$("#freight").html(order.Postage);
+				$("#money").html(order.Total);
+				
+				//状态遍历
+				var content1 = $api.dom('#footer');
+				var tpl1 = $api.byId('order').text;
+	    		var tempFn1 = doT.template(tpl1);
+				$api.html(content1, tempFn1(order));					
+				//每个商品的遍历
+	        	var content = $api.dom('#order_goods');
+				var tpl = $api.byId('goods').text;
+	    		var tempFn = doT.template(tpl);
+				$api.html(content, tempFn(goods));			  	
+				
+			}
+		})
+	
+}
+</script>
+</html>

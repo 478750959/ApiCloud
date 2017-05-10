@@ -1,0 +1,124 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>我的订单</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+  <!--  <link rel="stylesheet" type="text/css" href="../css/common.css"/>-->
+   
+    <link rel="stylesheet" type="text/css" href="../css/ly.css"/>
+    <!--<link rel="stylesheet" type="text/css" href="../css/xyc.css"/>-->
+    <style>
+    	.head_icon{
+    		border:none;
+    	}
+    </style>
+</head>
+<body style="background: #fff;">
+<div id="wrap">
+	<header id='header'>
+		<div class="miHeader my_dd">
+        	<a href='javascript:;' class='head_icon back' onclick='api.closeWin();'></a>
+        	我的订单
+        </div>        
+	</header>
+	<footer id="footer" class="fix pj_fb">
+		<a href="javascript:void(0);"   id='chose'  class="nm">匿名评价</a>
+		<a href="javascript:void(0);" class="fb" onclick="my_pj()">发表评价</a>
+	</footer>
+</div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/font.js"></script>
+<script type="text/javascript" src="../script/zepto.js"></script>
+<script type="text/javascript" src="../script/ly.js"></script>
+<script>
+//	var ok=true;
+	function my_pj(){		
+		var is_null='';
+		if($('#chose').hasClass('chose')){
+			is_null=1;
+		}else{
+			is_null=0;
+		}
+//		if(ok){
+			api.execScript({
+				name:'mi_dd_head_w',
+			    frameName: 'mi_dd_pingjia_f',
+			    script: 'pj("'+is_null+'");'
+			});
+//			ok=false;
+//		}
+		
+	}
+	apiready = function(){
+		var name = "";
+		var header = $api.byId('header');
+	    $api.fixIos7Bar(header);
+	    var width = api.winWidth;
+	    var headerPos = $api.offset(header);
+	    var footer = $api.byId('footer');
+	    var footerPos = $api.offset(footer);
+	    var height = api.winHeight - headerPos.h;
+	    api.setStatusBarStyle({
+		    style: 'dark'
+		});
+		//3为点击评价订单
+		//5为从感谢评价返回到评价页面上   
+		if(api.pageParam.count == 3||api.pageParam.count == 5) {	
+//			api.closeFrame({
+//		    	name：'mi_dd_details_mark_f'
+//		    });				
+			height = api.winHeight - headerPos.h - footerPos.h;		
+			name = "mi_dd_pingjia_f";	
+		}
+		//点击查看物流
+//		if(api.pageParam.count == 7) {
+//			name = "mi_dd_chakanwl_f";			
+//		}
+//		
+//		if(api.pageParam.count == 22) {
+//			var id = api.pageParam.id;
+//			$('.miHeader').html("<a href='javascript:;' class='head_icon back' onclick='api.closeWin();'></a>确认订单");
+//			name = "bill_confirmdd_f";			
+//		}
+
+	    api.openFrame({
+		    name: name,
+		    url: name+'.html',
+		    reload:true,
+		    bounces: false,
+		    opaque: true,		   
+		    vScrollBarEnabled: false,
+		    pageParam:{status:2,data:api.pageParam.data,from:api.pageParam.from},
+		    rect: {
+		        x: 0,
+		        y: headerPos.h,
+		        w: width,
+		        h: height
+		    }
+		});	
+	}
+	//是否匿名
+	$('.pj_fb .nm').bind("touchstart", function() {
+		$(this).toggleClass('chose');
+	})
+</script>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

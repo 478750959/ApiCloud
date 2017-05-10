@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+     <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+     <link rel="stylesheet" href="../css/api.css">
+     <link rel="stylesheet" href="../css/common.css">
+    <title>发布上下班路线</title>
+    <style>
+       #header span{
+
+        height: 44px;
+        line-height: 44px;
+
+       }
+
+       /*.head-left{
+         float: left;
+         margin-left:10px;
+        font-size: 11pt;
+
+       }*/
+       /*.head-left{
+        float: left;
+        margin-left:10px;
+       font-size: 11pt;
+       background: url(../image/wallet_base_action_bar_back_normal.png) no-repeat;
+       background-position: left center;
+       background-size: 30% 75%;
+       margin-left: -2px;
+       }
+
+       .head-left p{
+        margin-left: 12px;
+       }*/
+       .head-left{
+        float: left;
+        margin-left:10px;
+       font-size: 11pt;
+       background: url(../image/wallet_base_action_bar_back_normal.png) no-repeat;
+       background-position: left center;
+       background-size: 30% 30%;
+       margin-left: -10px;
+       }
+
+       .head-left p{
+        margin-left: 35px;
+        margin-top:1px;
+       }
+
+       .head-right{
+
+         float: right;
+        margin-right: 5px;
+        font-size: 15pt;
+
+       }
+       #main{
+            background: #E6E6E6;
+            margin: 0;
+            padding: 0;
+
+       }
+      
+       #info{
+        clear:left;
+        width: 80%;
+        margin:0 auto;
+        padding-top:20px;
+
+       } 
+       #info p{
+        
+         margin:10px 5px auto;
+         color:gray;
+         font-size: 0.8em;
+       }
+       #info span{
+        color:gray;
+         font-size: 0.8em;
+         margin:10px 5px auto;
+       }
+       #info span a{
+        
+         color:blue;
+       }
+       .tel{
+          margin-top: 10px;        
+          background:white;
+          height: 35px;
+          width: 100%;
+       }
+      
+      #btncode{
+        background:#F0F0F0;
+        color:gray;
+      }
+      
+       
+    </style>
+</head>
+<body>
+    <div id="wrap">
+        <div id="header">
+            <span class="head-left" tapmode onclick="goback()"><p>发布上下班路线</p></span>
+        </div>
+        <div id="main">
+            
+             <div id="info">
+                <input type="text" class="tel" id="addr1" placeholder="家庭地址"/>
+                <input type="text" class="tel" id="addr2" placeholder="公司地址"/>
+               <input type="text" class="tel" id="time1" placeholder="上班时间"/>
+                <input type="text" class="tel" id="time2" placeholder="下班时间"/>
+                <input type="text" class="tel" id="car" placeholder="车辆品牌和颜色"/>
+                <p>不同品牌的计价不同哦，请如实填写</p>
+                <input type="text" class="tel" id="car" placeholder="车牌号码"/>
+                <span>点击"下一步"即表示我已同意<a>《51用车小客车合乘协议》</a>以及<a>《51用车保险方案》</a></span>
+                 <input type="button" class="tel" id="btncode" value="下一步" onclick="login()" tapmode/>
+             </div>             
+        </div>
+
+    </div>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/common.js"></script> 
+<script type="text/javascript">
+
+
+
+</script> 
+</body>
+</html>

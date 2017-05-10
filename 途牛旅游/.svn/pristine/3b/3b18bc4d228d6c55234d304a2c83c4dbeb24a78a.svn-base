@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/common.css"/>
+    <title></title>
+    <style>
+        body, html {
+            height: auto;
+        }
+
+        nav {
+            position: relative;
+            border-bottom: 1px solid #bebebe;
+            box-sizing: border-box;
+        }
+
+        .nav {
+            display: -webkit-box;
+
+        }
+
+        li {
+            -webkit-box-sizing: border-box;
+            width: 25%;
+            text-align: center;
+            padding: 10px 0;
+        }
+
+        li span {
+            width: 80%;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+
+        li:not(:last-child) {
+            border-right: 1px solid #bebebe;
+        }
+
+        li div {
+            display: inline-block;
+            background-image: url("../image/filter_arrow_down@2x.png");
+            background-repeat: no-repeat no-repeat;
+            background-position: right;
+            background-size: 10px;
+            width: 10px;
+            height: 10px;
+        }
+
+        .filtrate {
+            width: 50%;
+        }
+        .arrow-down {
+            left: -3px;
+            bottom: -4px;
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-left:3px solid transparent;
+            border-right:3px solid transparent;
+            border-bottom:2px solid #ffffff;
+            z-index: 2;
+        }
+        /*为了给小三角中空效果*/
+        .arrow-down-wrap {
+            bottom: -1px;
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-left: 5px solid transparent;
+            border-right:5px solid transparent;
+            border-bottom: 4px solid #bebebe;
+            z-index: 1;
+        }
+    </style>
+</head>
+<body>
+<nav>
+    <ul class="nav">
+        <li tapmode="" onclick="switchTab(0)"><span>30天销量</span><div></div></li>
+        <li tapmode="" onclick="switchTab(1)"><span id="destination">全部海南</span><div></div></li>
+        <li tapmode="" onclick="switchTab(2)"><span>全部品类</span><div></div></li>
+        <li tapmode="" onclick="switchTab(3)"><span class="filtrate">筛选</span><div></div></li>
+    </ul>
+   <!--
+    小三角效果
+   <div id="arrow" class="arrow-down-wrap hidden">
+        <div class="arrow-down"></div>
+    </div>-->
+</nav>
+<script src="../script/zepto.min.js"></script>
+<script>
+    var opened = false/*,$arrow=$("#arrow"),$li=$("li")*/;
+    apiready = function () {
+       /* var left=($li.width()-10)/2;
+        $arrow.css("left",left);*/
+       // setDestination();
+    };
+    function switchTab(index) {
+        try {
+            /*var x=$li.width()*index+'px';
+            $arrow.removeClass('hidden').css({'-webkit-transform':'translate('+x+')','-webkit-transition':'300ms linear'} )*/
+            var headerH = 41, systemType = api.systemType, systemVersion = api.systemVersion;
+            if (api.systemType == 'ios' && parseInt(systemVersion, 10) >= 7) {
+                headerH += 20;
+            }
+            if (!opened) {
+                api.openFrame({
+                    name: 'frm_tourList_tab_con',
+                    url: 'frm_tourList_tab_con.html',
+                    rect: {x: 0, y: headerH + 37, w: 'auto', h: 'auto'},
+                    bounces: false,
+                    bgColor: 'rgba(51,51,51,0.6)'
+                });
+                opened = true;
+            } else {
+                api.execScript({frameName: 'frm_tourList_tab_con', script: 'slider(' + index + ')'})
+            }
+        } catch (e) {
+            alert(e)
+        }
+
+    }
+    function setDestination() {
+        $("#destination").html('全部' + localStorage.getItem("destination"));
+    }
+
+    function closeFrameGroup() {
+        api.closeFrame({name: 'frm_tourList_tab_con'});
+        /*$arrow.addClass("hidden");*/
+        opened = false;
+    }
+</script>
+</body>
+</html>

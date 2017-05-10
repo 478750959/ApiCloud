@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+  <head>
+    <title>好友列表内容
+    </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+   	<link rel="stylesheet" href="css/ui-img.css">
+	<link rel="stylesheet" href="css/ui-input.css">
+    <link rel="stylesheet" href="css/ui-res.css">
+    <link rel="stylesheet" href="css/ui-btn.css">
+    <link rel="stylesheet" href="css/ui-base.css">
+    <link rel="stylesheet" href="css/ui-box.css">
+    <link rel="stylesheet" href="css/ui-color.css">
+	<link rel="stylesheet" href="css/ui-list.css">
+	<link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/ui-card.css">
+    <script src="js/y_control.js"></script>
+    <script src="js/y_click.js"></script>
+	<script src="js/dis_control.js"></script>
+	<script src="js/y_json.js"></script>
+	<script src="js/y_icache.js"></script>
+	<script src="js/y_tmpl.js"></script>
+	<script src="js/y_slide.js"></script>
+	<script src="js/config.js"></script>
+    <script src="js/y_anim.js"></script>
+    <script>
+	</script>
+      <style>
+          .img-1d{height:0.8125em; width: 0.8125em;}
+      </style>
+  </head>
+<body class="um-vp c-gra5" ontouchstart>
+	<!--1度人脉-->
+	<div class="c-gra" id="page6" style="display:none;">
+        <div class="uinn c-wh ubb b-gra" id="inviteFriend">
+            <div class="ub uinn5" ontouchstart="zy_touch('c-gra')" onclick="inviteFriend();">
+                <div class="im-invite ub-img8 umh2 umw12"></div>
+                <div class="umar-l ub-f1">邀请好友</div>
+                <!--<div class="res8 lis-sw ub-img4"></div>-->
+            </div>
+        </div>
+        <div class="ub uinn c-wh ubb b-gra umar-b1"  ontouchstart="zy_touch('c-gra')" onclick="go2mobiles();">
+            <div class="ub uinn5">
+                <div class="im-mobile ub-img5 umh2 umw12"></div>
+                <div class="ub ub-ac umar-l">查看手机好友</div>
+                <div class="ub ub-ac t-gra" id="count_mobile"></div>
+            </div>
+        </div>
+		<div class="b-gra uc-n c-wh" id="list6">
+	 		<div></div>
+	  	</div>
+	</div>
+
+	<!--2度人脉-->
+	<div class="" id="page7" style="display:none;">
+		<div class="b-gra uc-n" id="list7">
+	 		<div></div>
+	  	</div>
+	</div>
+
+    <!--单身名片-->
+    <div class="c-gra" id="page8" style="display:none;">
+        <div class="uhide uinn c-wh ubb b-gra umar-b1" id="select_tag" ontouchstart="zy_touch('c-gra')" onclick="batch_tag();"></div>
+        <div class="uinn1 c-wh b-gra uc-n" style = "padding: 0.1em 0.5em;" id="list8">
+            <div></div>
+        </div>
+    </div>
+    <!--职场名片-->
+    <div class="" id="page9" style="display:none;">
+        <div class="uinn1 b-gra uc-n" id="list9">
+            <div></div>
+        </div>
+    </div>
+
+    <!--校友名片-->
+    <div class="" id="page10" style="display:none;">
+        <div class="uinn1 b-gra uc-n" id="list10">
+            <div></div>
+        </div>
+    </div>
+
+    <!--手机好友-->
+    <div class="c-gra" id="page11" style="display:none;">
+        <div class="b-gra uc-n c-wh" id="list11">
+            <div></div>
+        </div>
+    </div>
+
+    <!--推荐的单身名片的模板-->
+    <div id="list8_tmpl" class="uhide">
+        <div class="raised drop-shadow carddetail" style = "min-height:6em;">
+            <div ontouchstart="zy_touch('c-gra')" onclick="go2new5(${uid}, '${username}', '');">
+                <div style="float: right; text-align: center;">
+                    <div class="avatar">
+                        <img src="images/mylogo.png" class="" ${cb:img} id="8_${uid}"/>
+                    </div>
+                </div>
+                <h3 style="padding-right: 5em">
+                    ${username} ${cb:verify}
+                    <div class="t-gra ufr" style="font-weight: normal">${cb:distance}</div>
+                </h3>
+                <ul class="t-gra">
+                    <li class="b_field">${cb:b_field}</li>
+                    ${cb:d_field}
+                </ul>
+            </div>
+            <ul id="followflag" class="addition-content" >
+                ${cb:reason}
+                <li class="ub" >
+                    <div class="ub ub-f1"></div>
+                    <!--james,Y150111,改名片样式-->
+                    <span class="ulev-1" style="line-heigh:0.9em;" id="accept_${uid}">
+                     ${cb:card_btn}
+                    </span>
+                 </li>
+             </ul>
+         </div>
+     </div>
+    <!--james Y150114,同圈子单身名片的模板-->
+    <div id="list8_1_tmpl" class="uhide">
+        <div class="raised drop-shadow carddetail" style = "min-height:6em;">
+            <div ontouchstart="zy_touch('c-gra')" onclick="go2new5(${uid}, '${username}', '');">
+                <div style="float: right; text-align: center;">
+                    <div class="avatar">
+                        <img src="images/mylogo.png" class="" ${cb:img} id="8_1_${uid}"/>
+                    </div>
+                </div>
+                <h3 style="padding-right: 5em">
+                    ${username} ${cb:verify}
+                    <div class="t-gra ufr" style="font-weight: normal">${cb:distance}</div>
+                </h3>
+
+                <ul class="t-gra">
+                    <li class="b_field">${cb:b_field}</li>
+                     ${cb:d_field}
+                     <li class="ub">
+                         <div class>
+                     ${cb:cardtags}
+                         <div>
+                     </li>
+                 </ul>
+            </div>
+            <ul id="followflag" class="addition-content" >
+                 <li class="ub" >
+                     <div class="ub ub-f1"></div>
+                     <!--james,Y150111,改名片样式-->
+                    <span class="ulev-1" id="accept_${uid}">
+                     ${cb:card_btn}
+                    </span>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!--职场名片模板-->
+    <div id="list9_tmpl" class="uhide">
+        <div class="raised drop-shadow carddetail" style = "min-height:6em;">
+            <div ontouchstart="zy_touch('c-gra')" onclick="go2new5(${uid}, '${username}', '');">
+                <div style="float: right; text-align: center;">
+                    <div class="avatar">
+                        <img src="images/mylogo.png" class="" ${cb:img} id="9_${uid}"/>
+                    </div>
+                </div>
+                <h3 style="padding-right: 5em">
+                    ${username} ${cb:verify}
+                    <div class="t-gra ufr" style="font-weight: normal">${cb:distance}</div>
+                </h3>
+                <ul class="t-gra">
+                    <li class="b_field">${cb:b_field}</li>
+                    ${cb:d_field}
+                    <li class="ub">
+                        <div class>
+                            ${cb:cardtags}
+                        <div>
+                    </li>
+                </ul>
+            </div>
+            <ul id="followflag" class="addition-content" >
+                <li class="ub" >
+                    <div class="ub ub-f1"></div>
+                    <!--james,Y150111,改名片样式-->
+                        <span class="ulev-1" id="accept_${uid}">
+                         ${cb:card_btn}
+                        </span>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!--校友名片模板-->
+    <div id="list10_tmpl" class="uhide">
+        <div class="raised drop-shadow carddetail" style = "min-height:6em;">
+            <div ontouchstart="zy_touch('c-gra')" onclick="go2new5(${uid}, '${username}', '');">
+                <div style="float: right; text-align: center;">
+                    <div class="avatar">
+                        <img src="images/mylogo.png" class="" ${cb:img} id="10_${uid}"/>
+                    </div>
+                </div>
+                <h3 style="padding-right: 5em">
+                    ${username} ${cb:verify}
+                    <div class="t-gra ufr" style="font-weight: normal">${cb:distance}</div>
+                </h3>
+                <ul class="t-gra">
+                    <li class="b_field">${cb:b_field}</li>
+                    ${cb:d_field}
+                    <li class="ub">
+                        <div class>
+                            ${cb:cardtags}
+                        <div>
+                    </li>
+                </ul>
+            </div>
+            <ul id="followflag" class="addition-content" >
+                <li class="ub" >
+                    <div class="ub ub-f1"></div>
+                    <!--james,Y150111,改名片样式-->
+                        <span class="ulev-1" id="accept_${uid}">
+                         ${cb:card_btn}
+                        </span>
+                </li>
+            </ul>
+        </div>
+    </div>
+</body>
+<script>
+zy_init();
+var params = getStorJson('params');
+var pageid = params.pageid;
+var pages =  {curid:0, updr:'0'};
+var frameindex = 0;
+//增加新的页面时需要修改i
+for(var i=6;i<11;i++){
+    if(!pages[i]) pages[i] = {curpage:1, totpage:1, ld:0};
+}
+var uid = getstorage('UID');
+var ucurl = getstorage('ucurl');
+if(!ucurl) ucurl = guc;
+var fromCache = 0;
+window.uexOnload = function ()
+{
+    if(!isSML){
+        var pageParam = api.pageParam;//获取framegroup中的页面参数
+        var index = pageParam.index;//0, 1
+        frameindex = int(index);
+        //if(frameindex)  zy_anim_pop("select_tag", 'uhide');//显示添加圈子
+    }
+    setPageBounce(downcb, upcb);
+    zy_initcache();
+    pageSwitch(pageid, '1');
+    if(fromCache) pageSwitch(pageid, '');
+}
+
+function downcb(){
+    var i = pages.curid;
+    pages.updr = '0';
+    if(i==6) load1dFriends('', '');
+    else if(i==7) load2dFriends('', '');
+    else if(i==8) loadCards('', '');
+    else if(i==9) loadOccupations('', '');
+    else if(i==10) loadEducations('', '');
+    else if(i==11) loadMobiles('', '');
+}
+function upcb(){
+    var i = pages.curid;
+    var o = pages[i];
+    if (o.curpage < o.totpage) {
+        pages.updr = '1';
+        var pn = o.curpage+1;
+        if(i==6) load1dFriends(pn, '');
+        else if(i==7) load2dFriends(pn, '');
+        else if(i==8) loadCards(pn, '');
+        else if(i==9) loadOccupations(pn, '');
+        else if(i==10) loadEducations(pn, '');
+        else if(i==11) loadMobiles(pn, '');
+    }
+    else
+        resetBV('1');
+}
+
+function pageSwitch(i, flag){
+	if(!pages[i]) pages[i] = {curpage:1, totpage:1, ld:0};
+	if (pages.curid != i) {
+		var p1 = 'page'+pages.curid;
+		var p2 = 'page'+i;
+		pages.curid = i;
+		my_page_switch(p1, p2);
+	}
+
+    if(i==6) load1dFriends('', flag);
+    else if(i==7)load2dFriends('', flag);
+    else if(i==8) loadCards('', flag);
+    else if(i==9) loadOccupations('', flag);
+    else if(i==10) loadEducations('', flag);
+    else if(i==11) loadMobiles('', flag);
+}
+/**
+ * @desc 载入一度好友
+ * @param pn
+ * @param flag
+ */
+function load1dFriends(pn, flag){
+    if(params.count_mobile) setHtml('count_mobile', '(' + params.count_mobile + ')');
+    if(going) return;
+    var url = home_url + '&mod=space&do=friend&page='+ pn;
+    going = 1;
+    fromCache = checkKey(url);
+    if(!fromCache) uexWindow.toast('1','5','加载中...',"");
+    var f = pn?'':'1';
+    $.getJSON(url, loadList6, 'json', getJsonErr, 'POST', '', flag, f);
+}
+function load2dFriends(pn, flag){
+    if(going) return;
+	var url = home_url + '&mod=space&do=friend&2dfriends=1&page='+ pn;
+	//var url = home_url+"&mod=space&do=friend&view=all&type=friend&page="+ pn+"&z="+Math.random();
+    going = 1;
+    fromCache = checkKey(url);
+	if(!fromCache) uexWindow.toast('1','5','加载中...',"");
+	var f = pn?'':'1';
+	$.getJSON(url, loadList7, 'json', getJsonErr, 'POST', '', flag, f);
+}
+function loadCards(pn, flag){
+    if(going) return;
+    if(!isSML){
+        if(frameindex) url = home_url + '&mod=space&do=recommend&ac=sametag&page='+ pn;//根据圈子匹配
+        else url = home_url + '&mod=space&do=recommend&ac=singlecard&page='+ pn;
+    }
+    //var url = home_url+"&mod=space&do=friend&view=all&type=friend&page="+ pn+"&z="+Math.random();
+    going = 1;
+    fromCache = checkKey(url);
+    if(!fromCache) uexWindow.toast('1','5','加载中...',"");
+    var f = pn?'':'1';
+    $.getJSON(url, loadList8, 'json', getJsonErr, 'POST', '', flag, f);
+}
+function loadOccupations(pn, flag){
+    if(going) return;
+    var url = home_url + '&mod=space&do=recommend&ac=occupationcard&page='+ pn;
+    going = 1;
+    fromCache = checkKey(url);
+    if(!fromCache) uexWindow.toast('1','5','加载中...',"");
+    var f = pn?'':'1';
+    $.getJSON(url, loadList9, 'json', getJsonErr, 'POST', '', flag, f);
+}
+function loadEducations(pn, flag){
+    if(going) return;
+    var url = home_url + '&mod=space&do=recommend&ac=educationcard&page='+ pn;
+    going = 1;
+    fromCache = checkKey(url);
+    if(!fromCache) uexWindow.toast('1','5','加载中...',"");
+    var f = pn?'':'1';
+    $.getJSON(url, loadList10, 'json', getJsonErr, 'POST', '', flag, f);
+}
+/**
+ * 获取手机通讯录好友, 如果没有同步过，就先获取，将其中已注册用户加为好友
+ */
+function loadMobiles(pn, flag){
+    if(going) return;
+    var url = home_url + '&mod=space&do=friend&view=mobile_contacts&page=' + pn ;
+    going = 1;
+    fromCache = checkKey(url);
+    if(!fromCache) uexWindow.toast('1','5','加载中...', '');//如果调用upload_contacts耗时较长
+    var f = pn?'':'1';
+    $.getJSON(url, function(json){
+        going = 0;
+        if(json){
+            if(zy_tmpl_count(json.list)){
+                //将好友显示到界面上
+                loadList11(json);
+            }else if(int(json.uploaded)){//如果已经同步过,即使该用户手机好友中没有注册过的，也会在home_mobilecontact表中增加一条记录，mobile=0
+                loadList11({});
+            }else{//没有同步过的，执行同步,然后返回第一页
+                var cContent = $$('list'+11);
+                //var res = '<div class="uinn8 uinn10 tx-c">请开启"通讯录"访问权限后，再次刷新。</div>';
+                //cContent.innerHTML = res;
+                upload_contact_file(loadList11);
+            }
+        }
+    }, 'json', getJsonErr, 'GET', '', flag, f);
+}
+/**
+ * @desc 载入一度好友列表
+ * @param json  好友列表
+ */
+function loadList6(json){
+	loadListCb(json, '6');
+}
+function loadList7(json){
+	loadListCb(json, '7');
+}
+function loadList8(json){
+    loadListCb(json, '8');
+}
+function loadList9(json){
+    loadListCb(json, '9');
+}
+function loadList10(json){
+    loadListCb(json, '10');
+}
+/**
+ * 显示通讯录好友信息
+ */
+function loadList11(json){
+    loadListCb(json, '11');
+}
+var pid = '';
+function loadListCb(json, id){
+	uexWindow.closeToast();
+    going = 0;
+	resetBV(pages.updr);
+
+	if(json){
+		if (Int(json.status)<1) {
+			uexWindow.toast('0','5',json.message,2000);
+			return;
+		}
+
+		var o = pages[id];
+		var cContent = $$('list'+id);
+		var res = '';
+		var list = json.list;
+		var length = zy_tmpl_count(list);
+		if(length>0){
+			var tmpl = '';
+			pid = id;
+            //载入一度好友列表：
+            if(id == 6){
+				//+'<div class="lis-th ub-img" style="background-image: url(images/loading.gif);-webkit-background-size: auto; background-size: auto;${cb:img}" id="uid_${fuid}"></div>  	 '
+				tmpl = '<li ontouchstart="zy_touch(\'c-gra\')" onclick="go2new5(${fuid}, \'${username}\', \'${isfriend}\');" class="uc-n ubb ub b-gra t-bla ub-ac lis" id="${fuid}">'
+				 			+'<div class="lis-th2 ub-img uc-a1">'
+	     						+'<img src="images/mylogo.png" class="inforpic" ${cb:img} id="'+pid+'_${fuid}"/>'
+	     					+'</div> '
+							+'<div class="ub-f1 ub ub-ver">	'
+				 	    		+'<div class="ulev0 umar-b">${username}'
+                                    +'<div class="ub ub-ac ulev-1 ufr t-gra"><div class="umh2 umw1 ub-img8 im-credit"></div>${credit}</div>'
+                                +'</div>'
+                                +'<div>'
+                                    /*+'<div class="ub-f1"></div>'*/
+                                    +'<div class="ub-ac ulev-1">${cb:tags}</div>'
+                                +'</div> '
+				 			+'</div> '
+				 		+'</li>  '
+						+'<li class="ubt1"></li>';
+			}else if(id==7){
+                tmpl = '<li ontouchstart="zy_touch(\'c-gra\')" onclick="go2new5(${fuid}, \'${username}\', \'${isfriend}\');" class="uc-n ubb ub b-gra t-bla ub-ac lis" id="${fuid}">'
+                            +'<div class="lis-th2 ub-img uc-a1">'
+                                +'<img src="images/mylogo.png" class="inforpic" ${cb:img} id="'+pid+'_${fuid}"/>'
+                            +'</div> '
+                            +'<div class="ub-f1 ub ub-ver">	'
+                                +'<div class="ulev0 umar-b">${username}'
+                                    +'<div class="ub ub-ac ulev-1 ufr t-gra"><div class="umh2 umw1 ub-img8 im-credit"></div>${credit}</div>'
+                                +'</div>'
+                                +'<div class="ub ulev-1 ub-ac t-gra umar-b">'
+                                    +'<div class="ub ub-f1">${cb:user_1d}的一度好友</div>'
+                                    +'<div class="ub t-gra">${cb:distance}</div>'
+                                +'</div>'
+                                +'<div>'
+                                    /*+'<div class="ub-f1"></div>'*/
+                                    +'<div class="ub-ac ulev-1">${cb:tags}</div>'
+                                +'</div> '
+                            +'</div> '
+                        +'</li>  '
+                        +'<li class="ubt1"></li>';
+			}else if(id==8){
+                if(frameindex == 0){
+                    tmpl = $$('list'+ id +'_tmpl').innerHTML;
+                }else{
+                    tmpl = $$('list'+ id +'_1_tmpl').innerHTML;
+                }
+            }else if(id==9){
+                tmpl = $$('list'+ id +'_tmpl').innerHTML;
+            }else if(id==10){
+                tmpl = $$('list'+ id +'_tmpl').innerHTML;
+            }else if(id==11){//手机好友
+                tmpl = '<li ontouchstart="zy_touch(\'c-gra\')" onclick="go2new5(${fuid}, \'${username}\', \'${isfriend}\');" class="uc-n ubb ub b-gra t-bla ub-ac lis" id="${fuid}">'
+				 			+'<div class="lis-th2 ub-img uc-a1">'
+	     						+'<img src="images/mylogo.png" class="inforpic" ${cb:img} id="'+pid+'_${fuid}"/>'
+	     					+'</div> '
+							+'<div class="ub-f1 ub ub-ver">	'
+				 	    		+'<div class="ulev0 umar-b">${username}'
+                                    +'<div class="ub ub-ac ulev-1 ufr t-gra"><div class="umh2 umw1 ub-img8 im-credit"></div>${credit}</div>'
+                                +'</div>'
+                                +'<div>'
+                                    +'<div class="ub-f1"></div>'
+                                    +'<div class="t-gra ulev-1">${name}</div>'
+                                +'</div> '
+				 			+'</div> '
+				 		+'</li>  '
+						+'<li class="ubt1"></li>';
+            }
+
+			res = zy_tmpl(tmpl,list,length,j2vCb);
+			if(res) o.ld = 1;
+
+			o.curpage = Int(json.zywy_curpage);
+			o.totpage = Int(json.zywy_totalpage);
+		}else{
+            res = '<div class="uinn8 uinn10 tx-c">未找到与你相匹配的信息</div>';
+		}
+
+		if(o.curpage==1)
+       	{
+       		while(cContent.childElementCount>1)
+       		{
+       			cContent.removeChild(cContent.firstElementChild);
+       		}
+       	}
+
+        if (id == 8 && frameindex) {
+            var html = '<div class="uinn5">'
+                    + '<div class="ub">'
+                    + '<div class="im34 ub-img8 umh2 umw12"></div>'
+                    + '<div class="umar-l ub-f1">请批量添加圈子</div>'
+                    + '<div class="res8 lis-sw ub-img4"></div>'
+                    + '</div>'
+                    + '</div>';
+            setHtml('select_tag', html);
+            zy_anim_pop("select_tag", 'uhide');//显示添加圈子
+        }
+		var node = document.createElement("ul");
+		node.innerHTML = res;
+		cContent.insertBefore(node,cContent.lastElementChild);
+        imgCacheCall();
+	}else{
+	   
+	}
+}
+
+function j2vCb(d,c)
+{
+	var str = '';
+	if(c.length>1){
+
+        switch(c[1])
+        {
+            case 'isfriend':
+                if(d.isfriend==0) str = '<div class="ufr c-blu4 t-wh uc-a ulev-2 uinn11 umar-t">未添加</div>';
+                break;
+            case 'isonline':
+                if(d.islogin==1) str = 'images/online.png';
+                else str = 'images/offline.png';
+                break;
+            case 'img':
+                var src = ucurl+d.uid;
+                var index = frameindex ? frameindex + '_' : '';
+                var picid = pid + '_' + index + d.uid;
+                pushCacheCall(function(){
+                    dis_imgcache(picid,src,src,imgLoadSucSrc,imgLoadErrSrc,null,'',1);
+                });
+                break;
+            case 'distance':
+                  str = get_distance(d.distance);
+                break;
+            case 'user_1d':
+                if(d.linkusername){
+                    str = d.linkusername;
+                    if(d.count_link > 1) str += '等' + d.count_link + '人';
+                }
+                break;
+            case 'tags':
+                var count = 0;
+                for (var tagid in d.tags) {
+                    if(++count >8){
+                        break;
+                    }
+                    var tagname = d.tags[tagid];
+                    str += '<div class="ufl uba b-org uc-a2 uinn19 umar-r umar-b uinn-c">'+ tagname +'</div>';
+                }
+                if(str){
+                    str = '<div class="t-gra ufl umar-r umar-t3">同圈子</div>' + str;
+                }
+                break;
+            case 'cardtags':
+                var count = 0;
+                for (var tagid in d.tags) {
+                    if(++count >8){
+                        break;
+                    }
+                    var tagname = d.tags[tagid];
+                    str += '<div class="ufl uba b-org uc-a2 ulev-1 umar-r umar-b" style="padding:0em .4em;">'+ tagname +'</div>';
+                }
+                break;
+            case 'verify':
+                if(d.verify == '1'){
+                    str = '<strong class="user-v">验</strong>';
+                }else{
+                    str = '<strong class="user-not-v">未验证</strong>';
+                }
+                break;
+            case 'b_field':
+                //var b_fields = ['gender', 'education', 'height'];
+                var b_fields =  ['gender', 'education', 'height'];
+                if(pageid == 8)  b_fields = ['gender', 'education', 'height'];
+                else if(pageid == 9) b_fields = ['gender', 'education', 'resideprovince'];
+                else if(pageid == 10) b_fields = ['gender', 'education', 'resideprovince'];
+                var j = 0;
+                for(var key in b_fields){
+                    if(d[b_fields[key]] && d[b_fields[key]]['value'] !=null){
+                        if(pageid == 9 && b_fields[key] == 'education' ){//职业名片中学历是博士才显示
+                            if(d[b_fields[key]]['value'].indexOf("博士") >= 0) str += '<span class="b_fieldtitle" ' + (j++ ? '' : ' style="border-left:0;"') + '>' + d[b_fields[key]]['value'] + '</span>';
+                        }else str += '<span class="b_fieldtitle" ' + (j++ ? '' : ' style="border-left:0;"') + '>' + d[b_fields[key]]['value'] + '</span>';
+                    }
+                }
+                break;
+            case 'd_field':
+                //var d_fields = ['resideprovince', 'age', 'occupation', 'bio', 'company','position',‘];//james,Y150111,去掉单位，增加行业
+                var d_fields = ['residecity', 'age', 'occupation', 'bio'];
+                if(pageid == 8) d_fields = ['residecity', 'age', 'occupation', 'bio'];
+                else if(pageid == 9) d_fields = ['occupation', 'company', 'position'];
+                else if(pageid == 10) d_fields = ['graduateschool', 'major', 'schoolyear'];
+                var field = '';
+                for(var key in d_fields){
+                    field = d_fields[key];
+                    if(d[field] && d[field]['value'] !=null){
+                        /*james,Y150112,年龄在名片中直接显示,职业title改成行业
+                        if((field == 'age' || field == 'company') && d.f_mutual != 3){
+                            str += '<li id="field_'+ field + d.uid +'_show" style="display:none;"><em class="mobile">' + d[field]['title'] + '：</em>' + d[field]['value'] + '</li>';
+                            str += '<li id="field_'+ field + d.uid +'_hide"><em class="mobile">' + d[field]['title'] + '：</em>xxx</li>';
+                        }*/
+                            str += '<li><em class="mobile t-gra">' + d[field]['title'] + '：</em>' + d[field]['value'] + '</li>';
+                    }
+                }
+                break;
+            case 'card_btn':
+                if(d.f_mutual == 3) str = '<span class="btn_match card_btn c-gra uinn11">已加好友</span>';
+                else if (d.f_mutual == 2) str = '<div class="ub ub-ac uinn11 c-org" ontouchstart="zy_touch(\'c-gra\')" onclick="friend_request('+ d.uid +', 2);">'
+                                                    +'<div class="ub t-wh">批准请求</div>'
+                                                 +'</div>';
+                else if (d.f_mutual == 1) str = '<span class="btn_grey card_btn c-gra uinn11">等待批准</span>';
+                else str= '<div class="ub ub-ac uinn11 c-org" ontouchstart="zy_touch(\'c-gra\')" onclick="friend_request('+ d.uid +', 0);">'
+                                +'<div class="afbtn"></div>'
+                                +'<div class="ub t-wh">加好友</div>'
+                          +'</div>';
+                break;
+            case 'reason':
+                if(d.reason){
+                    str = '<li><em>关系：</em>'+ d.reason +'</li>';
+                }
+                break;
+        }
+    }
+	return str;
+}
+function friend_request(uid, f_mutual){
+    friendAdd(uid);
+}
+function friendAdd(uid){
+    var content = 'content';
+    if(pageid == 8){//单身名片有frame
+        content = frameindex ? 'sametag' : 'recommend';
+        if(isSML) content = 'content';
+    }
+    var str = '{"wname":"friend", "popname":"'+ content +'", "fuid":"'+uid+'"}';
+    setstorage('params',str);
+    openwin('friend_add', 'friend_add.html', '10');
+}
+function friendAddBack(status, uid){
+    var relation = int(status);
+    if(relation == 1){//发出请求，按钮为等待批准
+        $$('accept_' + uid).innerHTML = '<span class="btn_grey card_btn c-gra uinn11">等待批准</span>';
+    }else if(relation == 2){//对方发出了请求，按钮为批准申请,这种情况不可能在我操作后发生
+    }else if(relation == 3){
+        $$('accept_' + uid).innerHTML = '<span class="btn_match card_btn c-gra uinn11">已加好友</span>';
+        refresh_main_friend();
+    }
+}
+function refresh_main_friend(){
+    var openedPages = getstorage('openedPages') || '';
+    if(openedPages.indexOf('2') >= 0) ueppscript('root', 'content2', 'loadFriendTags(\'\', \'\')');//如果已经打开人脉页面，刷新
+}
+/**
+ * @desc:  跳转到好友详细页面
+ * @param uid
+ * @param username
+ * @param isf
+ */
+function go2new5(uid, username, isf){
+	setstorage('params','{"uid":"'+uid+'", "username":"'+username+'", "isfriend":"'+isf+'"}');
+	openwin('friend_information','friend_information.html','10');
+}
+function go2tag5(tagid, tagname){
+    setstorage('params','{"wname":"root", "popname":"content2", "tagid":"'+tagid+'", "tagname":"'+tagname+'"}');
+    openwin('friendtag_edit','friendtag_edit.html','10');
+}
+function tageditcb(){
+    pageSwitch(5);
+}
+function updateLists(){
+	load2dFriends('', '');
+}
+function inviteFriend(){
+    var msg = '我正在玩约伴APP，认识了很多靠谱的朋友！下载：';
+    var appid = getstorage('appid');
+    msg = msg + 'http://www.51yueban.com/appdownload';
+    //uexSMS.open('', msg);
+    Y.contactSms({text: msg});
+}
+
+function batch_tag(){
+    var str = '{"wname":"friend", "popname":"content"}';
+    setstorage('params',str);
+    openwin('tag_batch', 'tag_batch.html', '10');
+    //setTimeout(function(){closewin(0, 'friend');}, 1000);
+}
+
+function openMobiles(){
+    var str = '{"pageid":"11", "title":" 手机好友"}';
+    setstorage('params',str);
+    openwin('friend_mobile', 'friend.html', '10');
+}
+function go2mobiles(){
+    var url = home_url + '&mod=misc&ac=get_mobile';
+    $.getJSON(url, function(json){
+        if(!json) return;
+        if(int(json.status) == 1){
+            openMobiles();
+        }else{//让用户输入手机，验证
+            uescript('root', "upload_contact_file('', 1);");//静默获取手机通讯录
+            var str = '{"view":"friend_content"}';
+            setstorage('params',str);
+            uexWindow.toast('0', '5', '你还没有输入手机号，输入手机号能查看更多手机好友！', 2500);
+            setTimeout(function(){
+                openwin('verify_mobile', 'verify_mobile.html', '10');
+            }, 1500);
+        }
+    });
+}
+</script>
+</html>

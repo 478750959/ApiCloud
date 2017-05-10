@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/common.css"/>
+</head>
+<body>
+<header>
+    <div class="index header ">
+        <div class="btn menu" tapmode="" onclick="sliding()"></div>
+        <div class="btn close hidden" tapmode="" onclick="closeSearch()"></div>
+
+        <div class="city location" onclick="openCityList()" tapmode="">
+            <p id="city" onclick="">上海</p>
+        </div>
+        <div class="searchWrap" onclick="openSearch()" tapmode="">
+            <input type="text" placeholder="马尔代夫"/>
+        </div>
+        <div class="btn phone " tapmode="" onclick="phone()"></div>
+    </div>
+    <div class="user header hidden">
+        <div class="btn menu" tapmode="" onclick="sliding()"></div>
+
+        <div class="title">我的途牛</div>
+        <span class="register" tapmode="" onclick="register()"> 注册</span>
+    </div>
+    <div class="tour header hidden">
+        <div class="btn menu" tapmode="" onclick="sliding()"></div>
+
+        <div class="title" id="title"></div>
+        <div class="btn bell" tapmode="" onclick="bell()"></div>
+        <div class="btn dock" tapmode="" onclick="menu()"></div>
+    </div>
+</header>
+<script>
+    var index;
+    apiready = function () {
+        try {
+            api.addEventListener({
+                name: 'keyback'
+            }, function (ret, err) {
+                if(index==0){
+                    api.closeWidget();
+                }else{
+                    if(index==2){
+                        api.setFrameAttr({
+                            name: 'frm_toursList_tab',
+                            hidden: true
+                        });
+                        api.setFrameAttr({
+                            name: 'frm_toursList_con',
+                            hidden: true
+                        });
+                        api.setFrameAttr({
+                            name: 'frm_tourList_tab_con',
+                            hidden: true
+                        });
+                        api.setFrameAttr({
+                            name: 'frm_slider_header_menu',
+                            hidden: true
+                        });
+                    }
+                    $(".header").addClass('hidden').eq(0).removeClass('hidden');
+                    api.setFrameGroupIndex({
+                        name: 'group',
+                        index: 0
+                    });
+                }
+            });
+            api.setStatusBarStyle({
+                style: 'dark'
+            });
+            fixIos7Bar($("header"));
+            api.openFrameGroup({
+                name: 'group',
+                scrollEnabled: false,
+                rect: {x: 0, y: $("header").height(), w: 'auto', h: 'auto'},
+                index: 0,
+                frames: [
+                    {
+                        name: 'frm_main',
+                        url: 'frm_main.html'
+                    },
+                    {
+                        name: 'frm_user',
+                        url: 'frm_user.html'
+                    },
+                    {
+                        name: 'frm_toursList',
+                        url: 'frm_toursList.html'
+                    }
+                ]
+            }, function (ret, err) {
+                if(ret){
+                    index=ret.index;
+                }
+            });
+        } catch (e) {
+            alert(e)
+        }
+
+    };
+    function sliding() {
+        api.openSlidPane({type: 'left'});
+    }
+
+    function setFrameGroupIndex(param) {
+        if (param.index < 2) {
+            api.setFrameAttr({
+                name: 'frm_toursList_tab',
+                hidden: true
+            });
+            api.setFrameAttr({
+                name: 'frm_toursList_con',
+                hidden: true
+            });
+        } else {
+            api.setFrameAttr({
+                name: 'frm_toursList_tab',
+                hidden: false
+            });
+            api.setFrameAttr({
+                name: 'frm_toursList_con',
+                hidden: false
+            });
+        }
+        if (param.title) {
+            $("#title").html('全部' + param.title);
+        }
+        $(".header").eq(param.index).removeClass('hidden').siblings().addClass('hidden');
+        api.setFrameGroupIndex({
+            name: 'group',
+            index: param.index
+        });
+        api.execScript({name: 'slider', frameName: 'frm_toursList_tab', script: 'setDestination()'})
+    }
+    function menu() {
+        api.execScript({name: 'slider', frameName: 'frm_toursList_tab', script: 'closeFrameGroup()'});
+        api.openFrame({
+            name: 'frm_slider_header_menu',
+            url: 'frm_slider_header_menu.html',
+            rect: {x: 0, y: $("header").height(), w: 'auto', h: 'auto'},
+            bounces: false,
+            bgColor: 'rgba(51,51,51,0.6)'
+        })
+    }
+    function closeMenu() {
+        api.closeFrame({name: 'frm_slider_header_menu'})
+    }
+    function bell() {
+        api.toast({msg: '订阅成功', location: 'top'})
+    }
+    function phone() {
+        api.call({
+            type: 'tel_prompt',
+            number: '400-710-3687'
+        });
+    }
+    function openCityList() {
+        api.openWin({
+            name: 'win_cityList',
+            url: 'win_cityList.html',
+            animation: {
+                type: 'movein',
+                subType: 'from_bottom',
+                duration: 300
+            }
+        });
+
+    }
+    function openSearch() {
+        $(".menu").addClass('hidden');
+        $(".close").removeClass('hidden');
+        $(".phone").addClass('hidden');
+        $(".searchWrap").css({'margin-right': '5px'});
+        api.openFrame({
+            name: 'frm_search',
+            url: 'frm_search.html',
+            bounces: false,
+            rect: {
+                x: 0,
+                y: $("header").height(),
+                w: 'auto',
+                h: 'auto'
+            }
+        })
+    }
+    function closeSearch() {
+        try {
+            $(".menu").removeClass('hidden');
+            $(".close").addClass('hidden');
+            $(".phone").removeClass('hidden');
+            $(".searchWrap").css({'margin-right': '0'}).find('input').get(0).blur();
+            api.closeFrame({
+                name: 'frm_search'
+            });
+        } catch (e) {
+            alert(e)
+        }
+    }
+    function register(){
+        api.openWin({
+            name:"win_register",
+            url:'win_register.html'
+        })
+    }
+</script>
+</body>
+<script type="text/javascript" src="../script/zepto.min.js"></script>
+</html>

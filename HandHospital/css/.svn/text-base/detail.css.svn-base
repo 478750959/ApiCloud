@@ -1,0 +1,94 @@
+#main {
+	padding-top: 5px;
+}
+
+.content {
+	text-align: center;
+	padding: 8px;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	border-left: 1px solid #BDBDBD;
+	border-right: 1px solid #BDBDBD;
+	border-bottom: 1px solid #BDBDBD;
+}
+
+.header_bg {
+	background: rgb(64,177,192);
+	border: none;
+}
+
+.left{
+	font-size: 16px;
+	height: 20px;
+	line-height: 20px;
+	color: #5e5e5e;
+	-webkit-box-flex: 1.5;
+	-webkit-flex: 1.5;
+	box-flex: 1.5;
+	-webkit-box-align: center;
+	border-right: 1px solid #BDBDBD;
+	color: #3795f2;
+}
+
+.middle {
+	font-size: 16px;
+	height: 20px;
+	line-height: 20px;
+	color: #5e5e5e;
+	-webkit-box-flex: 1;
+	-webkit-flex: 1;
+	box-flex: 1;
+	-webkit-box-align: center;
+}
+
+.header_bg .left {
+	color: #ffffff;
+}
+
+.header_bg .middle {
+	color: #ffffff;
+}
+
+.right {
+	color: #ffffff;
+	height: 20px;
+	width: 35px;
+}
+
+.content .right {
+	background: url(../image/right.png) no-repeat center;
+	-webkit-background-size: 10px 20px;
+}
+
+.text-overflow {
+	display: block;/*内联对象需加*/
+	width: 31em;
+	word-break: keep-all;/* 不换行 */
+	white-space: nowrap;/* 不换行 */
+	overflow: hidden;/* 内容超出宽度时隐藏超出部分的内容 */
+	text-overflow: ellipsis;/* 当对象内文本溢出时显示省略标记(...) ；需与overflow:hidden;一起使用。*/
+}
+
+.btns {
+	text-align: center;
+	padding: 10px;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	border-left: 1px solid #BDBDBD;
+	border-right: 1px solid #BDBDBD;
+	border-bottom: 1px solid #BDBDBD;
+	height: 40px;
+}
+
+.half{
+	font-size: 16px;
+	height: 20px;
+	line-height: 20px;
+	color: #5e5e5e;
+	-webkit-box-flex: 0.5;
+	-webkit-flex: 0.5;
+	box-flex: 0.5;
+	-webkit-box-align: center;
+}

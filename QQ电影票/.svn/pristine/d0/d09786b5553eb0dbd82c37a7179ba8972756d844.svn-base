@@ -1,0 +1,341 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>Hello APP</title>
+    <link rel="stylesheet" type="text/css" href="./css/api.css" />
+    <link rel="stylesheet" type="text/css" href="./css/common.css" />
+    <style>
+    	
+    </style>
+</head>
+<body ontouchstart="">
+    <div id="wrap">
+        <div id="header">
+            <a id="chooseCityBtn" tapmode>
+            	<img src="./res/drawable-hdpi/ic_launcher.png" class="chooseCityImg">
+            	<span class="chooseCitySpan">北京</span>
+            </a>
+            <a id="chooseStyleBtn" class="show" tapmode>
+
+            </a>
+        </div>
+        <div id="headerBanner">
+        	<div class="banner frame_name active" onclick="changeIndexMenu(0);">电影</div>
+        	<div class="banner frame_name" onclick="changeIndexMenu(1);">影院</div>
+        	<div class="banner frame_name" onclick="changeIndexMenu(2);">活动</div>
+        	<div class="banner frame_name" onclick="changeIndexMenu(3);">我的</div>
+        	<div class="banner_split bs1"> </div>
+        	<div class="banner_split bs2"> </div>
+        	<div class="banner_split bs3"> </div>
+        </div>
+        <div id="main">
+                
+        </div>
+        <div id="footer">
+            <h5>Copyright &copy;2014 </h5>
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="./script/api.js"></script>
+<script type="text/javascript" src="./script/zepto.js"></script>
+<script type="text/javascript" src="./script/common.js"></script>
+<script type="text/javascript">
+
+    var banner_bar = $api.byId('banner_bar');
+    var aFrameName = $api.domAll('#headerBanner .frame_name');
+    var chooseStyleBtn = $api.byId('chooseStyleBtn');
+    // 上方的导航，原版效果没有实现
+    function changeBanner(num){
+        for(var i = 0,len = aFrameName.length;i < len; i++ ){
+            $api.removeCls(aFrameName[i],'active');
+        }
+        $api.addCls(aFrameName[num],'active');
+    };
+
+	// 首页的framegroup
+    function openIndexFrameGroup(){
+
+        api.setWinAttr({
+            bounces: false
+        });
+        api.openFrameGroup({
+            name: 'index_frameGroup',
+            bounces: false,
+            index: 0,
+            rect: {
+                x: 0,
+                y: headerPos.h+headerBannerPos.h,
+                w: 'auto',
+                h: wH-headerPos.h-headerBannerPos.h
+            },
+            scrollEnabled: true,
+            frames: [
+                {
+                    name: 'movie',
+                    url: './html/indexgroup/movie.html',
+                    bounces: false,
+                    opaque: true,
+                    bgColor: '#000'
+                },{
+                    name: 'cinema',
+                    url: './html/indexgroup/cinema.html',
+                    bounces: false,
+                    opaque: true,
+                    bgColor: '#000'
+                },{
+                    name: 'activities',
+                    url: './html/indexgroup/activities.html',
+                    bounces: false,
+                    opaque: true,
+                    bgColor: '#000'
+                },{
+                    name: 'mine',
+                    url: './html/indexgroup/mine.html',
+                    bounces: false,
+                    opaque: true,
+                    bgColor: '#000'
+                }
+            ]
+        },function(ret,err){
+            var index = ret.index;
+            var name = ret.name;
+            // 两个frame，每个frame有两种图标，这里写得有点绕
+            if (index == 0) {
+                if ($api.getStorage('movieStyle')) {
+                    changeIndexStyleBtn($api.getStorage('movieStyle'));
+                    api.execScript({
+                        frameName: 'movie',
+                        script: 'changeStyle("'+$api.getStorage('movieStyle')+'")'
+                    });
+                } else{
+                    // $api.setStorage('movieStyle','show');
+                    changeIndexStyleBtn('show');
+                }
+            } else if(index == 1){
+                if ($api.getStorage('cinemaStyle')) {
+                    changeIndexStyleBtn($api.getStorage('cinemaStyle'));
+                    api.execScript({
+                        frameName: 'cinema',
+                        script: 'changeStyle("'+$api.getStorage('cinemaStyle')+'")'
+                    });
+                } else{
+                    // $api.setStorage('cinemaStyle','cinema_list');
+                    changeIndexStyleBtn('cinema_list');
+                }
+            } else {
+                changeIndexStyleBtn();
+            }
+            changeBanner(index); 
+            // 测试欢迎页，打开可测
+            // $api.rmStorage('firstStart');               
+        });
+        
+    };
+
+    // 改变展示样式按钮
+    function changeBtn(style){
+        switch(style){
+            case 'show': chooseStyleBtn.className = 'list';
+                        $api.attr(chooseStyleBtn,'onclick', 'showStyle("movie","list");');
+                        break;  
+            case 'list': chooseStyleBtn.className = 'show';
+                        $api.attr(chooseStyleBtn,'onclick', 'showStyle("movie","show");');
+                        break;  
+            case 'cinema_map': chooseStyleBtn.className = 'cinema_list';
+                        $api.attr(chooseStyleBtn,'onclick', 'showStyle("cinema","cinema_list");');
+                        break;  
+            case 'cinema_list': chooseStyleBtn.className = 'cinema_map';
+                        $api.attr(chooseStyleBtn,'onclick', 'showStyle("cinema","cinema_map");');
+                        break;  
+            default: chooseStyleBtn.className = '';
+                    $api.removeAttr(chooseStyleBtn,'onclick');
+        }
+
+    };
+
+    // 按条件搜索
+    var searchInMap = function(options){
+        map.searchNearBy({
+            key: '电影院',
+            lon: 116.384767,
+            lat: 39.989539,
+            radius: 2000,
+            pageIndex: 0
+        },function(ret,err){
+            if (ret.status) {
+                // api.alert({title:'NearBy搜索结果总条数',msg:ret.totalNum});
+            }else {
+                // api.alert({title:'搜索错误代码',msg:err.msg});
+            }
+        });
+    };
+    var openBaiduMap = function(options){
+        // 高度不知为何有一点误差
+        if ($api.getStorage('map') && $api.getStorage('map') == 2) {
+              
+        } else{
+            map.open({
+                x: 0,
+                y: 0,
+                width: wW,
+                height: wH-headerPos.h-headerBannerPos.h-footerPos.h-2,
+                lon: 116.384767,
+                lat: 39.989539,
+                fixedOn: 'cinema'
+            },function(ret,err){
+                $api.setStorage('map','2');
+                if(ret.status){
+                    searchInMap();
+                    map.setZoomLevel({
+                        level: 18
+                    });
+
+                } else {
+                }
+                if (err) {
+                }
+            });
+        }
+        
+    };
+    var closeBaiduMap = function(options){
+        if (map) {
+            map.close();
+            $api.setStorage('map','1');
+        }    
+    };
+    // 地图标示物的图片
+    var setMapRes = function(){
+        // bg_map_movie.9.png map信息的下箭头文本框
+        // arrow_right_white.png 同上
+        // ico_map_movie.png 最近的影院
+        // ico_map_price.9.png 所有影院信息，中间加上价格
+        // 我的位置是个蓝点
+    };
+    
+
+
+    apiready = function(){
+		console.log("api log test");
+		console.warn("api warning test");
+		
+        // window.map = api.require('baiduMap');
+        window.map = api.require('bMap');
+        
+		var chooseCityBtn = $api.byId('chooseCityBtn');
+	    var header = $api.byId('header');
+        $api.fixIos7Bar(header); 
+        // fixios7bar,这里的header最好是纯色，里面的内容最好不要用top：0；
+	    var headerBanner = $api.byId('headerBanner');
+	    var footer = $api.byId('footer');
+	    window.headerPos = $api.offset(header);
+	    window.headerBannerPos = $api.offset(headerBanner);
+	    window.footerPos = $api.offset(footer);
+	    var main = $api.byId('main');
+	    var mainPos = $api.offset(main);
+
+        window.wW = api.winWidth;
+        window.wH = api.winHeight;
+        var w = parseInt(wW/3);
+        var h = parseInt(wH*4/5);
+
+        // 欢迎页 framegroup
+		var welcome = function(){
+            // 下方小点点的frame
+            // ios 上frame适配有问题，宽度无法适应，不清楚的可以打开试试看
+            // api.openFrame({
+            //     name: 'dot_slider',
+            //     url: './html/welcome/dot_slider.html',
+            //     bounces: false,
+            //     pageParam: {
+            //         w: w
+            //     },
+            //     rect: {
+            //         x: w,
+            //         y: h,
+            //         w: w,
+            //         h: 10
+            //     }
+            // });
+
+            // 欢迎页
+			api.openFrameGroup({
+	            name: 'welcome',
+	            bounces: false,
+	            index: 0,
+	            rect: {
+	            	x: 0,
+	            	y: 0,
+	            	w: 'auto',
+	            	h: 'auto'
+	            },
+	            scrollEnabled: true,
+	            frames: [
+	            	{
+		            	name: 'welcome_1',
+		                url: './html/welcome/welcome_1.html',
+		                bounces: false,
+		                opaque: true,
+		                bgColor: '#000'
+		            },{
+		            	name: 'welcome_2',
+		                url: './html/welcome/welcome_2.html',
+		                bounces: false,
+		                opaque: true,
+		                bgColor: '#000'
+		            },{
+		            	name: 'welcome_3',
+		                url: './html/welcome/welcome_3.html',
+		                bounces: false,
+		                opaque: true,
+		                bgColor: '#000'
+		            },{
+		            	name: 'welcome_4',
+		                url: './html/welcome/welcome_4.html',
+		                bounces: false,
+		                opaque: true,
+		                bgColor: '#000'
+		            }
+	            ]
+            },function(ret,err){
+            	var index = ret.index;
+            	var name = ret.name;
+                if (index == 0) {
+                    $api.setStorage('firstStart',true);
+                }
+                // ios 上frame适配有问题，宽度无法适应
+                // var str = 'changeDot('+index+');';
+                // api.bringFrameToFront({
+                //     from: 'dot_slider'
+                // });
+                // api.execScript({
+				//     frameName: 'dot_slider',
+				//     script: str
+				// });
+            });
+            
+            
+		};
+
+        // 点击城市，调出选择城市window
+        chooseCityBtn.onclick = function(){
+            api.openFrame({
+                name: 'fast_city',
+                url: './html/citylist/fast_city_list.html',
+                rect: {
+                    x: 0,
+                    y: 0,
+                    w: 'auto',
+                    h: 'auto'
+                },
+                bounces: false
+            });
+        };
+
+		indexOrWelcome(welcome());
+        
+    };
+</script>
+</html>

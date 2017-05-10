@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/common.css"/>
+</head>
+<body>
+<header>
+    <div class="index header ">
+        <div class="btn back" tapmode="" onclick="api.closeWin()"></div>
+
+        <div class="city" style="padding-left:5px">
+            <p>跟团游</p>
+        </div>
+        <div class="searchWrap">
+            <input type="text" placeholder="马尔代夫"/>
+        </div>
+        <div class="btn dock" tapmode="" onclick="menu()"></div>
+    </div>
+</header>
+<script type="text/javascript" src="../script/zepto.min.js"></script>
+<script>
+    apiready = function () {
+        fixIos7Bar($("header"));
+        $("p").html(api.pageParam.name);
+        api.openFrame({
+            name: "frm_group",
+            url: 'frm_group.html',
+            rect: {
+                x: 0,
+                y: $("header").height(),
+                h: 'auto',
+                w: 'auto'
+            }
+        })
+    }
+    function menu(){
+        api.openFrame({
+            name: 'frm_slider_header_menu',
+            url: 'frm_slider_header_menu.html',
+            rect: {x: 0, y: $("header").height(), w: 'auto', h: 'auto'},
+            bounces: false,
+            bgColor: 'rgba(51,51,51,0.6)'
+        })
+    }
+</script>
+</body>
+</html>

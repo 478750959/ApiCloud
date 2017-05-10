@@ -1,0 +1,284 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>APP</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/common.css" />
+    <style>
+        #main{
+            padding: 0;
+            position: relative;
+        }
+
+        .shop{
+            background-color: #FFF;
+            border-top: 1px solid #CCC;
+            border-bottom: 1px solid #CCC;
+            margin-bottom: 14px;
+        }
+        .shop span{
+            color: #1A1A1A;
+            font-size: 11px;
+        }
+        .shop_name{
+            border-bottom: 1px solid #CCC;
+            height: 53px;
+        }
+        .shop_name_left{
+
+        }
+        .shop .checkBox{
+            display: inline-block;
+            background: url(../../res/img/tmall_checkbox_off.png) center center no-repeat;
+            background-size: 100% 100%;
+            width: 17px;
+            height: 17px;
+            margin: 18px 12px;
+        }
+        .shop .checkBox.active{
+            background: url(../../res/img/tmall_checkbox_on.png) center center no-repeat;
+            background-size: 100% 100%;
+        }
+        .shop_name_text{
+            font-size: 14px;
+            line-height: 53px;
+        }
+
+        .shop_item_group{
+
+        }
+        .shop_item{
+            width: 100%;
+            display: -webkit-box;
+            -webkit-box-orient:horizontal;
+            display: -webkit-flex;
+            display: flex;
+            position: relative;
+            padding: 15px 0;
+        }
+        .shop_item_left{
+            position: relative;
+        }
+        .item_icon{
+            width: 53px;
+        }
+        .shop_item_center{
+            position: relative;
+            -webkit-box-flex: 1; 
+            -webkit-flex: 1;
+            flex: 1;
+            padding-left: 7px;
+        }
+        .shop_item_center .title{
+            display: block;
+            line-height: 17px;
+            text-indent: 0 !important;
+        }
+        .shop_item_center .description{
+            display: block;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+            line-height: 17px;
+        }
+        .shop_item_center .classify{
+            display: block;
+            color: #9E9E9E;
+            line-height: 14px;
+        }
+        .tag_group .tag{
+            height: 12px;
+        }
+        .shop_item_right{
+            text-align: right;
+            position: relative;
+            width: 73px;
+            padding-right: 7px;
+        }
+        .shop_item_right .price{
+            margin-bottom: 30px;
+        }
+        .count_group{
+            line-height: 100%;
+        }
+        .count_group .edit_icon{
+            width: 18px;
+            height: 18px;
+            background: url(../../res/img/tm_mcart_ic_edit.png) center center no-repeat;
+            background-size: 100% 100%;
+            vertical-align: bottom;
+            margin-left: 4px;
+        }
+        .count_group .count{
+            font-size: 13px;
+        }
+    </style>
+</head>
+<body>
+    <div id="wrap">
+        <div id="main">
+            
+            <div class="shop">
+                <!-- 店铺名 -->
+                <div class="shop_name clearfix">
+                    <div class="shop_name_left pull-left">
+                        <i class="checkBox"></i>
+                    </div>
+                    <span class="shop_name_text">
+                        playboy鞋类旗舰店
+                    </span>
+                </div>
+                <!-- 宝贝组 -->
+                <div class="shop_item_group">
+                    <!-- 单个宝贝 -->
+                    <div class="shop_item clearfix">
+                        <div class="shop_item_left pull-left">
+                            <i class="checkBox"></i>
+                            <img src="../../image/cart_item_icon2.png" alt="" class="item_icon">
+                        </div>
+                        <div class="shop_item_center" tapmode="tap-active" data-url="http://detail.m.tmall.com/item.htm?spm=875.7403452.20000008.2.M7uZ74&id=13570491314&abbucket=&acm=03317.1003.1.99094&uuid=jsjqEXAo_mFKjC0zy31sCAXbPnigNyV/z&abtest=&scm=1003.1.03317.ITEM_13570491314_99094&pos=2" data-title="键盘" onclick="toDetail(this);">
+                            <span class="title">【11.11购物狂欢节】花花公子</span>
+                            <span class="description">
+                                冬季男鞋2014棉靴保暖棉鞋韩版…
+                            </span>
+                            <span class="classify">
+                                颜色分类：深蓝；尺码：41
+                            </span>
+                            <div class="tag_group">
+                                <img src="../../res/img/tm_brand_11_tab.png" alt="" class="tag">
+                            </div>
+                        </div>
+                        <div class="shop_item_right pull-right">
+                            <span class="price">￥199.00</span>
+                            <div class="count_group clearfix">
+                                <i class="edit_icon pull-right"></i>
+                                <span class="count pull-right">1</span>
+                                <span class="multiply pull-right">×</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        <!-- 1 -->
+            <!-- <div class="shop">
+                <div class="shop_name clearfix">
+                    <div class="shop_name_left pull-left">
+                        <i class="checkBox active"></i>
+                    </div>
+                    <span class="shop_name_text">
+                        罗技百事得专卖店
+                    </span>
+                </div>
+                
+                <div class="shop_item_group">
+                    
+                    <div class="shop_item clearfix">
+                        <div class="shop_item_left pull-left">
+                            <i class="checkBox active"></i>
+                            <img src="../../image/cart_item_icon1.png" alt="" class="item_icon">
+                        </div>
+                        <div class="shop_item_center">
+                            <span class="title">顺丰包邮 新品上市罗技</span>
+                            <span class="description">
+                                MK345无线键鼠套装 配MK275无线鼠标
+                            </span>
+                            <span class="classify">
+                                颜色分类：MK345 送16G优盘+超大游戏垫
+                            </span>
+                            <div class="tag_group">
+                                <img src="../../res/img/cart_tags1.png" alt="" class="tag">
+                            </div>
+                        </div>
+                        <div class="shop_item_right pull-right">
+                            <span class="price">￥199.00</span>
+                            <div class="count_group clearfix">
+                                <i class="edit_icon pull-right"></i>
+                                <span class="count pull-right">1</span>
+                                <span class="multiply pull-right">×</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="shop_item clearfix">
+                        <div class="shop_item_left pull-left">
+                            <i class="checkBox active"></i>
+                            <img src="../../image/cart_item_icon1.png" alt="" class="item_icon">
+                        </div>
+                        <div class="shop_item_center">
+                            <span class="title">顺丰包邮 新品上市罗技</span>
+                            <span class="description">
+                                MK345无线键鼠套装 配MK275无线鼠标
+                            </span>
+                            <span class="classify">
+                                颜色分类：MK345 送16G优盘+超大游戏垫
+                            </span>
+                            <div class="tag_group">
+                                <img src="../../res/img/cart_tags1.png" alt="" class="tag">
+                            </div>
+                        </div>
+                        <div class="shop_item_right pull-right">
+                            <span class="price">￥199.00</span>
+                            <div class="count_group clearfix">
+                                <i class="edit_icon pull-right"></i>
+                                <span class="count pull-right">1</span>
+                                <span class="multiply pull-right">×</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+            <div class="shop">
+                <!-- 店铺名 -->
+                <div class="shop_name clearfix">
+                    <div class="shop_name_left pull-left">
+                        <i class="checkBox active"></i>
+                    </div>
+                    <span class="shop_name_text">
+                        playboy鞋类旗舰店
+                    </span>
+                </div>
+                <!-- 宝贝组 -->
+                <div class="shop_item_group">
+                    <!-- 单个宝贝 -->
+                    <div class="shop_item clearfix">
+                        <div class="shop_item_left pull-left">
+                            <i class="checkBox active"></i>
+                            <img src="../../image/cart_item_icon2.png" alt="" class="item_icon">
+                        </div>
+                        <div class="shop_item_center" tapmode="tap-active" data-url="http://detail.m.tmall.com/item.htm?spm=875.7403452.20000008.2.M7uZ74&id=13570491314&abbucket=&acm=03317.1003.1.99094&uuid=jsjqEXAo_mFKjC0zy31sCAXbPnigNyV/z&abtest=&scm=1003.1.03317.ITEM_13570491314_99094&pos=2" data-title="键盘" onclick="toDetail(this);">
+                            <span class="title">【11.11购物狂欢节】花花公子</span>
+                            <span class="description">
+                                冬季男鞋2014棉靴保暖棉鞋韩版…
+                            </span>
+                            <span class="classify">
+                                颜色分类：深蓝；尺码：41
+                            </span>
+                            <div class="tag_group">
+                                <img src="../../res/img/tm_brand_11_tab.png" alt="" class="tag">
+                            </div>
+                        </div>
+                        <div class="shop_item_right pull-right">
+                            <span class="price">￥199.00</span>
+                            <div class="count_group clearfix">
+                                <i class="edit_icon pull-right"></i>
+                                <span class="count pull-right">1</span>
+                                <span class="multiply pull-right">×</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <!-- 2 -->
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/common.js"></script>
+<script type="text/javascript">
+    apiready = function(){
+
+    };
+</script>
+</html>

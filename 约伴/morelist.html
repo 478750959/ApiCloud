@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+<head>
+    <title></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="css/ui-btn.css">
+	<link rel="stylesheet" href="css/ui-base.css">
+	<link rel="stylesheet" href="css/ui-box.css">
+	<link rel="stylesheet" href="css/ui-color.css">
+	<link rel="stylesheet" href="css/ui-res.css">
+	<link rel="stylesheet" href="css/ui-img.css">
+	<link rel="stylesheet" href="css/ui-input.css">
+	<link rel="stylesheet" href="css/ui-list.css">
+	<link rel="stylesheet" href="css/style.css">
+    <script src="js/y_control.js"></script>
+	<script src="js/y_click.js"></script>
+	<script src="js/dis_control.js"></script>
+	<script src="js/y_anim.js"></script>
+	<style>
+    .mswi{
+		-webkit-transition:-webkit-transform 0.1s ease-in;
+	}
+	input+h1>img.mswi{
+		-webkit-transform:rotate(0deg);
+	}
+	input:checked+h1>img.mswi{
+		-webkit-transform:rotate(180deg);
+	}
+	
+	.btn2
+	{
+		font-size: 0.8em;
+		text-align:center;
+	}
+	
+	.uinn44 {
+        padding: 0.1em 0.2em;
+        margin: 0;
+	}
+	</style>
+</head>
+<body class="um-vp" ontouchstart>
+    <div id="page_0" class="up ub ub-ver" tabindex="0">
+        <!--header开始-->
+        <div id="header" class="c-blu3 uh">
+        	<div class="c-m2 t-wh ub">
+        		<div class="umw4" ontouchstart="zy_touch('btn-act1')" onclick="closewin();">
+        			<div class="btn btn-l btn-a ub ub-ac">       
+						<div class="ulim"><img src="images/back.png" class="sbtn"></div>
+					</div>
+        		</div>
+				<input class="uhide" type="checkbox" id="cbx">
+				<h1 class="ut ulev0 ut-s tx-c ub-f1" style="padding:.6em 0 .8em;" tabindex="0" id="ttl" ontouchstart="zy_touch('c-gra')" onclick="openpop();">
+					&nbsp;
+					<!--<img class="mswi" id="trans-pic" src="css/images/icons-18-white_down.png" style="width:.85em;" />	-->
+				</h1>
+				<div class="umw4"></div>
+			</div>
+			
+			<div style="padding:.4em;" id="search">
+				<div class="ub">
+					<form class="ub-f1">   
+						<div class="t-bla ub uba uc-a2 b-gra c-wh uinput ub-rev uinn44" >
+						   <div class="res5  umw1 ub-img4 uhide" ontouchstart="zy_touch('c-gra')" onclick="delKeywords();" id="btnd"></div>
+						   <div class="ub-f1 uinn3">
+								<input placeholder="请输入搜索内容" oninput="txtinput(this);" type="text" class="" style="background:none; padding:.4em 0; line-height:1.4em;" id="keywords">
+							</div> 
+						 </div>
+					</form>
+			 		<a class="btn-n ub ub-ac umar-l umw3 ub-pc" ontouchstart="zy_touch('btn-act1')" onclick="mySearch();">
+			        	<div class="ulim t-wh">搜索</div>             
+			      	</a>
+				</div>
+			</div>
+			<div style="height:1px;"></div>
+        </div>
+		
+        <!--header结束-->
+		<!--content开始-->
+        <div id="content" class="ub-f1 tx-l t-bla">
+			
+        </div>
+        <!--content结束-->
+    </div>
+</body>
+<script>
+zy_init();
+var url = '';
+var popurl = 'pop_menu.html';
+var ttl = '';
+var index = 1; 
+var hasPop = false;
+var isSML = getstorage('simulate');
+var params = getStorJson('params');
+var view = params.view;
+
+if(view=='search'){
+	url='morelist_search.html';
+	ttl = '搜主题';
+	hasPop = false;
+	setstorage('keywords', '');
+}
+else{
+	removeNode('search');
+	if(view=='favorite'){
+		url='morelist_favorite.html';
+		ttl = '所有收藏';
+		hasPop = true;
+	}
+	else if (view == 'reminder') {
+		url = 'morelist_reminder.html';
+		ttl = '提醒';
+		//hasPop = true;
+	}
+	else if(view=='friendreq'){
+		url='morelist_friendreq.html';
+		ttl = '好友请求';
+	}
+	else if(view=='visitor'){
+		url='morelist_track.html';
+		ttl = '我的访客';
+	}
+	else if(view=='trace'){
+		url='morelist_track.html';
+		ttl = '我访问的人';
+	}
+    else if(view=='linkf'){
+        url='morelist_track.html';
+        ttl = '共同好友';
+    }
+}
+if(ttl) setHtml('ttl', ttl);
+if(!hasPop) removeNode('trans-pic');
+
+window.uexOnload = function(type){	
+    if (!type) {
+		var hh = $$("header").offsetHeight;
+		//if(view=='search') hh += $$("search").offsetHeight;
+        zy_con("content", url, 0, hh);
+    }
+	window.onorientationchange=window.onresize=function()
+	{
+		zy_resize("content",0,$$("header").offsetHeight);				
+	}
+}
+
+var ipop = 0;
+function openpop(){
+	if(!hasPop) return;
+	checkbx();
+	if(ipop){
+		logs('openpop()--------->ipop='+ipop);
+		if(isSML){
+			uexWindow.closePopover('pop_menu');
+			ipop = 0;
+		}
+		else ueppscript('morelist', 'pop_menu', 'movepop();')
+	}
+	else{
+		logs('openpop()-->open');
+		var e = $$('header');
+		var s = window.getComputedStyle(e,null);
+		var h = int(window.innerHeight);
+		var w = int(window.innerWidth);
+		var f = int(s.fontSize);
+		var ofw = 1500;
+		if(isSML) ofw = 0;
+		var y = int(e.offsetHeight)-0.6*f-ofw;
+		if(view=='search') y = y-$$("search").offsetHeight;
+		
+		setstorage('popview', view);
+		setstorage('indexFc', index);
+		uexWindow.openPopover('pop_menu',"0",popurl,"",0,int(y),int(w),int(h),f,"0");
+		ipop++;
+	}
+}
+function selected(i, txt){
+	var scr = 'selected('+i+');';
+	ueppscript('morelist', 'content', scr);
+	
+	if(txt) setHtml('ttl', txt);
+}
+
+function checkbx(){
+	var ch = $$('cbx');
+	if(ch) ch.checked = !ch.checked;
+}
+
+var eleKey = $$('keywords');
+function delKeywords(){
+	eleKey.value = '';
+	setstorage('keywords', '');
+	zy_hide('btnd');
+}
+function txtinput(ts){
+	var v = ts.value;
+	var l = v.length;
+	if(l==0) zy_hide('btnd');
+	else if(l==1) zy_show('btnd');
+}
+function mySearch(){
+	setstorage('keywords', eleKey.value);
+	ueppscript('morelist', 'content', 'loadList("", "", "1");');
+}
+function setKeywords(){
+	var kw = getstorage('keywords');
+	if(kw){
+		eleKey.value = kw;
+		zy_show('btnd');
+	}
+}
+</script>
+</html>

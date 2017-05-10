@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+  <title>HTML</title>
+  
+  <!-- Replace favicon.ico & apple-touch-icon.png in the root of your domain and delete these references -->
+  <link rel="shortcut icon" href="/favicon.ico">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+
+	<style>
+		html {width: 100%;height: 100%;}
+		body {background: #E6E9EE;width: 100%;height: 100%;}
+		#topbar {background: #EBECF0; height:50px; border-bottom: 1px solid #DDDFE3;}
+		.right_btn{float: right;padding: 11px 15px 11px 15px;}
+		#logo {padding: 11px 0 0 10px;height: 28px;}
+		#topbar_search {height: 28px;}
+		.btn_click {background: #DADDE0;}
+		#topbar_title {display: inline-block;font-size: 24px; line-height: 50px;padding-left: 10px;}
+		
+		ul {background: #0f0;}
+		table {width: 100%;}
+		td {text-align: center;padding-top: 5px;width: 25%;}
+		.itembtn {background: url(../../image/warehouse_movie.png) no-repeat center top;height: 20px;padding-top: 55px;width: 100%;}
+		.griditem {display: inline-block;}
+		.brb {border-right: 1px solid #E1E4E9;border-bottom: 1px solid #E1E4E9;}  /*border right bottom*/
+		.bb {border-bottom: 1px solid #E1E4E9;}
+		.ware_item_hover {background: #D0D4D7;}
+	</style>
+</head>
+
+<body>
+
+	<table>
+		<tbody>
+			<tr class="row1">
+				<td class="brb"  tapmode="ware_item_hover" onclick="openWareWindow()"><a href="" class="itembtn">电视剧</a></td>
+				<td class="brb"  tapmode="ware_item_hover" onclick="openWareWindow()"><a href="" class="itembtn">电影</a></td>
+				<td class="brb"  tapmode="ware_item_hover" onclick="openWareWindow()"><a href="" class="itembtn">动漫</a></td>
+				<td class="bb"   tapmode="ware_item_hover" onclick="openWareWindow()"><a href="" class="itembtn">综艺</a></td>
+			</tr>
+			<tr class="row1">
+				<td class="brb"  tapmode="ware_item_hover" onclick="openWareWindow()"><a href="" class="itembtn">美剧</a></td>
+				<td class="brb"  tapmode="ware_item_hover" onclick="openWareWindow()"><a href="" class="itembtn">纪录片</a></td>
+				<td class="brb"  tapmode="ware_item_hover" onclick="openWareWindow()"><a href="" class="itembtn">搜狐影院</a></td>
+				<td class="bb"   tapmode="ware_item_hover" onclick="openWareWindow()"><a href="" class="itembtn">直播</a></td>
+			</tr>
+			<tr class="row1">
+				<td class="brb"  tapmode="ware_item_hover" onclick="openWareWindow()"><a href="" class="itembtn">新闻</a></td>
+				<td class="brb"  tapmode="ware_item_hover" onclick="openWareWindow()"><a href="" class="itembtn">音乐</a></td>
+				<td class="brb"  tapmode="ware_item_hover" onclick="openWareWindow()"><a href="" class="itembtn">娱乐</a></td>
+				<td class="bb"   tapmode="ware_item_hover" onclick="openWareWindow()"><a href="" class="itembtn">星尚</a></td>
+			</tr>
+			<tr class="row1">
+				<td class="brb"  tapmode="ware_item_hover" onclick="openWareWindow()"><a href="" class="itembtn">体育</a></td>
+				<td class="brb"  tapmode="ware_item_hover" onclick="openWareWindow()"><a href="" class="itembtn">搜狐出品</a></td>
+				<td class="brb"  tapmode="ware_item_hover" onclick="openWareWindow()"><a href="" class="itembtn">排行榜</a></td>
+				<td></td>
+			</tr>
+		</tbody>
+	</table>
+    <!-- <ul>
+    	<li class="griditem">
+    		<a href="" class="itembtn">电视剧</a>
+    	</li>
+    	<li class="griditem"><a href="">电影</a></li>
+    	<li class="griditem"><a href="">动漫</a></li>
+    	<li class="griditem"><a href="">综艺</a></li>
+    </ul> -->
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script>
+	function emptyopt () {
+	}
+
+	function openWareWindow()
+	{
+		api.openWin({
+		    name: 'wareClass',
+		    url: './ware_class.html',
+		    pageParam: {},
+		    bounces: false,
+		    opaque: false,
+		    bgColor:  'rgba(255,255,255,0)',
+		    vScrollBarEnabled:false,
+		    hScrollBarEnabled:true,
+		    // animation: {
+		    //         type: 'flip',
+		    //         subType: 'from_bottom',
+		    //         duration: 500
+		    //     }
+	    });
+	}
+
+	
+	apiready = function () {
+
+	}
+</script>
+</html>

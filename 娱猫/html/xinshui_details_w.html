@@ -1,0 +1,116 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>设置</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+      <style>
+    	.ly_share {
+			position: absolute;
+			right: 0;
+			top: 0;
+			width: 0.95rem;
+			height: 100%;
+			/*border-left: 0.02rem solid #fde2dc;*/
+			font-size: 0.24rem;
+			color: #ff7f88;
+			text-align: center;
+			line-height: 0.98rem;
+			background:url(../image/ggshare.png) no-repeat center center;
+			background-size:0.34rem 0.26rem; 
+		}
+    </style>
+</head>
+<body>
+<div id="wrap">
+	<header id='header'>
+		<!--<div class="miHeader">
+        	<a href='javascript:;' class='head_icon back' onclick='api.closeWin();'></a>
+        	<span class='mi_head_txt'>内容详情</span>
+        </div>-->
+        
+        <div class="miHeader">
+        	<a href='javascript:;' class='head_icon back' onclick='api.closeWin();'></a>
+        	<span class='mi_head_txt'>内容详情</span>
+        	<a class="ly_share"  href="javascript:void(0)"   onclick="openFm('bill_share_f')"></a>
+        </div>
+        
+        
+        
+	</header>
+</div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/font.js"></script>
+<script type="text/javascript" src="../script/comm.js"></script>
+<script type="text/javascript" src="../script/zepto.js"></script>
+<script>
+	//点击分享按钮
+	function openFm(xyc){
+	    var width = api.winWidth;
+	    var height = api.winHeight;
+	    api.openFrame({
+		    name: 'bill_share_f',
+		    url: 'bill_share_f.html',
+		    bounces: false,
+		    opaque: false,
+		    reload: true,
+		    vScrollBarEnabled: false,
+		    pageParam:{	goods_name:api.pageParam.goods_name,
+				goods_pic:api.pageParam.goods_pic,
+				m:'xinshui'
+				},
+		    rect: {
+		        x: 0,
+		        y: 0,
+		        w: width,
+		        h: height
+		    }
+		});	
+	}
+	apiready = function(){
+		$('.ly_share').addClass('none');			
+		var appBundle;
+		if (api.systemType == 'ios'){
+		    appBundle = 'wechat://';
+		    app_installed(appBundle,function(ret){
+		    	if(ret){			    		
+		    		$('.ly_share').removeClass('none');			    					    	
+		    	}
+		    });
+		    appBundle = "sinaweibo://";
+		    app_installed(appBundle,function(ret){
+		    	if(ret){			    		
+		    		$('.ly_share').removeClass('none');
+		    	}	
+		    });
+		}else{
+			$('.ly_share').removeClass('none');		
+		} 
+		var header = $api.byId('header');
+	    $api.fixIos7Bar(header);
+	    var width = api.winWidth;
+	    var headerPos = $api.offset(header);
+	    var height = api.winHeight - headerPos.h;
+	    api.setStatusBarStyle({
+		    style: 'dark'
+		});
+	    api.openFrame({
+		    name: 'xinshui_details_f',
+		    url: 'xinshui_details_f.html',
+		    bounces: false,
+		    opaque: true,
+		    vScrollBarEnabled: false,
+		    pageParam:{'id':api.pageParam.id},
+		    rect: {
+		        x: 0,
+		        y: headerPos.h,
+		        w: width,
+		        h: height
+		    }
+		});	
+	}
+	
+</script>
+</html>

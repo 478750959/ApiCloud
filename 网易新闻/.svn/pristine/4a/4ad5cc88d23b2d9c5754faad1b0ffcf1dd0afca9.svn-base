@@ -1,0 +1,69 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>window</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <style>
+        html, body {
+            height: 100%;
+            min-width: 320px;
+        }
+        body {
+            font-size: 14px;
+        }
+        /*header*/
+        .header {
+            display: -webkit-box;
+            border-bottom: 1px solid #E5E5E5;
+            -webkit-box-pack: center;
+            -webkit-box-align: center;
+        }
+        .header-title {
+            -webkit-box-flex: 1;
+            text-align: center;
+            font-size: 16px;
+        }
+        .btn{
+            display: block;
+            background-size: 30px;
+            padding: 20px;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+        .header .back {
+            background-image: url("../image/previous_arrow@2x.png");
+        }
+
+
+    </style>
+</head>
+<body>
+<header>
+    <div class="header">
+        <div class="btn back" tapmode="" onclick="api.closeWin()"></div>
+        <div class="header-title">
+            最新回复
+        </div>
+        <div  class="btn"></div>
+    </div>
+</header>
+<script type="text/javascript" src="../script/zepto.min.js"></script>
+<script>
+    apiready=function(){
+        fixIos7Bar($("header"));
+        api.openFrame({
+            name:'frm_reply',
+            url:'frm_reply.html',
+            rect:{
+                x:0,
+                y: $("header").height(),
+                w:'auto',
+                h:'auto'
+            }
+        })
+    }
+</script>
+</body>
+</html>
