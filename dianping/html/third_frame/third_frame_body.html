@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+	<title>发现</title>
+	<link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/common.css" />
+
+	<style>
+		html, body {width: 100%;min-height: 100%;background: #f0f0f0;}
+		.h80 {height: 80px;}
+		.h40 {height: 40px;line-height: 40px;}
+		.h20 {height: 20px;}
+    	.h10 {height: 10px;background: #f0f0f0;}
+		.h1 {height: 1px;margin-left: 15px;background: #f0f0f0;}
+		.fr {float: right;}
+		.fl {float: left;}
+		.hightitem {background-color: #fff;}
+		.sectionTitle {height: 40px;line-height: 40px;padding-left: 10px;vertical-align: top; font-size: 12px;color: #999;}
+
+		/* 112样式 */
+		.row {display: -webkit-box;display: -webkit-flex;}
+		.col {-webkit-box-flex:1; -webkit-flex:1; flex:1;position: relative;}
+		.col img {position: absolute; right: 0; width: 80px; top: 0;}
+		.col .matrix3 {display: table;height: inherit;width: 100%;}
+		.matrix3 .matrixcell {display: table-cell;vertical-align: middle; text-align: center;}
+		.petty {height: 50%;width: 100%;float: left;}
+
+		.brb {border-bottom: 1px solid #e0e0e0;border-right: 1px solid #e0e0e0;}
+		.bb {border-bottom: 1px solid #e0e0e0;}
+		.br {border-right: 1px solid #e0e0e0;}
+
+		/* 2X2样式 */
+		.section02 .col img {position: relative;}
+		.section02 .col .petty {text-align: center;font-size: 20px;padding-top: 10px;}
+		.section02 .col .petty img {width: 40%;margin-top: 10px;}
+		.section02 .logocover {text-align: center; margin-top: 20px;}
+		.section02 .logocover img {width: 80%;}
+		.section02 .title {font-size: 20px;margin-top: 10px;}
+		.section02 .subtitle {font-size: 14px;margin-top: 5px;color: #666;}
+		
+		.section03 .matrixcell {text-align: left;margin-left: 10px;}
+		.section03 .col img {position: absolute;right: 10px;top: 10px; left: inherit;width: 50px;}
+		.section03 .col  {height: 80px;}
+		.section03 .col .title {margin-left: 10px; font-size: 18px;}
+		.section03 .col .subtitle {margin-left: 10px; font-size: 13px;color: #666;margin-top: 10px;}
+
+		.runtest img {width: 60%;margin-left: 20px;margin-top: 10px;margin-bottom: 10px;}
+		.runtest .runtestbtn {position: absolute; right: 10px; top: 16px; font-size: 18px; background-color: #fff; line-height: 24px; padding: 5px 10px; border-radius: 20px;}
+
+		.presshover {background-color: #FAFAFA;}
+
+		/* 榜单 */
+		.card {border: 1px solid #e0e0e0;margin: 0 5px;}
+		.card .upimg {position: relative;}
+		.card .upimg img {width: 100%;}
+		.card .title,.card .subtitle {font-size:14px; bottom: 25px;color: #fff;margin-left: 10px;margin-top: 10px;}
+		.card .hot {position: absolute;bottom: 5px;margin-left: 10px;}
+		.card .hot span {color: #fff;}
+		.card .downinfo {padding: 10px;font-size: 14px;color: #666;line-height: 20px;}
+		.card .info {background-color: rgba(0,0,0,0.4); position: absolute; bottom: 0px; width: 100%;padding-bottom: 5px;}
+		.viewed-eye .eye {display: inline-block; width: 16px; height: 16px; background: url(../../image/funlife/eye.png) no-repeat; background-size: 11px auto; margin-bottom: -3px; }
+		
+		.card .img_wrap {position: absolute; right: 0; bottom: 10px;}
+		.card .subtitle {font-size: 12px;margin-top: 5px; /*margin-bottom: 5px;*/}
+		.card .viewed-eye {background-color: #000; padding: 5px;border-radius: 20px;color: #fff;font-size: 14px;}
+
+		.presshover {background-color: #FAFAFA !important;}
+	</style>
+</head>
+<body>
+	<!-- 1. 112 -->
+	<div class="runtest">
+		<img src="../../image/thirdpage/logocover07.png" alt="">
+		<div class="runtestbtn" tapmode="presshover" onclick="openNewWindow('runtest')"><span>测一测</span></div>
+	</div>
+	<!-- <div class="h20"></div> -->
+	<div class="row hightitem section02">
+		<div class="col br" tapmode="presshover" onclick="openNewWindow('nearby')">
+			<div class="matrix3">
+				<div class="matrixcell">
+					<div class="title">身边热闹</div>
+					<div class="subtitle">发现新玩法</div>
+				</div>
+			</div>
+			<div class="logocover"><img src="../../image/thirdpage/logocover01.png" alt=""></div>
+		</div>
+		
+		<div class="col br" tapmode="presshover" onclick="openNewWindow('coupon')">
+			<div class="matrix3">
+				<div class="matrixcell">
+					<div class="title">品牌优惠</div>
+					<div class="subtitle">热门快餐5折起</div>
+				</div>
+			</div>
+			<div class="logocover"><img src="../../image/thirdpage/logocover02.png" alt=""></div>
+		</div>
+		<div class="col">
+			<div class="petty bb" tapmode="presshover" onclick="openNewWindow('checkrank')">看排行<div class=""><img src="../../image/thirdpage/logocover03.png" alt=""></div></div>
+			<div class="petty" tapmode="presshover" onclick="openNewWindow('bussgroup')">查商区<div class=""><img src="../../image/thirdpage/logocover04.png" alt=""></div></div>
+		</div>
+	</div>
+	
+
+	<!-- 2. 免费领取 -->
+	<div class="sectionTitle">免费领取</div>
+	<div class="row hightitem section03">
+		<div class="col brb" tapmode="presshover" onclick="openDetail()">
+			<div class="matrix3">
+				<div class="matrixcell">
+					<div class="title">最热0元抢</div>
+					<div class="subtitle">还不来就晚了</div>
+				</div>
+			</div>
+			<img src="../../image/thirdpage/logocover05.png" alt="" >
+		</div>
+		
+		<div class="col bb" tapmode="presshover" onclick="openDetail()">
+			<div class="matrix3">
+				<div class="matrixcell">
+					<div class="title">天天霸王餐</div>
+					<div class="subtitle">白吃白喝白玩</div>
+				</div>
+			</div>
+			<img src="../../image/thirdpage/logocover06.png" alt="" >
+		</div>
+	</div>
+	
+	<!-- 3. 趣味生活 -->
+	<div class="sectionTitle">趣味生活</div>
+	<div class="card hightitem"  tapmode="" onclick="openNewWindow('rankdetail')">
+		<div class="upimg">
+			<img src="../../image/seekrank/seekrank9.jpg" alt="">
+			<div class="info">
+				<div class="title">简单美味的一晚热汤</div>
+				<div class="subtitle">一人食推荐</div>
+				<div class="img_wrap">
+	            	<div class="viewed-eye"><i class="eye"></i>4791</div>
+		        </div>
+			</div>
+			
+		</div>
+		
+	</div>
+
+	<div class="h10"></div>
+	<div class="card hightitem"  tapmode="" onclick="openNewWindow('rankdetail')">
+		<div class="upimg">
+			<img src="../../image/seekrank/seekrank10.jpg" alt="">
+			<div class="info">
+				<div class="title">日式居酒屋温暖来袭</div>
+				<div class="subtitle">4家店铺4种风格</div>
+				<div class="img_wrap">
+	            	<div class="viewed-eye"><i class="eye"></i>4353</div>
+		        </div>
+			</div>
+		</div>
+		
+	</div>
+
+	<div class="h10"></div>
+	<div class="card hightitem"  tapmode="" onclick="openNewWindow('rankdetail')">
+		<div class="upimg">
+			<img src="../../image/seekrank/seekrank11.jpg" alt="">
+			<div class="info">
+				<div class="title">简单美味的一晚热汤</div>
+				<div class="subtitle">一人食推荐</div>
+				<div class="img_wrap">
+	            	<div class="viewed-eye"><i class="eye"></i>3976</div>
+		        </div>
+			</div>
+		</div>
+		
+	</div>
+	
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script>
+	function openNewWindow(type)
+	{
+		api.openWin({
+			name: type,
+			url: './'+type+'_header.html',
+			bounces: false,
+			delay:200
+		});
+	}
+	
+	function openDetail()
+	{
+		api.openWin({
+			name: 'tuandetail',
+			url: '../tuandetail_header.html',
+			bounces: false,
+			delay:200
+		});
+	}
+</script>
+</html>

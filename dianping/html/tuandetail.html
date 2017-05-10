@@ -1,0 +1,289 @@
+		<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>首页</title>
+	<link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../css/common.css" />
+	<link rel="stylesheet" href="../css/idangerous.swiper.css">
+
+	<style>
+		html, body {width: 100%;min-height: 100%;background: #f0f0f0;}
+		.h80 {height: 80px;}
+		.h40 {height: 40px;}
+		.h20 {height: 20px;}
+    	.h10 {height: 10px;background: #f0f0f0;}
+		.h1 {height: 1px;margin-left: 15px;background: #f0f0f0;}
+		.fr {float: right;}
+		.fl {float: left;}
+		.hightitem {background-color: #fff;}
+		.inwrap {padding-right: 15px;padding-left: 15px;}
+
+		/* 2. 价格样式 */
+		.priceitem {height: 60px; line-height: 60px;border-bottom: 1px solid #ccc;}
+		.priceitem .price, .priceitem .symbol {color: #FC5500;}
+		.priceitem .price {font-size: 20px;}
+		.priceitem .o-price {font-size: 12px; color: #666;}
+		.priceitem .buynow {background-color: #FC5500; color: #fff; height: 25px; line-height: 25px; border-radius: 3px;padding: 10px 20px;margin-top: 7px;}
+
+		/* 3. */
+		.brief .title {height: 50px;line-height: 50px;font-size: 18px;color: #000;}
+		.brief .describe {color: #666;font-size: 14px;line-height: 20px;}
+		.brief .ico {height: 50px;line-height: 50px;font-size: 14px;color: #7AB388;}
+		.brief .ico img {height: 14px;}
+		/* 4. */
+		.goodcomment {height: 50px;line-height: 50px;font-size: 14px;}
+		.goodcomment img {height: 15px;padding-right: 5px;}
+		.goodcomment .arrow {float: right;height: 20px;padding-top: 15px;}
+		.goodcomment .commentnum {font-size: 15px;color: #666;padding-right: 5px;float: right;}
+
+		/* 5. */
+		.darktitle {height: 50px;line-height: 50px;font-size: 14px;color: #666;}
+		.firstrow {position: relative;}
+		.secrow {font-size: 14px;color: #666;border-bottom: 1px solid #e0e0e0;padding-bottom: 15px;}
+		.shopinfo .left {height: 60px;padding: 10px 0;}
+		.shopinfo .right {position: absolute;top: 0px; right: -15px; padding: 15px;border-left: 1px solid #e0e0e0;} 
+		.shopinfo .right img {height: 36px;}
+		.shopinfo .shopname {font-size: 20px;}
+		.moreshop {height: 50px;line-height: 50px;font-size: 14px;}
+
+		/* 6. */
+		.tuanitem {height: 50px;line-height: 50px;font-size: 14px;border-bottom: 1px solid #e0e0e0;}
+		.tuanitem .tuan02,.tuanitem .tuan03,.tuantotalprice .totalprice01, .tuantotalprice .totalprice02, .tuanrealprice .realprice01, .tuanrealprice .realprice02 {float: right; width: 50px;font-size: 14px;}
+		.tuantotalprice {margin-top: 10px;}
+		.tuantotalprice, .tuanrealprice {height: 30px;}
+		.tuanrealprice .realprice02 {font-size: 16px;color: #FC5500;}
+		.tuanitem .tuan03, .tuantotalprice .totalprice02, .tuanrealprice .realprice02 {text-align: right;}
+		.smallitem .averageprice {float: right;}
+		.smallitem {height: 20px;line-height: 20px;font-size: 14px;}
+		.recommandtitle {line-height: 25px; font-size: 14px; color: #666;}
+		.recommanddish {line-height: 22px; font-size: 14px;}
+		.moredetail {height: 50px;line-height: 50px;font-size: 14px;border-top: 1px solid #e0e0e0;}
+		.lastitem {padding-bottom: 10px;}
+
+		/* 7. */
+		.buyinfo .infotitle {line-height: 25px;font-size: 14px;color: #666;}
+		.buyinfo li {line-height: 24px;font-size: 13px;color: #000;}
+		.buyinfo li img {height: 5px; padding-right: 5px;}
+		.arrow {float: right;height: 20px;padding-top: 15px;}
+
+		/* 8. */
+		.othertuan {height: 50px;line-height: 50px;}
+		.othertuan .price, .othertuan .symbol {color: #FC5500;}
+		.othertuan .price {font-size: 15px;}
+		.othertuan .o-price {font-size: 12px; color: #666;}
+		.othertuan .price01 {display: inline-block; width: 30%; vertical-align: top;}
+		.othertuan .title {width: 50%; white-space: nowrap; text-overflow: ellipsis; word-wrap: normal; overflow: hidden;}
+		.bb {border-bottom: 1px solid #e0e0e0;}
+
+		.presshover {background-color: #FAFAFA;}
+		.buyhover {background-color: rgba(252, 85, 0, 0.6) !important;}
+		.swiper-container img {width: 100%;}
+	</style>
+</head>
+<body>
+	<!-- 1. 头部swipe -->
+	<div class="swiper-container">
+		<div class="swiper-wrapper">
+			<!--First Slide-->
+			<div class="swiper-slide"> 
+				<img src="../image/yhyp01.jpg" alt="">
+			</div>
+
+			<!--Second Slide-->
+			<div class="swiper-slide">
+				<img src="../image/yhyp02.jpg" alt="">
+			</div>
+			
+			
+			<div class="swiper-slide">
+				<img src="../image/yhyp03.jpg" alt="">
+			</div>
+		</div>
+		<div class="pagination"></div>
+	</div>
+
+
+
+
+	<!-- 2. 价格样式 -->
+	<div class="priceitem hightitem inwrap">
+		<span class="symbol">¥</span>
+        <span class="price">25.5</span>
+        <del class="o-price">¥30</del>
+
+        <div class="buynow fr" tapmode="buyhover" onclick="">立即抢购</div>
+	</div>
+
+	<!-- 3.  -->
+	<div class="brief inwrap hightitem">
+		<div class="title">嘉和一品粥</div>
+		<div class="describe">代金券，不限时段通用，免费wifi，可累计使用，可使用包厢</div>
+		<div class="ico"><img src="../image/icon_pay_success.png" alt=""> 支持随时退&nbsp;&nbsp;&nbsp;<img src="../image/icon_pay_success.png" alt=""> 免预约</div>
+	</div>
+
+	<!-- 4 评论 -->
+	<div class="h20"></div>
+	<div class="goodcomment inwrap hightitem" tapmode="presshover" onclick=""><img src="../image/tuan_review_bad.png" alt="">8个好评<img src="../image/arrow.png" alt="" class="arrow"><span class="commentnum">共10条评论</span></div>
+
+	<!-- 5 适用商户 -->
+	<div class="darktitle inwrap">适用商户</div>
+	<div class="shopinfo inwrap hightitem">
+		<div class="firstrow ">
+			<div class="left">
+				<div class="shopname">牡丹园店</div>
+				<div class="star">
+					<img src="" alt="" class="star">
+					<span class="info">离你最近</span>
+				</div>
+			</div>
+
+			<div class="right" tapmode="presshover" onclick="callShop()"><img src="../image/ic_phone_big.png" alt="" class="phone"></div>
+		</div>
+		
+		<div class="secrow">花园东路32号仰源大厦2楼(近牡丹园地铁站B口)</div>
+	</div>
+	<div class="moreshop inwrap hightitem" tapmode="presshover" onclick="">
+		<span>查看全部90家分店</span>
+		<img src="../image/arrow.png" alt="" class="arrow">
+	</div>
+	
+	<!-- 6 团购详情 -->
+	<div class="darktitle inwrap">团购详情</div>
+	<div class="tuandetail hightitem inwrap">
+		<div class="tuanitem">
+			<span class="tuan01">代金券</span>
+			<span class="tuan03">30元</span>
+			<span class="tuan02">1张</span>
+			
+		</div>
+		<div class="tuantotalprice">
+			<span class="totalprice02">30元</span>
+			<span class="totalprice01">总价值</span>
+		</div>
+		<div class="tuanrealprice">
+			<span class="realprice02">25.5元</span>
+			<span class="realprice01">团购价</span>
+		</div>
+
+		<div class="smallitem">
+			<span class="average">网友人均消费</span>
+			<span class="averageprice">￥27</span>
+		</div>
+
+		<div class="recommandtitle">网友推荐参考</div>
+		<div class="recommanddish">皮蛋瘦肉粥</div>
+		<div class="recommanddish">扁豆焖面</div>
+		<div class="recommanddish">一品粥</div>
+		<div class="recommanddish">蟹黄烧麦</div>
+		<div class="recommanddish lastitem">灌汤包</div>
+
+		<div class="moredetail hightitem" tapmode="presshover" onclick="">
+			<span>查看图文详情</span>
+			<img src="../image/arrow.png" alt="" class="arrow">
+		</div>
+	</div>
+
+	<!-- 7 购买须知 -->
+	<div class="darktitle inwrap">购买须知</div>
+	<div class="buyinfo hightitem inwrap">
+		<div class="infotitle">有效期</div>
+		<ul>
+			<li><img src="../image/home_serve_dot.png" alt="">2014-11-06至2015-05-31</li>
+		</ul>
+		<div class="infotitle">预约信息</div>
+		<ul>
+			<li><img src="../image/home_serve_dot.png" alt="">无需预约，如遇消费高峰时段您可能需要排队</li>
+		</ul>
+		<div class="infotitle">堂食外带</div>
+		<ul>
+			<li><img src="../image/home_serve_dot.png" alt="">本单只适用于堂食，包厢大厅随您使用</li>
+		</ul>
+		<div class="infotitle">规则提醒</div>
+		<ul>
+			<li><img src="../image/home_serve_dot.png" alt="">可累计使用</li>
+			<li><img src="../image/home_serve_dot.png" alt="">全场通用</li>
+			<li><img src="../image/home_serve_dot.png" alt="">不再与店内其他优惠同享</li>
+		</ul>
+		<div class="infotitle">商家服务</div>
+		<ul>
+			<li><img src="../image/home_serve_dot.png" alt="">提供免费WiFi</li>
+		</ul>
+		<div class="infotitle">温馨提示</div>
+
+		<ul>
+			<li class="lastitem"><img src="../image/home_serve_dot.png" alt="">如需团购券发票，请您在消费时向商户咨询</li>
+		</ul>
+	</div>
+
+	<!-- 8 其他团购 -->
+	<div class="darktitle inwrap">嘉和一品粥的其他团购</div>
+	<div class="othertuan inwrap hightitem" tapmode="presshover" onclick="">
+		<div class="price01">
+			<span class="price">￥42.5</span>
+			<del class="o-price">￥50</del>
+		</div>
+		<span class="title">代金券</span>
+		<img src="../image/arrow.png" alt="" class="arrow">
+	</div>
+
+	<!-- 小伙伴 -->
+	<div class="darktitle inwrap">小伙伴们还看了</div>
+	<div class="othertuan inwrap hightitem bb" tapmode="presshover" onclick="">
+		<div class="price01">
+			<span class="price">￥42.5</span>
+			<del class="o-price">￥50</del>
+		</div>
+		<span class="title">小棚别墅</span>
+		<img src="../image/arrow.png" alt="" class="arrow">
+	</div>
+	<div class="othertuan inwrap hightitem bb" tapmode="presshover" onclick="">
+		<div class="price01">
+			<span class="price">￥298</span>
+			<del class="o-price">￥4980</del>
+		</div>
+		
+		<span class="title">耀舞.静馨瑜伽会馆多店通用季卡</span>
+		<img src="../image/arrow.png" alt="" class="arrow">
+	</div>
+	<div class="othertuan inwrap hightitem bb" tapmode="presshover" onclick="">
+		<div class="price01">
+			<span class="price">￥127</span>
+			<del class="o-price">￥252</del>
+		</div>
+		
+		<span class="title">美年大健康</span>
+		<img src="../image/arrow.png" alt="" class="arrow">
+	</div>
+	<div class="othertuan inwrap hightitem bb" tapmode="presshover" onclick="">
+		<div class="price01">
+			<span class="price">￥34</span>
+			<del class="o-price">￥43</del>
+		</div>
+		<span class="title">SAY优格冰激凌</span>
+		<img src="../image/arrow.png" alt="" class="arrow">
+	</div>
+	<div class="h20"></div>
+</body>
+<script type="text/javascript" src="../script/idangerous.swiper.js"></script>
+<script>
+	
+	function callShop() {
+		api.call({
+		    type: 'tel_prompt',
+		    number: '010-82030128'
+		});
+	}
+
+	window.onload = function() {
+		var mySwiper = new Swiper('.swiper-container',{
+			mode:'horizontal',
+			loop: true,
+			speed:750,
+			pagination: '.pagination'
+		});
+
+		mySwiper.startAutoplay();
+	}
+</script>
+</html>

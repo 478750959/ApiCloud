@@ -1,0 +1,136 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>Hello APP</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../css/common.css" />
+    <link rel="stylesheet" type="text/css" href="../css/idangerous.swiper.css">
+
+
+    <style>
+        html,body{height:100%;background-color: #DD4026;}
+        .h10 {height: 10px;}
+        .mt20 {margin-top: 20px;}
+
+        /* 头部导航样式 */
+        .header {position: relative;height: 50px;line-height: 50px;background-color: #3993cf;}
+        .header .left  {position: absolute;left: 0;height: 50px;}
+        .header .left  .logoleft {height: 20px;vertical-align: top; margin-top: 15px;}
+        .header .left  .logo {height: 46px; vertical-align: top; margin-top: 2px; margin-left: -10px;}
+        .header .left  .title {font-size: 20px; color: #fff; margin-left: -10px;padding-right: 10px;}
+
+
+        .header .right {position: absolute;right: 0;height: 50px;}
+        .header .right img {height: 30px;padding: 10px;}
+
+        .switch {text-align: center;margin-top: 20px;}
+        .switch span {padding: 7px 20px;font-size: 14px;color: #000;background-color: #d6d6d6;}
+        .switch .left {border-radius: 4px 0 0 4px;}
+        .switch .right {border-radius: 0px 4px 4px 0px;}
+        .switch .active {background-color: #ffc600;}
+
+        /* 用户item */
+        .section1 {margin-top: 20px;}
+        .section1 .title {font-size: 18px;color: #fff;text-align: center;}
+        .section1 .info01  {margin: 10px 20px 0 20px;padding: 10px 30px;background-color: #ffefaa;border-radius: 4px;}
+        .section1 .info02  {margin: 10px 20px 0 20px;padding: 10px 20px;background-color: #ffefaa;border-radius: 4px;}
+        .section1 .info02  p {font-size: 12px; border-bottom: 1px; border-color: #ffb7ab; line-height: 20px;border-style: dashed;}
+        .section1 .info02  .copycont {text-align: center;margin-top: 15px;}
+        .section1 .info02  .copycont span {font-size: 12px;padding: 7px 10px;background-color: #ffc936;border: 1px solid #e4b82e;border-radius: 3px;}
+        .section1 .info01 img {width: 100%;}
+        
+        .section2 {margin-top: 20px;}
+        .section2 .title {font-size: 18px;color: #fff;text-align: center;}
+        .section2 .info01  {margin: 10px 20px 0 20px;padding: 10px 30px;background-color: #ffefaa;border-radius: 4px;}
+        .section2 .info01  p {position:relative; margin-top: 10px;font-size: 14px;line-height: 20px;}
+        .section2 .info01  .hotpoint {height: 0;width: 0;border: 3px;border-radius: 3px;border-color: #d83c1e;}
+        .section2 .info01  .tips {position: absolute; top: 7px; left: -15px;}
+
+
+        /* 悬浮样式 */
+        .section1 .info02  .copycont .btnhover {background-color: #ADBC7A;}
+        .itemhover   {background-color: #eee;}
+        .headerhover {background-color: #36A8DC;}
+    </style>
+</head>
+<body>
+    <div class="header" id="topbar">
+        <div class="left" tapmode="headerhover" onclick="goback()">
+            <img src="../image/icon_drawer_burger.png" alt="" class="logoleft"><img src="../image/m_drawer_icon_home_selected.png" alt="" class="logo">
+            <span class="title">邀请好友</span>
+        </div>
+        <!-- <div class="right" tapmode="headerhover" onclick=""><img src="../image/time_line_action_icon.png" alt=""></div> -->
+    </div>
+
+    <div class="content">
+        <div class="switch"><span class="left active" tapmode="" onclick="switchSection (0)" id="leftswitch">邀请好友</span><span class="right" tapmode="" onclick="switchSection (1)" id="rightswitch">活动规则</span></div>
+
+        <div class="section1" id="section1">
+            <div class="title">方法1 通过社交网络邀请</div>
+            <div class="info01"><img src="../image/invitecover01.png" alt=""></div>
+
+            <div class="title mt20">方法2 直接邀请</div>
+            <div class="info02">
+                <p>我请大家吃外卖啦，立即打开你的饿了么App，</p>
+                <p>注册时输入我的邀请码<span class="red">8x04b</span>。注册并绑定手</p>
+                <p>机后，我们都能获得<span class="red">5元红包</span>奖励</p>
+
+                <div class="copycont"><span tapmode="btnhover" onclick="">复制邀请内容</span></div>
+            </div>
+        </div>
+
+        <div class="section2" id="section2">
+            <div class="title">双享红包活动细则</div>
+            <div class="info01">
+                <p><img src="../image/header_tips.png" alt="" class="tips">通过邀请码或邀请链接进行注册并绑定手机后，被邀请者将立即获得5元红包，邀请者将于3天内获得5元红包。</p>
+                <p><img src="../image/header_tips.png" alt="" class="tips">绑定的手机号需是未在饿了么使用过的，并且手机号码归属地为饿了么覆盖城市</p>
+                <p><img src="../image/header_tips.png" alt="" class="tips">同一手机号只能第一次被绑定时赠送红包。</p>
+                <p><img src="../image/header_tips.png" alt="" class="tips">如果发现任何作弊行为，我们将取消用户获取奖励的资格。</p>
+                <p><img src="../image/header_tips.png" alt="" class="tips">本活动最终解释权归上海拉扎斯网络科技有限公司所有。</p>
+            </div>
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript">
+
+function goback () {
+    api.closeWin({name:'invite'});
+}
+
+function switchSection (index) {
+    var leftswitch = document.getElementById('leftswitch');
+    var rightswitch = document.getElementById('rightswitch');
+
+    var section1 = document.getElementById('section1');
+    var section2 = document.getElementById('section2');
+
+    if (index == 0) {
+        leftswitch.className = 'left active';
+        rightswitch.className = 'right';
+
+        section1.style.display = 'block';
+        section2.style.display = 'none';
+    }
+    else{
+        leftswitch.className = 'left';
+        rightswitch.className = 'right active';
+
+        section2.style.display = 'block';
+        section1.style.display = 'none';
+    }
+}
+
+window.onload = function  () {
+    switchSection (0);
+}
+
+apiready = function(){
+
+    var header = $api.byId('topbar');
+    $api.fixIos7Bar(header); 
+}
+</script>
+</html>

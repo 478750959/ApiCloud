@@ -1,0 +1,142 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="copyright" content="www.apicloud.com" />
+<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+<title>推荐</title>
+<link rel="stylesheet" type="text/css" href="../css/api.css" />
+<style>
+	html {height: 100%;}
+	body {height: 100%;background: #f0f0f0;}
+	
+	/* 头部导航样式 */
+    .header {position: relative;height: 50px;line-height: 50px;background-color: #3993cf;}
+    .header .left  {position: absolute;left: 0;height: 50px;}
+    .header .left  .logoleft {height: 20px;vertical-align: top; margin-top: 15px;}
+    .header .left  .logo {height: 46px; vertical-align: top; margin-top: 2px; margin-left: -10px;}
+    .header .left  .title {font-size: 20px; color: #fff; margin-left: -10px;padding-right: 10px;}
+
+
+    .header .right {position: absolute; right: 0; height: 50px; color: #fff; margin-right: 10px;}
+    .header .right img {height: 30px;padding: 10px;}
+
+	input {height: 50px;font-size: 18px;color: #8E8C8C;width: 80%;outline: none;}
+	input::-webkit-input-placeholder {color: #ccc;}
+	.divider {height: 15px;}
+	.email,.passwd {/*margin-top: 3px;*/background: #fff;}
+	.passwd img, .email img {vertical-align: top;}
+	.item {background-color: #fff; border-bottom: 1px solid #e0e0e0;position: relative;padding-left: 10px;margin: 0 10px;}
+	/*.email, .passwd, .btn {margin:3px 10px;}*/
+	.btn {margin:3px 10px;}
+	.btn {background: #4DC060;height: 40px; text-align: center; line-height: 40px; font-size: 20px;margin-top: 20px;border-radius: 5px;}
+	.btn span {color: #fff;}
+	.email img {width: 25px; margin-top: 15px; margin-left: 10px; margin-right: 9px;}
+	.passwd img {height: 25px;margin-top: 10px; margin-left: 10px;margin-right: 10px;}
+	.secretword img {height: 25px;margin-top: 10px; margin-left: 10px;margin-right: 10px;}
+
+	/* 底部样式 */
+	.bottom {/*position: absolute;bottom: 0;*/width: 100%; text-align: center;/*padding-bottom: 20px;*/font-size: 12px;}
+	.bottom img {height: 50px;}
+	.bottom .arrow {text-align: center;margin: 10px 0;}
+	.bottom .arrow img {width: 40px;height: 20px;}
+	#qqpic {margin-right: 10px; margin-left: 10px;}
+	.thirdinfo {color: #666;margin-top: 10px;font-size: 16px;}
+
+	.secretword input {width: 50%;}
+	.secretimg {position: absolute; right: 0; top: 0; height: 56px; margin-right: 10px; border-left: 1px solid #e0e0e0;}
+	.secretimg img {height: 60%;}
+
+	.thirdcompy .left {margin-right: 20px;}
+	.thirdcompy .left , .thirdcompy .right {width: 40%; display: inline-block;background: #fff;border: 1px solid #e0e0e0;border-radius: 4px;vertical-align: top;text-align: left; font-size: 18px;}
+	.thirdcompy .left img , .thirdcompy .right img {width: 30px;height: 30px;float: left;margin: 5px 10px;}
+	.thirdcompy span {line-height: 40px;color: #666;}
+
+	.loginmore {margin-top: 10px;}
+	.loginmore span {color: #0078ff;font-size: 14px;}
+	.loginmore .forget {margin-left: 10px;}
+	.loginmore .phone {margin-right: 10px;float: right;}
+
+	.share {margin-top: 20px;margin-bottom: 20px;}
+	.share .shareab {display: inline-block;margin: 0 20px;}
+	.share .shareab .sharelogo {width: 50px;height: 50px;border-radius: 5px;}
+	.share .shareab .sharelogo img {width: 30px;height: 30px; margin-top: 10px;}
+	.share .shareab .weixin {background-color: #42BD41;}
+	.share .shareab .weibo {background-color: #FA4C3D;}
+	.share .shareab .renren {background-color: #4CAAF4;}
+
+	.btnhover {background: #dcdcdc;}
+	.submit-hover {background-color: rgba(77, 192, 96, 0.6) !important;}
+</style>
+</head>
+<body>
+	<div class="header" id="topbar">
+        <div class="left" tapmode="headerhover" onclick="goback()">
+            <img src="../image/abc_ic_ab_back_holo_dark.png" alt="" class="logoleft"><img src="../image/m_drawer_icon_home_selected.png" alt="" class="logo">
+            <span class="title">登陆</span>
+        </div>
+        <!-- <div class="right" tapmode="headerhover" onclick="">注册</div> -->
+    </div>
+
+	<div class="divider"></div>
+	<form action="">
+		<div class="item email"><input type="text" placeholder="用户名/邮箱" id="email"></div>
+		<div class="item passwd"><input type="password" placeholder="密码" id="passwd">
+		</div>
+		
+		<div class="btn" onclick="" tapmode="submit-hover"><span type="submit">登 录</span></div>
+		
+	</form>
+	<div class="loginmore">
+		<span class="phone">其他登陆方式</span>
+	</div>
+	<div class="" id="bottomdivider"></div>
+	<div class="bottom">
+		<div class="thirdcompy">
+			<div class="thirdinfo">第三方登录</div>
+			
+			<div class="share">
+				<div class="shareab">
+					<div class="sharelogo weixin"><img src="../image/weixin_iner_icon.png" alt="" class=""></div>
+					<div class="title">微信</div>
+				</div>
+				
+				<div class="shareab">
+					<div class="sharelogo weibo"><img src="../image/weibo_iner_icon.png" alt="" class=""></div>
+					<div class="title">微博</div>
+				</div>
+
+				<div class="shareab">
+					<div class="sharelogo renren"><img src="../image/renren_iner_icon.png" alt="" class=""></div>
+					<div class="title">人人</div>
+				</div>
+
+			</div>
+			
+		</div>
+		
+	</div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript">
+
+function goback () {
+	api.closeWin({name:'login_body'})
+}
+	apiready = function() {
+		var header = $api.byId('topbar');
+        $api.fixIos7Bar(header); 
+        
+    	// 可以运行，但是会有明显卡顿
+    	var bottomHeight = $api.dom('.bottom').offsetHeight;
+    	var formHeight = $api.dom('form').offsetHeight;
+    	var loginmore = $api.dom('.loginmore').offsetHeight;
+
+    	var bottomdivider = $api.dom('#bottomdivider');
+
+    	// divider h15
+    	bottomdivider.style.height = api.frameHeight - bottomHeight - formHeight - loginmore - 15 - 90 + 'px';
+
+    };
+</script>
+</html>

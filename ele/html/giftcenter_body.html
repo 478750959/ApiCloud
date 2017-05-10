@@ -1,0 +1,156 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>Hello APP</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../css/common.css" />
+    <link rel="stylesheet" type="text/css" href="../css/idangerous.swiper.css">
+
+
+    <style>
+        html,body{min-height:100%;background-color: #eee;}
+        body {position: relative;}
+        .h10 {height: 10px;}
+        .h50 {height: 50px;}
+        
+        /* 条目总体样式 */
+        .item {display: table; height: 70px; width: 100%;background-color: #fff;}
+        .item .itemlogo , .item .itemshelf {display: table-cell; vertical-align: middle;}
+
+        .item .itemlogo {width: 70px;}
+        .item .itemlogo img  {margin-left: 10px; width: 70px; border: 1px solid #e0e0e0; padding: 2px;}
+        .item .itemshelf .shelfinfo01 {font-size: 20px;color: #AFAFAF;margin-top: 15px;margin-left: 10px;}
+
+        /* 条目特例 */
+        .shelf2 .userlogo img {width: 50px;}
+        .favorable .itemshelf .shelfinfo01 {font-size: 16px;color: #F97B02;}
+        .favorable .itemshelf .shelfinfo02 {font-size: 12px;color: #666;margin-top: 5px;}
+        .nearby .itemshelf .shelfinfo01 {font-size: 16px;color: #4CAD35;}
+        .nearby .itemshelf .shelfinfo02 {font-size: 12px;color: #666;margin-top: 5px;}
+        .itemshelf .shelfinfo03 {max-height: 50px; margin-top: 5px;font-size: 14px; margin-bottom: 10px;margin-left: 10px;color: #999;}
+        
+        .bb {border-bottom: 1px solid #e0e0e0;}
+
+        /* 暗色标题 */
+        .darktitle {height: 25px;line-height: 25px;color: #787878;margin-left: 15px;font-size: 14px;}
+
+        /* 悬浮样式 */
+        .itemhover {background-color: #eee !important;}
+    </style>
+</head>
+<body>
+
+    <div class="darktitle">20000分礼品区</div>
+    <div class="item style2" tapmode="itemhover" onclick="openNewWin()">
+        <div class="itemlogo userlogo"><img src="../image/gift/giftcover01.jpeg" alt=""></div>
+        <div class="itemshelf">
+            <div class="shelfinfo01"><strong>个性创意泡面碗</strong></div>
+            <div class="shelfinfo03">新：高档陶瓷，可微波；可爱的卡通图案；木制盖子或塑料盖子随机发货。 注：...</div>
+            
+        </div>
+    </div>
+
+    <div class="darktitle">25000分礼品区</div>
+    <div class="item style2 bb" tapmode="itemhover" onclick="openNewWin()">
+        <div class="itemlogo userlogo "><img src="../image/gift/giftcover02.jpeg" alt=""></div>
+        <div class="itemshelf">
+            <div class="shelfinfo01"><strong>iphone4/4s无线充电器</strong></div>
+            <div class="shelfinfo03">1：将配件中的电源线连接充电座，同时将电源线连接家里的插座； 2：把您的IP4...</div>
+            
+        </div>
+    </div>
+    <div class="item style2" tapmode="itemhover" onclick="openNewWin()">
+        <div class="itemlogo userlogo"><img src="../image/gift/giftcover03.jpeg" alt=""></div>
+        <div class="itemshelf">
+            <div class="shelfinfo01"><strong>苹果产品数据线</strong></div>
+            <div class="shelfinfo03">特别注意：必须留言备注组合，否则统一按照组合一iPhone4、4发货。 组合一、...</div>
+            
+        </div>
+    </div>
+
+
+    <div class="darktitle">30000分礼品区</div>
+    <div class="item style2 bb" tapmode="itemhover" onclick="openNewWin()">
+        <div class="itemlogo userlogo "><img src="../image/gift/giftcover04.jpeg" alt=""></div>
+        <div class="itemshelf">
+            <div class="shelfinfo01"><strong>迷你电子体重秤 便携式</strong></div>
+            <div class="shelfinfo03">最新款炫酷韩版体重秤 迷你尺寸彰显大功能 6.0*2.5CM抽出式液晶显示屏 6MM钢化玻璃...</div>
+            
+        </div>
+    </div>
+    <div class="item style2" tapmode="itemhover" onclick="openNewWin()">
+        <div class="itemlogo userlogo"><img src="../image/gift/giftcover05.jpeg" alt=""></div>
+        <div class="itemshelf">
+            <div class="shelfinfo01"><strong>超级打伞</strong></div>
+            <div class="shelfinfo03">此款颜色为黑色，更大更防雨，让您的衣物滴雨不沾！提升的不止是质量，为了感谢长久以来支持饿了么超级大...</div>
+            
+        </div>
+    </div>
+
+
+    <div class="darktitle">35000分礼品区</div>
+    <div class="item style2 bb" tapmode="itemhover" onclick="openNewWin()">
+        <div class="itemlogo userlogo "><img src="../image/gift/giftcover06.jpeg" alt=""></div>
+        <div class="itemshelf">
+            <div class="shelfinfo01"><strong>手机充值卡50元</strong></div>
+            <div class="shelfinfo03">请留好您的充值手机号，5个工作日内为您充值。（仅提供在线充值）充值后请查帐户余额...</div>
+            
+        </div>
+    </div>
+    <div class="item style2" tapmode="itemhover" onclick="openNewWin()">
+        <div class="itemlogo userlogo"><img src="../image/gift/giftcover07.jpeg" alt=""></div>
+        <div class="itemshelf">
+            <div class="shelfinfo01"><strong>创意挤牙器</strong></div>
+            <div class="shelfinfo03">创意生活自动挤牙膏器，情侣刷牙杯漱口杯（牙膏重量100g一~140g)。爱上刷牙，爱上每个清晨...</div>
+            
+        </div>
+    </div>
+
+    <div class="darktitle">40000分礼品区</div>
+    <div class="item style2 bb" tapmode="itemhover" onclick="openNewWin()">
+        <div class="itemlogo userlogo "><img src="../image/gift/giftcover08.jpeg" alt=""></div>
+        <div class="itemshelf">
+            <div class="shelfinfo01"><strong>香山EB9005L电子秤</strong></div>
+            <div class="shelfinfo03">本产品采用业内最受认可的自主研发的传感器，四组传感器均匀分布在产品底部的四个角落，形成...</div>
+            
+        </div>
+    </div>
+    <div class="item style2 bb" tapmode="itemhover" onclick="openNewWin()">
+        <div class="itemlogo userlogo "><img src="../image/gift/giftcover09.jpeg" alt=""></div>
+        <div class="itemshelf">
+            <div class="shelfinfo01"><strong>钢化玻璃保鲜盒饭盒</strong></div>
+            <div class="shelfinfo03">钢化玻璃保鲜盒，安全，卫生，便捷 大：容量为715ml（尺寸：164*115*57mm） 小容量为..</div>
+            
+        </div>
+    </div>
+    <div class="item style2" tapmode="itemhover" onclick="openNewWin()">
+        <div class="itemlogo userlogo"><img src="../image/gift/giftcover10.jpeg" alt=""></div>
+        <div class="itemshelf">
+            <div class="shelfinfo01"><strong>个性emoi 便携餐具套装</strong></div>
+            <div class="shelfinfo03">外出就餐，自备餐具，既健康又可减少使用一次性餐具，保护环境；专利素材PCTG，100%不含BPA...</div>
+            
+        </div>
+    </div>
+
+
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript">
+
+function openNewWin () {
+    api.openWin ({
+        name: 'login',
+        url: './'+'login'+'.html',
+        rect:{
+            x:0,
+            y:0,
+            w:'auto',
+            h:'auto'
+        },
+        bounces: false
+    });
+}
+</script>
+</html>

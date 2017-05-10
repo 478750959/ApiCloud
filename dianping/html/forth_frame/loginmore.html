@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+  <title>HTML</title>
+  
+  <!-- Replace favicon.ico & apple-touch-icon.png in the root of your domain and delete these references -->
+  <link rel="shortcut icon" href="/favicon.ico">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+
+	<style>
+		html {width: 100%;height: 100%;background:transparent;}
+		body {background: rgba(0,0,0,0.2);width: 100%;height: 100%;}
+
+		.floatbox {position: absolute; text-align: center; background: #fff; bottom: 0;width: 100%;border-radius: 10px 10px 0 0;}
+		.floatheader {height: 40px; line-height: 40px; font-size: 14px; color: #999; text-align: left; text-align: center;}
+		.floatheader img {width: 40px;}
+		.floatbody {border-bottom: 1px solid #D0D2D6;}
+		.floatbodybtn {width: 20px;height: 20px;background: #0fc;}
+		.floatfooter {height: 40px; line-height: 40px; font-size: 18px;}
+
+		/* 水平等宽样式 */
+		.row {display: -webkit-box;display: -webkit-flex;}
+		.col {-webkit-box-flex:1; -webkit-flex:1; flex:1;padding:10px;}
+		.col img {width:50%;display: block; margin: 0 auto;}
+		.col span {font-size: 12px;padding-top: 10px;}
+
+		/* 悬浮样式 */
+		.btnhover {background-color: #dcdcdc !important;}
+
+		.thirdcompy .left {margin-right: 20px;}
+		.thirdcompy .left , .thirdcompy .right {width: 40%; display: inline-block;background: #fff;border: 1px solid #e0e0e0;border-radius: 4px;vertical-align: top;text-align: left; font-size: 18px;}
+		.thirdcompy .left img , .thirdcompy .right img {width: 30px;height: 30px;float: left;margin: 5px 10px;}
+		.thirdcompy span {line-height: 40px;color: #666;}
+		.thirdcompy {margin-bottom: 50px;}
+
+	</style>
+</head>
+
+<body>
+	
+	<div class="floatbox">
+		<div class="floatheader"><img src="../../image/login_arrow_down.png" class="clapse"></div>
+		<div class="floatbody">
+			<div class="thirdcompy">
+				<div class="left" tapmode="btnhover" onclick=""><img src="../../image/login_ico_weibo.png" alt=""><span>新浪微博</span></div>
+				<div class="right" tapmode="btnhover" onclick=""><img src="../../image/login_ico_zhifubo.png" alt="" id="qqpic"><span>支付宝</span></div>
+			</div>
+		</div>
+		
+	</div>
+	
+	
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script>
+	function emptyopt () {
+	}
+
+	function goback()
+	{
+		api.closeFrame({name: 'loginmore'});
+	}
+
+	function match(src, target)
+    {
+        var mark = false;
+        if(src === target){
+            mark = true;
+            return mark;
+        }else{
+            do{
+                src = src.parentNode;
+                if(src === target){
+                    mark = true;
+                    return mark;
+                }
+            }while(src !== document.body && src !== document.documentElement);
+
+            return mark;
+        }
+    }
+    apiready = function(){
+        var body = $api.dom('body');
+        $api.addEvt(body,'touchend',function(e){
+
+            var main = $api.dom('.clapse');
+            
+            if(match(e.target, main))
+            {
+                api.closeFrame({name:'loginmore'});
+            }
+            
+
+        });
+
+    }
+</script>
+</html>

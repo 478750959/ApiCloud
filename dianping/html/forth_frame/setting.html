@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+	<title>我的</title>
+	<link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/common.css" />
+
+    <style>
+    	html, body {width: 100%;min-height: 100%;background: #f0f0f0;}
+    	.h10 {height: 10px;background: #f0f0f0;}
+		.h1 {height: 1px;margin-left: 15px;background: #f0f0f0;}
+		.fr {float: right;}
+		.hint {color: #666;font-size: 12px;margin-right: 15px;}
+
+		.firstblock, .secondblock, .thirdblock {background-color: #fff;}
+		/* 头部登陆 */
+		.login {background-image: url(../../image/personal_bkg.jpg);background-repeat: no-repeat; background-size: contain;}
+		.loginbg {/*position: absolute;*/ width: 100%;}
+		.person_arrow {position: absolute;height: 20px; right: 10px; top: 90px;}
+
+		/* 设置条目 */
+		.item {height: 50px;line-height: 50px;padding-left: 15px;background-color: #fff;}
+		.item_ico {float: left;width: 30px;padding: 10px 10px 10px 0;}
+		.item_arrow {float: right;width: 16px;padding: 17px 15px 15px 0;}
+
+		.presshover {background-color: #E8E8E8;}
+    </style>
+</head>
+<body>
+	<!-- 第一块 -->
+	<div class="firstblock">
+		<div class="item" tapmode="presshover" onclick="openLogin()">
+			<span>图片设置</span>
+			<img src="../../image/arrow.png" alt="" class="item_arrow">
+		</div><div class="h1"></div>
+		<div class="item" tapmode="presshover" onclick="openLogin()">
+			<span>消息提醒设置</span>
+			<img src="../../image/arrow.png" alt="" class="item_arrow">
+		</div><div class="h1"></div>
+		<div class="item" tapmode="presshover" onclick="openLogin()">
+			<span>清楚缓存</span>
+			<img src="../../image/arrow.png" alt="" class="item_arrow">
+		</div>
+	</div>
+	
+
+	<!-- 第二块 -->
+	<div class="h10"></div>
+	<div class="secondblock">
+		<div class="item" tapmode="presshover" onclick="openLogin()">
+			<span>版本更新（已是最新版）</span>
+			<img src="../../image/arrow.png" alt="" class="item_arrow">
+		</div><div class="h1"></div>
+		<div class="item" tapmode="presshover" onclick="openLogin()">
+			<span>自动下载安装包</span>
+			<span class="fr hint">仅Wi-Fi网络</span>
+		</div><div class="h1"></div>
+		<div class="item" tapmode="presshover" onclick="openLogin()">
+			<span>关于我们</span>
+			<img src="../../image/arrow.png" alt="" class="item_arrow">
+		</div>
+	</div>	
+
+	<div class="h10"></div><div class="h10"></div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript">
+
+	function openLogin()
+	{
+		api.openWin({
+			name: 'login',
+			url: './login_header.html',
+			bounces: false,
+			delay:200
+		});
+	}
+
+</script>
+</html>

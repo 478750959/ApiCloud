@@ -1,0 +1,115 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>Hello APP</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../css/common.css" />
+    <link rel="stylesheet" type="text/css" href="../css/idangerous.swiper.css">
+
+
+    <style>
+        html,body{height:100%;background-color: #eee;}
+        .h10 {height: 10px;}
+
+        /* 头部导航样式 */
+        .header {position: relative;height: 50px;line-height: 50px;background-color: #3993cf;}
+        .header .left  {position: absolute;left: 0;height: 50px;}
+        .header .left  .logoleft {height: 20px;vertical-align: top; margin-top: 15px;}
+        .header .left  .logo {height: 46px; vertical-align: top; margin-top: 2px; margin-left: -10px;}
+        .header .left  .title {font-size: 20px; color: #fff; margin-left: -10px;padding-right: 10px;}
+
+
+        .header .right {position: absolute;right: 0;height: 50px;}
+        .header .right img {height: 20px;padding: 15px;}
+
+        .loginbg {width: 100%;}
+        
+        /* 登陆样式 */
+        .content .item {margin:10px 10px 0px 10px;background-color: #fff;height: 50px; line-height: 50px;border: 1px solid #e0e0e0;}
+        .content .item img {width: 26px;margin-top: 12px;margin-left: 10px;margin-right: 10px;vertical-align: top;}
+        .content .version {float: right;margin-right: 10px;}
+
+        /* 悬浮样式 */
+        .btnhover {background-color: #eee !important;}
+        .headerhover {background-color: #36A8DC;}
+    </style>
+</head>
+<body>
+    <div class="header" id="topbar">
+        <div class="left" tapmode="headerhover" onclick="goback()">
+            <img src="../image/icon_drawer_burger.png" alt="" class="logoleft"><img src="../image/m_drawer_icon_home_selected.png" alt="" class="logo">
+            <span class="title">关于我们</span>
+        </div>
+        
+    </div>
+
+    <div class="content">
+        <div class="item" tapmode="btnhover" onclick="toast()"><img src="../image/m_about_icon_refresh.png" alt="">检测更新 <span class="version">v4.2.2</span></div>
+        <div class="item" tapmode="btnhover" onclick="openNewWin('comment')"><img src="../image/m_about_icon_proposal.png" alt="">提建议 </div>
+        <div class="item" tapmode="btnhover" onclick="openFrame('share')"><img src="../image/m_about_icon_share.png" alt="">分享给朋友 </div>
+        <div class="item" tapmode="btnhover" onclick="openNewWin('welcome')"><img src="../image/m_about_icon_welcome.png" alt="">欢迎页 </div>
+        <div class="item" tapmode="btnhover" onclick="openNewWin('agreement')"><img src="../image/xieyi.png" alt="">使用条款和协议 </div>
+        <div class="item" tapmode="btnhover" onclick="callphone ()"><img src="../image/m_about_icon_phone.png" alt="">客服电话：40000-557117 </div>
+    </div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript">
+
+function goback () {
+    api.closeWin({name:'aboutus'});
+}
+
+function toast () {
+    api.toast({
+        msg: '您当前已为最新版本',
+        duration:1000,
+        location: 'bottom'
+    });
+}
+
+function callphone () {
+    api.call({
+        type: 'tel_prompt',
+        number: '40000557117'
+    });
+}
+
+function openNewWin (type) {
+    api.openWin ({
+        name: type,
+        url: './'+type+'.html',
+        rect:{
+            x:0,
+            y:0,
+            w:'auto',
+            h:'auto'
+        },
+        bounces: false,
+        delay:200
+    });
+}
+
+function openFrame (type) {
+    api.openFrame ({
+        name: type,
+        url: './'+type+'.html',
+        rect:{
+            x:0,
+            y:0,
+            w:'auto',
+            h:'auto'
+        },
+        bounces: false,
+        delay:200
+    });
+}
+
+apiready = function(){
+
+    var header = $api.byId('topbar');
+    $api.fixIos7Bar(header); 
+}
+</script>
+</html>

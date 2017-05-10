@@ -1,0 +1,294 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>Hello APP</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../css/common.css" />
+    <link rel="stylesheet" type="text/css" href="../css/idangerous.swiper.css">
+
+
+    <style>
+        html,body{min-height:100%;background-color: #eee;}
+        body {position: relative;}
+        .h10 {height: 10px;}
+        .h50 {height: 50px;}
+        /* section 1 */
+        .section01 {height: 30px;line-height: 30px;text-align: center;color: #fff;background-color: #5AB06C;}
+
+
+        /**/
+        .item {display: table; height: 70px; width: 100%;}
+        .item .itemlogo , .item .itemshelf {display: table-cell; vertical-align: middle;float: left;}
+
+        .item .itemlogo {width: 70px;}
+        .item .itemlogo img  {margin-left: 10px;width: 40px;}
+        .item .itemshelf .shelfinfo01 {font-size: 20px;color: #000;}
+
+        .item {background-color: #fff;position: relative;border-bottom: 1px solid #d3d3d3;}
+        .item .itemlogo {position: absolute; top: 10px;}
+        .itemshelf {margin-left: 15px;display: block;/* 不再显示为table-cell */}
+        .item .userlogo img {width: 40px;padding: 2px; border: 1px solid #e7e7e7;border-radius: 2px;}
+        .itemshelf .shelfinfo01 {color: #000;font-size: 16px;line-height: 18px;margin-top: 10px;}
+        .itemshelf .ordering{color: #fff;font-size: 12px;background-color: #5bb06c;padding: 2px 4px;display: inline-block;}
+        .style2 .itemshelf .shelfinfo03 {color: #999;font-size: 12px;margin-right: 10px;border-bottom: 0;padding: 3px 0 5px 0;}
+        .itemshelf .staring {color: #999;font-size: 12px;line-height: 14px;margin-top: 5px;margin-bottom: 20px;}
+        .itemshelf .staring img {height: 12px;}
+
+        .item .buybtn {display: table-cell; vertical-align: middle;}  /*抽象布局信息*/
+        .item .buybtn p {color: #fff;background-color: #3893CF;float: right;padding: 5px 10px;margin-right: 10px;}
+
+        /* */
+        .shopcover {width: 100%;}
+        .section02 .itemshelf .shelfinfo03 {color: #999; font-size: 14px; margin-right: 10px; border-bottom: 0; padding: 5px 0 5px 0;}
+        .section02 .buybtn {display: table-cell; vertical-align: middle;}  /*抽象布局信息*/
+        .section02 .buybtn p {color: #fff;background-color: #5AB06C;float: right;padding: 5px 10px;margin-right: 10px;font-size: 14px;line-height: 20px;}
+        .section02 .buybtn .weixin {height: 20px; vertical-align: top; margin-right: 5px;}
+
+        .minusorder {float: right;display: none;position: relative;}
+        .minus {color: #fff; background-color: #3893CF; float: right; padding: 5px;margin-right: 15px;}
+        .numbg {height: 20px; margin-top: 5px; vertical-align: top;float: right;margin-right: 15px;}
+        .thisordernum {position: absolute; right: 16px; top: 5px; color: #fff; width: 20px; text-align: center; height: 20px;}
+        /* 暗色标题 */
+        .darktitle {height: 30px;line-height: 30px;color: #787878;margin-left: 15px;font-size: 14px;}
+
+        /* 底部信息 */
+        .bottom {height: 50px;background-color: #2f373e;position: fixed;bottom: 0;width: 100%;}
+        .bottom img {height: 30px;margin-top: 10px;margin-left: 15px;vertical-align: top;}
+        #minbuy {float: right;color: #fff;background-color: #404850;padding: 5px 10px;margin: 11px 10px 0 0;}
+        #buyit {float: right;color: #fff;background-color: #4DC060;padding: 5px 10px;margin: 11px 10px 0 0;display: none;}
+        .bottom .buyinfo {height: 50px; line-height: 50px; color: #fff;display: none;}
+        .bottom .buyinfo span {color: #fff;}
+
+        /* 悬浮样式 */
+        .itemhover {background-color: #eee !important;}
+        .total-hover {background-color: rgba(77, 192, 96, 0.6) !important;}
+    </style>
+</head>
+<body>
+    <div class="section01">接受预定中，10:30开始送餐</div>
+
+    <div class="item section02">
+        <div class="itemshelf">
+            <div class="shelfinfo01">快用微信拼单</div>
+            <div class="shelfinfo03">和你的小伙伴一起来订餐吧</div>
+        </div>
+        <div class="buybtn">
+            <p><img src="../image/weixin_iner_icon.png" alt="" class="weixin">微信拼单</p>
+        </div>
+    </div>
+
+    <img src="../image/shopdetailcover.png" alt="" class="shopcover">
+
+    <div class="darktitle">新品/促销</div>
+    <div class="item style2">
+        <div class="itemshelf">
+            <div class="shelfinfo01">大排</div>
+            <div class="shelfinfo03">25元五香大排套餐</div>
+            <div class="shelfinfo02 staring"><img src="../image/star_45.png" alt="">&nbsp;月售6630份</div>
+        </div>
+        <div class="buybtn">
+            <p tapmode="" onclick="buyfood(0)">￥25</p>
+            <span class="minusorder">
+                <img src="../image/foodlist_bg_foodnum.png" alt="" class="numbg"><span class="thisordernum">0</span>
+                <span class="minus" tapmode="" onclick="minuscash(0)">－</span>
+            </span>
+            
+        </div>
+    </div>
+
+
+
+    <div class="darktitle">商务套餐</div>
+    <div class="item style2">
+        <div class="itemshelf">
+            <div class="shelfinfo01">20元</div>
+            <div class="shelfinfo03">20元商务套餐</div>
+            <div class="shelfinfo02 staring"><img src="../image/star_45.png" alt="">&nbsp;月售14438份</div>
+        </div>
+        <div class="buybtn"><p tapmode="" onclick="buyfood(1)">￥20</p>
+            <span class="minusorder">
+                <img src="../image/foodlist_bg_foodnum.png" alt="" class="numbg"><span class="thisordernum">0</span>
+                <span class="minus" tapmode="" onclick="minuscash(1)">－</span>
+            </span>
+        </div>
+    </div>
+    <div class="item style2">
+        <div class="itemshelf">
+            <div class="shelfinfo01">卤肉</div>
+            <div class="shelfinfo03">20元香菇卤肉套餐</div>
+            <div class="shelfinfo02 staring"><img src="../image/star_45.png" alt="">&nbsp;月售9587份</div>
+        </div>
+        <div class="buybtn"><p tapmode="" onclick="buyfood(2)">￥20</p>
+            <span class="minusorder">
+                <img src="../image/foodlist_bg_foodnum.png" alt="" class="numbg"><span class="thisordernum">0</span>
+                <span class="minus" tapmode="" onclick="minuscash(2)">－</span>
+            </span>
+        </div>
+    </div>
+
+
+
+    <div class="darktitle">精品商务套餐</div>
+    <div class="item style2">
+        <div class="itemshelf">
+            <div class="shelfinfo01">30元</div>
+            <div class="shelfinfo03">30元商务套餐</div>
+            <div class="shelfinfo02 staring"><img src="../image/star_45.png" alt="">&nbsp;月售2602份</div>
+        </div>
+        <div class="buybtn"><p tapmode="" onclick="buyfood(3)">￥30</p>
+            <span class="minusorder">
+                <img src="../image/foodlist_bg_foodnum.png" alt="" class="numbg"><span class="thisordernum">0</span>
+                <span class="minus" tapmode="" onclick="minuscash(3)">－</span>
+            </span>
+        </div>
+    </div>
+    <div class="item style2">
+        <div class="itemshelf">
+            <div class="shelfinfo01">排骨</div>
+            <div class="shelfinfo03">30元红烧排骨套餐</div>
+            <div class="shelfinfo02 staring"><img src="../image/star_45.png" alt="">&nbsp;月售2122份</div>
+        </div>
+        <div class="buybtn"><p tapmode="" onclick="buyfood(4)">￥30</p>
+            <span class="minusorder">
+                <img src="../image/foodlist_bg_foodnum.png" alt="" class="numbg"><span class="thisordernum">0</span>
+                <span class="minus" tapmode="" onclick="minuscash(4)">－</span>
+            </span>
+        </div>
+    </div>
+
+    <div class="h50"></div>
+    <div class="bottom">
+        <img src="../image/cart.png" alt="">
+        <span class="buyinfo" id="buyinfo"><span id="buynum">1</span>份 ￥<span id="totalcash">10</span></span>
+        <span id="minbuy">￥0元起送</span>
+        <span id="buyit" tapmode="total-hover" onclick="openNewWin()">去结算</span>
+    </div>
+
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript">
+var totalcash = 0;
+var buynum = 0;
+
+function buyfood (index) {
+    var buyinfodom = document.getElementById('buyinfo');
+    var buynumdom = document.getElementById('buynum');
+    var totalcashdom = document.getElementById('totalcash');
+    var minbuydom = document.getElementById('minbuy');
+    var buyitdom = document.getElementById('buyit');
+    var minusorderdom = document.getElementsByClassName('minusorder');
+    var thisordernumdom = document.getElementsByClassName('thisordernum');
+
+    var num = parseInt(thisordernumdom[index].innerHTML);
+    num += 1;
+
+    if (num >= 1) {
+        thisordernumdom[index].innerHTML = num;
+    }
+
+
+    minusorderdom[index].style.display = 'inline-block';
+
+    switch(index){
+        case 0:
+            totalcash += 25;
+            buynum += 1;
+            break;
+        case 1:
+        case 2:
+            totalcash += 20;
+            buynum += 1;
+            break;
+        case 3:
+        case 4:
+            totalcash += 30;
+            buynum += 1;
+            break;
+        default:
+            break;
+    }
+
+    if ( totalcash == 0) {
+        buyinfodom.style.display = 'none';
+    }
+    else {
+        buyitdom.style.display = 'inline-block';
+        minbuydom.style.display = 'none';
+        buyinfodom.style.display = 'inline-block';
+        buynumdom.innerHTML = buynum;
+        totalcashdom.innerHTML = totalcash;
+
+    }
+}
+
+function minuscash (index) {
+    var buyinfodom = document.getElementById('buyinfo');
+    var buynumdom = document.getElementById('buynum');
+    var totalcashdom = document.getElementById('totalcash');
+    var minbuydom = document.getElementById('minbuy');
+    var buyitdom = document.getElementById('buyit');
+    var minusorderdom = document.getElementsByClassName('minusorder');
+    var thisordernumdom = document.getElementsByClassName('thisordernum');
+
+    var num = thisordernumdom[index].innerHTML;
+    num -= 1;
+    
+    if (num >= 1) {
+        thisordernumdom[index].innerHTML = num;
+    }
+    else{
+        thisordernumdom[index].innerHTML = num;
+        minusorderdom[index].style.display = 'none';
+    }
+
+    switch(index){
+        case 0:
+            totalcash -= 25;
+            buynum -= 1;
+            break;
+        case 1:
+        case 2:
+            totalcash -= 20;
+            buynum -= 1;
+            break;
+        case 3:
+        case 4:
+            totalcash -= 30;
+            buynum -= 1;
+            break;
+        default:
+            break;
+    }
+
+    if ( totalcash == 0) {
+        buyinfodom.style.display = 'none';
+        minbuydom .style.display = 'inline-block';
+        buyitdom.style.display = 'none';
+    }
+    else {
+        // buyitdom.style.display = 'inline-block';
+        // minbuydom.style.display = 'none';
+        buyinfodom.style.display = 'inline-block';
+        buynumdom.innerHTML = buynum;
+        totalcashdom.innerHTML = totalcash;
+
+    }
+}
+
+function openNewWin() {
+    api.openWin ({
+        name: 'login',
+        url: './'+'login'+'.html',
+        rect:{
+            x:0,
+            y:0,
+            w:'auto',
+            h:'auto'
+        },
+        bounces: false
+    });
+}
+</script>
+</html>

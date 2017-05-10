@@ -1,0 +1,92 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>Hello APP</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/common.css" />
+    
+    <style>
+     
+     /* 头部样式 */
+     .topbar {background: #FF8400; height:50px; border-bottom: 1px solid #DDDFE3;position: relative;}
+     .topbar_title {display: inline-block;font-size: 20px; line-height: 50px;padding-left: 12px;}
+     .hr01, .hr02 {height: 28px;}
+     .headerico {padding: 11px 15px 11px 15px;}
+     .headericohover {background: #DADDE0;}
+     .fr{float: right;}
+     .fl{float: left;}
+     
+     /*第一头部*/
+     #logo {padding: 11px 0 0 10px;height: 28px;}
+     #citylist {height: 50px; line-height: 50px;padding-left: 15px; font-size: 18px; color: #fff;}
+     .citylistarrow {vertical-align: top; width: 20px; padding-top: 15px;}
+    .search {height: 34px;line-height: 34px; padding-left: 10px; border-radius: 30px;  margin-top: 8px; position: absolute; left: 20px; right: 60px;font-size: 14px;}
+    .search img {vertical-align: top; width: 20px; padding-top: 7px;padding-right: 10px;}
+    .firstSearch {left: 90px;right: 60px;background-color: #FA6604;color: #FDC29B;}
+
+     /* 第二头部 */
+     #topbar_refresh {width: 40px;padding:5px 10px;}
+     .whitebar {background-color: #fcfcfc;}
+     #whitecity {height: 50px; line-height: 50px;padding-left: 15px; font-size: 18px;color: #FF8400;}
+    .secCitylistarrow {vertical-align: top; width: 15px; padding-top: 12px; padding-left: 15px;}
+    .secSearch {left: 90px;right: 15px;background-color: #E8E8E8;color: #999;}
+    .back {float: left;}
+    .filter {float: right;}
+    .filter img {width: 30px;padding-top: 10px;padding-right: 10px;}
+    .switch {position: absolute; left: 90px; right: 90px;background-color: #fcfcfc;text-align: center;height: 30px;line-height: 30px;bottom: 10px;border-radius: 4px;color: #fff;border: 1px solid #f63;}
+    .switch div {width: 50%;display: inline-block;color: #FF6633;}
+    .switch div:first-child {border-radius: 4px 0 0 4px;}
+    .switch div:last-child {border-radius: 0px 4px 4px 0px;}
+    .selectswitch {background-color: #FF6633;color: #fff !important;}
+
+     /* 头部切换样式 */
+     .titlebar {display: none;}
+     .activebar {display: block;}
+     
+     /* 底部切换按钮样式 */
+     ul {display: -webkit-box; display: -webkit-flex; display: flex; }
+     #footer {height: 61px; line-height: 60px; background-color: #FAFAFA;border-top: 1px solid #FAFAFA; }
+     #footer li{-webkit-box-flex: 1; -webkit-flex: 1; flex:1; height: 60px;}
+
+     /* 选项卡样式 */
+     .row {display: -webkit-box;display: -webkit-flex;}
+    .col {-webkit-box-flex:1; -webkit-flex:1; flex:1;}
+     .scrollbar {display: -webkit-box;display: -webkit-flex; text-align: center; height: 40px; line-height: 40px;background: #EBECF0;font-size: 12px;position: relative;}
+     .col1 {-webkit-box-flex:1;-webkit-flex: 1;flex:1;color: #909090;}
+     .indexbar {position: absolute;/*background: #0fc;*/width: 50%;height: 5px;left: 0px;bottom: 0px;-webkit-transition: 300ms;}
+     .redbox {background: #DB4646;width: 40px;height: 5px;position: relative;left: auto;right: auto; margin-left: auto; margin-right: auto;}
+
+     /* 过滤条样式 */
+     .filterbar {height: 50px;line-height: 50px;text-align: center;border-bottom: 1px solid #e0e0e0;}
+     .filterbar img {width: 20px; vertical-align: top; float: right; margin-top: 15px;margin-right: 5px;}
+    .vheight {height: 30px; width: 1px; background-color: #e0e0e0;margin-top: 10px;}
+    </style>
+  </head>
+    <body>
+        <div id="wrap">
+        
+            <!-- 第二头部 -->
+            
+            <div class="topbar whitebar">
+                <div class="back"><img src="../../image/ic_back_u.png" alt="" class="secCitylistarrow"></div>
+                <div class="switch">
+                    <div class="shop selectswitch">商户</div><div class="tuan">团购</div>
+                </div>
+                <div class="filter"><img src="../../image/list_icon_filter.png" alt=""></div>
+            </div>
+
+            <div class="filterbar row">
+                <div class="col">附近<img src="../../image/ic_arrow_down_black.png" alt=""></div><div class="vheight"></div>
+                <div class="col">美食<img src="../../image/ic_arrow_down_black.png" alt=""></div><div class="vheight"></div>
+                <div class="col">智能排序<img src="../../image/ic_arrow_down_black.png" alt=""></div>
+            </div>
+            <div id="main"></div>
+        </div>
+    </body>
+  <script type="text/javascript" src="../../script/api.js"></script>
+  <script type="text/javascript">
+
+  </script>
+</html>

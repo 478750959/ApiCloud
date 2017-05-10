@@ -1,0 +1,129 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width"/>
+    <meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
+    <title>中恒云能源</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../css/common.css" />
+    <link rel="stylesheet" type="text/css" href="../css/baobiao.css" />
+    <link rel="stylesheet" type="text/css" href="../css/frozen.css" />
+</head>
+<body>
+	<div class="report">
+		<div class="form ui-border-t ui-border-b" style="margin-top:10px;">
+			<div class="form-group" tapmode="active">
+                <div class="con ui-border-b">
+                    <span class="label">选择报表类型</span>
+                    <select class="form-control-rtl" tapmode>
+                        <option value="2015-09">电量汇总表</option>
+                        <option value="2015-10">往年电量分析表</option>
+                    </select>
+                    <span class="arrow"></span>
+                </div>
+            </div>
+            <div class="form-group" tapmode="active">
+                <div class="con ui-border-b">
+                    <span class="label">选择开始月份</span>
+                    <select class="form-control-rtl" tapmode>
+                        <option value="2015-09">2015-09</option>
+                        <option value="2015-10">2015-10</option>
+                        <option value="2015-11">2015-11</option>
+                        <option value="2015-12">2015-12</option>
+                        <option value="2015-13">2015-13</option>
+                        <option value="2015-14">2015-14</option>
+                        <option value="2015-15">2015-15</option>
+                        <option value="2015-16">2015-16</option>
+                        <option value="2015-17">2015-17</option>
+                        <option value="2015-18">2015-18</option>
+                        <option value="2015-19">2015-19</option>
+                    </select>
+                    <span class="arrow"></span>
+                </div>
+            </div>
+            <div class="form-group" tapmode="active">
+                <div class="con ui-border-b">
+                    <span class="label">选择结束月份</span>
+                    <select class="form-control-rtl" tapmode>
+                        <option value="2015-09">2015-09</option>
+                        <option value="2015-10">2015-10</option>
+                        <option value="2015-11">2015-11</option>
+                        <option value="2015-12">2015-12</option>
+                        <option value="2015-13">2015-13</option>
+                        <option value="2015-14">2015-14</option>
+                        <option value="2015-15">2015-15</option>
+                        <option value="2015-16">2015-16</option>
+                        <option value="2015-17">2015-17</option>
+                        <option value="2015-18">2015-18</option>
+                        <option value="2015-19">2015-19</option>
+                    </select>
+                    <span class="arrow"></span>
+                </div>
+            </div>
+            <div class="form-group" tapmode="active">
+                <div class="con">
+                    <span class="label">选择分析范围</span>
+                    <select class="form-control-rtl" tapmode>
+                        <option value="1">总电量</option>
+                        <option value="2">局部电量</option>
+                    </select>
+                    <span class="arrow"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="report-data">
+			<table class="table table-bordered">
+        		<thead>
+        			<tr class="ui-border-b">
+        				<th>日期</th>
+        				<th>总电量</th>
+        				<th>尖峰</th>
+        				<th>高峰</th>
+	                    <th>平峰</th>
+	                    <th>低谷</th>
+        			</tr>
+        		</thead>
+        		<tbody>
+                    <tr class="ui-border-b">   
+                        <td>汇总</td>
+                        <td>2000</td>
+                        <td>200<p>20%</p></td>
+                        <td>200<p>20%</p></td>
+						<td>300<p>20%</p></td>
+                        <td>300<p>20%</p></td>
+                    </tr>
+                    <tr class="ui-border-b">   
+                        <td>2015-09-15</td>
+                        <td>2000</td>
+                        <td>200<p>20%</p></td>
+                        <td>200<p>20%</p></td>
+						<td>300<p>20%</p></td>
+                        <td>300<p>20%</p></td>
+                    </tr>
+                    <tr class="ui-border-b">   
+                        <td>2015-09-16</td>
+                        <td>2000</td>
+                        <td>200<p>20%</p></td>
+                        <td>200<p>20%</p></td>
+						<td>300<p>20%</p></td>
+                        <td>300<p>20%</p></td>
+                    </tr>
+            	</tbody>
+            </table>
+        </div>
+	</div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript">
+	
+    var init = function(){
+  
+    }
+    apiready = function(){
+        init();
+    };
+</script>
+</html>

@@ -1,0 +1,67 @@
+
+.yichangLine{
+	padding-left: 13px;
+    width: 35px;
+}
+.yichangLine table{
+	border-color: #a3a3a3;
+    border-left-style: solid;
+    border-width: 1px;
+    height: 440px;
+}
+.yichangLine table span{
+	border-radius: 90px;
+	width: 9px;
+	height: 9px;
+	background-color: #a3a3a3;
+	margin-left: -5px;
+}
+.yichangLine table .newDot{
+	background-color: red;
+}
+.yichangContent{
+	margin-left: 35px;
+	margin-top: 10px;
+	margin-right: 10px;
+	padding-right: 10px;
+}
+
+.yichangContent ul li{
+	background-color: #fff;
+	height: 103px;
+	margin-top: 10px;
+}
+.yichangContent ul li .yichang-con{
+	padding-left: 20px;
+	color: #a3a3a3;
+}
+.yichangContent ul li .yichang-con .time{
+	padding-top: 21px;
+}
+.yichangContent ul li .yichang-con .time .icon{
+	width: 12px;
+	height: 12px;
+	background-image: url(../image/yichang/icon_time2.png);
+	background-size: 11px 11px;
+	background-repeat: no-repeat;
+}
+.yichangContent ul li .yichang-con .time .right{
+	margin-left: 5px;
+	font-size: 13px;
+	line-height: 13px;
+}
+.yichangContent ul li .yichang-con .yichang-detail{
+	padding-top: 13px;
+	padding-right: 5px;
+    margin-top: 11px;
+    color: 
+}
+.yichangContent ul li .newYichang{
+	color: #262626;
+}
+.yichangContent ul li .newYichang .time .icon{
+	background-image: url(../image/yichang/icon_time.png);
+}
+.yichangContent ul li .newYichang .time .right{
+	color: #88c057;
+}

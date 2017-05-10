@@ -1,0 +1,36 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>Hello APP</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../css/common.css" />
+
+    <style>
+        html,body{height:100%;background-color: #eee;}
+        .h10 {height: 10px;}
+
+        .background {width: 100%;height: 100%;display: block;}
+
+        .startorder {position: absolute;bottom: 90px;width: 100%;text-align: center;}
+        .startorder span {color: #fff;background-color: #EA533A;padding: 10px;font-size: 18px;}
+
+        /* 悬浮样式 */
+        .btnhover {background-color: #FB7F56 !important;}
+        .headerhover {background-color: #FB7F56;}
+    </style>
+</head>
+<body>
+    <img src="../image/welcome.png" alt="" class="background">
+    <div class="startorder"><span tapmode="btnhover" onclick="goback()">开始订餐</span></div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript">
+
+function goback () {
+    api.closeWin({name:'welcome'});
+}
+
+</script>
+</html>

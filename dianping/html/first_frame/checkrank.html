@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+	<title>结婚</title>
+	<link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/common.css" />
+
+	<style>
+		html, body {width: 100%;min-height: 100%;background: #f0f0f0;}
+		.h80 {height: 80px;}
+		.h40 {height: 40px;}
+		.h20 {height: 20px;}
+    	.h10 {height: 10px;background: #f0f0f0;}
+		.h1 {height: 1px;margin-left: 15px;background: #f0f0f0;}
+		.fr {float: right;}
+		.fl {float: left;}
+		.hightitem {background-color: #fff;}
+
+		/* 抢购样式 */
+		.snapup {height: 80px;}
+		.snapup .infologo {height: 100%;}
+		.snapup .shelf2 {display: table;height: inherit;margin-left: 10px;}
+		.snapup .shelfcell {display: table-cell;vertical-align: middle;}
+		.snapup .shelfcell .title {margin-bottom: 10px;}
+		.snapup .arrow {width: 20px; padding-top: 30px;padding-right: 10px;}
+
+		/* 2X2样式 */
+		.row {display: -webkit-box;display: -webkit-flex;}
+		.col {-webkit-box-flex:1; -webkit-flex:1; flex:1;position: relative;}
+		.col img {position: absolute; right: 0; width: 80px; top: 0;}
+		.col .matrixcell {display: table-cell;vertical-align: middle; padding-left: 10px;}
+		.col .matrixcell .title {margin-bottom: 10px;}
+		.matrix {display: table;height: inherit;}
+
+		/* 猜你喜欢 */
+		.guesstitle {height: 40px;line-height: 40px;padding-left: 10px;vertical-align: top; font-size: 12px;color: #999;}
+		.guesstitle img {height: 15px;padding-top: 12px; padding-left: 10px;}
+		.home-tuan-list .item {position: relative; display: block; padding-left: 10px; }
+		.home-tuan-list .cnt {padding: 7px 10px 10px 0; display: box; display: -webkit-box; height: 78px;  background-size: auto 1px; }
+		.home-tuan-list .pic {margin-right: 10px; background: center; }
+		.home-tuan-list img {width: 90px; height: 66px; margin-top: 7px; margin-bottom: 5px; border-radius: 3px; }
+		.home-tuan-list .wrap {-webkit-box-flex: 1; }
+		.home-tuan-list .wrap2 {display: table; height: 88px; width: 100%; }
+		.home-tuan-list .content {-webkit-box-flex: 1; box-flex: 1; display: table-cell; vertical-align: middle; }
+		.home-tuan-list .shopname {color: #333; /*line-height: 16px;*/ font-size: 17px; max-width: 11em; white-space: nowrap; word-wrap: normal; text-overflow: ellipsis; overflow: hidden; min-height: 10px; padding-bottom: 2px; padding-top: 3px; display: inline-block;}
+		.home-tuan-list .title {color: #666; line-height: 16px; font-size: 13px; max-height: 30px; overflow: hidden; padding-top: 3px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+		.home-tuan-list .hot-title {margin-bottom: 8px; }
+		.home-tuan-list .hot-subtitle {margin-bottom: 9px; }
+		.home-tuan-list .info {margin-top: 6px; margin-bottom: 6px; color: #666; font-size: 12px; position: relative; line-height: 15px; display: box; display: -webkit-box; height: 15px; }
+
+		.home-tuan-list .comment {margin-bottom: 6px; position: relative; }
+		.home-tuan-list .comment span {vertical-align: middle; color: #666; font-size: 12px;}
+		.home-tuan-list .star {display: inline-block; width: 66px; height: 12px; vertical-align: middle; background: url(../../image/remark.png) no-repeat; background-size: 86px auto; }
+		.star.star-50 {background-position: 0 -215px; }
+		.star.star-45 {background-position: 0 -232px; }
+		.star.star-40 {background-position: 0 -249px; }
+		.home-tuan-list .star {margin-right: 10px; }
+
+		.home-tuan-list .symbol {font-size: 14px; color: #f60; display: block; margin-top: 1px; }
+		.home-tuan-list .price {color: #f60; font-size: 20px; line-height: 15px; margin-right: 5px; margin-top: 1px; }
+		.home-tuan-list .o-price {color: #999; margin-top: 5px; line-height: 10px; }
+		.home-tuan-list .sale {color: #f63; border: solid 1px #ff916e; padding: 3px 2px 2px; font-size: 10px; border-radius: 2px; -webkit-border-radius: 2px; margin-left: 5px; line-height: 10px; height: 10px; }
+		.home-tuan-list .tuanimg img {float: left; width: 16px; height: 16px;margin-left: 3px;}
+
+
+		.home-tuan-list .distance {-webkit-box-flex: 1; box-flex: 1; -ms-box-flex: 1; -ms-flex: 1; text-align: right; line-height: 10px; margin-top: 5px; color: #999; float: right;font-size: 12px;}
+		.home-tuan-list .distance img {width: 10px; height: 10px; vertical-align: top; margin: 0;}
+		.home-tuan-list .classify {color: #666; font-size: 14px;}
+		
+		.home-tuan-list .price, .index-rec .home-tuan-list .o-price, .index-rec .home-tuan-list .distance, .index-rec .home-tuan-list .sale {display: block; line-height: 15px; font-size: 12px; }
+		.Fix:after {display: block; content: ''; height: 0; clear: both; }
+
+		/* 1. 2X2 */
+		.flipcard {height: 50px;line-height: 50px;text-align: center;border-radius: 4px;margin: 5px 3px 3px 5px;color: #fff;}
+		.card0101 {background-color: #a28db4;}
+		.card0102 {background-color: #8acea7;}
+		.card0201 {background-color: #e39ab8;}
+		.card0202 {background-color: #e6da64;margin-bottom: 10px;}
+		.row i {background: url(../../image/wedding-sprite.png) no-repeat; background-size: 109px auto; display: inline-block; width: 108px; height: 31px; vertical-align: middle;}
+		.photo i {background-position: -2px -2px; }
+		.edu i {background-position: -2px -44px;}
+		.care i {background-position: -2px -94px;}
+		.game i {background-position: -2px -144px;}
+
+		/* 2. 三列 */
+		.scratch02 .word {margin-top: 10px;margin-left: 10px;}
+		.scratch02 .word .title{font-size: 18px;}
+		.scratch02 .word .info{font-size: 12px;color: #666;}
+		.scratch02 img {position: relative;width: 60px; height: 50px;}
+		.showposter {text-align: center;margin-top: 5px;padding-bottom: 10px;}
+
+		/* 3. 说说*/
+		.baby-module {
+background: #fff;
+margin-top: 10px;
+}
+.top-border {
+height: 1px;
+background-size: auto 10px!important;
+}
+.baby-module h4 {
+font-size: 15px;
+padding: 15px 10px 0 10px;
+}
+.baby-module ul {
+display: box;
+display: -webkit-box;
+padding: 13px 7px 15px 7px;
+text-align: center;
+min-height: 200px;
+}
+.baby-module ul li {
+box-flex: 1;
+-webkit-box-flex: 1;
+width: 33%;
+margin-right: 1%;
+}
+.baby-module ul li a {
+display: inline-block;
+position: relative;
+width: 100%;
+}
+.baby-module ul li a img {
+width: 100%;
+vertical-align: middle;
+}
+.baby-module ul li .text {
+position: absolute;
+left: 0;
+bottom: 0;
+width: 100%;
+height: 50px;
+background: -webkit-linear-gradient(top,rgba(255,255,255,0),rgba(0,0,0,0.55));
+}
+.baby-module ul li p {
+color: #fff;
+font-size: 13px;
+position: absolute;
+bottom: 2px;
+left: 5px;
+}
+.baby-module ul .row2 a {
+margin-bottom: 3%;
+}
+.baby-module ul .row2 a:last-child {
+margin-bottom: 0;
+}
+
+.baby-module ul li {
+box-flex: 1;
+-webkit-box-flex: 1;
+width: 33%;
+margin-right: 1%;
+}
+.module2-1 ul .row2 {
+width: 67%;
+}
+.module2-1 ul .row2 a {
+margin-bottom: 3px;
+}
+.baby-module ul .row2 a:last-child {
+margin-bottom: 0;
+}
+.baby-module ul li:last-child {
+margin-right: 0;
+}
+.baby-module ul li span {
+font-size: 10px;color: #fff;
+}
+		/* 4. tabbar*/
+		.tabbar {height: 50px;line-height: 50px;text-align: center;border-bottom: 1px solid #e0e0e0;}
+		.tabbar .col {font-size: 14px;}
+	</style>
+</head>
+<body>
+	<!-- 1 2X2 -->
+	<div class="row ">
+		<div class="col flipcard card0101 photo"><i></i></div>
+		<div class="col flipcard card0102 edu"><i></i></div>
+	</div>
+	<div class="row">
+		<div class="col flipcard card0201 care"><i></i></div>
+		<div class="col flipcard card0202 game"><i></i></div>
+	</div>
+
+	<!-- 2 3列 -->
+	<div class="row hightitem scratch02">
+		<div class="col">
+			<div class="word">
+				<div class="title">0元体验</div>
+				<div class="info">婚纱照免费拍</div>
+			</div>
+			<div class="showposter"><img src="../../image/wedding-poster01.jpg" alt="" class=""></div>
+			
+		</div>
+		<div class="col">
+			<div class="word">
+				<div class="title">0元领券</div>
+				<div class="info">结婚年终大促</div>
+			</div>
+			<div class="showposter"><img src="../../image/wedding-poster02.jpg" alt="" class=""></div>
+		</div>
+		<div class="col">
+			<div class="word">
+				<div class="title">最新客照</div>
+				<div class="info">新娘美照搜罗</div>
+			</div>
+			<div class="showposter"><img src="../../image/wedding-poster03.jpg" alt="" class=""></div>
+		</div>
+	</div>
+
+	<!-- 3. 美丽说说 -->
+	<div class="baby-module module1-2-1">
+		<div class="top-border"></div>
+		<h4>婚纱照去哪拍</h4>
+		<ul>
+		<li><a  tapmode="" onclick="" href=""><img src="../../image/wedding-poster0201.jpg">
+		<div class="text">
+		<p>热门婚照排行</p></div></a></li>
+		<li class="row2"><a  tapmode="" onclick="" href=""><img src="../../image/wedding-poster0202.jpg"> 
+		<div class="text">
+		<p>主流价格婚照</p></div></a><a  tapmode="" onclick="" href=""><img src="../../image/wedding-poster0203.jpg"><i class="new-icon"></i> 
+		<div class="text">
+		<p>唯美韩式婚照</p></div></a></li>
+		<li><a  tapmode="" onclick="" href=""><img src="../../image/wedding-poster0204.jpg">
+		<div class="text">
+		<p>看网友晒婚照</p></div></a></li>
+		</ul>
+		<div class="bottom-border"></div>
+	</div>
+
+	<div class="baby-module">
+		<div class="top-border"></div>
+		<h4>婚纱礼服随意挑</h4>
+		<ul>
+			<li><a href=""  tapmode="" onclick=""><img src="../../image/wedding-poster0301.jpg"><div class="text"><p>欧美大气婚纱<span>(26)</span></p></div></a></li>
+			<li><a href=""  tapmode="" onclick=""><img src="../../image/wedding-poster0302.jpg"><div class="text"><p>时尚晚礼服<span>(10)</span></p></div></a></li>
+			<li><a href=""  tapmode="" onclick=""><img src="../../image/wedding-poster0303.jpg"><div class="text"><p>大爱蕾丝婚纱<span>(56)</span></p></div></a></li>
+		</ul>
+		<div class="bottom-border"></div>
+	</div>
+
+	<div class="baby-module module2-1">
+	    <div class="top-border"></div>
+	    <h4>婚庆公司如何选</h4>
+	    <ul>
+	        <li class="row2">
+	            <a href=""  tapmode="" onclick=""><img src="../../image/wedding-poster0401.jpg"><div class="text"><p>人气婚庆公司</p></div></a>
+	            <a href=""  tapmode="" onclick=""><img src="../../image/wedding-poster0402.jpg"><div class="text"><p>主流价格婚庆</p></div></a>
+	        </li>
+	        <li><a href=""  tapmode="" onclick=""><img src="../../image/wedding-poster0403.jpg"><div class="text"><p>按酒店找婚庆</p></div></a></li>
+	    </ul>
+	    <div class="bottom-border"></div>
+	</div>
+
+	<!-- 4 列表 -->
+	<div class="h20"></div>
+	<div class="row hightitem tabbar">
+		<div class="col">口碑最佳</div>
+		<div class="col">人气最旺</div>
+		<div class="col">离我最近</div>
+	</div>
+	<div class="home-tuan-list">
+		<a href="" class="item Fix hightitem"  tapmode="" onclick="">
+            <div class="cnt">
+            	<img class="pic" src="../../image/shopcover/yjbf.jpg">
+	            <div class="wrap">
+		            <div class="wrap2">
+			            <div class="content">
+			                <div class="shopname">巴依老爷</div><span class="tuanimg"><img src="../../image/detail_grouponicon.png" alt=""></span>
+			                <!-- <div class="info">
+			                    <span class="symbol">¥</span>
+			                    <span class="price">100.0</span>
+			                    <span class="sale">返现1%</span>
+			                </div> -->
+			                <div class="comment">
+			                    <span class="star star-50"></span>
+			                    <span>￥106/人</span>
+			                </div>
+			                <span class="classify">
+			                	北太平庄 川菜/家常菜
+			                </span><span class="distance"><img src="../../image/ic_address_big.png" alt="">650m</span>
+			            </div>
+		            </div>           
+	            </div>
+            </div>
+        </a>
+        <a href="" class="item Fix hightitem"  tapmode="" onclick="">
+            <div class="cnt">
+            	<img class="pic" src="../../image/shopcover/syf.jpg">
+	            <div class="wrap">
+		            <div class="wrap2">
+			            <div class="content">
+			            	<div class="shopname">宽板凳老灶火锅</div><span class="tuanimg"><img src="../../image/detail_cardicon.png" alt=""></span>
+			                <div class="comment">
+			                    <span class="star star-45"></span>
+			                    <span>￥101/人</span>
+			                </div>
+			                <span class="classify">
+			                	北太平庄 重庆火锅
+			                </span><span class="distance"><img src="../../image/ic_address_big.png" alt="">670m</span>
+			            </div>
+		            </div>           
+	            </div>
+            </div>
+        </a>
+        <a href="" class="item Fix hightitem"  tapmode="" onclick="">
+            <div class="cnt">
+            	<img class="pic" src="../../image/shopcover/six.jpg">
+	            <div class="wrap">
+		            <div class="wrap2">
+			            <div class="content">
+			            	<div class="shopname">老冯烤羊蝎子馆</div><span class="tuanimg"><img src="../../image/detail_grouponicon.png" alt=""></span><span class="tuanimg"><img src="../../image/detail_couponicon.png" alt=""></span>
+			                <div class="comment">
+			                    <span class="star star-40"></span>
+			                    <span>￥120/人</span>
+			                </div>
+			                <span class="classify">
+			                	亚运村 烧烤
+			                </span><span class="distance"><img src="../../image/ic_address_big.png" alt="">670m</span>
+			            </div>
+		            </div>           
+	            </div>
+            </div>
+        </a>
+        <a href="" class="item Fix hightitem"  tapmode="" onclick="">
+            <div class="cnt">
+            	<img class="pic" src="../../image/shopcover/lewa.jpg">
+	            <div class="wrap">
+		            <div class="wrap2">
+			            <div class="content">
+			            	<div class="shopname">味妙烤鱼吧</div><span class="tuanimg"><img src="../../image/detail_grouponicon.png" alt=""></span><span class="tuanimg"><img src="../../image/detail_booking_icon.png" alt=""></span>
+			                <div class="comment">
+			                    <span class="star star-45"></span>
+			                    <span>￥65/人</span>
+			                </div>
+			                <span class="classify">
+			                	北太平庄 烤鱼
+			                </span><span class="distance"><img src="../../image/ic_address_big.png" alt="">190m</span>
+			            </div>
+		            </div>           
+	            </div>
+            </div>
+        </a>
+        <a href="" class="item Fix hightitem"  tapmode="" onclick="">
+            <div class="cnt">
+            	<img class="pic" src="../../image/shopcover/byly.jpg">
+	            <div class="wrap">
+		            <div class="wrap2">
+			            <div class="content">
+			            	<div class="shopname">九妙坊</div><span class="tuanimg"><img src="../../image/detail_booking_icon.png" alt=""></span>
+			                <div class="comment">
+			                    <span class="star star-45"></span>
+			                    <span>￥82/人</span>
+			                </div>
+			                <span class="classify">
+			                	北太平庄 粤菜馆
+			                </span><span class="distance"><img src="../../image/ic_address_big.png" alt="">830m</span>
+			            </div>
+		            </div>           
+	            </div>
+            </div>
+        </a>
+        <a href="" class="item Fix hightitem"  tapmode="" onclick="">
+            <div class="cnt">
+            	<img class="pic" src="../../image/shopcover/jbw.jpg">
+	            <div class="wrap">
+		            <div class="wrap2">
+			            <div class="content">
+			            	<div class="shopname">木上鸟巢</div><span class="tuanimg"><img src="../../image/detail_grouponicon.png" alt=""></span><span class="tuanimg"><img src="../../image/detail_booking_icon.png" alt=""></span>
+			                <div class="comment">
+			                    <span class="star star-40"></span>
+			                    <span>￥62/人</span>
+			                </div>
+			                <span class="classify">
+			                	什刹海 酒吧
+			                </span><span class="distance"><img src="../../image/ic_address_big.png" alt="">830m</span>
+			            </div>
+		            </div>           
+	            </div>
+            </div>
+        </a>
+        <a href="" class="item Fix hightitem"  tapmode="" onclick="">
+            <div class="cnt">
+            	<img class="pic" src="../../image/shopcover/zmh.jpg">
+	            <div class="wrap">
+		            <div class="wrap2">
+			            <div class="content">
+			            	<div class="shopname">盘古七星酒店自助餐厅</div>
+			                <div class="comment">
+			                    <span class="star star-45"></span>
+			                    <span>￥505/人</span>
+			                </div>
+			                <span class="classify">
+			                	亚运村 自助餐
+			                </span><span class="distance"><img src="../../image/ic_address_big.png" alt="">990m</span>
+			            </div>
+		            </div>           
+	            </div>
+            </div>
+        </a>
+        <a href="" class="item Fix hightitem"  tapmode="" onclick="">
+            <div class="cnt">
+            	<img class="pic" src="../../image/shopcover/dfjzw.jpg">
+	            <div class="wrap">
+		            <div class="wrap2">
+			            <div class="content">
+			                <div class="shopname">东方饺子王</div>
+			                <div class="comment">
+			                    <span class="star star-45"></span>
+			                    <span>￥505/人</span>
+			                </div>
+			                <span class="classify">
+			                	亚运村 自助餐
+			                </span><span class="distance"><img src="../../image/ic_address_big.png" alt="">990m</span>
+			            </div>
+		            </div>           
+	            </div>
+            </div>
+        </a>
+        <a href="" class="item Fix hightitem"  tapmode="" onclick="">
+            <div class="cnt">
+            	<img class="pic" src="../../image/shopcover/tbgjyc.jpg">
+	            <div class="wrap">
+		            <div class="wrap2">
+			            <div class="content">
+			                <div class="shopname">屌丝柳州螺蛳粉</div>
+			                <div class="comment">
+			                    <span class="star star-45"></span>
+			                    <span>￥17/人</span>
+			                </div>
+			                <span class="classify">
+			                	海淀其他 粉面馆
+			                </span><span class="distance"><img src="../../image/ic_address_big.png" alt="">990m</span>
+			            </div>
+		            </div>           
+	            </div>
+            </div>
+        </a>
+        <a href="" class="item Fix hightitem"  tapmode="" onclick="">
+            <div class="cnt">
+            	<img class="pic" src="../../image/shopcover/hns.jpg">
+	            <div class="wrap">
+		            <div class="wrap2">
+			            <div class="content">
+			                <div class="shopname">蒸汽石锅鱼</div>
+			                <div class="comment">
+			                    <span class="star star-40"></span>
+			                    <span>￥65/人</span>
+			                </div>
+			                <span class="classify">
+			                	北太平庄 鱼火锅
+			                </span><span class="distance"><img src="../../image/ic_address_big.png" alt="">350m</span>
+			            </div>
+		            </div>           
+	            </div>
+            </div>
+        </a>
+        <a href="" class="item Fix hightitem"  tapmode="" onclick="">
+            <div class="cnt">
+            	<img class="pic" src="../../image/shopcover/mwsk.jpg">
+	            <div class="wrap">
+		            <div class="wrap2">
+			            <div class="content">
+			                <div class="shopname">海底捞火锅</div>
+			                <div class="comment">
+			                    <span class="star star-50"></span>
+			                    <span>￥94/人</span>
+			                </div>
+			                <span class="classify">
+			                	北太平庄 更多火锅
+			                </span><span class="distance"><img src="../../image/ic_address_big.png" alt="">350m</span>
+			            </div>
+		            </div>           
+	            </div>
+            </div>
+        </a>
+        <a href="" class="item Fix hightitem"  tapmode="" onclick="">
+            <div class="cnt">
+            	<img class="pic" src="../../image/shopcover/cap.jpg">
+	            <div class="wrap">
+		            <div class="wrap2">
+			            <div class="content">
+			                <div class="shopname">汉拿山</div>
+			                <div class="comment">
+			                    <span class="star star-50"></span>
+			                    <span>￥76/人</span>
+			                </div>
+			                <span class="classify">
+			                	北太平庄 韩国料理
+			                </span><span class="distance"><img src="../../image/ic_address_big.png" alt="">700m</span>
+			            </div>
+		            </div>           
+	            </div>
+            </div>
+        </a>
+	</div>
+</body>
+</html>

@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+	<title>全部分类</title>
+	<link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/common.css" />
+
+	<style>
+		html, body {width: 100%;min-height: 100%;background: #f0f0f0;}
+		.h80 {height: 80px;}
+		.h40 {height: 40px;}
+		.h20 {height: 20px;}
+    	.h10 {height: 10px;background: #f0f0f0;}
+		.h1 {height: 1px;margin-left: 15px;background: #f0f0f0;}
+		.fr {float: right;}
+		.fl {float: left;}
+		.hightitem {background-color: #fff;}
+		.inwrap {margin: 0 10px;}
+
+		/* 2X2样式 */
+		.row {display: -webkit-box;display: -webkit-flex;}
+		.col {-webkit-box-flex:1; -webkit-flex:1; flex:1;position: relative;}
+		.col img {position: absolute; right: 0; width: 80px; top: 0;}
+		.col .matrixcell {display: table-cell;vertical-align: middle; padding-left: 10px;}
+		.col .matrixcell .title {margin-bottom: 10px;}
+		.matrix {display: table;height: inherit;}
+
+		/* 1. 2X2 */
+		.flipcard {height: 30px; line-height: 30px; text-align: center; margin: 5px 5px 3px 5px; color: #000; background-color: #fff; font-size: 14px;}
+		.darktitle {height: 40px;line-height: 40px;margin-left: 15px;font-size: 14px;color: #666;}
+
+		/* 2. 三列 */
+		.scratch02 .word {margin-top: 10px;margin-left: 10px;}
+		.scratch02 .word .title{font-size: 18px;}
+		.scratch02 .word .info{font-size: 12px;color: #666;}
+		.scratch02 img {position: relative;width: 60px; height: 50px;}
+		.showposter {text-align: center;margin-top: 5px;padding-bottom: 10px;}
+
+		/* 列表 */
+		.classify {height: 60px;line-height: 60px;background-color: #fff;position: relative;border-bottom: 1px solid #e0e0e0;}
+		.classify .sublogo {width: 30px;margin-top: 15px;margin-left: 15px;float: left;}
+		.classify .arrow {position: absolute;vertical-align: top;right: 15px;top:20px;height: 20px;}
+		.classify .info {line-height: 20px; float: left; height: 60px;margin-left: 10px;}
+		.classify .info .title {font-size: 15px; color: #000; margin-top: 10px;}
+		.classify .info .subtitle {font-size: 12px; color: #666; margin-top: 5px;}
+		.subclass {display: none;}
+		.subclass .flipcard {margin:0;}
+		.brb {border-right: 1px solid #e0e0e0;border-bottom: 1px solid #e0e0e0;}
+		.brb {border-right: 1px solid #e0e0e0;border-bottom: 1px solid #e0e0e0;}
+		.bb {border-bottom: 1px solid #e0e0e0;}
+
+		.presshover {background-color: #FAFAFA !important;}
+		table {width: 100%;}
+	</style>
+</head>
+<body>
+	<!-- 1 2X2 -->
+	<div class="darktitle">常用</div>
+	<div class="row inwrap">
+		<div class="col flipcard" tpamode="presshover" onclick="openVirList()">小吃</div>
+		<div class="col flipcard" tpamode="presshover" onclick="openVirList()">火锅</div>
+		<div class="col flipcard" tpamode="presshover" onclick="openVirList()">足疗</div>
+	</div>
+	<div class="row inwrap">
+		<div class="col flipcard" tpamode="presshover" onclick="openVirList()">咖啡奶茶</div>
+		<div class="col flipcard" tpamode="presshover" onclick="openVirList()">景点郊游</div>
+		<div class="col flipcard" tpamode="presshover" onclick="openVirList()">面包甜点</div>
+	</div>
+	<div class="row inwrap">
+		<div class="col flipcard" tpamode="presshover" onclick="openVirList()">西餐</div>
+		<div class="col flipcard" tpamode="presshover" onclick="openVirList()">自助</div>
+		<div class="col flipcard" tpamode="presshover" onclick="openVirList()">日本</div>
+	</div>
+
+	<!-- 2 列表 -->
+	<div class="h10"></div>
+	<div class="darktitle">全部</div>
+	<div class="classify"  tapmode="" onclick="expandList('food')">
+		<img src="../../image/tuan/more_icon_10.png" alt="" class="sublogo">
+		<div class="info">
+			<div class="title">美食</div>
+			<div class="subtitle">火锅、小吃快餐、面包甜点、咖啡厅</div>
+		</div>
+		<img src="../../image/ic_arrow_down_black.png" alt="" class="arrow" id="foodarrow">
+	</div>
+	<div class="subclass" id="food"  data-click='0'>
+		<table>
+			<tr>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">全部美食</td>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">火锅</td>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">小吃快餐</td>
+			</tr>
+			<tr>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">面包甜点</td>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">咖啡厅</td>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">自助餐</td>
+			</tr>
+			<tr>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">日本</td>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">西餐</td>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">烧烤</td>
+			</tr>
+			<tr>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">韩国料理</td>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">东南亚菜</td>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">粤菜</td>
+			</tr>
+			<tr>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">北京菜</td>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">素菜</td>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">川菜</td>
+			</tr>
+			<tr>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">湘菜</td>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">东北菜</td>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">江浙菜</td>
+			</tr>
+			<tr>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">海鲜</td>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">新疆菜</td>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">清真菜</td>
+			</tr>
+			<tr>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">云南菜</td>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">西北菜</td>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">贵州菜</td>
+			</tr>
+			<tr>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">鲁菜</td>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">湖北菜</td>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">其他</td>
+			</tr>
+		</table>
+
+
+		<!-- <div class="row">
+			<div  tpamode="presshover" onclick="openVirList()" class="col flipcard brb">全部美食</div>
+			<div  tpamode="presshover" onclick="openVirList()" class="col flipcard brb">火锅</div>
+			<div  tpamode="presshover" onclick="openVirList()" class="col flipcard bb">小吃快餐</div>
+		</div>
+		<div class="row">
+			<div  tpamode="presshover" onclick="openVirList()" class="col flipcard brb">面包甜点</div>
+			<div  tpamode="presshover" onclick="openVirList()" class="col flipcard brb">咖啡厅</div>
+			<div  tpamode="presshover" onclick="openVirList()" class="col flipcard bb">自助餐</div>
+		</div>
+		<div class="row">
+			<div  tpamode="presshover" onclick="openVirList()" class="col flipcard brb">日本</div>
+			<div  tpamode="presshover" onclick="openVirList()" class="col flipcard brb">西餐</div>
+			<div  tpamode="presshover" onclick="openVirList()" class="col flipcard bb">烧烤</div>
+		</div>
+		<div class="row">
+			<div  tpamode="presshover" onclick="openVirList()" class="col flipcard brb">韩国料理</div>
+			<div  tpamode="presshover" onclick="openVirList()" class="col flipcard brb">东南亚菜</div>
+			<div  tpamode="presshover" onclick="openVirList()" class="col flipcard bb">粤菜</div>
+		</div>
+		<div class="row">
+			<div  tpamode="presshover" onclick="openVirList()" class="col flipcard brb">北京菜</div>
+			<div  tpamode="presshover" onclick="openVirList()" class="col flipcard brb">素菜</div>
+			<div  tpamode="presshover" onclick="openVirList()" class="col flipcard bb">川菜</div>
+		</div>
+		<div class="row">
+			<div  tpamode="presshover" onclick="openVirList()" class="col flipcard brb">湘菜</div>
+			<div  tpamode="presshover" onclick="openVirList()" class="col flipcard brb">东北菜</div>
+			<div  tpamode="presshover" onclick="openVirList()" class="col flipcard bb">江浙菜</div>
+		</div>
+		<div class="row">
+			<div  tpamode="presshover" onclick="openVirList()" class="col flipcard brb">海鲜</div>
+			<div  tpamode="presshover" onclick="openVirList()" class="col flipcard brb">新疆菜</div>
+			<div  tpamode="presshover" onclick="openVirList()" class="col flipcard bb">清真菜</div>
+		</div>
+		<div class="row">
+			<div  tpamode="presshover" onclick="openVirList()" class="col flipcard brb">云南菜</div>
+			<div  tpamode="presshover" onclick="openVirList()" class="col flipcard brb">西北菜</div>
+			<div  tpamode="presshover" onclick="openVirList()" class="col flipcard bb">贵州菜</div>
+		</div>
+		<div class="row">
+			<div  tpamode="presshover" onclick="openVirList()" class="col flipcard brb">鲁菜</div>
+			<div  tpamode="presshover" onclick="openVirList()" class="col flipcard brb">湖北菜</div>
+			<div  tpamode="presshover" onclick="openVirList()" class="col flipcard bb">其他</div>
+		</div> -->
+	</div>
+	
+
+
+	<div class="classify"  tapmode="" onclick="expandList('fun')">
+		<img src="../../image/tuan/more_icon_30.png" alt="" class="sublogo">
+		<div class="info">
+			<div class="title">休闲娱乐</div>
+			<div class="subtitle">足疗按摩、KTV、景点/郊游、电影院</div>
+		</div>
+		<img src="../../image/ic_arrow_down_black.png" alt="" class="arrow" id="funarrow">
+	</div>
+	<div class="subclass" id="fun"  data-click='0'>
+		<table>
+			<tr>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">全部娱乐</td>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">足疗按摩</td>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">KTV</td>
+			</tr>
+			<tr>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">景点/郊游</td>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">电影院</td>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">洗浴</td>
+			</tr>
+			<tr>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">咖啡厅</td>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">酒吧</td>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">温泉</td>
+			</tr>
+			<tr>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">台球馆</td>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">密室</td>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">茶馆</td>
+			</tr>
+			<tr>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">休闲网吧</td>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">DIY手工坊</td>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">私人影院</td>
+			</tr>
+			<tr>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">轰趴馆</td>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">桌面游戏</td>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">游乐游艺</td>
+			</tr>
+			<tr>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">真人CS</td>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">公园</td>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">文化艺术</td>
+			</tr>
+			<tr>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">采摘/农家乐</td>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">棋牌室</td>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">更多休闲娱乐</td>
+			</tr>
+		</table>
+	</div>
+
+	<div class="classify"  tapmode="" onclick="expandList('hotel')">
+		<img src="../../image/tuan/more_icon_60.png" alt="" class="sublogo">
+		<div class="info">
+			<div class="title">酒店</div>
+			<div class="subtitle">经济型酒店、五星级酒店、四星级酒店</div>
+		</div>
+		<img src="../../image/ic_arrow_down_black.png" alt="" class="arrow" id="hotelarrow">
+	</div>
+	<div class="subclass" id="hotel"  data-click='0'>
+		<table>
+			<tr>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">全部酒店</td>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">经济型酒店</td>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">五星级酒店</td>
+			</tr>
+			<tr>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">四星级酒店</td>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">公寓式酒店</td>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">青年旅社</td>
+			</tr>
+			<tr>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">三星级酒店</td>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">度假村</td>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">精品酒店</td>
+			</tr>
+			<tr>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">客栈旅社</td>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">农家院</td>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">更多酒店住宿</td>
+			</tr>
+		</table>
+	</div>
+
+
+
+	<div class="classify"  tapmode="" onclick="expandList('women')">
+		<img src="../../image/tuan/more_icon_50.png" alt="" class="sublogo">
+		<div class="info">
+			<div class="title">丽人</div>
+			<div class="subtitle">个性写真、美女、瑜伽、舞蹈</div>
+		</div>
+		<img src="../../image/ic_arrow_down_black.png" alt="" class="arrow" id="womenarrow">
+	</div>
+	<div class="subclass" id="women"  data-click='0'>
+		<table>
+			<tr>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">全部酒店</td>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">经济型酒店</td>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">五星级酒店</td>
+			</tr>
+			<tr>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">四星级酒店</td>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">公寓式酒店</td>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">青年旅社</td>
+			</tr>
+			<tr>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">三星级酒店</td>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">度假村</td>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">精品酒店</td>
+			</tr>
+			<tr>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">客栈旅社</td>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">农家院</td>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">更多酒店住宿</td>
+			</tr>
+		</table>
+	</div>
+
+
+
+	<div class="classify"  tapmode="" onclick="expandList('marrage')">
+		<img src="../../image/tuan/more_icon_55.png" alt="" class="sublogo">
+		<div class="info">
+			<div class="title">结婚</div>
+			<div class="subtitle">个性写真、婚纱婚姻、婚姻酒店、婚庆公司</div>
+		</div>
+		<img src="../../image/ic_arrow_down_black.png" alt="" class="arrow" id="marragearrow">
+	</div>
+	<div class="subclass" id="marrage"  data-click='0'>
+		<table>
+			<tr>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">全部酒店</td>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">经济型酒店</td>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">五星级酒店</td>
+			</tr>
+			<tr>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">四星级酒店</td>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">公寓式酒店</td>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">青年旅社</td>
+			</tr>
+			<tr>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">三星级酒店</td>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">度假村</td>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">精品酒店</td>
+			</tr>
+			<tr>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">客栈旅社</td>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">农家院</td>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">更多酒店住宿</td>
+			</tr>
+		</table>
+	</div>
+
+
+	<div class="classify"  tapmode="" onclick="expandList('kids')">
+		<img src="../../image/tuan/more_icon_70.png" alt="" class="sublogo">
+		<div class="info">
+			<div class="title">亲子</div>
+			<div class="subtitle">亲子游乐、亲子摄影、幼儿教育、亲子购物</div>
+		</div>
+		<img src="../../image/ic_arrow_down_black.png" alt="" class="arrow" id="kidsarrow">
+	</div>
+	<div class="subclass" id="kids"  data-click='0'>
+		<table>
+			<tr>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">全部酒店</td>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">经济型酒店</td>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">五星级酒店</td>
+			</tr>
+			<tr>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">四星级酒店</td>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">公寓式酒店</td>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">青年旅社</td>
+			</tr>
+			<tr>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">三星级酒店</td>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">度假村</td>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">精品酒店</td>
+			</tr>
+			<tr>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">客栈旅社</td>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">农家院</td>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">更多酒店住宿</td>
+			</tr>
+		</table>
+	</div>
+
+	<div class="classify"  tapmode="" onclick="expandList('shopping')">
+		<img src="../../image/tuan/more_icon_20.png" alt="" class="sublogo">
+		<div class="info">
+			<div class="title">购物</div>
+			<div class="subtitle">综合商场、超市/便利店、服饰鞋包、药店</div>
+		</div>
+		<img src="../../image/ic_arrow_down_black.png" alt="" class="arrow" id="shoppingarrow">
+	</div>
+	<div class="subclass" id="shopping"  data-click='0'>
+		<table>
+			<tr>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">全部酒店</td>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">经济型酒店</td>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">五星级酒店</td>
+			</tr>
+			<tr>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">四星级酒店</td>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">公寓式酒店</td>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">青年旅社</td>
+			</tr>
+			<tr>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">三星级酒店</td>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">度假村</td>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">精品酒店</td>
+			</tr>
+			<tr>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">客栈旅社</td>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">农家院</td>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">更多酒店住宿</td>
+			</tr>
+		</table>
+	</div>
+
+
+	<div class="classify"  tapmode="" onclick="expandList('run')">
+		<img src="../../image/tuan/more_icon_45.png" alt="" class="sublogo">
+		<div class="info">
+			<div class="title">运动健身</div>
+			<div class="subtitle">健身中心、游泳馆、瑜伽、舞蹈</div>
+		</div>
+		<img src="../../image/ic_arrow_down_black.png" alt="" class="arrow" id="runarrow">
+	</div>
+	<div class="subclass" id="run"  data-click='0'>
+		<table>
+			<tr>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">全部酒店</td>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">经济型酒店</td>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">五星级酒店</td>
+			</tr>
+			<tr>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">四星级酒店</td>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">公寓式酒店</td>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">青年旅社</td>
+			</tr>
+			<tr>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">三星级酒店</td>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">度假村</td>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">精品酒店</td>
+			</tr>
+			<tr>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">客栈旅社</td>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">农家院</td>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">更多酒店住宿</td>
+			</tr>
+		</table>
+	</div>
+
+
+	<div class="classify"  tapmode="" onclick="expandList('life')">
+		<img src="../../image/tuan/more_icon_80.png" alt="" class="sublogo">
+		<div class="info">
+			<div class="title">生活服务</div>
+			<div class="subtitle">银行、医院、宠物、快照/快印</div>
+		</div>
+		<img src="../../image/ic_arrow_down_black.png" alt="" class="arrow" id="lifearrow">
+	</div>
+	<div class="subclass" id="life"  data-click='0'>
+		<table>
+			<tr>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">全部酒店</td>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">经济型酒店</td>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">五星级酒店</td>
+			</tr>
+			<tr>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">四星级酒店</td>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">公寓式酒店</td>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">青年旅社</td>
+			</tr>
+			<tr>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">三星级酒店</td>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">度假村</td>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">精品酒店</td>
+			</tr>
+			<tr>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">客栈旅社</td>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">农家院</td>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">更多酒店住宿</td>
+			</tr>
+		</table>
+	</div>
+
+
+	<div class="classify"  tapmode="" onclick="expandList('home')">
+		<img src="../../image/tuan/more_icon_90.png" alt="" class="sublogo">
+		<div class="info">
+			<div class="title">家装</div>
+			<div class="subtitle">家具家居、家用电器、装修设计、建材</div>
+		</div>
+		<img src="../../image/ic_arrow_down_black.png" alt="" class="arrow" id="homearrow">
+	</div>
+	<div class="subclass" id="home"  data-click='0'>
+		<table>
+			<tr>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">全部酒店</td>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">经济型酒店</td>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">五星级酒店</td>
+			</tr>
+			<tr>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">四星级酒店</td>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">公寓式酒店</td>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">青年旅社</td>
+			</tr>
+			<tr>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">三星级酒店</td>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">度假村</td>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">精品酒店</td>
+			</tr>
+			<tr>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">客栈旅社</td>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">农家院</td>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">更多酒店住宿</td>
+			</tr>
+		</table>
+	</div>
+
+	<div class="classify"  tapmode="" onclick="expandList('car')">
+		<img src="../../image/tuan/more_icon_65.png" alt="" class="sublogo">
+		<div class="info">
+			<div class="title">爱车</div>
+			<div class="subtitle">加油站、汽车美容、维修保养、汽车租赁</div>
+		</div>
+		<img src="../../image/ic_arrow_down_black.png" alt="" class="arrow" id="cararrow">
+	</div>
+	<div class="subclass" id="car"  data-click='0'>
+		<table>
+			<tr>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">全部酒店</td>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">经济型酒店</td>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">五星级酒店</td>
+			</tr>
+			<tr>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">四星级酒店</td>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">公寓式酒店</td>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">青年旅社</td>
+			</tr>
+			<tr>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">三星级酒店</td>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">度假村</td>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">精品酒店</td>
+			</tr>
+			<tr>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">客栈旅社</td>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">农家院</td>
+				<td  tpamode="presshover" onclick="openVirList()" class="flipcard brb">更多酒店住宿</td>
+			</tr>
+		</table>
+	</div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script>
+	function openVirList() {
+		api.openWin({
+			name: 'tuan',
+			url: './tuan_header.html',
+			// delay:200,
+			bounces: false
+		});
+	}
+
+	function expandList (type) {
+		var food = document.getElementById(type);
+		var click = food.getAttribute("data-click");
+		
+		if (click == 0) {
+			// 点开
+			food.setAttribute("data-click", 1);
+			$api.dom('#'+type+'arrow').src = "../../image/ic_arrow_up_black.png";
+			food.style.display = 'block';
+		}else {
+			// 关闭
+			food.setAttribute("data-click", 0);
+			$api.dom('#'+type+'arrow').src = "../../image/ic_arrow_down_black.png";
+			food.style.display = 'none';
+		}
+	}
+</script>
+</html>

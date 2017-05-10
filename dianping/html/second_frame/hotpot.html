@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+	<title>团购</title>
+	<link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/common.css" />
+
+	<style>
+		html, body {width: 100%;min-height: 100%;background: #fff;}
+		.h80 {height: 80px;}
+		.h40 {height: 40px;line-height: 40px;}
+		.h20 {height: 20px;}
+    	.h10 {height: 10px;background: #fff;}
+		.h1 {height: 1px;margin-left: 15px;background: #fff;}
+		.fr {float: right;}
+		.fl {float: left;}
+		.hightitem {background-color: #fff;}
+		.inwrap {margin: 0 15px;}
+
+		/* 3X3样式 */
+		.row {display: -webkit-box;display: -webkit-flex;}
+		.col {-webkit-box-flex:1; -webkit-flex:1; flex:1;position: relative;}
+		.col .title {position: relative;}
+		/*.col img {position: absolute; right: 0; width: 80px; top: 0;}*/
+		.col img {width: 20px; position: relative; top: 5px; left: -4px;}
+		.col .matrix3 {display: table;height: inherit;width: 100%;}
+		.matrix3 .matrixcell {display: table-cell;vertical-align: middle; text-align: center;}
+		/*.matrix3 .matrixcell .title {margin-bottom: 10px;}*/
+		
+
+		/* 2X2样式 */
+		.matrix3 {display: table;height: inherit;width: 100%;}
+		.matrix3 .matrixcell {display: table-cell;vertical-align: middle; text-align: center;}
+		.title0201 .title {color: #FE8501; }
+		.title0202 .title {color: #83B235; }
+		.title0203 .title {color: #2E8AE0; }
+
+		/* 选项卡 */
+		.tabbar {text-align: center;}
+		/* 猜你喜欢 */
+		.guesstitle {height: 40px;line-height: 40px;padding-left: 10px;vertical-align: top; font-size: 12px;color: #999;}
+		.guesstitle img {height: 15px;padding-top: 12px; padding-left: 10px;}
+		.home-tuan-list {border: 1px solid #e0e0e0;}
+		.home-tuan-list .item {position: relative; display: block; padding-left: 10px;border-bottom: 1px solid #e0e0e0; }
+		.home-tuan-list .cnt {padding: 7px 10px 10px 0; display: box; display: -webkit-box; height: 78px;  background-size: auto 1px; }
+		.home-tuan-list .pic {margin-right: 10px; background: center; }
+		.home-tuan-list img {width: 90px; height: 66px; margin-top: 7px; margin-bottom: 5px; border-radius: 3px; }
+		.home-tuan-list .wrap {-webkit-box-flex: 1; }
+		.home-tuan-list .wrap2 {display: table; height: 88px; width: 100%; }
+		.home-tuan-list .content {-webkit-box-flex: 1; box-flex: 1; display: table-cell; vertical-align: middle; }
+		.home-tuan-list .shopname {color: #333; /*line-height: 16px;*/ font-size: 17px; max-width: 11em; white-space: nowrap; word-wrap: normal; text-overflow: ellipsis; overflow: hidden; min-height: 10px; padding-bottom: 2px; padding-top: 3px; display: inline-block;}
+		.home-tuan-list .title {color: #666; line-height: 16px; font-size: 13px; max-height: 30px; overflow: hidden; padding-top: 3px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+		.home-tuan-list .hot-title {margin-bottom: 8px; }
+		.home-tuan-list .hot-subtitle {margin-bottom: 9px; }
+		.home-tuan-list .info {margin-top: 9px; margin-bottom: 11px; color: #666; font-size: 12px; position: relative; line-height: 15px; display: box; display: -webkit-box; height: 15px; }
+		.home-tuan-list .symbol {font-size: 14px; color: #f60; display: block; margin-top: 1px; }
+		.home-tuan-list .price {color: #f60; font-size: 20px; line-height: 15px; margin-right: 5px; margin-top: 1px; }
+		.home-tuan-list .o-price {color: #999; margin-top: 5px; line-height: 10px; }
+		.home-tuan-list .sale {color: #f63; border: solid 1px #ff916e; padding: 3px 2px 2px; font-size: 10px; border-radius: 2px; -webkit-border-radius: 2px; margin-left: 5px; line-height: 10px; height: 10px; }
+		.home-tuan-list .distance {-webkit-box-flex: 1; box-flex: 1; -ms-box-flex: 1; -ms-flex: 1; text-align: right; line-height: 10px; margin-top: 5px; color: #999; float: right;font-size: 12px;}
+		.home-tuan-list .price, .index-rec .home-tuan-list .o-price, .index-rec .home-tuan-list .distance, .index-rec .home-tuan-list .sale {display: block; line-height: 15px; font-size: 12px; }
+		.Fix:after {display: block; content: ''; height: 0; clear: both; }
+
+		.titlelogo img {width: 100%;}
+		.darktitle {height: 30px;line-height: 30px;padding-left: 10px;border-left: 1px solid #e0e0e0; border-right: 1px solid #e0e0e0;}
+		.presshover {background-color: #FAFAFA !important;}
+	</style>
+</head>
+<body>
+	<!-- 1. 3X3 -->
+
+	<div class="titlelogo inwrap"><img src="../../image/shopcover/hotpot01.jpg" alt=""></div>
+	<div class="darktitle inwrap">每日限量立减</div>
+	<div class="home-tuan-list inwrap">
+		<a href="" class="item Fix hightitem" tapmode="presshover" onclick="openDetail()">
+            <div class="cnt">
+            	<img class="pic" src="../../image/shopcover/hotpot01.jpg">
+	            <div class="wrap">
+		            <div class="wrap2">
+			            <div class="content">
+			                <div class="shopname">香草云南原生态火锅</div>
+			                <div class="title">仅售75元</div>
+			                <div class="info">
+			                    <span class="symbol">¥</span>
+			                    <span class="price">58</span>
+			                    
+			                </div>
+			            </div>
+		            </div>           
+	            </div>
+            </div>
+        </a>
+        <a href="" class="item Fix hightitem" tapmode="presshover" onclick="openDetail()">
+            <div class="cnt">
+            	<img class="pic" src="../../image/shopcover/hotpot02.jpg">
+	            <div class="wrap">
+		            <div class="wrap2">
+			            <div class="content">
+			                <div class="shopname">蝎王府羊蝎子</div>
+			                <div class="title">仅售88元，价值100元代金券</div>
+			                <div class="info">
+			                    <span class="symbol">¥</span>
+			                    <span class="price">88.0</span>
+			                    
+			                </div>
+			            </div>
+		            </div>           
+	            </div>
+            </div>
+        </a>
+        <a href="" class="item Fix hightitem" tapmode="presshover" onclick="openDetail()">
+            <div class="cnt">
+            	<img class="pic" src="../../image/shopcover/hotpot03.jpg">
+	            <div class="wrap">
+		            <div class="wrap2">
+			            <div class="content">
+			                <div class="shopname">宽板凳老灶火锅</div>
+			                <div class="title">仅售88元，不限时段通用，可累计使用</div>
+			                <div class="info">
+			                    <span class="symbol">¥</span>
+			                    <span class="price">88.0</span>
+			                    
+			                </div>
+			            </div>
+		            </div>           
+	            </div>
+            </div>
+        </a>
+        <a href="" class="item Fix hightitem" tapmode="presshover" onclick="openDetail()">
+            <div class="cnt">
+            	<img class="pic" src="../../image/shopcover/hotpot04.jpg">
+	            <div class="wrap">
+		            <div class="wrap2">
+			            <div class="content">
+			                <div class="shopname">豆捞坊</div>
+			                <div class="title">仅售89元，价值100元代金券</div>
+			                <div class="info">
+			                    <span class="symbol">¥</span>
+			                    <span class="price">89.0</span>
+			                    
+			                </div>
+			            </div>
+		            </div>           
+	            </div>
+            </div>
+        </a>
+        <a href="" class="item Fix hightitem" tapmode="presshover" onclick="openDetail()">
+            <div class="cnt">
+            	<img class="pic" src="../../image/shopcover/hotpot05.jpg">
+	            <div class="wrap">
+		            <div class="wrap2">
+			            <div class="content">
+			                <div class="shopname">卡门密室逃脱工作室</div>
+			                <div class="title">仅售68元，价值120元密室逃脱单人券，层层谜团之下隐藏了悬机重重，发挥过人才智，追踪线索，破解谜题！</div>
+			                <div class="info">
+			                    <span class="symbol">¥</span>
+			                    <span class="price">68.0</span>
+			                    
+			                </div>
+			            </div>
+		            </div>           
+	            </div>
+            </div>
+        </a>
+        <a href="" class="item Fix hightitem" tapmode="presshover" onclick="openDetail()">
+            <div class="cnt">
+            	<img class="pic" src="../../image/shopcover/hotpot06.jpg">
+	            <div class="wrap">
+		            <div class="wrap2">
+			            <div class="content">
+			                <div class="shopname">罗生门密室俱乐部</div>
+			                <div class="title">仅售69元，价值120元Dr，提供免费wifi！w的实验室-死亡之旅主题，！</div>
+			                <div class="info">
+			                    <span class="symbol">¥</span>
+			                    <span class="price">69</span>
+			                </div>
+			            </div>
+		            </div>           
+	            </div>
+            </div>
+        </a>
+        <a href="" class="item Fix hightitem" tapmode="presshover" onclick="openDetail()">
+            <div class="cnt">
+            	<img class="pic" src="../../image/shopcover/hotpot07.jpg">
+	            <div class="wrap">
+		            <div class="wrap2">
+			            <div class="content">
+			                <div class="shopname">逃立方密室逃脱</div>
+			                <div class="title">仅售65元，价值119元逃立方真人密室逃脱单人门票1张！寂静的空间、无尽的黑暗，带给你超爽的逃生体验！</div>
+			                <div class="info">
+			                    <span class="symbol">¥</span>
+			                    <span class="price">65</span>
+			                </div>
+			            </div>
+		            </div>           
+	            </div>
+            </div>
+        </a>
+        <a href="" class="item Fix hightitem" tapmode="presshover" onclick="openDetail()">
+            <div class="cnt">
+            	<img class="pic" src="../../image/shopcover/hotpot08.jpg">
+	            <div class="wrap">
+		            <div class="wrap2">
+			            <div class="content">
+			                <div class="shopname">宅基地CLUB</div>
+			                <div class="title">仅售35元，价值40元周五至周日单人畅饮套餐，2店通用，8种饮料无限畅饮，聚会娱乐好去处！</div>
+			                <div class="info">
+			                    <span class="symbol">¥</span>
+			                    <span class="price">198</span>
+			                </div>
+			            </div>
+		            </div>           
+	            </div>
+            </div>
+        </a>
+        <a href="" class="item Fix hightitem" tapmode="presshover" onclick="openDetail()">
+            <div class="cnt">
+            	<img class="pic" src="../../image/shopcover/hotpot09.jpg">
+	            <div class="wrap">
+		            <div class="wrap2">
+			            <div class="content">
+			                <div class="shopname">莫测密室逃脱俱乐部</div>
+			                <div class="title">仅售69元，价值100元单人密室逃脱体验票1张，惊险刺激，逻辑推理，与好友展开一场智力博弈！</div>
+			                <div class="info">
+			                    <span class="symbol">¥</span>
+			                    <span class="price">69</span>
+			                </div>
+			            </div>
+		            </div>           
+	            </div>
+            </div>
+        </a>
+        <a href="" class="item Fix hightitem" tapmode="presshover" onclick="openDetail()">
+            <div class="cnt">
+            	<img class="pic" src="../../image/shopcover/hotpot10.jpg">
+	            <div class="wrap">
+		            <div class="wrap2">
+			            <div class="content">
+			                <div class="shopname"> 王子向上密室体验馆</div>
+			                <div class="title">仅售66元，价值110元早场时段体验券1张，免费WiFi，多个主题可选！</div>
+			                <div class="info">
+			                    <span class="symbol">¥</span>
+			                    <span class="price">66</span>
+			                </div>
+			            </div>
+		            </div>           
+	            </div>
+            </div>
+        </a>
+        <a href="" class="item Fix hightitem" tapmode="presshover" onclick="openDetail()">
+            <div class="cnt">
+            	<img class="pic" src="../../image/shopcover/hotpot11.jpg">
+	            <div class="wrap">
+		            <div class="wrap2">
+			            <div class="content">
+			                <div class="shopname">千年密室俱乐部</div>
+			                <div class="title">仅售40元，价值70元开阳桥店单人门票，惊险刺激，迷雾重重，定会让您不虚此行！</div>
+			                <div class="info">
+			                    <span class="symbol">¥</span>
+			                    <span class="price">40</span>
+			                </div>
+			            </div>
+		            </div>           
+	            </div>
+            </div>
+        </a>
+	</div>
+	<div class="h40"></div>
+</body>
+<script type="text/javascript" scr="../../script/api.js"></script>
+<script>
+function openDetail()
+{
+	api.openWin({
+		name: 'tuandetail',
+		url: '../tuandetail_header.html',
+		bounces: false,
+		delay:200
+	});
+}
+</script>
+</html>

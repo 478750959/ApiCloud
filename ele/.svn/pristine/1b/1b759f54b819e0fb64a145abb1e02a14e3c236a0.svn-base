@@ -1,0 +1,158 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>Hello APP</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../css/common.css" />
+    <link rel="stylesheet" type="text/css" href="../css/idangerous.swiper.css">
+
+
+    <style>
+        html,body{height:100%;background-color: #eee;}
+        .h10 {height: 10px;}
+
+        /* 头部导航样式 */
+
+        .header {position: relative;height: 50px;line-height: 50px;background-color: #3993cf;}
+        .header .left  {position: absolute;left: 0;height: 50px;}
+        .header .left  .logoleft {height: 20px;vertical-align: top; margin-top: 15px;}
+        .header .left  .logo {height: 46px; vertical-align: top; margin-top: 2px; margin-left: -10px;}
+        .header .left  .title {font-size: 20px; color: #fff; margin-left: -10px;padding-right: 10px;}
+        
+        .header .center {position: absolute; left: 60px; width: 60px;}
+        .header .center span {color: #fff;}
+        .header .center img {width: 8px; bottom: 5px; position: absolute; right: 0px;}
+
+        .header .right {position: absolute;right: 0;height: 50px;}
+        .header .right img {height: 30px;padding: 10px;}
+
+        .swiper-slide img {width: 100%;}
+
+
+        /* 两列样式 */
+        .row {display: -webkit-box;display: -webkit-flex;}
+        .col {-webkit-box-flex:1; -webkit-flex:1; flex:1;}
+        .section2 .col {background-color: #fff;}
+        .section2 .col:first-child {border-bottom: 1px solid #d2d2d2;border-right: 1px solid #d2d2d2;}
+        .section2 .col:last-child {border-bottom: 1px solid #d2d2d2;}
+
+        /* 条目总体样式 */
+        .item {display: table; height: 70px; width: 100%;}
+        .item .itemlogo , .item .itemshelf {display: table-cell; vertical-align: middle;}
+
+        .item .itemlogo {width: 70px;}
+        .item .itemlogo img  {margin-left: 10px;width: 40px;}
+        .item .itemshelf .shelfinfo01 {font-size: 20px;color: #AFAFAF;}
+
+        /* 条目特例 */
+        .shelf2 .userlogo img {width: 50px;}
+        .favorable .itemshelf .shelfinfo01 {font-size: 16px;color: #F97B02;}
+        .favorable .itemshelf .shelfinfo02 {font-size: 12px;color: #666;margin-top: 5px;}
+        .nearby .itemshelf .shelfinfo01 {font-size: 16px;color: #4CAD35;}
+        .nearby .itemshelf .shelfinfo02 {font-size: 12px;color: #666;margin-top: 5px;}
+        
+        /* 第三部分 */
+        .section3 .item {background-color: #fff;position: relative;border-bottom: 1px solid #d3d3d3;}
+        .section3 .item .itemlogo {position: absolute; top: 10px;}
+        .section3 .itemshelf {margin-left: 70px;display: block;/* 不再显示为table-cell */}
+        .section3 .item .userlogo img {width: 40px;padding: 2px; border: 1px solid #e7e7e7;border-radius: 2px;}
+        .section3 .itemshelf .shelfinfo01 {color: #000;font-size: 16px;line-height: 18px;margin-top: 10px;}
+        .section3 .itemshelf .ordering{color: #fff;font-size: 12px;background-color: #5bb06c;padding: 2px 4px;display: inline-block;}
+        .section3 .itemshelf .shelfinfo03 {color: #999;font-size: 12px;margin-right: 10px;border-bottom: 1px dotted #666;padding: 10px 0;}
+        .section3 .style2 .itemshelf .shelfinfo03 {color: #999;font-size: 12px;margin-right: 10px;border-bottom: 0;padding: 10px 0;}
+        .section3 .itemshelf .staring {color: #999;font-size: 12px;/*background-color: #fff;*/line-height: 14px;margin-top: 5px;}
+        .section3 .itemshelf .staring img {height: 12px;}
+
+        .section3 .itemshelf .shelfinfo04 {color: #999;font-size: 12px;padding: 10px 0;}
+        .section3 .itemshelf .shelfinfo05 {color: #999;font-size: 12px;padding: 10px 0 0 0;}
+       
+
+        /* 标题栏小图标 */
+        .section3 .itemshelf .shelfinfo01 .pei {color: #fff;font-size: 12px;background-color: #82782f;margin-left: 5px;padding: 1px;border-radius: 3px;}
+        .section3 .itemshelf .shelfinfo01 .ticket {color: #fff;font-size: 12px;background-color: #3585b7;margin-left: 5px;padding: 2px;border-radius: 3px;}
+        .section3 .itemshelf .shelfinfo01 .fu {color: #fff;font-size: 12px;background-color: #e5322d;margin-left: 5px;padding: 2px;border-radius: 3px;}
+        .section3 .itemshelf .shelfinfo01 .compensate {color: #fff;font-size: 12px;background-color: #2768ba;margin-left: 5px;padding: 2px;border-radius: 3px;}
+        .section3 .itemshelf .shelfinfo01 .new {color: #fff;font-size: 12px;background-color: #e5322d;margin-left: 5px;padding: 2px;border-radius: 3px;}
+        .section3 .itemshelf .shelfinfo04 .jian {color: #fff;font-size: 12px;background-color: #cd22e2;padding: 1px;border-radius: 3px;margin-right: 5px;}
+        .section3 .itemshelf .shelfinfo05 .quatity {color: #fff;font-size: 12px;background-color: #dc0414;padding: 1px;border-radius: 3px;margin-right: 5px;}
+
+        /* 悬浮样式 */
+        .itemhover {background-color: #eee !important;}
+        .headerhover {background-color: #36A8DC;}
+
+    </style>
+</head>
+<body>
+    <div class="header" id="topbar">
+        
+        <div class="left" tapmode="headerhover" onclick="openSlide()">
+            <img src="../image/icon_drawer_burger.png" alt="" class="logoleft"><img src="../image/m_drawer_icon_home_selected.png" alt="" class="logo">
+        </div>
+        <div class="center" tapmode="headerhover" onclick="openNewWin('searchlocation')">
+            <span>花园路</span>
+            <img src="../image/pager_tab_menu_indicator.png" alt="">
+        </div>
+        <div class="right" tapmode="headerhover" onclick="openNewWin('search')"><img src="../image/icon_search.png" alt=""></div>
+    </div>
+
+
+
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript">
+
+    function openSlide () {
+        api.openSlidPane ({
+            type: 'left'
+        });
+    }
+
+    function openNewWin (type) {
+        api.openWin ({
+            name: type,
+            url: './'+type+'.html',
+            rect:{
+                x:0,
+                y:0,
+                w:'auto',
+                h:'auto'
+            },
+            bounces: false,
+            delay:200
+        });
+    }
+
+    apiready = function(){
+
+        var header = $api.byId('topbar');
+        $api.fixIos7Bar(header); 
+        var headerPos = $api.offset(header);
+
+        api.openFrame ({
+            name: 'slide_body',
+            url: './slide_body.html',
+            bounces: false,
+            rect:{
+                x:0,
+                y:headerPos.h,
+                w:'auto',
+                h:'auto'
+            }
+        });
+
+        // 拦截回退键
+        api.addEventListener({
+            name: 'keyback'
+        }, function(ret, err){
+            api.closeWidget({
+                id: 'A6961757803844',
+                retData: {name:'closeWidget'}
+            });
+        });
+    }
+
+    
+</script>
+</html>

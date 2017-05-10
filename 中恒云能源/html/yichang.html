@@ -1,0 +1,93 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width"/>
+    <meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
+    <title>中恒云能源</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../css/common.css" />
+    <link rel="stylesheet" type="text/css" href="../css/yichang.css" />
+</head>
+<body>
+	<div class="yichangLine f-l">
+		<table>
+			<tr>
+				<td><span></span></td>
+			</tr>
+			<tr>
+				<td><span class="newDot"></span></td>
+			</tr>
+			<tr>
+				<td><span class="newDot"></span></td>
+			</tr>
+			<tr>
+				<td><span></span></td>
+			</tr>
+		</table>
+	</div>
+	<div class="yichangContent">
+		<ul class="">
+			<li tapmode onclick="read(0)">
+				<div class="yichang-con">
+					<p class="time">
+						<span class="icon f-l"></span>
+						<span class="right f-l">2015-09-01 18:30:01</span>
+					</p>
+					<p class="yichang-detail">
+					检测点1，发生电压异常情况，请尽快安排人员处理。
+					</p>
+				</div>
+			</li>
+			<li tapmode onclick="read(2)" id="2">
+				<div class="yichang-con newYichang">
+					<p class="time">
+						<span class="icon f-l"></span>
+						<span class="right f-l">2015-09-01 18:00:01</span>
+					</p>
+					<p class="yichang-detail">
+					总范围，发生功率因素越限异常情况，请尽快安排人员处理。
+					</p>
+				</div>
+			</li>
+			<li tapmode onclick="read(1)" id="1">
+				<div class="yichang-con newYichang">
+					<p class="time">
+						<span class="icon f-l"></span>
+						<span class="right f-l">2015-08-20 18:10:01</span>
+					</p>
+					<p class="yichang-detail">
+					总范围，发生功率因素越限异常情况，请尽快安排人员处理。
+					</p>
+				</div>
+			</li>
+			<li tapmode onclick="read(0)">
+				<div class="yichang-con">
+					<p class="time">
+						<span class="icon f-l"></span>
+						<span class="right f-l">2015-08-12 18:20:01</span>
+					</p>
+					<p class="yichang-detail">
+					检测点5，发生电压异常情况，请尽快安排人员处理。
+					</p>
+				</div>
+			</li>
+		</ul>
+	</div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript">
+	var readAll = function(){
+		
+	}
+	var read = function(id){
+	}
+    var init = function(){
+        
+    }
+    apiready = function(){
+        init();
+    };
+</script>
+</html>

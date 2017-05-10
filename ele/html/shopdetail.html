@@ -1,0 +1,164 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>Hello APP</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../css/common.css" />
+
+    <style>
+        html,body{height:100%;background-color: #eee;}
+        .h10 {height: 10px;}
+
+        /* 头部导航样式 */
+        .header {position: relative;height: 50px;line-height: 50px;background-color: #3993cf;}
+        .header .left  {position: absolute;left: 0;height: 50px;}
+        .header .left  .logoleft {height: 20px;vertical-align: top; margin-top: 15px;}
+        .header .left  .logo {height: 46px; vertical-align: top; margin-top: 2px; margin-left: -10px;}
+        .header .left  .title {font-size: 20px; color: #fff; margin-left: -10px;padding-right: 10px;}
+
+        .header .right {position: absolute;right: 0;height: 50px;}
+        .header .right img {height: 30px;padding: 10px;}  
+
+
+        /* framegroup 头部样式 */
+        .navbar {display: -webkit-box; -webkit-box-orient: horizontal; position: relative; height: 50px; box-sizing: border-box; background: #3F4147; border-bottom: 1px solid #e0e0e0; }
+        .navbar-item {display: block; -webkit-box-flex: 1; width: 100%; line-height: 50px; /*color: rgb(148,127,119);*/ font-size: 18px; text-align: center;color: #7E7E7E;position: relative; }
+        .navbar-item img {width: 8px; position: absolute; bottom: 4px;right: 10px;}
+        /*.navbar-item-hov {color: #fff; }*/
+        .navbar-item-active {color: #fff; }
+        #navmark {position: absolute; left: 0px; bottom: 0px; -webkit-transition: 300ms; text-align: center; background-color: #3993CF;height: 3px;}
+        .vdvidider {height: 30px;width: 1px;background-color: #55575D;margin-top: 10px;}
+
+        /* 悬浮样式 */
+        .itemhover {background-color: #eee !important;}
+        .headerhover {background-color: #36A8DC;}
+    </style>
+</head>
+<body>
+    <div class="header" id="topbar">
+       <div class="left" tapmode="headerhover" onclick="goback()">
+            <img src="../image/abc_ic_ab_back_holo_dark.png" alt="" class="logoleft"><img src="../image/m_drawer_icon_home_selected.png" alt="" class="logo">
+            <span class="title">【连锁】丽华快餐</span>
+        </div>
+        <div class="right" tapmode="headerhover" onclick="openNewWin('search')"><img src="../image/icon_search.png" alt=""></div>
+    </div>
+
+    <!-- framegroup 头部指示块 -->
+    <nav class="navbar">
+        <a id="navbar-item-recommend" class="navbar-item navbar-item-active" tapmode="navbar-item-hov" onclick="setFrameGroupIndex(0);">菜单分类<img src="../image/pager_tab_menu_indicator.png" alt=""></a><div class="vdvidider"></div>
+        <a id="navbar-item-rank" class="navbar-item" tapmode="navbar-item-hov" onclick="setFrameGroupIndex(1);">餐厅介绍</a>
+       <!--  <a id="navbar-item-favorite" class="navbar-item" tapmode="navbar-item-hov" onclick="setFrameGroupIndex(2);">口味最佳</a>
+        <a id="navbar-item-more" class="navbar-item" tapmode="navbar-item-hov" onclick="setFrameGroupIndex(2);">更多排行</a> -->
+        <mark id="navmark"><!-- 可以自己添加尖角下标，同时把navmark的高度设置为 0 <img src="../../image/quick_action_arrow_up.png"> --></mark>
+    </nav>
+
+
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript">
+    // 记录当前第几个frame
+    var frameIndexNow = 0;
+
+    function goback () {
+        api.closeWin({name:'shopdetail'});
+    }
+
+    function openNewWin (type) {
+        api.openWin ({
+            name: type,
+            url: './'+type+'.html',
+            rect:{
+                x:0,
+                y:0,
+                w:'auto',
+                h:'auto'
+            },
+            bounces: false,
+            delay:200
+        });
+    }
+    function openFloatFrame () {
+        api.openFrame({
+            name:'floatlist04',
+            url: './floatlist04.html',
+            rect:{x:0,y:0,w:'auto',h:'auto'},
+            bounces:false,
+            delay:200
+        })
+    }
+
+    function setFrameGroupIndex(frameIndex) {
+        // 解决点击时的index变化
+        if(frameIndexNow == 0 && frameIndex == 0)
+        {
+            openFloatFrame();
+        }
+        else {
+            frameIndexNow = frameIndex;
+            api.setFrameGroupIndex({name:'shopframegroup',index:frameIndex,scroll:true});
+        }
+    }
+    function setFrameGroupStatus(frameIndex) {
+        // 解决滑动时的index变化
+
+        switch (frameIndex) {
+            case 0: {
+                frameIndexNow = 0;
+                $api.byId('navbar-item-recommend').className = "navbar-item navbar-item-active";
+                $api.byId('navbar-item-rank').className = "navbar-item";
+                var num = (api.winWidth/2)*frameIndex;
+                $api.css($api.byId('navmark'), "-webkit-transform:translate(" + num + "px,0)");
+
+                break;
+            }
+            case 1: {
+                frameIndexNow = 1;
+                $api.byId('navbar-item-recommend').className = "navbar-item";
+                $api.byId('navbar-item-rank').className = "navbar-item navbar-item-active";
+                
+                var num = (api.winWidth/2)*frameIndex;
+                $api.css($api.byId('navmark'), "-webkit-transform:translate(" + num + "px,0)");
+                break;
+            }
+            
+            default:
+            break;
+        }
+    }
+
+    apiready = function() {
+        var header = $api.byId('topbar');
+        $api.fixIos7Bar(header);
+        var headerHeight = $api.byId('topbar').offsetHeight;
+        var scrollHeight = $api.dom('.navbar').offsetHeight;
+
+        // 初始化下标块
+        $api.byId('navmark').style.width = api.winWidth/2 + 'px';
+
+        api.openFrameGroup({
+            name: 'shopframegroup',
+            background: '#FFF',
+            rect: {x: 0, y: headerHeight+scrollHeight-1, w: "auto", h: "auto"},
+            index: 0,
+            frames: [
+                {
+                    name: 'menuclassify',
+                    url: './menuclassify.html',
+                    bounces: false,
+                },
+                {
+                    name: 'shopinfo',
+                    url: './shopinfo.html',
+                    bounces: false,
+                }
+            ]
+        }, function (ret) {
+            setFrameGroupStatus(ret.index);
+        });
+
+        
+    };
+</script>
+</html>

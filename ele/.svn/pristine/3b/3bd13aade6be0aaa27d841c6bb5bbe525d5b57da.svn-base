@@ -1,0 +1,105 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>Hello APP</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../css/common.css" />
+
+    <style>
+        html,body{height:100%;background-color: #eee;}
+        .h10 {height: 10px;}
+
+        /* 头部导航样式 */
+        .header {position: relative;height: 50px;line-height: 50px;background-color: #3993cf;}
+        .header .left  {position: absolute;left: 0;height: 50px;}
+        .header .left  .logoleft {height: 20px;vertical-align: top; margin-top: 15px;}
+        .header .left  .logo {height: 46px; vertical-align: top; margin-top: 2px; margin-left: -10px;}
+        .header .left  .title {font-size: 20px; color: #fff; margin-left: -10px;padding-right: 10px;}
+
+        .header .right {position: absolute;right: 0;height: 50px;}
+        .header .right img {height: 30px;padding: 10px;}  
+
+
+        /* framegroup 头部样式 */
+        .navbar {display: -webkit-box; -webkit-box-orient: horizontal; position: relative; height: 50px; box-sizing: border-box; background: #3F4147; border-bottom: 1px solid #e0e0e0; }
+        .navbar-item {display: block; -webkit-box-flex: 1; width: 100%; line-height: 50px; /*color: rgb(148,127,119);*/ font-size: 16px; text-align: center;color: #7E7E7E; position: relative;}
+        .navbar-item img {width: 8px; position: absolute; bottom: 4px;right: 5px;}
+        .navbar-item-hov {color: #fff; }
+        .navbar-item-active {color: #fff; }
+        #navmark {position: absolute; left: 0px; bottom: 0px; -webkit-transition: 300ms; text-align: center; background-color: #3993CF;height: 3px;}
+
+        .vdvidider {height: 30px;width: 1px;background-color: #55575D;margin-top: 10px;}
+        /* 悬浮样式 */
+        .itemhover {background-color: #eee !important;}
+        .headerhover {background-color: #36A8DC;}
+    </style>
+</head>
+<body>
+    <div class="header" id="topbar">
+       <div class="left" tapmode="headerhover" onclick="goback()">
+            <img src="../image/abc_ic_ab_back_holo_dark.png" alt="" class="logoleft"><img src="../image/m_drawer_icon_home_selected.png" alt="" class="logo">
+            <span class="title">外卖餐厅</span>
+        </div>
+        
+    </div>
+
+    <!-- framegroup 头部指示块 -->
+    <nav class="navbar">
+        <a id="navbar-item-recommend" class="navbar-item navbar-item-active" tapmode="navbar-item-hov" onclick="openNewFrame('floatlist01')">全部口味<img src="../image/pager_tab_menu_indicator.png" alt=""></a><div class="vdvidider"></div>
+        <a id="navbar-item-rank" class="navbar-item navbar-item-active" tapmode="navbar-item-hov" onclick="openNewFrame('floatlist02')">默认排序<img src="../image/pager_tab_menu_indicator.png" alt=""></a><div class="vdvidider"></div>
+        <a id="navbar-item-all" class="navbar-item navbar-item-active" tapmode="navbar-item-hov" onclick="openNewFrame('floatlist03')">全部优惠活动<img src="../image/pager_tab_menu_indicator.png" alt=""></a>
+    </nav>
+
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript">
+    function goback () {
+        api.closeWin({name:'discount'});
+    }
+
+    function openNewFrame (type) {
+        api.openFrame({
+            name:type,
+            url: './'+type+'.html',
+            rect:{x:0,y:0,w:'auto',h:'auto'},
+            bounces:false,
+            delay:200
+        })
+    }
+
+    function openNewWin (type) {
+        api.openWin ({
+            name: type,
+            url: './'+type+'.html',
+            rect:{
+                x:0,
+                y:0,
+                w:'auto',
+                h:'auto'
+            },
+            bounces: false,
+            delay:200
+        });
+    }
+
+    apiready = function() {
+        var header = $api.byId('topbar');
+        $api.fixIos7Bar(header);
+        var headerHeight = $api.byId('topbar').offsetHeight;
+        var scrollHeight = $api.dom('.navbar').offsetHeight;
+
+        api.openFrame ({
+            name: 'discount_body',
+            url: './discount_body.html',
+            rect:{
+                x:0,
+                y:headerHeight + scrollHeight,
+                w:'auto',
+                h:'auto'
+            }
+        });
+    };
+</script>
+</html>

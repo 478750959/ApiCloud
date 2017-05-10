@@ -1,0 +1,181 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="copyright" content="www.apicloud.com" />
+<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+<title>首页</title>
+<link rel="stylesheet" type="text/css" href="../../css/api.css" />
+<style>
+#main {
+    display: -webkit-box; -webkit-box-orient: vertical;
+}
+#header {position: relative; background-color: #fff; border-bottom: 1px solid #e0e0e0;}
+.logo {position: absolute; left: 20px; bottom: 13px; height: 25px; }
+h1 { height: 50px; line-height: 50px; font-size: 20px; color: #000;font-weight: normal;margin: 0 auto; text-align: center; }
+.search {
+    position: absolute; right: 50px; bottom: 0px;
+    width: 50px; height: 50px;
+    background: url(../image/actionbar_search.png) no-repeat center center;
+    -webkit-background-size: 24px 24px;
+}
+.setting {
+    position: absolute; right: 0px; bottom: 0px;
+    width: 50px; height: 50px;
+    background: url(../image/actionbar_setting.png) no-repeat center center;
+    -webkit-background-size: 28px 28px;
+}
+.search-hov {
+    background-color: rgb(65,61,61);
+}
+.setting-hov {
+    background-color: rgb(65,61,61);
+}
+.navbar {
+    display: -webkit-box; -webkit-box-orient: horizontal;
+    position: relative;
+    height: 50px; box-sizing: border-box;
+    /*background-color: rgb(231,226.221);*/
+    background: #fff;
+    border-bottom: 1px solid #e0e0e0;
+}
+.navbar-item {
+    display: block; -webkit-box-flex: 1;
+    width: 100%; line-height: 50px;
+    /*color: rgb(148,127,119);*/ font-size: 18px; text-align: center;color: #9B9C9C;
+}
+.navbar-item-hov {
+    /*background-color: rgba(236,225,210,0.7);*/
+    background-color: rgba(254,242,228,0.7);
+}
+.navbar-item-active {
+    /*color: rgb(220,111,0);*/
+    color: #ff6836;
+}
+#navmark {
+    position: absolute; left: 0px; bottom: 0px;
+    /*height: 2px;
+    background-color: rgb(253,133,0);*/
+    -webkit-transition: 300ms;
+    text-align: center;
+/*width: 33%;*/
+}
+
+#navmark img {position: absolute; bottom: 0; height: 8px;left: 38px;}
+</style>
+</head>
+<body>
+    <div id="main">
+        <header id="header">
+            <img class="logo" src="../../image/ic_back_u.png"  tapmode="" onclick="goback()" />
+            <h1 id="title">餐厅排行榜</h1>
+            
+        </header>
+        <nav class="navbar">
+            <a id="navbar-item-recommend" class="navbar-item navbar-item-active" tapmode="navbar-item-hov" onclick="setFrameGroupIndex(0);">本周热门</a>
+            <a id="navbar-item-rank" class="navbar-item" tapmode="navbar-item-hov" onclick="setFrameGroupIndex(1);">最佳餐厅</a>
+            <a id="navbar-item-favorite" class="navbar-item" tapmode="navbar-item-hov" onclick="setFrameGroupIndex(2);">口味最佳</a>
+            <a id="navbar-item-more" class="navbar-item" tapmode="navbar-item-hov" onclick="setFrameGroupIndex(3);">更多排行</a>
+            <mark id="navmark"><img src="../../image/quick_action_arrow_up.png"></mark>
+        </nav>
+        <section id="content">
+        </section>
+    </div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript">
+    function goback () {
+        api.closeWin({name:'checkrank'});
+    }
+    function setFrameGroupIndex(frameIndex) {
+        api.setFrameGroupIndex({name:'checkrankgroup',index:frameIndex,scroll:true});
+    }
+    function setFrameGroupStatus(frameIndex) {
+        var title = $api.byId('title');
+
+        switch (frameIndex) {
+            case 0: {
+                $api.byId('navbar-item-recommend').className = "navbar-item navbar-item-active";
+                $api.byId('navbar-item-rank').className = "navbar-item";
+                $api.byId('navbar-item-favorite').className = "navbar-item";
+                $api.byId('navbar-item-more').className = "navbar-item";
+                var num = (api.winWidth/4)*frameIndex;
+                $api.css($api.byId('navmark'), "-webkit-transform:translate(" + num + "px,0)");
+
+                break;
+            }
+            case 1: {
+                $api.byId('navbar-item-recommend').className = "navbar-item";
+                $api.byId('navbar-item-rank').className = "navbar-item navbar-item-active";
+                $api.byId('navbar-item-favorite').className = "navbar-item";
+                $api.byId('navbar-item-more').className = "navbar-item";
+                
+                var num = (api.winWidth/4)*frameIndex;
+                $api.css($api.byId('navmark'), "-webkit-transform:translate(" + num + "px,0)");
+                break;
+            }
+            case 2: {
+                $api.byId('navbar-item-recommend').className = "navbar-item";
+                $api.byId('navbar-item-rank').className = "navbar-item";
+                $api.byId('navbar-item-favorite').className = "navbar-item navbar-item-active";
+                $api.byId('navbar-item-more').className = "navbar-item";
+                
+                var num = (api.winWidth/4)*frameIndex;
+                $api.css($api.byId('navmark'), "-webkit-transform:translate(" + num + "px,0)");
+                break;
+            }
+            case 3: {
+                $api.byId('navbar-item-recommend').className = "navbar-item";
+                $api.byId('navbar-item-rank').className = "navbar-item";
+                $api.byId('navbar-item-more').className = "navbar-item navbar-item-active";
+                $api.byId('navbar-item-favorite').className = "navbar-item";
+                
+                var num = (api.winWidth/4)*frameIndex;
+                $api.css($api.byId('navmark'), "-webkit-transform:translate(" + num + "px,0)");
+                break;
+            }
+            default:
+            break;
+        }
+    }
+    apiready = function() {
+        var header = $api.byId('header');
+        $api.fixIos7Bar(header);
+        var headerHeight = $api.byId('header').offsetHeight;
+        var scrollHeight = $api.dom('.navbar').offsetHeight;
+        $api.byId('navmark').style.width = api.winWidth/3 + 'px';
+        api.openFrameGroup({
+            name: 'checkrankgroup',
+            background: '#FFF',
+            rect: {x: 0, y: headerHeight+scrollHeight, w: "auto", h: "auto"},
+            index: 0,
+            frames: [
+                {
+                    name: 'week',
+                    url: './week.html',
+                    bounces: false,
+                },
+                {
+                    name: 'best',
+                    url: './best.html',
+                    bounces: false,
+                },
+                {
+                    name: 'teast',
+                    url: './teast.html',
+                    bounces: false,
+                },
+                {
+                    name: 'rankmore',
+                    url: './rankmore.html',
+                    bounces: false,
+                }
+            ]
+        }, function (ret) {
+            setFrameGroupStatus(ret.index);
+        });
+
+        
+    };
+</script>
+</html>

@@ -1,0 +1,142 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width"/>
+    <meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
+    <title>中恒云能源</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../css/common.css" />
+    <link rel="stylesheet" type="text/css" href="../css/zonglan.css" />
+</head>
+<body>
+	<div class="summary">
+		<ul class="">
+			<li>
+				<div class="f-l">
+					<p class="title">今日累计电量</p>
+					<p class="img"></p>
+					<p>
+						<span class="number">533</span>
+						<span class="text">kwh</span>
+					</p>
+				</div>
+				<div class="next f-l">
+					<p class="title">昨日总电量</p>
+					<p class="img"></p>
+					<p>
+						<span class="number">685</span>
+						<span class="text">kwh</span>
+					</p>
+				</div>
+			</li>
+			<li>
+				<div class="f-l">
+					<p class="title">本月累计电量</p>
+					<p class="img"></p>
+					<p>
+						<span class="number">1638</span>
+						<span class="text">kwh</span>
+					</p>
+				</div>
+				<div class="next f-l">
+					<p class="title">上月总电量</p>
+					<p class="img"></p>
+					<p>
+						<span class="number">1469</span>
+						<span class="text">kwh</span>
+					</p>
+				</div>
+			</li>
+			<li>
+				<div class="f-l">
+					<p class="title">今年累计电量</p>
+					<p class="img"></p>
+					<p>
+						<span class="number">52100</span>
+						<span class="text">kwh</span>
+					</p>
+				</div>
+				<div class="next f-l">
+					<p class="title">去年总电量</p>
+					<p class="img"></p>
+					<p>
+						<span class="number">49801</span>
+						<span class="text">kwh</span>
+					</p>
+				</div>
+			</li>
+			<li>
+				<div class="f-l">
+					<p class="title">本月累计电量</p>
+					<p class="img"></p>
+					<p>
+						<span class="number">6000</span>
+						<span class="text">kwh</span>
+					</p>
+				</div>
+				<div class="next f-l">
+					<p class="title">上月总电量</p>
+					<p class="img"></p>
+					<p>
+						<span class="number">5822</span>
+						<span class="text">kwh</span>
+					</p>
+				</div>
+			</li>
+		</ul>
+	</div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript" src="../script/gauge.js"></script>
+<script type="text/javascript">
+    var init = function(){
+		// var opts1 = {
+		// 	lines: 12, // The number of lines to draw
+		// 	angle: 0, // The length of each line
+		// 	lineWidth: 0.2, // The line thickness
+		// 	pointer: {
+		// 		length: 0.75, // The radius of the inner circle
+		// 		strokeWidth: 0.04, // The rotation offset
+		// 		color: '#0094ff' // Fill color
+		// 	},
+		// 	limitMax: 'false',   // If true, the pointer will not go past the end of the gauge
+		// 	colorStart: '#CFC1B8',   // Colors
+		// 	colorStop: '#0094ff',    // just experiment with them
+		// 	strokeColor: '#f5f5f5',   // to see which ones work best for you
+		// 	generateGradient: true
+		// };
+		// var target1 = document.getElementById('summary-content1'); // your canvas element
+		// var gauge1 = new Gauge(target1).setOptions(opts1); // create sexy gauge!
+		// gauge1.maxValue = 800; // set max gauge value
+		// gauge1.animationSpeed = 95; // set animation speed (32 is default value)
+		// gauge1.set(533); // set actual value
+
+		// var opts2 = {
+		// 	lines: 12, // The number of lines to draw
+		// 	angle: 0, // The length of each line
+		// 	lineWidth: 0.3, // The line thickness
+		// 	pointer: {
+		// 		length: 0.85, // The radius of the inner circle
+		// 		strokeWidth: 0.051, // The rotation offset
+		// 		color: '#ff5735' // Fill color
+		// 	},
+		// 	limitMax: 'false',   // If true, the pointer will not go past the end of the gauge
+		// 	colorStart: '#CFC1B8',   // Colors
+		// 	colorStop: '#ff5735',    // just experiment with them
+		// 	strokeColor: '#f5f5f5',   // to see which ones work best for you
+		// 	generateGradient: true
+		// };
+		// var target2 = document.getElementById('summary-content2'); // your canvas element
+		// var gauge2 = new Gauge(target2).setOptions(opts2); // create sexy gauge!
+		// gauge2.maxValue = 800; // set max gauge value
+		// gauge2.animationSpeed = 95; // set animation speed (32 is default value)
+		// gauge2.set(533); // set actual value
+    }
+
+    apiready = function(){
+        init();
+    };
+</script>
+</html>

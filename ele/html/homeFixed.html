@@ -1,0 +1,116 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,initial-scale=1.0,width=device-width"/>
+    <title>APP</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../css/common.css" />
+	<style>
+		html {height: 100%;}
+		body {background-color: #2F3036;height: 100%;}
+
+		/* 条目总体样式 */
+		.item {display: table; height: 60px; width: 100%;border-bottom: 2px solid #38393F;}
+		.item .itemlogo , .item .itemshelf {display: table-cell; vertical-align: middle;}
+		 
+		.item .itemlogo {width: 60px;}
+		.item .itemlogo img  {margin-left: 10px;width: 40px;}
+		.item .itemshelf .shelfinfo01 {font-size: 20px;color: #AFAFAF;}
+
+		/* 条目特例 */
+		.login { height: 70px;border-bottom: 2px solid #3993CF;}
+		.login .itemlogo {width: 80px;}
+		.login .userlogo img {width: 60px;}
+		.login .itemshelf .shelfinfo01 {font-size: 20px;color: #fff;}
+		.login .itemshelf .shelfinfo02 {font-size: 14px;color: #A4A4A5;margin-top: 5px;}
+
+		/* 底部美食相机 */
+		.foodphone {position: absolute; bottom: 0;border-bottom: 0;border-top: 2px solid #38393F;height: 80px;}
+		.foodphone .itemlogo {width: 80px;}
+		.foodphone .itemlogo img  {margin-left: 10px;width: 60px;}
+		
+		/* 悬停样式 */
+		.itemhover {background-color: #3993CF;}
+	</style>
+</head>
+<body>
+    
+	<div class="item login" tapmode="itemhover" onclick="openNewWin('login')" id="topbar">
+		<div class="itemlogo userlogo"><img src="../image/m_drawer_icon_default_avt.png" alt=""></div>
+		<div class="itemshelf">
+			<div class="shelfinfo01">个人中心</div>
+			<div class="shelfinfo02">登陆可享更多特权</div>
+		</div>
+	</div>
+
+	<div class="item" tapmode="itemhover" onclick="closeSlide()">
+		<div class="itemlogo"><img src="../image/menu_icon_home.png" alt=""></div>
+		<div class="itemshelf">
+			<div class="shelfinfo01">我要订餐</div>
+			
+		</div>
+	</div>
+	<div class="item" tapmode="itemhover" onclick="openNewWin('orderlist')">
+		<div class="itemlogo"><img src="../image/menu_icon_order_list.png" alt=""></div>
+		<div class="itemshelf">
+			<div class="shelfinfo01">饿单中心</div>
+			
+		</div>
+	</div>
+	<div class="item" tapmode="itemhover" onclick="openNewWin('giftcenter')">
+		<div class="itemlogo"><img src="../image/menu_icon_gift.png" alt=""></div>
+		<div class="itemshelf">
+			<div class="shelfinfo01">礼品中心</div>
+		</div>
+	</div>
+	<div class="item" tapmode="itemhover" onclick="openNewWin('invite')">
+		<div class="itemlogo"><img src="../image/menu_icon_invitation.png" alt=""></div>
+		<div class="itemshelf">
+			<div class="shelfinfo01">邀请好友</div>
+		</div>
+	</div>
+	<div class="item" tapmode="itemhover" onclick="openNewWin('aboutus')">
+		<div class="itemlogo"><img src="../image/menu_icon_about.png" alt=""></div>
+		<div class="itemshelf">
+			<div class="shelfinfo01">关于我们</div>
+		</div>
+	</div>
+
+	<div class="item foodphone" tapmode="itemhover" onclick="openNewWin('foodphone')">
+		<div class="itemlogo"><img src="../image/drawer_icon_camera.png" alt=""></div>
+		<div class="itemshelf">
+			<div class="shelfinfo01">美食相机</div>
+		</div>
+	</div>
+
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript">
+	function closeSlide () {
+		api.closeSlidPane();
+	}
+	
+    function openNewWin (type) {
+		api.openWin ({
+			name: type,
+			url: './'+type+'.html',
+			rect:{
+				x:0,
+				y:0,
+				w:'auto',
+				h:'auto'
+			},
+			bounces: false,
+			delay:200
+		});
+    }
+
+    apiready = function(){
+
+        var header = $api.byId('topbar');
+        $api.fixIos7Bar(header); 
+    }
+
+</script>
+</html>

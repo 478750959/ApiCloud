@@ -1,0 +1,414 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>Hello APP</title>
+    <link rel="stylesheet" type="text/css" href="./css/api.css" />
+    <link rel="stylesheet" type="text/css" href="./css/common.css" />
+    
+    <style>
+     
+     /* 头部样式 */
+     #firstHeader {background-color: #FF8400;}
+     .topbar {/*background: #FF8400;*/ height:50px; border-bottom: 1px solid #DDDFE3;}
+     .topbar_title {display: inline-block;font-size: 20px; line-height: 50px;padding-left: 12px;}
+     .hr01, .hr02 {height: 28px;}
+     .headerico {padding: 11px 15px 11px 15px;}
+     .headericohover {background: #DADDE0;}
+     .fr{float: right;}
+     .fl{float: left;}
+     
+     /*第一头部*/
+     #logo {padding: 11px 0 0 10px;height: 28px;}
+     #citylist {height: 50px; line-height: 50px;padding-left: 15px; font-size: 18px; color: #fff;}
+     .citylistarrow {vertical-align: top; width: 20px; padding-top: 15px;}
+    .search {height: 34px;line-height: 34px; padding-left: 10px; border-radius: 30px;  margin-top: 8px; position: absolute; left: 20px; right: 60px;font-size: 14px;}
+    .search img {vertical-align: top; width: 20px; padding-top: 7px;padding-right: 10px;}
+    .firstSearch {left: 90px;right: 60px;background-color: #FA6604;color: #FDC29B;}
+
+     /* 第二头部 */
+     #topbar_refresh {width: 40px;padding:5px 10px;}
+     .whitebar {background-color: #fcfcfc;}
+     #whitecity {height: 50px; line-height: 50px;padding-left: 15px; font-size: 18px;color: #FF8400;}
+    .secCitylistarrow {vertical-align: top; width: 15px; padding-top: 18px;padding-left: 5px;}
+    .secSearch {left: 90px;right: 15px;background-color: #E8E8E8;color: #999;}
+
+    /* 第三头部 */
+    .swipepic {padding: 5px 15px 2px 15px;height: 23px;}
+    .swipe div {font-size: 12px; text-align: center;color: #999;}
+    .thrSearch {left: 15px;right: 60px;background-color: #E8E8E8;color: #999;}
+
+     /* 头部切换样式 */
+     .titlebar {display: none;}
+     .activebar {display: block;}
+     
+     /* 底部切换按钮样式 */
+     ul {display: -webkit-box; display: -webkit-flex; display: flex; }
+     #footer {height: 61px; line-height: 60px; background-color: #FAFAFA;border-top: 1px solid #FAFAFA; }
+     #footer li{-webkit-box-flex: 1; -webkit-flex: 1; flex:1; height: 60px;}
+
+     /* 选项卡样式 */
+     .scrollbar {display: -webkit-box;display: -webkit-flex; text-align: center; height: 40px; line-height: 40px;background: #EBECF0;font-size: 12px;position: relative;}
+     .col1 {-webkit-box-flex:1;-webkit-flex: 1;flex:1;color: #909090;}
+     .indexbar {position: absolute;/*background: #0fc;*/width: 50%;height: 5px;left: 0px;bottom: 0px;-webkit-transition: 300ms;}
+     .redbox {background: #DB4646;width: 40px;height: 5px;position: relative;left: auto;right: auto; margin-left: auto; margin-right: auto;}
+
+     /********************/
+     /* 底部按钮原始样式 */
+     /********************/
+     .bbtn01 {background: url(./image/main_index_home_normal.png) no-repeat center 4px; }
+     .bbtn02 {background: url(./image/main_index_tuan_normal.png) no-repeat center 4px; }
+     .bbtn03 {background: url(./image/main_index_search_normal.png) no-repeat center 4px; }
+     .bbtn04 {background: url(./image/main_index_my_normal.png) no-repeat center 4px; }
+     .bottom_btn {width: 99%; height: 43px;padding-top: 18px;background-position-y: 4px; background-size: 30px;  font-size: 12px; color: #A5A5A5;}
+     
+     /* 底部按钮激活样式 */
+     .activebtn0 {background: url(./image/main_index_home_pressed.png) no-repeat center 4px; }
+     .activebtn1 {background: url(./image/main_index_tuan_pressed.png) no-repeat center 4px; }
+     .activebtn2 {background: url(./image/main_index_search_pressed.png) no-repeat center 4px; }
+     .activebtn3 {background: url(./image/main_index_my_pressed.png) no-repeat center 4px; }
+     .activebtn {color:#FF7419; background-size: 30px; }
+     .bottomhover {background-color: #46494B;}
+
+     /* 本地刷新图标 */
+     #localrefresh {display:none;float: right; width: 40px; padding: 5px 10px;}
+
+    </style>
+  </head>
+  <body>
+    <div id="wrap">
+      <!-- 第一头部 -->
+      <div id="firstHeader" class="titlebar activebar">
+        <div class="topbar">
+          <div class="citylist fl" id="citylist" tapmode="" onclick="openCitylist()">北京<img src="./image/title_home_arrow_down_normal.png" alt="" class="citylistarrow"></div>
+          <div class="search firstSearch"  tapmode="" onclick="openSearch()">
+              <img src="./image/ic_home_search.png" alt="">输入商户名、地点
+          </div>
+          <img src="./image/send_msg.png" alt="" class="fr headerico hr01"  tapmode="" onclick="openNewWindow('message')">
+          <!-- <img src="./image/topbar_search.png" alt="" class="fr headerico hr02"  tapmode="headericohover" onclick="openNewWindow('search')"> -->
+        </div>
+      </div>
+      
+      <!-- 第二头部 -->
+      <div id="secHeader" class="titlebar">
+        <div class="topbar whitebar">
+          <div class="citylist fl" id="whitecity"  tapmode="" onclick="openCitylist()">北京<img src="./image/title_arrow_down_normal.png" alt="" class="secCitylistarrow"></div>
+          <div class="search secSearch"  tapmode="" onclick="openSearch()">
+              <img src="./image/navibar_search_icon_search.png" alt="">搜索团购...
+          </div>
+          <!-- <img src="./image/local_icon_refresh.png" alt="" class="fr headerico" id="topbar_refresh"   tapmode="headericohover" onclick="emptyopt()">
+          <img src="./image/topbar_search.png" alt="" class="fr headerico hr02"  tapmode="headericohover" onclick="openNewWindow('search')"> -->
+          
+        </div>
+      </div>
+
+      <!-- 第三头部 -->
+      <div id="thridHeader" class="titlebar">
+        <div class="topbar whitebar">
+          <div class="search thrSearch"  tapmode="" onclick="openSearch()">
+              <img src="./image/navibar_search_icon_search.png" alt="">输入商户名、地点
+          </div>
+          <div class="swipe fr" tapmode="headericohover" onclick="openScan()">
+              <img src="./image/navibar_icon_qr.png" alt="" class="swipepic">
+              <div>扫一扫</div>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- 第四头部 -->
+      <div id="fortheader" class="titlebar">
+        
+      </div>
+      
+      <div id="main">
+        
+      </div>
+      
+      <div id="footer">
+        <ul>
+          <li tapmode="activebtn0 activebtn" onclick="switchframe('first_frame', 0)">
+            <a class="bottom_btn bbtn01 weixin activebtn activebtn0">首页</a>
+          </li>
+
+          <li tapmode="activebtn1 activebtn" onclick="switchframe('second_frame', 1)">
+            <a class="bottom_btn bbtn02 communicate">团购</a>
+          </li>
+
+          <li tapmode="activebtn2 activebtn" onclick="switchframe('third_frame', 2)">
+            <a class="bottom_btn bbtn03 discover">发现</a>
+          </li>
+
+          <li tapmode="activebtn3 activebtn" onclick="switchframe('forth_frame', 3)">
+            <a class="bottom_btn bbtn04 home">我的</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+  <script type="text/javascript" src="./script/api.js"></script>
+  <script type="text/javascript">
+   var firstHeader = $api.byId('firstHeader');
+   var secHeader = $api.byId('secHeader');
+   var thirdHeader = $api.byId('thridHeader');
+   var fortheader = $api.byId('fortheader');
+   var firstHeaderOffset;
+   
+   var main = $api.byId('main');
+   var mainPos = $api.offset(main);
+
+   var footer = $api.byId('footer');
+   var footerPos = $api.offset(footer);
+
+   var gFrameIndex;
+
+   function emptyopt () {}
+
+   function openNewWindow(type)
+   {
+     api.openWin({
+       name: type,
+       url: './html/'+type+'.html',
+       pageParam: {},
+       bounces: false,
+       opaque: false
+     });
+   }
+
+   function openScan()
+   {
+     // api.openWin({
+     //   name: 'scan',
+     //   url: './html/scan.html',
+     //   bounces: false
+     // });
+     var obj = api.require('scanner');
+      obj.open(function(ret,err) {
+          api.alert({
+              title: '扫描结果', 
+              msg: ret.msg
+          });
+      });
+   }
+   function openSearch()
+    {
+      api.openWin({
+      name: 'search',
+      url: './html/search.html',
+      bounces: false,
+      delay:200
+      });
+    }
+
+    function openCitylist() {
+      api.openWin({
+        name: 'citylist',
+        url: './html/citylist_header.html',
+        bounces: false,
+        delay:200
+      });
+    }
+   // 随意切换按钮
+   function randomSwitchBtn(name, index)
+   {
+     var lis = $api.domAll('.bottom_btn');
+     var i = 0, len = lis.length;
+     var curLi = lis[index];
+
+    for(i; i<len; i++){
+       var thisLi = lis[i];
+       if(thisLi === curLi){
+           $api.addCls(thisLi,'activebtn');
+           $api.addCls(thisLi,'activebtn'+index);
+           continue;
+       }else{
+           if($api.hasCls(thisLi,'activebtn')){
+               $api.removeCls(thisLi,'activebtn');
+               $api.removeCls(thisLi,'activebtn'+i);
+           }
+       }
+    }
+
+        // 切换头部
+        var lis = $api.domAll('.titlebar');
+        var i = 0, len = lis.length;
+        var curLi = lis[index];
+
+        for(i; i<len; i++){
+            var thisLi = lis[i];
+            if(thisLi === curLi){
+                $api.addCls(thisLi,'activebar');
+                $api.addCls(thisLi,'activebar'+index);
+                continue;
+            }else{
+                if($api.hasCls(thisLi,'activebar')){
+                        $api.removeCls(thisLi,'activebar');
+                        $api.removeCls(thisLi,'activebar'+i);
+                    }
+                }
+            }
+    }
+
+    // 隐藏所有的一级frame
+    function hideAllFrame()
+    {
+        api.setFrameAttr({
+            name: 'first_frame',
+            hidden:true
+        });
+        api.setFrameAttr({
+            name: 'second_frame',
+            hidden:true
+        });
+        api.setFrameAttr({
+            name: 'third_frame',
+            hidden:true
+        });
+        api.setFrameAttr({
+            name: 'forth_frame',
+            hidden:true
+        });
+    }
+
+    // 自己修复ios显示frame的时候bug
+    // ios自己主动隐藏后，再open就不显示了
+    function showgroup(type)
+    {
+        api.setFrameGroupAttr({
+            name: type + 'group',
+            hidden:false
+        });
+    }
+
+    // 展示指定的frame
+    function showframe(type)
+    {
+        api.setFrameAttr({
+            name: type,
+            hidden:false
+        });
+    }
+
+    // 打开第一个、第三个frame
+    function openframeinstance( frame, marginTop, isBounce)
+    {
+        api.openFrame ({
+            name: frame,
+            url: './html/' + frame +'/' + frame + '_body.html',
+            rect:{
+                x:0,
+                y:marginTop,
+                w:'auto',
+                h:api.frameHeight - marginTop - footerPos.h
+            },
+            pageParam: {name: 'test'},
+            // bounces: isBounce,
+            bounces: false,
+            vScrollBarEnabled:false,
+            hScrollBarEnabled:false,
+            delay:200
+        });
+    }
+
+   // 移动滑动块
+   function sliderbarCallback(id, num) {
+     
+     // 得到背景元素的宽度
+     // var width=parseInt(window.getComputedStyle($api.byId('matchwidth'),null).width);
+     var width = parseInt(api.frameWidth / 2);
+     // api.alert({msg:width});
+     if(num!=0){
+       num=width;
+     }
+     // 移动背景元素的宽度  在index.html不能获得 forth_frame.html上面的dom，虽然是在同一个手机屏幕上
+     $api.css($api.byId(id),"-webkit-transform:translate(" + num + "px,0)");
+   }
+
+    // ===================================
+    // 响应底部按钮的切换frame
+    // ===================================
+    function switchframe(type, _index)
+    {
+        if ( _index === gFrameIndex ) {
+          return 0;
+        } else {
+          gFrameIndex = _index;
+        }
+        
+        switch(type)
+        {
+            case 'first_frame':
+                randomSwitchBtn('first_frame', 0);
+                hideAllFrame();
+                openframeinstance('first_frame', firstHeaderOffset.h, true);
+                // showframe('first_frame');
+            break;
+            case 'second_frame':
+                randomSwitchBtn('second_frame', 1);
+                hideAllFrame();
+                openframeinstance('second_frame', firstHeaderOffset.h, true);
+                // showgroup('hot');
+            break;
+            case 'third_frame':
+                randomSwitchBtn('third_frame', 2);
+                hideAllFrame();
+                openframeinstance('third_frame', firstHeaderOffset.h, false);
+                // showframe('third_frame');
+            break;
+            case 'forth_frame':
+                randomSwitchBtn('forth_frame', 3);
+                hideAllFrame();
+                openframeinstance('forth_frame', 0, false);
+                // showgroup('forth_frame');
+            break;
+            default:
+            break;
+        }
+
+    }
+
+    // 完成首页初始化
+    apiready = function(){
+        // 设置ios7的标题栏字体变亮，全局用一个就行了
+        api.setStatusBarStyle({
+          style: 'dark'
+        });
+
+        firstHeader = $api.byId('firstHeader');
+        secHeader = $api.byId('secHeader');
+        thirdHeader = $api.byId('thridHeader');
+        fortheader = $api.byId('fortheader');
+        $api.fixIos7Bar(firstHeader);
+        $api.fixIos7Bar(secHeader); 
+        $api.fixIos7Bar(thirdHeader);
+        $api.fixIos7Bar(fortheader); 
+
+        firstHeaderOffset = $api.offset(firstHeader);
+
+        var main = $api.byId('main');
+        var mainPos = $api.offset(main);
+
+        var footer = $api.byId('footer');
+        var footerPos = $api.offset(footer);
+        gFrameIndex = 0;
+
+        // 第一次进入打开 first_frame body
+        api.openFrame ({
+            name: 'first_frame',
+            url: './html/first_frame/first_frame_body.html',
+            rect:{
+            x:0,
+            y:firstHeaderOffset.h,
+            w:'auto',
+            h:api.frameHeight-firstHeaderOffset.h -footerPos.h
+            },
+            bounces: false,
+            opaque: false
+            // vScrollBarEnabled:false,
+            // hScrollBarEnabled:false
+        });
+
+    };
+  </script>
+</html>

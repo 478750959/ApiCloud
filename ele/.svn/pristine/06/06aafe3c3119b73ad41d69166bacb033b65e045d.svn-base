@@ -1,0 +1,233 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>Hello APP</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../css/common.css" />
+    <link rel="stylesheet" type="text/css" href="../css/idangerous.swiper.css">
+
+
+    <style>
+        html,body{height:100%;background-color: #eee;}
+        .h10 {height: 10px;}
+
+        /* 头部导航样式 */
+
+        .header {position: relative;height: 50px;line-height: 50px;background-color: #3993cf;}
+        .header .left  {position: absolute;left: 0;height: 50px;}
+        .header .left  .logoleft {height: 20px;vertical-align: top; margin-top: 15px;}
+        .header .left  .logo {height: 46px; vertical-align: top; margin-top: 2px; margin-left: -10px;}
+        .header .left  .title {font-size: 20px; color: #fff; margin-left: -10px;padding-right: 10px;}
+        
+        .header .center {position: absolute; left: 60px; width: 60px;}
+        .header .center span {color: #fff;}
+        .header .center img {width: 8px; bottom: 5px; position: absolute; right: 0px;}
+
+        .header .right {position: absolute;right: 0;height: 50px;}
+        .header .right img {height: 30px;padding: 10px;}
+
+        .swiper-slide img {width: 100%;}
+
+
+        /* 两列样式 */
+        .row {display: -webkit-box;display: -webkit-flex;}
+        .col {-webkit-box-flex:1; -webkit-flex:1; flex:1;}
+        .section2 .col {background-color: #fff;}
+        .section2 .col:first-child {border-bottom: 1px solid #d2d2d2;border-right: 1px solid #d2d2d2;}
+        .section2 .col:last-child {border-bottom: 1px solid #d2d2d2;}
+
+        /* 条目总体样式 */
+        .item {display: table; height: 70px; width: 100%;}
+        .item .itemlogo , .item .itemshelf {display: table-cell; vertical-align: middle;}
+
+        .item .itemlogo {width: 70px;}
+        .item .itemlogo img  {margin-left: 10px;width: 40px;}
+        .item .itemshelf .shelfinfo01 {font-size: 20px;color: #AFAFAF;}
+
+        /* 条目特例 */
+        .shelf2 .userlogo img {width: 50px;}
+        .favorable .itemshelf .shelfinfo01 {font-size: 16px;color: #F97B02;}
+        .favorable .itemshelf .shelfinfo02 {font-size: 12px;color: #666;margin-top: 5px;}
+        .nearby .itemshelf .shelfinfo01 {font-size: 16px;color: #4CAD35;}
+        .nearby .itemshelf .shelfinfo02 {font-size: 12px;color: #666;margin-top: 5px;}
+        
+        /* 第三部分 */
+        .section3 .item {background-color: #fff;position: relative;border-bottom: 1px solid #d3d3d3;}
+        .section3 .item .itemlogo {position: absolute; top: 10px;}
+        .section3 .itemshelf {margin-left: 70px;display: block;/* 不再显示为table-cell */}
+        .section3 .item .userlogo img {width: 40px;padding: 2px; border: 1px solid #e7e7e7;border-radius: 2px;}
+        .section3 .itemshelf .shelfinfo01 {color: #000;font-size: 16px;line-height: 18px;margin-top: 10px;}
+        .section3 .itemshelf .ordering{color: #fff;font-size: 12px;background-color: #5bb06c;padding: 2px 4px;display: inline-block;}
+        .section3 .itemshelf .shelfinfo03 {color: #999;font-size: 12px;margin-right: 10px;border-bottom: 1px dotted #666;padding: 10px 0;}
+        .section3 .style2 .itemshelf .shelfinfo03 {color: #999;font-size: 12px;margin-right: 10px;border-bottom: 0;padding: 10px 0;}
+        .section3 .itemshelf .staring {color: #999;font-size: 12px;/*background-color: #fff;*/line-height: 14px;margin-top: 5px;}
+        .section3 .itemshelf .staring img {height: 12px;}
+
+        .section3 .itemshelf .shelfinfo04 {color: #999;font-size: 12px;padding: 10px 0;}
+        .section3 .itemshelf .shelfinfo05 {color: #999;font-size: 12px;padding: 10px 0 0 0;}
+       
+
+        /* 标题栏小图标 */
+        .section3 .itemshelf .shelfinfo01 .pei {color: #fff;font-size: 12px;background-color: #82782f;margin-left: 5px;padding: 1px;border-radius: 3px;}
+        .section3 .itemshelf .shelfinfo01 .ticket {color: #fff;font-size: 12px;background-color: #3585b7;margin-left: 5px;padding: 2px;border-radius: 3px;}
+        .section3 .itemshelf .shelfinfo01 .fu {color: #fff;font-size: 12px;background-color: #e5322d;margin-left: 5px;padding: 2px;border-radius: 3px;}
+        .section3 .itemshelf .shelfinfo01 .compensate {color: #fff;font-size: 12px;background-color: #2768ba;margin-left: 5px;padding: 2px;border-radius: 3px;}
+        .section3 .itemshelf .shelfinfo01 .new {color: #fff;font-size: 12px;background-color: #e5322d;margin-left: 5px;padding: 2px;border-radius: 3px;}
+        .section3 .itemshelf .shelfinfo04 .jian {color: #fff;font-size: 12px;background-color: #cd22e2;padding: 1px;border-radius: 3px;margin-right: 5px;}
+        .section3 .itemshelf .shelfinfo05 .quatity {color: #fff;font-size: 12px;background-color: #dc0414;padding: 1px;border-radius: 3px;margin-right: 5px;}
+
+        /* 悬浮样式 */
+        .itemhover {background-color: #eee !important;}
+        .headerhover {background-color: #36A8DC;}
+
+    </style>
+</head>
+<body>
+    <!-- 第三部分 -->
+    <!-- 如何复用listitem，1.最简单的样式不变，直接复制  2.复制以后修改其中某一行的样式，最外层用div包裹给予新class，即可隔离原有的样式 -->
+    <div class="section3">
+        <div class="item style1" tapmode="itemhover" onclick="openNewWin('shopdetail')">
+            <div class="itemlogo userlogo"><img src="../image/shopcover/lihua.jpeg" alt=""></div>
+            <div class="itemshelf">
+                <div class="shelfinfo01">【连锁】丽华快餐<span class="ticket">票</span><span class="pei">配</span></div>
+                <div class="shelfinfo02 ordering">接受预定中</div>
+                <div class="shelfinfo03">月售37307单 / 0元起送 / 34分钟</div>
+                <div class="shelfinfo04"><span class="jian">减</span>满20元减13元</div>
+
+            </div>
+        </div>
+        <div class="item style2" tapmode="itemhover" onclick="openNewWin('shopdetail')">
+            <div class="itemlogo userlogo"><img src="../image/shopcover/hongzhuangyuan.jpeg" alt=""></div>
+            <div class="itemshelf">
+                <div class="shelfinfo01">【连锁】宏状元<span class="ticket">票</span><span class="pei">配</span></div>
+                <div class="shelfinfo02 staring"><img src="../image/star_45.png" alt="">（2117）</div>
+                <div class="shelfinfo03">月售754单 / 35元起送 / 45分钟</div>
+                
+            </div>
+        </div>
+        <div class="item style1" tapmode="itemhover" onclick="openNewWin('shopdetail')">
+            <div class="itemlogo userlogo"><img src="../image/shopcover/jiujiuya.jpeg" alt=""></div>
+            <div class="itemshelf">
+                <div class="shelfinfo01">【连锁】久久丫<span class="fu">付</span><span class="pei">配</span></div>
+                <div class="shelfinfo02 staring"><img src="../image/star_45.png" alt="">（604）</div>
+                <div class="shelfinfo03">月售753单 / 30元起送 / 45分钟</div>
+                <div class="shelfinfo04"><span class="jian">减</span>满20元减10元，在线支付再减3元</div>
+
+            </div>
+        </div>
+        <div class="item style2" tapmode="itemhover" onclick="openNewWin('shopdetail')">
+            <div class="itemlogo userlogo"><img src="../image/shopcover/mikamika.jpeg" alt=""></div>
+            <div class="itemshelf">
+                <div class="shelfinfo01">【连锁】米卡米卡蛋糕<span class="ticket">票</span><span class="pei">配</span></div>
+                <div class="shelfinfo02 staring"><img src="../image/star_45.png" alt="">（2）</div>
+                <div class="shelfinfo03">月售13单 / 99元起送</div>
+                
+            </div>
+        </div>
+        <div class="item style1" tapmode="itemhover" onclick="openNewWin('shopdetail')">
+            <div class="itemlogo userlogo"><img src="../image/shopcover/aixianfeng.jpeg" alt=""></div>
+            <div class="itemshelf">
+                <div class="shelfinfo01">【连锁】爱鲜蜂<span class="fu">付</span><span class="new">新</span><span class="pei">配</span></div>
+                <div class="shelfinfo02 staring"><img src="../image/star_45.png" alt="">（115）</div>
+                <div class="shelfinfo03">月售243单 / 50元起送 / 45分钟</div>
+                <div class="shelfinfo04"><span class="jian">减</span>满20元减13元</div>
+
+            </div>
+        </div>
+        <div class="item style2" tapmode="itemhover" onclick="openNewWin('shopdetail')">
+            <div class="itemlogo userlogo"><img src="../image/shopcover/jiajiasong.jpeg" alt=""></div>
+            <div class="itemshelf">
+                <div class="shelfinfo01">【连锁】家家送火锅<span class="ticket">票</span><span class="compensate">赔</span></div>
+                <div class="shelfinfo02 staring"><img src="../image/star_45.png" alt="">（2）</div>
+                <div class="shelfinfo03">月售19单 / 148元起送</div>
+                
+            </div>
+        </div>
+        <div class="item style1" tapmode="itemhover" onclick="openNewWin('shopdetail')">
+            <div class="itemlogo userlogo"><img src="../image/shopcover/gudebisa.jpeg" alt=""></div>
+            <div class="itemshelf">
+                <div class="shelfinfo01">【连锁】古特比萨<span class="ticket">票</span></div>
+                <div class="shelfinfo02 staring"><img src="../image/star_45.png" alt="">（37）</div>
+                <div class="shelfinfo03">月售143单 / 60元起送 / 45分钟</div>
+                <div class="shelfinfo05"><span class="quatity">质</span>餐厅认证</div>
+                <div class="shelfinfo04"><span class="jian">减</span>满20元减13元</div>
+                
+            </div>
+        </div>
+        <div class="item style2" tapmode="itemhover" onclick="openNewWin('shopdetail')">
+            <div class="itemlogo userlogo"><img src="../image/shopcover/pindou.jpeg" alt=""></div>
+            <div class="itemshelf">
+                <div class="shelfinfo01">拼豆夜宵<span class="ticket">票</span></div>
+                <div class="shelfinfo02 ordering">接受预定中</div>
+                <div class="shelfinfo03">月售597单 / 100元起送 / 41分钟</div>
+            </div>
+        </div>
+        <div class="item style2" tapmode="itemhover" onclick="openNewWin('shopdetail')">
+            <div class="itemlogo userlogo"><img src="../image/shopcover/mamimami.jpeg" alt=""></div>
+            <div class="itemshelf">
+                <div class="shelfinfo01">麻咪麻咪香辣火锅<span class="fu">付</span></div>
+                <div class="shelfinfo02 staring"><img src="../image/star_45.png" alt="">（924）</div>
+                <div class="shelfinfo03">月售786单 / 50元起送 / 45分钟</div>
+            </div>
+        </div>
+        <div class="item style2" tapmode="itemhover" onclick="openNewWin('shopdetail')">
+            <div class="itemlogo userlogo"><img src="../image/shopcover/malacun.jpeg" alt=""></div>
+            <div class="itemshelf">
+                <div class="shelfinfo01">麻辣村<span class="fu">付</span><span class="ticket">票</span><span class="pei">配</span></div>
+                <div class="shelfinfo02 staring"><img src="../image/star_45.png" alt="">（963）</div>
+                <div class="shelfinfo03">月售826单 / 120元起送 / 45分钟</div>
+            </div>
+        </div>
+        <div class="item style2" tapmode="itemhover" onclick="openNewWin('shopdetail')">
+            <div class="itemlogo userlogo"><img src="../image/shopcover/hanguoren.jpeg" alt=""></div>
+            <div class="itemshelf">
+                <div class="shelfinfo01">韩国人的餐桌<span class="fu">付</span><span class="compensate">赔</span></div>
+                <div class="shelfinfo02 staring"><img src="../image/star_45.png" alt="">（237）</div>
+                <div class="shelfinfo03">月售603单 / 100元起送 / 40分钟</div>
+            </div>
+        </div>
+    </div>
+
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/idangerous.swiper.js"></script>
+<script type="text/javascript">
+
+
+    
+    function openNewWin (type) {
+        api.openWin ({
+            name: type,
+            url: './'+type+'.html',
+            rect:{
+                x:0,
+                y:0,
+                w:'auto',
+                h:'auto'
+            },
+            bounces: false,
+            delay:200
+        });
+    }
+
+    apiready = function  () {
+
+        api.setRefreshHeaderInfo({
+            visible: true,
+            bgColor: 'rgba(0,0,0,0)',
+            textColor: '#666',
+            textDown: '下拉刷新',
+            textUp: '释放刷新'  
+        }, function(ret, err){
+            loadData();
+        });
+    }
+    
+    function loadData(){
+        api.refreshHeaderLoadDone();
+        
+    }
+</script>
+</html>

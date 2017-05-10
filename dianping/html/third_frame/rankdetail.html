@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+	<title>首页</title>
+	<link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/common.css" />
+
+	<style>
+		html, body {width: 100%;min-height: 100%;background: #f0f0f0;}
+		.h80 {height: 80px;}
+		.h40 {height: 40px;}
+		.h20 {height: 20px;}
+    	.h10 {height: 10px;background: #f0f0f0;}
+		.h1 {height: 1px;margin-left: 15px;background: #f0f0f0;}
+		.fr {float: right;}
+		.fl {float: left;}
+		.hightitem {background-color: #fff;}
+		.inwrap {padding-right: 15px;padding-left: 15px;}
+
+		.row {display: -webkit-box;display: -webkit-flex;}
+		.col {-webkit-box-flex:1; -webkit-flex:1; flex:1;}
+		
+		header {width: 100%; padding-bottom: 20px;background: #fff;}
+		header .img_wrap {position: relative; width: 100%; font-size: 0; }
+		header .img_wrap img {width: 100%; height: auto; min-height: 135px; max-height: 174px; }
+		.viewed, .viewed-eye {display: inline-block; font-size: 12px; color: #fff; padding: 3px 10px; border-radius: 20px; }
+		.list_shop header .img_wrap .viewed, .list_shop header .img_wrap .viewed-eye {position: absolute; bottom: 7px; left: 7px; }
+		.viewed .eye, .viewed-eye .eye {display: inline-block; width: 16px; height: 16px; background: url(../../image/funlife/eye.png) no-repeat; background-size: 11px auto; margin-bottom: -3px; }
+		.list_shop header .title {padding: 15px 15px 10px; font-size: 16px; color: #333; }
+		.list_shop header .desc {padding: 0 15px; color: #666; line-height: 21px; white-space: pre-wrap; }
+
+
+		/*  间隔 */
+		.list_shop .border {width: 100%; height: 21px; }
+
+		/* section */
+		.list_shop section {margin-bottom: 25px; background: #fff ; }
+		.list_shop section .item {position: relative; padding: 15px 15px 45px 0; margin-left: 15px; border-bottom: 1px solid #e0e0e0;}
+		.list_shop section .item .shop_wrap {font-size: 0; display: box; display: -webkit-box; padding-bottom: 10px; }
+		.list_shop section .item .shop_wrap img {width: 110px; height: 83px; margin-right: 11px; border-radius: 4px; -webkit-border-radius: 4px; }
+		.list_shop section .item .shop_wrap .info {font-size: 14px; padding-top: 4px; }
+		.list_shop section .item .shop_wrap .info .name {margin: 5px 0; font-size: 16px; color: #323232; text-overflow: ellipsis; max-width: 160px; height: 24px; line-height: 24px; overflow: hidden; white-space: nowrap; }
+		.star {display: inline-block; width: 66px; height: 12px; vertical-align: middle; background: url(../../image/remark.png) no-repeat; background-size: 86px auto; }
+		.star.star-40 {background-position: 0 -249px; }
+		.list_shop section .item .shop_wrap .info .price {vertical-align: middle; padding-left: 5px; color: #878787; }
+		.list_shop section .item .shop_wrap .info .location {margin-top: 5px; color: #878787; }
+		.list_shop section .item .shop_wrap .info .location .location_icon {display: inline-block; vertical-align: middle; width: 11px; height: 15px; background: url(../../image/location_icon.png) no-repeat; background-size: 11px auto; }
+		.list_shop section .item .shop_wrap .info .location span {vertical-align: middle; padding-left: 10px; }
+		.list_shop section .item .desc_wrap {max-height: 42px; overflow: hidden; }
+		.list_shop section .item .like {position: absolute; bottom: 15px; color: #666; }
+		.list_shop section .item .like .like_bg {display: inline-block; width: 16px; height: 16px; background: url(../../image/like_bg.png) no-repeat 0 0; background-size: 15px auto; vertical-align: middle; }
+		.list_shop section .item .like .txt, .list_shop section .item .like .num {margin-left: 5px; vertical-align: middle; }
+
+		.presshover {background-color: #FAFAFA !important;}
+	</style>
+</head>
+<body>
+	<div class="list_shop">
+		<header>
+	        <div class="img_wrap">
+	            <img src="../../image/rankdetailcover01.jpg" alt="">
+	            <div class="viewed-eye"><i class="eye"></i>189607</div>
+	        </div>
+	        <h3 class="title">大明星们开的店 </h3>
+	        <p class="desc">明星除了在荧光幕前活跃闪耀之外也都经营着自己的副业，开餐厅、开酒吧、开服装店、开美甲店……明星真的很忙哦！关键的关键，明星当老板对于粉丝来说最大的福利就是我们还能经常在店里偶遇明星老板哦！</p>
+	    </header>
+
+	    <div class="border"></div>
+
+	    <section class="J_shop_list">
+            <div class="item" tapmode="presshover" onclick="openDetail()">
+                <a class="shop_wrap" href="">
+                    <img src="../../image/rankdetailcover01.jpg" alt="">
+                    <div class="info">
+                        <div class="name">MS Sugar蜜斯蜜糖</div>
+                        <div class="data_wrap"><span class="star star-40"></span><span class="price">人均 ￥111</span></div>
+                        <div class="location"><i class="location_icon"></i><span>北京 朝阳区</span></div>
+                    </div>
+                </a>
+                <div class="desc_wrap J_desc"><p class="desc">推荐理由：粉色主题，地方不宽敞，看得出有很多姐妹淘一起来吃。</p></div>
+                <a class="like J_like"><i class="like_bg"></i><span class="txt">赞</span><span class="num">(226)</span></a>
+                <span class="J_show arrow Hide"></span>
+            </div>
+
+            <div class="item" tapmode="presshover" onclick="openDetail()">
+                <a class="shop_wrap" href="">
+                    <img src="../../image/rankdetailcover02.jpg" alt="">
+                    <div class="info">
+                        <div class="name">HI辣火锅</div>
+                        <div class="data_wrap"><span class="star star-40"></span><span class="price">人均 ￥105</span></div>
+                        <div class="location"><i class="location_icon"></i><span>北京 东城区</span></div>
+                    </div>
+                </a>
+                <div class="desc_wrap J_desc"><p class="desc">推荐理由：重金请来四川厨师坐镇。菜品的确很新鲜。</p></div>
+                <a class="like J_like"><i class="like_bg"></i><span class="txt">赞</span><span class="num">(191)</span></a>
+                <span class="J_show arrow Hide"></span>
+            </div>
+
+            <div class="item" tapmode="presshover" onclick="openDetail()">
+                <a class="shop_wrap" href="">
+                    <img src="../../image/rankdetailcover03.jpg" alt="">
+                    <div class="info">
+                        <div class="name">FOUNT 日本料理</div>
+                        <div class="data_wrap"><span class="star star-40"></span><span class="price">人均 ￥218</span></div>
+                        <div class="location"><i class="location_icon"></i><span>上海 徐汇区</span></div>
+                    </div>
+                </a>
+                <div class="desc_wrap J_desc"><p class="desc">推荐理由：【胡歌开的日料店】主打日式的菜肴，加入西式元素，比较有创意.</p></div>
+                <a class="like J_like"><i class="like_bg"></i><span class="txt">赞</span><span class="num">(172)</span></a>
+                <span class="J_show arrow Hide"></span>
+            </div>
+
+            <div class="item" tapmode="presshover" onclick="openDetail()">
+                <a class="shop_wrap" href="">
+                    <img src="../../image/rankdetailcover04.jpg" alt="">
+                    <div class="info">
+                        <div class="name">龙庭文化餐饮Dragon oasis</div>
+                        <div class="data_wrap"><span class="star star-40"></span><span class="price">人均 ￥549</span></div>
+                        <div class="location"><i class="location_icon"></i><span>上海 普陀区</span></div>
+                    </div>
+                </a>
+                <div class="desc_wrap J_desc"><p class="desc">推荐理由：【成龙大哥开的店】外面环境就是小桥流水，里面更是高雅。</p></div>
+                <a class="like J_like"><i class="like_bg"></i><span class="txt">赞</span><span class="num">(155)</span></a>
+                <span class="J_show arrow Hide"></span>
+            </div>
+        </section>
+	</div>
+</body>
+<script type="text/javascript" scr="../../script/api.js"></script>
+<script>
+function openDetail()
+{
+	api.openWin({
+		name: 'tuandetail',
+		url: '../tuandetail_header.html',
+		bounces: false,
+		delay:200
+	});
+}
+</script>
+</html>

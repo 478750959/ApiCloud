@@ -1,0 +1,138 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>Hello APP</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../css/common.css" />
+    <link rel="stylesheet" type="text/css" href="../css/idangerous.swiper.css">
+
+
+    <style>
+        html,body{height:100%;background-color: #eee;}
+        .h10 {height: 10px;}
+        .row {display: -webkit-box;display: -webkit-flex;}
+        .col {-webkit-box-flex:1; -webkit-flex:1; flex:1;}
+
+        /* 头部导航样式 */
+        .header {position: relative;height: 50px;line-height: 50px;background-color: #3993cf;}
+        .header .left  {position: absolute;left: 0;height: 50px;}
+        .header .right {position: absolute;right: 0;height: 50px;}
+        .header .right img {height: 30px;padding: 10px;}
+
+        .item {background-color: #fff;height: 60px;}
+        .item .itemlogo  {padding: 2px;border: 1px solid #e0e0e0;float: left;margin-top: 5px;margin-left: 15px;}
+        .item .itemlogo img {width: 40px;}
+        .item .itemshelf {display: inline-block;margin-left: 10px;}
+        .item .itemshelf .shelfinfo02 img {height: 14px;margin-top: 5px;}
+        .item .itemshelf .shelfinfo01 {margin-top: 10px;}
+        .item .collect {float: right;color: #fff;background-color: #3893CF;padding: 5px 15px;margin-right: 10px;margin-top: 15px;}
+        
+        .row {background-color: #fff;}
+        .col {text-align: center;border-right: 1px solid #e0e0e0;}
+        .col:last-child {border-right: 0;}
+        .col .title {font-size: 20px;margin-top: 15px;}
+        .col .subtitle {font-size: 12px;color: #666;margin-top: 5px;margin-bottom: 10px;}
+        /*.section1con {border: 1px solid #e0e0e0;}*/
+
+
+        /* card 样式*/
+        .cardtitle {height: 40px;line-height: 40px;background-color: #fff;padding-left: 10px;color: #888;font-size: 18px;}
+        .cardcon {background-color: #fff;padding: 10px;font-size: 14px;line-height: 20px;color: #555;}
+        .jian {color: #fff;font-size: 12px;background-color: #cd22e2;padding: 1px;border-radius: 3px;margin-right: 5px;}
+        .pei {color: #fff;font-size: 12px;background-color: #82782f;padding: 1px;border-radius: 3px;margin-right: 5px;}
+        .ticket {color: #fff;font-size: 12px;background-color: #3585b7;padding: 2px;border-radius: 3px;margin-right: 5px;}
+        .support div:last-child {margin-top: 5px;}
+        .desc div .zhongshi {color: #fff;background-color: #bbb;padding: 3px;border-radius: 3px;font-size: 12px;margin-bottom: 5px;}
+        /* 外部包裹 */
+        .isoarea {margin:10px 10px 0 10px;border: 1px solid #e0e0e0;border-bottom: 0; }
+        .isoarea2 {margin:0px 10px 0 10px;border: 1px solid #e0e0e0;}
+
+        /* 悬浮样式 */
+        .itemhover {background-color: #eee !important;}
+        .collect-hover {background-color: rgba(56, 147, 207, 0.4) !important;}
+    </style>
+</head>
+<body>
+        <div class="item isoarea">
+            <div class="itemlogo userlogo"><img src="../image/shopcover/lihua.jpeg" alt=""></div>
+            <div class="itemshelf">
+                <div class="shelfinfo01">【连锁】丽华快餐</div>
+                <div class="shelfinfo02 staring"><img src="../image/star_45_blue.png" alt="">（5171）</div>
+            </div>
+            <div class="collect" tapmode="collect-hover" onclick="">收藏</div>
+        </div>
+        <div class="section1con isoarea2">
+            <div class="row">
+                <div class="col">
+                    <div class="title"><strong>4.62</strong></div>
+                    <div class="subtitle">用户评分</div>
+                </div>
+                <div class="col">
+                    <div class="title"><strong>34</strong></div>
+                    <div class="subtitle">送达/分钟</div>
+                </div>
+                <div class="col">
+                    <div class="title"><strong>0</strong></div>
+                    <div class="subtitle">起送价/元</div>
+                </div>
+                <div class="col">
+                    <div class="title"><strong>3</strong></div>
+                    <div class="subtitle">配送费/元</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- card 样式 -->
+        <div class="cardtitle isoarea">
+            餐厅公告
+        </div>
+        <div class="cardcon isoarea2">
+            1、本店推荐您在饿了么网上订餐——饭口较忙，电话常占线，本店优先配送网络订单2、首次订餐用户，饿了么客服会对您的订单进行电话确认（来电区号为021），请确保您的电话开机及铃声状态以便送餐员能联系上您3、外卖制作+配送都需要耗费时间，希望大家提前进行预订外卖，避开高峰拥堵，提前预定午餐晚餐。另外，满减活动与满50元免送餐费的活动不能同时享受！感谢您的关注！
+        </div>
+
+        <div class="cardtitle isoarea">
+            餐厅活动
+        </div>
+        <div class="cardcon isoarea2">
+            <span class="jian">减</span>满20减13元
+        </div>
+
+        <div class="cardtitle isoarea">
+            餐厅支持
+        </div>
+        <div class="cardcon isoarea2 support">
+            <div><span class="ticket">票</span>支持开发票，请在下单时填好发票抬头</div>
+            <div><span class="pei">配</span>改餐厅订餐需要支付配送费3元</div>
+        </div>
+
+        <div class="cardtitle isoarea">
+            餐厅简介
+        </div>
+        <div class="cardcon isoarea2 desc">
+            <div><span class="zhongshi">中式</span></div>
+            丽华快餐五月一日起：北京市五环以内,一份起送(不含南四环的地区)，单笔消费金额在50元以内，网络订餐收取3元送餐费，公司承诺，四环以内半小时送到，四环至五环之间45分钟送到，超时免收送餐费；五环外1小时以上送到，另外南四环外和五环外部分区域统一收6元送餐费！
+        </div>
+
+        <div class="cardtitle isoarea">
+            营业时间
+        </div>
+        <div class="cardcon isoarea2">
+            10:30:00-13:45:00&nbsp;&nbsp;17:00:00-19:30:00
+        </div>
+
+        <div class="cardtitle isoarea">
+            餐厅地址
+        </div>
+        <div class="cardcon isoarea2">
+            北京市朝阳区望京花家地西里
+        </div>
+
+        <div class="h10"></div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript">
+
+</script>
+</html>

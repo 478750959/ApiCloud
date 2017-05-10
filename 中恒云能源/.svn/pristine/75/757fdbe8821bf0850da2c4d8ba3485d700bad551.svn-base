@@ -1,0 +1,96 @@
+.bg-blue{
+	background-color: #0094ff;
+	position: fixed;
+    right: 0;
+    left: 0;
+    top: 0;
+    bottom: 0;
+}
+.user-image{
+	width: 100%;
+    text-align: center;
+}
+.user-image span{
+	margin-top: 72px;
+	width: 84px;
+	height: 84px;
+	border-radius: 42px;
+	border: 2px solid #fff;
+	background-image: url(../image/menu/logo.png);
+	background-size: 85px 85px;
+}
+
+.user-name{
+	width: 100%;
+    text-align: center;
+}
+.user-name span{
+	margin-top: 20px;
+	margin-bottom: 52px;
+	font-size: 19px;
+	color: #fff; 
+}
+
+.user-menu{
+	
+}
+.user-menu ul li{
+	padding-left: 30px;
+}
+.user-menu ul li p{
+	width: 100%;
+	height: 55px;
+}
+.user-menu ul li .icon-info{
+	background-image: url(../image/menu/icon_qiyeziliao.png);
+	background-size: 18px 55px;
+    background-repeat: no-repeat;
+	width: 18px;
+    height: 55px;
+}
+.user-menu ul li .icon-psw{
+	background-image: url(../image/menu/icon_xiugaimima.png);
+	background-size: 18px 55px;
+    background-repeat: no-repeat;
+	width: 18px;
+    height: 55px;
+}
+.user-menu ul li .icon-set{
+	background-image: url(../image/menu/icon_shezhi.png);
+	background-size: 18px 55px;
+    background-repeat: no-repeat;
+	width: 18px;
+    height: 55px;
+}
+.user-menu ul li .text{
+	line-height: 55px;
+	margin-left: 18px;
+	font-size: 18px;
+	color: #fff;
+	position: absolute;
+}
+
+.tap-active{
+	background-color: #1a9fff;
+}
+
+.user-quit{
+	width: 100%;
+    bottom: 0px;
+    position: absolute;
+    background-color: #1a9fff;
+}
+.user-quit span{
+	width: 100%;
+	height: 55px;
+	color: #fff;
+	text-align: center;
+	line-height: 55px;
+	font-size: 18px;
+}
+
+
+
+
+
+

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+	<title>首页</title>
+	<link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/common.css" />
+
+	<style>
+		html, body {width: 100%; min-height: 100%; background: #f0f0f0; }
+		a {color: #333; text-decoration: none; }
+		.brand-list {position: relative; margin: 5px 15px; }
+		.Fix:after {display: block; content: ''; height: 0; clear: both; }
+		.brand-list .list {position: relative; margin-top: 10px; box-shadow: 0 0 1px #ccc; border: 1px solid #d8d8d8; border-radius: 3px; background: #fff; }
+		.brand-list .list li:before, .brand-list .list li:after {position: absolute; top: -3px; display: block; content: ' '; width: 6px; height: 109px; background-color: #fff; background-position: 0 0; background-repeat: no-repeat; background-size: auto 100%; }
+		.brand-list .list li:after {right: 0; background-image: url(../../image/couponleft.png); background-position: right 0; }
+		/*.brand-list .list li:before, .brand-list .list li:after {position: absolute; top: -3px; display: block; content: ' '; width: 6px; height: 109px; background-color: #fff; background-position: 0 0; background-repeat: no-repeat; background-size: auto 100%; }*/
+		.brand-list .list li:before {left: 0; background-image: url(../../image/couponright.png); }
+		.brand-list .list li:first-child:before {display: none; }
+		.brand-list .list li {position: relative; z-index: 1; float: left; width: 31%; box-sizing: border-box; -webkit-box-sizing: border-box; font-size: 12px; text-align: center; }
+
+		/*.brand-list .list li {position: relative; z-index: 1; float: left; width: 31%; box-sizing: border-box; -webkit-box-sizing: border-box; font-size: 12px; text-align: center; }*/
+		
+		.brand-list .list li a {display: block; padding: 8px 0; }
+		.brand-list .list li .img {display: block; width: 65px; height: 65px; margin: 0 auto; }
+		.brand-list .list li .name {margin-top: 8px; }
+		.brand-list .list li:last-child:after {display: none; }
+		.brand-list .list li:last-child {width: 34.5%; }
+		.brand-list .list li:first-child {width: 34.5%; }
+		/*.brand-list .list li:before, .brand-list .list li:after {position: absolute; top: -3px; display: block; content: ' '; width: 6px; height: 109px; background-color: #fff; background-position: 0 0; background-repeat: no-repeat; background-size: auto 100%; }*/
+		/*.brand-list .list li:before {left: 0; background-image: url(../image/couponleft.png); }*/
+		.brand-list .list .empty:last-child:before {height: 0; }
+		/*.brand-list .list li {position: relative; z-index: 1; float: left; width: 31%; box-sizing: border-box; -webkit-box-sizing: border-box; font-size: 12px; text-align: center; }*/
+		
+		.brand-list .list .empty:last-child {position: absolute; z-index: 0; top: -4px; right: -3%; width: 37.5%; height: 113px; border: none; background: #f0f0f0; }
+		.brand-list .one .empty:last-child {width: 68.5%; }
+		.presshover {background-color: #FAFAFA !important;}
+	</style>
+</head>
+<body>
+
+	<div class="brand-list">
+		<ul class="list Fix">
+			<li>
+				<a href="#" tapmode="presshover" onclick="openDetail()">
+					<img class="img" src="../../image/coupon/kfc.png">
+						<p class="name">肯德基</p>
+				</a>
+			</li>
+			<li>
+				<a href="#" tapmode="presshover" onclick="openDetail()">
+					<img class="img" src="../../image/coupon/mdl.png">
+						<p class="name">麦当劳</p>
+				</a>
+			</li>
+			<li>
+				<a href="#" tapmode="presshover" onclick="openDetail()">
+					<img class="img" src="../../image/coupon/bsk.png">
+						<p class="name">必胜客</p>
+				</a>
+			</li>
+		</ul>
+		<ul class="list Fix">
+			<li>
+				<a href="#" tapmode="presshover" onclick="openDetail()">
+					<img class="img" src="../../image/coupon/zgf.png">
+						<p class="name">真功夫</p>
+				</a>
+			</li>
+			<li>
+				<a href="#" tapmode="presshover" onclick="openDetail()">
+					<img class="img" src="../../image/coupon/jyj.png">
+						<p class="name">吉野家</p>
+				</a>
+			</li>
+			<li>
+				<a href="#" tapmode="presshover" onclick="openDetail()">
+					<img class="img" src="../../image/coupon/yhdw.png">
+						<p class="name">永和大王</p>
+				</a>
+			</li>
+		</ul>
+		<ul class="list Fix one">
+			<li>
+				<a href="#" tapmode="presshover" onclick="openDetail()">
+					<img class="img" src="../../image/coupon/xfy.png">
+						<p class="name">小肥羊</p>
+				</a>
+			</li>
+			<li class="empty"></li>
+		</ul>
+	</div>
+</body>
+<script type="text/javascript" scr="../../script/api.js"></script>
+<script type="text/javascript">
+function openDetail()
+{
+	api.openWin({
+		name: 'tuandetail',
+		url: '../tuandetail_header.html',
+		// delay:200
+		bounces: false
+	});
+}
+</script>
+</html>

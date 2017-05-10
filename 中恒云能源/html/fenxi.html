@@ -1,0 +1,399 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width"/>
+    <meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
+    <title>中恒云能源</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../css/common.css" />
+    <link rel="stylesheet" type="text/css" href="../css/analysis.css" />
+    <link rel="stylesheet" type="text/css" href="../css/frozen.css" />
+</head>
+<body>
+    <ul class="head-tab ui-border-b" style="position:fixed;top:0px;left:0px;right:0px;">
+        <li tapmode onclick="changeTab(0)" class="active">电量分析</li>
+        <li tapmode onclick="changeTab(1)">实时曲线</li>
+        <li tapmode onclick="changeTab(2)">报装分析</li>
+    </ul>
+    <div class="dianliang" id="tab0" style="margin-top:55px;">
+        <div class="form ui-border-t ui-border-b" style="margin-top:10px;">
+            <div class="form-group" tapmode="active">
+                <div class="con ui-border-b">
+                    <span class="label">选择开始月份</span>
+                    <select class="form-control-rtl" tapmode>
+                        <option value="2015-09">2015-09</option>
+                        <option value="2015-10">2015-10</option>
+                        <option value="2015-11">2015-11</option>
+                        <option value="2015-12">2015-12</option>
+                        <option value="2015-13">2015-13</option>
+                        <option value="2015-14">2015-14</option>
+                        <option value="2015-15">2015-15</option>
+                        <option value="2015-16">2015-16</option>
+                        <option value="2015-17">2015-17</option>
+                        <option value="2015-18">2015-18</option>
+                        <option value="2015-19">2015-19</option>
+                    </select>
+                    <span class="arrow"></span>
+                </div>
+            </div>
+            <div class="form-group" tapmode="active">
+                <div class="con ui-border-b">
+                    <span class="label">选择结束月份</span>
+                    <select class="form-control-rtl" tapmode>
+                        <option value="2015-09">2015-09</option>
+                        <option value="2015-10">2015-10</option>
+                        <option value="2015-11">2015-11</option>
+                        <option value="2015-12">2015-12</option>
+                        <option value="2015-13">2015-13</option>
+                        <option value="2015-14">2015-14</option>
+                        <option value="2015-15">2015-15</option>
+                        <option value="2015-16">2015-16</option>
+                        <option value="2015-17">2015-17</option>
+                        <option value="2015-18">2015-18</option>
+                        <option value="2015-19">2015-19</option>
+                    </select>
+                    <span class="arrow"></span>
+                </div>
+            </div>
+            <div class="form-group" tapmode="active">
+                <div class="con">
+                    <span class="label">选择分析范围</span>
+                    <select class="form-control-rtl" tapmode>
+                        <option value="1">总电量</option>
+                        <option value="2">局部电量</option>
+                    </select>
+                    <span class="arrow"></span>
+                </div>
+            </div>
+        </div>
+        <a href="javascript:;" class="btn-main" style="margin-top:15px;margin-bottom:25px;" tapmode="btn-main-active">筛选</a>
+        <div class="zongdianliang ui-border-t ui-border-b">
+            <p class="title">总电量</p>
+            <canvas class="chart" id="chart-zdl"></canvas>
+            <p class="danwei">
+                <span class="num">6432</span>
+                <span class="txt">kwh</span>
+            </p>
+        </div>
+        <div class="xiangxidianliang ui-border-t ui-border-b">
+            <ul class="line-chart-title">
+                <li>
+                    <p class="c-green num">6749</p>
+                    <p class="txt">MESSAGES</p>
+                </li>
+                <li>
+                    <p class="c-blue num">338</p>
+                    <p class="txt">INCOMING</p>
+                </li>
+                <li>
+                    <p class="c-yellow num">57</p>
+                    <p class="txt">OUTGOING</p>
+                </li>
+            </ul>
+            <canvas id="xxdl-chart" class="xxdl-chart"></canvas>
+        </div>
+    </div>
+    <div class="shishi hide" id="tab1" style="margin-top:55px;">
+        <div class="form ui-border-t ui-border-b" style="margin-top:10px;">
+            <div class="form-group" tapmode="active">
+                <div class="con">
+                    <span class="label">选择分析范围</span>
+                    <select class="form-control-rtl" tapmode>
+                        <option value="1">总电量</option>
+                        <option value="2">局部电量</option>
+                    </select>
+                    <span class="arrow"></span>
+                </div>
+            </div>
+        </div>
+        <a href="javascript:;" class="btn-main" style="margin-top:15px;margin-bottom:25px;" tapmode="btn-main-active">筛选</a>
+
+        <div class="xiangxidianliang ui-border-t ui-border-b">
+            <ul class="line-chart-title">
+                <li>
+                    <p class="c-green num">6749</p>
+                    <p class="txt">MESSAGES</p>
+                </li>
+                <li>
+                    <p class="c-blue num">338</p>
+                    <p class="txt">INCOMING</p>
+                </li>
+                <li>
+                    <p class="c-yellow num">57</p>
+                    <p class="txt">OUTGOING</p>
+                </li>
+            </ul>
+            <canvas id="ssqx-chart" class="xxdl-chart"></canvas>
+        </div>
+    </div>
+    <div class="baozhuang hide" id="tab2" style="margin-top:55px;">
+        <div class="form ui-border-t ui-border-b" style="margin-top:10px;">
+
+            <div class="form-group" tapmode="active">
+                <div class="con ui-border-b">
+                    <span class="label">选择开始月份</span>
+                    <select class="form-control-rtl c-gray" tapmode>
+                        <option value="2015-09">2015-09</option>
+                        <option value="2015-10">2015-10</option>
+                        <option value="2015-11">2015-11</option>
+                        <option value="2015-12">2015-12</option>
+                        <option value="2015-13">2015-13</option>
+                        <option value="2015-14">2015-14</option>
+                        <option value="2015-15">2015-15</option>
+                        <option value="2015-16">2015-16</option>
+                        <option value="2015-17">2015-17</option>
+                        <option value="2015-18">2015-18</option>
+                        <option value="2015-19">2015-19</option>
+                    </select>
+                    <span class="arrow"></span>
+                </div>
+            </div>
+            <div class="form-group" tapmode="active">
+                <div class="con ui-border-b">
+                    <span class="label">选择结束月份</span>
+                    <select class="form-control-rtl c-gray" tapmode>
+                        <option value="2015-09">2015-09</option>
+                        <option value="2015-10">2015-10</option>
+                        <option value="2015-11">2015-11</option>
+                        <option value="2015-12">2015-12</option>
+                        <option value="2015-13">2015-13</option>
+                        <option value="2015-14">2015-14</option>
+                        <option value="2015-15">2015-15</option>
+                        <option value="2015-16">2015-16</option>
+                        <option value="2015-17">2015-17</option>
+                        <option value="2015-18">2015-18</option>
+                        <option value="2015-19">2015-19</option>
+                    </select>
+                    <span class="arrow"></span>
+                </div>
+            </div>
+            <div class="form-group" tapmode="active">
+                <div class="con ui-border-b">
+                    <span class="label">需量电价</span>
+                    <input class="form-control-ltr c-gray" type="number" tapmode>
+                    <span class="txt">元/月/kW</span>
+                </div>
+            </div>
+            <div class="form-group" tapmode="active">
+                <div class="con ui-border-b">
+                    <span class="label">容量电价</span>
+                    <input class="form-control-ltr c-gray" type="number" tapmode>
+                    <span class="txt">元/月/kVA</span>
+                </div>
+            </div>
+            <div class="form-group" tapmode="active">
+                <div class="con ui-border-b">
+                    <span class="label">变压器容量</span>
+                    <input class="form-control-ltr c-gray" type="number" tapmode>
+                    <span class="txt">kVA</span>
+                </div>
+            </div>
+        </div>
+        <a href="javascript:;" class="btn-main" style="margin-top:15px;margin-bottom:25px;" tapmode="btn-main-active" onclick="openRes();">查看分析结果</a>
+        <div class="bzfx ui-border-t ui-border-b">
+            <p class="title">1月</p>
+            <div class="form">
+                <div class="form-group" tapmode="active">
+                    <div class="con ui-border-b">
+                        <span class="label">最大需量</span>
+                        <input class="form-control-ltr c-gray" type="number" tapmode>
+                        <span class="txt">kwh</span>
+                    </div>
+                </div>
+                <div class="form-group" tapmode="active">
+                    <div class="con">
+                        <span class="label">申报需量</span>
+                        <input class="form-control-ltr c-gray" type="number" tapmode>
+                        <span class="txt">kwh</span>
+                    </div>
+                </div>
+            </div>
+            <p class="title">2月</p>
+            <div class="form">
+                <div class="form-group" tapmode="active">
+                    <div class="con ui-border-b">
+                        <span class="label">最大需量</span>
+                        <input class="form-control-ltr c-gray" type="number" tapmode>
+                        <span class="txt">kwh</span>
+                    </div>
+                </div>
+                <div class="form-group" tapmode="active">
+                    <div class="con">
+                        <span class="label">申报需量</span>
+                        <input class="form-control-ltr c-gray" type="number" tapmode>
+                        <span class="txt">kwh</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="res hide" id="res" style="margin-top:55px;">
+        <div class="date-slide" style="margin-top:10px;margin-bottom:10px">
+            <span class="icon-l"></span>
+            <span class="txt">2016-09-09</span>
+            <span class="icon-r"></span>
+        </div>
+        <div class="res-detail ui-border-t ui-border-b">
+            <p class="line">
+                <span class="cube"></span>
+                <span class="label">变压器电量:</span>
+                <span class="txt">1000</span>
+            </p>
+            <p class="line">
+                <span class="cube"></span>
+                <span class="label">容量电价:</span>
+                <span class="txt">1000</span>
+            </p>
+            <p class="line">
+                <span class="cube"></span>
+                <span class="label">容量基本电费:</span>
+                <span class="txt">1000</span>
+            </p>
+            <p class="line">
+                <span class="cube"></span>
+                <span class="label">实际最大需量:</span>
+                <span class="txt">1000</span>
+            </p>
+            <p class="line">
+                <span class="cube"></span>
+                <span class="label">申报最大需量:</span>
+                <span class="txt">1000</span>
+            </p>
+            <p class="line">
+                <span class="cube"></span>
+                <span class="label">需量电价:</span>
+                <span class="txt">1000</span>
+            </p>
+            <p class="line">
+                <span class="cube"></span>
+                <span class="label">需量基本电费:</span>
+                <span class="txt">1000</span>
+            </p>
+        </div>
+        <div class="form ui-border-t ui-border-b" style="margin-top:10px;">
+            <div class="form-group" tapmode="active">
+                <div class="con ui-border-b">
+                    <span class="label-l">容量基本电费总和:</span>
+                    <span class="form-control-rtl c-bred">60000</span>
+                </div>
+            </div>
+            <div class="form-group" tapmode="active">
+                <div class="con ui-border-b">
+                    <span class="label-l">需量基本电费总和:</span>
+                    <span class="form-control-rtl c-bred">28000</span>
+                </div>
+            </div>
+            <div class="form-group" tapmode="active">
+                <div class="con">
+                    <span class="label-l">容需基本电费差:</span>
+                    <span class="form-control-rtl c-bred" type="text">4000</span>
+                </div>
+            </div>
+        </div>
+        <div class="bzfx-tips">2015年11月份至2015年12月份，需量基本电费比容量基本电费低2400元，建议企业采取按需申报基本电费</div>
+        </div>
+    </div>
+
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/gauge.js"></script>
+<script type="text/javascript" src="../script/chart.js"></script>
+<script type="text/javascript">
+    var changeTab = function(index){
+        var headTabDom = $api.domAll('.head-tab li');
+        for (var i = 0; i < headTabDom.length; i++) {
+            $api.removeCls(headTabDom[i], 'active');
+            $api.addCls($api.byId('tab' + i), 'hide');
+        };
+        $api.addCls(headTabDom[index], 'active');
+        $api.removeCls($api.byId('tab' + index), 'hide');
+        window.scrollTo(0,0);
+        $api.addCls($api.byId('res'), 'hide');
+    }
+    var openRes = function(){
+        var headTabDom = $api.domAll('.head-tab li');
+        for (var i = 0; i < headTabDom.length; i++) {
+            $api.addCls($api.byId('tab' + i), 'hide');
+        };
+        $api.removeCls($api.byId('res'), 'hide');
+    }
+    var init = function(){
+        var opts = {
+            lines: 12, // The number of lines to draw
+            angle: 0, // The length of each line
+            lineWidth: 0.48, // The line thickness
+            pointer: {
+                length: 0.3, // The radius of the inner circle
+                strokeWidth: 0.03, // The rotation offset
+                color: '#00C8FF' // Fill color
+            },
+            limitMax: 'true', // If true, the pointer will not go past the end of the gauge
+            colorStart: '#0094FF',
+            colorStop: '#0094FF', // just experiment with them
+            strokeColor: '#E5E5E5',
+            generateGradient: true
+        };
+        var gauge = new Gauge($api.byId('chart-zdl')).setOptions(opts); // create sexy gauge!
+        gauge.maxValue = 3000; // set max gauge value
+        gauge.animationSpeed = 32; // set animation speed (32 is default value)
+        gauge.set(1150);
+
+        var randomScalingFactor = function(){ return Math.round(Math.random()*100)};
+        var lineChartData = {
+            labels : ["01","02","03","04","05","06","07"],
+            datasets : [
+                {
+                    label: "01",
+                    fillColor : "rgba(5,159,178,1)",
+                    strokeColor : "rgba(5,159,178,1)",
+                    pointColor : "rgba(5,159,178,1)",
+                    pointStrokeColor : "rgba(5,159,178,1)",
+                    pointHighlightFill : "rgba(5,159,178,1)",
+                    pointHighlightStroke : "rgba(5,159,178,1)",
+                    data : [randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor()]
+                },
+                {
+                    label: "02",
+                    fillColor : "rgba(253,113,24,1)",
+                    strokeColor : "rgba(253,113,24,1)",
+                    pointColor : "rgba(253,113,24,1)",
+                    pointStrokeColor : "rgba(253,113,24,1)",
+                    pointHighlightFill : "rgba(253,113,24,1)",
+                    pointHighlightStroke : "rgba(253,113,24,1)",
+                    data : [randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor()]
+                },
+                {
+                    label: "03",
+                    fillColor : "rgba(31,91,162,1)",
+                    strokeColor : "rgba(31,91,162,1)",
+                    pointColor : "rgba(31,91,162,1)",
+                    pointStrokeColor : "rgba(31,91,162,1)",
+                    pointHighlightFill : "rgba(31,91,162,1)",
+                    pointHighlightStroke : "rgba(31,91,162,1)",
+                    data : [randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor()]
+                }
+            ]
+
+        }
+        var xxdl_ctx = $api.byId("xxdl-chart").getContext("2d");
+        window.xxdl_line = new Chart(xxdl_ctx).Line(lineChartData, {
+            scaleShowVerticalLines:false,
+            datasetStroke:false,
+            pointDot:false,
+            datasetStroke:false,
+        });
+        var ssqx_ctx = $api.byId("ssqx-chart").getContext("2d");
+        window.ssqx_line = new Chart(ssqx_ctx).Line(lineChartData, {
+            scaleShowVerticalLines:false,
+            datasetStroke:false,
+            pointDot:false,
+            datasetStroke:false,
+        });
+    }
+    apiready = function(){
+        init();
+    };
+</script>
+</html>

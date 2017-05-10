@@ -1,0 +1,92 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>Hello APP</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../css/common.css" />
+    <link rel="stylesheet" type="text/css" href="../css/idangerous.swiper.css">
+
+
+    <style>
+        html,body{height:100%;background-color: #F2F2F2;}
+        .h10 {height: 10px;}
+        .mt20 {margin-top: 20px;}
+
+        /* 头部导航样式 */
+        .header {position: relative;height: 50px;line-height: 50px;background-color: #3993cf;}
+        .header .left  {position: absolute;left: 0;height: 50px;}
+        .header .left  .logoleft {height: 20px;vertical-align: top; margin-top: 15px;}
+        .header .left  .logo {height: 46px; vertical-align: top; margin-top: 2px; margin-left: -10px;}
+        .header .left  .title {font-size: 20px; color: #fff; margin-left: -10px;padding-right: 10px;}
+
+
+        .header .right {position: absolute;right: 0;height: 50px;}
+        .header .right img {height: 30px;padding: 10px;}
+
+        /* 用户item */
+        .info1 {margin-top: 20px;}
+        .info1 .time {text-align: center;padding: 0 10px;border-right: 1px solid #e0e0e0;}
+        .info1 .time .day {font-size: 25px;font-weight: bold;}
+        .info1 .time .month {font-size: 14px;font-weight: bold;}
+
+        .info1 .classify {text-align: left;}
+        .info1 .classify .up {font-size: 25px;color: #666;}
+        .info1 .classify .down {font-size: 12px;color: #666;line-height: 20px;}
+
+        .sharephoto {width: 150px;margin-top: 10px;}
+
+        .detail {margin-top: 10px;margin-left: 10px;}
+        .detail .detail1 {color: #000;font-size: 14px;}
+        .detail .detail2 {width: 70px;margin-top: 5px;}
+        .detail .detail3 {color: #666;font-size: 12px;line-height: 20px;}
+        /* 悬浮样式 */
+        .section1 .info02  .copycont .btnhover {background-color: #ADBC7A;}
+        .itemhover   {background-color: #eee;}
+        .headerhover {background-color: #36A8DC;}
+    </style>
+</head>
+<body>
+    <div class="header" id="topbar">
+        <div class="left" tapmode="headerhover" onclick="goback()">
+            <img src="../image/icon_drawer_burger.png" alt="" class="logoleft"><img src="../image/m_drawer_icon_home_selected.png" alt="" class="logo">
+            <span class="title">美食相机</span>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="info1">
+            <span class="time">
+                <div class="day">02</div>
+                <div class="month">APR</div>
+            </span>
+            <span class="classify">
+                <div class="up">午餐</div>
+                <div class="down">@饿了么体验店</div>
+            </span>
+        </div>
+
+        <img src="../image/food_camera_note.png" alt="" class="sharephoto">
+
+        <div class="detail">
+            <div class="detail1">了解美食相机</div>
+            <img src="../image/star_40.png" alt="" class="star detail2">
+            <div class="detail3">美食相机记录你的吃货生涯...</div>
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript">
+
+function goback () {
+    api.closeWin({name:'foodphone'});
+}
+
+apiready = function(){
+
+    var header = $api.byId('topbar');
+    $api.fixIos7Bar(header); 
+}
+</script>
+</html>

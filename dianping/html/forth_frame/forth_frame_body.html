@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+	<title>我的</title>
+	<link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/common.css" />
+
+    <style>
+    	html, body {width: 100%;min-height: 100%;background: #f0f0f0;}
+    	.h10 {height: 10px;background: #f0f0f0;}
+		.h1 {height: 1px;margin-left: 15px;background: #f0f0f0;}
+		.fr {float: right;}
+		.hint {color: #666;font-size: 12px;margin-right: 5px;}
+
+		.firstblock, .secondblock, .thirdblock {background-color: #fff;}
+		/* 头部登陆 */
+		.login {background-image: url(../../image/personal_bkg.jpg);background-repeat: no-repeat; background-size: contain;position: relative;}
+		.loginbg {/*position: absolute;*/ width: 100%;}
+		.login .personal_logo {position: absolute; top: 60px; width: 70px; left: 20px;}
+		.person_arrow {position: absolute;height: 20px; right: 10px; top: 90px;}
+		.login .userinfo {position: absolute; top: 60px; margin-left: 100px;}
+		.login .userinfo .title {font-size: 20px; color: #fff;}
+		.login .userinfo .subtitle {font-size: 14px; color: #fff;border: 1px solid #fff;display: inline-block;padding: 3px;border-radius: 4px;margin-top: 5px;}
+
+		/* 设置条目 */
+		.item {height: 50px;line-height: 50px;padding-left: 15px;background-color: #fff;}
+		.item_ico {float: left;width: 30px;padding: 10px 10px 10px 0;}
+		.item_arrow {float: right;width: 16px;padding: 17px 15px 15px 0;}
+
+		.presshover {background-color: #FAFAFA;}
+    </style>
+</head>
+<body>
+	<div class="login"  tapmode="" onclick="openLogin()">
+		<img src="../../image/personal_bkg.jpg" alt="" class="loginbg">
+		<img src="../../image/profile_default.png" alt="" class="personal_logo">
+		<div class="userinfo">
+			<div class="title">点击登录</div>
+			<div class="subtitle">常居地：北京</div>
+		</div>
+		<img src="../../image/personal_icon_arrow.png" alt="" class="person_arrow">
+	</div>
+
+
+	<!-- 第一块 -->
+	<div class="firstblock">
+		<div class="item" tapmode="presshover" onclick="openNewWindow('myorder')">
+			<img src="../../image/my_order_user_icon_normal.png" alt="" class="item_ico">
+			<span>我的订单</span>
+			<img src="../../image/arrow.png" alt="" class="item_arrow">
+		</div><div class="h1"></div>
+		<div class="item" tapmode="presshover" onclick="openLogin()">
+			<img src="../../image/my_coupon_user_icon_normal.png" alt="" class="item_ico">
+			<span>我的团购券</span>
+			<img src="../../image/arrow.png" alt="" class="item_arrow">
+		</div><div class="h1"></div>
+		<div class="item" tapmode="presshover" onclick="openLogin()">
+			<img src="../../image/my_wallet_user_icon_normal.png" alt="" class="item_ico">
+			<span>我的钱包</span>
+			<img src="../../image/arrow.png" alt="" class="item_arrow">
+			<span class="fr hint">余额/返现/抵用券/会员卡</span>
+		</div>
+	</div>
+	
+
+	<!-- 第二块 -->
+	<div class="h10"></div>
+	<div class="secondblock">
+		<div class="item" tapmode="presshover" onclick="openLogin()">
+			<img src="../../image/my_favorite_user_icon_normal.png" alt="" class="item_ico">
+			<span>我的收藏</span>
+			<img src="../../image/arrow.png" alt="" class="item_arrow">
+		</div><div class="h1"></div>
+		<div class="item" tapmode="presshover" onclick="openLogin()">
+			<img src="../../image/my_history_user_icon_normal.png" alt="" class="item_ico">
+			<span>最近浏览</span>
+			<img src="../../image/arrow.png" alt="" class="item_arrow">
+		</div><div class="h1"></div>
+		<div class="item" tapmode="presshover" onclick="openLogin()">
+			<img src="../../image/my_review_user_icon_normal.png" alt="" class="item_ico">
+			<span>待点评</span>
+			<img src="../../image/arrow.png" alt="" class="item_arrow">
+		</div>
+	</div>
+
+	<!-- 第三块 -->
+	<div class="h10"></div>
+	<div class="thirdblock">
+		<div class="item" tapmode="presshover" onclick="openLogin()">
+			<img src="../../image/my_order_user_icon_normal.png" alt="" class="item_ico">
+			<span>服务中心</span>
+			<img src="../../image/arrow.png" alt="" class="item_arrow">
+		</div><div class="h1"></div>
+		<div class="item" tapmode="presshover" onclick="openNewWindow('setting')">
+			<img src="../../image/my_setting_user_icon_normal.png" alt="" class="item_ico">
+			<span>设置</span>
+			<img src="../../image/arrow.png" alt="" class="item_arrow">
+		</div>
+	</div>
+	
+
+	<div class="h10"></div><div class="h10"></div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript">
+
+	function openNewWindow(type)
+	{
+		api.openWin({
+			name: 'forthsub',
+			url: './forth_header.html',
+			pageParam: {name: type},
+			bounces: false,
+			delay:200
+		});
+	}
+
+	function openLogin()
+	{
+		api.openWin({
+			name: 'login',
+			url: './login_header.html',
+			bounces: false,
+			delay:200
+		});
+	}
+
+</script>
+</html>

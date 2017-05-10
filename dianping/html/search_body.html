@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>全部分类</title>
+	<link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../css/common.css" />
+
+	<style>
+		html, body {width: 100%;min-height: 100%;background: #f0f0f0;}
+		.h80 {height: 80px;}
+		.h40 {height: 40px;}
+		.h20 {height: 20px;}
+    	.h10 {height: 10px;background: #f0f0f0;}
+		.h1 {height: 1px;margin-left: 15px;background: #f0f0f0;}
+		.fr {float: right;}
+		.fl {float: left;}
+		.hightitem {background-color: #fff;}
+		.inwrap {margin: 0 10px;}
+
+		/* 2X2样式 */
+		.row {display: -webkit-box;display: -webkit-flex;}
+		.col {-webkit-box-flex:1; -webkit-flex:1; flex:1;position: relative;}
+		.col img {position: absolute; right: 0; width: 80px; top: 0;}
+		.col .matrixcell {display: table-cell;vertical-align: middle; padding-left: 10px;}
+		.col .matrixcell .title {margin-bottom: 10px;}
+		.matrix {display: table;height: inherit;}
+
+		/* 1. 2X2 */
+		.flipcard {height: 30px; line-height: 30px; text-align: center; margin: 5px 5px 3px 5px; color: #000; background-color: #fff; font-size: 14px;}
+		.darktitle {height: 40px;line-height: 40px;margin-left: 15px;font-size: 14px;color: #666;}
+
+		/* 2. 三列 */
+		.scratch02 .word {margin-top: 10px;margin-left: 10px;}
+		.scratch02 .word .title{font-size: 18px;}
+		.scratch02 .word .info{font-size: 12px;color: #666;}
+		.scratch02 img {position: relative;width: 60px; height: 50px;}
+		.showposter {text-align: center;margin-top: 5px;padding-bottom: 10px;}
+
+		/* 列表 */
+		.classify {height: 60px;line-height: 60px;background-color: #fff;position: relative;border-bottom: 1px solid #e0e0e0;}
+		.classify .sublogo {width: 30px;margin-top: 15px;margin-left: 15px;float: left;}
+		.classify .arrow {position: absolute;vertical-align: top;right: 15px;top:20px;height: 20px;}
+		.classify .info {line-height: 20px; float: left; height: 60px;margin-left: 10px;}
+		.classify .info .title {font-size: 15px; color: #000; margin-top: 10px;}
+		.classify .info .subtitle {font-size: 12px; color: #666; margin-top: 5px;}
+		.subclass {display: none;}
+		.subclass .flipcard {margin:0;}
+		.brb {border-right: 1px solid #e0e0e0;border-bottom: 1px solid #e0e0e0;}
+		.bb {border-bottom: 1px solid #e0e0e0;}
+
+		.presshover {background-color: #FAFAFA;}
+	</style>
+</head>
+<body>
+	<!-- 1 2X2 -->
+	<div class="darktitle">热门搜索</div>
+	<div class="row inwrap">
+		<div class="col flipcard" tapmode="presshover" onclick="openDetail()">铁板烧</div>
+		<div class="col flipcard" tapmode="presshover" onclick="openDetail()">麻辣烫</div>
+		<div class="col flipcard" tapmode="presshover" onclick="openDetail()">羊蝎子</div>
+	</div>
+	<div class="row inwrap">
+		<div class="col flipcard" tapmode="presshover" onclick="openDetail()">亚运</div>
+		<div class="col flipcard" tapmode="presshover" onclick="openDetail()">望京</div>
+		<div class="col flipcard" tapmode="presshover" onclick="openDetail()">国贸</div>
+	</div>
+
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script>
+function openDetail()
+{
+	api.openWin({
+		name: 'tuandetail',
+		url: './tuandetail_header.html',
+		// delay:200
+		bounces: false
+	});
+}
+</script>
+</html>

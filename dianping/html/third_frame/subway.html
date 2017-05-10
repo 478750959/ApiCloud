@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+	<title>商圈</title>
+	<link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/common.css" />
+
+	<style>
+		html, body {width: 100%;min-height: 100%;background: #f0f0f0;}
+		.h80 {height: 80px;}
+		.h40 {height: 40px;}
+		.h20 {height: 20px;}
+    	.h10 {height: 10px;background: #f0f0f0;}
+		.h1 {height: 1px;margin-left: 15px;background: #f0f0f0;}
+		.fr {float: right;}
+		.fl {float: left;}
+		.hightitem {background-color: #fff;}
+		.inwrap {margin: 0 10px;}
+
+		/* 2X2样式 */
+		.row {display: -webkit-box;display: -webkit-flex;}
+		.col {-webkit-box-flex:1; -webkit-flex:1; flex:1;position: relative;}
+		.col img {position: absolute; right: 0; width: 80px; top: 0;}
+		.col .matrixcell {display: table-cell;vertical-align: middle; padding-left: 10px;}
+		.col .matrixcell .title {margin-bottom: 10px;}
+		.matrix {display: table;height: inherit;}
+
+		/* 1. 2X2 */
+		.flipcard {height: 30px; line-height: 30px; text-align: center; margin: 5px 5px 3px 5px; color: #000; background-color: #fff; font-size: 14px;}
+		.darktitle {height: 40px;line-height: 40px;margin-left: 15px;font-size: 14px;color: #666;}
+
+		/* 2. 三列 */
+		.scratch02 .word {margin-top: 10px;margin-left: 10px;}
+		.scratch02 .word .title{font-size: 18px;}
+		.scratch02 .word .info{font-size: 12px;color: #666;}
+		.scratch02 img {position: relative;width: 60px; height: 50px;}
+		.showposter {text-align: center;margin-top: 5px;padding-bottom: 10px;}
+
+		/* 列表 */
+		.classify {height: 60px;line-height: 60px;background-color: #fff;position: relative;border-bottom: 1px solid #e0e0e0;}
+		.classify .sublogo {height: 20px; margin-top: 20px; margin-left: 15px; float: left;}
+		.classify .arrow {position: absolute;vertical-align: top;right: 15px;top:20px;height: 20px;}
+		.classify .info {line-height: 20px; float: left; height: 60px;margin-left: 15px;}
+		.classify .info .title {font-size: 15px; color: #000; margin-top: 10px;}
+		.classify .info .subtitle {font-size: 12px; color: #666; margin-top: 5px;}
+		.subclass {display: none;}
+		.subclass .flipcard {margin:0;}
+		.brb {border-right: 1px solid #e0e0e0;border-bottom: 1px solid #e0e0e0;}
+		.bb {border-bottom: 1px solid #e0e0e0;}
+		
+		.presshover {background-color: #FAFAFA !important;}
+	</style>
+</head>
+<body>
+	<!-- 1 2X2 -->
+	<div class="darktitle">热门</div>
+	<div class="row inwrap">
+		<div class="col flipcard" tapmode="presshover" onclick="openVirList()">五道口站</div>
+		<div class="col flipcard" tapmode="presshover" onclick="openVirList()">西单站</div>
+		<div class="col flipcard" tapmode="presshover" onclick="openVirList()">青年路站</div>
+	</div>
+	<div class="row inwrap">
+		<div class="col flipcard" tapmode="presshover" onclick="openVirList()">北新桥站</div>
+		<div class="col flipcard" tapmode="presshover" onclick="openVirList()">崇文门站</div>
+		<div class="col flipcard" tapmode="presshover" onclick="openVirList()">国贸站</div>
+	</div>
+	<div class="row inwrap">
+		<div class="col flipcard" tapmode="presshover" onclick="openVirList()">双井站</div>
+		<div class="col flipcard" tapmode="presshover" onclick="openVirList()">大望路站</div>
+		<div class="col flipcard" tapmode="presshover" onclick="openVirList()">东大桥站</div>
+	</div>
+
+	<!-- 2 列表 -->
+	<div class="h10"></div>
+	<div class="darktitle">全部</div>
+	<div class="classify"  tapmode="" onclick="expandList('food')">
+		<img src="../../image/quick_action_bar_item_selected.png" alt="" class="sublogo">
+		<div class="info">
+			<div class="title">1号线</div>
+			<div class="subtitle">苹果园站、古城路站、八角游乐园站等</div>
+		</div>
+		<img src="../../image/ic_arrow_down_black.png" alt="" class="arrow" id="foodarrow">
+	</div>
+	<div class="subclass" id="food"  data-click='0'>
+		<div class="row">
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard brb">全部美食</div>
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard brb">火锅</div>
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard bb">小吃快餐</div>
+		</div>
+		<div class="row">
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard brb">面包甜点</div>
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard brb">咖啡厅</div>
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard bb">自助餐</div>
+		</div>
+		<div class="row">
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard brb">日本</div>
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard brb">西餐</div>
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard bb">烧烤</div>
+		</div>
+		<div class="row">
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard brb">韩国料理</div>
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard brb">东南亚菜</div>
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard bb">粤菜</div>
+		</div>
+		<div class="row">
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard brb">北京菜</div>
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard brb">素菜</div>
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard bb">川菜</div>
+		</div>
+		<div class="row">
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard brb">湘菜</div>
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard brb">东北菜</div>
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard bb">江浙菜</div>
+		</div>
+		<div class="row">
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard brb">海鲜</div>
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard brb">新疆菜</div>
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard bb">清真菜</div>
+		</div>
+		<div class="row">
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard brb">云南菜</div>
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard brb">西北菜</div>
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard bb">贵州菜</div>
+		</div>
+		<div class="row">
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard brb">鲁菜</div>
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard brb">湖北菜</div>
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard bb">其他</div>
+		</div>
+	</div>
+	
+
+
+	<div class="classify"  tapmode="" onclick="expandList('fun')">
+		<img src="../../image/quick_action_bar_item_selected.png" alt="" class="sublogo">
+		<div class="info">
+			<div class="title">2号线</div>
+			<div class="subtitle">西直门站、车公庄站、阜成门站等</div>
+		</div>
+		<img src="../../image/ic_arrow_down_black.png" alt="" class="arrow" id="funarrow">
+	</div>
+	<div class="subclass" id="fun"  data-click='0'>
+		<div class="row">
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard brb">全部娱乐</div>
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard brb">足疗按摩</div>
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard bb">KTV</div>
+		</div>
+		<div class="row">
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard brb">景点/郊游</div>
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard brb">电影院</div>
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard bb">洗浴</div>
+		</div>
+		<div class="row">
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard brb">咖啡厅</div>
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard brb">酒吧</div>
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard bb">温泉</div>
+		</div>
+		<div class="row">
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard brb">台球馆</div>
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard brb">密室</div>
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard bb">茶馆</div>
+		</div>
+		<div class="row">
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard brb">休闲网吧</div>
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard brb">DIY手工坊</div>
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard bb">私人影院</div>
+		</div>
+		<div class="row">
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard brb">轰趴馆</div>
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard brb">桌面游戏</div>
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard bb">游乐游艺</div>
+		</div>
+		<div class="row">
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard brb">真人CS</div>
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard brb">公园</div>
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard bb">文化艺术</div>
+		</div>
+		<div class="row">
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard brb">采摘/农家乐</div>
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard brb">棋牌室</div>
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard bb">更多休闲娱乐</div>
+		</div>
+	</div>
+
+	<div class="classify"  tapmode="" onclick="expandList('hotel')">
+		<img src="../../image/quick_action_bar_item_selected.png" alt="" class="sublogo">
+		<div class="info">
+			<div class="title">4号线</div>
+			<div class="subtitle">安河桥北站、北宫门站、西苑站等</div>
+		</div>
+		<img src="../../image/ic_arrow_down_black.png" alt="" class="arrow" id="hotelarrow">
+	</div>
+	<div class="subclass" id="hotel"  data-click='0'>
+		<div class="row">
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard brb">全部酒店</div>
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard brb">经济型酒店</div>
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard bb">五星级酒店</div>
+		</div>
+		<div class="row">
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard brb">四星级酒店</div>
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard brb">公寓式酒店</div>
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard bb">青年旅社</div>
+		</div>
+		<div class="row">
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard brb">三星级酒店</div>
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard brb">度假村</div>
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard bb">精品酒店</div>
+		</div>
+		<div class="row">
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard brb">客栈旅社</div>
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard brb">农家院</div>
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard bb">更多酒店住宿</div>
+		</div>
+	</div>
+
+
+
+	<div class="classify"  tapmode="" onclick="expandList('women')">
+		<img src="../../image/quick_action_bar_item_selected.png" alt="" class="sublogo">
+		<div class="info">
+			<div class="title">5号线</div>
+			<div class="subtitle">天通苑北站、天通苑站、天通苑南站等</div>
+		</div>
+		<img src="../../image/ic_arrow_down_black.png" alt="" class="arrow" id="womenarrow">
+	</div>
+	<div class="subclass" id="women"  data-click='0'>
+		<div class="row">
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard brb">全部酒店</div>
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard brb">经济型酒店</div>
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard bb">五星级酒店</div>
+		</div>
+		<div class="row">
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard brb">四星级酒店</div>
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard brb">公寓式酒店</div>
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard bb">青年旅社</div>
+		</div>
+		<div class="row">
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard brb">三星级酒店</div>
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard brb">度假村</div>
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard bb">精品酒店</div>
+		</div>
+		<div class="row">
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard brb">客栈旅社</div>
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard brb">农家院</div>
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard bb">更多酒店住宿</div>
+		</div>
+	</div>
+
+
+
+	<div class="classify"  tapmode="" onclick="expandList('marrage')">
+		<img src="../../image/quick_action_bar_item_selected.png" alt="" class="sublogo">
+		<div class="info">
+			<div class="title">6号线</div>
+			<div class="subtitle">海淀五路居站、慈寿寺站、花园桥站等</div>
+		</div>
+		<img src="../../image/ic_arrow_down_black.png" alt="" class="arrow" id="marragearrow">
+	</div>
+	<div class="subclass" id="marrage"  data-click='0'>
+		<div class="row">
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard brb">全部酒店</div>
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard brb">经济型酒店</div>
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard bb">五星级酒店</div>
+		</div>
+		<div class="row">
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard brb">四星级酒店</div>
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard brb">公寓式酒店</div>
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard bb">青年旅社</div>
+		</div>
+		<div class="row">
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard brb">三星级酒店</div>
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard brb">度假村</div>
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard bb">精品酒店</div>
+		</div>
+		<div class="row">
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard brb">客栈旅社</div>
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard brb">农家院</div>
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard bb">更多酒店住宿</div>
+		</div>
+	</div>
+
+
+	<div class="classify"  tapmode="" onclick="expandList('kids')">
+		<img src="../../image/quick_action_bar_item_selected.png" alt="" class="sublogo">
+		<div class="info">
+			<div class="title">8号线</div>
+			<div class="subtitle">霍营站、北土城站、鼓楼大街站等</div>
+		</div>
+		<img src="../../image/ic_arrow_down_black.png" alt="" class="arrow" id="kidsarrow">
+	</div>
+	<div class="subclass" id="kids"  data-click='0'>
+		<div class="row">
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard brb">全部酒店</div>
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard brb">经济型酒店</div>
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard bb">五星级酒店</div>
+		</div>
+		<div class="row">
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard brb">四星级酒店</div>
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard brb">公寓式酒店</div>
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard bb">青年旅社</div>
+		</div>
+		<div class="row">
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard brb">三星级酒店</div>
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard brb">度假村</div>
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard bb">精品酒店</div>
+		</div>
+		<div class="row">
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard brb">客栈旅社</div>
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard brb">农家院</div>
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard bb">更多酒店住宿</div>
+		</div>
+	</div>
+
+	<div class="classify"  tapmode="" onclick="expandList('shopping')">
+		<img src="../../image/quick_action_bar_item_selected.png" alt="" class="sublogo">
+		<div class="info">
+			<div class="title">9号线</div>
+			<div class="subtitle">国家图书馆站、白石桥南站、白堆子站</div>
+		</div>
+		<img src="../../image/ic_arrow_down_black.png" alt="" class="arrow" id="shoppingarrow">
+	</div>
+	<div class="subclass" id="shopping"  data-click='0'>
+		<div class="row">
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard brb">全部酒店</div>
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard brb">经济型酒店</div>
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard bb">五星级酒店</div>
+		</div>
+		<div class="row">
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard brb">四星级酒店</div>
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard brb">公寓式酒店</div>
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard bb">青年旅社</div>
+		</div>
+		<div class="row">
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard brb">三星级酒店</div>
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard brb">度假村</div>
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard bb">精品酒店</div>
+		</div>
+		<div class="row">
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard brb">客栈旅社</div>
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard brb">农家院</div>
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard bb">更多酒店住宿</div>
+		</div>
+	</div>
+
+
+	<div class="classify"  tapmode="" onclick="expandList('run')">
+		<img src="../../image/quick_action_bar_item_selected.png" alt="" class="sublogo">
+		<div class="info">
+			<div class="title">10号线</div>
+			<div class="subtitle">角门西站、角门东站、大红门站等</div>
+		</div>
+		<img src="../../image/ic_arrow_down_black.png" alt="" class="arrow" id="runarrow">
+	</div>
+	<div class="subclass" id="run"  data-click='0'>
+		<div class="row">
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard brb">全部酒店</div>
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard brb">经济型酒店</div>
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard bb">五星级酒店</div>
+		</div>
+		<div class="row">
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard brb">四星级酒店</div>
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard brb">公寓式酒店</div>
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard bb">青年旅社</div>
+		</div>
+		<div class="row">
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard brb">三星级酒店</div>
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard brb">度假村</div>
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard bb">精品酒店</div>
+		</div>
+		<div class="row">
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard brb">客栈旅社</div>
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard brb">农家院</div>
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard bb">更多酒店住宿</div>
+		</div>
+	</div>
+
+
+	<div class="classify"  tapmode="" onclick="expandList('life')">
+		<img src="../../image/quick_action_bar_item_selected.png" alt="" class="sublogo">
+		<div class="info">
+			<div class="title">13号线</div>
+			<div class="subtitle">西直门站、大钟寺站、知春路站等</div>
+		</div>
+		<img src="../../image/ic_arrow_down_black.png" alt="" class="arrow" id="lifearrow">
+	</div>
+	<div class="subclass" id="life"  data-click='0'>
+		<div class="row">
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard brb">全部酒店</div>
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard brb">经济型酒店</div>
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard bb">五星级酒店</div>
+		</div>
+		<div class="row">
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard brb">四星级酒店</div>
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard brb">公寓式酒店</div>
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard bb">青年旅社</div>
+		</div>
+		<div class="row">
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard brb">三星级酒店</div>
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard brb">度假村</div>
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard bb">精品酒店</div>
+		</div>
+		<div class="row">
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard brb">客栈旅社</div>
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard brb">农家院</div>
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard bb">更多酒店住宿</div>
+		</div>
+	</div>
+
+
+	<div class="classify"  tapmode="" onclick="expandList('home')">
+		<img src="../../image/quick_action_bar_item_selected.png" alt="" class="sublogo">
+		<div class="info">
+			<div class="title">14号线</div>
+			<div class="subtitle">张郭庄站、园博园站、大瓦窑站等</div>
+		</div>
+		<img src="../../image/ic_arrow_down_black.png" alt="" class="arrow" id="homearrow">
+	</div>
+	<div class="subclass" id="home"  data-click='0'>
+		<div class="row">
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard brb">全部酒店</div>
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard brb">经济型酒店</div>
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard bb">五星级酒店</div>
+		</div>
+		<div class="row">
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard brb">四星级酒店</div>
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard brb">公寓式酒店</div>
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard bb">青年旅社</div>
+		</div>
+		<div class="row">
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard brb">三星级酒店</div>
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard brb">度假村</div>
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard bb">精品酒店</div>
+		</div>
+		<div class="row">
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard brb">客栈旅社</div>
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard brb">农家院</div>
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard bb">更多酒店住宿</div>
+		</div>
+	</div>
+
+	<div class="classify"  tapmode="" onclick="expandList('car')">
+		<img src="../../image/quick_action_bar_item_selected.png" alt="" class="sublogo">
+		<div class="info">
+			<div class="title">15号线</div>
+			<div class="subtitle">望京西站、望京站、崔各庄站等</div>
+		</div>
+		<img src="../../image/ic_arrow_down_black.png" alt="" class="arrow" id="cararrow">
+	</div>
+	<div class="subclass" id="car"  data-click='0'>
+		<div class="row">
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard brb">全部酒店</div>
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard brb">经济型酒店</div>
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard bb">五星级酒店</div>
+		</div>
+		<div class="row">
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard brb">四星级酒店</div>
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard brb">公寓式酒店</div>
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard bb">青年旅社</div>
+		</div>
+		<div class="row">
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard brb">三星级酒店</div>
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard brb">度假村</div>
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard bb">精品酒店</div>
+		</div>
+		<div class="row">
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard brb">客栈旅社</div>
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard brb">农家院</div>
+			<div tapmode="presshover" onclick="openVirList()" class="col flipcard bb">更多酒店住宿</div>
+		</div>
+	</div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script>
+	function expandList (type) {
+		var food = document.getElementById(type);
+		var click = food.getAttribute("data-click");
+		
+		if (click == 0) {
+			// 点开
+			food.setAttribute("data-click", 1);
+			$api.dom('#'+type+'arrow').src = "../../image/ic_arrow_up_black.png";
+			food.style.display = 'block';
+		}else {
+			// 关闭
+			food.setAttribute("data-click", 0);
+			$api.dom('#'+type+'arrow').src = "../../image/ic_arrow_down_black.png";
+			food.style.display = 'none';
+		}
+	}
+
+	function openVirList() {
+		api.openWin({
+			name: 'tuan',
+			url: '../first_frame/tuan_header.html',
+			// delay:200,
+			bounces: false
+		});
+	}
+</script>
+</html>

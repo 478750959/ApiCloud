@@ -1,0 +1,108 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="copyright" content="www.apicloud.com" />
+<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+<title>首页</title>
+<link rel="stylesheet" type="text/css" href="../../css/api.css" />
+<style>
+#main {
+    display: -webkit-box; -webkit-box-orient: vertical;
+}
+#header {
+    position: relative;
+    background-color: #fff;
+    border-bottom: 1px solid #e0e0e0;
+}
+.logo {
+    position: absolute; left: 10px; bottom: 8px; width: 34px; height: 34px;
+}
+h1 {
+    margin-left: 5px;
+    height: 50px; line-height: 50px;
+    font-size: 16px; color: #000;
+}
+.search-hov {
+    background-color: rgb(65,61,61);
+}
+.setting-hov {
+    background-color: rgb(65,61,61);
+}
+.navbar {
+    display: -webkit-box; -webkit-box-orient: horizontal;
+    position: relative;
+    height: 50px; box-sizing: border-box;
+    /*background-color: rgb(231,226.221);*/
+    background: #C6F0F0;
+    /*border-bottom: 1px solid rgb(226,215,211);*/
+}
+.navbar-item {
+    display: block; -webkit-box-flex: 1;
+    width: 100%; line-height: 50px;
+    color: #999; font-size: 20px; text-align: center;
+}
+.navbar-item-hov {
+    /*background-color: rgba(236,225,210,0.7);*/
+    background-color: rgba(254,242,228,0.7);
+}
+.navbar-item-active {
+    color: #05A7A6;
+}
+#navmark {
+    position: absolute; left: 0px; bottom: 0px;
+    height: 2px;
+    background-color: rgb(253,133,0);
+    -webkit-transition: 300ms;
+}
+
+/*.left_back {height: 40px; padding-top: 5px; vertical-align: top;padding-bottom: 5px; padding-right: 5px;}*/
+.left_back {position: absolute; left: 0; bottom: 0; height: 25px; padding: 12px 30px 12px 10px;}
+#topbar {background-color: #05A7A6; height:50px;}
+#topbar_title {color: #000;/*display: inline-block;*/ line-height: 50px;text-align: center;}
+.btn_click {background: #404040;}
+#header span {position: absolute; right: 20px; line-height: 50px;font-size: 13px;color: #ff6836;bottom: 0;}
+</style>
+</head>
+<body>
+    <div id="main">
+        <header id="header">
+            <img src="../../image/ic_back_u.png" alt="" class="left_back" id="topbar_search"   tapmode="" onclick="goback()">
+            <h1 id="topbar_title">大众点评网</h1>
+           <!-- <span>注册</span> -->
+        </header>
+        
+        <section id="content">
+        </section>
+    </div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript">
+    function goback()
+    {
+        api.closeWin({name:'login'});
+    }
+    
+    apiready = function() {
+        // api.setStatusBarStyle({style:'light'});
+        // api.closeFrame({name:'setting_frame'});
+        var header = $api.byId('header');
+        $api.fixIos7Bar(header);
+        var header = $api.offset(header);
+
+        api.openFrame ({
+            name: 'login_body',
+            url: './login.html',
+            rect:{
+                x:0,
+                y:header.h,
+                w:'auto',
+                h:'auto'
+            },
+            pageParam: {name: header.h},
+            bounces: false,
+            delay:200
+        });
+    };
+</script>
+</html>

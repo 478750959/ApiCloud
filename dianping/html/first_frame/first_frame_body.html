@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+	<title>首页</title>
+	<link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/common.css" />
+	<!-- <link rel="stylesheet" type="text/css" href="../../css/idangerous.swiper.css"> -->
+
+	<style>
+		html, body {width: 100%;min-height: 100%;background: #f0f0f0;}
+		.h80 {height: 80px;}
+		.h40 {height: 40px;}
+		.h20 {height: 20px;}
+    	.h10 {height: 10px;background: #f0f0f0;}
+		.h1 {height: 1px;margin-left: 15px;background: #f0f0f0;}
+		.fr {float: right;}
+		.fl {float: left;}
+		.hightitem {background-color: #fff;}
+
+		/* 抢购样式 */
+		.snapup {height: 80px;}
+		.snapup .infologo {height: 60px; margin: 10px;}
+		.snapup .shelf2 {display: table;height: inherit;margin-left: 10px;}
+		.snapup .shelfcell {display: table-cell;vertical-align: middle;}
+		.snapup .shelfcell .title {margin-bottom: 10px;}
+		.snapup .arrow {width: 20px; padding-top: 30px;padding-right: 10px;}
+
+		/* 2X2样式 */
+		.row {display: -webkit-box;display: -webkit-flex;}
+		.col {-webkit-box-flex:1; -webkit-flex:1; flex:1;position: relative;}
+		.col img {position: absolute; right: 0; width: 80px; top: 0;}
+		.col .matrixcell {display: table-cell;vertical-align: middle; padding-left: 10px;}
+		.col .matrixcell .title {margin-bottom: 10px;}
+		.matrix {display: table;height: inherit;}
+
+		/* 猜你喜欢 */
+		.guesstitle {height: 40px;line-height: 40px;padding-left: 10px;vertical-align: top; font-size: 12px;color: #999;}
+		.guesstitle img {height: 15px;padding-top: 12px; padding-left: 10px;}
+		.home-tuan-list .item {position: relative; display: block; padding-left: 10px; border-bottom: 1px solid #e0e0e0;}
+		.home-tuan-list .cnt {padding: 7px 10px 10px 0; display: box; display: -webkit-box; min-height: 78px;  background-size: auto 1px; }
+		.home-tuan-list .pic {margin-right: 10px; background: center; }
+		.home-tuan-list img {width: 90px; height: 66px; margin-top: 7px; margin-bottom: 5px; border-radius: 3px; }
+		.home-tuan-list .wrap {-webkit-box-flex: 1; }
+		.home-tuan-list .wrap2 {display: table; height: 88px; width: 100%; }
+		.home-tuan-list .content {-webkit-box-flex: 1; box-flex: 1; display: table-cell; vertical-align: middle; }
+		.home-tuan-list .shopname {color: #333; /*line-height: 16px;*/ font-size: 17px; max-width: 11em; white-space: nowrap; word-wrap: normal; text-overflow: ellipsis; overflow: hidden; min-height: 10px; padding-bottom: 2px; padding-top: 3px; display: inline-block;}
+		.home-tuan-list .title {color: #666; line-height: 16px; font-size: 13px; max-height: 30px; overflow: hidden; padding-top: 3px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+		.home-tuan-list .hot-title {margin-bottom: 8px; }
+		.home-tuan-list .hot-subtitle {margin-bottom: 9px; }
+		.home-tuan-list .info {margin-top: 9px; /*margin-bottom: 11px;*/ color: #666; font-size: 12px; position: relative; line-height: 15px; display: box; display: -webkit-box; height: 15px; }
+		.home-tuan-list .symbol {font-size: 14px; color: #f60; display: block; margin-top: 1px; }
+		.home-tuan-list .price {color: #f60; font-size: 20px; line-height: 15px; margin-right: 5px; margin-top: 1px; }
+		.home-tuan-list .o-price {color: #999; margin-top: 5px; line-height: 10px; }
+		.home-tuan-list .sale {color: #f63; border: solid 1px #ff916e; padding: 3px 2px 2px; font-size: 10px; border-radius: 2px; -webkit-border-radius: 2px; margin-left: 5px; line-height: 10px; height: 10px; }
+		.home-tuan-list .distance {-webkit-box-flex: 1; box-flex: 1; -ms-box-flex: 1; -ms-flex: 1; text-align: right; line-height: 10px; margin-top: 5px; color: #999; float: right;font-size: 12px;}
+		.home-tuan-list .price, .index-rec .home-tuan-list .o-price, .index-rec .home-tuan-list .distance, .index-rec .home-tuan-list .sale {display: block; line-height: 15px; font-size: 12px; }
+		.Fix:after {display: block; content: ''; height: 0; clear: both; }
+
+		/* 3. */
+		.section03 .col img {width: 60px; top: 10px;}
+		.section03 .title01 .title{color: #965037;}
+		.section03 .title02 .title{color: #ffa001;}
+		.section03 .title03 .title{color: #ff558c;}
+		.section03 .title04 .title{color: #19b4ff;}
+		.section03 .matrixcell .info {color: #666;}
+
+		/* 2. */
+		.section02 .shelfcell .title span{color: #ff6633;}
+		.section02 .shelfcell .subtitel {color: #666;font-size: 14px;}
+		.swiper-container {background-color: #fff;}
+
+		/* 1. */
+		.section01 .row {margin-top: 10px;}
+		.section01 .col {text-align: center;}
+		.section01 .col img {position: relative;width: 60%; }
+		.section01 .col div {font-size: 13px;margin-top: 5px; }
+
+		.presshover {background-color: #FAFAFA;}
+		.brb {border-bottom: 1px solid #e0e0e0;border-right: 1px solid #e0e0e0;}
+		.bb {border-bottom: 1px solid #e0e0e0;}
+		.br {border-right: 1px solid #e0e0e0;}
+
+
+
+
+		.swipe {
+			overflow: hidden;
+			visibility: hidden;
+			position: relative;
+			background: #fff;
+			padding-bottom: 10px;
+		}
+		.swipe-wrap {
+			overflow: hidden;
+			position: relative;
+		}
+		.swipe-wrap .swipe-box {
+			float: left;
+			width: 100%;
+			position: relative;
+		}
+
+		.sliderow {text-align: center;width: 100%;display: block;}
+		/*.slidepanel .sliderow {margin-top: 10px;}*/
+		.sliderow .slidecol {float:left;width: 25%;}
+		.sliderow .slidecol img {width: 60%;margin-top: 10px;}
+		.sliderow .slidecol div {font-size: 13px; margin-top: 5px;}
+		
+	</style>
+</head>
+<body>
+	<!-- 1. 头部swipe -->
+	<div id='slider' class='swipe'>
+        <div class='swipe-wrap'>
+            <div class="swipe-box">
+                <div class="sliderow">
+		        			<div class="slidecol" tapmode="" onclick="openNewWindow('food')">
+		        				<img src="../../image/firstpage/food_u.png" alt="">
+								<div class="">
+									美食
+								</div>
+		        			</div><div  class="slidecol" tapmode="" onclick="openNewWindow('food')">
+		        				<img src="../../image/firstpage/snack_u.png" alt="">
+								<div class="">
+									小吃快餐
+								</div>
+		        			</div><div  class="slidecol" tapmode="" onclick="openNewWindow('food')">
+		        				<img src="../../image/firstpage/bar_o.png" alt="">
+								<div class="">
+									休闲娱乐
+								</div>
+		        			</div><div  class="slidecol" tapmode="" onclick="openNewWindow('totalclassify')">
+		        				<img src="../../image/firstpage/more_u.png" alt="">
+								<div class="">
+									全部分类
+								</div>
+		        			</div>
+		        		</div>
+		        		<div class="sliderow">
+							<div  class="slidecol" tapmode="" onclick="openNewWindow('tuan')">
+								<img src="../../image/firstpage/groupon_u.png" alt="">
+								<div class="">
+								团购
+								</div>
+							</div><div  class="slidecol" tapmode="" onclick="openNewWindow('orderhotel')">
+								<img src="../../image/firstpage/hotel_u.png" alt="">
+								<div class="">
+								订酒店
+								</div>
+							</div><div   class="slidecol" tapmode="" onclick="openNewWindow('waimai')">
+								<img src="../../image/firstpage/takeaway_u.png" alt="">
+								<div class="">
+								订外卖
+								</div>
+							</div><div   class="slidecol" tapmode="" onclick="openNewWindow('movies')">
+								<img src="../../image/firstpage/film_u.png" alt="">
+								<div class="">
+								看电影
+								</div>
+							</div>
+						</div>
+            </div>
+            <div class="swipe-box">
+				<div class="sliderow">
+						<div  class="slidecol" tapmode="" onclick="openNewWindow('girls')">
+						<img src="../../image/firstpage/liren.png" alt="">
+						<div class="">
+						丽人
+						</div>
+						</div><div  class="slidecol" tapmode="" onclick="openNewWindow('kids')">
+						<img src="../../image/firstpage/qinzi.png" alt="">
+						<div class="">
+						亲子
+						</div>
+						</div><div  class="slidecol" tapmode="" onclick="openNewWindow('marriage')">
+						<img src="../../image/firstpage/jiehun.png" alt="">
+						<div class="">
+						结婚
+						</div>
+						</div><div  class="slidecol" tapmode="" onclick="openNewWindow('decorate')">
+						<img src="../../image/firstpage/jiazhuang.png" alt="">
+						<div class="">
+						家装
+						</div>
+						</div>
+					</div>
+					<div class="sliderow">
+						<div  class="slidecol" tapmode="" onclick="openNewWindow('reserve')">
+						<img src="../../image/firstpage/dingzuo.png" alt="">
+						<div class="">
+						订座
+						</div>
+						</div><div  class="slidecol" tapmode="" onclick="openAllinone(1)">
+						<img src="../../image/firstpage/zhaoyouhui.png" alt="">
+						<div class="">
+						找优惠
+						</div>
+						</div><div  class="slidecol" tapmode="" onclick="openNewWindow('seekrank')">
+						<img src="../../image/firstpage/bangdan.png" alt="">
+						<div class="">
+						看榜单
+						</div>
+						</div><div  class="slidecol" tapmode="" onclick="openLogin()">
+						<img src="../../image/firstpage/dianping.png" alt="">
+						<div class="">
+						写点评
+						</div>
+						</div>
+					</div>
+            </div>
+            <div class="swipe-box">
+                <div class="sliderow">
+						<div  class="slidecol" tapmode="" onclick="openAllinone(1)">
+						<img src="../../image/firstpage/zuliao.png" alt="">
+						<div class="">
+						足疗按摩
+						</div>
+						</div><div  class="slidecol" tapmode="" onclick="openAllinone(2)">
+						<img src="../../image/firstpage/jingdian.png" alt="">
+						<div class="">
+						景点郊游
+						</div>
+						</div><div  class="slidecol" tapmode="" onclick="openAllinone(3)">
+						<img src="../../image/firstpage/ktv_u.png" alt="">
+						<div class="">
+						KTV
+						</div>
+						</div><div  class="slidecol" tapmode="" onclick="openAllinone(4)">
+						<img src="../../image/firstpage/mianbao.png" alt="">
+						<div class="">
+						面包甜点
+						</div>
+						</div>
+					</div>
+					<div class="sliderow">
+						<div  class="slidecol" tapmode="" onclick="openAllinone(5)">
+						<img src="../../image/firstpage/around.png" alt="">
+						<div class="">
+						查周边
+						</div>
+						</div><div  class="slidecol" tapmode="" onclick="openAllinone(6)">
+						<img src="../../image/firstpage/vip.png" alt="">
+						<div class="">
+						会员卡
+						</div>
+						</div><div  class="slidecol" tapmode="" onclick="openAllinone(7)">
+						<img src="../../image/firstpage/screenshot.png" alt="">
+						<div class="">
+						拍婚照
+						</div>
+						</div><div  class="slidecol">
+						</div>
+					</div>
+            </div>
+        </div>
+    </div>
+
+	<!-- 2. 大牌抢购，进入10点倒计时抢购 -->
+	<div class="h20"></div>
+	<div class="snapup hightitem section02" tapmode="presshover" onclick="openDetail()">
+		<img src="../../image/icon_famousshop.png" alt="" class="fl infologo">
+		<div class="shelf2 fl">
+			<div class="shelfcell">
+				<div class="title">羲和雅苑烤鸭坊 <span>￥85</span></div>
+				<span class="subtitel">每天十点开抢</span>
+			</div>
+			
+		</div>
+		<img src="../../image/arrow.png" alt="" class="arrow fr">
+	</div>
+
+	<!-- 3. 2X2 列表 -->
+	<div class="h20"></div>
+	<div class="row hightitem section03">
+		<div class="col h80 brb" tapmode="presshover" onclick="openDetail()">
+			<div class="matrix">
+				<div class="matrixcell title01">
+					<div class="title">免费吃喝玩</div>
+					<div class="info">新用户专享</div>
+				</div>
+			</div>
+			<img src="../../image/firstcover02.png" alt="" class="fl">
+		</div>
+		
+		<div class="col h80 bb" tapmode="presshover" onclick="openDetail()">
+			<div class="matrix">
+				<div class="matrixcell title02">
+					<div class="title">免费看电影</div>
+					<div class="info">新用户专享</div>
+				</div>
+			</div>
+			<img src="../../image/firstcover01.png" alt="" class="fl">
+		</div>
+	</div>
+	<div class="row hightitem section03">
+		<div class="col h80 br" tapmode="presshover" onclick="openDetail()">
+			<div class="matrix">
+				<div class="matrixcell title03">
+					<div class="title">食色性也</div>
+					<div class="info">光棍节等你来</div>
+				</div>
+			</div>
+			<img src="../../image/firstcover03.png" alt="" class="fl">
+		</div>
+		
+		<div class="col h80" tapmode="presshover" onclick="openDetail()">
+			<div class="matrix">
+				<div class="matrixcell title04">
+					<div class="title">点评祝福</div>
+					<div class="info">单身用户专享</div>
+				</div>
+			</div>
+			<img src="../../image/firstcover04.png" alt="" class="fl">
+		</div>
+	</div>
+
+	<!-- 4. 猜你喜欢 -->
+	<div class="guesstitle">猜你喜欢<img src="../../image/home_competitive_icon.png" alt=""></div>
+	<div class="home-tuan-list">
+		<a href="" class="item hightitem" onclick="openDetail()" tapmode="presshover">
+            <div class="cnt">
+                <img class="pic" src="../../image/shopcover/zoocoffee.jpg">
+                <div class="wrap">
+                    <div class="wrap2">
+                        <div class="content">
+                            <div class="shopname hot-title">品牌优惠</div>
+                            <div class="title hot-subtitle">热门快餐5折起</div>
+                        </div>
+                    </div>           
+                </div>
+            </div>
+        </a>
+        <a href="" class="item hightitem" onclick="openDetail()"  tapmode="presshover">
+            <div class="cnt">
+                <img class="pic" src="../../image/shopcover/xchg.jpg">
+                <div class="wrap">
+                    <div class="wrap2">
+                        <div class="content">
+                            <div class="shopname hot-title">双11美食大牌立减</div>
+                            <div class="title hot-subtitle">最赞火锅全场特惠</div>
+                        </div>
+                    </div>           
+                </div>
+            </div>
+        </a>
+        <a href="" class="item hightitem" onclick="openDetail()" tapmode="presshover">
+            <div class="cnt">
+                <img class="pic" src="../../image/shopcover/jbb.jpg">
+                <div class="wrap">
+                    <div class="wrap2">
+                        <div class="content">
+                            <div class="shopname hot-title">一分钱上早教</div>
+                            <div class="title hot-subtitle">幼教排行榜</div>
+                        </div>
+                    </div>           
+                </div>
+            </div>
+        </a>
+        <a href="" class="item Fix hightitem" onclick="openDetail()" tapmode="presshover">
+            <div class="cnt">
+            	<img class="pic" src="../../image/shopcover/emoi.jpg">
+	            <div class="wrap">
+		            <div class="wrap2">
+			            <div class="content">
+			                <div class="shopname">emoi生活智能情感音响灯免费送</div><span class="distance">8.9km</span>
+			                <div class="title">智能情感音响灯 舒缓心情 触动情感 emoi基本生活智能情感音响灯免费送</div>
+			                <div class="info">
+			                    <span class="symbol">¥</span>
+			                    <span class="price">0.0</span>
+			                    <del class="o-price">¥299.0</del>
+			                    <!-- <span class="sale"></span>
+			                    <span class="distance">已售41650</span> -->
+			                </div>
+			            </div>
+		            </div>           
+	            </div>
+            </div>
+        </a>
+        <a href="" class="item Fix hightitem" onclick="openDetail()" tapmode="presshover">
+            <div class="cnt">
+            	<img class="pic" src="../../image/shopcover/yjbf.jpg">
+	            <div class="wrap">
+		            <div class="wrap2">
+			            <div class="content">
+			                <div class="shopname">云吉八方</div><span class="distance">650m</span>
+			                <div class="title">代金劵 不限时段通用，免费wifi，可累计使用，全场通用</div>
+			                <div class="info">
+			                    <span class="symbol">¥</span>
+			                    <span class="price">100.0</span>
+			                    <span class="sale">返现1%</span>
+			                </div>
+			            </div>
+		            </div>           
+	            </div>
+            </div>
+        </a>
+        <a href="" class="item Fix hightitem" onclick="openDetail()" tapmode="presshover">
+            <div class="cnt">
+            	<img class="pic" src="../../image/shopcover/syf.jpg">
+	            <div class="wrap">
+		            <div class="wrap2">
+			            <div class="content">
+			                <div class="shopname">上鱼舫</div><span class="distance">3.6km</span>
+			                <div class="title">[6店通用]代金券 不限时段通用，可累计使用，全场通用</div>
+			                <div class="info">
+			                    <span class="symbol">¥</span>
+			                    <span class="price">158.0</span>
+			                    <del class="o-price">¥200.0</del>
+			                </div>
+			            </div>
+		            </div>           
+	            </div>
+            </div>
+        </a>
+        <a href="" class="item Fix hightitem" onclick="openDetail()" tapmode="presshover">
+            <div class="cnt">
+            	<img class="pic" src="../../image/shopcover/six.jpg">
+	            <div class="wrap">
+		            <div class="wrap2">
+			            <div class="content">
+			                <div class="shopname">six酒吧惊爆体验中</div><span class="distance">2.5km</span>
+			                <div class="title">爆米花 不限时段通用 免费WiFi</div>
+			                <div class="info">
+			                    <span class="symbol">¥</span>
+			                    <span class="price">1.0</span>
+			                    <del class="o-price">¥15.0</del>
+			                </div>
+			            </div>
+		            </div>           
+	            </div>
+            </div>
+        </a>
+        <a href="" class="item Fix hightitem" onclick="openDetail()" tapmode="presshover">
+            <div class="cnt">
+            	<img class="pic" src="../../image/shopcover/lewa.jpg">
+	            <div class="wrap">
+		            <div class="wrap2">
+			            <div class="content">
+			                <div class="shopname">lewa乐画</div><span class="distance">1.0km</span>
+			                <div class="title">零基础diy娱乐回话情侣套餐</div>
+			                <div class="info">
+			                    <span class="symbol">¥</span>
+			                    <span class="price">158.0</span>
+			                    <span class="sale">返现1%</span>
+			                </div>
+			            </div>
+		            </div>           
+	            </div>
+            </div>
+        </a>
+        <a href="" class="item Fix hightitem" onclick="openDetail()" tapmode="presshover">
+            <div class="cnt">
+            	<img class="pic" src="../../image/shopcover/byly.jpg">
+	            <div class="wrap">
+		            <div class="wrap2">
+			            <div class="content">
+			                <div class="shopname">巴依老爷</div><span class="distance">110m</span>
+			                <div class="title">[5店通用]代金券 不限时段通用，可累计使用，全场通用</div>
+			                <div class="info">
+			                    <span class="symbol">¥</span>
+			                    <span class="price">81.81</span>
+			                    <span class="sale">立减6元</span>
+			                    <span class="sale">返现1%</span>
+			                </div>
+			            </div>
+		            </div>           
+	            </div>
+            </div>
+        </a>
+        <a href="" class="item Fix hightitem" onclick="openDetail()" tapmode="presshover">
+            <div class="cnt">
+            	<img class="pic" src="../../image/shopcover/jbw.jpg">
+	            <div class="wrap">
+		            <div class="wrap2">
+			            <div class="content">
+			                <div class="shopname">金百万</div><span class="distance">650m</span>
+			                <div class="title">[30店通用]代金券 可累计使用，可使用包厢</div>
+			                <div class="info">
+			                    <span class="symbol">¥</span>
+			                    <span class="price">83.0</span>
+			                    <span class="sale">立减10元</span>
+			                    <span class="sale">返现1%</span>
+			                </div>
+			            </div>
+		            </div>           
+	            </div>
+            </div>
+        </a>
+        <a href="" class="item Fix hightitem" onclick="openDetail()" tapmode="presshover">
+            <div class="cnt">
+            	<img class="pic" src="../../image/shopcover/zmh.jpg">
+	            <div class="wrap">
+		            <div class="wrap2">
+			            <div class="content">
+			                <div class="shopname">芝麻花</div><span class="distance">400m</span>
+			                <div class="title">[3店通用]代金券 可累计使用，全场通用</div>
+			                <div class="info">
+			                    <span class="symbol">¥</span>
+			                    <span class="price">85.0</span>
+			                    <span class="sale">返现1%</span>
+			                </div>
+			            </div>
+		            </div>           
+	            </div>
+            </div>
+        </a>
+        <a href="" class="item Fix hightitem" onclick="openDetail()" tapmode="presshover">
+            <div class="cnt">
+            	<img class="pic" src="../../image/shopcover/dfjzw.jpg">
+	            <div class="wrap">
+		            <div class="wrap2">
+			            <div class="content">
+			                <div class="shopname">东方饺子王</div><span class="distance">7.9km</span>
+			                <div class="title">[26店通用]代金券 不限时段通用</div>
+			                <div class="info">
+			                    <span class="symbol">¥</span>
+			                    <span class="price">89.9</span>
+			                    <span class="sale">返现1%</span>
+			                </div>
+			            </div>
+		            </div>           
+	            </div>
+            </div>
+        </a>
+        <a href="" class="item Fix hightitem" onclick="openDetail()" tapmode="presshover">
+            <div class="cnt">
+            	<img class="pic" src="../../image/shopcover/tbgjyc.jpg">
+	            <div class="wrap">
+		            <div class="wrap2">
+			            <div class="content">
+			                <div class="shopname">天宝国际影城</div><span class="distance">840m</span>
+			                <div class="title">2d/3d通兑单人电影票</div>
+			                <div class="info">
+			                    <span class="symbol">¥</span>
+			                    <span class="price">27.0</span>
+			                    <span class="sale">返现1%</span>
+			                </div>
+			            </div>
+		            </div>           
+	            </div>
+            </div>
+        </a>
+        <a href="" class="item Fix hightitem" onclick="openDetail()" tapmode="presshover">
+            <div class="cnt">
+            	<img class="pic" src="../../image/shopcover/hns.jpg">
+	            <div class="wrap">
+		            <div class="wrap2">
+			            <div class="content">
+			                <div class="shopname">汉拿山</div><span class="distance">670m</span>
+			                <div class="title">[38店通用]代金券 不限时段通用，可累积使用，全场通用</div>
+			                <div class="info">
+			                    <span class="symbol">¥</span>
+			                    <span class="price">85.0</span>
+			                    <span class="sale">返现1%</span>
+			                </div>
+			            </div>
+		            </div>           
+	            </div>
+            </div>
+        </a>
+        <a href="" class="item Fix hightitem" onclick="openDetail()" tapmode="presshover">
+            <div class="cnt">
+            	<img class="pic" src="../../image/shopcover/mwsk.jpg">
+	            <div class="wrap">
+		            <div class="wrap2">
+			            <div class="content">
+			                <div class="shopname">木屋烧烤</div><span class="distance">290m</span>
+			                <div class="title">[9店通用]代金券 不限时段通用，免费wifi</div>
+			                <div class="info">
+			                    <span class="symbol">¥</span>
+			                    <span class="price">82.0</span>
+			                    <span class="sale">立减8元</span>
+			                    <span class="sale">返现1%</span>
+			                </div>
+			            </div>
+		            </div>           
+	            </div>
+            </div>
+        </a>
+        <a href="" class="item Fix hightitem" onclick="openDetail()" tapmode="presshover">
+            <div class="cnt">
+            	<img class="pic" src="../../image/shopcover/cap.jpg">
+	            <div class="wrap">
+		            <div class="wrap2">
+			            <div class="content">
+			                <div class="shopname">陈阿婆</div><span class="distance">700m</span>
+			                <div class="title">[10店通用]代金券 不限时段通用，可累计使用</div>
+			                <div class="info">
+			                    <span class="symbol">¥</span>
+			                    <span class="price">80.0</span>
+			                    <span class="sale">立减5元</span>
+			                    <span class="sale">返现1%</span>
+			                </div>
+			            </div>
+		            </div>           
+	            </div>
+            </div>
+        </a>
+        <a href="" class="item Fix hightitem" onclick="openDetail()" tapmode="presshover">
+            <div class="cnt">
+            	<img class="pic" src="../../image/shopcover/lsy.jpg">
+	            <div class="wrap">
+		            <div class="wrap2">
+			            <div class="content">
+			                <div class="shopname">辣尚瘾</div><span class="distance">720m</span>
+			                <div class="title">[9店通用]代金券 不限时段通用</div>
+			                <div class="info">
+			                    <span class="symbol">¥</span>
+			                    <span class="price">80.0</span>
+			                    <span class="sale">立减5元</span>
+			                    <span class="sale">返现1%</span>
+			                </div>
+			            </div>
+		            </div>           
+	            </div>
+            </div>
+        </a>
+        <a href="" class="item Fix hightitem" onclick="openDetail()" tapmode="presshover">
+            <div class="cnt">
+            	<img class="pic" src="../../image/shopcover/mllm.jpg">
+	            <div class="wrap">
+		            <div class="wrap2">
+			            <div class="content">
+			                <div class="shopname">马兰拉面</div><span class="distance">430m</span>
+			                <div class="title">[25店通用]马兰拉面1份</div>
+			                <div class="info">
+			                    <span class="symbol">¥</span>
+			                    <span class="price">9.9</span>
+			                    <span class="sale">返现1%</span>
+			                </div>
+			            </div>
+		            </div>           
+	            </div>
+            </div>
+        </a>
+        <a href="" class="item Fix hightitem" onclick="openDetail()" tapmode="presshover">
+            <div class="cnt">
+            	<img class="pic" src="../../image/shopcover/kbd.jpg">
+	            <div class="wrap">
+		            <div class="wrap2">
+			            <div class="content">
+			                <div class="shopname">宽板凳老灶火锅</div><span class="distance">760m</span>
+			                <div class="title">[13店通用]代金券 不限时段通用，可累计使用，全场通用</div>
+			                <div class="info">
+			                    <span class="symbol">¥</span>
+			                    <span class="price">88.0</span>
+			                    <span class="sale">立减8元</span>
+			                    <span class="sale">返现1%</span>
+			                </div>
+			            </div>
+		            </div>           
+	            </div>
+            </div>
+        </a>
+        <a href="" class="item Fix hightitem" onclick="openDetail()" tapmode="presshover">
+            <div class="cnt">
+            	<img class="pic" src="../../image/shopcover/bhfy.jpg">
+	            <div class="wrap">
+		            <div class="wrap2">
+			            <div class="content">
+			                <div class="shopname">北华福源涮肉城</div><span class="distance">780m</span>
+			                <div class="title">[3店通用]代金券 免费wifi，可累积使用，全场通用</div>
+			                <div class="info">
+			                    <span class="symbol">¥</span>
+			                    <span class="price">78.0</span>
+			                    <span class="sale">返现1%</span>
+			                </div>
+			            </div>
+		            </div>           
+	            </div>
+            </div>
+        </a>
+        <a href="" class="item Fix hightitem" onclick="openDetail()" tapmode="presshover">
+            <div class="cnt">
+            	<img class="pic" src="../../image/shopcover/qjc.jpg">
+	            <div class="wrap">
+		            <div class="wrap2">
+			            <div class="content">
+			                <div class="shopname">权金城</div><span class="distance">1.9km</span>
+			                <div class="title">[17店通用]代金券 不限时段通用，免费wifi，可累积使用</div>
+			                <div class="info">
+			                    <span class="symbol">¥</span>
+			                    <span class="price">79.0</span>
+			                    <span class="sale">立减8元</span>
+			                    <span class="sale">返现1%</span>
+			                </div>
+			            </div>
+		            </div>           
+	            </div>
+            </div>
+        </a>
+        <a href="" class="item Fix hightitem" onclick="openDetail()" tapmode="presshover">
+            <div class="cnt">
+            	<img class="pic" src="../../image/shopcover/xlat.jpg">
+	            <div class="wrap">
+		            <div class="wrap2">
+			            <div class="content">
+			                <div class="shopname">香辣阿田大虾火锅店</div><span class="distance">430m</span>
+			                <div class="title">[龙翔路店]2 3人用餐 不限时段通用，免费wifi</div>
+			                <div class="info">
+			                    <span class="symbol">¥</span>
+			                    <span class="price">108.0</span>
+			                    <span class="sale">返现1%</span>
+			                </div>
+			            </div>
+		            </div>           
+	            </div>
+            </div>
+        </a>
+        <a href="" class="item Fix hightitem" onclick="openDetail()" tapmode="presshover">
+            <div class="cnt">
+            	<img class="pic" src="../../image/shopcover/jtyjj.jpg">
+	            <div class="wrap">
+		            <div class="wrap2">
+			            <div class="content">
+			                <div class="shopname">九头鹰酒店</div><span class="distance">650m</span>
+			                <div class="title">[10店通用]代金券 不限时段通用，免费wifi，可累积使用，可使用包厢</div>
+			                <div class="info">
+			                    <span class="symbol">¥</span>
+			                    <span class="price">82.0</span>
+			                    <span class="sale">返现1%</span>
+			                </div>
+			            </div>
+		            </div>           
+	            </div>
+            </div>
+        </a>
+	</div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<!-- <script type="text/javascript" src="../../script/idangerous.swiper.js"></script> -->
+<script type="text/javascript" src="../../script/swipe.js"></script>
+<script>
+	function openAllinone(type)
+	{
+		api.openWin({
+			name: 'allinone',
+			url: './allinone_header.html',
+			pageParam: {name: type},
+			bounces: false,
+			delay:200
+		});
+	}
+
+	function openLogin()
+	{
+		api.openWin({
+			name: 'login',
+			url: '../forth_frame/login_header.html',
+			bounces: false,
+			delay:200
+		});
+	}
+
+	function openDetail()
+	{
+		api.openWin({
+			name: 'tuandetail',
+			url: '../tuandetail_header.html',
+			bounces: false,
+			delay:200
+		});
+	}
+
+
+	function openNewWindow(type)
+	{
+		api.openWin({
+			name: type,
+			url: './'+type+'_header.html',
+			delay:200,
+			bounces: false
+		});
+	}
+
+	window.onload = function() {
+		// var mySwiper = new Swiper('.swiper-container',{
+		// 	mode:'horizontal',
+		// 	loop: true,
+		// 	speed:750,
+		// 	pagination: '.pagination'
+		// });
+
+		// mySwiper.startAutoplay();
+
+
+	var slider =
+		Swipe(document.getElementById('slider'), {
+			auto: 1000000,
+			continuous: true,
+			callback: function(pos) {
+			}
+		});
+	}
+</script>
+</html>

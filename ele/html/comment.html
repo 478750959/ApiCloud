@@ -1,0 +1,72 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>Hello APP</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../css/common.css" />
+
+    <style>
+        html,body{height:100%;background-color: #eee;}
+        .h10 {height: 10px;}
+
+        /* 头部导航样式 */
+        .header {position: relative;height: 50px;line-height: 50px;background-color: #3993cf;}
+        .header .left  {position: absolute;left: 0;height: 50px;}
+        .header .left  .logoleft {height: 20px;vertical-align: top; margin-top: 15px;}
+        .header .left  .logo {height: 46px; vertical-align: top; margin-top: 2px; margin-left: -10px;}
+        .header .left  .title {font-size: 20px; color: #fff; margin-left: -10px;padding-right: 10px;}
+
+        .header .right {position: absolute;right: 0;height: 50px;}
+        .header .right img {height: 30px;padding: 10px;}  
+
+
+        .searchBox {background: #fff; height: 30px; padding: 10px;margin: 10px 10px 0px 10px;}
+        .searchBox input {height: 30px; line-height: 30px; font-size: 14px;outline: none;}
+        .searchBox img {height: 30px; position: absolute; right: 0; top: 5px;}
+        
+        .textarea {height: 100px;}
+        textarea {width: 100%;font-size: 18px;outline: none;}
+        
+        .btn {height: 40px;line-height: 40px;color: #fff;background-color: #4DC060;font-size: 16px;margin: 10px 10px 0 10px;text-align: center;}
+        /* 悬浮样式 */
+        .itemhover {background-color: #25A044 !important;}
+        .headerhover {background-color: #36A8DC !important;}
+    </style>
+</head>
+<body>
+    <div class="header" id="topbar">
+       <div class="left" tapmode="headerhover" onclick="goback()">
+            <img src="../image/abc_ic_ab_back_holo_dark.png" alt="" class="logoleft"><img src="../image/m_drawer_icon_home_selected.png" alt="" class="logo">
+            <span class="title">给我们建议</span>
+        </div>
+    </div>
+
+    <!-- <div class="searchBox"><input type="textarea" placeholder="请输入您的建议"></div> -->
+    <div class="searchBox textarea">
+
+        <textarea rows="5" cols="50" placeholder="请在此处输入文本..."> </textarea>
+    </div>
+    
+
+    <div class="searchBox"><input type="text" placeholder="联系方式（邮箱/手机）"></div>
+
+    <div class="btn" tapmode="itemhover" onclick="">提交</div>
+
+
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript">
+
+    function goback () {
+        api.closeWin({name:'comment'});
+    }
+    
+    apiready = function() {
+        var header = $api.byId('topbar');
+        $api.fixIos7Bar(header);
+        
+    };
+</script>
+</html>

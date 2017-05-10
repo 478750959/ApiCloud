@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+	<title>全部分类</title>
+	<link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/common.css" />
+
+	<style>
+		html, body {width: 100%;min-height: 100%;background: #f0f0f0;}
+		.h80 {height: 80px;}
+		.h40 {height: 40px;}
+		.h20 {height: 20px;}
+    	.h10 {height: 10px;background: #f0f0f0;}
+		.h1 {height: 1px;margin-left: 15px;background: #f0f0f0;}
+		.fr {float: right;margin-right: 10px;}
+		.fl {float: left;}
+		.hightitem {background-color: #fff;}
+		.inwrap {margin: 0 10px;}
+
+		/* 2X2样式 */
+		.row {display: -webkit-box;display: -webkit-flex;}
+		.col {-webkit-box-flex:1; -webkit-flex:1; flex:1;position: relative;}
+		.col img {position: absolute; width: 30px; top: 10px; left: 20px;}
+		.col .matrixcell {display: table-cell;vertical-align: middle; padding-left: 10px;}
+		.col .matrixcell .title {margin-bottom: 10px;}
+		.matrix {display: table;height: inherit;}
+
+		/* 1. 2X2 */
+		.flipcard {height: 50px; line-height: 50px; text-align: center; margin: 5px 5px 3px 5px; color: #000; background-color: #fff; font-size: 14px;}
+		.darktitle {height: 40px;line-height: 40px;margin-left: 15px;font-size: 14px;color: #666;}
+
+		/* 2. 三列 */
+		.scratch02 .word {margin-top: 10px;margin-left: 10px;}
+		.scratch02 .word .title{font-size: 18px;}
+		.scratch02 .word .info{font-size: 12px;color: #666;}
+		.scratch02 img {position: relative;width: 60px; height: 50px;}
+		.showposter {text-align: center;margin-top: 5px;padding-bottom: 10px;}
+
+		/* 列表 */
+		.classify {height: 60px;line-height: 60px;background-color: #fff;position: relative;border-bottom: 1px solid #e0e0e0;}
+		.classify .sublogo {width: 30px;margin-top: 15px;margin-left: 15px;float: left;}
+		.classify .arrow {position: absolute;vertical-align: top;right: 15px;top:20px;height: 20px;}
+		.classify .info {line-height: 20px; float: left; height: 60px;margin-left: 10px;}
+		.classify .info .title {font-size: 15px; color: #000; margin-top: 10px;}
+		.classify .info .subtitle {font-size: 12px; color: #666; margin-top: 5px;}
+		.subclass .flipcard {margin:0;}
+		.brb {border-right: 1px solid #e0e0e0;border-bottom: 1px solid #e0e0e0;}
+		.bb {border-bottom: 1px solid #e0e0e0;}
+
+		.big .flipcard {height: 70px; line-height: 20px; text-align: center;color: #000; background-color: #fff; font-size: 14px;}
+		.big .col img {width: 60px; position: absolute; top: 10px; left: 5px;}
+		.big .col .info {position: absolute; left: 75px; margin-top: 10px; right: 10px;}
+		.big .left .title {background-color: #fe7633;color: #fff;}
+		.big .left .subtitle {color: #fe7633;}
+		.big .right .title {background-color: #5eae4c;color: #fff;}
+		.big .right .subtitle {color: #5eae4c;}
+
+		.item {height: 50px;line-height: 50px;padding-left: 15px;background-color: #fff;}
+		.item_ico {float: left;width: 30px;padding: 10px 10px 10px 0;}
+		.item_arrow {float: right;width: 16px;padding: 17px 15px 15px 0;}
+
+		.findshop {height: 60px;line-height: 50px;padding: 0 10px;text-align: center;position: relative;border-bottom: 1px solid #e0e0e0;}
+		.findshop span {color: #fff;background-color: #ff6633;position: absolute;left: 10px;right: 10px;height: 40px;line-height: 40px;top: 10px;border-radius: 4px;}
+
+
+	input {height: 50px;font-size: 18px;color: #8E8C8C;width: 80%;}
+	input::-webkit-input-placeholder {color: #ccc;}
+	.email input::-webkit-input-placeholder {color: #000;}
+
+	.email,.passwd {/*margin-top: 3px;*/background: #fff;}
+	.passwd img, .email img {vertical-align: top;}
+	.item {background-color: #fff; border-bottom: 1px solid #e0e0e0;position: relative;}
+	/*.email, .passwd, .btn {margin:3px 10px;}*/
+	.btn {margin:3px 10px;}
+	.btn {background: #ff6836;height: 40px; text-align: center; line-height: 40px; font-size: 20px;margin-top: 20px;border-radius: 5px;}
+	.btn button {color: #fff;}
+	.email img {width: 25px; margin-top: 15px; margin-left: 10px; margin-right: 9px;}
+	.passwd img {height: 25px;margin-top: 10px; margin-left: 10px;margin-right: 10px;}
+	.secretword img {height: 25px;margin-top: 10px; margin-left: 10px;margin-right: 10px;}
+
+	.presshover {background-color: #FAFAFA !important;}
+	.buyhover {background-color: rgba(252, 85, 0, 0.6) !important;}
+	table {width: 100%;}
+	table td {width: 25%;}
+	</style>
+</head>
+<body>
+	<div class="h10"></div>
+	<form action="">
+		<div class="item email"><img src="../../image/booking_channel_picker_icon.png" alt=""><input type="text" placeholder="11-17 周一 18:00 4人" id="email"></div>
+		<div class="item passwd"><img src="../../image/booking_channel_search_icon.png" alt=""><input type="password" placeholder="输入商户名/地点/菜系等" id="passwd">
+		</div>
+	</form>
+	<div class="findshop hightitem">
+		<span tapmode="buyhover" onclick="openVirList()">查找餐厅</span>
+	</div>
+	<div class="item" tapmode="presshover" onclick="openVirList()">
+		<span>北京全部可预订餐厅</span>
+		<img src="../../image/arrow.png" alt="" class="item_arrow">
+		<span class="fr hint">6188家</span>
+	</div>
+
+	<div class="h10"></div>
+	<div class="subclass big">
+		<div class="row">
+			<div class="col flipcard brb" tapmode="presshover" onclick="openVirList()"><img src="../../image/book/book05.png" alt="">
+				<div class="info left">
+					<div class="title">订座享便捷</div>
+					<div class="subtitle">还能你赢免单</div>
+				</div>
+			</div>
+			<div class="col flipcard brb" tapmode="presshover" onclick="openVirList()"><img src="../../image/book/book06.png" alt="">
+				<div class="info right">
+					<div class="title">订座手机免单</div>
+					<div class="subtitle">最高减500</div>
+				</div>
+			</div>
+			
+		</div>
+	</div>
+
+	<div class="subclass">
+		<div class="row">
+			<div class="col flipcard brb" tapmode="presshover" onclick="openVirList()"><img src="../../image/book/book02.png" alt="">商务宴请</div>
+			<div class="col flipcard brb" tapmode="presshover" onclick="openVirList()"><img src="../../image/book/book03.png" alt="">情侣约会</div>
+			
+		</div>
+		<div class="row">
+			<div class="col flipcard brb" tapmode="presshover" onclick="openVirList()"><img src="../../image/book/book04.png" alt="">朋友聚餐</div>
+			<div class="col flipcard brb" tapmode="presshover" onclick="openVirList()"><img src="../../image/book/book01.png" alt="">家庭聚会</div>
+			
+		</div>
+	</div>
+
+	<div class="darktitle">常去</div>
+	<div class="subclass">
+		<table>
+			<tr>
+				<td class="flipcard brb" tapmode="presshover" onclick="openVirList()">附近可订</td>
+				<td class="flipcard brb" tapmode="presshover" onclick="openVirList()">三里屯</td>
+				<td class="flipcard brb" tapmode="presshover" onclick="openVirList()">望京</td>
+				<td class="flipcard brb" tapmode="presshover" onclick="openVirList()">国贸</td>
+			</tr>
+			<tr>
+				<td class="flipcard brb" tapmode="presshover" onclick="openVirList()">朝外大街</td>
+				<td class="flipcard brb" tapmode="presshover" onclick="openVirList()">亮马桥</td>
+				<td class="flipcard brb" tapmode="presshover" onclick="openVirList()">亚运村</td>
+				<td class="flipcard brb" tapmode="presshover" onclick="openVirList()">大望路</td>
+			</tr>
+		</table>
+		<!-- <div class="row">
+			<div class="col flipcard brb" tapmode="presshover" onclick="openVirList()"></div>
+			<div class="col flipcard brb" tapmode="presshover" onclick="openVirList()"></div>
+			<div class="col flipcard brb" tapmode="presshover" onclick="openVirList()"></div>
+			<div class="col flipcard br" tapmode="presshover" onclick="openVirList()"></div>
+		</div>
+		<div class="row">
+			<div class="col flipcard brb" tapmode="presshover" onclick="openVirList()"></div>
+			<div class="col flipcard brb" tapmode="presshover" onclick="openVirList()"></div>
+			<div class="col flipcard brb" tapmode="presshover" onclick="openVirList()"></div>
+			<div class="col flipcard br" tapmode="presshover" onclick="openVirList()"></div>
+		</div> -->
+	</div>
+	
+	<div class="darktitle">常吃</div>
+	<div class="subclass">
+		<table>
+			<tr>
+				<td class="flipcard brb" tapmode="presshover" onclick="openVirList()">小吃快餐</td>
+				<td class="flipcard brb" tapmode="presshover" onclick="openVirList()">火锅</td>
+				<td class="flipcard brb" tapmode="presshover" onclick="openVirList()">咖啡厅</td>
+				<td class="flipcard brb" tapmode="presshover" onclick="openVirList()">面包甜点</td>
+			</tr>
+			<tr>
+				<td class="flipcard brb" tapmode="presshover" onclick="openVirList()">西餐</td>
+				<td class="flipcard brb" tapmode="presshover" onclick="openVirList()">自助餐</td>
+				<td class="flipcard brb" tapmode="presshover" onclick="openVirList()">日本</td>
+				<td class="flipcard brb" tapmode="presshover" onclick="openVirList()">韩国料理</td>
+			</tr>
+		</table>
+	</div>
+
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script>
+	function openVirList() {
+		api.openWin({
+			name: 'tuan',
+			url: './tuan_header.html',
+			// delay:200,
+			bounces: false
+		});
+	}
+</script>
+</html>

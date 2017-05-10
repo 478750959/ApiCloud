@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>首页</title>
+	<link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../css/common.css" />
+	<link rel="stylesheet" href="../css/idangerous.swiper.css">
+
+	<style>
+		html, body {width: 100%;min-height: 100%;background: #f0f0f0;}
+		.h80 {height: 80px;}
+		.h40 {height: 40px;}
+		.h20 {height: 20px;}
+    	.h10 {height: 10px;background: #f0f0f0;}
+		.h1 {height: 1px;margin-left: 15px;background: #f0f0f0;}
+		.fr {float: right;}
+		.fl {float: left;}
+		.hightitem {background-color: #fff;}
+		.inwrap {padding-right: 15px;padding-left: 15px;}
+
+	</style>
+</head>
+<body>
+
+
+</body>
+<script>
+	
+	apiready = function  () {
+		var iaf = api.require('cityList');
+		iaf.open({
+			x:0,
+			y:51,
+			width: api.frameWidth,
+			height: api.frameHeight,
+			currentCity:'北京',
+			resource:'widget://res/cityList.json'
+			},function(ret,err) {
+				var cityInfo = ret.cityInfo;
+		});
+	}
+</script>
+</html>

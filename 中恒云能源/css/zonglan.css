@@ -1,0 +1,61 @@
+.summary{
+
+}
+.summary ul{
+
+}
+.summary ul li{
+	background-color: #fff;
+	margin-top: 10px;
+	height: 203px;
+}
+.summary ul li div{
+	width: 50%;
+}
+.summary ul li div .title{
+	margin-top: 25px;
+	font-size: 17px;
+	color: #262626; 
+	text-align: center;
+}
+.summary ul li div .img{
+	width: 100%;
+	height: 72px;
+	margin-top: 30px;
+	background-image: url(../image/index/img_dianliang.png);
+	background-repeat: no-repeat;
+	background-size: 117px 72px;
+	background-position-x: center;
+}
+.summary ul li div p{
+	margin-top: 14px;
+	text-align: center;
+}
+.summary ul li div p .number{
+	font-size: 30px;
+	color: #0094ff;
+}
+.summary ul li div p .text{
+	font-size: 15px;
+	color: #0094ff;
+}
+.summary ul li .next .title{
+
+}
+.summary ul li .next .img{
+	background-image: url(../image/index/img_dianliang2.png);
+}
+.summary ul li .next p .number{
+	color: #ff5735;
+}
+.summary ul li .next p .text{
+	color: #ff5735;
+}
+
+
+
+
+
+
+
+

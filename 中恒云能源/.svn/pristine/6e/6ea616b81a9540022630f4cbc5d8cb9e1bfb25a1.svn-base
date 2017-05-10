@@ -1,0 +1,127 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,initial-scale=1.0,width=device-width"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>中恒云能源</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../css/common.css" />
+    <link rel="stylesheet" type="text/css" href="../css/frozen.css" />
+</head>
+<body>
+    <div id="wrap">
+        <header id="all" class="header">
+            <span class="icon-menu" tapmode onclick="openSlider();"></span>
+            <span class="title">中恒云能源</span>
+        </header>
+        <header id="fenxi" class="header hide">
+            <span class="icon-menu" tapmode onclick="openSlider();"></span>
+            <span class="title">中恒云能源</span>
+        </header>
+        <header id="baobiao" class="header hide">
+            <span class="icon-menu" tapmode onclick="openSlider();"></span>
+            <span class="title">中恒云能源</span>
+        </header>
+        <header id="yichang" class="header hide">
+            <span class="icon-menu" tapmode onclick="openSlider();"></span>
+            <span class="title">中恒云能源</span>
+            <span class="icon-txt" tapmode onclick="clearAll();">全部已读</span>
+        </header>
+        <div id="main">
+                
+        </div>
+        <ul class="footer ui-border-t" id="footer">
+            <li tapmode="active" class="active" onclick="changeTab(0)">
+                <span class="all"></span>
+                <p>总览</p>
+            </li>
+            <li tapmode="active" onclick="changeTab(1)">
+                <span class="fenxi"></span>
+                <p>分析</p>
+            </li>
+            <li tapmode="active" onclick="changeTab(2)">
+                <span class="baobiao"></span>
+                <p>报表</p>
+            </li>
+            <li tapmode="active" onclick="changeTab(3)">
+                <span class="yichang"></span>
+                <p>异常</p>
+            </li>
+        </ul>
+    </div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript">
+    var clearAll = function(){
+        
+    }
+
+    var openSlider = function(){
+        api.openSlidPane({type: 'left'});
+    }
+    var changeTab = function(index){
+        api.setFrameGroupIndex({
+            name: 'main',
+            index: index,
+            scroll: false,
+        });
+        var footerLiDom = $api.domAll('.footer li');
+        for (var i = 0; i < footerLiDom.length; i++) {
+            $api.removeCls(footerLiDom[i], 'active');
+        };
+        $api.addCls(footerLiDom[index], 'active');
+        var headerDom = $api.domAll('.header');
+        for (var i = 0; i < headerDom.length; i++) {
+            $api.addCls(headerDom[i], 'hide');
+        };
+        $api.removeCls(headerDom[index], 'hide');
+    }
+    apiready = function(){
+        var headerDom = $api.domAll(".header");
+        for (var i = 0; i < headerDom.length; i++) {
+            $api.fixStatusBar(headerDom[i]);
+        };
+        var header = $api.byId('all');
+        var footer = $api.byId('footer');
+		//动态计算header的高度，因iOS7+和Android4.4+上支持沉浸式效果，
+		//因此header的实际高度可能为css样式中声明的44px加上设备状态栏高度
+		//其中，IOS状态栏高度为20px，Android为25px
+        var headerH = $api.offset(header).h;
+        var footerH = $api.offset(footer).h;
+		//frame的高度为当前window高度减去header和footer的高度
+		var frameH = api.winHeight - headerH - footerH;
+        // 设置基础信息
+        var main = $api.byId('main');
+        var mainPos = $api.offset(main);
+
+        api.openFrameGroup({
+            name: 'main',
+            scrollEnabled: false,
+            rect: {x: 0, y: headerH, w: 'auto', h: frameH},
+            index: 0,
+            bounces:true,
+            frames: [
+                {
+                    name: 'zonglan',
+                    url: './zonglan.html'
+                },
+                {
+                    name: 'fenxi',
+                    url: './fenxi.html'
+                },
+                {
+                    name: 'baobiao',
+                    url: './baobiao.html'
+                },
+                {
+                    name: 'yichang',
+                    url: './yichang.html'
+                }
+            ]
+        }, function (ret, err) {
+        });
+    };
+</script>
+</html>

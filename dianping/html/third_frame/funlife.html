@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+	<title>家装</title>
+	<link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/common.css" />
+
+	<style>
+		html, body {width: 100%;min-height: 100%;background: #f0f0f0;}
+		.h80 {height: 80px;}
+		.h40 {height: 40px;}
+		.h20 {height: 20px;}
+    	.h10 {height: 10px;/*background: #f0f0f0;*/}
+		.h1 {height: 1px;margin-left: 15px;background: #f0f0f0;}
+		.fr {float: right;}
+		.fl {float: left;}
+		.hightitem {background-color: #fff;}
+
+		.list_shop header {width: 100%; padding-bottom: 20px; background: #fff; }
+		.list_shop header .img_wrap {position: relative; width: 100%; font-size: 0; }
+		.list_shop header .img_wrap img {width: 100%; height: auto; min-height: 135px; max-height: 174px; }
+		.viewed, .viewed-eye {display: inline-block; font-size: 12px; color: #fff; padding: 3px 10px; border-radius: 20px; }
+		.list_shop header .img_wrap .viewed, .list_shop header .img_wrap .viewed-eye {position: absolute; bottom: 7px; left: 7px; }
+		.list_shop header .img_wrap .viewed-eye {display: inline-block; font-size: 12px; color: #fff; background: rgba(0,0,0,.6); padding: 3px 10px; border-radius: 20px; }
+		.viewed .eye, .viewed-eye .eye {display: inline-block; width: 16px; height: 16px; background: url(../../image/funlife/eye.png) no-repeat; background-size: 11px auto; margin-bottom: -3px; }
+		.list_shop header .title {padding: 15px 15px 10px; font-size: 16px; color: #333; }
+		.list_shop header .desc {padding: 0 15px; color: #666; line-height: 21px; white-space: pre-wrap; }
+
+		.list_shop .border {width: 100%; height: 21px; }
+
+		/* 3 section */
+		.list_shop section {margin-bottom: 25px; background: #fff;}
+		.list_shop section .item {position: relative; padding: 15px 15px 45px 0; margin-left: 15px;border-bottom: 1px solid #e0e0e0;}
+		.list_shop section .item .shop_wrap {font-size: 0; display: box; display: -webkit-box; padding-bottom: 10px; }
+		.list_shop section .item .shop_wrap img {width: 110px; height: 83px; margin-right: 11px; border-radius: 4px; -webkit-border-radius: 4px; }
+		.list_shop section .item .shop_wrap .info {font-size: 14px; padding-top: 4px; }
+		.list_shop section .item .shop_wrap .info .name {margin: 5px 0; font-size: 16px; color: #323232; text-overflow: ellipsis; max-width: 160px; height: 24px; line-height: 24px; overflow: hidden; white-space: nowrap; }
+		.star {display: inline-block; width: 66px; height: 12px; vertical-align: middle; background: url(../../image/remark.png) no-repeat; background-size: 86px auto; }
+		.star.star-40 {background-position: 0 -249px; }
+		.list_shop section .item .shop_wrap .info .price {vertical-align: middle; padding-left: 5px; color: #878787; }
+		.list_shop section .item .shop_wrap .info .location {margin-top: 5px; color: #878787; }
+		.list_shop section .item .shop_wrap .info .location .location_icon {display: inline-block; vertical-align: middle; width: 11px; height: 15px; background: url(../../image/location_icon.png) no-repeat; background-size: 11px auto; }
+		.list_shop section .item .shop_wrap .info .location span {vertical-align: middle; padding-left: 10px; }
+
+		.list_shop section .item .desc_wrap {max-height: 42px; overflow: hidden; }
+		.list_shop section .item .desc_wrap .desc {line-height: 21px; color: #666; }
+
+		.list_shop section .item .like {position: absolute; bottom: 15px; color: #666; }
+		.list_shop section .item .like .like_bg {display: inline-block; width: 16px; height: 16px; background: url(../../image/like_bg.png) no-repeat 0 0; background-size: 15px auto; vertical-align: middle; }
+		.list_shop section .item .like .txt, .list_shop section .item .like .num {margin-left: 5px; vertical-align: middle; }
+
+		.arrow {width: 10px; height: 10px; position: absolute; border-right: 2px solid #bab5ad; border-bottom: 2px solid #bab5ad; }
+		.list_shop section .item .arrow {position: absolute; right: 30px; bottom: 23px; -webkit-transform: rotate(45deg); transform: rotate(45deg); }
+
+		.list_shop section .item .desc_wrap.on {max-height: none; }
+	</style>
+</head>
+<body>
+	<div class="list_shop">
+        <header>
+            <div class="img_wrap">
+                <img src="../../image/funlife/funlife01.jpg" alt="">
+                <div class="viewed-eye"><i class="eye"></i>1498019</div>
+            </div>
+            <h3 class="title">美食天堂 最火爆的夜市</h3>
+            <p class="desc">想要了解一座城，请先从夜市摊开始。除了台湾知名的士林夜市之外，各个城市都有自己特色的夜市摊头，深藏巷子的一水美食，几乎成了吃货们不可错过的饕餮阵地。</p>
+        </header>
+
+		<div class="border"></div>
+		<section class="J_shop_list">
+			<div class="item">
+				<a class="shop_wrap" href=""  tapmode="" onclick="">
+				<img src="../../image/funlife/funlife02.jpg" alt="">
+				<div class="info">
+				<div class="name">回民街</div>
+				<div class="data_wrap"><span class="star star-40"></span><span class="price">人均 ￥47</span></div>
+				<div class="location"><i class="location_icon"></i><span>西安 未央区</span></div>
+				</div>
+				</a>
+				<div class="desc_wrap J_desc"><p class="desc">推荐理由：【西安：回民街夜市】西安回民街历史悠久，以浓郁的穆斯林文化和氛围，为古城构筑了一道特异的风景线。肉夹馍、凉皮、烤串、泡馍等特色小吃这里最齐活。</p></div>
+				<a class="like J_like"><i class="like_bg"></i><span class="txt">赞</span><span class="num">(3165)</span></a>
+				<span class="J_show arrow"></span>
+			</div>
+			<div class="item">
+				<a class="shop_wrap" href=""  tapmode="" onclick="">
+				<img src="../../image/funlife/funlife03.jpg" alt="">
+				<div class="info">
+				<div class="name">松北夜市</div>
+				<div class="data_wrap"><span class="star star-40"></span><span class="price">人均 ￥10</span></div>
+				<div class="location"><i class="location_icon"></i><span>哈尔滨 松北区</span></div>
+				</div>
+				</a>
+				<div class="desc_wrap J_desc"><p class="desc">推荐理由：【哈尔滨：松北夜市 】大学周边的夜市真的是难得的美食了，许多大学生应该下课后来这边吃晚餐，或者买些水果的，还有些学生直接在这里摆摊卖些小商品的。明挡烧烤、炸串、麻辣烫小吃种类还是挺全的。</p></div>
+				<a class="like J_like"><i class="like_bg"></i><span class="txt">赞</span><span class="num">(1774)</span></a>
+				<span class="J_show arrow"></span>
+			</div>
+			<div class="item">
+				<a class="shop_wrap" href=""  tapmode="" onclick="">
+				<img src="../../image/funlife/funlife04.jpg" alt="">
+				<div class="info">
+				<div class="name">上下九</div>
+				<div class="data_wrap"><span class="star star-40"></span><span class="price">人均 ￥61</span></div>
+				<div class="location"><i class="location_icon"></i><span>广州 荔湾区</span></div>
+				</div>
+				</a>
+				<div class="desc_wrap J_desc"><p class="desc">推荐理由：【广州：上下九夜市】来广州最地道的美食全在上下九了，既有西关风味又有老广风情。</p></div>
+				<a class="like J_like"><i class="like_bg"></i><span class="txt">赞</span><span class="num">(1704)</span></a>
+				<span class="J_show arrow"></span>
+			</div>
+			<div class="item">
+				<a class="shop_wrap" href=""  tapmode="" onclick="">
+				<img src="../../image/funlife/funlife05.jpg" alt="">
+				<div class="info">
+				<div class="name">兴顺国际观光夜市</div>
+				<div class="data_wrap"><span class="star star-40"></span><span class="price">人均 ￥38</span></div>
+				<div class="location"><i class="location_icon"></i><span>沈阳 铁西区</span></div>
+				</div>
+				</a>
+				<div class="desc_wrap J_desc"><p class="desc">推荐理由：【沈阳：兴顺夜市】这里是中国规模最大的夜市。兴顺夜市北起建设大路，南至沈阳工业大学，全长约1.8公里，一期共设有摊位594个，是吃货们大快朵颐的好地方。</p></div>
+				<a class="like J_like"><i class="like_bg"></i><span class="txt">赞</span><span class="num">(1486)</span></a>
+				<span class="J_show arrow"></span>
+			</div>
+		</section>
+
+	</div>
+</body>
+</html>

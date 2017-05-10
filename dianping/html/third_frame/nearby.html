@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+	<title>首页</title>
+	<link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/common.css" />
+
+	<style>
+		html, body {width: 100%;min-height: 100%;background: #f0f0f0;}
+		.h80 {height: 80px;}
+		.h40 {height: 40px;}
+		.h20 {height: 20px;}
+    	.h10 {height: 10px;background: #f0f0f0;}
+		.h1 {height: 1px;margin-left: 15px;background: #f0f0f0;}
+		.fr {float: right;}
+		.fl {float: left;}
+		.hightitem {background-color: #fff;}
+		.inwrap {padding-right: 15px;padding-left: 15px;}
+
+		.row {display: -webkit-box;display: -webkit-flex;}
+		.col {-webkit-box-flex:1; -webkit-flex:1; flex:1;}
+		
+		/* 个人信息 */
+		.postitem {position: relative; margin-top: 13px;border-top: 1px solid #d7d7d7;background-color: #fff;}
+		.postitem .profilebg {width: 50px;position: absolute;left: 15px;top: -13px;}
+		.postitem .profile {width: 49px; position: absolute; left: 15px; top: -8px;}
+		.postitem .user {margin-left: 75px;}
+		.postitem .user .name {font-size: 16px;padding-top: 5px;}
+		.postitem .user .time {font-size: 12px;line-height: 20px;color: #666;}
+		.nofirst {margin-top: 30px;}
+
+		/* 展示图片 */
+		.imgshow {margin-top: 15px;padding: 0 15px;}
+		.pic3 .leftrow {-webkit-box-flex:2; -webkit-flex:2; flex:2;padding-right: 5px;}
+		.pic3 .leftrow img {height: 200px; width: 100%;}
+		.pic3 .rightrow {flex-direction: column;}
+		.pic3 .rightrow img {height: 99px; width: 100%;}
+
+		.pic4 .up img{width: 100%;height: 200px;}
+		.pic4 .down {margin-top: 3px;}
+		.pic4 .down img {width: 100%;height: 100px;}
+		.pic4 .down .middle {padding: 0 5px;}
+
+		/* 地点信息 */
+		.location {margin-top: 10px;padding-bottom: 10px;}
+		.location .pin {margin-left: 12px;width: 20px;vertical-align: top;}
+		.location .info {display: inline-block;}
+		.location .info .shopname {font-size: 16px;}
+		.location .info .shoplocation {font-size: 12px;line-height: 20px;color: #666;}
+
+		/* 赞*/
+		.up .cycle {position: absolute; right: 15px; width: 50px;bottom: -15px;}
+		.up .heart {position: absolute; right: 32px; width: 16px; bottom: 10px;}
+		.up .num {position: absolute; right: 27px; width: 16px; bottom: -14px; font-size: 14px;color: #666;}
+		.presshover {background-color: #FAFAFA !important;}
+	</style>
+</head>
+<body>
+
+	<!-- 第一个 -->
+	<div class="postitem" tapmode="presshover" onclick="openDetail()">
+		<img src="../../image/profilemask-latest.png" alt="" class="profilebg">
+		<img src="../../image/profile_default.png" alt="" class="profile">
+		<div class="user">
+			<div class="name">各种吃吃</div>
+			<div class="time">刚刚</div>
+		</div>
+		<div class="imgshow row pic3">
+			<div class="col leftrow"><img src="../../image/nearby/pg01.jpg" alt=""></div>
+			<div class="col">
+				<div class="row rightrow">
+					<div class="col"><img src="../../image/nearby/pg02.jpg" alt=""></div>
+					<div class="col"><img src="../../image/nearby/pg03.jpg" alt=""></div>
+				</div>
+			</div>
+		</div>
+		<div class="location">
+			<img src="../../image/main_index_checkin_pressed.png" alt="" class="pin">
+			<div class="info">
+				<div class="shopname">盘古七星酒店自助餐厅</div>
+				<div class="shoplocation">亚运村 自助餐</div>
+			</div>
+			
+		</div>
+		<div class="up">
+			<img src="../../image/addshop_circle.png" alt="" class="cycle">
+			<img src="../../image/mc_feed_fav_disable.png" alt="" class="heart">
+			<span class="num">8</span>
+		</div>
+	</div>
+
+	<!-- 第二个 -->
+	<div class="postitem nofirst" tapmode="presshover" onclick="openDetail()">
+		<img src="../../image/profilemask-latest.png" alt="" class="profilebg">
+		<img src="../../image/profile_default.png" alt="" class="profile">
+		<div class="user">
+			<div class="name">爱莫能弃</div>
+			<div class="time">刚刚</div>
+		</div>
+		<div class="imgshow pic4">
+			<div class="row">
+				<div class="col up"><img src="../../image/nearby/kbd01.jpg" alt=""></div>
+			</div>
+			<div class="row down">
+				<div class="col"><img src="../../image/nearby/kbd02.jpg" alt=""></div>
+				<div class="col middle"><img src="../../image/nearby/kbd03.jpg" alt=""></div>
+				<div class="col"><img src="../../image/nearby/kbd04.jpg" alt=""></div>
+			</div>
+			
+		</div>
+		<div class="location">
+			<img src="../../image/main_index_checkin_pressed.png" alt="" class="pin">
+			<div class="info">
+				<div class="shopname">宽板凳老灶火锅</div>
+				<div class="shoplocation">北太平庄 重庆火锅</div>
+			</div>
+			
+		</div>
+		<div class="up">
+			<img src="../../image/addshop_circle.png" alt="" class="cycle">
+			<img src="../../image/mc_feed_fav_disable.png" alt="" class="heart">
+			<span class="num">5</span>
+		</div>
+	</div>
+
+	<!-- 第三个 -->
+	<div class="postitem nofirst" tapmode="presshover" onclick="openDetail()">
+		<img src="../../image/profilemask-latest.png" alt="" class="profilebg">
+		<img src="../../image/profile_default.png" alt="" class="profile">
+		<div class="user">
+			<div class="name">pink59</div>
+			<div class="time">刚刚</div>
+		</div>
+		<div class="imgshow row pic3">
+			<div class="col leftrow"><img src="../../image/nearby/jbw01.jpg" alt=""></div>
+			<div class="col">
+				<div class="row rightrow">
+					<div class="col"><img src="../../image/nearby/jbw02.jpg" alt=""></div>
+					<div class="col"><img src="../../image/nearby/jbw03.jpg" alt=""></div>
+				</div>
+			</div>
+		</div>
+		<div class="location">
+			<img src="../../image/main_index_checkin_pressed.png" alt="" class="pin">
+			<div class="info">
+				<div class="shopname">金百万烤鸭店</div>
+				<div class="shoplocation">海淀其他 烤鸭</div>
+			</div>
+			
+		</div>
+		<div class="up">
+			<img src="../../image/addshop_circle.png" alt="" class="cycle">
+			<img src="../../image/mc_feed_fav_disable.png" alt="" class="heart">
+			<span class="num">8</span>
+		</div>
+	</div>
+
+</body>
+<script type="text/javascript" scr="../../script/api.js"></script>
+<script>
+function openDetail()
+{
+	api.openWin({
+		name: 'tuandetail',
+		url: '../tuandetail_header.html',
+		bounces: false,
+		delay:200
+	});
+}
+</script>
+</html>
